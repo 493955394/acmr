@@ -16,8 +16,8 @@ import acmr.util.PubInfo;
 public class Test {
 
 	public static void main(String args[]) {
-		 test_getwdlist();
-		 test_getwdsubnodes();
+		 //test_getwdlist();
+		 //test_getwdsubnodes();
 		 test_getwdnode();
 		 test_gethasdatawdlist();
 		 test_querydata();
