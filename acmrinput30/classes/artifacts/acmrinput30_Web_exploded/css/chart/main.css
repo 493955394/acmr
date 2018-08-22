@@ -1,0 +1,27 @@
+.sider{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 200px;
+	height: auto;
+	overflow: hidden;
+}
+.container-rela{
+	position: relative;
+}
+.container-main{
+	margin-left: 215px;
+	background: #fff;
+	padding-right:0;
+}
+.toolbar-left {
+	float: left;
+}
+.toolbar-right{
+	float: right;
+}
+.toolbar{
+	display:inline-table;
+	width:100%;
+	clear:both;
+}

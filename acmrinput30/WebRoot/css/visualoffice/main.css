@@ -1,0 +1,101 @@
+*{
+	box-sizing: initial;
+}
+.container-main *,.input-group *,.modal-dialog *{
+	box-sizing: border-box;
+}
+.ztree * {
+  box-sizing: initial;
+}
+.ztree *:before,
+.ztree *:after {
+  box-sizing: initial;
+}
+body{
+	background:#1d83ab;
+	font-size: 12px;
+}
+.container-rela{
+	position: relative;
+}
+.sider{
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom:0;
+	width: 200px;
+	height: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background:#fff;
+}
+.sider-bar{
+	position: absolute;
+	right: 0;
+	top: 50%;
+	margin-top: -5px;
+}
+.container-main{
+	margin-left: 208px;
+	background: #fff
+}
+.container-margin-right{
+	margin-right:54px;
+}
+.sider-right{
+	position:absolute;
+	width:54px;
+	right:0;
+	top:0;
+}
+.drag-area{
+	overflow:auto;
+}
+.preview{
+	
+}
+.panel-title{
+	font-size: 12px;
+}
+.reset-panel-body{
+	padding: 0;	
+}
+.drag-area .tab-pane{
+	height:100%;
+}
+.btn .badge{
+	top:1px;
+}
+.btn-danger .badge{
+	color: #fff;
+	background-color: #d9534f;
+}
+.relation-symbol{
+	padding: 6px;
+	top: 2px;
+	cursor: pointer;
+}
+.table > thead > tr > th{
+	border-bottom:none; 	
+}
+
+.sider-menu .item{
+	color:#fff;
+	background:#1d83ab;
+	padding:10px 3px 10px 5px;
+	font-size:12px;
+	cursor: default;
+}
+.sider-menu .active{
+	color:#2a6496;
+	background:#fff;
+}
+.sider-menu .item .content{
+	width:30px;
+	overflow:hidden;
+	display:inline-block
+}
+.sider-menu .item .remove{
+	color:#fff;
+	cursor:pointer
+}
