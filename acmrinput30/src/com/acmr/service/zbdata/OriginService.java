@@ -4,8 +4,7 @@ import acmr.cubequery.service.CubeQuerySev;
 import acmr.cubequery.service.cubequery.entity.*;
 import acmr.util.PubInfo;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class OriginService {
 
@@ -49,19 +48,24 @@ public class OriginService {
     }
     /**
      * @Description: 返回有数的地区的编码（REGCODE，三位数）
-     * @Param: []
+     * @Param: [condition,wcode].wcode只能是sj或reg
      * @return: void
      * @Author: lyh
      * @Date: 2018/8/23
      */
 
-    public List<String> gethasdatawdlist(List<CubeWdValue> condition) {
+    public List<String> gethasdatawdlist(List<CubeWdValue> condition,String wcode) {
         CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
         List<CubeWdValue> list1 = new ArrayList<CubeWdValue>();
         for(int i=0;i<condition.size();i++){
             list1.add(condition.get(i));
         }
-        List<String> nodes = cube1.getHasDataWdListreg("cuscxnd", list1, "reg");
+        List<String> nodes=new ArrayList<String>();
+        if(wcode=="sj"){
+            nodes = cube1.getHasDataWdList("cuscxnd", list1, "sj");
+        }else {
+            nodes = cube1.getHasDataWdListreg("cuscxnd", list1, "reg");
+        }
         return nodes;
     }
     /**
