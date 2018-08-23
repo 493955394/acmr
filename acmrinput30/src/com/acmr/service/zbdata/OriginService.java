@@ -2,7 +2,7 @@ package com.acmr.service.zbdata;
 
 import acmr.cubequery.service.CubeQuerySev;
 import acmr.cubequery.service.cubequery.entity.*;
-import acmr.util.PubInfo;
+
 
 import java.util.*;
 
@@ -43,17 +43,15 @@ public class OriginService {
     public  CubeNode getwdnode(String wcode,String code) {
         CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
         CubeNode node = cube1.getWeiNode("cuscxnd", wcode, code);
-        PubInfo.printStr(node.toString());
         return node;
     }
     /**
-     * @Description: 返回有数的地区的编码（REGCODE，三位数）
-     * @Param: [condition,wcode].wcode只能是sj或reg
+     * @Description: 返回有数的地区的编码（REGCODE，三位数）或地区
+     * @Param: [condition,wcode].wcode只能是sj或reg，condition例子：where.Add("zb", "ffe001d3f4a67c752233a83f900af86a942359f2");
      * @return: void
      * @Author: lyh
      * @Date: 2018/8/23
      */
-
     public List<String> gethasdatawdlist(List<CubeWdValue> condition,String wcode) {
         CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
         List<CubeWdValue> list1 = new ArrayList<CubeWdValue>();
