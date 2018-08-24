@@ -73,10 +73,43 @@ public class ZBdataService {
         ArrayList<CubeNode> subs=origin.getwdsubnodes("co",code);
         return subs;
     }
-    public void getHasDataDS(String zbcode){
-        List<CubeWdValue> where=new ArrayList<>();
-        where.add(new CubeWdValue("zb",zbcode));
+    /**
+     * @Description: 根据指定的节点，返回该节点下的所有叶子节点,用于查数，不是底层的点查不到数
+     * @Param: [node,wdcode]wdcode指该节点的类型code，传"zb","co","ds"
+     * @return: java.util.ArrayList<acmr.cubequery.service.cubequery.entity.CubeNode>
+     * @Author: lyh
+     * @Date: 2018/8/24
+     */
+    public  ArrayList<CubeNode> getBottomChilds(CubeNode node,String wdcode){
+        ArrayList<CubeNode> leafs=new ArrayList<CubeNode>();
+        hasSubNodes(leafs,node,wdcode);
+        return leafs;
+    }
+    public void hasSubNodes(ArrayList<CubeNode> leafs,CubeNode node,String wdcode){
+        ArrayList<CubeNode> subNodes=origin.getwdsubnodes(wdcode,node.getCode());
+        if(subNodes.size()==0){
+            leafs.add(node);
+        }
+        else {
+            for(int i=0;i<subNodes.size();i++){
+                hasSubNodes(leafs,subNodes.get(i),wdcode);
+            }
+        }
 
     }
+
+    /**
+    * @Description: 待完成，返回有数的ds和co
+    * @Param: [zbcode,wcode] wcode只能是"co"或者"ds"，zbcode必须是最底层的指标的code，不能是指标分类的code
+    * @return: java.util.List<acmr.cubequery.service.cubequery.entity.CubeNode>
+    * @Author: lyh
+    * @Date: 2018/8/24
+    */
+    public List<CubeNode> getHasDataNodeO(String zbcode,String wcode){
+        List<CubeNode> re=new ArrayList<>();
+        return re;
+
+    }
+
 
 }

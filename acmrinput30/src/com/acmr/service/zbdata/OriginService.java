@@ -46,7 +46,7 @@ public class OriginService {
         return node;
     }
     /**
-     * @Description: 返回有数的地区的编码（REGCODE，三位数）或地区
+     * @Description: 返回有数的地区的编码（REGCODE，三位数）或时间
      * @Param: [condition,wcode].wcode只能是sj或reg，condition例子：where.Add("zb", "ffe001d3f4a67c752233a83f900af86a942359f2");
      * @return: void
      * @Author: lyh
@@ -66,6 +66,7 @@ public class OriginService {
         }
         return nodes;
     }
+
     /**
     * @Description:  根据指定的条件，查询底库中的值
     * @Param: [where] 传入指定的zb，ds，co，reg，sj
