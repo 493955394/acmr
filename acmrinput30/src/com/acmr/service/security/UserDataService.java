@@ -14,18 +14,22 @@ import java.util.List;
 
 public class UserDataService {
     /**
-     * 组织
+     *
+     *
+     * @author wf
+     * @date   2018/8/25
+     * @param []
      * @return
      */
+    UserDataService userdata = new UserDataService();
 
-    ListHashMap<Department> deps = SecurityService.fator.getInstance().getDeps();
     public ListHashMap<Department> getDeps(){
+        ListHashMap<Department> deps = SecurityService.fator.getInstance().getDeps();
         return deps;
     }
     //查询单个组织信息
-    public static Department getDepartment(String code) {
-        UserDataService user = new UserDataService();
-        ListHashMap<Department> deps = user.getDeps();
+    public  Department getDepartment(String code) {
+        ListHashMap<Department> deps = userdata.getDeps();
         if (deps.containsKey(code)) {
             return deps.get(code);
         }
@@ -33,9 +37,8 @@ public class UserDataService {
     }
 
     //通过组织code得到name
-    public static String getNameByCode(String code) {
-        UserDataService user = new UserDataService();
-        ListHashMap<Department> deps = user.getDeps();
+    public String getNameByCode(String code) {
+        ListHashMap<Department> deps = userdata.getDeps();
         Department dep = deps.get(code);
         if(dep!=null){
             return dep.getCname();
@@ -44,9 +47,8 @@ public class UserDataService {
         }
     }
     //通过组织name得到code
-    public static String getCodeByName(String cname) {
-        UserDataService user = new UserDataService();
-        ListHashMap<Department> deps = user.getDeps();
+    public String getCodeByName(String cname) {
+        ListHashMap<Department> deps = userdata.getDeps();
         Department dep = deps.get(cname);
         if(dep!=null){
             return dep.getCode();
@@ -59,25 +61,24 @@ public class UserDataService {
      * @return
      */
         //通过组织的code得到下边所有的用户
-        String depcode;
-        List<User> users = SecurityService.fator.getInstance().getDepUsers(depcode);
         public List<User> getDepUsers (String depcode) {
+            List<User> users = SecurityService.fator.getInstance().getDepUsers(depcode);
             return users;
         }
         // 通过用户名称得到用户信息
-        String name;
-        User UserInfo = SecurityService.fator.getInstance().getUserInfo(name);
         public User getUserInfo(String name) {
+            User UserInfo = SecurityService.fator.getInstance().getUserInfo(name);
             return UserInfo;
         }
-        /*public static getUserId getUserId(String name){
+        /*public Cname getUserId(String name){
             DataTable dt1 = SecurityDao.Fator.getInstance().getSecurityDao().getUser(name);
             return dt1.getRows().get(0);
         }*/
-        //User username = SecurityService.fator.getInstance().getUser(name);
+
         //获取创建人
-        User Currentuser = SecurityService.fator.getInstance().getCurrentUser();
+
         public User getUser(){
+            User Currentuser = SecurityService.fator.getInstance().getCurrentUser();
             return Currentuser;
     }
 
