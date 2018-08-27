@@ -3,6 +3,7 @@ define(function (require,exports,module) {
     'use strict';
     var $ = require('jquery'),
         tree = require('tree');
+        modal = require('modal');
     var setting = {
         data: {
             simpleData: {
