@@ -28,7 +28,7 @@
     <c:if test="${indexlist.size()!=0}">
         <c:forEach items="${indexlist}" var="index">
             <tr>
-                <td></td>
+                <th><input autocomplete="off" type="checkbox"></th>
                 <td>${index.getCode()}</td>
                 <td>${index.getCname()}</td>
                 <td>${index.getIfdata()}</td>
