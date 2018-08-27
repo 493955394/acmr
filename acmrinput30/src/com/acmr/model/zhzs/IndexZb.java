@@ -23,6 +23,9 @@ public class IndexZb {
     /** 单位code */
     private String dacimal;
     /** 小数点位数 */
+    public String getCode() {
+        return code;
+    }
 
     public void setCode(String code) {
         this.code = code;
@@ -59,9 +62,6 @@ public class IndexZb {
     public void setDacimal(String dacimal) {
         this.dacimal = dacimal;
     }
-    public String getCode() {
-        return code;
-    }
 
     public String getIndexcode() {
         return indexcode;
@@ -94,6 +94,5 @@ public class IndexZb {
     public String getDacimal() {
         return dacimal;
     }
-
 }
 
