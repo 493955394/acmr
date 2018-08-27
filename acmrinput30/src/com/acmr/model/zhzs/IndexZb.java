@@ -31,68 +31,68 @@ public class IndexZb {
         this.code = code;
     }
 
-    public void setIndexcode(String indexcode) {
-        this.indexcode = indexcode;
-    }
-
-    public void setZbcode(String zbcode) {
-        this.zbcode = zbcode;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public void setDatasource(String datasource) {
-        this.datasource = datasource;
-    }
-
-    public void setRegions(String regions) {
-        this.regions = regions;
-    }
-
-    public void setDatatimes(String datatimes) {
-        this.datatimes = datatimes;
-    }
-
-    public void setUnitcode(String unitcode) {
-        this.unitcode = unitcode;
-    }
-
-    public void setDacimal(String dacimal) {
-        this.dacimal = dacimal;
-    }
-
     public String getIndexcode() {
         return indexcode;
+    }
+
+    public void setIndexcode(String indexcode) {
+        this.indexcode = indexcode;
     }
 
     public String getZbcode() {
         return zbcode;
     }
 
+    public void setZbcode(String zbcode) {
+        this.zbcode = zbcode;
+    }
+
     public String getCompany() {
         return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     public String getDatasource() {
         return datasource;
     }
 
+    public void setDatasource(String datasource) {
+        this.datasource = datasource;
+    }
+
     public String getRegions() {
         return regions;
+    }
+
+    public void setRegions(String regions) {
+        this.regions = regions;
     }
 
     public String getDatatimes() {
         return datatimes;
     }
 
+    public void setDatatimes(String datatimes) {
+        this.datatimes = datatimes;
+    }
+
     public String getUnitcode() {
         return unitcode;
     }
 
+    public void setUnitcode(String unitcode) {
+        this.unitcode = unitcode;
+    }
+
     public String getDacimal() {
         return dacimal;
+    }
+
+    public void setDacimal(String dacimal) {
+        this.dacimal = dacimal;
     }
 }
 
