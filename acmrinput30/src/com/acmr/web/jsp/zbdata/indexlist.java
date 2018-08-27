@@ -10,4 +10,8 @@ public class indexlist extends BaseAction {
         String test="this is the listjps";
         return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("test",test);
     }
+    public ModelAndView editIndex(){
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit");
+    }
+
 }
