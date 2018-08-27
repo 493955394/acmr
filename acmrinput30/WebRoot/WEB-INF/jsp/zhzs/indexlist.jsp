@@ -22,7 +22,7 @@
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 
 <div class="container-fluid" id="mainpanel">
-    <a href="${ctx}/zbdata/indexlist.htm?m=editIndex">指数计划编辑界面跳转测试</a>
+    <a href="${ctx}/zbdata/zsjhedit.htm?m=editIndex">指数计划编辑界面跳转测试</a>
     <div class="col-md-2 left-panel">
         <div class="panel tree-panel">
             <div class="panel-heading">我的指标</div>
@@ -37,15 +37,15 @@
                     <form class="form-inline J_search_form" action="${ctx}/metadata/regmgr.htm?m=find">
                         <div class="form-group">
                             <select id="querykey" class="form-control input-sm">
-<%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
-                                <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
+                                <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
+                                                                <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
                             </select>
                         </div>
                         <div class="form-group">
                             <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容">
-<%--
-                            <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="<c:if test="${code != '' && code!= null}">${code}</c:if><c:if test="${cname != '' && cname != null}">${cname}</c:if>">
---%>
+                            <%--
+                                                        <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="<c:if test="${code != '' && code!= null}">${code}</c:if><c:if test="${cname != '' && cname != null}">${cname}</c:if>">
+                            --%>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-sm">查询</button>
@@ -54,11 +54,144 @@
                 </div>
                 <div class="toolbar-right">
                     <div class="toolbar-group" style="position: relative;">
-                        <a href="/" class="btn btn-default btn-sm J_Add">新增目录</a>
-                        <a href="/" class="btn btn-default btn-sm J_Add">新增计划</a>
-                        <a href="/" class="btn btn-default btn-sm J_copy_data">复制到</a>
+                        <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data" type="button">新增目录</button>&nbsp
+                        <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data1" type="button">新增计划</button>&nbsp
+                        <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data2" type="button">复制到</button>
+                        <!-- 模态弹出窗内容 -->
+                        <!-- 新增目录 -->
+                        <form  action="${ctx}/zbdata/indexlist.htm?m=insert">
+                            <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title">新增/编辑目录</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" name="code" value="${code}">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" name="code">
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" name="name">
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" name="Cname" readonly value="${Cname}" >
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                            <button type="submit" class="btn btn-primary">确定</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- 新增计划 -->
+                        <form  action="${ctx}/zbdata/indexlist.htm?m=insert">
+                            <div class="modal" id="mymodal-data1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title">新增计划</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" name="code" value="${code}">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" name="code">
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" name="cname">
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" name="Cname" readonly value="${Cname}" disabled>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>统计周期：</label>
+                                                <div class="col-sm-5">
+                                                    <select class="form-control" name="sort" >
+                                                        <option value="M"  <c:if test="${timesort == 'M'}"></c:if>月度</option>
+                                                        <option value="Q"  <c:if test="${timesort == 'Q'}"></c:if>季度</option>
+                                                        <option value="Y"  <c:if test="${timesort == 'Y'}"></c:if>年度</option>
+                                                    </select>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                            <button type="submit" class="btn btn-primary">确定</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- 复制到 -->
+                        <form  action="${ctx}/zbdata/indexlist.htm?m=insert">
+                            <div class="modal" id="mymodal-data2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" name="deptcode" value="${deptcode}">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标名称：</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" name="cname">
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属指数：</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" name="deptName" readonly value="${deptName}" disabled>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                            <button type="submit" class="btn btn-primary">确定</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
+
             </div>
             <div class="J_regmgr_data_table">
                 <jsp:include page="/WEB-INF/jsp/zhzs/indextable.jsp" flush="true"/>
