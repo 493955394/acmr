@@ -1,7 +1,6 @@
 package com.acmr.model.zhzs;
 
 
-import com.acmr.model.security.User;
 
 import java.util.Date;
 
@@ -26,8 +25,8 @@ public class IndexList {
     /** 将生成的最新期数 */
     private Date plantime;
     /** 将生成的时间 */
-    private User createuser;
-    /** 创建用户 */
+    private String createuser;
+    /** 创建用户的code */
     private Date createtime;
     /** 创建时间 */
     private Date updatetime;
@@ -113,11 +112,11 @@ public class IndexList {
         this.plantime = plantime;
     }
 
-    public User getCreateuser() {
+    public String getCreateuser() {
         return createuser;
     }
 
-    public void setCreateuser(User createuser) {
+    public void setCreateuser(String createuser) {
         this.createuser = createuser;
     }
 

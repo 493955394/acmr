@@ -25,6 +25,27 @@
     </tr>
     </thead>
     <tbody>
+    <c:if test="${indexlist.size()!=0}">
+        <c:forEach items="${indexlist}" var="index">
+            <tr>
+                <td></td>
+                <td>${index.getCode()}</td>
+                <td>${index.getCname()}</td>
+                <td>${index.getIfdata()}</td>
+                <td>${index.getSort()}</td>
+                <td>${index.getPlanperiod()}</td>
+                <td>
+                    <a href="/">编辑</a>
+                    <a href="/">删除</a>
+                    <c:if test="${index.getIfdata()==1}">
+                        <a href="/">启用</a>
+                        <a href="/">查看往期</a>
+                        <a href="/">指数任务</a>
+                    </c:if>
+                </td>
+            </tr>
+        </c:forEach>
+    </c:if>
 <%--    <c:if test="${page.totalRecorder==0 or page.totalPage<page.pageNum}">
         <tr>
             <td></td>
@@ -53,3 +74,7 @@
 <div class="toolbar-right">
     <ul class="pagination J_regmgr_pagination">${page}</ul>
 </div>
+
+<script>
+
+</script>
