@@ -19,4 +19,9 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         String sql="select * from tb_coindex_index where createuser= ? ";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {usercode});
     }
+    @Override
+    public DataTable getByCode(String code) {
+        String sql="select * from tb_coindex_index where code= ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {code});
+    }
 }

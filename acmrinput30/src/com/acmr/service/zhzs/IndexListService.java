@@ -6,13 +6,12 @@ import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.model.zhzs.IndexList;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class IndexListService {
     String name = IndexListDao.Fator.getInstance().getIndexdatadao().getName();
     //通过usercode得到计划和目录列表
+
     static List<DataTableRow> indexlist = IndexListDao.Fator.getInstance().getIndexdatadao().getCodeByUser("usercode01").getRows();
     public ArrayList<IndexList> getIndexList(){
         ArrayList<IndexList> indexLists=new ArrayList<>();
@@ -48,6 +47,45 @@ public class IndexListService {
             indexLists.add(index);
         }
         return indexLists;
+    }
+
+    /**
+     * 通过Code查询
+     * @param code
+     * @return
+     */
+    public IndexList getData(String code){
+        List<DataTableRow> data = IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(code).getRows();
+
+            IndexList index= new IndexList();
+            index.setCode(data.get(0).get("code").toString());
+            index.setCname(data.get(0).get("cname").toString());
+            index.setCreateuser(data.get(0).get("createuser").toString());
+            index.setIfdata(data.get(0).get("ifdata").toString());
+            index.setState(data.get(0).get("state").toString());
+            index.setCreatetime((Date) data.get(0).get("createtime"));
+            if(data.get(0).get("plantime")!=null){
+                index.setPlantime((Date) data.get(0).get("plantime"));
+            }
+            if(data.get(0).get("updatetime")!=null){
+                index.setUpdatetime((Date) data.get(0).get("updatetime"));
+            }
+            if(data.get(0).get("delayday")!=null){
+                index.setDelayday(data.get(0).get("delayday").toString());
+            }
+            if(data.get(0).get("planperiod")!=null){
+                index.setPlanperiod(data.get(0).get("planperiod").toString());
+            }
+            if(data.get(0).get("procode")!=null){
+                index.setProcode(data.get(0).get("procode").toString());
+            }
+            if(data.get(0).get("sort")!=null){
+                index.setSort(data.get(0).get("sort").toString());
+            }
+            if(data.get(0).get("startperiod")!=null){
+                index.setStartperiod(data.get(0).get("startperiod").toString());
+            }
+        return index;
     }
 
 
