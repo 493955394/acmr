@@ -3,11 +3,13 @@ package com.acmr.model.zhzs;
 
 import com.acmr.model.security.User;
 
+import java.util.Date;
+
 public class IndexList {
     private String code;
     /** 计划编码 */
     private String cname;
-    /** 计划编码 */
+    /** 计划名称 */
     private String procode;
     /** 计划所属目录编码 */
     private String ifdata;
@@ -22,13 +24,13 @@ public class IndexList {
     /** 自然日 */
     private String planperiod;
     /** 将生成的最新期数 */
-    private String plantime;
+    private Date plantime;
     /** 将生成的时间 */
     private User createuser;
     /** 创建用户 */
-    private String createtime;
+    private Date createtime;
     /** 创建时间 */
-    private String updatetime;
+    private Date updatetime;
     /** 更新时间 */
 
     public String getCode() {
@@ -103,11 +105,11 @@ public class IndexList {
         this.planperiod = planperiod;
     }
 
-    public String getPlantime() {
+    public Date getPlantime() {
         return plantime;
     }
 
-    public void setPlantime(String plantime) {
+    public void setPlantime(Date plantime) {
         this.plantime = plantime;
     }
 
@@ -119,19 +121,19 @@ public class IndexList {
         this.createuser = createuser;
     }
 
-    public String getCreatetime() {
+    public Date getCreatetime() {
         return createtime;
     }
 
-    public void setCreatetime(String createtime) {
+    public void setCreatetime(Date createtime) {
         this.createtime = createtime;
     }
 
-    public String getUpdatetime() {
+    public Date getUpdatetime() {
         return updatetime;
     }
 
-    public void setUpdatetime(String updatetime) {
+    public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
     }
 }
