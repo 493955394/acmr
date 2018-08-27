@@ -15,7 +15,7 @@
     </colgroup>
     <thead>
     <tr>
-        <th><input autocomplete="off" type="checkbox"></th>
+        <th><input autocomplete="off" type="checkbox" style="display: none;"></th>
         <th>编码</th>
         <th>名称</th>
         <th>类型</th>
