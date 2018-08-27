@@ -102,48 +102,11 @@
         </div>
 
     </div>
-
-    <button name="btn_change" onclick="onBack()" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove-circle"></i>退回</button>
-
-    <!-- 模态框（Modal) -->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="form-horizontal" id="aform" action="" method="post">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="createModalLabel">退回原因</h4>
-                    </div>
-                    <div class="form-group form-group-sm">
-                        <label class="col-sm-3 control-label talign-right fz13">退回理由</label>
-                        <div class="col-sm-7">
-                            <textarea id="back_reason" name="back_reason" class="form-control" rows="5" required></textarea>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-primary" onclick="subFeedback()">确定</button>
-                    </div>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
 </div>
 </body>
 <script>
-    seajs.use('${ctx}/js/func/zhzs/indexlist/main');
+    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/main');
 </script>
-<script type="text/javascript">
-    $(function(){
-            $("li[name='de']").removeClass("active");
-            $("#de_"+de).addClass("active");
-        });
-    function onBack(id){
-        var modal = $("#editModal");
-        modal.find("input[name='modid']").val(0);
-        modal.modal();
-    }
-</script>
+
 </html>
 
