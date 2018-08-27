@@ -60,6 +60,7 @@
                         <!-- 模态弹出窗内容 -->
                         <!-- 新增目录 -->
                         <form  action="${ctx}/zbdata/indexlist.htm?m=insert">
+                            <input type="hidden" name="procode" value="${procode}">
                             <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -68,7 +69,6 @@
                                             <h4 class="modal-title">新增/编辑目录</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <input type="hidden" name="code" value="${code}">
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                                                 <div class="col-sm-5">
@@ -87,7 +87,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="Cname" readonly value="${Cname}" >
+                                                    <input type="text" class="form-control" name="cname" readonly value="${cname}" >
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -102,6 +102,7 @@
                         </form>
                         <!-- 新增计划 -->
                         <form  action="${ctx}/zbdata/indexlist.htm?m=insert">
+                            <input type="hidden" name="procode" value="${procode}">
                             <div class="modal" id="mymodal-data1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -129,7 +130,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="Cname" readonly value="${Cname}" disabled>
+                                                    <input type="text" class="form-control" name="cname" readonly value="${cname}" disabled>
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
