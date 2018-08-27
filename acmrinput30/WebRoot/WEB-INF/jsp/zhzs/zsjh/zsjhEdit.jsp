@@ -58,7 +58,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">所属目录：</label>
                     <div class="col-sm-5">
-                        <select class="form-control" name="tsort">
+                        <select class="form-control" name="procode">
                             <option value="M"  ></option>
                             <option value="M"  ></option>
                             <option value="M"  ></option>
@@ -69,10 +69,10 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">统计周期：</label>
                     <div class="col-sm-5">
-                        <select class="form-control" name="tsort" disabled>
+                        <select class="form-control" name="sort" disabled>
+                            <option value="Y"  <c:if test="${timesort == 'Y'}"></c:if>年度</option>
                             <option value="M"  <c:if test="${timesort == 'M'}"></c:if>月度</option>
                             <option value="Q"  <c:if test="${timesort == 'Q'}"></c:if>季度</option>
-                            <option value="Y"  <c:if test="${timesort == 'Y'}"></c:if>年度</option>
                         </select>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label ">数据期满后：</label>
                     <div class="col-sm-5">
-                        <input id="delayday" name="delayday" value=""  class="form-control"/>
+                        <input id="delayday" name="delayday" value="${delayday}"  class="form-control"/>
                     </div>
                     <div>
                         <label class="control-label ">自然日</label>
@@ -96,7 +96,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label"> 指数个数位数：</label>
                     <div class="col-sm-5">
-                        <input id="" name="cname" value="" class="form-control"/>
+                        <input id="dacimal" name="dacimal" value="${dacimal}" class="form-control"/>
                     </div>
                     <div class="clearfix"></div>
                 </div>
