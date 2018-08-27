@@ -35,7 +35,12 @@
                 <td>${index.getSort()}</td>
                 <td>${index.getPlanperiod()}</td>
                 <td>
-                    <a href="/">编辑</a>
+                    <c:if test="${index.getIfdata()==1}">
+                    <a href="${ctx}/zbdata/zsjhedit.htm?m=editIndex&id=${index.getCode()}">编辑</a>
+                    </c:if>
+                    <c:if test="${index.getIfdata()==0}">
+                        <a href="#">编辑</a>
+                    </c:if>
                     <a href="/">删除</a>
                     <c:if test="${index.getIfdata()==1}">
                         <a href="/">启用</a>

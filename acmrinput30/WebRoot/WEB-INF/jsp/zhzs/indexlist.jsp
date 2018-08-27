@@ -22,7 +22,6 @@
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 
 <div class="container-fluid" id="mainpanel">
-    <a href="${ctx}/zbdata/zsjhedit.htm?m=editIndex">指数计划编辑界面跳转测试</a>
     <div class="col-md-2 left-panel">
         <div class="panel tree-panel">
             <div class="panel-heading">我的指标</div>

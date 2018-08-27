@@ -103,7 +103,12 @@
             </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="zssx">...</div>
-                    <div role="tabpanel" class="tab-pane" id="jsfw">...</div>
+                    <div role="tabpanel" class="tab-pane" id="jsfw">
+                        <div class="panel tree-panel">
+                            <div class="panel-heading">地区树</div>
+                        </div>
+                        <ul id="treeDemo" class="ztree ztree-margin"></ul>
+                    </div>
                     <div role="tabpanel" class="tab-pane" id="mxgh">...</div>
 
                 </div><!--Tab panes end-->
