@@ -1,4 +1,5 @@
 define(function (require,exports,module) {
+    'use strict';
     var $ = require('jquery'),
         dropdown = require('dropdown'),
         Pagination = require('pagination'),
@@ -7,5 +8,7 @@ define(function (require,exports,module) {
         tree = require('tree'),
         fileupload = require('fileupload'),
         PackAjax = require('Packajax'),
-        modal = require('modal')
-})
+        modal = require('modal'),
+        ZeroClipboard = require('ZeroClipboard'),
+        tab = require('tab')
+});

@@ -31,16 +31,18 @@
             </div>
             <div class="panel-body">
                 <div>
-                    <ul class="nav nav-tabs nav-justified">
-                        <li role="presentation" class="active" id="de_A" name="de"><a href="#" ><span id='jbxx'>基本信息</span></a></li>
-                        <li role="presentation" id="de_B" name="de"><a href="#"><span id='zbsx'>指数筛选</span></a></li>
-                        <li role="presentation" id="de_C" name="de"><a href="#"><span id='jsfw'>计算范围</span></a></li>
-                        <li role="presentation" id="de_D" name="de"><a href="#"><span id='mxgh'>模型规划</span></a></li>
-                    </ul>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs nav-justified" role="tablist">
+                            <li role="presentation" class="active"><a href="#jbxx" aria-controls="jbxx" role="tab" data-toggle="tab">基本信息</a></li>
+                            <li role="presentation"><a href="#zssx" aria-controls="zssx" role="tab" data-toggle="tab">指数筛选</a></li>
+                            <li role="presentation"><a href="#jsfw" aria-controls="jsfw" role="tab" data-toggle="tab">计算范围</a></li>
+                            <li role="presentation"><a href="#mxgh" aria-controls="mxgh" role="tab" data-toggle="tab">模型规划</a></li>
+                        </ul>
                 </div>
-            </div>
-            <p></p>
-            <form class="form-horizontal" id="myform" action="" method="post">
+                <!-- Tab panes -->
+                <div class="tab-content" style="padding-top: 20px;">
+                    <div role="tabpanel" class="tab-pane active" id="jbxx">
+                <form class="form-horizontal" id="myform" action="" method="post">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">编码：</label>
                     <div class="col-sm-5">
@@ -99,8 +101,14 @@
                     <div class="clearfix"></div>
                 </div>
             </form>
-        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="zssx">...</div>
+                    <div role="tabpanel" class="tab-pane" id="jsfw">...</div>
+                    <div role="tabpanel" class="tab-pane" id="mxgh">...</div>
 
+                </div><!--Tab panes end-->
+            </div>
+        </div>
     </div>
 </div>
 </body>
