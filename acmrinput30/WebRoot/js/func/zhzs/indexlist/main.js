@@ -21,7 +21,6 @@ define(function (require,exports,module) {
         { id:"#3", pId:0, name:"我共享的指数", isParent:true},
     ];
     var indexlist=listjsp.indexlist;
-    console.log(indexlist)
     for(var i=0;i<indexlist.length;i++){
         zNodes.push(indexlist[i])
     }
@@ -30,4 +29,13 @@ define(function (require,exports,module) {
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
     });
 
+    var CategoryNodes=[];
+    for(i=0;i<zNodes.length;i++){
+        if (zNodes[i].isParent==true&&zNodes[i].pId!="#2"&&zNodes[i].pId!="#3"){
+            CategoryNodes.push(zNodes[i])
+        }
+    }
+    module.exports={
+        CategoryNodes:CategoryNodes
+    }
 })
