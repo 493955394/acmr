@@ -34,6 +34,9 @@ define(function (require,exports,module) {
         $('#my_index_all').load(url + ' .my_index')
     }
     function clickEvent(event,treeId,treeNode) {
+        if(treeNode.isParent==false){
+            return false
+        }
         $.ajaxSettings.async=false
         $("#my_index_all").children().removeAttr("class")
         reloadList()
