@@ -72,14 +72,14 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="code" value="${code}" readonly>
+                                                    <input type="text" class="form-control" name="code" value="${code}">
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" value="${cname}" readonly>
+                                                    <input type="text" class="form-control" value="${cname}">
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -113,14 +113,14 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="code" value="${code}" readonly>
+                                                    <input type="text" class="form-control" name="code" value="${code}">
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="cname" value="${cname}" readonly>
+                                                    <input type="text" class="form-control" name="cname" value="${cname}">
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -128,7 +128,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="cname" readonly value="${cname}" disabled>
+                                                    <input type="text" class="form-control" name="cname" readonly value="${cname}">
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -155,7 +155,7 @@
                         </form>
                         <!-- 复制到 -->
                         <form class="J_add_cope" action="${ctx}/zbdata/indexlist.htm?m=insert">
-                            <input type="hidden" class="form-control" name="code" value="${code}" readonly>
+                            <input type="hidden" class="form-control" name="code" value="${code}">
                             <div class="modal" id="mymodal-data2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -166,7 +166,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标名称：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="cname" value="${cname}" readonly>
+                                                    <input type="text" class="form-control" name="cname" value="${cname}" >
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
