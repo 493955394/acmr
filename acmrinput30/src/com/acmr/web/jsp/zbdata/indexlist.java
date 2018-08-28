@@ -16,38 +16,9 @@ public class indexlist extends BaseAction {
     public ModelAndView main() throws IOException {
         String test="this is the listjps";
         ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
-        String code = PubInfo.getString(this.getRequest().getParameter("code"));
-        String cname = PubInfo.getString(this.getRequest().getParameter("cname"));
-        return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("test",test).addObject("indexlist",indexlist).addObject("code",code).addObject("cname",cname);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("test",test).addObject("indexlist",indexlist);
     }
-    public void insert() throws IOException {
-        IndexListService indexListService=new IndexListService();
-        HttpServletRequest req = this.getRequest();
-        String code = PubInfo.getString(req.getParameter("code"));
-        JSONReturnData data = new JSONReturnData("");
-        if (indexListService.getData(code).getCode() != null) {
-            data.setReturncode(300);
-            data.setReturndata("fail");
-            this.sendJson(data);
-            return;
-        }
 
-        String name = PubInfo.getString(req.getParameter("name"));
-        String ccname = PubInfo.getString(req.getParameter("ccname"));
-        IndexCategory inCata = new IndexCategory();
-
-        inCata.setCode(code);
-        inCata.setCname(name);
-        int int1 = indexListService.addCata(inCata);
-        if (int1 == -1) {
-            data.setReturncode(501);
-            data.setReturndata("fail");
-            this.sendJson(data);
-            return;
-        }
-        data.setReturndata(inCata);
-        this.sendJson(data);
-    }
 
 
 }
