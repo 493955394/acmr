@@ -24,10 +24,11 @@
         <th>操作</th>
     </tr>
     </thead>
-    <tbody>
+
     <c:if test="${indexlist.size()!=0}">
+        <tbody class="list_body " id="my_index_all">
         <c:forEach  items="${indexlist}" var="index">
-            <tr class="pro-${index.getProcode()}">
+            <tr class="my_index pro-${index.getCode()}">
                 <th><input autocomplete="off" type="checkbox"></th>
                 <td>${index.getCode()}</td>
                 <td>${index.getCname()}</td>
@@ -44,15 +45,24 @@
                     <a href="/">删除</a>
                     <c:if test="${index.getIfdata()==1}">
                         <a href="/">启用</a>
+                        <a href="/">权限管理</a>
                         <a href="/">查看往期</a>
                         <a href="/">指数任务</a>
                     </c:if>
                 </td>
             </tr>
         </c:forEach>
-    </c:if>
     </tbody>
+    </c:if>
+    <tbody class="list_body my_shared">
+    </tbody>
+    <tbody class="list_body my_received">
+    </tbody>
+
 </table>
 <div class="toolbar-right">
     <ul class="pagination J_regmgr_pagination">${page}</ul>
 </div>
+<script>
+
+</script>

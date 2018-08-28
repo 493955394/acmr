@@ -207,12 +207,13 @@
         var indexlist=[];
         <c:forEach items="${indexlist}" var="index">
         if(${index.getProcode()!=null})
-        indexlist.push({id:"${index.getCode()}",pId:"${index.getProcode()}",name:"${index.getCname()}",isPrent:!${index.getIfdata()},sou:!${index.getIfdata()}})
-        else indexlist.push({id:"${index.getCode()}",pId:"#1",name:"${index.getCname()}",isParent:!${index.getIfdata()},sou:!${index.getIfdata()}})
+        indexlist.push({id:"${index.getCode()}",pId:"${index.getProcode()}",name:"${index.getCname()}",isPrent:!${index.getIfdata()},sou:!${index.getIfdata()},path:""})
+        else indexlist.push({id:"${index.getCode()}",pId:"#1",name:"${index.getCname()}",isParent:!${index.getIfdata()},sou:!${index.getIfdata()},path:""})
         </c:forEach>
         module.exports={
             indexlist:indexlist
         }
+
     })
     seajs.use('${ctx}/js/func/zhzs/indexlist/main');
 </script>

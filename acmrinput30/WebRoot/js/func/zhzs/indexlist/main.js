@@ -28,12 +28,23 @@ define(function (require,exports,module) {
             onClick:clickEvent
         }
     };
+    //局部刷新列表
+    function reloadList() {
+        var url=window.location.href
+        $('#my_index_all').load(url + ' .my_index')
+    }
     function clickEvent(event,treeId,treeNode) {
+        if(treeNode.isParent==false){
+            return false
+        }
+        $.ajaxSettings.async=false
+        $("#my_index_all").children().removeAttr("class")
+        reloadList()
+        changeTrClass();
         var proCode=treeNode.id
-        var classname="pro-"+proCode;
-        console.log(classname)
-        $("."+classname).css("color","red")
-
+        var classname="-"+proCode+"-"
+        $(".my_index:not([class*='" +
+            classname+"'])").detach()
     }
 
     //修复图标，使没有子节点的目录也显示为目录
@@ -46,13 +57,40 @@ define(function (require,exports,module) {
         }
         treeObj.refresh();//调用api自带的refresh函数。
     }
-
+    //添加一个属性path，里面存放节点的的所有父节点（包括自己）
+    function addPath(){
+        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        var nodes=treeObj.transformToArray(treeObj.getNodes());
+        for(var i=0;i<nodes.length;i++){
+            var paths=nodes[i].getPath();
+            var path="";
+            for(var j=0;j<paths.length;j++){
+                path=path+"-"+paths[j].id
+            }
+            nodes[i].path=path;
+        }
+    }
+    //操作列表的class
+    function changeTrClass(){
+       // 修正classname
+        $("tr[class='pro-']").attr("class","pro-#1")
+        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        var nodes=treeObj.transformToArray(treeObj.getNodes());
+        //把path添加到class中
+        for(var i=0;i<nodes.length;i++){
+            var comp=nodes[i].id;
+            var path=nodes[i].path;
+            //console.log(comp)
+            $("tr[class*='pro-" +
+                comp+"']").addClass(path)
+        }
+    }
 
     $(document).ready(function(){
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
         fixIcon();
+        addPath();
 
-        //修正添加的table的classname，方便和树联动
 
     });
 
@@ -63,7 +101,6 @@ define(function (require,exports,module) {
             CategoryNodes.push(zNodes[i])
         }
     }
-
 
     module.exports={
         CategoryNodes:CategoryNodes
