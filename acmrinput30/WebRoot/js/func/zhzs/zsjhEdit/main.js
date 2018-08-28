@@ -35,6 +35,12 @@ define(function (require,exports,module) {
     };
     function clickEvent(event,treeId,treeNode) {
         var proCode=treeNode.id
+        if (treeNode.id != '') {
+            $('input[name=proname]').val(treeNode.name);
+            $('input[name=procode]').val(treeNode.id);
+        } else {
+            $('input[name=proname]').val('');
+        }
         var classname="pro-"+proCode;
         console.log(classname)
         $("."+classname).css("color","red")

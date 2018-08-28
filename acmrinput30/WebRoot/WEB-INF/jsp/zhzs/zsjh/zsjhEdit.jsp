@@ -60,7 +60,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">所属目录：</label>
                     <div class="col-sm-5">
-                        <input type="text"  class="form-control hid-bottom" name="deptname" value="${proname}" readonly>
+                        <input type="text"  class="form-control hid-bottom" name="proname" value="${proname}" readonly>
                         <ul id="tree" class="ztree select-tree hid-top"></ul>
                     </div>
                     <div class="clearfix"></div>
