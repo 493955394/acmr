@@ -1,21 +1,16 @@
 package com.acmr.web.jsp.zbdata;
 
-import acmr.util.DataTable;
-import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.zhzs.IndexCategory;
 import com.acmr.model.zhzs.IndexList;
-import com.acmr.service.zhzs.AddService;
 import com.acmr.service.zhzs.IndexListService;
-import com.sun.org.apache.xml.internal.resolver.Catalog;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class indexlist extends BaseAction {
     public ModelAndView main() throws IOException {
@@ -27,7 +22,6 @@ public class indexlist extends BaseAction {
     }
     public void insert() throws IOException {
         IndexListService indexListService=new IndexListService();
-        AddService addService = new AddService();
         HttpServletRequest req = this.getRequest();
         String code = PubInfo.getString(req.getParameter("code"));
         JSONReturnData data = new JSONReturnData("");
@@ -44,7 +38,7 @@ public class indexlist extends BaseAction {
 
         inCata.setCode(code);
         inCata.setCname(name);
-        int int1 = addService.addCata(inCata);
+        int int1 = indexListService.addCata(inCata);
         if (int1 == -1) {
             data.setReturncode(501);
             data.setReturndata("fail");

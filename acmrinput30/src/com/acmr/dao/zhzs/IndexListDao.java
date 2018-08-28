@@ -35,12 +35,4 @@ public class IndexListDao {
         return iIndexListDao;
     }
 
-    public int addCatagory(IndexCategory inCata) {
-        String sql1 = "insert into tb_coindex_index (code,cname,) values(?,?)";
-        List<Object> parms = new ArrayList<Object>();
-        parms.add(inCata.getCode());
-        parms.add(inCata.getCname());
-        return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, parms.toArray());
-    }
-
 }

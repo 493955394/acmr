@@ -4,6 +4,7 @@ import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IndexListDao;
+import com.acmr.model.zhzs.IndexCategory;
 import com.acmr.model.zhzs.IndexList;
 
 import java.util.*;
@@ -78,6 +79,10 @@ public class IndexListService {
         index.setSort(data.getString("sort"));
         index.setStartperiod(data.getString("startperiod"));
         return index;
+    }
+    public int addCata(IndexCategory inCata) {
+        int int1 = IndexListDao.Fator.getInstance().getIndexdatadao().addCatagory(inCata);
+        return int1;
     }
 
 
