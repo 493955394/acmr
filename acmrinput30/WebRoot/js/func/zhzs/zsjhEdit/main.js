@@ -11,7 +11,7 @@ define(function (require,exports,module) {
         modal = require('modal'),
         ZeroClipboard = require('ZeroClipboard'),
         tab = require('tab'),
-     listjsp= require('listjsp');
+     listjsp = require('listjsp');
 
     var zNodes =[
         { id:"#1", pId:0, name:"指数",isParent:true}
@@ -57,8 +57,6 @@ define(function (require,exports,module) {
         }
         treeObj.refresh();//调用api自带的refresh函数。
     }
-
-
     $(document).ready(function(){
         $.fn.zTree.init($("#tree"), setting, zNodes);
         fixIcon();
@@ -66,5 +64,73 @@ define(function (require,exports,module) {
         //修正添加的table的classname，方便和树联动
 
     });
+    /**
+     * 菜单树
+     */
+    var delIds = [];
+    var initTreePara = $("#initTreePara").val();
+    var treeNodeId = $("#procode1").val();
+    var treeNodeName = "地区树";
+    var st = new Date().getTime();//时间戳，解决ie9 ajax缓存//2015-7-2 by liaojin
+    var setting1 = {
+        async: {
+            enable: true,
+            url: common.rootPath+'zbdata/zsjhedit.htm?m=findZbTree&st='+st,
+            contentType: 'application/json',
+            type: 'get',
+            autoParam: ["id"]
+        },
+        callback: {
+            onClick: clickEvent1,
+            onAsyncSuccess: zTreeOnAsyncSuccess
+        }
+    };
+    function clickEvent1(event, treeid, treeNode) {
+        treeNodeId = treeNode.id;
+        treeNodeName = treeNode.name;
+    }
+    var rootNode = [{"id":"","name":"地区树", "open":"true", "isParent":"true"}];
+    var treeObj = $.fn.zTree.init($("#treeDemo"), setting1, rootNode);
+    var treenodes = treeObj.getNodes();
+    treeObj.expandNode(treenodes[0], true, true, true);
+
+    function zTreeOnAsyncSuccess(event, treeid, treeNode, msg){
+        if (initTreePara.length>0){
+            var zbs = initTreePara.split("/");
+            var nodes;
+            var treeObj = $.fn.zTree.getZTreeObj(treeid);
+
+            if (treeNode == null){	// 第一层结点
+                nodes = treeObj.getNodes();
+            } else {
+                nodes = treeNode.children;
+            }
+            var isBreak = false;
+            for (var i = 0; i < nodes.length; i++){
+                var node = nodes[i];
+                for (var j = 0; j < zbs.length; j++){
+                    if (zbs[j] == node.id){
+                        if (node.isParent){
+                            treeObj.expandNode(node, true);
+                            if(node.id== zbs[zbs.length-1]){
+                                treeObj.selectNode(node);
+                                treeNodeId = node.id;
+                                treeNodeName = node.name;
+                            }
+                        } else {
+                            treeObj.selectNode(node);
+                            treeNodeId = node.id;
+                            treeNodeName = node.name;
+                        }
+                        isBreak = true;
+                        break;
+                    }
+                }
+                if (isBreak){
+                    break;
+                }
+            }
+        }
+    }
 
 });

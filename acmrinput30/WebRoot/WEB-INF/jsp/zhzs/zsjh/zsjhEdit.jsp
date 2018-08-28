@@ -95,7 +95,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label"> 指数个数位数：</label>
                     <div class="col-sm-5">
-                        <input id="dacimal" name="dacimal" value="2" class="form-control"/>
+                        <input id="dacimal" name="dacimal" value="1" class="form-control"/>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -103,10 +103,14 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="zssx">...</div>
                     <div role="tabpanel" class="tab-pane" id="jsfw">
+                        <div class="col-xs-3" style="border:2px;solid: #0f0f10">
+                        <input type="hidden" id="initTreePara" value="${initTreePara}" />
+                        <input type="hidden" id="procode" value="${procode}" />
                         <div class="panel tree-panel">
                             <div class="panel-heading">地区树</div>
                         </div>
-                        <ul id="1" class="ztree ztree-margin"></ul>
+                        <ul id="treeDemo" class="ztree ztree-margin"></ul>
+                        </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="mxgh">...</div>
 
