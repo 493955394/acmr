@@ -45,6 +45,7 @@
                     <a href="/">删除</a>
                     <c:if test="${index.getIfdata()==1}">
                         <a href="/">启用</a>
+                        <a href="/">权限管理</a>
                         <a href="/">查看往期</a>
                         <a href="/">指数任务</a>
                     </c:if>
