@@ -5,6 +5,7 @@ import acmr.util.DataTable;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.helper.util.StringUtil;
+import com.acmr.model.range.Pinfo;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.service.zhzs.IndexListService;
 
@@ -24,10 +25,21 @@ public class zsjhedit extends BaseAction {
         IndexListService indexListService=new IndexListService();
         IndexList list =indexListService.getData(code);
         String procode = list.getProcode();
-        if(procode!= null){
+        if(procode!= null && procode!=""){//处理为空的步骤
             IndexList list1 =indexListService.getData(procode);
              proname = list1.getCname();
         }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("proname",proname).addObject("list",list);
+        ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("proname",proname).addObject("list",list).addObject("indexlist",indexlist);
     }
+
+//    public static void main(String[] args){
+//        IndexListService indexListService=new IndexListService();
+//        IndexList list =indexListService.getData("R001");
+//        String procode = "0";
+//        if(list.getProcode()!=null && list.getProcode()!=""){
+//            procode = "1";
+//        }
+//        System.out.println(procode);
+//    }
 }
