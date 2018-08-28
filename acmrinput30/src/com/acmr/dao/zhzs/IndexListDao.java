@@ -2,7 +2,12 @@ package com.acmr.dao.zhzs;
 
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.oracle.zhzs.OraIndexListDaoImpl;
+import com.acmr.model.zhzs.IndexCategory;
 import com.acmr.web.jsp.Index;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IndexListDao {
     public static class Fator{
@@ -30,5 +35,12 @@ public class IndexListDao {
         return iIndexListDao;
     }
 
+    public int addCatagory(IndexCategory inCata) {
+        String sql1 = "insert into tb_coindex_index (code,cname,) values(?,?)";
+        List<Object> parms = new ArrayList<Object>();
+        parms.add(inCata.getCode());
+        parms.add(inCata.getCname());
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, parms.toArray());
+    }
 
 }
