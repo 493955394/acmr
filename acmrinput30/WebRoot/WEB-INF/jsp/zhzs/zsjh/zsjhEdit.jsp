@@ -42,9 +42,9 @@
                 </div>
                 <!-- Tab panes -->
                 <div class="tab-content" style="padding-top: 20px;">
-
                     <div role="tabpanel" class="tab-pane active" id="jbxx">
                 <form class="form-horizontal" id="myform" action="" method="post">
+                    <input type="hidden" name="procode" value="${procode}">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">编码：</label>
                     <div class="col-sm-5">
@@ -60,11 +60,8 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">所属目录：</label>
                     <div class="col-sm-5">
-                        <select class="form-control" name="proname">
-                            <option value="${proname}"  >${proname}</option>
-                            <option value="M"  ></option>
-                            <option value="M"  ></option>
-                        </select>
+                        <input type="text"  class="form-control hid-bottom" name="deptname" value="${proname}" readonly>
+                        <ul id="tree" class="ztree select-tree hid-top"></ul>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -109,7 +106,7 @@
                         <div class="panel tree-panel">
                             <div class="panel-heading">地区树</div>
                         </div>
-                        <ul id="treeDemo" class="ztree ztree-margin"></ul>
+                        <ul id="1" class="ztree ztree-margin"></ul>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="mxgh">...</div>
 
