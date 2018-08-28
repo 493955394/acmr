@@ -80,7 +80,7 @@ define(function (require,exports,module) {
         for(var i=0;i<nodes.length;i++){
             var comp=nodes[i].id;
             var path=nodes[i].path;
-            console.log(comp)
+            //console.log(comp)
             $("tr[class*='pro-" +
                 comp+"']").addClass(path)
         }
