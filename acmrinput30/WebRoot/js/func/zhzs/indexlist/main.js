@@ -4,16 +4,6 @@ define(function (require,exports,module) {
         tree = require('tree'),
         modal = require('modal'),
         listjsp= require('listjsp');
-    var setting = {
-        async:{
-
-        },
-        data: {
-            simpleData: {
-                enable: true
-            }
-        }
-    };
 
     var zNodes =[
         { id:"#1", pId:0, name:"指数",isParent:true},
@@ -23,6 +13,27 @@ define(function (require,exports,module) {
     var indexlist=listjsp.indexlist;
     for(var i=0;i<indexlist.length;i++){
         zNodes.push(indexlist[i])
+    }
+
+    var setting = {
+        async:{
+
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback:{
+            onClick:clickEvent
+        }
+    };
+    function clickEvent(event,treeId,treeNode) {
+        var proCode=treeNode.id
+        var classname="pro-"+proCode;
+        console.log(classname)
+        $("."+classname).css("color","red")
+
     }
 
     //修复图标，使没有子节点的目录也显示为目录
@@ -37,18 +48,23 @@ define(function (require,exports,module) {
     }
 
 
-
     $(document).ready(function(){
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
         fixIcon();
+
+        //修正添加的table的classname，方便和树联动
+
     });
 
+    //CategoryNode为只有目录的树结构nodes
     var CategoryNodes=[];
     for(i=0;i<zNodes.length;i++){
         if (zNodes[i].isParent==true&&zNodes[i].pId!="#2"&&zNodes[i].pId!="#3"){
             CategoryNodes.push(zNodes[i])
         }
     }
+
+
     module.exports={
         CategoryNodes:CategoryNodes
     }
