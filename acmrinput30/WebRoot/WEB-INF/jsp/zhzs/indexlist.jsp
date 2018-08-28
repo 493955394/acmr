@@ -59,8 +59,8 @@
                         <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data2" type="button">复制到</button>
                         <!-- 模态弹出窗内容 -->
                         <!-- 新增目录 -->
-                        <form  action="${ctx}/zbdata/indexlist.htm?m=insert">
-                            <input type="hidden" name="procode" value="${procode}">
+                        <form class="J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insert">
+                            <%--<input type="hidden" name="procode" value="${procode}">--%>
                             <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -72,14 +72,14 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="code">
+                                                    <input type="text" class="form-control" name="code" value="${code}" readonly>
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="name">
+                                                    <input type="text" class="form-control" value="${cname}" readonly>
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -87,7 +87,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="cname" readonly value="${cname}" >
+                                                    <input type="text" class="form-control" name="procode" readonly value="${procode}" >
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -101,8 +101,7 @@
                             </div>
                         </form>
                         <!-- 新增计划 -->
-                        <form  action="${ctx}/zbdata/indexlist.htm?m=insert">
-                            <input type="hidden" name="procode" value="${procode}">
+                        <form class="J_add_plan" action="${ctx}/zbdata/indexlist.htm?m=insert">
                             <div class="modal" id="mymodal-data1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -111,18 +110,17 @@
                                             <h4 class="modal-title">新增计划</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <input type="hidden" name="code" value="${code}">
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="code">
+                                                    <input type="text" class="form-control" name="code" value="${code}" readonly>
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="cname">
+                                                    <input type="text" class="form-control" name="cname" value="${cname}" readonly>
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -156,7 +154,8 @@
                             </div>
                         </form>
                         <!-- 复制到 -->
-                        <form  action="${ctx}/zbdata/indexlist.htm?m=insert">
+                        <form class="J_add_cope" action="${ctx}/zbdata/indexlist.htm?m=insert">
+                            <input type="hidden" class="form-control" name="code" value="${code}" readonly>
                             <div class="modal" id="mymodal-data2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -164,11 +163,10 @@
                                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                         </div>
                                         <div class="modal-body">
-                                            <input type="hidden" name="deptcode" value="${deptcode}">
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标名称：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="cname">
+                                                    <input type="text" class="form-control" name="cname" value="${cname}" readonly>
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -176,7 +174,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属指数：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="deptName" readonly value="${deptName}" disabled>
+                                                    <input type="text" class="form-control" name="procode" readonly value="${procode}" >
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -192,6 +190,8 @@
                         </form>
                     </div>
                 </div>
+
+
 
             </div>
             <div class="J_regmgr_data_table">
