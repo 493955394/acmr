@@ -28,6 +28,19 @@ define(function (require,exports,module) {
             onClick:clickEvent
         }
     };
+    var setting1 = {
+        async:{
+
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback:{
+            onClick:clickEvent1
+        }
+    };
     //局部刷新列表
     function reloadList() {
         var url=window.location.href
@@ -45,6 +58,20 @@ define(function (require,exports,module) {
         var classname="-"+proCode+"-"
         $(".my_index:not([class*='" +
             classname+"'])").detach()
+    }
+    function clickEvent1(event,treeId,treeNode) {
+        var proCode=treeNode.id
+
+        if (treeNode.id != '') {
+            $('input[name=catacode]').val(treeNode.name);
+            $('input[name=procode]').val(treeNode.id);
+        } else {
+            $('input[name=catacode]').val('');
+        }
+        var classname="pro-"+proCode;
+        console.log(classname)
+        $("."+classname).css("color","red")
+
     }
 
     //修复图标，使没有子节点的目录也显示为目录
@@ -93,12 +120,12 @@ define(function (require,exports,module) {
     });
     $(document).ready(function(){
         console.log(CategoryNodes)
-        $.fn.zTree.init($("#treeCata"), setting, CategoryNodes);
+        $.fn.zTree.init($("#treeCata"), setting1, CategoryNodes);
         fixIcon();
     });
     $(document).ready(function(){
         console.log(CategoryNodes)
-        $.fn.zTree.init($("#treePlan"), setting, CategoryNodes);
+        $.fn.zTree.init($("#treePlan"), setting1, CategoryNodes);
         fixIcon();
     });
 
