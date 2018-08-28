@@ -12,7 +12,14 @@ public class IndexListService {
     String name = IndexListDao.Fator.getInstance().getIndexdatadao().getName();
     //通过usercode得到计划和目录列表
 
-    static List<DataTableRow> indexlist = IndexListDao.Fator.getInstance().getIndexdatadao().getCodeByUser("usercode01").getRows();
+    static List<DataTableRow> indexlist = IndexListDao.Fator.getInstance().getIndexdatadao().getByUser("usercode01").getRows();
+    /**
+    * @Description: 传usercode返回该用户创建的计划list
+    * @Param: [] usercode先写死，后面改
+    * @return: java.util.ArrayList<com.acmr.model.zhzs.IndexList>
+    * @Author: lyh
+    * @Date: 2018/8/28
+    */
     public ArrayList<IndexList> getIndexList(){
         ArrayList<IndexList> indexLists=new ArrayList<>();
         for(int i=0;i<indexlist.size();i++){

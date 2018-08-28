@@ -79,7 +79,3 @@
 <div class="toolbar-right">
     <ul class="pagination J_regmgr_pagination">${page}</ul>
 </div>
-
-<script>
-
-</script>

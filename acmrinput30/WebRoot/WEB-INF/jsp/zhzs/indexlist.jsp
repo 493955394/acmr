@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.acmr.model.security.User" %>
 <%@page import="com.acmr.model.security.Menu"%>
 <%@page import="acmr.util.ListHashMap"%><%--
@@ -24,7 +25,7 @@
 <div class="container-fluid" id="mainpanel">
     <div class="col-md-2 left-panel">
         <div class="panel tree-panel">
-            <div class="panel-heading">我的指标</div>
+            <div class="panel-heading">我的指数</div>
         </div>
         <ul id="treeDemo" class="ztree ztree-margin"></ul>
     </div>
@@ -202,6 +203,17 @@
 </div>
 </body>
 <script>
+    define("listjsp",function (require,exports,module) {
+        var indexlist=[];
+        <c:forEach items="${indexlist}" var="index">
+        if(${index.getProcode()!=null})
+        indexlist.push({id:"${index.getCode()}",pId:"${index.getProcode()}",name:"${index.getCname()}",isPrent:!${index.getIfdata()}})
+        else indexlist.push({id:"${index.getCode()}",pId:"#1",name:"${index.getCname()}",isParent:!${index.getIfdata()}})
+        </c:forEach>
+        module.exports={
+            indexlist:indexlist
+        }
+    })
     seajs.use('${ctx}/js/func/zhzs/indexlist/main');
 </script>
 </html>
