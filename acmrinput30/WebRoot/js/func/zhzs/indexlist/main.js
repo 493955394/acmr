@@ -90,8 +90,16 @@ define(function (require,exports,module) {
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
         fixIcon();
         addPath();
-
-
+    });
+    $(document).ready(function(){
+        console.log(CategoryNodes)
+        $.fn.zTree.init($("#treeCata"), setting, CategoryNodes);
+        fixIcon();
+    });
+    $(document).ready(function(){
+        console.log(CategoryNodes)
+        $.fn.zTree.init($("#treePlan"), setting, CategoryNodes);
+        fixIcon();
     });
 
     //CategoryNode为只有目录的树结构nodes

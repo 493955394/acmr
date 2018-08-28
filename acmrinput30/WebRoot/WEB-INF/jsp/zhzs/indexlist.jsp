@@ -87,7 +87,8 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="procode" readonly value="${procode}" >
+                                                    <input type="text" class="form-control" name="code" readonly value="${id}" >
+                                                    <ul id="treeCata" class="ztree select-tree hid-top"></ul>
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -128,7 +129,8 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="cname" readonly value="${cname}">
+                                                    <input type="text" class="form-control" name="code" readonly value="${id}">
+                                                    <ul id="treePlan" class="ztree select-tree hid-top"></ul>
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
