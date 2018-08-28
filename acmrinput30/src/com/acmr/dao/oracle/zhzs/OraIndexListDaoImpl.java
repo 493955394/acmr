@@ -3,7 +3,10 @@ package com.acmr.dao.oracle.zhzs;
 import acmr.util.DataTable;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexListDao;
+import com.acmr.model.zhzs.IndexCategory;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OraIndexListDaoImpl implements IIndexListDao {
@@ -23,5 +26,14 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     public DataTable getByCode(String code) {
         String sql="select * from tb_coindex_index where code= ? ";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {code});
+    }
+    @Override
+    public int addCatagory(IndexCategory inCata) {
+        String sql1 = "insert into tb_right_department (code,cname,procode,ifclose,updatetime,updateuserid,memo,sortcode,flowcode,flowtype) values(?,?,?,?,?,?,?,?,?,?)";
+        List<Object> parms = new ArrayList<Object>();
+        parms.add(inCata.getCode());
+        parms.add(inCata.getCname());
+
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, parms.toArray());
     }
 }
