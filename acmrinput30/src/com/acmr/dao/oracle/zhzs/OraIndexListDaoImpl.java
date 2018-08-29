@@ -30,7 +30,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     }
     @Override
     public int addIndexlist(IndexList indexList) {
-        String sql1 = "insert into tb_right_department (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod) values(?,?,?,?,?,?,?,?,?)";
         List<Object> parms = new ArrayList<Object>();
         parms.add(indexList.getCode());
         parms.add(indexList.getCname());
@@ -48,8 +48,8 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, parms.toArray());
     }
     @Override
-    public int addCatagory(IndexList indexList,String code,String cname,String procode,String ifdata1) {
-        String sql1 = "insert into tb_right_department (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public int addCatagory(IndexList indexList) {
+        String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         List<Object> parms = new ArrayList<Object>();
         parms.add(indexList.getCode());
         parms.add(indexList.getCname());
@@ -60,7 +60,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         parms.add(indexList.getStartperiod());
         parms.add(indexList.getDelayday());
         parms.add(indexList.getPlanperiod());
-        parms.add(indexList.getPlantime());
+       parms.add(indexList.getPlantime());
         parms.add(indexList.getCreateuser());
         parms.add(indexList.getCreatetime());
         parms.add(indexList.getUpdatetime());

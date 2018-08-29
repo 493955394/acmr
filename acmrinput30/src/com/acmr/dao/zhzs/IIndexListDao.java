@@ -8,6 +8,6 @@ public interface IIndexListDao {
     public String getName();
     public DataTable getByUser(String usercode);
     public DataTable getByCode(String code);
-    public int addCatagory(IndexList indexList,String code,String cname,String procode,String ifdata1);
+    public int addCatagory(IndexList indexList);
     public int addIndexlist(IndexList indexList);
 }
