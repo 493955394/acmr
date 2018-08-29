@@ -2,8 +2,37 @@ define(function (require,exports,module) {
     'use strict';
     var $ = require('jquery'),
         tree = require('tree'),
+        common = require('common'),
         modal = require('modal'),
         listjsp= require('listjsp');
+    /**
+     * 新增目录ajax提交，忽略数据检查
+     */
+    $(document).on('submit', '.J_add_catalogue', function(event) {
+        event.preventDefault();
+        var self = this,
+            currentUrl = $(self).attr('action');
+        $.ajax({
+            url: currentUrl,
+            data: $(self).serialize(),
+            type: 'post',
+            dataType: 'json',
+            timeout: 10000,
+            success: function(data) {
+                if (data.returncode == 200) {
+                    alert("保存成功");
+                    $('#mymodal-data').modal('hide');
+                    //common.commonTips('保存成功！');
+                } else {
+                    alert("保存失败");
+                    $('#mymodal-data').modal('hide');
+                   // common.commonTips('保存出错！');
+                }
+            }
+
+        })
+
+    });
 
     var zNodes =[
         { id:"#1", pId:0, name:"指数",isParent:true,sou:true},
@@ -181,6 +210,7 @@ define(function (require,exports,module) {
 
     });
 
+
     //CategoryNode为只有目录的树结构nodes
     var CategoryNodes=[];
     for(i=0;i<zNodes.length;i++){
@@ -193,4 +223,5 @@ define(function (require,exports,module) {
     module.exports={
         CategoryNodes:CategoryNodes
     }
+
 })

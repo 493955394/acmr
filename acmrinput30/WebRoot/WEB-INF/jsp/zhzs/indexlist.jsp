@@ -59,13 +59,15 @@
                         <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data2" type="button">复制到</button>
                         <!-- 模态弹出窗内容 -->
                         <!-- 新增目录 -->
-                        <form class="J_add_catalogue"  action="${ctx}/zbdata/addmenu.htm?m=insert">
+
                             <%--<form class="J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm">
                                 <input name="m" value="insert" type="hidden">--%>
-                            <input type="hidden" class="form-control" name="ifdata" value="0" >
+
                             <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
+                                        <form class="J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insert">
+                                            <input type="hidden" class="form-control" name="ifdata" value="0" >
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                             <h4 class="modal-title">新增/编辑目录</h4>
@@ -100,10 +102,12 @@
                                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                                             <button type="submit" class="btn btn-primary">确定</button>
                                         </div>
+                                        </form>
                                     </div>
+
                                 </div>
                             </div>
-                        </form>
+
                         <!-- 新增计划 -->
                         <form class="J_add_plan" action="${ctx}/zbdata/addmenu.htm?m=insert">
                             <input type="hidden" class="form-control" name="ifdata" value="1" >
