@@ -59,8 +59,8 @@
                         <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data2" type="button">复制到</button>
                         <!-- 模态弹出窗内容 -->
                         <!-- 新增目录 -->
-                        <form class="J_add_catalogue"  action="${ctx}/zbdata/addmenu.htm?m=insert">
-                            <input type="text" class="form-control" name="ifdata" >
+                        <form class="J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insert">
+                            <input type="hidden" class="form-control" name="ifdata" value="0" >
                             <%--<input type="hidden" name="procode" value="${procode}">--%>
                             <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -88,7 +88,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="catacode" readonly value="${id}" >
+                                                    <input type="hidden" class="form-control" name="idcata" value="" >
                                                     <ul id="treeCata" class="ztree select-tree hid-top"></ul>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -103,7 +103,8 @@
                             </div>
                         </form>
                         <!-- 新增计划 -->
-                        <form class="J_add_plan" action="${ctx}/zbdata/indexlist.htm?m=insert">
+                        <form class="J_add_plan" action="${ctx}/zbdata/addmenu.htm?m=insert">
+                            <input type="hidden" class="form-control" name="ifdata" value="1" >
                             <div class="modal" id="mymodal-data1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -130,7 +131,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="catacode" readonly value="${id}">
+                                                    <input type="text" class="form-control" name="idplan" readonly value="">
                                                     <ul id="treePlan" class="ztree select-tree hid-top"></ul>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -139,9 +140,9 @@
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>统计周期：</label>
                                                 <div class="col-sm-5">
                                                     <select class="form-control" name="sort" >
-                                                        <option value="M"  <c:if test="${timesort == 'M'}">selected</c:if>月度</option>
-                                                        <option value="Q"  <c:if test="${timesort == 'Q'}">selected</c:if>季度</option>
-                                                        <option value="Y"  <c:if test="${timesort == 'Y'}">selected</c:if>年度</option>
+                                                        <option value="M"  <c:if test="${timesort == 'M'}">selected</c:if>>月度</option>
+                                                        <option value="Q"  <c:if test="${timesort == 'Q'}">selected</c:if>>季度</option>
+                                                        <option value="Y"  <c:if test="${timesort == 'Y'}">selected</c:if>>年度</option>
                                                     </select>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -157,7 +158,7 @@
                             </div>
                         </form>
                         <!-- 复制到 -->
-                        <form class="J_add_cope" action="${ctx}/zbdata/indexlist.htm?m=insert">
+                        <form class="J_add_cope" action="${ctx}/zbdata/addmenu.htm?m=insert">
                             <input type="hidden" class="form-control" name="code" value="${id}">
                             <div class="modal" id="mymodal-data2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
