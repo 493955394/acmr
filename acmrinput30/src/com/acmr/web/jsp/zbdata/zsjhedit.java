@@ -79,13 +79,4 @@ public class zsjhedit extends BaseAction {
         String code = this.getRequest().getParameter("id");
     }
 
-    public static void main(String[] args) {
-        IndexList index= new IndexList();
-        index.setCode("1");
-        index.setCname("1");
-        index.setCreateuser("1");
-        index.setIfdata("1");
-        IndexListService indexListService=new IndexListService();
-        indexListService.postData(index);
-    }
 }
