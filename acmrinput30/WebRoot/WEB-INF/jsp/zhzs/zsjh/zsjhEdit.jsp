@@ -41,7 +41,7 @@
                         </ul>
                 </div>
                 <!-- Tab panes -->
-                <div class="tab-content" style="padding-top: 20px;">
+                <div class="tab-content row" style="padding-top: 20px;">
                     <div role="tabpanel" class="tab-pane active" id="jbxx">
                 <form class="form-horizontal" id="myform" action="" method="post">
                     <input type="hidden" name="procode" value="${procode}">
@@ -103,23 +103,50 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="zssx">...</div>
                     <div role="tabpanel" class="tab-pane" id="jsfw">
-                        <div class="col-xs-3">
+                        <div class="col-xs-3" style="padding-top:50px">
                         <input type="hidden" id="initTreePara" value="${initTreePara}" />
                         <input type="hidden" id="procode" value="" />
                         <div class="panel tree-panel">
-                            <div class="panel-heading">地区树</div>
+                            <div class="panel-heading" style="text-align:center">地区树</div>
                         </div>
                         <ul id="treeDemo" class="ztree ztree-margin"></ul>
                             <input type="hidden" name="regcode" value="" />
                             <input type="hidden" name="regname" value="" />
                         </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="mxgh">...</div>
+                        <div class="col-xs-1 btn-group-vertical" role="group" style="padding-top:100px">
+                            <button class="btn btn-default btn-lg">></button>
+                            <div class="clearfix"></div>
+                            <button class="btn btn-default btn-lg">>></button>
+                            <div class="clearfix"></div>
+                            <button class="btn btn-default btn-lg"><</button>
+                            <div class="clearfix"></div>
+                            <button class="btn btn-default btn-lg"><<</button>
+                        </div>
+                        <div class="col-xs-3" style="padding-top:50px">
+                            <div class="panel tree-panel">
+                                <div class="panel-heading" style="text-align:center">地区列表</div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-5" style="padding-left: 20px;padding-right: 20px">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" style="text-align:center">数据检查区</div>
+                                <div class="panel-body">
+                                <span>时间检查</span>
+                                <input name="begintime"/>
+                                    ~
+                                    <input name="endtime">
+                                    <button>数据检查</button>
+                                    <button>数据下载</button>
+                                </div>
+                            </div>
+                        </div>
 
                 </div><!--Tab panes end-->
             </div>
         </div>
     </div>
+</div>
 </div>
 </body>
 <script>

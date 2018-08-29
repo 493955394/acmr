@@ -1,17 +1,10 @@
 package com.acmr.web.jsp.zbdata;
 
-import acmr.cubeinput.MetaTableException;
-import acmr.cubeinput.service.metatable.entity.SqlWhere;
 import acmr.cubequery.service.cubequery.entity.CubeNode;
-import acmr.util.DataTable;
-import acmr.util.DataTableRow;
-import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
-import com.acmr.helper.constants.Const;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.TreeNode;
-import com.acmr.model.range.Pinfo;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.service.metadata.MetaService;
 import com.acmr.service.metadata.MetaServiceManager;
@@ -81,40 +74,18 @@ public class zsjhedit extends BaseAction {
             list.add(treeNode);
         }
         this.sendJson(list);
-       /* List<SqlWhere> where1 = new ArrayList<SqlWhere>();
-        String code = this.getRequest().getParameter("id");
-        if (StringUtil.isEmpty(code)) {
-            where1.add(new SqlWhere("procode", "NULL", 00));
-        } else {
-            where1.add(new SqlWhere("procode", code, 10));
-        }
-        DataTable queryData = metaService.getTree(null, where1, "sortcode");
-        List<DataTableRow> rows = queryData.getRows();
-        List<TreeNode> list = new ArrayList<TreeNode>();
-        for (int i = 0; i < rows.size(); i++) {
-            DataTableRow row = rows.get(i);
-            TreeNode treeNode = new TreeNode();
-            treeNode.setId(row.getString("code"));
-            String ifdata = row.getString("ifdata");
-            Boolean ifd = true;
-            if (Const.IFDATA.equals(ifdata)) {
-                where1.clear();
-                where1.add(new SqlWhere("procode", row.getString("code"), 10));
-                int queryCount = metaService.QueryCount(where1);
-                if (queryCount > 0) {
-                    treeNode.setIconSkin("icon01");
-                } else {
-                    ifd = false;
-                }
-            }
-            treeNode.setIsParent(ifd);
-            treeNode.setName(row.getString("cname"));
-            treeNode.setPid(row.getString("procode"));
-            list.add(treeNode);
-        }
-        this.sendJson(list);*/
     }
     public void choosereg(){
         String code = this.getRequest().getParameter("id");
+    }
+
+    public static void main(String[] args) {
+        IndexList index= new IndexList();
+        index.setCode("1");
+        index.setCname("1");
+        index.setCreateuser("1");
+        index.setIfdata("1");
+        IndexListService indexListService=new IndexListService();
+        indexListService.postData(index);
     }
 }
