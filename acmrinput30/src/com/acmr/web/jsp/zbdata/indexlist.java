@@ -4,7 +4,6 @@ import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.model.pub.JSONReturnData;
-import com.acmr.model.zhzs.IndexCategory;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.service.zhzs.IndexListService;
 
@@ -18,6 +17,7 @@ public class indexlist extends BaseAction {
         ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
         return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("test",test).addObject("indexlist",indexlist);
     }
+
     public void insert() throws IOException{
         HttpServletRequest req = this.getRequest();
         String ifdata = req.getParameter("ifdata");
@@ -30,6 +30,38 @@ public class indexlist extends BaseAction {
 
         this.sendJson(data);
     }
+  //  public void insert() throws IOException {
+//        IndexListService indexListService = new IndexListService();
+//        HttpServletRequest req = this.getRequest();
+//        String code = PubInfo.getString(req.getParameter("code"));
+//        JSONReturnData data = new JSONReturnData("");
+//        if (indexListService.getData(code).getCode() != null) {
+//            data.setReturncode(300);
+//            data.setReturndata("fail");
+//            this.sendJson(data);
+//            return;
+//        }
+//        String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
+//        String ifdata2 = indexListService.getData(ifdata1).getIfdata();
+//        int ifdata = Integer.parseInt(ifdata1);
+//        String cname = PubInfo.getString(req.getParameter("cname"));
+//        String procode = PubInfo.getString(req.getParameter("idcata"));
+//        IndexList indexList = new IndexList();
+//        indexList.setCode(code);
+//        indexList.setCname(cname);
+//        indexList.setProcode(procode);
+//        indexList.setIfdata(ifdata1);
+//        int int1 = indexListService.addMenu(indexList);
+//        if (int1 == -1) {
+//            data.setReturncode(501);
+//            data.setReturndata("fail");
+//            this.sendJson(data);
+//            return;
+//        }
+//        data.setReturndata(indexList);
+//        this.sendJson(data);
+//        //this.getResponse().sendRedirect("indexlist.htm");
+//
 
 
 }
