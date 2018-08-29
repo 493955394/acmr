@@ -59,9 +59,10 @@
                         <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data2" type="button">复制到</button>
                         <!-- 模态弹出窗内容 -->
                         <!-- 新增目录 -->
-                        <form class="J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insert">
+                        <form class="J_add_catalogue"  action="${ctx}/zbdata/addmenu.htm?m=insert">
+                            <%--<form class="J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm">
+                                <input name="m" value="insert" type="hidden">--%>
                             <input type="hidden" class="form-control" name="ifdata" value="0" >
-                            <%--<input type="hidden" name="procode" value="${procode}">--%>
                             <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -88,6 +89,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                                 <div class="col-sm-5">
+                                                    <input type="text" class="form-control" name="cataname" value="" disabled>
                                                     <input type="hidden" class="form-control" name="idcata" value="" >
                                                     <ul id="treeCata" class="ztree select-tree hid-top"></ul>
                                                 </div>
@@ -131,7 +133,8 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="idplan" readonly value="">
+                                                    <input type="text" class="form-control" name="planname" value="" disabled>
+                                                    <input type="hidden" class="form-control" name="idcata"  value="">
                                                     <ul id="treePlan" class="ztree select-tree hid-top"></ul>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -170,7 +173,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标名称：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="cname" value="${id}" >
+                                                    <input type="text" class="form-control" name="zname" value="请选择计划"  >
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -178,7 +181,9 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属指数：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="procode" readonly value="${id}" >
+                                                    <input type="text" class="form-control" name="indexname" value="" disabled>
+                                                    <input type="hidden" class="form-control" name="proid" value="" >
+                                                    <ul id="treeZs" class="ztree select-tree hid-top"></ul>
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>

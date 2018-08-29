@@ -41,6 +41,32 @@ define(function (require,exports,module) {
             onClick:clickEvent1
         }
     };
+    var setting2 = {
+        async:{
+
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback:{
+            onClick:clickEvent2
+        }
+    };
+    var setting3 = {
+        async:{
+
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback:{
+            onClick:clickEvent3
+        }
+    };
     //局部刷新列表
     function reloadList() {
         var url=window.location.href
@@ -60,17 +86,43 @@ define(function (require,exports,module) {
             classname+"'])").detach()
     }
     function clickEvent1(event,treeId,treeNode) {
-        var proCode=treeNode.id
 
         if (treeNode.id != '') {
-            $('input[name=catacode]').val(treeNode.name);
+            $('input[name=cataname]').val(treeNode.name);
             $('input[name=idcata]').val(treeNode.id);
         } else {
-            $('input[name=catacode]').val('');
+            $('input[name=cataname]').val('');
         }
-        var classname="pro-"+proCode;
-        console.log(classname)
-        $("."+classname).css("color","red")
+
+    }
+    function clickEvent2(event,treeId,treeNode) {
+
+        if (treeNode.id != '') {
+            $('input[name=planname]').val(treeNode.name);
+            $('input[name=itcata]').val(treeNode.id);
+        } else {
+            $('input[name=planname]').val('');
+        }
+
+    }
+    function clickEvent3(event,treeId,treeNode) {
+
+        if (treeNode.id != '') {
+            $('input[name=indexname]').val(treeNode.name);
+            $('input[name=proid]').val(treeNode.id);
+        } else {
+            $('input[name=indexname]').val('');
+        }
+
+    }
+    function clickEvent4(event,treeId,treeNode) {
+
+        if (treeNode.id != '') {
+            $('input[name=zname]').val(treeNode.name);
+            $('input[name=search]').val(treeNode.id);
+        } else {
+            $('input[name=zname]').val('');
+        }
 
     }
 
@@ -122,9 +174,10 @@ define(function (require,exports,module) {
 
         $.fn.zTree.init($("#treeCata"), setting1, CategoryNodes);
         fixIcon("treeCata");
-        $.fn.zTree.init($("#treePlan"), setting1, CategoryNodes);
+        $.fn.zTree.init($("#treePlan"), setting2, CategoryNodes);
         fixIcon("treePlan");
-
+        $.fn.zTree.init($("#treeZs"), setting3, zNodes);
+        fixIcon("treeZs");
 
     });
 
