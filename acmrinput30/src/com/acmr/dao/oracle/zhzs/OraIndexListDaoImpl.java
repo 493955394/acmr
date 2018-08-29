@@ -4,6 +4,7 @@ import acmr.util.DataTable;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexListDao;
 import com.acmr.model.zhzs.IndexCategory;
+import com.acmr.model.zhzs.IndexList;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -28,12 +29,41 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {code});
     }
     @Override
-    public int addCatagory(IndexCategory inCata) {
-        String sql1 = "insert into tb_right_department (code,cname,procode,ifclose,updatetime,updateuserid,memo,sortcode,flowcode,flowtype) values(?,?,?,?,?,?,?,?,?,?)";
+    public int addIndexlist(IndexList indexList) {
+        String sql1 = "insert into tb_right_department (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         List<Object> parms = new ArrayList<Object>();
-        parms.add(inCata.getCode());
-        parms.add(inCata.getCname());
-
+        parms.add(indexList.getCode());
+        parms.add(indexList.getCname());
+        parms.add(indexList.getProcode());
+        parms.add(indexList.getIfdata());
+        parms.add(indexList.getState());
+        parms.add(indexList.getSort());
+        parms.add(indexList.getStartperiod());
+        parms.add(indexList.getDelayday());
+        parms.add(indexList.getPlanperiod());
+        parms.add(indexList.getPlantime());
+        parms.add(indexList.getCreateuser());
+        parms.add(indexList.getCreatetime());
+        parms.add(indexList.getUpdatetime());
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, parms.toArray());
+    }
+    @Override
+    public int addCatagory(IndexList indexList,String code,String cname,String procode,String ifdata1) {
+        String sql1 = "insert into tb_right_department (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        List<Object> parms = new ArrayList<Object>();
+        parms.add(indexList.getCode());
+        parms.add(indexList.getCname());
+        parms.add(indexList.getProcode());
+        parms.add(indexList.getIfdata());
+        parms.add(indexList.getState());
+        parms.add(indexList.getSort());
+        parms.add(indexList.getStartperiod());
+        parms.add(indexList.getDelayday());
+        parms.add(indexList.getPlanperiod());
+        parms.add(indexList.getPlantime());
+        parms.add(indexList.getCreateuser());
+        parms.add(indexList.getCreatetime());
+        parms.add(indexList.getUpdatetime());
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, parms.toArray());
     }
 }

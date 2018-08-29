@@ -64,7 +64,7 @@ define(function (require,exports,module) {
 
         if (treeNode.id != '') {
             $('input[name=catacode]').val(treeNode.name);
-            $('input[name=procode]').val(treeNode.id);
+            $('input[name=idcata]').val(treeNode.id);
         } else {
             $('input[name=catacode]').val('');
         }
@@ -75,8 +75,8 @@ define(function (require,exports,module) {
     }
 
     //修复图标，使没有子节点的目录也显示为目录
-    function fixIcon(){
-        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+    function fixIcon(String treeid){
+        var treeObj = $.fn.zTree.getZTreeObj(treeid);
         //过滤出sou属性为true的节点（也可用你自己定义的其他字段来区分，这里通过sou保存的true或false来区分）
         var folderNode = treeObj.getNodesByFilter(function (node) { return node.sou});
         for(var j=0 ; j<folderNode.length; j++){//遍历目录节点，设置isParent属性为true;
@@ -115,19 +115,14 @@ define(function (require,exports,module) {
 
     $(document).ready(function(){
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        fixIcon();
+        fixIcon("#treeDemo");
         addPath();
-    });
-    $(document).ready(function(){
-        console.log(CategoryNodes)
         $.fn.zTree.init($("#treeCata"), setting1, CategoryNodes);
-        fixIcon();
-    });
-    $(document).ready(function(){
-        console.log(CategoryNodes)
+        fixIcon("#treeCata");
         $.fn.zTree.init($("#treePlan"), setting1, CategoryNodes);
-        fixIcon();
+        fixIcon("#treePlan");
     });
+
 
     //CategoryNode为只有目录的树结构nodes
     var CategoryNodes=[];
