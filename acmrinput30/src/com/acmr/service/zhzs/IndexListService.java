@@ -80,17 +80,19 @@ public class IndexListService {
         index.setStartperiod(data.getString("startperiod"));
         return index;
     }
-    public int addCata(IndexCategory inCata) {
-        int int1 = IndexListDao.Fator.getInstance().getIndexdatadao().addCatagory(inCata);
-        return int1;
-    }
+//    public int addCata(IndexCategory inCata) {
+//        int int1 = IndexListDao.Fator.getInstance().getIndexdatadao().addCatagory(inCata);
+//        return int1;
+//    }
 
 
         public static void main(String[] args) {
-        IndexListService indexListService=new IndexListService();
-        ArrayList<IndexList> index=indexListService.getIndexList();
-        for(int i=0;i<index.size();i++){
-            PubInfo.printStr(index.get(i).getPlanperiod());
+            IndexList index= new IndexList();
+            index.setCode("1");
+            index.setCname("1");
+            index.setCreateuser("1");
+            index.setIfdata("1");
+         IndexListDao.Fator.getInstance().getIndexdatadao().addCatagory(index);
         }
 /*        Date test= (Date) indexlist.get(1).get("plantime");
         PubInfo.printStr("123"+test.toString());
@@ -104,4 +106,3 @@ public class IndexListService {
         PubInfo.printStr(code.getColumns().get(0).getColumnName());*/
     }
 
-}

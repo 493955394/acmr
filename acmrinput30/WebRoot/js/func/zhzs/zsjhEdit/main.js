@@ -37,6 +37,7 @@ define(function (require,exports,module) {
         if (treeNode.id != '') {
             $('input[name=proname]').val(treeNode.name);
             $('input[name=procode]').val(treeNode.id);
+            console.log(treeNode.id)
         } else {
             $('input[name=proname]').val('');
         }
@@ -62,7 +63,6 @@ define(function (require,exports,module) {
     /**
      * 菜单树
      */
-    var delIds = [];
     var initTreePara = $("#initTreePara").val();
     var treeNodeId = $("#procode").val();
     var treeNodeName = "地区树";
@@ -83,6 +83,13 @@ define(function (require,exports,module) {
     function clickEvent1(event, treeid, treeNode) {
         treeNodeId = treeNode.id;
         treeNodeName = treeNode.name;
+        if (treeNode.id != '') {
+        $('input[name=regname]').val(treeNode.name);
+        $('input[name=regcode]').val(treeNode.id);}
+        else {
+            $('input[name=regname]').val("");
+        }
+
     }
     var rootNode = [{"id":"","name":"地区树", "open":"true", "isParent":"true"}];
     var treeObj = $.fn.zTree.init($("#treeDemo"), setting1, rootNode);
