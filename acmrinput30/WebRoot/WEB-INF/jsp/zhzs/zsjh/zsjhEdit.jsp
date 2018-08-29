@@ -105,11 +105,12 @@
                     <div role="tabpanel" class="tab-pane" id="jsfw">
                         <div class="col-xs-3" style="border:2px;solid: #0f0f10">
                         <input type="hidden" id="initTreePara" value="${initTreePara}" />
-                        <input type="hidden" id="procode" value="${procode}" />
+                        <input type="hidden" id="procode" value="" />
                         <div class="panel tree-panel">
                             <div class="panel-heading">地区树</div>
                         </div>
                         <ul id="treeDemo" class="ztree ztree-margin"></ul>
+                            <button ></button>
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="mxgh">...</div>

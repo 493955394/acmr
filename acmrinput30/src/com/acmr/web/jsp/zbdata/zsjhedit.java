@@ -2,8 +2,10 @@ package com.acmr.web.jsp.zbdata;
 
 import acmr.cubeinput.MetaTableException;
 import acmr.cubeinput.service.metatable.entity.SqlWhere;
+import acmr.cubequery.service.cubequery.entity.CubeNode;
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
+import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.helper.constants.Const;
@@ -13,6 +15,7 @@ import com.acmr.model.range.Pinfo;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.service.metadata.MetaService;
 import com.acmr.service.metadata.MetaServiceManager;
+import com.acmr.service.zbdata.RegdataService;
 import com.acmr.service.zhzs.IndexListService;
 
 import java.io.IOException;
@@ -51,13 +54,34 @@ public class zsjhedit extends BaseAction {
      *
      * 获取树形结构
      *
-     * @throws MetaTableException
      *
      * @throws IOException
      * @author chenyf
      */
-    public void findZbTree() throws MetaTableException, IOException {
-        List<SqlWhere> where1 = new ArrayList<SqlWhere>();
+    public void findZbTree() throws  IOException {
+        String code = this.getRequest().getParameter("id");
+        if (StringUtil.isEmpty(code)){
+            ArrayList<CubeNode> nodes= RegdataService.getRegSubNodes("cuscxnd");
+        }
+        ArrayList<CubeNode> nodes= RegdataService.getRegSubNodes("cuscxnd",code);
+        List<TreeNode> list = new ArrayList<TreeNode>();
+        for (int i = 0; i <nodes.size() ; i++) {
+            ArrayList<CubeNode> childnodes= RegdataService.getRegSubNodes("cuscxnd",nodes.get(i).getCode());
+            TreeNode treeNode = new TreeNode();
+            treeNode.setId(nodes.get(i).getCode());
+            Boolean ifd ;
+            if(childnodes.size()>0){
+                ifd = true;
+            }else {
+                ifd = false;
+            }
+            treeNode.setIsParent(ifd);
+            treeNode.setName(nodes.get(i).getCname());
+            treeNode.setPid(code);
+            list.add(treeNode);
+        }
+        this.sendJson(list);
+       /* List<SqlWhere> where1 = new ArrayList<SqlWhere>();
         String code = this.getRequest().getParameter("id");
         if (StringUtil.isEmpty(code)) {
             where1.add(new SqlWhere("procode", "NULL", 00));
@@ -88,15 +112,9 @@ public class zsjhedit extends BaseAction {
             treeNode.setPid(row.getString("procode"));
             list.add(treeNode);
         }
-        this.sendJson(list);
+        this.sendJson(list);*/
     }
-//    public static void main(String[] args){
-//        IndexListService indexListService=new IndexListService();
-//        IndexList list =indexListService.getData("R001");
-//        String procode = "0";
-//        if(list.getProcode()!=null && list.getProcode()!=""){
-//            procode = "1";
-//        }
-//        System.out.println(procode);
-//    }
+    public void choosereg(){
+        String code = this.getRequest().getParameter("id");
+    }
 }

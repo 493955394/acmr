@@ -34,17 +34,12 @@ define(function (require,exports,module) {
         }
     };
     function clickEvent(event,treeId,treeNode) {
-        var proCode=treeNode.id
         if (treeNode.id != '') {
             $('input[name=proname]').val(treeNode.name);
             $('input[name=procode]').val(treeNode.id);
         } else {
             $('input[name=proname]').val('');
         }
-        var classname="pro-"+proCode;
-        console.log(classname)
-        $("."+classname).css("color","red")
-
     }
 
     //修复图标，使没有子节点的目录也显示为目录
@@ -69,7 +64,7 @@ define(function (require,exports,module) {
      */
     var delIds = [];
     var initTreePara = $("#initTreePara").val();
-    var treeNodeId = $("#procode1").val();
+    var treeNodeId = $("#procode").val();
     var treeNodeName = "地区树";
     var st = new Date().getTime();//时间戳，解决ie9 ajax缓存//2015-7-2 by liaojin
     var setting1 = {
