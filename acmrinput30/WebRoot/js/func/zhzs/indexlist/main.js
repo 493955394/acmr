@@ -6,9 +6,9 @@ define(function (require,exports,module) {
         listjsp= require('listjsp');
 
     var zNodes =[
-        { id:"#1", pId:0, name:"指数",isParent:true},
-        { id:"#2", pId:0, name:"我收到的指数",isParent:true},
-        { id:"#3", pId:0, name:"我共享的指数", isParent:true}
+        { id:"#1", pId:0, name:"指数",isParent:true,sou:true},
+        { id:"#2", pId:0, name:"我收到的指数",isParent:true,sou:true},
+        { id:"#3", pId:0, name:"我共享的指数", isParent:true,sou:true}
     ];
     var indexlist=listjsp.indexlist;
     for(var i=0;i<indexlist.length;i++){
@@ -75,7 +75,7 @@ define(function (require,exports,module) {
     }
 
     //修复图标，使没有子节点的目录也显示为目录
-    function fixIcon(String treeid){
+    function fixIcon(treeid){
         var treeObj = $.fn.zTree.getZTreeObj(treeid);
         //过滤出sou属性为true的节点（也可用你自己定义的其他字段来区分，这里通过sou保存的true或false来区分）
         var folderNode = treeObj.getNodesByFilter(function (node) { return node.sou});
@@ -84,6 +84,8 @@ define(function (require,exports,module) {
         }
         treeObj.refresh();//调用api自带的refresh函数。
     }
+
+
     //添加一个属性path，里面存放节点的的所有父节点（包括自己）
     function addPath(){
         var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
@@ -115,14 +117,16 @@ define(function (require,exports,module) {
 
     $(document).ready(function(){
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        fixIcon("#treeDemo");
+        fixIcon("treeDemo");
         addPath();
-        $.fn.zTree.init($("#treeCata"), setting1, CategoryNodes);
-        fixIcon("#treeCata");
-        $.fn.zTree.init($("#treePlan"), setting1, CategoryNodes);
-        fixIcon("#treePlan");
-    });
 
+        $.fn.zTree.init($("#treeCata"), setting1, CategoryNodes);
+        fixIcon("treeCata");
+        $.fn.zTree.init($("#treePlan"), setting1, CategoryNodes);
+        fixIcon("treePlan");
+
+
+    });
 
     //CategoryNode为只有目录的树结构nodes
     var CategoryNodes=[];
@@ -131,6 +135,7 @@ define(function (require,exports,module) {
             CategoryNodes.push(zNodes[i])
         }
     }
+    console.log(CategoryNodes)
 
     module.exports={
         CategoryNodes:CategoryNodes
