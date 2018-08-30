@@ -29,7 +29,9 @@ public class IndexListService {
             index.setCname(indexlist.get(i).get("cname").toString());
             index.setCreateuser(indexlist.get(i).get("createuser").toString());
             index.setIfdata(indexlist.get(i).get("ifdata").toString());
-            index.setState(indexlist.get(i).get("state").toString());
+            if (indexlist.get(i).get("state")!=null){
+                index.setState(indexlist.get(i).get("state").toString());
+            }
             index.setCreatetime((Date) indexlist.get(i).get("createtime"));
             if(indexlist.get(i).get("plantime")!=null){
                 index.setPlantime((Date) indexlist.get(i).get("plantime"));
