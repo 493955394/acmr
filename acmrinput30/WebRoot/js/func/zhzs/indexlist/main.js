@@ -87,6 +87,7 @@ define(function (require,exports,module) {
 
         })
     });
+    $(".category_edit").click(categoryEdit)
     /**
      * 搜索框
      */
@@ -274,6 +275,10 @@ define(function (require,exports,module) {
             $("tr[class*='pro-" +
                 comp+"']").addClass(path)
         }
+    }
+
+    function categoryEdit(){
+        console.log("editcategory")
     }
 
     $(document).ready(function(){

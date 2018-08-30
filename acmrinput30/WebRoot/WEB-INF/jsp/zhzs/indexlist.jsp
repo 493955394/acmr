@@ -53,7 +53,8 @@
                     <div class="toolbar-group" style="position: relative;">
                         <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data" type="button">新增目录</button>&nbsp
                         <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data1" type="button">新增计划</button>&nbsp
-                        <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data2" type="button">复制到</button>
+                        <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data2"  type="button">复制到</button>
+                        <%--<input type='button' value='复制到' onclick="show()"/>--%>
                         <!-- 模态弹出窗内容 -->
                         <!-- 新增目录 -->
                             <%--<form class="J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm">
@@ -143,9 +144,9 @@
                                                 <div class="col-sm-5">
                                                     <select class="form-control" name="sort" >
                                                         <option value="">请选择</option>
-                                                        <option value="M">月度</option>
-                                                        <option value="Q">季度</option>
-                                                        <option value="Y">年度</option>
+                                                        <option value="m">月度</option>
+                                                        <option value="q">季度</option>
+                                                        <option value="y">年度</option>
                                                     </select>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -162,11 +163,10 @@
                         </div>
                         <!-- 复制到 -->
 
-                            <input type="hidden" class="form-control" name="copename" value="${name}">
                             <div class="modal" id="mymodal-data2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <form class="J_add_cope" action="${ctx}/zbdata/addmenu.htm?m=insert">
+                                        <form class="J_add_cope" action="${ctx}/zbdata/indexlist.htm?m=copy">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                         </div>
@@ -174,11 +174,17 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标名称：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="zname" value="请选择计划"  >
+                                                    <input type="text" class="form-control" name="zname" id= "cp" >
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
-
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标代码：</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" name="plancode">
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属指数：</label>
                                                 <div class="col-sm-5">
@@ -192,7 +198,8 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                            <button type="submit" class="btn btn-primary">确定</button>
+                                            <button type="submit" class="btn btn-primary" name="plancode" value="check_val"  onclick="show()">确定</button>
+                                            <%--<input type='button'  name="plancode" value='复制到' onclick="show()"/>--%>
                                         </div>
                                         </form>
                                     </div>
