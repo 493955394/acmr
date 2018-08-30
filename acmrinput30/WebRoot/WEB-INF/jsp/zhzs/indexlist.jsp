@@ -34,18 +34,15 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
                 <div class="toolbar-left">
-                    <form class="form-inline J_search_form" action="${ctx}/metadata/regmgr.htm?m=find">
+                    <form class="form-inline J_search_form" action="${ctx}/zbdata/indexlist.htm?m=find">
                         <div class="form-group">
                             <select id="querykey" class="form-control input-sm">
-                                <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
-                                                                <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
+                                <option value="cname" <c:if test="${code != '' && code!= null}">selected</c:if>>名称</option>
+                                <option value="code" <c:if test="${cname != '' && cname != null}">selected</c:if>>编码</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容">
-                            <%--
-                                                        <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="<c:if test="${code != '' && code!= null}">${code}</c:if><c:if test="${cname != '' && cname != null}">${cname}</c:if>">
-                            --%>
+                            <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="<c:if test="${code != '' && code!= null}">${code}</c:if><c:if test="${cname != '' && cname != null}">${cname}</c:if>">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-sm">查询</button>

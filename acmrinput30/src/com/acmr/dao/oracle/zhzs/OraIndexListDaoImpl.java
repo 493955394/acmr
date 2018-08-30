@@ -29,6 +29,16 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {code});
     }
     @Override
+    public DataTable getLikeCode(String code) {
+        String sql="select * from tb_coindex_index where code like ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {"%" + code + "%"});
+    }
+    @Override
+    public DataTable getLikeCname(String cname) {
+        String sql="select * from tb_coindex_index where cname like ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {"%" + cname + "%"});
+    }
+    @Override
     public int addIndexlist(IndexList indexList) {
         String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod) values(?,?,?,?,?,?,?,?,?)";
         List<Object> parms = new ArrayList<Object>();

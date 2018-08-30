@@ -8,5 +8,7 @@ public interface IIndexListDao {
     public String getName();
     public DataTable getByUser(String usercode);
     public DataTable getByCode(String code);
+    public DataTable getLikeCode(String code);
+    public DataTable getLikeCname(String cname);
     public int addIndexlist(IndexList indexList);
 }

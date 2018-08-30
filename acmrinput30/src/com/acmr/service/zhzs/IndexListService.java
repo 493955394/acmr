@@ -80,6 +80,35 @@ public class IndexListService {
         index.setStartperiod(data.getString("startperiod"));
         return index;
     }
+    //查找功能
+    public ArrayList<IndexList> found(int type,String code){
+        ArrayList<IndexList> indexLists=new ArrayList<>();
+        List<DataTableRow> data = new ArrayList<>();
+       if(type==0){//0表示是通过code查的
+            data = IndexListDao.Fator.getInstance().getIndexdatadao().getLikeCode(code).getRows();
+
+       }else if(type==1){//1表示是通过cname查的
+           data = IndexListDao.Fator.getInstance().getIndexdatadao().getLikeCname(code).getRows();
+       }
+        for(int i=0;i<data.size();i++){
+            IndexList index= new IndexList();
+            index.setCode(data.get(i).getString("code"));
+            index.setCname(data.get(i).getString("cname"));
+            index.setCreateuser(data.get(i).getString("createuser"));
+            index.setIfdata(data.get(i).getString("ifdata"));
+            index.setState(data.get(i).getString("state"));
+            index.setCreatetime(data.get(i).getDate("createtime"));
+            index.setPlantime( data.get(i).getDate("plantime"));
+            index.setUpdatetime( data.get(i).getDate("updatetime"));
+            index.setDelayday(data.get(i).getString("delayday"));
+            index.setPlanperiod(data.get(i).getString("planperiod"));
+            index.setProcode(data.get(i).getString("procode"));
+            index.setSort(data.get(i).getString("sort"));
+            index.setStartperiod(data.get(i).getString("startperiod"));
+            indexLists.add(index);
+        }
+        return indexLists;
+    }
 
     public int addMenu(IndexList indexList) {
         return IndexListDao.Fator.getInstance().getIndexdatadao().addIndexlist(indexList);

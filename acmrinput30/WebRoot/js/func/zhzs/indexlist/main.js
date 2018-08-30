@@ -3,6 +3,7 @@ define(function (require,exports,module) {
     var $ = require('jquery'),
         tree = require('tree'),
         common = require('common'),
+        pjax=require('pjax'),
         modal = require('modal'),
         listjsp= require('listjsp');
     /**
@@ -31,9 +32,34 @@ define(function (require,exports,module) {
             }
 
         })
-
     });
-
+    /**
+     * 搜索框
+     */
+    var delIds = [];
+    var isMove = true;
+    var searchField = "";
+    $(document).on('submit', '.J_search_form', function(event) {
+        event.preventDefault();
+        var self = this,
+            requestUrl = $(self).prop('action'),
+            key = $('select',self).val(),
+            val = $('input',self).val(),
+            str = "";
+        var requestData = common.formatData(key,val);
+        if(requestData.length>0){
+            requestData="&"+requestData;
+        }
+        searchField = requestData+str;
+        isMove = false;
+        $.pjax({
+            url: requestUrl+searchField,
+            container: '.J_regmgr_data_table'
+        });
+        $(document).on('pjax:success', function() {
+            delIds = [];
+        });
+    });
     var zNodes =[
         { id:"#1", pId:0, name:"指数",isParent:true,sou:true},
         { id:"#2", pId:0, name:"我收到的指数",isParent:true,sou:true},

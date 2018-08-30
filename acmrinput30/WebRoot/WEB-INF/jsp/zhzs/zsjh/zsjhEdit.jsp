@@ -92,13 +92,6 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"> 指数个数位数：</label>
-                    <div class="col-sm-5">
-                        <input id="dacimal" name="dacimal" value="1" class="form-control"/>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
             </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="zssx">...</div>
