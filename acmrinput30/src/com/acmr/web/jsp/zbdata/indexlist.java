@@ -79,8 +79,10 @@ public class indexlist extends BaseAction {
         HttpServletRequest req = this.getRequest();
         ArrayList<IndexList> indexlist= new ArrayList<IndexList>();
         // 获取查询数据
-        String code = StringUtil.toLowerString(req.getParameter("code"));
-        String cname = StringUtil.toLowerString(req.getParameter("cname"));
+        String code = req.getParameter("code");
+        String cname = req.getParameter("cname");
+        //中文乱码并且大小写区分
+        System.out.println("web: "+cname);
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
         if (!StringUtil.isEmpty(code)) {
