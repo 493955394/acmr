@@ -107,17 +107,20 @@
                             <input type="hidden" name="regname" value="" />
                         </div>
                         <div class="col-xs-1 btn-group-vertical" role="group" style="padding-top:100px">
-                            <button class="btn btn-default btn-lg">></button>
+                            <button class="btn btn-default btn-lg" id="sigglechoose">></button>
                             <div class="clearfix"></div>
-                            <button class="btn btn-default btn-lg">>></button>
+                            <button class="btn btn-default btn-lg" id="chooseall">>></button>
                             <div class="clearfix"></div>
-                            <button class="btn btn-default btn-lg"><</button>
+                            <button class="btn btn-default btn-lg" id="delsiggle"><</button>
                             <div class="clearfix"></div>
-                            <button class="btn btn-default btn-lg"><<</button>
+                            <button class="btn btn-default btn-lg" id="delall"><<</button>
                         </div>
                         <div class="col-xs-3" style="padding-top:50px">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">地区列表</div>
+                            </div>
+                            <div class="panle-body" >
+                                <ul id="selectreg"></ul>
                             </div>
                         </div>
 

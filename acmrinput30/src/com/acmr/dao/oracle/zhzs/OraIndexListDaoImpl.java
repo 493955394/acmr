@@ -30,12 +30,12 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     }
     @Override
     public DataTable getLikeCode(String code) {
-        String sql="select * from tb_coindex_index where code like ? ";
+        String sql="select * from tb_coindex_index where lower(code) like ? ";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {"%" + code + "%"});
     }
     @Override
     public DataTable getLikeCname(String cname) {
-        String sql="select * from tb_coindex_index where cname like ? ";
+        String sql="select * from tb_coindex_index where lower(cname) like ? ";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {"%" + cname + "%"});
     }
     @Override

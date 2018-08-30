@@ -135,4 +135,29 @@ define(function (require,exports,module) {
         }
     }
 
+    /**
+     * 选中单个地区
+     */
+    var select = [];
+    $("#sigglechoose").click(function () {
+        var regcode =  $('input[name=regcode]').val();
+        var regcname =  $('input[name=regname]').val();
+        select.push({code:regcode,name:regcname});
+       //去重
+        for (var i = 0; i < select.length; i++) {
+            for (var j =i+1; j <select.length; ) {
+                if (select[i].code == select[j].code && select[i].name == select[j].name) {
+                    select.splice(j, 1);
+                }
+                else j++;
+            }
+        }
+        for(var i=0;i<select.length;i++){
+            var showreg ="";
+            showreg += '<li id="'+select[i].code+'">'+select[i].name+'</li>';
+        }
+        console.log(select)
+        $("#selectreg").append(showreg);
+    })
+
 });
