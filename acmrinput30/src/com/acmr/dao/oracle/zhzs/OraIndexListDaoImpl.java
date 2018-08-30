@@ -30,7 +30,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     }
     @Override
     public int addIndexlist(IndexList indexList) {
-        String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod) values(?,?,?,?,?,?,?,?,?)";
+        String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         List<Object> parms = new ArrayList<Object>();
         parms.add(indexList.getCode());
         parms.add(indexList.getCname());

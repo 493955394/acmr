@@ -83,9 +83,10 @@ public class IndexListService {
         return index;
     }
 
-    public int addMenu(IndexList indexList) {
+    public int addCp(IndexList indexList) {
         return IndexListDao.Fator.getInstance().getIndexdatadao().addIndexlist(indexList);
     }
+
 
 
 
