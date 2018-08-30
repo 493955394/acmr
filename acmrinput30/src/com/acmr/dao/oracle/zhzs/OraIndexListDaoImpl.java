@@ -14,30 +14,34 @@ public class OraIndexListDaoImpl implements IIndexListDao {
 
     @Override
     public String getName() {
-        String sql="select cname from tb_coindex_index where code = 'D002' ";
+        String sql = "select cname from tb_coindex_index where code = 'D002' ";
         return AcmrInputDPFactor.getQuickQuery().getDataScarSql(sql);
     }
 
     @Override
     public DataTable getByUser(String usercode) {
-        String sql="select * from tb_coindex_index where createuser= ? ";
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {usercode});
+        String sql = "select * from tb_coindex_index where createuser= ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{usercode});
     }
+
     @Override
     public DataTable getByCode(String code) {
-        String sql="select * from tb_coindex_index where code= ? ";
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {code});
+        String sql = "select * from tb_coindex_index where code= ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code});
     }
+
     @Override
     public DataTable getLikeCode(String code) {
-        String sql="select * from tb_coindex_index where lower(code) like ? ";
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {"%" + code + "%"});
+        String sql = "select * from tb_coindex_index where lower(code) like ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + code + "%"});
     }
+
     @Override
     public DataTable getLikeCname(String cname) {
-        String sql="select * from tb_coindex_index where lower(cname) like ? ";
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {"%" + cname + "%"});
+        String sql = "select * from tb_coindex_index where lower(cname) like ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + cname + "%"});
     }
+
     @Override
     public int addIndexlist(IndexList indexList) {
         String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -58,4 +62,18 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, parms.toArray());
     }
 
+    @Override
+    public int addNplan(IndexList indexList, String code) {
+        String sql1 = "insert into tb_coindex_index (code,cname,procode,createuser,createtime) values(?,?,?,?,?) where code = ? ";
+        List<Object> parms = new ArrayList<Object>();
+        parms.add(indexList.getCode());
+        parms.add(indexList.getCname());
+        parms.add(indexList.getProcode());
+        parms.add(indexList.getCreateuser());
+        parms.add(indexList.getCreatetime());
+        parms.add(code);
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, parms.toArray());
+
+
+    }
 }
