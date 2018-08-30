@@ -46,8 +46,8 @@ public class OriginService {
         return node;
     }
     /**
-     * @Description: 返回有数的地区的编码（REGCODE，三位数）或时间
-     * @Param: [condition,wcode].wcode只能是sj或reg，condition例子：where.Add("zb", "ffe001d3f4a67c752233a83f900af86a942359f2");
+     * @Description: 返回有数的地区的编码（REGCODE，三位数）、时间、数据来源、主体
+     * @Param: [condition,wcode].wcode只能是sj或reg,ds,co，condition例子：where.Add("zb", "ffe001d3f4a67c752233a83f900af86a942359f2");
      * @return: void
      * @Author: lyh
      * @Date: 2018/8/23
@@ -59,11 +59,7 @@ public class OriginService {
             list1.add(condition.get(i));
         }
         List<String> nodes=new ArrayList<String>();
-        if(wcode=="sj"){
-            nodes = cube1.getHasDataWdList("cuscxnd", list1, "sj");
-        }else {
-            nodes = cube1.getHasDataWdListreg("cuscxnd", list1, "reg");
-        }
+        nodes = cube1.getHasDataWdListreg("cuscxnd",list1,wcode);
         return nodes;
     }
 

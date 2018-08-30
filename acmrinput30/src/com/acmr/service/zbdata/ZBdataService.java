@@ -2,6 +2,8 @@ package com.acmr.service.zbdata;
 
 import acmr.cubequery.service.cubequery.entity.CubeNode;
 import acmr.cubequery.service.cubequery.entity.CubeWdValue;
+import acmr.util.PubInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,17 +101,19 @@ public class ZBdataService {
     }
 
     /**
-    * @Description: 待完成，返回有数的ds和co
-    * @Param: [zbcode,wcode] wcode只能是"co"或者"ds"，zbcode必须是最底层的指标的code，不能是指标分类的code
+    * @Description: 返回有数的ds和co,sj,reg
+    * @Param: [zbcode,wcode] wcode只能是"co"或者"ds","sj","reg"，zbcode必须是最底层的指标的code，不能是指标分类的code
     * @return: java.util.List<acmr.cubequery.service.cubequery.entity.CubeNode>
     * @Author: lyh
     * @Date: 2018/8/24
     */
-    public List<CubeNode> getHasDataNodeO(String zbcode,String wcode){
-        List<CubeNode> re=new ArrayList<>();
-        return re;
-
+    public  List<String> getHasDataNodeO(String zbcode, String wcode){
+        List<CubeWdValue> list=new ArrayList<>();
+        list.add(new CubeWdValue("zb",zbcode));
+        List<String> nodes=origin.gethasdatawdlist(list,wcode);
+        return nodes;
     }
+
 
 
 }
