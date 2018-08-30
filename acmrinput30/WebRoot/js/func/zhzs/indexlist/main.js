@@ -23,11 +23,65 @@ define(function (require,exports,module) {
                 if (data.returncode == 200) {
                     alert("保存成功");
                     $('#mymodal-data').modal('hide');
+                }else {
+                    alert("保存失败");
+                    $('#mymodal-data').modal('hide');
+                }
+            },
+            error: function() {
+                common.commonTips('添加失败');
+
+            }
+
+        })
+
+    });
+    $(document).on('submit', '.J_add_plan', function(event) {
+        event.preventDefault();
+        var self = this,
+            currentUrl = $(self).attr('action');
+        $.ajax({
+            url: currentUrl,
+            data: $(self).serialize(),
+            type: 'post',
+            dataType: 'json',
+            timeout: 10000,
+            success: function(data) {
+                if (data.returncode == 200) {
+                    alert("保存成功");
+                    $('#mymodal-data1').modal('hide');
+                    //window.location.reload();
                     //common.commonTips('保存成功！');
                 } else {
                     alert("保存失败");
-                    $('#mymodal-data').modal('hide');
-                   // common.commonTips('保存出错！');
+                    $('#mymodal-data1').modal('hide');
+                    // common.commonTips('保存出错！');
+                }
+            }
+
+        })
+
+    });
+    $(document).on('submit', '.J_add_cope', function(event) {
+        event.preventDefault();
+        var self = this,
+            currentUrl = $(self).attr('action');
+        $.ajax({
+            url: currentUrl,
+            data: $(self).serialize(),
+            type: 'post',
+            dataType: 'json',
+            timeout: 10000,
+            success: function(data) {
+                if (data.returncode == 200) {
+                    alert("保存成功");
+                    //$('#mymodal-data2').modal('hide');
+                    setTimeout("window.location.reload()", 1500);
+                    //common.commonTips('保存成功！');
+                } else {
+                    alert("保存失败");
+                    $('#mymodal-data2').modal('hide');
+                    // common.commonTips('保存出错！');
                 }
             }
 
@@ -154,7 +208,7 @@ define(function (require,exports,module) {
 
         if (treeNode.id != '') {
             $('input[name=planname]').val(treeNode.name);
-            $('input[name=itcata]').val(treeNode.id);
+            $('input[name=idplan]').val(treeNode.id);
         } else {
             $('input[name=planname]').val('');
         }
