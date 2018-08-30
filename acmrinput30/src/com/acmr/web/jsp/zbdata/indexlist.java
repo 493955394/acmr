@@ -28,7 +28,6 @@ public class indexlist extends BaseAction {
         HttpServletRequest req = this.getRequest();
         String code = PubInfo.getString(req.getParameter("code"));
         JSONReturnData data = new JSONReturnData("");
-        data.setReturndata(200);
         /*if (indexListService.getData(code).getCode() != null) {
             data.setReturncode(300);
             data.setReturndata("fail");

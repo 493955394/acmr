@@ -29,7 +29,7 @@
         <tbody class="list_body " id="my_index_all">
         <c:forEach  items="${indexlist}" var="index">
             <tr class="my_index pro-${index.getCode()}">
-                <th><input autocomplete="off" type="checkbox" name="search" value=""></th>
+                <th><input autocomplete="off" type="checkbox" name="search" value="${index.getCode()}"></th>
                 <td>${index.getCode()}</td>
                 <td>${index.getCname()}</td>
                 <td>${index.getIfdata()}</td>
@@ -40,7 +40,7 @@
                     <a href="${ctx}/zbdata/zsjhedit.htm?m=editIndex&id=${index.getCode()}">编辑</a>
                     </c:if>
                     <c:if test="${index.getIfdata()==0}">
-                        <a href="#">编辑</a>
+                        <a  class="category_edit" href="#">编辑</a>
                     </c:if>
                     <a href="/">删除</a>
                     <c:if test="${index.getIfdata()==1}">
@@ -64,5 +64,24 @@
     <ul class="pagination J_regmgr_pagination">${page}</ul>
 </div>
 <script>
+    function show(){
+        var oChk = document.getElementById('cp');
+        oChk.onclick = function(){
+            if(oChk.checked){
+                obj = document.getElementsByName("search");
+                check_val = [];
+                for(k in obj){
+                    if(obj[k].checked)
+                        check_val.push(obj[k].value);
+                }
+                alert(check_val);
+            } else {
+                alert('请选择计划');
+            }
+        };
+
+        //alert(check_val);
+
+    }
 
 </script>
