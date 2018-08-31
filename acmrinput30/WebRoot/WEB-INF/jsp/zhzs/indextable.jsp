@@ -24,10 +24,10 @@
         <th>操作</th>
     </tr>
     </thead>
-    <div class="modal" id="mymodal-data1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal" id="mymodal-data3" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form  action="${ctx}/zbdata/indexlist.htm?m=copy">
+                <form  action="${ctx}/zbdata/indexlist.htm?m=update">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     </div>
@@ -35,14 +35,14 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="code" >
+                                <input type="text" class="form-control" name="editcode" value="${index.getCode()}">
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="cname" >
+                                <input type="text" class="form-control" name="editcname" value="${index.getCname()}">
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -50,9 +50,9 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="planname" value="" disabled>
-                                <input type="hidden" class="form-control" name="idplan"  value="">
-                                <ul id="treePlan" class="ztree select-tree hid-top"></ul>
+                                <input type="text" class="form-control" name="editname" value="" disabled>
+                                <input type="hidden" class="form-control" name="editprocode"  value="">
+                                <ul id="treeEditc" class="ztree select-tree hid-top"></ul>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -72,8 +72,8 @@
         <c:forEach  items="${indexlist}" var="index">
             <tr class="my_index pro-${index.getCode()}">
                 <th><input autocomplete="off" type="checkbox" name="search" value="${index.getCode()}"></th>
-                <td id="icode">${index.getCode()}</td>
-                <td id="icname">${index.getCname()}</td>
+                <td >${index.getCode()}</td>
+                <td >${index.getCname()}</td>
                 <td>${index.getIfdata()}</td>
                 <td>${index.getSort()}</td>
                 <td>${index.getPlanperiod()}</td>
@@ -82,10 +82,9 @@
                     <a href="${ctx}/zbdata/zsjhedit.htm?m=editIndex&id=${index.getCode()}">编辑</a>
                     </c:if>
                     <c:if test="${index.getIfdata()==0}">
-                        <a  class="category_edit" href="javascript:;">编辑</a>
-                        <input type="hidden" class="form-control" name="nprocode" value="${index.getCode()}" >
+                        <a  class="category_edit" href="javascript:;" name="${index.getCname()}" id="${index.getCode()}">编辑</a>
                     </c:if>
-                    <a href="javascript:;" class="btn-opr J_opr_del" id="${list.code}">删除</a>
+                    <a href="javascript:;" class="btn-opr J_opr_del" id="${index.getCode()}">删除</a>
                     <c:if test="${index.getIfdata()==1}">
                         <a href="/">启用</a>
                         <a href="/">权限管理</a>
@@ -107,7 +106,7 @@
     <ul class="pagination J_regmgr_pagination">${page}</ul>
 </div>
 <script>
-    seajs.use('${ctx}/js/func/zhzs/indexlist/edit');
+    seajs.use('${ctx}/js/func/zhzs/indexlist/main');
     function show(){
         var oChk = document.getElementById('cp');
         oChk.onclick = function(){

@@ -13,4 +13,5 @@ public interface IIndexListDao {
     public int addIndexlist(IndexList indexList);
     public int addNplan(IndexList indexList,String code);
     public int delIndexcp(String code);
+    public int updateCategory(String code,String procode);
 }

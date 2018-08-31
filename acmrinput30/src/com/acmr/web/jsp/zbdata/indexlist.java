@@ -107,6 +107,15 @@ public class indexlist extends BaseAction {
         data.setReturndata(indexList);
         this.sendJson(data);
     }
+    public void update() throws IOException{
+        JSONReturnData data = new JSONReturnData("");
+        data.setReturncode(200);
+        String code = PubInfo.getString(this.getRequest().getParameter("editcode"));
+        String procode = PubInfo.getString(this.getRequest().getParameter("editprocode"));
+        int int1 = IndexListService.updateCate(code,procode);
+        data.setReturndata("");
+        this.sendJson(data);
+    }
     public void delete() throws IOException {
         // 构造返回对象
         JSONReturnData data = new JSONReturnData("");

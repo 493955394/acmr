@@ -23,6 +23,7 @@ define(function (require,exports,module) {
                 if (data.returncode == 200) {
                     alert("保存成功");
                     $('#mymodal-data').modal('hide');
+                    window.location.reload(true);
                 }else {
                     alert("保存失败");
                     $('#mymodal-data').modal('hide');
@@ -50,6 +51,7 @@ define(function (require,exports,module) {
                 if (data.returncode == 200) {
                     alert("保存成功");
                     $('#mymodal-data1').modal('hide');
+                    window.location.reload(true);
                     //window.location.reload();
                     //common.commonTips('保存成功！');
                 } else {
@@ -81,6 +83,7 @@ define(function (require,exports,module) {
                 } else {
                     alert("保存失败");
                     $('#mymodal-data2').modal('hide');
+                    window.location.reload(true);
                     // common.commonTips('保存出错！');
                 }
             }
@@ -176,6 +179,19 @@ define(function (require,exports,module) {
             onClick:clickEvent3
         }
     };
+    var setting4 = {
+        async:{
+
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback:{
+            onClick:clickEvent4
+        }
+    };
     //局部刷新列表
     function reloadList() {
         var url=window.location.href
@@ -224,7 +240,16 @@ define(function (require,exports,module) {
         }
 
     }
+    function clickEvent4(event,treeId,treeNode) {
 
+        if (treeNode.id != '') {
+            $('input[name=editname]').val(treeNode.name);
+            $('input[name=editprocode]').val(treeNode.id);
+        } else {
+            $('input[name=editname]').val('');
+        }
+
+    }
     //修复图标，使没有子节点的目录也显示为目录
     function fixIcon(treeid){
         var treeObj = $.fn.zTree.getZTreeObj(treeid);
@@ -266,18 +291,28 @@ define(function (require,exports,module) {
         }
     }
     /**
+     * 编辑数据
+     */
+    $('.category_edit').click(function () {
+        var code =$(this).attr('id');
+        var name = $(this).attr('name');
+        $('input[name=editcode]').val(code);
+        $('input[name=editcname]').val(name);
+        $("#mymodal-data3").modal('show');
+    });
+    /**
      * 删除数据
      */
     $(document).on('click','.J_opr_del',function(event){
         event.preventDefault();
         var self = this,
-            delId = $(self).attr('id');
+            id = $(self).attr('id');
         if(!confirm("确定要删除选中记录吗？")){
             return;
         }
         $.ajax({
-            url:common.rootPath+'zbdata/indexlist.htm?m=toDelete',
-            data:"delId=" + delId,
+            url:common.rootPath+'zbdata/indexlist.htm?m=delete',
+            data: "id=" + id,
             type:'post',
             dataType:'json',
             timeout:1000,
@@ -291,56 +326,6 @@ define(function (require,exports,module) {
             }
         });
     });
-    /*function categoryEdit(){
-        console.log("editcategory")*/
-    //     $(document).on('click','.category_edit',function(event){
-    //         event.preventDefault();
-    //         if($('#grade_modal_search').length>0){
-    //             $('#grade_modal_search').remove();
-    //         }
-    //         var modalContent = '<div class="modal-header">';
-    //         modalContent +='<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
-    //         modalContent +='<h4 class="modal-title" id="myModalLabel">高级查询</h4>';
-    //         modalContent +='</div>';
-    //         modalContent +='<div class="modal-body">';
-    //         modalContent +='<div class="form-inline form-margin">';
-    //         modalContent +='<div class="form-group">';
-    //         modalContent +='<select class="form-control input-sm" name="searchCode"><option value="code">代码</option><option value="cname">名称</option><option value="cname_en">英文名称</option>';
-    //         modalContent +='<option value="ccname">中文全称</option><option value="ccname_en">英文全称</option><option value="ifdata">指标、分类</option>';
-    //         modalContent +='<option value="cexp">中文解释</option><option value="cexp_en">英文解释</option><option value="cmemo">中文备注</option><option value="cmemo_en">英文备注</option><option value="createtime">生成时间</option>';
-    //         modalContent +='</select>';
-    //         modalContent +='</div>';
-    //         modalContent +='<div class="form-group">';
-    //         modalContent +='<select class="form-control input-sm btn-margin" name="searchOpr"><option value="like">包含</option><option value="=">等于</option><option value=">=">大于等于</option><option value=">">大于</option><option value="<=">小于等于</option><option value="<">小于</option>';
-    //         modalContent +='<option value="not like">不包含</option><option value="<>">不等于</option><option value="起于">起于</option><option value="止于">止于</option><option value="is">is</option>';
-    //         modalContent +='</select>';
-    //         modalContent +='</div>';
-    //         modalContent +='<div class="form-group">';
-    //         modalContent +='<select class="form-control input-sm btn-margin" name="searchCondition"><option value="|">或</option><option value="&">与</option></select>';
-    //         modalContent +='</div>';
-    //         modalContent +='<div class="form-group">';
-    //         modalContent +='<input type="text" class="form-control input-sm btn-margin" name="searchText" placeholder="条件值"/>';
-    //         modalContent +='</div>';
-    //         modalContent +='<div class="form-group">';
-    //         modalContent +='<button type="button" class="btn btn-sm btn-primary btn-margin J_component_sentence">组合语句</button>';
-    //         modalContent +='</div>';
-    //         modalContent +='</div>';
-    //         modalContent +='<div class="form-group">';
-    //         modalContent +='<textarea class="form-control J_priview_sentence" rows="3" readonly></textarea>';
-    //         modalContent +='<textarea class="form-control J_hpriview_sentence hidden" rows="3"></textarea>';
-    //         modalContent +='</div>';
-    //         modalContent +='<div class="form-group" id="msg"></div>';
-    //         modalContent +='<div class="modal-footer">';
-    //         modalContent +='<button type="button" class="btn btn-primary J_btn_clear_condition">清空</button>';
-    //         modalContent +='<button type="button" class="btn btn-primary J_btn_import_condition">代码导入</button>';
-    //         modalContent +='<button type="button" class="btn btn-primary J_btn_check_condition">分析</button>';
-    //         modalContent +='<button type="button" class="btn btn-primary J_btn_save_condition" id="find">查询</button><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>';
-    //         modalContent +='</div>';
-    //         common.buildModelHTML('grade_modal_search',modalContent);
-    //         $("#msg").hide();
-    //         $('#grade_modal_search').modal('show');
-    //     });
-    // }
 
     $(document).ready(function(){
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
@@ -353,7 +338,8 @@ define(function (require,exports,module) {
         fixIcon("treePlan");
         $.fn.zTree.init($("#treeZs"), setting3, zNodes);
         fixIcon("treeZs");
-
+        $.fn.zTree.init($("#treeEditc"), setting4, zNodes);
+        fixIcon("treeEditc");
     });
 
 

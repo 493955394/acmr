@@ -121,6 +121,9 @@ public class IndexListService {
     public static int delCataplan(String code){
         return IndexListDao.Fator.getInstance().getIndexdatadao().delIndexcp(code);
     }
+    public static int updateCate(String code,String procode){
+        return IndexListDao.Fator.getInstance().getIndexdatadao().updateCategory(code,procode);
+    }
 
 
 
