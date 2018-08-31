@@ -22,7 +22,14 @@ public class indexlist extends BaseAction {
         ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
         return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("test",test).addObject("indexlist",indexlist);
     }
-
+    /**
+     *
+     *
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
     public void insert() throws IOException {
         IndexListService indexListService = new IndexListService();
         HttpServletRequest req = this.getRequest();
@@ -68,7 +75,47 @@ public class indexlist extends BaseAction {
         //this.getResponse().sendRedirect("indexlist.htm");
 
     }
-
+    public void copy() throws IOException {
+        IndexListService indexListService = new IndexListService();
+        HttpServletRequest req = this.getRequest();
+        String code = PubInfo.getString(req.getParameter("code"));
+        JSONReturnData data = new JSONReturnData("");
+        /*if (indexListService.getData(code).getCode() != null) {
+            data.setReturncode(300);
+            data.setReturndata("fail");
+            this.sendJson(data);
+            return;
+        }*/
+        String cname = PubInfo.getString(req.getParameter("zname"));
+        String ncode = PubInfo.getString(req.getParameter("plancode"));
+        String procode = PubInfo.getString(req.getParameter("nprocode"));
+        String createuser = "usercode01";
+        String state = "0";
+        IndexList indexList = new IndexList();
+        indexList.setCode(code);
+        indexList.setCname(cname);
+        indexList.setProcode(procode);
+        indexList.setCreateuser(createuser);
+        indexList.setState(state);
+        int int1 = indexListService.addCopyplan(indexList,code);
+        /*if (int1 == -1) {
+            data.setReturncode(501);
+            data.setReturndata("fail");
+            this.sendJson(data);
+            return;
+        }*/
+        data.setReturndata(indexList);
+        this.sendJson(data);
+    }
+    public void delete() throws IOException {
+        // 构造返回对象
+        JSONReturnData data = new JSONReturnData("");
+        data.setReturncode(200);
+        String code = PubInfo.getString(this.getRequest().getParameter("id"));
+        int int1 = IndexListService.delCataplan(code);
+        data.setReturndata("");
+        this.sendJson(data);
+    }
     /**
      * 综合指数查找
      * @return
@@ -78,8 +125,10 @@ public class indexlist extends BaseAction {
         HttpServletRequest req = this.getRequest();
         ArrayList<IndexList> indexlist= new ArrayList<IndexList>();
         // 获取查询数据
-        String code = StringUtil.toLowerString(req.getParameter("code"));
-        String cname = StringUtil.toLowerString(req.getParameter("cname"));
+        String code = req.getParameter("code");
+        String cname = req.getParameter("cname");
+        //中文乱码并且大小写区分
+        System.out.println("web: "+cname);
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
         if (!StringUtil.isEmpty(code)) {
@@ -99,4 +148,6 @@ public class indexlist extends BaseAction {
     }
 
 
+
 }
+
