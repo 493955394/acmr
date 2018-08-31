@@ -108,10 +108,11 @@ public class indexlist extends BaseAction {
         this.sendJson(data);
     }
     public void update() throws IOException{
+        HttpServletRequest req = this.getRequest();
         JSONReturnData data = new JSONReturnData("");
         data.setReturncode(200);
-        String code = PubInfo.getString(this.getRequest().getParameter("editcode"));
-        String procode = PubInfo.getString(this.getRequest().getParameter("editprocode"));
+        String code = PubInfo.getString(req.getParameter("editcode"));
+        String procode = PubInfo.getString(req.getParameter("editprocode"));
         int int1 = IndexListService.updateCate(code,procode);
         data.setReturndata("");
         this.sendJson(data);
