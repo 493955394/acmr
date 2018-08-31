@@ -120,7 +120,7 @@
                                 <div class="panel-heading" style="text-align:center">地区列表</div>
                             </div>
                             <div class="panle-body" >
-                                <ul id="selectreg"></ul>
+                                <select size="10" style="width: 100%" class="regul" id="selectreg"></select>
                             </div>
                         </div>
 

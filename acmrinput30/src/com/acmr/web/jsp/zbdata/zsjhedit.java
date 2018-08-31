@@ -1,6 +1,7 @@
 package com.acmr.web.jsp.zbdata;
 
 import acmr.cubequery.service.cubequery.entity.CubeNode;
+import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.helper.util.StringUtil;
@@ -11,20 +12,20 @@ import com.acmr.service.metadata.MetaServiceManager;
 import com.acmr.service.zbdata.RegdataService;
 import com.acmr.service.zhzs.IndexListService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class zsjhedit extends BaseAction {
     //指数计划编辑页面
-    private IndexListService indexService = new IndexListService();
     /**
      * 获取service层对象（cube）
      *
      * @author chenyf
      */
-    private MetaServiceManager metaService = MetaService.getMetaService("reg");
-
 
     public ModelAndView editIndex(){
         /* 第一个分页显示*/
@@ -75,8 +76,19 @@ public class zsjhedit extends BaseAction {
         }
         this.sendJson(list);
     }
-    public void choosereg(){
-        String code = this.getRequest().getParameter("id");
+    public void getResultLeft() throws  IOException{
+        HttpServletRequest req = this.getRequest();
+        String procode = PubInfo.getString(req.getParameter("procode"));
+        if (StringUtil.isEmpty(procode)){
+            ArrayList<CubeNode> nodes= RegdataService.getRegSubNodes("cuscxnd");
+        }
+        ArrayList<CubeNode> nodes= RegdataService.getRegSubNodes("cuscxnd",procode);
+        Map<String, Object> data = new HashMap<String, Object>();
+        for (int i = 0; i <nodes.size() ; i++) {
+            data.put("code", nodes.get(i).getCode());
+            data.put("name", nodes.get(i).getCname());
+        }
+
     }
 
 }
