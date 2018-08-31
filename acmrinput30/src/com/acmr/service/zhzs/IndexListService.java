@@ -118,6 +118,9 @@ public class IndexListService {
     public int addCopyplan(IndexList indexList,String code) {
         return IndexListDao.Fator.getInstance().getIndexdatadao().addNplan(indexList,code);
     }
+    public static int delCataplan(String code){
+        return IndexListDao.Fator.getInstance().getIndexdatadao().delIndexcp(code);
+    }
 
 
 

@@ -24,14 +24,56 @@
         <th>操作</th>
     </tr>
     </thead>
+    <div class="modal" id="mymodal-data1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form  action="${ctx}/zbdata/indexlist.htm?m=copy">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="code" >
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="cname" >
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
 
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="planname" value="" disabled>
+                                <input type="hidden" class="form-control" name="idplan"  value="">
+                                <ul id="treePlan" class="ztree select-tree hid-top"></ul>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-primary" name="plancode" value="check_val"  onclick="show()">确定</button>
+                        <%--<input type='button'  name="plancode" value='复制到' onclick="show()"/>--%>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <c:if test="${indexlist.size()!=0}">
         <tbody class="list_body " id="my_index_all">
         <c:forEach  items="${indexlist}" var="index">
             <tr class="my_index pro-${index.getCode()}">
                 <th><input autocomplete="off" type="checkbox" name="search" value="${index.getCode()}"></th>
-                <td>${index.getCode()}</td>
-                <td>${index.getCname()}</td>
+                <td id="icode">${index.getCode()}</td>
+                <td id="icname">${index.getCname()}</td>
                 <td>${index.getIfdata()}</td>
                 <td>${index.getSort()}</td>
                 <td>${index.getPlanperiod()}</td>
@@ -40,9 +82,10 @@
                     <a href="${ctx}/zbdata/zsjhedit.htm?m=editIndex&id=${index.getCode()}">编辑</a>
                     </c:if>
                     <c:if test="${index.getIfdata()==0}">
-                        <a  class="category_edit" href="#">编辑</a>
+                        <a  class="category_edit" href="javascript:;">编辑</a>
+                        <input type="hidden" class="form-control" name="nprocode" value="${index.getCode()}" >
                     </c:if>
-                    <a href="/">删除</a>
+                    <a href="javascript:;" class="btn-opr J_opr_del" id="${list.code}">删除</a>
                     <c:if test="${index.getIfdata()==1}">
                         <a href="/">启用</a>
                         <a href="/">权限管理</a>
@@ -64,6 +107,7 @@
     <ul class="pagination J_regmgr_pagination">${page}</ul>
 </div>
 <script>
+    seajs.use('${ctx}/js/func/zhzs/indexlist/edit');
     function show(){
         var oChk = document.getElementById('cp');
         oChk.onclick = function(){
@@ -79,7 +123,6 @@
                 alert('请选择计划');
             }
         };
-
         //alert(check_val);
 
     }

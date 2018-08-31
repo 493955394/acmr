@@ -63,6 +63,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     }
 
     @Override
+    //复制到
     public int addNplan(IndexList indexList, String code) {
         String sql1 = "insert into tb_coindex_index (code,cname,procode,createuser,createtime) values(?,?,?,?,?) where code = ? ";
         List<Object> parms = new ArrayList<Object>();
