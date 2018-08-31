@@ -1,7 +1,7 @@
 define(function (require,exports,module) {
     'use strict';
     var $ = require('jquery'),
-        dropdown = require('dropdown'),
+        rootPath = require('rootPath'),
         Pagination = require('pagination'),
         common = require('common'),
         pjax=require('pjax'),
@@ -9,7 +9,6 @@ define(function (require,exports,module) {
         fileupload = require('fileupload'),
         PackAjax = require('Packajax'),
         modal = require('modal'),
-        ZeroClipboard = require('ZeroClipboard'),
         tab = require('tab'),
      listjsp = require('listjsp');
 
@@ -152,12 +151,48 @@ define(function (require,exports,module) {
                 else j++;
             }
         }
+        //每触发一次先初始化
+       $('select.regul').html("");
+        var showreg ="";
         for(var i=0;i<select.length;i++){
-            var showreg ="";
-            showreg += '<li id="'+select[i].code+'">'+select[i].name+'</li>';
+            if(select[i].name=="" && select[i].code==""){
+                showreg +="";
+            }else {
+                showreg += '<option class="list-group-item"  value="'+select[i].code+'">'+select[i].name+'</option>';
+            }
         }
-        console.log(select)
         $("#selectreg").append(showreg);
+    });
+    /**
+     * 删除单个地区
+     */
+    $("#delsiggle").click(function () {
+        var obj = document.getElementById("selectreg");
+        var index = obj.selectedIndex;
+       var code =  obj.options[index].value;
+        for(var i=0;i<select.length;i++){
+            if(select[i].code== code){
+                select.splice(i, 1);
+            }
+        }
+        obj.options.remove(index);
+    });
+    /**
+     * 选中某地区下所有地区
+     */
+    $(document).on("click","#chooseall",function ( ) {
+        var procode =  $('input[name=regcode]').val();
+        $.ajax({
+            url: rootPath + "/zbdata/zsjhedit.htm?m=getResultLeft",
+            type: "post",
+            data: {
+                "procode": procode
+            },
+            async: false,
+            dataType: "json",
+            success: function(data) {
+            }
+        });
     })
 
 });
