@@ -1,7 +1,6 @@
 define(function (require,exports,module) {
     'use strict';
     var $ = require('jquery'),
-        rootPath = require('rootPath'),
         Pagination = require('pagination'),
         common = require('common'),
         pjax=require('pjax'),
@@ -10,7 +9,7 @@ define(function (require,exports,module) {
         PackAjax = require('Packajax'),
         modal = require('modal'),
         tab = require('tab'),
-     listjsp = require('listjsp');
+        listjsp = require('listjsp');
 
     var zNodes =[
         { id:"#1", pId:0, name:"指数",isParent:true}
@@ -83,8 +82,8 @@ define(function (require,exports,module) {
         treeNodeId = treeNode.id;
         treeNodeName = treeNode.name;
         if (treeNode.id != '') {
-        $('input[name=regname]').val(treeNode.name);
-        $('input[name=regcode]').val(treeNode.id);}
+            $('input[name=regname]').val(treeNode.name);
+            $('input[name=regcode]').val(treeNode.id);}
         else {
             $('input[name=regname]').val("");
         }
@@ -142,7 +141,7 @@ define(function (require,exports,module) {
         var regcode =  $('input[name=regcode]').val();
         var regcname =  $('input[name=regname]').val();
         select.push({code:regcode,name:regcname});
-       //去重
+        //去重
         for (var i = 0; i < select.length; i++) {
             for (var j =i+1; j <select.length; ) {
                 if (select[i].code == select[j].code && select[i].name == select[j].name) {
@@ -152,7 +151,7 @@ define(function (require,exports,module) {
             }
         }
         //每触发一次先初始化
-       $('select.regul').html("");
+        $('select.regul').html("");
         var showreg ="";
         for(var i=0;i<select.length;i++){
             if(select[i].name=="" && select[i].code==""){
@@ -169,7 +168,7 @@ define(function (require,exports,module) {
     $("#delsiggle").click(function () {
         var obj = document.getElementById("selectreg");
         var index = obj.selectedIndex;
-       var code =  obj.options[index].value;
+        var code =  obj.options[index].value;
         for(var i=0;i<select.length;i++){
             if(select[i].code== code){
                 select.splice(i, 1);
@@ -180,19 +179,64 @@ define(function (require,exports,module) {
     /**
      * 选中某地区下所有地区
      */
-    $(document).on("click","#chooseall",function ( ) {
+    $(document).on("click","#chooseall",function () {
         var procode =  $('input[name=regcode]').val();
-        $.ajax({
-            url: rootPath + "/zbdata/zsjhedit.htm?m=getResultLeft",
-            type: "post",
-            data: {
-                "procode": procode
-            },
-            async: false,
-            dataType: "json",
-            success: function(data) {
-            }
-        });
-    })
-
+        if (procode){
+            $.ajax({
+                url: common.rootPath+'zbdata/zsjhedit.htm?m=getResultLeft',
+                type: "post",
+                data: {"procode": procode},
+                async: false,
+                dataType: "json",
+                success: function(data) {
+                    for (var i = 0; i <data.length; i++) {
+                        select.push({code:data[i].code,name:data[i].name});
+                    }
+                    //去重
+                    for (var i = 0; i < select.length; i++) {
+                        for (var j =i+1; j <select.length; ) {
+                            if (select[i].code == select[j].code && select[i].name == select[j].name) {
+                                select.splice(j, 1);
+                            }
+                            else j++;
+                        }
+                    }
+                    //每触发一次先初始化
+                    $('select.regul').html("");
+                    var showreg ="";
+                    for(var i=0;i<select.length;i++){
+                        if(select[i].name=="" && select[i].code==""){
+                            showreg +="";
+                        }else {
+                            showreg += '<option class="list-group-item"  value="'+select[i].code+'">'+select[i].name+'</option>';
+                        }
+                    }
+                    $("#selectreg").append(showreg);
+                }
+            });
+        }
+    });
+    /**
+     * 删除所有地区
+     */
+    $("#delall").click(function (){
+        $('select.regul').html("");
+        select = [];
+    });
+    /**
+     * 时间选择自动补上中间的时间期
+     */
+    $("#datachecks").click(function () {
+        var begintime = $('input[name = begintime]').val();
+        var endtime = $('input[name = endtime]').val();
+        if(!begintime){
+            alert("请输入开始时间");
+        }
+        else if(!endtime){
+            alert("请输入结束时间");
+        }
+        else{
+            alert("开始数据检查");
+        }
+    });
 });

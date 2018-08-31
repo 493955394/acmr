@@ -76,6 +76,12 @@ public class zsjhedit extends BaseAction {
         }
         this.sendJson(list);
     }
+
+    /**
+     * @author djj
+     * 查找下一级地区
+     * @throws IOException
+     */
     public void getResultLeft() throws  IOException{
         HttpServletRequest req = this.getRequest();
         String procode = PubInfo.getString(req.getParameter("procode"));
@@ -83,12 +89,14 @@ public class zsjhedit extends BaseAction {
             ArrayList<CubeNode> nodes= RegdataService.getRegSubNodes("cuscxnd");
         }
         ArrayList<CubeNode> nodes= RegdataService.getRegSubNodes("cuscxnd",procode);
-        Map<String, Object> data = new HashMap<String, Object>();
+        List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
         for (int i = 0; i <nodes.size() ; i++) {
-            data.put("code", nodes.get(i).getCode());
-            data.put("name", nodes.get(i).getCname());
+            Map<String, Object> obj = new HashMap<String, Object>();
+            obj.put("code", nodes.get(i).getCode());
+            obj.put("name", nodes.get(i).getCname());
+            data.add(obj);
         }
-
+        this.sendJson(data);
     }
 
 }
