@@ -71,7 +71,7 @@
         <tbody class="list_body " id="my_index_all">
         <c:forEach  items="${indexlist}" var="index">
             <tr class="my_index pro-${index.getCode()}">
-                <th><input autocomplete="off" type="checkbox" name="search" value="${index.getCode()}"></th>
+                <th><input autocomplete="off" type="checkbox" name="${index.getIfdata()}" class="choose" id="${index.getCode()}"></th>
                 <td >${index.getCode()}</td>
                 <td >${index.getCname()}</td>
                 <td>${index.getIfdata()}</td>

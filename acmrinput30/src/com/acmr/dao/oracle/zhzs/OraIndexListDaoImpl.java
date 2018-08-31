@@ -64,13 +64,11 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     @Override
     //复制到
     public int addNplan(IndexList indexList, String code) {
-        String sql1 = "insert into tb_coindex_index (code,cname,procode,createuser,createtime) values(?,?,?,?,?) where code = ? ";
+        String sql1 = "update tb_coindex_index set code=? ,cname=? ,procode=? where code=?";
         List<Object> params = new ArrayList<Object>();
         params.add(indexList.getCode());
         params.add(indexList.getCname());
         params.add(indexList.getProcode());
-        params.add(indexList.getCreateuser());
-        params.add(indexList.getCreatetime());
         params.add(code);
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
     }
