@@ -73,7 +73,24 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         parms.add(indexList.getCreatetime());
         parms.add(code);
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, parms.toArray());
+    }
+    @Override
+    public int delIndexcp(String code)  {
+        StringBuffer sbf = new StringBuffer();
+        List<Object> params = new ArrayList<Object>();
+        //sbf.append("delete from tb_right_user_role t where t.rolecode = ? and t.userid in ( ");
+        sbf.append("delete from tb_right_user_role t where t.rolecode = ? ");
+        params.add(code);
+        /*for (int i = 0; i < userids.length; i++) {
+            sbf.append("?");
+            if (i != userids.length - 1) {
+                sbf.append(",");
+            }
+            params.add(userids[i]);
+        }
+        sbf.append(")");*/
 
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sbf.toString(), params.toArray());
 
     }
 }

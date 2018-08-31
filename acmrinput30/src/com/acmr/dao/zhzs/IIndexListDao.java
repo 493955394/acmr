@@ -12,4 +12,5 @@ public interface IIndexListDao {
     public DataTable getLikeCname(String cname);
     public int addIndexlist(IndexList indexList);
     public int addNplan(IndexList indexList,String code);
+    public int delIndexcp(String code);
 }
