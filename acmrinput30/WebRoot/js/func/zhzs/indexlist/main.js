@@ -64,6 +64,34 @@ define(function (require,exports,module) {
         })
 
     });
+    //编辑目录
+    $(document).on('submit', '.J_add_edit', function(event) {
+        event.preventDefault();
+        var self = this,
+            currentUrl = $(self).attr('action');
+        $.ajax({
+            url: currentUrl,
+            data: $(self).serialize(),
+            type: 'post',
+            dataType: 'json',
+            timeout: 10000,
+            success: function(data) {
+                if (data.returncode == 200) {
+                    alert("保存成功");
+                    $('#mymodal-data3').modal('hide');
+                    window.location.reload(true);
+                    //window.location.reload();
+                    //common.commonTips('保存成功！');
+                } else {
+                    alert("保存失败");
+                    $('#mymodal-data3').modal('hide');
+                    // common.commonTips('保存出错！');
+                }
+            }
+
+        })
+
+    });
     $(document).on('submit', '.J_add_cope', function(event) {
         event.preventDefault();
         var self = this,
@@ -77,13 +105,12 @@ define(function (require,exports,module) {
             success: function(data) {
                 if (data.returncode == 200) {
                     alert("保存成功");
-                    //$('#mymodal-data2').modal('hide');
-                    setTimeout("window.location.reload()", 1500);
+                    $('#mymodal-data2').modal('hide');
+                    window.location.reload(true);
                     //common.commonTips('保存成功！');
                 } else {
                     alert("保存失败");
                     $('#mymodal-data2').modal('hide');
-                    window.location.reload(true);
                     // common.commonTips('保存出错！');
                 }
             }
@@ -290,6 +317,13 @@ define(function (require,exports,module) {
                 comp+"']").addClass(path)
         }
     }
+    /**
+     * 复制到
+     */
+    $('#mymodal-data2').click(function () {
+        var code =$(this).attr('id');
+        $('input[name=copycode]').val(code);
+    });
     /**
      * 编辑数据
      */
