@@ -75,29 +75,27 @@ public class indexlist extends BaseAction {
         //this.getResponse().sendRedirect("indexlist.htm");
 
     }
+    //复制到
     public void copy() throws IOException {
         IndexListService indexListService = new IndexListService();
         HttpServletRequest req = this.getRequest();
-        String code = PubInfo.getString(req.getParameter("code"));
+        String code = PubInfo.getString(req.getParameter("copecode"));
+        //String ifdata1 = PubInfo.getString(req.getParameter("cifdata"));
+        //int ifdata = Integer.parseInt(ifdata1);
         JSONReturnData data = new JSONReturnData("");
-        /*if (indexListService.getData(code).getCode() != null) {
+        /*if (code == null && ifdata == 1) {
             data.setReturncode(300);
-            data.setReturndata("fail");
             this.sendJson(data);
             return;
         }*/
         String cname = PubInfo.getString(req.getParameter("zname"));
-        String ncode = PubInfo.getString(req.getParameter("plancode"));
-        String procode = PubInfo.getString(req.getParameter("nprocode"));
-        String createuser = "usercode01";
-        String state = "0";
+        String ncode = PubInfo.getString(req.getParameter("plcode"));
+        String nprocode = PubInfo.getString(req.getParameter("newprocode"));
         IndexList indexList = new IndexList();
-        indexList.setCode(code);
+        indexList.setCode(ncode);
         indexList.setCname(cname);
-        indexList.setProcode(procode);
-        indexList.setCreateuser(createuser);
-        indexList.setState(state);
-        int int1 = indexListService.addCopyplan(indexList,code);
+        indexList.setProcode(nprocode);
+        int int1 = indexListService.updatePlan(indexList,code);
         /*if (int1 == -1) {
             data.setReturncode(501);
             data.setReturndata("fail");

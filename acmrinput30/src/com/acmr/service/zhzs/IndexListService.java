@@ -116,7 +116,7 @@ public class IndexListService {
     public int addCp(IndexList indexList) {
         return IndexListDao.Fator.getInstance().getIndexdatadao().addIndexlist(indexList);
     }
-    public int addCopyplan(IndexList indexList,String code) {
+    public int updatePlan(IndexList indexList,String code) {
         return IndexListDao.Fator.getInstance().getIndexdatadao().addNplan(indexList,code);
     }
     public static int delCataplan(String code){

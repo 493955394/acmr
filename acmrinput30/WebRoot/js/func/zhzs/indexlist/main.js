@@ -1,6 +1,7 @@
 define(function (require,exports,module) {
     'use strict';
     var $ = require('jquery'),
+        VaildNormal = require('vaildnormal'),
         tree = require('tree'),
         common = require('common'),
         pjax=require('pjax'),
@@ -9,6 +10,7 @@ define(function (require,exports,module) {
     /**
      * 新增目录ajax提交，忽略数据检查
      */
+
     $(document).on('submit', '.J_add_catalogue', function(event) {
         event.preventDefault();
         var self = this,
@@ -64,7 +66,16 @@ define(function (require,exports,module) {
         })
 
     });
-    //编辑目录
+    /**
+     * 编辑数据
+     */
+    $('.category_edit').click(function () {
+        var code =$(this).attr('id');
+        var name = $(this).attr('name');
+        $('input[name=editcode]').val(code);
+        $('input[name=editcname]').val(name);
+        $("#mymodal-data3").modal('show');
+    });
     $(document).on('submit', '.J_add_edit', function(event) {
         event.preventDefault();
         var self = this,
@@ -92,6 +103,15 @@ define(function (require,exports,module) {
         })
 
     });
+    /**
+     * 复制到
+     */
+    $('.choose').click(function () {
+        var code =$(this).attr('id');
+        var ifdata = $(this).attr('name');
+        $('input[name=copycode]').val(code);
+        $('input[name=cifdata]').val(ifdata);
+    });
     $(document).on('submit', '.J_add_cope', function(event) {
         event.preventDefault();
         var self = this,
@@ -107,6 +127,7 @@ define(function (require,exports,module) {
                     alert("保存成功");
                     $('#mymodal-data2').modal('hide');
                     window.location.reload(true);
+                    //window.location.reload();
                     //common.commonTips('保存成功！');
                 } else {
                     alert("保存失败");
@@ -114,6 +135,20 @@ define(function (require,exports,module) {
                     // common.commonTips('保存出错！');
                 }
             }
+            /*success: function(data) {
+                if (data.returncode == 300) {
+                    alert('请选择计划');
+                }else if(data.returncode == 200){
+                    alert("保存成功") ;
+                $('#mymodal-data2').modal('hide');
+                window.location.reload(true);
+                //common.commonTips('保存成功！');
+                }else{
+                    alert("保存失败") ;
+                    $('#mymodal-data2').modal('hide');
+                    // common.commonTips('保存出错！');
+                }
+            }*/
 
         })
     });
@@ -317,23 +352,7 @@ define(function (require,exports,module) {
                 comp+"']").addClass(path)
         }
     }
-    /**
-     * 复制到
-     */
-    $('#mymodal-data2').click(function () {
-        var code =$(this).attr('id');
-        $('input[name=copycode]').val(code);
-    });
-    /**
-     * 编辑数据
-     */
-    $('.category_edit').click(function () {
-        var code =$(this).attr('id');
-        var name = $(this).attr('name');
-        $('input[name=editcode]').val(code);
-        $('input[name=editcname]').val(name);
-        $("#mymodal-data3").modal('show');
-    });
+
     /**
      * 删除数据
      */

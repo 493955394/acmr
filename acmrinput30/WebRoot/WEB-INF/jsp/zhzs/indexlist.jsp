@@ -53,7 +53,7 @@
                     <div class="toolbar-group" style="position: relative;">
                         <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data" type="button">新增目录</button>&nbsp
                         <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data1" type="button">新增计划</button>&nbsp
-                        <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data2"  type="button" id="${index.getCode()}">复制到</button>
+                        <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data2"  type="button">复制到</button>
                         <%--<input type='button' value='复制到' onclick="show()"/>--%>
                         <!-- 模态弹出窗内容 -->
                         <!-- 新增目录 -->
@@ -64,7 +64,6 @@
                                     <div class="modal-content">
                                         <form class="J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insert">
                                             <input type="hidden" class="form-control" name="ifdata" value="0" >
-                                            <input type="hidden" class="form-control" name="copycode" >
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                             <h4 class="modal-title">新增/编辑目录</h4>
@@ -168,6 +167,8 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <form class="J_add_cope" action="${ctx}/zbdata/indexlist.htm?m=copy">
+                                            <input type="hidden" class="form-control" name="copycode">
+                                            <input type="hidden" class="form-control" name="cifdata">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                         </div>
@@ -175,14 +176,14 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标名称：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="zname" id= "cp" >
+                                                    <input type="text" class="form-control" name="zname"  >
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标代码：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="plancode">
+                                                    <input type="text" class="form-control" name="plcode">
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -190,7 +191,7 @@
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属指数：</label>
                                                 <div class="col-sm-5">
                                                     <input type="text" class="form-control" name="indexname" value="" disabled>
-                                                    <input type="hidden" class="form-control" name="proid" value="" >
+                                                    <input type="hidden" class="form-control" name="newprocode" value="" >
                                                     <ul id="treeZs" class="ztree select-tree hid-top"></ul>
                                                 </div>
                                                 <div class="clearfix"></div>
