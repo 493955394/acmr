@@ -200,7 +200,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                            <button type="submit" class="btn btn-primary" name="plancode" value="check_val"  onclick="show()">确定</button>
+                                            <button type="submit" class="btn btn-primary" >确定</button>
                                             <%--<input type='button'  name="plancode" value='复制到' onclick="show()"/>--%>
                                         </div>
                                         </form>

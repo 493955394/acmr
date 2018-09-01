@@ -125,6 +125,10 @@ public class IndexListService {
     public static int updateCate(String code,String procode){
         return IndexListDao.Fator.getInstance().getIndexdatadao().updateCategory(code,procode);
     }
+    public static int updateCatePlan(IndexList indexList){
+        return IndexListDao.Fator.getInstance().getIndexdatadao().updateCp(indexList);
+    }
+
 
 
 
