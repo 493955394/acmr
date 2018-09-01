@@ -79,17 +79,23 @@
                 <td>${index.getPlanperiod()}</td>
                 <td>
                     <c:if test="${index.getIfdata()==1}">
-                    <a href="${ctx}/zbdata/zsjhedit.htm?m=editIndex&id=${index.getCode()}">编辑</a>
-                    </c:if>
-                    <c:if test="${index.getIfdata()==0}">
-                        <a  class="category_edit" href="javascript:;" name="${index.getCname()}" id="${index.getCode()}">编辑</a>
-                    </c:if>
-                    <a href="javascript:;" class="btn-opr J_opr_del" id="${index.getCode()}">删除</a>
-                    <c:if test="${index.getIfdata()==1}">
-                        <a href="/">启用</a>
+                        <c:if test="${index.getState()==0}">
+                            <a href="javascript:;" class="start" name="${index.getCode()}">启用</a>
+                            <a href="${ctx}/zbdata/zsjhedit.htm?m=editIndex&id=${index.getCode()}">编辑</a>
+                            <a href="javascript:;" class="btn-opr J_opr_del" id="${index.getCode()}">删除</a>
+                        </c:if>
+                        <c:if test="${index.getState()==1}">
+                            <a href="javascript:;" class="stop" name="${index.getCode()}">停用</a>
+                            <label class="btn-disabled">编辑</label>
+                            <label class="btn-disabled">删除</label>
+                        </c:if>
                         <a href="/">权限管理</a>
                         <a href="/">查看往期</a>
                         <a href="/">指数任务</a>
+                    </c:if>
+                    <c:if test="${index.getIfdata()==0}">
+                        <a class="category_edit" href="javascript:;" name="${index.getCname()}" id="${index.getCode()}">编辑</a>
+                        <a href="javascript:;" class="btn-opr J_opr_del" id="${index.getCode()}">删除</a>
                     </c:if>
                 </td>
             </tr>

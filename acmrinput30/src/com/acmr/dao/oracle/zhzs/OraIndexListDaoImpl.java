@@ -101,4 +101,43 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         return AcmrInputDPFactor.getQuickQuery().executeSql(sbf.toString(), params.toArray());
 
     }
+    public int updateCp(IndexList indexList) {
+        String sql1 = "";
+        List<Object> parms = new ArrayList<Object>();
+        if (indexList.getCname() != null) {
+            sql1 += ",cname=?";
+            parms.add(indexList.getCname());
+        }
+        if(indexList.getProcode()!=null){
+            sql1+=",procode=?";
+            parms.add(indexList.getProcode());
+        }
+        if(indexList.getState()!=null){
+            sql1+=",state=?";
+            parms.add(indexList.getState());
+        }
+        /*if(role.getRights()!=null){
+            sql1+=",rights=?";
+            StringBuffer sbf=new StringBuffer("");
+            for(int i=0;i<role.getRights().size();i++){
+                if(i==role.getRights().size()-1){
+                    sbf.append(role.getRights().get(i));
+                }else{
+                    sbf.append(role.getRights().get(i)+",");
+                }
+            }
+            parms.add(sbf.toString());
+        }*/
+        if (sql1.length() > 0) {
+            sql1 += ",updatetime=?";
+            parms.add(new Date(System.currentTimeMillis()));
+
+        }
+        if (sql1.equals("")) {
+            return 0;
+        }
+        sql1 = "update tb_coindex_index set " + sql1.substring(1) + " where code=?";
+        parms.add(indexList.getCode());
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, parms.toArray());
+    }
 }

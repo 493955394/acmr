@@ -179,6 +179,73 @@ define(function (require,exports,module) {
         })
     });
     /**
+     * 删除数据
+     */
+    $(document).on('click','.J_opr_del',function(event){
+        event.preventDefault();
+        var self = this,
+            id = $(self).attr('id');
+        if(!confirm("确定要删除选中记录吗？")){
+            return;
+        }
+        $.ajax({
+            url:common.rootPath+'zbdata/indexlist.htm?m=delete',
+            data: "id=" + id,
+            type:'post',
+            dataType:'json',
+            timeout:1000,
+            success:function(data){
+                if(data.returncode == 200){
+                    common.commonTips("删除成功");
+                    window.location.reload(true);
+                }else{
+                    common.commonTips(data.returndata);
+                }
+            }
+        });
+    });
+    // 启用
+    $(document).on('click', '.start', function(event) {
+        event.preventDefault();
+        var self = this,
+            code = $(self).attr('name'),
+            state = "1";
+        $.ajax({
+            url: common.rootPath + 'zbdata/indexlist.htm?m=switchState',
+            data: {"code": code, "state":state},
+            type: 'post',
+            dataType: 'json',
+            success:function(data){
+                if(data.returncode == 200){
+                    window.location.reload(true);
+                }else{
+                    alert("启用失败");
+                }
+            }
+        });
+
+    });
+    // 停用
+    $(document).on('click', '.stop', function(event) {
+        event.preventDefault();
+        var self = this,
+            code = $(self).attr('name'),
+            state = "0";
+        $.ajax({
+            url: common.rootPath + 'zbdata/indexlist.htm?m=switchState',
+            data: {"code":code, "state":state},
+            type: 'post',
+            dataType: 'json',
+            success:function(data){
+                if(data.returncode == 200){
+                    window.location.reload(true);
+                }else{
+                    alert("停用失败");
+                }
+            }
+        });
+    });
+    /**
      * 搜索框
      */
     var delIds = [];
@@ -322,7 +389,7 @@ define(function (require,exports,module) {
 
         if (treeNode.id != '') {
             $('input[name=indexname]').val(treeNode.name);
-            $('input[name=nprocode]').val(treeNode.id);
+            $('input[name=newprocode]').val(treeNode.id);
         } else {
             $('input[name=indexname]').val('');
         }
@@ -378,34 +445,6 @@ define(function (require,exports,module) {
                 comp+"']").addClass(path)
         }
     }
-
-    /**
-     * 删除数据
-     */
-    $(document).on('click','.J_opr_del',function(event){
-        event.preventDefault();
-        var self = this,
-            id = $(self).attr('id');
-        if(!confirm("确定要删除选中记录吗？")){
-            return;
-        }
-        $.ajax({
-            url:common.rootPath+'zbdata/indexlist.htm?m=delete',
-            data: "id=" + id,
-            type:'post',
-            dataType:'json',
-            timeout:1000,
-            success:function(data){
-                if(data.returncode == 200){
-                    common.commonTips("删除成功");
-                    window.location.reload(true);
-                }else{
-                    common.commonTips(data.returndata);
-                }
-            }
-        });
-    });
-
     $(document).ready(function(){
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
         fixIcon("treeDemo");

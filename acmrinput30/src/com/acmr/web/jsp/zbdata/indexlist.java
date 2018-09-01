@@ -79,11 +79,11 @@ public class indexlist extends BaseAction {
     public void copy() throws IOException {
         IndexListService indexListService = new IndexListService();
         HttpServletRequest req = this.getRequest();
-        String code = PubInfo.getString(req.getParameter("copecode"));
+        String code = PubInfo.getString(req.getParameter("copycode"));
         //String ifdata1 = PubInfo.getString(req.getParameter("cifdata"));
         //int ifdata = Integer.parseInt(ifdata1);
         JSONReturnData data = new JSONReturnData("");
-        /*if (code == null && ifdata == 1) {
+        /*if (code == null && ifdata == 1)
             data.setReturncode(300);
             this.sendJson(data);
             return;
@@ -95,7 +95,7 @@ public class indexlist extends BaseAction {
         indexList.setCode(ncode);
         indexList.setCname(cname);
         indexList.setProcode(nprocode);
-        int int1 = indexListService.updatePlan(indexList,code);
+        indexListService.updatePlan(indexList,code);
         /*if (int1 == -1) {
             data.setReturncode(501);
             data.setReturndata("fail");
@@ -107,11 +107,16 @@ public class indexlist extends BaseAction {
     }
     public void update() throws IOException{
         HttpServletRequest req = this.getRequest();
+        //IndexListService indexListService = new IndexListService();
         JSONReturnData data = new JSONReturnData("");
         data.setReturncode(200);
         String code = PubInfo.getString(req.getParameter("editcode"));
         String procode = PubInfo.getString(req.getParameter("editprocode"));
-        int int1 = IndexListService.updateCate(code,procode);
+        IndexList indexList = new IndexList();
+        indexList.setCode(code);
+        indexList.setProcode(procode);
+        //IndexListService.updateCatePlan(code,procode);
+        IndexListService.updateCatePlan(indexList);
         data.setReturndata("");
         this.sendJson(data);
     }
@@ -122,6 +127,18 @@ public class indexlist extends BaseAction {
         String code = PubInfo.getString(this.getRequest().getParameter("id"));
         int int1 = IndexListService.delCataplan(code);
         data.setReturndata("");
+        this.sendJson(data);
+    }
+    public void switchState() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        String code = PubInfo.getString(req.getParameter("code"));
+        JSONReturnData data = new JSONReturnData("");
+        String state = PubInfo.getString(req.getParameter("state"));
+        IndexList indexList = new IndexList();
+        indexList.setCode(code);
+        indexList.setState(state);
+        IndexListService.updateCatePlan(indexList);
+        data.setReturncode(200);
         this.sendJson(data);
     }
     /**
