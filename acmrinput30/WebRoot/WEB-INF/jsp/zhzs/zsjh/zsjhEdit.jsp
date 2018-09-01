@@ -136,6 +136,7 @@
                                     <input name="endtime"/>
                                     <button id="datachecks">数据检查</button>
                                     <button>数据下载</button>
+                                    <div id="data_check_show"></div>
                                 </div>
                             </div>
                         </div>

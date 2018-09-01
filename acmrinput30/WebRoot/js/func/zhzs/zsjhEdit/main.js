@@ -224,10 +224,12 @@ define(function (require,exports,module) {
         select = [];
     });
     /**
-     * 时间选择自动补上中间的时间期
+     * 时间选择自动补上中间的时间期，以及数据检查
      */
     var selecttime = "";
     $("#datachecks").click(function () {
+        selecttime = "";//初始化时间
+       $("#data_check_show").empty();//初始化表格
         var begintime = $('input[name = begintime]').val();
         var endtime = $('input[name = endtime]').val();
         if(!begintime){
@@ -237,14 +239,42 @@ define(function (require,exports,module) {
             alert("请输入结束时间");
         }
         else if(begintime>endtime){
-            alert("您输入的数据不合法，请重新输入");
+            alert("开始时间不能大于结束时间，请重新输入");
         }
         else{
             for (var i = begintime; i <= endtime ; i++) {
                 selecttime += i+","
             }
             selecttime = selecttime.substr(0, selecttime.length - 1);//去除最后一个逗号
-            console.log(selecttime)
+            var regselect ="";
+            for (var i = 0; i <select.length ; i++) {
+                regselect += select[i].code+","
+            }
+            regselect = regselect.substr(0, regselect.length - 1);//去除最后一个逗号
+            $.ajax({
+                url: common.rootPath+'zbdata/zsjhedit.htm?m=getData',
+                type: "post",
+                data: {"reg": regselect,"sj":selecttime},
+                async: false,
+                dataType: "json",
+                success: function(data) {
+
+                }
+            });
+            /**
+             * 开始做数据检查
+             */
+            var tabledata = "<table class='table table-bordered' id='tabledata'><span>检查结果</span><thead><tr><th>时间</th><th>指标</th>";
+            //表头
+            for (var i = 0; i <select.length ; i++) {
+                tabledata +="<th>"+select[i].name+"</th>";
+            }
+            tabledata += "</tr></thead>";
+            //表内容
+            tabledata += "<tbody>";
+            tabledata += "</tbody>";
+            tabledata += "</table>";
+            $("#data_check_show").append(tabledata);
         }
     });
 });

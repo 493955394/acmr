@@ -98,5 +98,14 @@ public class zsjhedit extends BaseAction {
         }
         this.sendJson(data);
     }
-
+    /**
+     * 数据检查
+     */
+    public void getData() throws IOException{
+        HttpServletRequest req = this.getRequest();
+        String reg = PubInfo.getString(req.getParameter("reg"));//地区
+        String sj = PubInfo.getString(req.getParameter("sj"));//时间
+        System.out.println(reg);
+        System.out.println(sj);
+    }
 }
