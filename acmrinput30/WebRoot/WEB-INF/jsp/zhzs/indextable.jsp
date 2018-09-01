@@ -15,7 +15,7 @@
     </colgroup>
     <thead>
     <tr>
-        <th><input autocomplete="off" type="checkbox" style="display: none;"></th>
+        <th><input type="radio" style="display: none;"></th>
         <th>编码</th>
         <th>名称</th>
         <th>类型</th>
@@ -71,7 +71,7 @@
         <tbody class="list_body " id="my_index_all">
         <c:forEach  items="${indexlist}" var="index">
             <tr class="my_index pro-${index.getCode()}">
-                <th><input autocomplete="off" type="checkbox" name="${index.getIfdata()}" class="choose" id="${index.getCode()}"></th>
+                <th><input type="checkbox" name="${index.getIfdata()}" id="${index.getCode()}"></th>
                 <td >${index.getCode()}</td>
                 <td >${index.getCname()}</td>
                 <td>${index.getIfdata()}</td>

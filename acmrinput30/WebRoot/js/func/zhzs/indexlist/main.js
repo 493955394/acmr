@@ -106,11 +106,37 @@ define(function (require,exports,module) {
     /**
      * 复制到
      */
-    $('.choose').click(function () {
-        var code =$(this).attr('id');
-        var ifdata = $(this).attr('name');
-        $('input[name=copycode]').val(code);
-        $('input[name=cifdata]').val(ifdata);
+    /*
+    把复选框改成单选框
+     */
+    $(function(){
+        $("input[type='checkbox']").click(function() {
+            var flag = $(this).prop("checked"); //先记录下点击后应该的状态
+            $("input[type='checkbox']").prop("checked", false);
+            $(this).prop("checked", flag);
+        });
+    });
+    $('.J_AddCopy').click(function () {
+        var i=0
+        $('input:checkbox').each(function(){
+
+            if(this.checked){
+                i++;
+                var code =$(this).attr('id');
+                var ifdata = $(this).attr('name');
+                if(ifdata == 0){
+                    alert("目录无法复制！");
+                }
+                else if(ifdata == 1){
+                    $('input[name=copycode]').val(code);
+                    $('input[name=cifdata]').val(ifdata);
+                    $('#mymodal-data2').modal('show');
+                }
+            }
+        })
+        if(i==0){
+            alert("请勾选计划");
+        }
     });
     $(document).on('submit', '.J_add_cope', function(event) {
         event.preventDefault();
@@ -403,7 +429,7 @@ define(function (require,exports,module) {
             CategoryNodes.push(zNodes[i])
         }
     }
-    console.log(CategoryNodes)
+    //console.log(CategoryNodes)
 
     module.exports={
         CategoryNodes:CategoryNodes
