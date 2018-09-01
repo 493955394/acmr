@@ -226,6 +226,7 @@ define(function (require,exports,module) {
     /**
      * 时间选择自动补上中间的时间期
      */
+    var selecttime = "";
     $("#datachecks").click(function () {
         var begintime = $('input[name = begintime]').val();
         var endtime = $('input[name = endtime]').val();
@@ -235,8 +236,15 @@ define(function (require,exports,module) {
         else if(!endtime){
             alert("请输入结束时间");
         }
+        else if(begintime>endtime){
+            alert("您输入的数据不合法，请重新输入");
+        }
         else{
-            alert("开始数据检查");
+            for (var i = begintime; i <= endtime ; i++) {
+                selecttime += i+","
+            }
+            selecttime = selecttime.substr(0, selecttime.length - 1);//去除最后一个逗号
+            console.log(selecttime)
         }
     });
 });
