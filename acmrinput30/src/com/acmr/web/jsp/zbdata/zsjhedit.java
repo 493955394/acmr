@@ -115,7 +115,7 @@ public class zsjhedit extends BaseAction {
         List<CubeQueryData> data1 = new ArrayList<CubeQueryData>();
         for (int i = 0; i <sjs.length ; i++) {
             CubeWdCodes where = new CubeWdCodes();
-            where.Add("zb", Arrays.asList(new String[]{"185a8c443b36a50fb5fb20b2b1ea8759f8aeb100","2be7da8a7f023f703366a9bd61f262597ccfcdfa"}));
+            where.Add("zb", Arrays.asList(new String[]{"f91e91fe7601b3ed104dea3a0e2418df74adbc16","2be7da8a7f023f703366a9bd61f262597ccfcdfa"}));
             where.Add("ds", Arrays.asList(new String[]{"A010600","A010600"}));
             where.Add("co", Arrays.asList(new String[]{"COG01","COG01"}));
             where.Add("reg", Arrays.asList(regs));

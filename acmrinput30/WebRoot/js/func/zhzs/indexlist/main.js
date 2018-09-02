@@ -14,7 +14,16 @@ define(function (require,exports,module) {
     $(document).on('submit', '.J_add_catalogue', function(event) {
         event.preventDefault();
         var self = this,
-            currentUrl = $(self).attr('action');
+            currentUrl = $(self).attr('action'),
+        checkDelegate;
+        //检查code
+        checkDelegate = new VaildNormal();
+        //前端检查
+        if (!checkDelegate.checkNormal($('input[name="cocode"]'), [{'name': 'required','msg': '编码不能为空'},{'name': 'ch','msg': '编码不能包含中文'}]) ||
+            !checkDelegate.checkNormal($('input[name="cocname"]'), [{'name': 'required','msg': '中文名称不能为空'},{'name':'maxlength','param':51,'msg':'中文名称长度不能超过50个字符'}])
+        ){
+            return;
+        }
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),
@@ -104,7 +113,7 @@ define(function (require,exports,module) {
 
     });
     /**
-     * 复制到
+     * 复制到F
      */
     /*
     把复选框改成单选框
@@ -203,6 +212,9 @@ define(function (require,exports,module) {
                 }
             }
         });
+    });
+    $('body').on('hidden.bs.modal', '.modal', function () {
+        $(this).removeData('bs.modal');
     });
     // 启用
     $(document).on('click', '.start', function(event) {

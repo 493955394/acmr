@@ -9,6 +9,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <%
     @SuppressWarnings("unchecked")
     ListHashMap<Menu> menus = (ListHashMap<Menu>) request.getSession().getAttribute("usermenu");
@@ -59,10 +60,10 @@
                         <!-- 新增目录 -->
                             <%--<form class="J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm">
                                 <input name="m" value="insert" type="hidden">--%>
-                            <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
+                            <div class="modal " id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
-                                        <form class="J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insert">
+                                        <form class="form-horizontal J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insert">
                                             <input type="hidden" class="form-control" name="ifdata" value="0" >
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -71,27 +72,24 @@
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
-                                                <div class="col-sm-5">
+                                                <div class="col-sm-6">
                                                     <input type="text" class="form-control" name="cocode" >
                                                 </div>
-                                                <div class="clearfix"></div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
-                                                <div class="col-sm-5">
+                                                <div class="col-sm-6">
                                                     <input type="text" class="form-control" name="cocname" >
                                                 </div>
-                                                <div class="clearfix"></div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
-                                                <div class="col-sm-5">
+                                                <div class="col-sm-6">
                                                     <input type="text" class="form-control" name="cataname" value="" disabled>
                                                     <input type="hidden" class="form-control" name="idcata" value="" >
                                                     <ul id="treeCata" class="ztree select-tree hid-top"></ul>
                                                 </div>
-                                                <div class="clearfix"></div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
