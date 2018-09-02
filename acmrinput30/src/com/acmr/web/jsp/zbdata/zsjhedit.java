@@ -1,6 +1,9 @@
 package com.acmr.web.jsp.zbdata;
 
+import acmr.cubequery.service.CubeQuerySev;
 import acmr.cubequery.service.cubequery.entity.CubeNode;
+import acmr.cubequery.service.cubequery.entity.CubeQueryData;
+import acmr.cubequery.service.cubequery.entity.CubeWdCodes;
 import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
@@ -14,10 +17,7 @@ import com.acmr.service.zhzs.IndexListService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class zsjhedit extends BaseAction {
     //指数计划编辑页面
@@ -105,7 +105,17 @@ public class zsjhedit extends BaseAction {
         HttpServletRequest req = this.getRequest();
         String reg = PubInfo.getString(req.getParameter("reg"));//地区
         String sj = PubInfo.getString(req.getParameter("sj"));//时间
-        System.out.println(reg);
-        System.out.println(sj);
+        String [] regs = reg.split(",");
+        String [] sjs = sj.split(",");
+        CubeWdCodes where = new CubeWdCodes();
+        where.Add("zb", "ffe001d3f4a67c752233a83f900af86a942359f2");
+        where.Add("ds", "A010100");
+        where.Add("co", "COG01");
+        where.Add("reg", Arrays.asList(regs));
+        where.Add("sj", "2016");
+        ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
+        for (int i = 0; i < result.size(); i++) {
+            PubInfo.printStr(result.get(i).toString());
+        }
     }
 }

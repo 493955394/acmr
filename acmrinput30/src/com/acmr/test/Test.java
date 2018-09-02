@@ -16,13 +16,13 @@ import acmr.util.PubInfo;
 public class Test {
 
 	public static void main(String args[]) {
-		 //test_getwdlist();
-		 //test_getwdsubnodes();
-		 test_getwdnode();
-		 test_gethasdatawdlist();
-		 test_querydata();
-		test_unitlist();
-		PubInfo.printStr("OK");
+//		 //test_getwdlist();
+//		 //test_getwdsubnodes();
+//		 //test_getwdnode();
+//test_gethasdatawdlist();
+	 test_querydata();
+//		//test_unitlist();
+//		PubInfo.printStr("OK");
 	}
 
 	public static void test_getwdlist() {
@@ -64,17 +64,15 @@ public class Test {
 	public static void test_querydata() {
 		CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
 		CubeWdCodes where = new CubeWdCodes();
-		where.Add("zb", "ffe001d3f4a67c752233a83f900af86a942359f2");
-		where.Add("ds", "A010100");
-		where.Add("co", "COG01");
+		where.Add("zb", Arrays.asList(new String[] {"ffe001d3f4a67c752233a83f900af86a942359f2","2be7da8a7f023f703366a9bd61f262597ccfcdfa"}));
+		where.Add("ds", Arrays.asList(new String[] {"A010100","A010600"}));
+		where.Add("co",  Arrays.asList(new String[] {"COG01","COG01"}));
 		where.Add(
 				"reg",
 				Arrays.asList(new String[] { "643", "642", "634", "626", "624",
 						"608" }));
 		where.Add(
-				"sj",
-				Arrays.asList(new String[] { "2011", "2012", "2013", "2014",
-						"2015", "2016" }));
+				"sj", "2016");
 		ArrayList<CubeQueryData> result = cube1.getCubeData("cuscxnd", where);
 		for (int i = 0; i < result.size(); i++) {
 			PubInfo.printStr(result.get(i).toString());
