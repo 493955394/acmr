@@ -241,9 +241,6 @@ define(function (require,exports,module) {
         else if(begintime>endtime){
             alert("开始时间不能大于结束时间，请重新输入");
         }
-        else if(begintime == endtime){
-            selecttime = begintime;
-        }
         else{
             for (var i = begintime; i <= endtime ; i++) {
                 selecttime += i+",";
@@ -274,14 +271,14 @@ define(function (require,exports,module) {
                     tabledata += "</thead>";
                     tabledata += "<tbody>";
                     //表内容
+                    var z=0;
                     for (var i = 0; i <sj.length ; i++) {
-                        var zb = 0;
-                        for (var j = i; j <2+i ; j++) {
+                        for (var j = 0; j <2 ; j++) {
                             tabledata +="<tr><td>"+sj[i]+"</td>";
-                            tabledata +="<td>指标"+zb+"</td>";
-                            zb++;
-                            for (var k = j+i; k <select.length+j+i ; k++) {
-                                tabledata += "<td>"+data[k+j+i]+"</td>";
+                            tabledata +="<td>指标"+j+"</td>";
+                            for (var k = 0; k <select.length ; k++) {
+                                tabledata += "<td>"+data[z]+"</td>";
+                                z++;
                             }
                             tabledata +="</tr>";
                         }
