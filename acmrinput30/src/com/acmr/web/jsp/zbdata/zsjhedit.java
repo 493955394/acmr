@@ -107,15 +107,22 @@ public class zsjhedit extends BaseAction {
         String sj = PubInfo.getString(req.getParameter("sj"));//时间
         String [] regs = reg.split(",");
         String [] sjs = sj.split(",");
-        CubeWdCodes where = new CubeWdCodes();
-        where.Add("zb", "ffe001d3f4a67c752233a83f900af86a942359f2");
-        where.Add("ds", "A010100");
-        where.Add("co", "COG01");
-        where.Add("reg", Arrays.asList(regs));
-        where.Add("sj", "2016");
-        ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
-        for (int i = 0; i < result.size(); i++) {
-            PubInfo.printStr(result.get(i).toString());
+        List<CubeQueryData> data1 = new ArrayList<CubeQueryData>();
+        for (int i = 0; i <sjs.length ; i++) {
+            CubeWdCodes where = new CubeWdCodes();
+            where.Add("zb", Arrays.asList(new String[]{"185a8c443b36a50fb5fb20b2b1ea8759f8aeb100","2be7da8a7f023f703366a9bd61f262597ccfcdfa"}));
+            where.Add("ds", Arrays.asList(new String[]{"A010600","A010600"}));
+            where.Add("co", Arrays.asList(new String[]{"COG01","COG01"}));
+            where.Add("reg", Arrays.asList(regs));
+            where.Add("sj", sjs[i]);
+            ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
+            data1.addAll(result);
         }
+        List data = new ArrayList();
+        for (int i = 0; i < data1.size(); i++) {
+            PubInfo.printStr(data1.get(i).toString());
+            data.add(data1.get(i).getData().getData());
+        }
+        this.sendJson(data);
     }
 }

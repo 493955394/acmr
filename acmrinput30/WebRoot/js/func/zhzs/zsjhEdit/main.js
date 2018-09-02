@@ -241,40 +241,56 @@ define(function (require,exports,module) {
         else if(begintime>endtime){
             alert("开始时间不能大于结束时间，请重新输入");
         }
+        else if(begintime == endtime){
+            selecttime = begintime;
+        }
         else{
             for (var i = begintime; i <= endtime ; i++) {
-                selecttime += i+","
+                selecttime += i+",";
             }
             selecttime = selecttime.substr(0, selecttime.length - 1);//去除最后一个逗号
+          var sj = selecttime.split(",");
             var regselect ="";
             for (var i = 0; i <select.length ; i++) {
-                regselect += select[i].code+","
+                regselect += select[i].code+",";
             }
             regselect = regselect.substr(0, regselect.length - 1);//去除最后一个逗号
             $.ajax({
                 url: common.rootPath+'zbdata/zsjhedit.htm?m=getData',
                 type: "post",
                 data: {"reg": regselect,"sj":selecttime},
-                async: false,
+                async: true,
                 dataType: "json",
                 success: function(data) {
-
+                    console.log(data)
+                    /**
+                     * 开始做数据检查
+                     */
+                    var tabledata = "<table class='table table-bordered' id='tabledata'><span>检查结果</span><thead><th>时间</th><th>指标</th>";
+                    //表头
+                    for (var i = 0; i <select.length ; i++) {
+                        tabledata +="<th>"+select[i].name+"</th>";
+                    }
+                    tabledata += "</thead>";
+                    tabledata += "<tbody>";
+                    //表内容
+                    for (var i = 0; i <sj.length ; i++) {
+                        var zb = 0;
+                        for (var j = i; j <2+i ; j++) {
+                            tabledata +="<tr><td>"+sj[i]+"</td>";
+                            tabledata +="<td>指标"+zb+"</td>";
+                            zb++;
+                            for (var k = j+i; k <select.length+j+i ; k++) {
+                                tabledata += "<td>"+data[k+j+i]+"</td>";
+                            }
+                            tabledata +="</tr>";
+                        }
+                    }
+                    tabledata += "</tbody>";
+                    tabledata += "</table>";
+                    $("#data_check_show").append(tabledata);
                 }
             });
-            /**
-             * 开始做数据检查
-             */
-            var tabledata = "<table class='table table-bordered' id='tabledata'><span>检查结果</span><thead><tr><th>时间</th><th>指标</th>";
-            //表头
-            for (var i = 0; i <select.length ; i++) {
-                tabledata +="<th>"+select[i].name+"</th>";
-            }
-            tabledata += "</tr></thead>";
-            //表内容
-            tabledata += "<tbody>";
-            tabledata += "</tbody>";
-            tabledata += "</table>";
-            $("#data_check_show").append(tabledata);
         }
     });
 });
