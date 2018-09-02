@@ -14,14 +14,21 @@ define(function (require,exports,module) {
     $(document).on('submit', '.J_add_catalogue', function(event) {
         event.preventDefault();
         var self = this,
-            currentUrl = $(self).attr('action'),
-        checkDelegate;
-        //检查code
+            currentUrl = $(self).prop('action'),
+            checkDelegate;
         checkDelegate = new VaildNormal();
+        var flag = true;
         //前端检查
-        if (!checkDelegate.checkNormal($('input[name="cocode"]'), [{'name': 'required','msg': '编码不能为空'},{'name': 'ch','msg': '编码不能包含中文'}]) ||
-            !checkDelegate.checkNormal($('input[name="cocname"]'), [{'name': 'required','msg': '中文名称不能为空'},{'name':'maxlength','param':51,'msg':'中文名称长度不能超过50个字符'}])
-        ){
+        if (!checkDelegate.checkNormal($('input[name="cocode"]'), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="cocode"]'), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
+            !checkDelegate.checkNormal($('input[name="cocode"]'), [{ 'name': 'maxlength', 'msg': '编码最大长度为20', 'param': 21 }])) {
+            flag = false;
+        }
+        if (!checkDelegate.checkNormal($('input[name="cocname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="cocname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
+            flag = false;
+        }
+        if (flag == false) {
             return;
         }
         $.ajax({
@@ -42,16 +49,29 @@ define(function (require,exports,module) {
             },
             error: function() {
                 common.commonTips('添加失败');
-
             }
-
         })
-
     });
     $(document).on('submit', '.J_add_plan', function(event) {
         event.preventDefault();
         var self = this,
-            currentUrl = $(self).attr('action');
+            currentUrl = $(self).prop('action'),
+            checkDelegate;
+        checkDelegate = new VaildNormal();
+        var flag = true;
+        //前端检查
+        if (!checkDelegate.checkNormal($('input[name="code"]'), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="code"]'), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
+            !checkDelegate.checkNormal($('input[name="code"]'), [{ 'name': 'maxlength', 'msg': '编码最大长度为20', 'param': 21 }])) {
+            flag = false;
+        }
+        if (!checkDelegate.checkNormal($('input[name="cname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="cname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
+            flag = false;
+        }
+        if (flag == false) {
+            return;
+        }
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),
@@ -71,9 +91,7 @@ define(function (require,exports,module) {
                     // common.commonTips('保存出错！');
                 }
             }
-
         })
-
     });
     /**
      * 编辑数据
@@ -113,7 +131,7 @@ define(function (require,exports,module) {
 
     });
     /**
-     * 复制到F
+     * 复制到
      */
     /*
     把复选框改成单选框
@@ -144,13 +162,29 @@ define(function (require,exports,module) {
             }
         })
         if(i==0){
-            alert("请勾选计划");
+            alert("请选择计划");
         }
     });
     $(document).on('submit', '.J_add_cope', function(event) {
         event.preventDefault();
         var self = this,
-            currentUrl = $(self).attr('action');
+            currentUrl = $(self).prop('action'),
+            checkDelegate;
+        checkDelegate = new VaildNormal();
+        var flag = true;
+        //前端检查
+        if (!checkDelegate.checkNormal($('input[name="plcode"]'), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="plcode"]'), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
+            !checkDelegate.checkNormal($('input[name="plcode"]'), [{ 'name': 'maxlength', 'msg': '编码最大长度为20', 'param': 21 }])) {
+            flag = false;
+        }
+        if (!checkDelegate.checkNormal($('input[name="zname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="zname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
+            flag = false;
+        }
+        if (flag == false) {
+            return;
+        }
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),
@@ -170,21 +204,6 @@ define(function (require,exports,module) {
                     // common.commonTips('保存出错！');
                 }
             }
-            /*success: function(data) {
-                if (data.returncode == 300) {
-                    alert('请选择计划');
-                }else if(data.returncode == 200){
-                    alert("保存成功") ;
-                $('#mymodal-data2').modal('hide');
-                window.location.reload(true);
-                //common.commonTips('保存成功！');
-                }else{
-                    alert("保存失败") ;
-                    $('#mymodal-data2').modal('hide');
-                    // common.commonTips('保存出错！');
-                }
-            }*/
-
         })
     });
     /**
@@ -212,9 +231,6 @@ define(function (require,exports,module) {
                 }
             }
         });
-    });
-    $('body').on('hidden.bs.modal', '.modal', function () {
-        $(this).removeData('bs.modal');
     });
     // 启用
     $(document).on('click', '.start', function(event) {
@@ -444,7 +460,7 @@ define(function (require,exports,module) {
     }
     //操作列表的class
     function changeTrClass(){
-       // 修正classname
+        // 修正classname
         $("tr[class='pro-']").attr("class","pro-#1")
         var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
         var nodes=treeObj.transformToArray(treeObj.getNodes());
@@ -487,3 +503,4 @@ define(function (require,exports,module) {
     }
 
 })
+
