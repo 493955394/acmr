@@ -1,10 +1,11 @@
 package com.acmr.service.zbdata;
 
+import acmr.cubequery.service.CubeQuerySev;
 import acmr.cubequery.service.cubequery.entity.CubeNode;
 import acmr.cubequery.service.cubequery.entity.CubeWdValue;
-import acmr.util.PubInfo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ZBdataService {
@@ -114,6 +115,29 @@ public class ZBdataService {
         return nodes;
     }
 
-
-
+    /**
+    * @Description: 根据传入的s模糊查找指标
+    * @Param: [s]
+    * @return: java.util.List<acmr.cubequery.service.cubequery.entity.CubeNode>
+    * @Author: lyh
+    * @Date: 2018/9/2
+    */
+    public List<CubeNode> findZB(String s){
+        CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
+        List<CubeNode> nodes = cube1.FindWeiNode("cuscxnd","zb",s);
+        return nodes;
+    }
+    /**
+    * @Description: 根据给定的指标code，返回该指标的path
+    * @Param: [code]
+    * @return: java.util.List<java.lang.String>
+    * @Author: lyh
+    * @Date: 2018/9/2
+    */
+    public List<String> getZBPath(String code){
+        CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
+        String _path=cube1.getWeiTreePath("cuscxnd","zb",code);
+        List<String> path= Arrays.asList(_path.split("/"));
+        return path;
+    }
 }

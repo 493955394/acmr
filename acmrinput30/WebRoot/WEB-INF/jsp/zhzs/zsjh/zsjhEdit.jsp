@@ -95,7 +95,127 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="zssx">
-                        <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/zbEdit.jsp" flush="true"/>
+                        <div id="tree_and_find" class="col-md-2 left-panel">
+                            <div class="form-group">
+                                <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" >
+                                <%--
+                                                            <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="<c:if test="${code != '' && code!= null}">${code}</c:if><c:if test="${cname != '' && cname != null}">${cname}</c:if>">
+                                --%>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary btn-sm btn_search">搜索</button>
+                            </div>
+                            <%-- <div id="find_panel" class="panel panel-default" style="display: none;"></div>--%>
+                            <ul id="treeDemo1" class="ztree ztree-margin"></ul>
+                            <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/zbtree.jsp" flush="true"/>--%>
+                        </div>
+                        <div class="col-md-10 right-panel">
+                            <div class="col-md-9 left-panel">
+                                <div>
+                                    <div class="panel panel-default">
+                                        <div class="panel_zbname panel-heading" code="">请选择指标</div>
+                                        <div class="ds_choose panel-body">
+                                            <div class="col-md-4">
+                                                <h5>数据来源：</h5>
+                                                <div class="form-group">
+                                                    <select id="ds_select" class="form-control input-sm zb_select">
+                                                        <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
+                                                                                        <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h5>主体：</h5>
+                                                <div class="form-group">
+                                                    <select id="co_select" class="form-control input-sm zb_select">
+                                                        <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
+                                                                                        <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h5>单位：</h5>
+                                                <div class="form-group">
+                                                    <select id="unit_select" class="form-control input-sm zb_select">
+                                                        <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
+                                                                                        <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-primary btn-sm zb_add" style="display: none;float: right">添加指标</button>
+                                        </div>
+                                        <div class="panel-footer"></div>
+                                        <%--    <div class="co_choose panel-body">
+                                                <div class="col-md-2">
+                                                    <h4>主体：</h4>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <p class="hidden_choose" style="color: gray;">请先选择指标</p>
+                                                    <div class="show_choose co_show" style="display: none;">
+                                                        test
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer"></div>
+                                            <div class="dw_choose panel-body">
+                                                <div class="col-md-2">
+                                                    <h4>单位：</h4>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <p class="hidden_choose" style="color: gray;display: inline">请先选择指标</p>
+                                                    <div class="show_choose co_show" style="display: none;">
+                                                        test
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary btn-sm zb_add" style="display: none">添加指标</button>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer"></div>--%>
+                                        <%--    <div class="data_table panel-body J_zsjc_zbdata_table">
+                                                <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/ZBdataList.jsp" flush="true"/>
+                                            </div>--%>
+
+                                    </div>
+                                    <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/addZB.jsp" flush="true"/>--%>
+                                </div>
+                                <form class="form-inline J_search_form" action="${ctx}/zbdata/my.htm?m=getDataTest">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary btn-sm">测试</button>
+                                    </div>
+                                </form>
+                                <div class="data_table panel-body J_zsjh_zbdata_table">
+                                    <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/ZBdataList.jsp" flush="true"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3 right-panel">
+                                <div class="panel_container">
+                                    <c:forEach items="${zbs.zbchoose}" var="zb">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <input type="hidden" value="${zb.code}">
+                                                <h5>${zb.zbname}</h5>
+                                                <h6>主体：${zb.coname}</h6>
+                                                <h6>数据来源：${zb.dsname}</h6>
+                                                <h6>计量单位：${zb.unitname}</h6>
+                                                <button type='button' class='btn btn-primary btn-sm' style='float: left;'>保存</button>
+                                                <button type='button' class='btn btn-primary btn-sm' style='float: right;'>删除</button>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                    <%--   <div class="panel panel-default">
+                                           <div class="panel-body">
+                                               指标1
+                                           </div>
+                                       </div>
+                                       <div class="panel panel-default">
+                                           <div class="panel-body">
+                                               指标1
+                                           </div>
+                                       </div>
+                                   --%>
+                                </div>
+                                <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/ZBPanel.jsp" flush="true"/>--%>
+                            </div>
+                        </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="jsfw">
                         <div class="col-xs-3" style="padding-top:50px">
@@ -166,6 +286,8 @@
         }
     })
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/main');
+    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/zbAdd');
+
 </script>
 
 </html>
