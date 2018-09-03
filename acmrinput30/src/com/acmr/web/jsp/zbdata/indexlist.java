@@ -36,12 +36,16 @@ public class indexlist extends BaseAction {
         String code = PubInfo.getString(req.getParameter("cocode"));
         String code1 = PubInfo.getString(req.getParameter("plancode"));
         JSONReturnData data = new JSONReturnData("");
-        /*if (indexListService.getData(code).getCode() != null) {
+        if (indexListService.getData(code).getCode()!=null){
             data.setReturncode(300);
-            data.setReturndata("fail");
             this.sendJson(data);
             return;
-        }*/
+        }
+        if (indexListService.getData(code1).getCode()!=null){
+            data.setReturncode(300);
+            this.sendJson(data);
+            return;
+        }
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
         int ifdata = Integer.parseInt(ifdata1);
         String cname = PubInfo.getString(req.getParameter("cocname"));
@@ -84,14 +88,14 @@ public class indexlist extends BaseAction {
         String code = PubInfo.getString(req.getParameter("copycode"));
         //String ifdata1 = PubInfo.getString(req.getParameter("cifdata"));
         //int ifdata = Integer.parseInt(ifdata1);
+        String ncode = PubInfo.getString(req.getParameter("plcode"));
         JSONReturnData data = new JSONReturnData("");
-        /*if (code == null && ifdata == 1)
+        if (indexListService.getData(ncode).getCode()!=null){
             data.setReturncode(300);
             this.sendJson(data);
             return;
-        }*/
+        }
         String cname = PubInfo.getString(req.getParameter("zname"));
-        String ncode = PubInfo.getString(req.getParameter("plcode"));
         String nprocode = PubInfo.getString(req.getParameter("newprocode"));
         IndexList indexList = new IndexList();
         indexList.setCode(ncode);
@@ -141,6 +145,28 @@ public class indexlist extends BaseAction {
         indexList.setState(state);
         IndexListService.updateCatePlan(indexList);
         data.setReturncode(200);
+        this.sendJson(data);
+    }
+    public void checkCode() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        IndexListService indexListService = new IndexListService();
+        String code = PubInfo.getString(req.getParameter("cocode"));
+        String code1 = PubInfo.getString(req.getParameter("plancode"));
+        String ncode = PubInfo.getString(req.getParameter("plcode"));//复制到的code
+        JSONReturnData data = new JSONReturnData("");
+        List<String> list = new ArrayList();
+        list.add(code);
+        list.add(code1);
+        list.add(ncode);
+        for(int i = 0;i<list.size();i++){
+            if (indexListService.getData(list.get(i)).getCode()!=null) {
+                data.setReturncode(300);
+            } else {
+                data.setReturncode(200);
+            }
+        }
+
+
         this.sendJson(data);
     }
     /**
