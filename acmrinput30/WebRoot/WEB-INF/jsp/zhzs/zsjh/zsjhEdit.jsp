@@ -189,15 +189,15 @@
                             <div class="col-md-3 right-panel">
                                 <div class="panel_container">
                                     <c:forEach items="${zbs.zbchoose}" var="zb">
-                                        <div class="panel panel-default">
+                                        <div class="panel panel-default zb_panel">
                                             <div class="panel-body">
                                                 <input type="hidden" value="${zb.code}">
                                                 <h5>${zb.zbname}</h5>
                                                 <h6>主体：${zb.coname}</h6>
                                                 <h6>数据来源：${zb.dsname}</h6>
                                                 <h6>计量单位：${zb.unitname}</h6>
-                                                <button type='button' class='btn btn-primary btn-sm' style='float: left;'>保存</button>
-                                                <button type='button' class='btn btn-primary btn-sm' style='float: right;'>删除</button>
+                                                <button type='button' class='btn btn-primary btn-sm zb_save' style='float: left;'>保存</button>
+                                                <button type='button' class='btn btn-primary btn-sm zb_delete' style='float: right;'>删除</button>
                                             </div>
                                         </div>
                                     </c:forEach>

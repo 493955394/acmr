@@ -53,27 +53,31 @@ define("zbAdd",function (require,exports,module) {
     }*/
     function clickEvent(event, treeid, treeNode) {
         if(treeNode.isParent==false){
-            //因为把已有的指标改到了后台直接传值，所以这里取不到，需要重新做判断，等其他完成之后再做
-            /*for(i=0;i<zbs.length;i++){
-                if(treeNode.id==zbs[i].zbcode){
-                    alert("该指标已被选择！")
-                    $(".zb_add").css("display","none")
-                    return;
-                }
-            }*/
+            zb=[treeNode.id,treeNode.name]
+            if (zbclick(zb)){
+                $(".zb_add").css("display","inline")
+                $(".panel_zbname").html(treeNode.name).attr("code",treeNode.id)
+            }
+        }
+        else {
+            $(".zb_add").css("display","none")
+        }
+    }
 
+    function zbclick(zb) {
+        if (isexit(zb[0])){
+            alert("该指标已被选择！")
+            $(".zb_add").css("display","none")
+            return false
+        }
+        else {
             $(".zb_add").css("display","inline")
-            $(".panel_zbname").html(treeNode.name).attr("code",treeNode.id)
-            var zbname=$(".panel_zbname").html()
-            var zbcode=$(".panel_zbname").attr("code")
-            zb=[zbcode,zbname]
-            //console.log(zb)
-            zbclick(zb)
-           /* var data={
+            console.log(zb)
+            var data={
                 "zbcode":zb[0]
             };
             $.ajax({
-                url:common.rootPath+'zbdata/my.htm?m=getDsCoUnit',
+                url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit',
                 type:'post',
                 dataType:'json',
                 data:data,
@@ -93,48 +97,19 @@ define("zbAdd",function (require,exports,module) {
                     }
                     sendPjax();
                 }
-            })*/
-
-
+            })
+            return true
         }
-        else {
-            $(".zb_add").css("display","none")
-        }
-    }
-
-    function zbclick(zb) {
-        $(".zb_add").css("display","inline")
-        console.log(zb)
-        var data={
-            "zbcode":zb[0]
-        };
-        $.ajax({
-            url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit',
-            type:'post',
-            dataType:'json',
-            data:data,
-            success:function (re) {
-                $(".zb_select").empty()
-                foreach(re.ds,"ds")
-                foreach(re.co,"co")
-                foreach(re.unit,"unit")
-                function foreach(innerre,zname) {
-                    innerre.forEach(function (d,ind,ds){
-                        var code=Object.keys(d)[0]
-                        var name=d[code]
-                        $("#"+zname+"_select").append("<option class='" +
-                            code+ "'>" +
-                            name+"</option>")
-                    })
-                }
-                sendPjax();
-            }
-        })
     }
 
     //判断选择的指标是否已经存在
     function isexit(code) {
-
+        for (var i=0;i<zbs.length;i++){
+            if (zbs[i].zbcode==code){
+                return true
+            }
+        }
+        return false
     }
 
     function sendPjax(){
@@ -181,25 +156,11 @@ define("zbAdd",function (require,exports,module) {
                         var name=$(this).html();
                         clearFindResult()
                         treeObj.expandNode( treeObj.getNodeByParam("id",""))
-                        $(".panel_zbname").html(name).attr("code",clickcode)
                         zb=[clickcode,name]
-                        zbclick(zb);
-
-                        /* $.ajax({
-                             url:common.rootPath+'zbdata/my.htm?m=getZBPath&code='+clickcode,
-                             type:'get',
-                             success:function (re) {
-                                 console.log(re)
-                                 clearFindResult()
-                                 treeObj.expandNode( treeObj.getNodeByParam("id",""))
-                                 for (var i=0;i<re.length;i++){
-                                     console.log("expand")
-                                     treeObj.expandNode( treeObj.getNodeByParam("id",re[i]))
-
-
-                                 }
-                             }
-                         })*/
+                        //zbclick(zb);
+                        if(zbclick(zb)){
+                            $(".panel_zbname").html(name).attr("code",clickcode)
+                        }
                     })
 
                 }
