@@ -57,7 +57,7 @@
                         <!-- 模态弹出窗内容 -->
                         <!-- 新增目录 -->
                         <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                            <div class="modal-lg">
+                            <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <form class="form-horizontal J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insert">
                                         <input type="hidden" class="form-control" name="ifdata" value="0" >
@@ -68,21 +68,21 @@
                                         <div class="modal-body">
 
                                             <div class="form-group">
-                                                <label class="col-sm-4 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
+                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                                                 <div class="col-sm-5">
                                                     <input type="text" class="form-control" name="cocode" >
                                                 </div>
 
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-4 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
+                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
                                                 <div class="col-sm-5">
                                                     <input type="text" class="form-control" name="cocname" >
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="col-sm-4 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
+                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                                 <div class="col-sm-5">
                                                     <input type="text" class="form-control" name="cataname" value="" disabled>
                                                     <input type="hidden" class="form-control" name="idcata" value="" >
@@ -101,7 +101,7 @@
                         </div>
                         <!-- 新增计划 -->
                         <div class="modal" id="mymodal-data1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                            <div class="modal-lg">
+                            <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <form class="form-horizontal J_add_plan"  action="${ctx}/zbdata/indexlist.htm?m=insert">
                                         <input type="hidden" class="form-control" name="ifdata" value="1" >
@@ -153,7 +153,7 @@
                         </div>
                         <!-- 复制到 -->
                         <div class="modal" id="mymodal-data2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                            <div class="modal-lg">
+                            <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <form class="form-horizontal J_add_cope" action="${ctx}/zbdata/indexlist.htm?m=copy">
                                         <input type="hidden" class="form-control" name="copycode">
