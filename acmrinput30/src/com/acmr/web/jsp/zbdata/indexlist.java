@@ -33,7 +33,8 @@ public class indexlist extends BaseAction {
     public void insert() throws IOException {
         IndexListService indexListService = new IndexListService();
         HttpServletRequest req = this.getRequest();
-        String code = PubInfo.getString(req.getParameter("code"));
+        String code = PubInfo.getString(req.getParameter("cocode"));
+        String code1 = PubInfo.getString(req.getParameter("plancode"));
         JSONReturnData data = new JSONReturnData("");
         /*if (indexListService.getData(code).getCode() != null) {
             data.setReturncode(300);
@@ -43,21 +44,23 @@ public class indexlist extends BaseAction {
         }*/
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
         int ifdata = Integer.parseInt(ifdata1);
-        String cname = PubInfo.getString(req.getParameter("cname"));
+        String cname = PubInfo.getString(req.getParameter("cocname"));
+        String cname1 = PubInfo.getString(req.getParameter("plancname"));
         String procode = PubInfo.getString(req.getParameter("idcata"));
         String procode1 = PubInfo.getString(req.getParameter("idplan"));
         String sort = PubInfo.getString(req.getParameter("sort"));
         String createuser = "usercode01";
         String state = "0";
         IndexList indexList = new IndexList();
-        indexList.setCode(code);
-        indexList.setCname(cname);
-        indexList.setProcode(procode);
         indexList.setIfdata(ifdata1);
         indexList.setCreateuser(createuser);
         if(ifdata == 0){
+            indexList.setCode(code);
+            indexList.setCname(cname);
             indexList.setProcode(procode);
         }else {
+            indexList.setCode(code1);
+            indexList.setCname(cname1);
             indexList.setProcode(procode1);
             indexList.setSort(sort);
             indexList.setState(state);
@@ -72,7 +75,6 @@ public class indexlist extends BaseAction {
 
         data.setReturndata(indexList);
         this.sendJson(data);
-        //this.getResponse().sendRedirect("indexlist.htm");
 
     }
     //复制到

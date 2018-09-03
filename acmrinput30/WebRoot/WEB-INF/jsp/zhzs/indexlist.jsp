@@ -113,13 +113,13 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="code" >
+                                                    <input type="text" class="form-control" name="plancode">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="cname" >
+                                                    <input type="text" class="form-control" name="plancname">
                                                 </div>
                                             </div>
                                             <div class="form-group">

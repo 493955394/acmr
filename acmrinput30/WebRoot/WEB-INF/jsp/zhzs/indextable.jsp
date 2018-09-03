@@ -28,7 +28,7 @@
         <tbody class="list_body " id="my_index_all">
         <c:forEach  items="${indexlist}" var="index">
             <tr class="my_index pro-${index.getCode()}">
-                <th><input type="checkbox" name="${index.getIfdata()}" id="${index.getCode()}"></th>
+                <th><input type="checkbox" if="${index.getIfdata()}" id="${index.getCode()}" getname="${index.getCname()}"></th>
                 <td >${index.getCode()}</td>
                 <td >${index.getCname()}</td>
                 <td>${index.getIfdata()}</td>
@@ -112,23 +112,5 @@
 </div>
 <script>
     seajs.use('${ctx}/js/func/zhzs/indexlist/main');
-    function show(){
-        var oChk = document.getElementById('cp');
-        oChk.onclick = function(){
-            if(oChk.checked){
-                obj = document.getElementsByName("search");
-                check_val = [];
-                for(k in obj){
-                    if(obj[k].checked)
-                        check_val.push(obj[k].value);
-                }
-                alert(check_val);
-            } else {
-                alert('请选择计划');
-            }
-        };
-        //alert(check_val);
-
-    }
 
 </script>

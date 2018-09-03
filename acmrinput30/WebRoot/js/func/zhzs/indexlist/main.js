@@ -52,6 +52,7 @@ define(function (require,exports,module) {
             }
         })
     });
+    console.log($("input[name='plancode']").attr("class"))
     $(document).on('submit', '.J_add_plan', function(event) {
         event.preventDefault();
         var self = this,
@@ -60,13 +61,13 @@ define(function (require,exports,module) {
         checkDelegate = new VaildNormal();
         var flag = true;
         //前端检查
-        if (!checkDelegate.checkNormal($('input[name="code"]'), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="code"]'), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
-            !checkDelegate.checkNormal($('input[name="code"]'), [{ 'name': 'maxlength', 'msg': '编码最大长度为20', 'param': 21 }])) {
+        if (!checkDelegate.checkNormal($("input[name='plancode']"), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
+            !checkDelegate.checkNormal($("input[name='plancode']"), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
+            !checkDelegate.checkNormal($("input[name='plancode']"), [{ 'name': 'maxlength', 'msg': '编码最大长度为20', 'param': 21 }])) {
             flag = false;
         }
-        if (!checkDelegate.checkNormal($('input[name="cname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="cname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
+        if (!checkDelegate.checkNormal($('input[name="plancname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="plancname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
             flag = false;
         }
         if (flag == false) {
@@ -150,13 +151,16 @@ define(function (require,exports,module) {
             if(this.checked){
                 i++;
                 var code =$(this).attr('id');
-                var ifdata = $(this).attr('name');
+                var ifdata = $(this).attr('if');
+                var name =$(this).attr('getname');
                 if(ifdata == 0){
                     alert("目录无法复制！");
                 }
                 else if(ifdata == 1){
                     $('input[name=copycode]').val(code);
+                    $('input[name=plcode]').val(code);
                     $('input[name=cifdata]').val(ifdata);
+                    $('input[name=zname]').val(name);
                     $('#mymodal-data2').modal('show');
                 }
             }
