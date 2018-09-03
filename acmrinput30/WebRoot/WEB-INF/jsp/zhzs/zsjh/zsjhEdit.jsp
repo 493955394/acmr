@@ -191,7 +191,8 @@
                                     <c:forEach items="${zbs.zbchoose}" var="zb">
                                         <div class="panel panel-default zb_panel">
                                             <div class="panel-body">
-                                                <input type="hidden" value="${zb.code}">
+                                                <input type="hidden" class="input_code" value="${zb.code}">
+                                                <input type="hidden" class="input_zbcode" value="${zb.zbcode}">
                                                 <h5>${zb.zbname}</h5>
                                                 <h6>主体：${zb.coname}</h6>
                                                 <h6>数据来源：${zb.dsname}</h6>
