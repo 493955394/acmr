@@ -322,7 +322,10 @@ public class zsjhedit extends BaseAction {
                     where.Add("co",cocode);
                     where.Add("sj",sjs.get(j));
                     where.Add("reg",regs.get(i));
-                    double data=originService.querydata(where).get(0).getData().getData()*rates.get(j);
+                    double data=0;
+                    if(originService.querydata(where).size()>0){
+                        data=originService.querydata(where).get(0).getData().getData()*rates.get(j);
+                    }
                     row.add(data+"");
                     where.Clear();
                 }
@@ -332,6 +335,11 @@ public class zsjhedit extends BaseAction {
 
         }
         PubInfo.printStr(rows.toString());
+        String nodata="";
+        if (rows.size()==0){
+            nodata="该筛选条件暂时无值";
+        }
+        PubInfo.printStr(nodata);
 
         if (StringUtil.isEmpty(pjax)) {
             String code=req.getParameter("indexcode");
@@ -341,7 +349,21 @@ public class zsjhedit extends BaseAction {
             PubInfo.printStr("isempty");
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list);
         } else {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/ZBdataList").addObject("sjs",sjs).addObject("rows",rows);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/ZBdataList").addObject("sjs",sjs).addObject("rows",rows).addObject("nodata",nodata);
         }
+    }
+    
+    /** 
+    * @Description: 返回指标的path
+    * @Param: [] 
+    * @return: void 
+    * @Author: lyh
+    * @Date: 2018/9/3 
+    */ 
+    public void getZBpath() throws IOException {
+        String code=this.getRequest().getParameter("code");
+        ZBdataService zBdataService=new ZBdataService();
+        List<String> path=zBdataService.getZBPath(code);
+        this.sendJson(path);
     }
 }

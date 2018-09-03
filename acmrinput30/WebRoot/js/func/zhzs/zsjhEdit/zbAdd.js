@@ -1,4 +1,4 @@
-define("zbAdd",function (require,exports,module) {
+define(function (require,exports,module) {
     var $ = require('jquery'),
         tree = require('tree'),
         pjax=require('pjax'),
@@ -9,17 +9,15 @@ define("zbAdd",function (require,exports,module) {
     $(".btn_search").click(search)
     $(".zb_add").click(addZb)
     $(".zb_select").change(sendPjax)
+    $(".zb_panel").click(panelClick)
+    $(".zb_save").click(zbSave)
+    $(".zb_delete").click(zbDelete)
 
     var indexCode=$("#index_code").val();
     console.log(indexCode)
     var st = new Date().getTime();//时间戳，用于生成zb的code code=st+Math.random().toString(36).substr(2)
     var zbs=[];//[{code1,zbcode1,zbname1,dscode,dsname,cocode,coname,unitcode,unitname}]
-    /*for(var i=0;i<editjsp.zbs.length;i++){
-        zbs.push(editjsp.zbs[i]);
-        console.log(editjsp.zbs)
-    }*/
     zbs=editjsp.zbs
-    console.log(zbs)
     var zb=[];//[zbcode,zbname]
     var ds=[];//[dsdcode,dsname]
     var co=[];//[cocode,coname]
@@ -45,16 +43,24 @@ define("zbAdd",function (require,exports,module) {
     var rootNode = [{"id":"","name":"指标分组树",pId:"", "open":"false", "isParent":"true"}];
     var treeObj = $.fn.zTree.init($("#treeDemo1"), setting, rootNode);
 
-/*    function zTreeOnAsyncSuccess() {
-        console.log("test")
+    
+/*    function zTreeOnAsyncSuccess(event, treeid, treeNode, msg) {
+        var treeObj = $.fn.zTree.getZTreeObj(treeid);
         var nodes=treeObj.getNodes();
+        var children=treeNode.children;
+        treeObj.expandNode(children[1])
         console.log(nodes)
-
+        console.log(children)
     }*/
+
+
     function clickEvent(event, treeid, treeNode) {
         if(treeNode.isParent==false){
             zb=[treeNode.id,treeNode.name]
             if (zbclick(zb)){
+
+                $(".zb_panel").css("background-color","inherit")
+                $(".zb_panel_add").css("background-color","inherit")
                 $(".zb_add").css("display","inline")
                 $(".panel_zbname").html(treeNode.name).attr("code",treeNode.id)
             }
@@ -65,14 +71,17 @@ define("zbAdd",function (require,exports,module) {
     }
 
     function zbclick(zb) {
+        $("#zb_data_body").empty().append("<p>查询中……</p>");
         if (isexit(zb[0])){
             alert("该指标已被选择！")
             $(".zb_add").css("display","none")
+            $("#zb_data_head").empty()
+            $("#zb_data_body").empty()
             return false
         }
         else {
             $(".zb_add").css("display","inline")
-            console.log(zb)
+            //console.log(zb)
             var data={
                 "zbcode":zb[0]
             };
@@ -114,13 +123,13 @@ define("zbAdd",function (require,exports,module) {
 
     function sendPjax(){
         var zbcode=$(".panel_zbname").attr("code")
-        console.log(zbcode)
+        //console.log(zbcode)
         var cocode=$('#co_select option:selected').attr("class")
-        console.log(cocode)
+        //console.log(cocode)
         var dscode=$('#ds_select option:selected').attr("class")
-        console.log(dscode)
+        //console.log(dscode)
         var unitcode=$('#unit_select option:selected').attr("class")
-        console.log(unitcode)
+        //console.log(unitcode)
 
         $.pjax({
             url:common.rootPath+'zbdata/zsjhedit.htm?m=getDataTest&zbcode='+zbcode+'&cocode='+cocode+'&dscode='+dscode+'&unitcode='+unitcode+'&indexcode='+indexCode+"&st="+st,
@@ -155,11 +164,23 @@ define("zbAdd",function (require,exports,module) {
                         var clickcode= $(this).attr("id")
                         var name=$(this).html();
                         clearFindResult()
-                        treeObj.expandNode( treeObj.getNodeByParam("id",""))
+                        //treeObj.expandNode( treeObj.getNodeByParam("id",""))
                         zb=[clickcode,name]
                         //zbclick(zb);
                         if(zbclick(zb)){
+                            $(".zb_panel").css("background-color","inherit")
+                            $(".zb_panel_add").css("background-color","inherit")
                             $(".panel_zbname").html(name).attr("code",clickcode)
+                            //获得路径
+                            $.ajax({
+                                url:common.rootPath+'zbdata/zsjhedit.htm?m=getZBpath&code='+clickcode,
+                                type:'get',
+                                success:function (re) {
+                                    console.log(re)
+                                    re.push(clickcode)
+                                    expandTree(re)
+                                }
+                            })
                         }
                     })
 
@@ -171,7 +192,6 @@ define("zbAdd",function (require,exports,module) {
     function clearFindResult() {
         $("#find_panel").remove();
         $("#treeDemo1").css("display","block")
-
     }
 
     function addZb() {
@@ -195,10 +215,12 @@ define("zbAdd",function (require,exports,module) {
         addZBpanel(zbs[zbs.length-1])
         //drawTable();
     }
+
     function addZBpanel(content) {
         console.log(content)
-        $(".panel_container").append("<div class='panel panel-default'><div class='panel-body '><input type='hidden' value='" +
-            content.code+"'>" +
+        $(".panel_container").append("<div class='panel panel-default zb_panel_add'><div class='panel-body '><input type='hidden' class='input_code' value='" +
+            content.code+"'><input type='hidden' class='input_zbcode' value='" +
+            content.zbcode+"'>" +
             "<h5>" +
             content.zbname+"</h5>" +
             "<h6>主体：" +
@@ -210,6 +232,62 @@ define("zbAdd",function (require,exports,module) {
             "<button type='button' class='btn btn-primary btn-sm' style='float: left;'>保存</button>" +
             "<button type='button' class='btn btn-primary btn-sm' style='float: right;'>删除</button>" +
             "</div> </div>")
+        $(".zb_panel_add").click(panelClick)
+
+    }
+
+    function expandTree(path) {
+        $.ajaxSettings.async=false
+        var node=treeObj.getNodeByParam("id","")
+        treeObj.expandNode(node)
+        for(var i=0;i<path.length;i++){
+            //console.log(node)
+            if(node.isParent==true){
+                var nodes=node.children;
+                //console.log(nodes)
+                for(var j=0;j<nodes.length;j++){
+                    if (nodes[j].id==path[i]){
+                        //console.log("found")
+                        treeObj.expandNode(nodes[j]);
+                        node=treeObj.getNodeByParam("id",path[i])
+                        break;
+                    }
+                }
+            }
+            treeObj.selectNode(node);
+        }
+/*
+        var nodes=pnode.children
+        console.log(nodes)
+        for (var i=0;i<nodes.length;i++){
+            if (nodes[i].id==id){
+                treeObj.expandNode(nodes[i])
+            }
+        }
+*/
+
+    }
+
+    function panelClick(){
+        console.log("panelClick")
+        $(".zb_panel").css("background-color","inherit")
+        $(".zb_panel_add").css("background-color","inherit")
+
+        $(this).css("background-color","orange")
+        var zbname=$(this).
+        console.log(zbname)
+
+
+    }
+
+    function zbSave(event){
+        event.stopPropagation();
+        console.log("zbsave")
+    }
+
+    function zbDelete(event){
+        event.stopPropagation();
+        console.log("zbdelete")
     }
 
     module.exports={
