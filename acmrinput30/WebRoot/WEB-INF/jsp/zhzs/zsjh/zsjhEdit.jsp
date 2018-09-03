@@ -272,7 +272,7 @@
 </div>
 </body>
 <script>
-    define("listjsp",function (require,exports,module) {
+    define("editjsp",function (require,exports,module) {
         var indexlist=[];
         <c:forEach items="${indexlist}" var="index">
         if (${index.getIfdata()=='0'}){
@@ -281,8 +281,23 @@
         else indexlist.push({id:"${index.getCode()}",pId:"#1",name:"${index.getCname()}",isParent:!${index.getIfdata()},sou:!${index.getIfdata()}})
     }
         </c:forEach>
+        var zbs=[];
+        <c:forEach items="${zbs.zbchoose}" var="zb">
+        zbs.push({
+            code:"${zb.code}",
+            zbcode:"${zb.zbcode}",
+            zbname:"${zb.zbname}",
+            dscode:"${zb.dscode}",
+            dsname:"${zb.dsname}",
+            cocode:"${zb.cocode}",
+            coname:"${zb.coname}",
+            unitcode:"${zb.unitcode}",
+            unitname:"${zb.unitname}"
+        })
+        </c:forEach>
         module.exports={
-            indexlist:indexlist
+            indexlist:indexlist,
+            zbs:zbs
         }
     })
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/main');

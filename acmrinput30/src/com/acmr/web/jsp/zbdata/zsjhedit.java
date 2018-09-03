@@ -330,7 +330,7 @@ public class zsjhedit extends BaseAction {
             IndexListService indexListService=new IndexListService();
             IndexList list =indexListService.getData(code);
             PubInfo.printStr("isempty");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/my").addObject("zbs",zbs).addObject("list",list);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/ZBdataList").addObject("sjs",sjs).addObject("rows",rows);
         }

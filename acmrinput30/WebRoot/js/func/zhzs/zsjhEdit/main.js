@@ -9,12 +9,13 @@ define(function (require,exports,module) {
         PackAjax = require('Packajax'),
         modal = require('modal'),
         tab = require('tab'),
-        listjsp = require('listjsp');
+        zbAdd=require('zbAdd'),
+        editjsp = require('editjsp');
 
     var zNodes =[
         { id:"#1", pId:0, name:"指数",isParent:true}
     ];
-    var indexlist=listjsp.indexlist;
+    var indexlist=editjsp.indexlist;
     for(var i=0;i<indexlist.length;i++){
         zNodes.push(indexlist[i])
     }
@@ -252,6 +253,7 @@ define(function (require,exports,module) {
                 regselect += select[i].code+",";
             }
             regselect = regselect.substr(0, regselect.length - 1);//去除最后一个逗号
+            var zbs=zbAdd.zbs;
             $.ajax({
                 url: common.rootPath+'zbdata/zsjhedit.htm?m=getData',
                 type: "post",
@@ -263,6 +265,7 @@ define(function (require,exports,module) {
                     /**
                      * 开始做数据检查
                      */
+
                     var tabledata = "<table class='table table-bordered' id='tabledata'><span>检查结果</span><thead><th>时间</th><th>指标</th>";
                     //表头
                     for (var i = 0; i <select.length ; i++) {

@@ -1,8 +1,9 @@
-define(function (require,exports,module) {
+define("zbAdd",function (require,exports,module) {
     var $ = require('jquery'),
         tree = require('tree'),
         pjax=require('pjax'),
-        common = require('common');
+        common = require('common'),
+        editjsp = require('editjsp');
 
 
     $(".btn_search").click(search)
@@ -13,6 +14,12 @@ define(function (require,exports,module) {
     console.log(indexCode)
     var st = new Date().getTime();//时间戳，用于生成zb的code code=st+Math.random().toString(36).substr(2)
     var zbs=[];//[{code1,zbcode1,zbname1,dscode,dsname,cocode,coname,unitcode,unitname}]
+    /*for(var i=0;i<editjsp.zbs.length;i++){
+        zbs.push(editjsp.zbs[i]);
+        console.log(editjsp.zbs)
+    }*/
+    zbs=editjsp.zbs
+    console.log(zbs)
     var zb=[];//[zbcode,zbname]
     var ds=[];//[dsdcode,dsname]
     var co=[];//[cocode,coname]
@@ -242,6 +249,10 @@ define(function (require,exports,module) {
             "<button type='button' class='btn btn-primary btn-sm' style='float: left;'>保存</button>" +
             "<button type='button' class='btn btn-primary btn-sm' style='float: right;'>删除</button>" +
             "</div> </div>")
+    }
+
+    module.exports={
+        zbs:zbs
     }
 
 
