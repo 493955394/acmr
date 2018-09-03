@@ -1,6 +1,5 @@
 package com.acmr.web.jsp.zbdata;
 
-import acmr.cubequery.service.CubeQuerySev;
 import acmr.cubequery.service.cubequery.entity.CubeNode;
 import acmr.cubequery.service.cubequery.entity.CubeQueryData;
 import acmr.cubequery.service.cubequery.entity.CubeUnit;
@@ -11,8 +10,6 @@ import acmr.web.entity.ModelAndView;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.TreeNode;
 import com.acmr.model.zhzs.IndexList;
-import com.acmr.service.metadata.MetaService;
-import com.acmr.service.metadata.MetaServiceManager;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zbdata.RegdataService;
 import com.acmr.service.zbdata.ZBdataService;
@@ -110,18 +107,30 @@ public class zsjhedit extends BaseAction {
         HttpServletRequest req = this.getRequest();
         String reg = PubInfo.getString(req.getParameter("reg"));//地区
         String sj = PubInfo.getString(req.getParameter("sj"));//时间
+        String zbcode = PubInfo.getString(req.getParameter("zb"));//zbcode
+        String zbname = PubInfo.getString(req.getParameter("zbname"));//zbname
+        String ds = PubInfo.getString(req.getParameter("ds"));//数据来源
+        String co = PubInfo.getString(req.getParameter("co"));//主体
+        String zbunit = PubInfo.getString(req.getParameter("zbunit"));//单位
         String [] regs = reg.split(",");
         String [] sjs = sj.split(",");
+        String [] zbcodes = zbcode.split(",");
+        String [] zbnames = zbname.split(",");
+        String [] dss = ds.split(",");
+        String [] cos = co.split(",");
+        String [] units = zbunit.split(",");
         List<CubeQueryData> data1 = new ArrayList<CubeQueryData>();
         for (int i = 0; i <sjs.length ; i++) {
-            CubeWdCodes where = new CubeWdCodes();
-            where.Add("zb", Arrays.asList(new String[]{"f91e91fe7601b3ed104dea3a0e2418df74adbc16","2be7da8a7f023f703366a9bd61f262597ccfcdfa"}));
-            where.Add("ds", Arrays.asList(new String[]{"A010600","A010600"}));
-            where.Add("co", Arrays.asList(new String[]{"COG01","COG01"}));
-            where.Add("reg", Arrays.asList(regs));
-            where.Add("sj", sjs[i]);
-            ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
-            data1.addAll(result);
+            for (int j = 0; j <zbcodes.length ; j++) {
+                CubeWdCodes where = new CubeWdCodes();
+                where.Add("zb", zbcodes[j]);
+                where.Add("ds", dss[j]);
+                where.Add("co", cos[j]);
+                where.Add("reg", Arrays.asList(regs));
+                where.Add("sj", sjs[i]);
+                ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);//还没有换算单位
+                data1.addAll(result);
+            }
         }
         List data = new ArrayList();
         for (int i = 0; i < data1.size(); i++) {

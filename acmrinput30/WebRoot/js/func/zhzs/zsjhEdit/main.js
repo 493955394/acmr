@@ -227,8 +227,9 @@ define(function (require,exports,module) {
     /**
      * 时间选择自动补上中间的时间期，以及数据检查
      */
-    var selecttime = "";
-    $("#datachecks").click(function () {
+    var selecttime = "";//时间
+
+        $("#datachecks").click(function () {
         selecttime = "";//初始化时间
        $("#data_check_show").empty();//初始化表格
         var begintime = $('input[name = begintime]').val();
@@ -243,7 +244,12 @@ define(function (require,exports,module) {
             alert("开始时间不能大于结束时间，请重新输入");
         }
         else{
-            for (var i = begintime; i <= endtime ; i++) {
+            var zbcode = "";//指标code
+            var zbco = "";//指标主体
+            var zbds = "";//指标数据来源
+            var zbunit ="";//指标单位
+            var zbname = "";//指标名称
+            for (var i = endtime; i >= begintime ; i--) {
                 selecttime += i+",";
             }
             selecttime = selecttime.substr(0, selecttime.length - 1);//去除最后一个逗号
@@ -253,11 +259,23 @@ define(function (require,exports,module) {
                 regselect += select[i].code+",";
             }
             regselect = regselect.substr(0, regselect.length - 1);//去除最后一个逗号
-            var zbs=zbAdd.zbs;
+            var zbs=zbAdd.zbs;//获取指标的信息
+            for (var i = 0; i <zbs.length ; i++) {
+                zbcode += zbs[i].zbcode+",";
+                zbco += zbs[i].cocode+",";
+                zbds += zbs[i].dscode+",";
+                zbname += zbs[i].zbname+",";
+                zbunit += zbs[i].unitcode+",";
+            }
+            zbcode = zbcode.substr(0, zbcode.length - 1);//去除最后一个逗号
+            zbco = zbco.substr(0, zbco.length - 1);//去除最后一个逗号
+            zbds = zbds.substr(0, zbds.length - 1);//去除最后一个逗号
+            zbname = zbname.substr(0, zbname.length - 1);//去除最后一个逗号
+            zbunit = zbunit.substr(0, zbunit.length - 1);//去除最后一个逗号
             $.ajax({
                 url: common.rootPath+'zbdata/zsjhedit.htm?m=getData',
                 type: "post",
-                data: {"reg": regselect,"sj":selecttime},
+                data: {"reg": regselect,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit},
                 async: true,
                 dataType: "json",
                 success: function(data) {
@@ -275,10 +293,13 @@ define(function (require,exports,module) {
                     tabledata += "<tbody>";
                     //表内容
                     var z=0;
+
                     for (var i = 0; i <sj.length ; i++) {
-                        for (var j = 0; j <2 ; j++) {
+                        var n =0;
+                        for (var j = 0; j <zbs.length ; j++) {
                             tabledata +="<tr><td>"+sj[i]+"</td>";
-                            tabledata +="<td>指标"+j+"</td>";
+                            tabledata +="<td>"+zbs[n].zbname+"</td>";
+                            n++;
                             for (var k = 0; k <select.length ; k++) {
                                 tabledata += "<td>"+data[z]+"</td>";
                                 z++;
