@@ -31,7 +31,12 @@ define(function (require,exports,module) {
 
     function clickEvent(event, treeid, treeNode) {
         console.log("clickevent")
-        sendPjax(treeNode.id)
+        if (treeNode.isParent == true) {
+            sendPjax(treeNode.id)
+        }
+        else {
+            return
+        }
 
     }
     

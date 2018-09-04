@@ -5,9 +5,9 @@ import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
-import com.acmr.model.pub.PageBean;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.service.zhzs.IndexListService;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -18,10 +18,29 @@ import java.util.Map;
 
 public class indexlist extends BaseAction {
     public ModelAndView main() throws IOException {
-        String test="this is the listjps";
         ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
-        return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("test",test).addObject("indexlist",indexlist);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("indexlist",indexlist);
     }
+
+    public ModelAndView getIndexList() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        String pjax = req.getHeader("X-PJAX");
+        String code=req.getParameter("code");
+        PubInfo.printStr("code"+code);
+        ArrayList<IndexList> indexlist= new IndexListService().getSublist(code);
+        if (indexlist.size()==0){
+            indexlist.add(new IndexListService().getData(code));
+        }
+        if (StringUtil.isEmpty(pjax)) {
+            PubInfo.printStr("isempty");
+            this.getResponse().sendRedirect("/zbdata/indexlist.htm");
+        } else {
+            PubInfo.printStr("pjax");
+            return new ModelAndView("/WEB-INF/jsp/zhzs/indextable").addObject("indexlist",indexlist);
+        }
+        return null;
+    }
+
     /**
      *
      *

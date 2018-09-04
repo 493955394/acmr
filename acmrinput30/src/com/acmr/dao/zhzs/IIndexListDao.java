@@ -1,10 +1,12 @@
 package com.acmr.dao.zhzs;
 
 import acmr.util.DataTable;
-import com.acmr.model.zhzs.IndexCategory;
 import com.acmr.model.zhzs.IndexList;
 
+import javax.xml.crypto.Data;
+
 public interface IIndexListDao {
+    public DataTable getSubLists(String code,String usercode);
     public String getName();
     public DataTable getByUser(String usercode);
     public DataTable getByCode(String code);

@@ -388,6 +388,7 @@ define(function (require,exports,module) {
             delIds = [];
         });
     });
+
     var zNodes =[
         { id:"#1", pId:0, name:"指数",isParent:true,sou:true},
         { id:"#2", pId:0, name:"我收到的指数",isParent:true,sou:true},
@@ -397,11 +398,7 @@ define(function (require,exports,module) {
     for(var i=0;i<indexlist.length;i++){
         zNodes.push(indexlist[i])
     }
-
     var setting = {
-        async:{
-
-        },
         data: {
             simpleData: {
                 enable: true
@@ -468,8 +465,15 @@ define(function (require,exports,module) {
         var url=window.location.href
         $('#my_index_all').load(url + ' .my_index')
     }
+    console.log("rootpath:"+common.rootPath)
     function clickEvent(event,treeId,treeNode) {
-        if(treeNode.isParent==false){
+        console.log("click")
+        $.pjax({
+            url:common.rootPath+'zbdata/indexlist.htm?m=getIndexList&code='+treeNode.id,
+            container:'.J_regmgr_data_table',
+            timeout:2000
+        })
+        /*if(treeNode.isParent==false){
             return false
         }
         $.ajaxSettings.async=false
@@ -479,7 +483,9 @@ define(function (require,exports,module) {
         var proCode=treeNode.id
         var classname="-"+proCode+"-"
         $(".my_index:not([class*='" +
-            classname+"'])").detach()
+            classname+"'])").detach()*/
+
+
     }
     function clickEvent1(event,treeId,treeNode) {
 
