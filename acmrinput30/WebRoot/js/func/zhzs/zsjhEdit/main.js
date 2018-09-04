@@ -9,7 +9,7 @@ define(function (require,exports,module) {
         PackAjax = require('Packajax'),
         modal = require('modal'),
         tab = require('tab'),
-        zbAdd=require('zbAdd'),
+        zbAdd=require('js/func/zhzs/zsjhEdit/zbAdd'),
         editjsp = require('editjsp');
 
     var incode=$("#index_code").val();

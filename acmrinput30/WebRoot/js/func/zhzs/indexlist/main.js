@@ -8,7 +8,7 @@ define(function (require,exports,module) {
         modal = require('modal'),
         listjsp= require('listjsp');
     /**
-     * 新增目录ajax提交，忽略数据检查
+     * 新增目录
      */
 
     $(document).on('submit', '.J_add_catalogue', function(event) {
@@ -43,8 +43,8 @@ define(function (require,exports,module) {
                     $('#mymodal-data').modal('hide');
                     window.location.reload(true);
                 }else {
-                    alert("保存失败");
-                    $('#mymodal-data').modal('hide');
+                    alert("目录已存在");
+                    $('#mymodal-data').modal('show');
                 }
             },
             error: function() {
@@ -52,6 +52,7 @@ define(function (require,exports,module) {
             }
         })
     });
+    console.log($("input[name='plancode']").attr("class"))
     $(document).on('submit', '.J_add_plan', function(event) {
         event.preventDefault();
         var self = this,
@@ -60,13 +61,13 @@ define(function (require,exports,module) {
         checkDelegate = new VaildNormal();
         var flag = true;
         //前端检查
-        if (!checkDelegate.checkNormal($('input[name="code"]'), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="code"]'), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
-            !checkDelegate.checkNormal($('input[name="code"]'), [{ 'name': 'maxlength', 'msg': '编码最大长度为20', 'param': 21 }])) {
+        if (!checkDelegate.checkNormal($("input[name='plancode']"), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
+            !checkDelegate.checkNormal($("input[name='plancode']"), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
+            !checkDelegate.checkNormal($("input[name='plancode']"), [{ 'name': 'maxlength', 'msg': '编码最大长度为20', 'param': 21 }])) {
             flag = false;
         }
-        if (!checkDelegate.checkNormal($('input[name="cname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="cname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
+        if (!checkDelegate.checkNormal($('input[name="plancname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="plancname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
             flag = false;
         }
         if (flag == false) {
@@ -86,8 +87,8 @@ define(function (require,exports,module) {
                     //window.location.reload();
                     //common.commonTips('保存成功！');
                 } else {
-                    alert("保存失败");
-                    $('#mymodal-data1').modal('hide');
+                    alert("计划已存在");
+                    $('#mymodal-data1').modal('show');
                     // common.commonTips('保存出错！');
                 }
             }
@@ -122,7 +123,7 @@ define(function (require,exports,module) {
                     //common.commonTips('保存成功！');
                 } else {
                     alert("保存失败");
-                    $('#mymodal-data3').modal('hide');
+                    $('#mymodal-data3').modal('show');
                     // common.commonTips('保存出错！');
                 }
             }
@@ -150,13 +151,16 @@ define(function (require,exports,module) {
             if(this.checked){
                 i++;
                 var code =$(this).attr('id');
-                var ifdata = $(this).attr('name');
+                var ifdata = $(this).attr('if');
+                var name =$(this).attr('getname');
                 if(ifdata == 0){
                     alert("目录无法复制！");
                 }
                 else if(ifdata == 1){
                     $('input[name=copycode]').val(code);
+                    $('input[name=plcode]').val(code);
                     $('input[name=cifdata]').val(ifdata);
+                    $('input[name=zname]').val(name);
                     $('#mymodal-data2').modal('show');
                 }
             }
@@ -199,12 +203,96 @@ define(function (require,exports,module) {
                     //window.location.reload();
                     //common.commonTips('保存成功！');
                 } else {
-                    alert("保存失败");
-                    $('#mymodal-data2').modal('hide');
+                    alert("该计划已存在");
+                    $('#mymodal-data2').modal('show');
                     // common.commonTips('保存出错！');
                 }
             }
         })
+    });
+    /**
+    * 后台检查
+    */
+    function checkCode(cocode, checkDelegate) {
+        var flag;
+        $.ajax({
+            url: common.rootPath + 'zbdata/indexlist.htm?m=checkCode',
+            timeout: 5000,
+            type: 'post',
+            async: false,
+            data: 'cocode=' + cocode,
+            dataType: 'json',
+            success: function(data) {
+                if (data.returncode == 200) {
+                    checkDelegate.viewTipAjax($('input[name="cocode"]'), true);
+                    flag = true;
+                } else {
+                    checkDelegate.viewTipAjax($('input[name="cocode"]'), false, "该编码已存在");
+                    flag = false;
+                }
+            }
+        })
+        return flag;
+    }
+    $(document).on('blur', 'input[name="cocode"]', function() {
+        var self = this,
+            checkDelegate;
+        checkDelegate = new VaildNormal();
+        checkCode($('input[name="cocode"]').val(), checkDelegate);
+    });
+    function checkCode(plancode, checkDelegate) {
+        var flag;
+        $.ajax({
+            url: common.rootPath + 'zbdata/indexlist.htm?m=checkCode',
+            timeout: 5000,
+            type: 'post',
+            async: false,
+            data: 'plancode=' + plancode,
+            dataType: 'json',
+            success: function(data) {
+                if (data.returncode == 200) {
+                    checkDelegate.viewTipAjax($('input[name="plancode"]'), true);
+                    flag = true;
+                } else {
+                    checkDelegate.viewTipAjax($('input[name="plancode"]'), false, "该编码已存在");
+                    flag = false;
+                }
+            }
+        })
+        return flag;
+    }
+    $(document).on('blur', 'input[name="plancode"]', function() {
+        var self = this,
+            checkDelegate;
+        checkDelegate = new VaildNormal();
+        checkCode($('input[name="plancode"]').val(), checkDelegate);
+    });
+    function checkCode(plcode, checkDelegate) {
+        var flag;
+        $.ajax({
+            url: common.rootPath + 'zbdata/indexlist.htm?m=checkCode',
+            timeout: 5000,
+            type: 'post',
+            async: false,
+            data: 'plcode=' + plcode,
+            dataType: 'json',
+            success: function(data) {
+                if (data.returncode == 200) {
+                    checkDelegate.viewTipAjax($('input[name="plcode"]'), true);
+                    flag = true;
+                } else {
+                    checkDelegate.viewTipAjax($('input[name="plcode"]'), false, "该编码已存在");
+                    flag = false;
+                }
+            }
+        })
+        return flag;
+    }
+    $(document).on('blur', 'input[name="plcode"]', function() {
+        var self = this,
+            checkDelegate;
+        checkDelegate = new VaildNormal();
+        checkCode($('input[name="plcode"]').val(), checkDelegate);
     });
     /**
      * 删除数据

@@ -18,7 +18,9 @@
 --%>
             </tr>
             </thead>
+            <p>${nodata}</p>
             <tbody id="zb_data_body">
+
             <c:forEach items="${rows}" var="row">
                 <tr>
                     <c:forEach items="${row}" var="data">

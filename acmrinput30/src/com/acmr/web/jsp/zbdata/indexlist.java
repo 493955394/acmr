@@ -33,31 +33,38 @@ public class indexlist extends BaseAction {
     public void insert() throws IOException {
         IndexListService indexListService = new IndexListService();
         HttpServletRequest req = this.getRequest();
-        String code = PubInfo.getString(req.getParameter("code"));
+        String code = PubInfo.getString(req.getParameter("cocode"));
+        String code1 = PubInfo.getString(req.getParameter("plancode"));
         JSONReturnData data = new JSONReturnData("");
-        /*if (indexListService.getData(code).getCode() != null) {
+        if (indexListService.getData(code).getCode()!=null){
             data.setReturncode(300);
-            data.setReturndata("fail");
             this.sendJson(data);
             return;
-        }*/
+        }
+        if (indexListService.getData(code1).getCode()!=null){
+            data.setReturncode(300);
+            this.sendJson(data);
+            return;
+        }
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
         int ifdata = Integer.parseInt(ifdata1);
-        String cname = PubInfo.getString(req.getParameter("cname"));
+        String cname = PubInfo.getString(req.getParameter("cocname"));
+        String cname1 = PubInfo.getString(req.getParameter("plancname"));
         String procode = PubInfo.getString(req.getParameter("idcata"));
         String procode1 = PubInfo.getString(req.getParameter("idplan"));
         String sort = PubInfo.getString(req.getParameter("sort"));
         String createuser = "usercode01";
         String state = "0";
         IndexList indexList = new IndexList();
-        indexList.setCode(code);
-        indexList.setCname(cname);
-        indexList.setProcode(procode);
         indexList.setIfdata(ifdata1);
         indexList.setCreateuser(createuser);
         if(ifdata == 0){
+            indexList.setCode(code);
+            indexList.setCname(cname);
             indexList.setProcode(procode);
         }else {
+            indexList.setCode(code1);
+            indexList.setCname(cname1);
             indexList.setProcode(procode1);
             indexList.setSort(sort);
             indexList.setState(state);
@@ -72,7 +79,6 @@ public class indexlist extends BaseAction {
 
         data.setReturndata(indexList);
         this.sendJson(data);
-        //this.getResponse().sendRedirect("indexlist.htm");
 
     }
     //复制到
@@ -82,14 +88,14 @@ public class indexlist extends BaseAction {
         String code = PubInfo.getString(req.getParameter("copycode"));
         //String ifdata1 = PubInfo.getString(req.getParameter("cifdata"));
         //int ifdata = Integer.parseInt(ifdata1);
+        String ncode = PubInfo.getString(req.getParameter("plcode"));
         JSONReturnData data = new JSONReturnData("");
-        /*if (code == null && ifdata == 1)
+        if (indexListService.getData(ncode).getCode()!=null){
             data.setReturncode(300);
             this.sendJson(data);
             return;
-        }*/
+        }
         String cname = PubInfo.getString(req.getParameter("zname"));
-        String ncode = PubInfo.getString(req.getParameter("plcode"));
         String nprocode = PubInfo.getString(req.getParameter("newprocode"));
         IndexList indexList = new IndexList();
         indexList.setCode(ncode);
@@ -139,6 +145,28 @@ public class indexlist extends BaseAction {
         indexList.setState(state);
         IndexListService.updateCatePlan(indexList);
         data.setReturncode(200);
+        this.sendJson(data);
+    }
+    public void checkCode() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        IndexListService indexListService = new IndexListService();
+        String code = PubInfo.getString(req.getParameter("cocode"));
+        String code1 = PubInfo.getString(req.getParameter("plancode"));
+        String ncode = PubInfo.getString(req.getParameter("plcode"));//复制到的code
+        JSONReturnData data = new JSONReturnData("");
+        List<String> list = new ArrayList();
+        list.add(code);
+        list.add(code1);
+        list.add(ncode);
+        for(int i = 0;i<list.size();i++){
+            if (indexListService.getData(list.get(i)).getCode()!=null) {
+                data.setReturncode(300);
+            } else {
+                data.setReturncode(200);
+            }
+        }
+
+
         this.sendJson(data);
     }
     /**
