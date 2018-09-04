@@ -7,6 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <%@ page import="com.acmr.model.security.User" %>
 <%@page import="com.acmr.model.security.Menu"%>
 <%@page import="acmr.util.ListHashMap"%>
@@ -21,6 +22,8 @@
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
 </head>
 <body>
+<style type="text/css">
+</style>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 
 <div class="container-fluid" id="mainpanel">
@@ -242,7 +245,7 @@
                                 <div class="panel-heading" style="text-align:center">地区列表</div>
                             </div>
                             <div class="panle-body" >
-                                <select size="10" style="width: 100%" class="regul" id="selectreg"></select>
+                                <ul class="list-group regul" id="selectreg"></ul>
                             </div>
                         </div>
 
@@ -256,7 +259,9 @@
                                     <input name="endtime"/>
                                     <button id="datachecks">数据检查</button>
                                     <button>数据下载</button>
-                                    <div id="data_check_show"></div>
+                                    <div class="data_check_show">
+                                        <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/regSelect.jsp" flush="true"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -302,7 +307,6 @@
     })
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/main');
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/zbAdd');
-
 </script>
 
 </html>

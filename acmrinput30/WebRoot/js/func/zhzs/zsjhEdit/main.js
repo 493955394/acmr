@@ -12,10 +12,12 @@ define(function (require,exports,module) {
         zbAdd=require('zbAdd'),
         editjsp = require('editjsp');
 
+    var incode=$("#index_code").val();
+    var select_li = "error";//选择移除的li的下标
     var zNodes =[
         { id:"#1", pId:0, name:"指数",isParent:true}
     ];
-    var indexlist=editjsp.indexlist;
+    var indexlist = editjsp.indexlist;
     for(var i=0;i<indexlist.length;i++){
         zNodes.push(indexlist[i])
     }
@@ -152,13 +154,14 @@ define(function (require,exports,module) {
             }
         }
         //每触发一次先初始化
-        $('select.regul').html("");
+        $('ul.regul').html("");
         var showreg ="";
+        select_li = "error";
         for(var i=0;i<select.length;i++){
             if(select[i].name=="" && select[i].code==""){
                 showreg +="";
             }else {
-                showreg += '<option class="list-group-item"  value="'+select[i].code+'">'+select[i].name+'</option>';
+                showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'</li>';
             }
         }
         $("#selectreg").append(showreg);
@@ -167,15 +170,16 @@ define(function (require,exports,module) {
      * 删除单个地区
      */
     $("#delsiggle").click(function () {
-        var obj = document.getElementById("selectreg");
-        var index = obj.selectedIndex;
-        var code =  obj.options[index].value;
-        for(var i=0;i<select.length;i++){
-            if(select[i].code== code){
-                select.splice(i, 1);
+        if(select_li !="error"){
+            var code = $('ul.regul').find("li").eq(select_li).attr("id");
+            for(var i=0;i<select.length;i++){
+                if(select[i].code== code){
+                    select.splice(i, 1);
+                }
             }
+            $('ul.regul').find("li").eq(select_li).remove();
+            select_li = "error";
         }
-        obj.options.remove(index);
     });
     /**
      * 选中某地区下所有地区
@@ -203,13 +207,14 @@ define(function (require,exports,module) {
                         }
                     }
                     //每触发一次先初始化
-                    $('select.regul').html("");
+                    $('ul.regul').html("");
+                    select_li = "error";
                     var showreg ="";
                     for(var i=0;i<select.length;i++){
                         if(select[i].name=="" && select[i].code==""){
                             showreg +="";
                         }else {
-                            showreg += '<option class="list-group-item"  value="'+select[i].code+'">'+select[i].name+'</option>';
+                            showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'</li>';
                         }
                     }
                     $("#selectreg").append(showreg);
@@ -221,13 +226,27 @@ define(function (require,exports,module) {
      * 删除所有地区
      */
     $("#delall").click(function (){
-        $('select.regul').html("");
+        $('ul.regul').html("");
+        select_li = "error";
         select = [];
     });
+    /**
+     * 绑定li标签点击效果
+     */
+    $("#selectreg").on('click','.list-group-item', function() {
+        $(this).siblings('li').css("background","#ffffff");
+        $(this).css("background","#f6f6f6");
+        select_li = $(this).index();
+    }) ;
     /**
      * 时间选择自动补上中间的时间期，以及数据检查
      */
     var selecttime = "";//时间
+    var zbcode = "";//指标code
+    var zbco = "";//指标主体
+    var zbds = "";//指标数据来源
+    var zbunit ="";//指标单位
+    var zbname = "";//指标名称
 
         $("#datachecks").click(function () {
         selecttime = "";//初始化时间
@@ -244,21 +263,9 @@ define(function (require,exports,module) {
             alert("开始时间不能大于结束时间，请重新输入");
         }
         else{
-            var zbcode = "";//指标code
-            var zbco = "";//指标主体
-            var zbds = "";//指标数据来源
-            var zbunit ="";//指标单位
-            var zbname = "";//指标名称
             for (var i = endtime; i >= begintime ; i--) {
                 selecttime += i+",";
             }
-            selecttime = selecttime.substr(0, selecttime.length - 1);//去除最后一个逗号
-          var sj = selecttime.split(",");
-            var regselect ="";
-            for (var i = 0; i <select.length ; i++) {
-                regselect += select[i].code+",";
-            }
-            regselect = regselect.substr(0, regselect.length - 1);//去除最后一个逗号
             var zbs=zbAdd.zbs;//获取指标的信息
             for (var i = 0; i <zbs.length ; i++) {
                 zbcode += zbs[i].zbcode+",";
@@ -272,46 +279,92 @@ define(function (require,exports,module) {
             zbds = zbds.substr(0, zbds.length - 1);//去除最后一个逗号
             zbname = zbname.substr(0, zbname.length - 1);//去除最后一个逗号
             zbunit = zbunit.substr(0, zbunit.length - 1);//去除最后一个逗号
-            $.ajax({
-                url: common.rootPath+'zbdata/zsjhedit.htm?m=getData',
+            selecttime = selecttime.substr(0, selecttime.length - 1);//去除最后一个逗号
+            var regselect ="";
+            var regselectname ="";
+            for (var i = 0; i <select.length ; i++) {
+                regselect += select[i].code+",";
+                regselectname +=select[i].name+",";
+            }
+            regselect = regselect.substr(0, regselect.length - 1);//去除最后一个逗号
+            regselectname = regselectname.substr(0, regselectname.length - 1);//去除最后一个逗号
+
+            $.pjax({
+                url: common.rootPath+'zbdata/zsjhedit.htm?m=getCheckData&indexcode='+incode,
                 type: "post",
-                data: {"reg": regselect,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit},
-                async: true,
-                dataType: "json",
-                success: function(data) {
-                    console.log(data)
-                    /**
-                     * 开始做数据检查
-                     */
-
-                    var tabledata = "<table class='table table-bordered' id='tabledata'><span>检查结果</span><thead><th>时间</th><th>指标</th>";
-                    //表头
-                    for (var i = 0; i <select.length ; i++) {
-                        tabledata +="<th>"+select[i].name+"</th>";
-                    }
-                    tabledata += "</thead>";
-                    tabledata += "<tbody>";
-                    //表内容
-                    var z=0;
-
-                    for (var i = 0; i <sj.length ; i++) {
-                        var n =0;
-                        for (var j = 0; j <zbs.length ; j++) {
-                            tabledata +="<tr><td>"+sj[i]+"</td>";
-                            tabledata +="<td>"+zbs[n].zbname+"</td>";
-                            n++;
-                            for (var k = 0; k <select.length ; k++) {
-                                tabledata += "<td>"+data[z]+"</td>";
-                                z++;
-                            }
-                            tabledata +="</tr>";
+                data: {"reg": regselect,"regname":regselectname,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit},
+                container:'.data_check_show'
+            });
+            $(document).on('pjax:success', function() {
+               // uniteTable(tabledata,1);
+                $("#tabledata").show();
+                $('ul.regul').html("");
+                select_li = "error";
+                var showreg ="";
+                var checkdata = $('input[id=checkreturn]').val();
+                checkdata = checkdata.substr(0, checkdata.length - 1);//去除最后一个逗号
+                var checkreturn = checkdata.split(",");
+                console.log(checkdata)
+                for(var i=0;i<select.length;i++){
+                    if(select[i].name=="" && select[i].code==""){
+                        showreg +="";
+                    }else {
+                        if(checkreturn[i]==0){
+                            showreg += '<li class="list-group-item clickli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-ok"></i></span></li>';
+                        }
+                       else {
+                            showreg += '<li class="list-group-item clickli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-remove"></i></span></li>';
                         }
                     }
-                    tabledata += "</tbody>";
-                    tabledata += "</table>";
-                    $("#data_check_show").append(tabledata);
                 }
+                $("#selectreg").append(showreg);
             });
         }
     });
+    $("#selectreg").on('click','.clickli', function() {
+        var reg =$(this).attr("id");
+        $.pjax({
+            url: common.rootPath+'zbdata/zsjhedit.htm?m=getCheckSingle&indexcode='+incode,
+            type: "post",
+            data: {"reg": reg,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit},
+            container:'.data_check_show'
+        });
+        $(document).on('pjax:success', function() {
+            $("#tabledata").hide();
+            $("#data_single").show();
+        });
+    }) ;
+    /**
+     * 合并第一列
+     * @param tb的id
+     * @param colLength要合并的列数
+     */
+    function   uniteTable(tb,colLength){
+        var   i=0;
+        var   j=0;
+        var   rowCount=tb.rows.length; //   行数
+        var   colCount=tb.rows[0].cells.length; //   列数
+        var   obj1=null;
+        var   obj2=null;
+        //   为每个单元格命名
+        for   (i=0;i<rowCount;i++){
+            for   (j=0;j<colCount;j++){
+                tb.rows[i].cells[j].id="tb__"   +   i.toString()   +   "_"   +   j.toString();
+            }
+        }
+        //   逐列检查合并
+        for   (i=0;i<colCount;i++){
+            if   (i==colLength)   return;
+            obj1=document.getElementById("tb__0_"+i.toString())
+            for   (j=1;j<rowCount;j++){
+                obj2=document.getElementById("tb__"+j.toString()+"_"+i.toString());
+                if   (obj1.innerText   ==   obj2.innerText){
+                    obj1.rowSpan++;
+                    obj2.parentNode.removeChild(obj2);
+                }else{
+                    obj1=document.getElementById("tb__"+j.toString()+"_"+i.toString());
+                }
+            }
+        }
+    }
 });

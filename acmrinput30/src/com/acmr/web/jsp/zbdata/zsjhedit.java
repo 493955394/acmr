@@ -44,7 +44,6 @@ public class zsjhedit extends BaseAction {
         /* 第一个分页显示*/
         JSONObject zbs=getZBS(code);
         return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("proname",proname).addObject("list",list).addObject("indexlist",indexlist).addObject("zbs",zbs);
-
     }
     /**
      *
@@ -103,8 +102,105 @@ public class zsjhedit extends BaseAction {
     /**
      * 数据检查
      */
-    public void getData() throws IOException{
+    public ModelAndView getCheckData() {
         HttpServletRequest req = this.getRequest();
+        String pjax = req.getHeader("X-PJAX");
+        OriginService originService=new OriginService();
+        String reg = PubInfo.getString(req.getParameter("reg"));//地区
+        String regname = PubInfo.getString(req.getParameter("regname"));//地区名称
+        String sj = PubInfo.getString(req.getParameter("sj"));//时间
+        String zbcode = PubInfo.getString(req.getParameter("zb"));//zbcode
+        String zbname = PubInfo.getString(req.getParameter("zbname"));//zbname
+        String ds = PubInfo.getString(req.getParameter("ds"));//数据来源
+        String co = PubInfo.getString(req.getParameter("co"));//主体
+        String zbunit = PubInfo.getString(req.getParameter("zbunit"));//单位
+        //String code=PubInfo.getString(req.getParameter("indexcode"));
+        String [] regs = reg.split(",");
+        String [] regnames = regname.split(",");
+        String [] sjs = sj.split(",");
+        String [] zbcodes = zbcode.split(",");
+        String [] zbnames = zbname.split(",");
+        String [] dss = ds.split(",");
+        String [] cos = co.split(",");
+        String [] units = zbunit.split(",");
+        List data1 = new ArrayList();
+        String checkresult =CheckResult(regs,sjs,zbcodes,dss,cos);
+        for (int i = 0; i <sjs.length ; i++) {
+            for (int j = 0; j <zbcodes.length ; j++) {
+                List datas=new ArrayList();
+                CubeWdCodes where = new CubeWdCodes();
+                String funit=originService.getwdnode("zb",zbcodes[j]).getUnitcode();
+                double rate=originService.getRate(funit,units[j],sjs[i]);
+                where.Add("zb", zbcodes[j]);
+                where.Add("ds", dss[j]);
+                where.Add("co", cos[j]);
+                where.Add("reg", Arrays.asList(regs));
+                where.Add("sj", sjs[i]);
+                ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
+                datas.add(sjs[i]);//获取时间
+                datas.add(zbnames[j]);//获取地区
+                for (int k = 0; k <result.size() ; k++) {
+                    double resulttemp = result.get(k).getData().getData()*rate;
+                    datas.add(resulttemp+"") ;
+                }
+                data1.add(datas);
+            }
+        }
+        /**
+         * 检查数据是否完整
+         */
+
+        if (StringUtil.isEmpty(pjax)) {
+            String code=req.getParameter("indexcode");
+            JSONObject zbs=getZBS(code);
+            IndexListService indexListService=new IndexListService();
+            IndexList list =indexListService.getData(code);
+            String proname =null;
+            String procode = list.getProcode();
+            if(procode!= null && procode!=""){//处理为空的步骤
+                IndexList list1 =indexListService.getData(procode);
+                proname = list1.getCname();
+            }
+            ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("list",list).addObject("zbs",zbs).addObject("indexlist",indexlist).addObject("proname",proname);
+        } else {
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/regSelect").addObject("regs",regnames).addObject("data",data1).addObject("check",checkresult);
+        }
+    }
+
+    /**
+     * 先按指标、地区再按时间检查
+     */
+    public String CheckResult(String [] regs,String [] sjs,String [] zbcodes,String [] dss,String [] cos){
+        String result="";
+        for (int i = 0; i <regs.length ; i++) {
+            String check = "0";
+            for (int j = 0; j <zbcodes.length ; j++) {
+                CubeWdCodes where = new CubeWdCodes();
+                where.Add("zb", zbcodes[j]);
+                where.Add("ds", dss[j]);
+                where.Add("co", cos[j]);
+                where.Add("reg", regs[i]);
+                where.Add("sj", Arrays.asList(sjs));
+                ArrayList<CubeQueryData> result1 = RegdataService.queryData("cuscxnd",where);
+                for (int k = 0; k <result1.size() ; k++) {
+                    double result2 = result1.get(k).getData().getData();
+                    if(result2 == 0.0){
+                        check ="1";
+                    }
+                }
+            }
+            result += check + ",";
+        }
+        return result;
+    }
+    /**
+     * 查单个地区的情况
+     */
+    public ModelAndView getCheckSingle(){
+        HttpServletRequest req = this.getRequest();
+        String pjax = req.getHeader("X-PJAX");
+        OriginService originService=new OriginService();
         String reg = PubInfo.getString(req.getParameter("reg"));//地区
         String sj = PubInfo.getString(req.getParameter("sj"));//时间
         String zbcode = PubInfo.getString(req.getParameter("zb"));//zbcode
@@ -112,35 +208,52 @@ public class zsjhedit extends BaseAction {
         String ds = PubInfo.getString(req.getParameter("ds"));//数据来源
         String co = PubInfo.getString(req.getParameter("co"));//主体
         String zbunit = PubInfo.getString(req.getParameter("zbunit"));//单位
-        String [] regs = reg.split(",");
         String [] sjs = sj.split(",");
         String [] zbcodes = zbcode.split(",");
         String [] zbnames = zbname.split(",");
         String [] dss = ds.split(",");
         String [] cos = co.split(",");
         String [] units = zbunit.split(",");
-        List<CubeQueryData> data1 = new ArrayList<CubeQueryData>();
-        for (int i = 0; i <sjs.length ; i++) {
-            for (int j = 0; j <zbcodes.length ; j++) {
+        String regname = originService.getwdnode("reg",reg).getName();
+        List data1 = new ArrayList();
+        for (int i = 0; i <zbcodes.length ; i++) {
+            for (int j = 0; j <sjs.length ; j++) {
+                List datas=new ArrayList();
                 CubeWdCodes where = new CubeWdCodes();
-                where.Add("zb", zbcodes[j]);
-                where.Add("ds", dss[j]);
-                where.Add("co", cos[j]);
-                where.Add("reg", Arrays.asList(regs));
-                where.Add("sj", sjs[i]);
-                ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);//还没有换算单位
-                data1.addAll(result);
+                String funit=originService.getwdnode("zb",zbcodes[i]).getUnitcode();
+                double rate=originService.getRate(funit,units[i],sjs[j]);
+                where.Add("zb", zbcodes[i]);
+                where.Add("ds", dss[i]);
+                where.Add("co", cos[i]);
+                where.Add("reg", reg);
+                where.Add("sj", sjs[j]);
+                ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
+                datas.add(zbnames[i]);//获取指标名
+                for (int k = 0; k <result.size() ; k++) {
+                    double resulttemp = result.get(k).getData().getData()*rate;
+                    datas.add(resulttemp+"") ;
+                }
+                data1.add(datas);
             }
+            PubInfo.printStr(data1.toString());
         }
-        List data = new ArrayList();
-        for (int i = 0; i < data1.size(); i++) {
-            PubInfo.printStr(data1.get(i).toString());
-            data.add(data1.get(i).getData().getData());
+        if (StringUtil.isEmpty(pjax)) {
+            String code=req.getParameter("indexcode");
+            JSONObject zbs=getZBS(code);
+            IndexListService indexListService=new IndexListService();
+            IndexList list =indexListService.getData(code);
+            String proname =null;
+            String procode = list.getProcode();
+            if(procode!= null && procode!=""){//处理为空的步骤
+                IndexList list1 =indexListService.getData(procode);
+                proname = list1.getCname();
+            }
+            ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("list",list).addObject("zbs",zbs).addObject("indexlist",indexlist).addObject("proname",proname);
+        } else {
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/regSelect").addObject("regname",regname).addObject("singledata",data1).addObject("times",sjs);
         }
-        this.sendJson(data);
     }
-
-
     /**
      * @Description: 返回树
      * @Param: []

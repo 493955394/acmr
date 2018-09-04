@@ -6,44 +6,66 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div class="col-xs-3" style="padding-top:50px">
-    <input type="hidden" id="initTreePara" value="${initTreePara}" />
-    <input type="hidden" id="procode" value="" />
-    <div class="panel tree-panel">
-        <div class="panel-heading" style="text-align:center">地区树</div>
-    </div>
-    <ul id="treeDemo" class="ztree ztree-margin"></ul>
-    <input type="hidden" name="regcode" value="" />
-    <input type="hidden" name="regname" value="" />
+<%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<style type="text/css">
+    .red{
+        background-color: red;
+    }
+</style>
+<div>
+    <table class="table table-bordered" id="tabledata" style="display: none">
+        <thead>
+        <tr>
+        <th class="text-center">时间</th>
+        <th>指标</th>
+        <c:forEach items="${regs}" var="reg">
+            <th>${reg}</th>
+        </c:forEach>
+        </tr>
+    </thead>
+        <tbody>
+        <c:forEach items="${data}" var="list">
+            <tr>
+                <c:forEach items="${list}" var="list1">
+                    <c:if test="${list1=='0.0'}">
+                        <td class="red"></td>
+                    </c:if>
+                    <c:if test="${list1!='0.0'}">
+                        <td>${list1}</td>
+                    </c:if>
+                </c:forEach>
+            </tr>
+        </c:forEach>
+        </tbody>
+        <input type="hidden" value="${check}" id="checkreturn">
+    </table>
 </div>
-<div class="col-xs-1 btn-group-vertical" role="group" style="padding-top:100px">
-    <button class="btn btn-default btn-lg" id="sigglechoose">></button>
-    <div class="clearfix"></div>
-    <button class="btn btn-default btn-lg" id="chooseall">>></button>
-    <div class="clearfix"></div>
-    <button class="btn btn-default btn-lg" id="delsiggle"><</button>
-    <div class="clearfix"></div>
-    <button class="btn btn-default btn-lg" id="delall"><<</button>
-</div>
-<div class="col-xs-3" style="padding-top:50px">
-    <div class="panel tree-panel">
-        <div class="panel-heading" style="text-align:center">地区列表</div>
-    </div>
-    <div class="panle-body" >
-        <select size="10" style="width: 100%" class="regul" id="selectreg"></select>
-    </div>
-</div>
-
-<div class="col-xs-5" style="padding-left: 20px;padding-right: 20px">
-    <div class="panel panel-default">
-        <div class="panel-heading" style="text-align:center">数据检查区</div>
-        <div class="panel-body">
-            <span>时间选择</span>
-            <input name="begintime"/>
-            ~
-            <input name="endtime"/>
-            <button id="datachecks">数据检查</button>
-            <button>数据下载</button>
-        </div>
-    </div>
+<div style="display: none" id="data_single">
+    <span>
+        检查结果：${regname}
+    </span>
+    <table class="table table-bordered" id="tabledata_single" >
+        <thead>
+        <tr>
+            <th>指标</th>
+            <c:forEach items="${times}" var="time">
+                <th>${time}</th>
+            </c:forEach>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${singledata}" var="singgle">
+            <tr>
+                <c:forEach items="${singgle}" var="sing">
+                    <c:if test="${sing=='0.0'}">
+                        <td class="red"></td>
+                    </c:if>
+                    <c:if test="${sing!='0.0'}">
+                        <td>${sing}</td>
+                    </c:if>
+                </c:forEach>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </div>
