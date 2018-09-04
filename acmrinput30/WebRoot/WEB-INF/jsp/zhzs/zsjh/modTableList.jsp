@@ -19,15 +19,17 @@
                 </thead>
                 <tbody id="mod_list_body">
                 <c:forEach items="${mods}" var="module">
-                    <td>${module.getCode()}</td>
-                    <td>${module.getCname()}</td>
-                    <td>${module.getIfzs()}</td>
-                    <td>${module.getWeight()}</td>
-                    <td>${module.getFormula()}</td>
-                    <td>${module.getDacimal()}</td>
-                    <td>
-                        操作
-                    </td>
+                    <tr>
+                        <td>${module.getCode()}</td>
+                        <td>${module.getCname()}</td>
+                        <td>${module.getIfzs()}</td>
+                        <td>${module.getWeight()}</td>
+                        <td>${module.getFormula()}</td>
+                        <td>${module.getDacimal()}</td>
+                        <td>
+                            操作
+                        </td>
+                    </tr>
                 </c:forEach>
 
 <%--

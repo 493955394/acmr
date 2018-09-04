@@ -29,8 +29,10 @@ define(function (require,exports,module) {
     var rootNode = [{"id":"","name":"指数结构",pId:"", "open":"false", "isParent":"true"}];
     var treeObj = $.fn.zTree.init($("#moduleTree"), setting, rootNode);
 
-    function clickEvent() {
+    function clickEvent(event, treeid, treeNode) {
         console.log("clickevent")
+        sendPjax(treeNode.id)
+
     }
     
     function sendPjax(code) {
