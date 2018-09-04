@@ -16,7 +16,6 @@ import com.acmr.service.zbdata.RegdataService;
 import com.acmr.service.zbdata.ZBdataService;
 import com.acmr.service.zhzs.IndexEditService;
 import com.acmr.service.zhzs.IndexListService;
-import com.acmr.web.jsp.Index;
 import com.alibaba.fastjson.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -510,5 +509,30 @@ public class zsjhedit extends BaseAction {
         }
         this.sendJson(list);
 
+    }
+    
+    /** 
+    * @Description: 根据各种情况返回模型列表的list 
+    * @Param: [] 
+    * @return: void 
+    * @Author: lyh
+    * @Date: 2018/9/4 
+    */ 
+    public ModelAndView getModList(){
+        HttpServletRequest req = this.getRequest();
+        String pjax = req.getHeader("X-PJAX");
+        String icode=req.getParameter("icode");
+        String code=req.getParameter("code");
+        IndexEditService indexEditService=new IndexEditService();
+        List<IndexMoudle> mods=indexEditService.getSubMod(code,icode);
+        if (StringUtil.isEmpty(pjax)) {
+            JSONObject zbs=getZBS(icode);
+            IndexListService indexListService=new IndexListService();
+            IndexList list =indexListService.getData(icode);
+            PubInfo.printStr("isempty");
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list);
+        } else {
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modTableList").addObject("mods",mods);
+        }
     }
 }

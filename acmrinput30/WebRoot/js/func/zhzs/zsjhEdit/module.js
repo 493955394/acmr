@@ -7,6 +7,8 @@ define(function (require,exports,module) {
         editjsp = require('editjsp');
 
     var indexCode=$("#index_code").val();
+    var st = new Date().getTime();//时间戳
+
 
     var setting = {
         async: {
@@ -30,4 +32,20 @@ define(function (require,exports,module) {
     function clickEvent() {
         console.log("clickevent")
     }
+    
+    function sendPjax(code) {
+
+        $.pjax({
+            url:common.rootPath+'zbdata/zsjhedit.htm?m=getModList&icode='+indexCode+'&code='+code,
+            container:'.J_zsjh_module_table',
+            timeout:2000
+        })
+        $(document).on('pjax:success', function() {
+            console.log("pjax:success")
+        });
+    }
+
+    $(document).ready(function () {
+        sendPjax("")
+    })
 })
