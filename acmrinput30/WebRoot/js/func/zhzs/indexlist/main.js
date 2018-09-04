@@ -8,7 +8,7 @@ define(function (require,exports,module) {
         modal = require('modal'),
         listjsp= require('listjsp');
     /**
-     * 新增目录
+     * 新增目录ajax提交
      */
 
     $(document).on('submit', '.J_add_catalogue', function(event) {
