@@ -267,7 +267,9 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="mxgh">
                         <div class="col-md-2 left-panel" id="module_tree_container">
-                            this is tree
+                            <div id="module_tree">
+                                <ul id="moduleTree" class="ztree ztree-margin"></ul>
+                            </div>
                         </div>
                         <div class="col-md-10 right-panel" id="module_container">
                             <div class="panel-default panel">

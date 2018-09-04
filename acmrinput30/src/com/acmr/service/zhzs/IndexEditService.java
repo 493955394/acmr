@@ -1,10 +1,10 @@
 package com.acmr.service.zhzs;
 
 import acmr.cubequery.service.cubequery.entity.CubeUnit;
-import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IndexEditDao;
+import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.service.zbdata.OriginService;
 
 import java.util.ArrayList;
@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 public class IndexEditService {
+    public static void main(String[] args) {
+        getSubMod("module1","R0010");
+    }
 
     /** 
     * @Description: 根据计划的code查询返回该计划下的筛选条件列表
@@ -54,8 +57,32 @@ public class IndexEditService {
 
         return zbchoose;
     }
-/*
-    public static void main(String[] args) {
-        getZBS("R0010");
-    }*/
+
+    /**
+    * @Description: 根据给定模型节点的code和所属计划的icode返回submods
+    * @Param: [code,icode]
+    * @return: java.util.List<com.acmr.model.zhzs.IndexMoudle>
+    * @Author: lyh
+    * @Date: 2018/9/4
+    */
+    public static List<IndexMoudle> getSubMod(String code,String icode){
+        List<IndexMoudle> submods=new ArrayList<>();
+        List<DataTableRow> subs = IndexEditDao.Fator.getInstance().getIndexdatadao().getSubModsbyCode(code,icode).getRows();
+        for (int i=0;i<subs.size();i++){
+            PubInfo.printStr(subs.get(i).getRows().toString());
+            IndexMoudle mod=new IndexMoudle();
+            mod.setCname(subs.get(i).getString("cname"));
+            mod.setCode(subs.get(i).getString("code"));
+            mod.setDacimal(subs.get(i).getString("dacimal"));
+            mod.setFormula(subs.get(i).getString("formula"));
+            mod.setIfzb(subs.get(i).getString("ifzb"));
+            mod.setIfzs(subs.get(i).getString("ifzs"));
+            mod.setIndexcode(subs.get(i).getString("indexcode"));
+            mod.setProcode(subs.get(i).getString("procode"));
+            mod.setSortcode(subs.get(i).getString("sortcode"));
+            mod.setWeight(subs.get(i).getString("weight"));
+            submods.add(mod);
+        }
+        return submods;
+    }
 }

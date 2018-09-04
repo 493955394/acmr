@@ -8,8 +8,8 @@ public class IndexMoudle {
     private String ifzs;//节点类别，1表示指数0指标
     private String ifzb;//是否是指标，0公式，1指标
     private String formula;//公式，包含指标编号和公式，指标编号为TB_COINDEX_ZB的CODE
-    private int sortcode;//上下移动排序，同级别的节点从0递增，0表示第一
-    private int weight;//权重
+    private String sortcode;//上下移动排序，同级别的节点从0递增，0表示第一
+    private String weight;//权重
     private String dacimal;//小数点位数
 
     public String getCode() {
@@ -68,19 +68,19 @@ public class IndexMoudle {
         this.formula = formula;
     }
 
-    public int getSortcode() {
+    public String getSortcode() {
         return sortcode;
     }
 
-    public void setSortcode(int sortcode) {
+    public void setSortcode(String sortcode) {
         this.sortcode = sortcode;
     }
 
-    public int getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
