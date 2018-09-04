@@ -217,8 +217,10 @@ public class zsjhedit extends BaseAction {
         String regname = originService.getwdnode("reg",reg).getName();
         List data1 = new ArrayList();
         for (int i = 0; i <zbcodes.length ; i++) {
+            List datas=new ArrayList();
+            datas.add(zbnames[i]);//获取指标名
             for (int j = 0; j <sjs.length ; j++) {
-                List datas=new ArrayList();
+
                 CubeWdCodes where = new CubeWdCodes();
                 String funit=originService.getwdnode("zb",zbcodes[i]).getUnitcode();
                 double rate=originService.getRate(funit,units[i],sjs[j]);
@@ -228,7 +230,6 @@ public class zsjhedit extends BaseAction {
                 where.Add("reg", reg);
                 where.Add("sj", sjs[j]);
                 ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
-                datas.add(zbnames[i]);//获取指标名
                 for (int k = 0; k <result.size() ; k++) {
                     double resulttemp = result.get(k).getData().getData()*rate;
                     datas.add(resulttemp+"") ;

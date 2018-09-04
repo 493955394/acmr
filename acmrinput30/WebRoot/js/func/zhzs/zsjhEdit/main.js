@@ -297,6 +297,7 @@ define(function (require,exports,module) {
             });
             $(document).on('pjax:success', function() {
                // uniteTable(tabledata,1);
+                $("#data_single").hide();
                 $("#tabledata").show();
                 $('ul.regul').html("");
                 select_li = "error";
@@ -309,7 +310,7 @@ define(function (require,exports,module) {
                     if(select[i].name=="" && select[i].code==""){
                         showreg +="";
                     }else {
-                        if(checkreturn[i]==0){
+                        if(checkreturn[i]=="0"){
                             showreg += '<li class="list-group-item clickli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-ok"></i></span></li>';
                         }
                        else {
