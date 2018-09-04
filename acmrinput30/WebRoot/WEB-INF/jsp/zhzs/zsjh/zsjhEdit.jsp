@@ -266,7 +266,41 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="mxgh">
-                        <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/modelEdit.jsp" flush="true"/>
+                        <div class="col-md-2 left-panel" id="module_tree_container">
+                            this is tree
+                        </div>
+                        <div class="col-md-10 right-panel" id="module_container">
+                            <div class="panel-default panel">
+                                <div class="panel-body">
+                                    <div class="toolbar-left">
+                                        <form class="form-inline J_search_form" action="">
+                                            <div class="form-group">
+                                                <select id="querykey" class="form-control input-sm">
+                                                    <%-- <option value="cname" <c:if test="${code != '' && code!= null}">selected</c:if>>名称</option>
+                                                     <option value="code" <c:if test="${cname != '' && cname != null}">selected</c:if>>编码</option>--%>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input id="moduleQuery" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="">
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-sm">查询</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="toolbar-right">
+                                        <div class="toolbar-group" style="position: relative;">
+                                            <button class="btn btn-default btn-sm J_Add" type="button">新增</button>&nbsp
+                                            <button class="btn btn-default btn-sm J_Add" type="button">新增权重设置</button>&nbsp
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body J_zsjh_module_table">
+                                    <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/modTableList.jsp" flush="true"/>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                     <!--Tab panes end-->
             </div>
