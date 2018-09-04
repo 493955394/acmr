@@ -57,7 +57,7 @@ define(function (require,exports,module) {
     function clickEvent(event, treeid, treeNode) {
         if(treeNode.isParent==false){
             zb=[treeNode.id,treeNode.name]
-            if (zbclick(zb)){
+            if (zbclick(zb,true)){
 
                 $(".zb_panel").css("background-color","inherit")
                 $(".zb_panel_add").css("background-color","inherit")
@@ -70,20 +70,53 @@ define(function (require,exports,module) {
         }
     }
 
-    function zbclick(zb) {
-        $("#zb_data_body").empty().append("<p>查询中……</p>");
-        if (isexit(zb[0])){
-            alert("该指标已被选择！")
-            $(".zb_add").css("display","none")
-            $("#zb_data_head").empty()
-            $("#zb_data_body").empty()
-            return false
+    function zbclick(zb,isadd) {
+        if(isadd==true){
+            $("#zb_data_body").empty().append("<p>查询中……</p>");
+            if (isexit(zb[0])){
+                alert("该指标已被选择！")
+                $(".zb_add").css("display","none")
+                $("#zb_data_head").empty()
+                $("#zb_data_body").empty()
+                return false
+            }
+            else {
+                $(".zb_add").css("display","inline")
+                //console.log(zb)
+                var data={
+                    "zbcode":zb[0]
+                };
+                $.ajax({
+                    url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit',
+                    type:'post',
+                    dataType:'json',
+                    data:data,
+                    success:function (re) {
+                        $(".zb_select").empty()
+                        foreach(re.ds,"ds")
+                        foreach(re.co,"co")
+                        foreach(re.unit,"unit")
+                        function foreach(innerre,zname) {
+                            innerre.forEach(function (d,ind,ds){
+                                var code=Object.keys(d)[0]
+                                var name=d[code]
+                                $("#"+zname+"_select").append("<option class='" +
+                                    code+ "'>" +
+                                    name+"</option>")
+                            })
+                        }
+                        sendPjax();
+                    }
+                })
+                return true
+            }
         }
         else {
-            $(".zb_add").css("display","inline")
+            $("#zb_data_body").empty().append("<p>查询中……</p>");
+            $(".zb_add").css("display","none")
             //console.log(zb)
             var data={
-                "zbcode":zb[0]
+                    "zbcode":zb[0]
             };
             $.ajax({
                 url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit',
@@ -107,8 +140,9 @@ define(function (require,exports,module) {
                     sendPjax();
                 }
             })
-            return true
+
         }
+
     }
 
     //判断选择的指标是否已经存在
@@ -167,7 +201,7 @@ define(function (require,exports,module) {
                         //treeObj.expandNode( treeObj.getNodeByParam("id",""))
                         zb=[clickcode,name]
                         //zbclick(zb);
-                        if(zbclick(zb)){
+                        if(zbclick(zb,true)){
                             $(".zb_panel").css("background-color","inherit")
                             $(".zb_panel_add").css("background-color","inherit")
                             $(".panel_zbname").html(name).attr("code",clickcode)
@@ -176,8 +210,8 @@ define(function (require,exports,module) {
                                 url:common.rootPath+'zbdata/zsjhedit.htm?m=getZBpath&code='+clickcode,
                                 type:'get',
                                 success:function (re) {
-                                    console.log(re)
                                     re.push(clickcode)
+                                    console.log(re)
                                     expandTree(re)
                                 }
                             })
@@ -189,57 +223,12 @@ define(function (require,exports,module) {
         }
     }
 
-    function clearFindResult() {
-        $("#find_panel").remove();
-        $("#treeDemo1").css("display","block")
-    }
-
-    function addZb() {
-        $(".zb_add").css("display","none")
-        console.log("addZB")
-        ds=[$('#ds_select option:selected').attr("class"),$('#ds_select option:selected') .val()]
-        co=[$('#co_select option:selected').attr("class"),$('#co_select option:selected') .val()]
-        unit=[$('#unit_select option:selected').attr("class"),$('#unit_select option:selected') .val()]
-        zbs.push({
-            code:st+Math.random().toString(36).substr(2),
-            zbcode:zb[0],
-            zbname:zb[1],
-            dscode:ds[0],
-            dsname:ds[1],
-            cocode:co[0],
-            coname:co[1],
-            unitcode:unit[0],
-            unitname:unit[1]
-        })
-        console.log(zbs)
-        addZBpanel(zbs[zbs.length-1])
-        //drawTable();
-    }
-
-    function addZBpanel(content) {
-        console.log(content)
-        $(".panel_container").append("<div class='panel panel-default zb_panel_add'><div class='panel-body '><input type='hidden' class='input_code' value='" +
-            content.code+"'><input type='hidden' class='input_zbcode' value='" +
-            content.zbcode+"'>" +
-            "<h5>" +
-            content.zbname+"</h5>" +
-            "<h6>主体：" +
-            content.coname+"</h6>" +
-            "<h6>数据来源：" +
-            content.dsname+"</h6>" +
-            "<h6>计量单位：" +
-            content.unitname+"</h6>" +
-            "<button type='button' class='btn btn-primary btn-sm' style='float: left;'>保存</button>" +
-            "<button type='button' class='btn btn-primary btn-sm' style='float: right;'>删除</button>" +
-            "</div> </div>")
-        $(".zb_panel_add").click(panelClick)
-
-    }
-
     function expandTree(path) {
         $.ajaxSettings.async=false
+        var treeObj = $.fn.zTree.init($("#treeDemo1"), setting, rootNode);
         var node=treeObj.getNodeByParam("id","")
         treeObj.expandNode(node)
+        console.log("expandtree")
         for(var i=0;i<path.length;i++){
             //console.log(node)
             if(node.isParent==true){
@@ -256,38 +245,115 @@ define(function (require,exports,module) {
             }
             treeObj.selectNode(node);
         }
-/*
-        var nodes=pnode.children
-        console.log(nodes)
-        for (var i=0;i<nodes.length;i++){
-            if (nodes[i].id==id){
-                treeObj.expandNode(nodes[i])
-            }
-        }
-*/
+    }
 
+
+    function clearFindResult() {
+        $("#find_panel").remove();
+        $("#treeDemo1").css("display","block")
+    }
+
+    function addZb() {
+        $(".zb_add").css("display","none")
+        //console.log("addZB")
+        ds=[$('#ds_select option:selected').attr("class"),$('#ds_select option:selected') .val()]
+        co=[$('#co_select option:selected').attr("class"),$('#co_select option:selected') .val()]
+        unit=[$('#unit_select option:selected').attr("class"),$('#unit_select option:selected') .val()]
+        zbs.push({
+            code:st+Math.random().toString(36).substr(2),
+            zbcode:zb[0],
+            zbname:zb[1],
+            dscode:ds[0],
+            dsname:ds[1],
+            cocode:co[0],
+            coname:co[1],
+            unitcode:unit[0],
+            unitname:unit[1]
+        })
+        //console.log(zbs)
+        addZBpanel(zbs[zbs.length-1])
+        //drawTable();
+    }
+
+    function addZBpanel(content) {
+        console.log("addZbpanel")
+        //console.log(content)
+        $(".panel_container").append("<div class='panel panel-default zb_panel_add'><div class='panel-body '><input type='hidden' class='input_code' value='" +
+            content.code+"'><input type='hidden' class='input_zbcode' value='" +
+            content.zbcode+"'><input type='hidden' class='input_cocode' value='" +
+            content.cocode+"'><input type='hidden' class='input_dscode' value='" +
+            content.dscode+"'><input type='hidden' class='input_unitcode' value='" +
+            content.unitcode+"'>" +
+            "<h5>" +
+            content.zbname+"</h5>" +
+            "<h6>主体：" +
+            content.coname+"</h6>" +
+            "<h6>数据来源：" +
+            content.dsname+"</h6>" +
+            "<h6>计量单位：" +
+            content.unitname+"</h6>" +
+            "<button type='button' class='btn btn-primary btn-sm zb_save' style='float: left;display: none;'>保存</button>" +
+            "<button type='button' class='btn btn-primary btn-sm zb_delete' style='float: right;display: none;'>删除</button>" +
+            "</div> </div>")
+
+        clickbind()
     }
 
     function panelClick(){
-        console.log("panelClick")
+        //console.log("panelClick")
         $(".zb_panel").css("background-color","inherit")
         $(".zb_panel_add").css("background-color","inherit")
-
         $(this).css("background-color","orange")
-        var zbname=$(this).
-        console.log(zbname)
+        var zb=$($(this).children()[0]).children()
+        $(".zb_save").css("display","none")
+        $(".zb_delete").css("display","none")
+        zb[9].style.cssText="float: left; display: block;"
+        zb[10].style.cssText="float: right; display: block;"
 
-
+        var zbname=zb[5].innerHTML
+        var zbcode=zb[1].defaultValue
+/*        var coname=zb[6].innerHTML.split("：")[1]
+        var cocode=zb[2].defaultValue
+        var dsname=zb[7].innerHTML.split("：")[1]
+        var dscode=zb[3].defaultValue
+        var unitname=zb[8].innerHTML.split("：")[1]
+        var unitcode=zb[4].defaultValue*/
+        $(".panel_zbname ").attr("code",zbcode).html(zbname)
+        zbclick([zbcode,zbname],false)
     }
 
     function zbSave(event){
         event.stopPropagation();
-        console.log("zbsave")
+        //console.log("zbsave")
+        var zbcode=$(this).prevAll()[7].defaultValue
+        var zbname=$(this).prevAll()[3].innerHTML
+        zb=[zbcode,zbname]
+        //console.log($(this).next())
+        $(this).next().trigger("click")
+        addZb()
     }
 
     function zbDelete(event){
         event.stopPropagation();
-        console.log("zbdelete")
+        //console.log("zbdelete")
+        var zbcode=$(this).prevAll()[8].defaultValue
+        //console.log(zbcode)
+        for(var i=0;i<zbs.length;i++){
+            if (zbs[i].zbcode==zbcode){
+                zbs.splice(i,1)
+            }
+        }
+        $($(this).parent()[0]).parent().remove();
+    }
+
+    function clickbind(){
+       // console.log("clickbind")
+        $(".zb_panel_add").unbind("click")
+        $(".zb_save").unbind("click")
+        $(".zb_delete").unbind("click")
+        $(".zb_panel_add").click(panelClick)
+        $(".zb_save").click(zbSave)
+        $(".zb_delete").click(zbDelete)
     }
 
     module.exports={

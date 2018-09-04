@@ -177,11 +177,6 @@
                                     </div>
                                     <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/addZB.jsp" flush="true"/>--%>
                                 </div>
-                                <form class="form-inline J_search_form" action="${ctx}/zbdata/my.htm?m=getDataTest">
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-primary btn-sm">测试</button>
-                                    </div>
-                                </form>
                                 <div class="data_table panel-body J_zsjh_zbdata_table">
                                     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/ZBdataList.jsp" flush="true"/>
                                 </div>
@@ -193,12 +188,15 @@
                                             <div class="panel-body">
                                                 <input type="hidden" class="input_code" value="${zb.code}">
                                                 <input type="hidden" class="input_zbcode" value="${zb.zbcode}">
+                                                <input type="hidden" class="input_cocode" value="${zb.cocode}">
+                                                <input type="hidden" class="input_dscode" value="${zb.dscode}">
+                                                <input type="hidden" class="input_unitcode" value="${zb.unitcode}">
                                                 <h5>${zb.zbname}</h5>
                                                 <h6>主体：${zb.coname}</h6>
                                                 <h6>数据来源：${zb.dsname}</h6>
                                                 <h6>计量单位：${zb.unitname}</h6>
-                                                <button type='button' class='btn btn-primary btn-sm zb_save' style='float: left;'>保存</button>
-                                                <button type='button' class='btn btn-primary btn-sm zb_delete' style='float: right;'>删除</button>
+                                                <button type='button' class='btn btn-primary btn-sm zb_save' style='float: left;display: none'>保存</button>
+                                                <button type='button' class='btn btn-primary btn-sm zb_delete' style='float: right;display: none;'>删除</button>
                                             </div>
                                         </div>
                                     </c:forEach>
