@@ -13,9 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 public class IndexEditService {
+/*
     public static void main(String[] args) {
         getSubMod("module1","R0010");
     }
+*/
 
     /** 
     * @Description: 根据计划的code查询返回该计划下的筛选条件列表
@@ -65,7 +67,7 @@ public class IndexEditService {
     * @Author: lyh
     * @Date: 2018/9/4
     */
-    public static List<IndexMoudle> getSubMod(String code,String icode){
+    public  List<IndexMoudle> getSubMod(String code,String icode){
         List<IndexMoudle> submods=new ArrayList<>();
         List<DataTableRow> subs = IndexEditDao.Fator.getInstance().getIndexdatadao().getSubModsbyCode(code,icode).getRows();
         for (int i=0;i<subs.size();i++){

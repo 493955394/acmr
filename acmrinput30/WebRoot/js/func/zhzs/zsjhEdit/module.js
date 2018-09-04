@@ -6,10 +6,12 @@ define(function (require,exports,module) {
         zbAdd=require('js/func/zhzs/zsjhEdit/zbAdd'),
         editjsp = require('editjsp');
 
+    var indexCode=$("#index_code").val();
+
     var setting = {
         async: {
             enable: true,
-            url: common.rootPath+'zbdata/zsjhedit.htm?m=getModTree',
+            url: common.rootPath+'zbdata/zsjhedit.htm?m=getModTree&icode='+indexCode,
             contentType: 'application/json',
             type: 'get',
             autoParam: ["id"]

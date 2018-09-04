@@ -10,11 +10,13 @@ import acmr.web.entity.ModelAndView;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.TreeNode;
 import com.acmr.model.zhzs.IndexList;
+import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zbdata.RegdataService;
 import com.acmr.service.zbdata.ZBdataService;
 import com.acmr.service.zhzs.IndexEditService;
 import com.acmr.service.zhzs.IndexListService;
+import com.acmr.web.jsp.Index;
 import com.alibaba.fastjson.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -256,7 +258,7 @@ public class zsjhedit extends BaseAction {
         }
     }
     /**
-     * @Description: 返回树
+     * @Description: 返回指标树
      * @Param: []
      * @return: void
      * @Author: lyh
@@ -479,5 +481,34 @@ public class zsjhedit extends BaseAction {
         ZBdataService zBdataService=new ZBdataService();
         List<String> path=zBdataService.getZBPath(code);
         this.sendJson(path);
+    }
+
+    /**
+    * @Description: 返回模型树
+    * @Param: []
+    * @return: void
+    * @Author: lyh
+    * @Date: 2018/9/4
+    */
+    public void getModTree() throws IOException {
+        HttpServletRequest req=this.getRequest();
+        String icode=req.getParameter("icode");
+        String code=req.getParameter("id");
+        IndexEditService indexEditService=new IndexEditService();
+        List<IndexMoudle> mods=indexEditService.getSubMod(code,icode);
+        List<TreeNode> list = new ArrayList<TreeNode>();
+        for (int i=0;i<mods.size();i++){
+            TreeNode node=new TreeNode();
+            node.setPId(mods.get(i).getProcode());
+            node.setId(mods.get(i).getCode());
+            node.setName(mods.get(i).getCname());
+            if (mods.get(i).getIfzs().equals("1")){
+                node.setIsParent(true);
+            }
+            else node.setIsParent(false);
+            list.add(node);
+        }
+        this.sendJson(list);
+
     }
 }
