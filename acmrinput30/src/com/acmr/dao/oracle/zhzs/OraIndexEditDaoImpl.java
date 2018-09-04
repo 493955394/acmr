@@ -18,11 +18,11 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
     @Override
     public DataTable getSubModsbyCode(String code,String icode) {
         if (code==""){
-            String sql="select * from tb_coindex_module where indexcode=? and procode is null";
+            String sql="select * from tb_coindex_module where indexcode=? and procode is null order by sortcode";
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode});
         }
         else {
-            String sql="select * from tb_coindex_module where indexcode=? and procode=?";
+            String sql="select * from tb_coindex_module where indexcode=? and procode=? order by sortcode";
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {icode,code});
         }
     }

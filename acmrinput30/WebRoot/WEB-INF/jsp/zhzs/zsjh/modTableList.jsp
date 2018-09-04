@@ -27,7 +27,10 @@
                         <td>${module.getFormula()}</td>
                         <td>${module.getDacimal()}</td>
                         <td>
-                            操作
+                            <a href="#" class="mod_edit">编辑</a>
+                            <a href="#" class="mod_delete">删除</a>
+                            <a href="#" class="mod_up">上移</a>
+                            <a href="#" class="mod_down">下移</a>
                         </td>
                     </tr>
                 </c:forEach>
