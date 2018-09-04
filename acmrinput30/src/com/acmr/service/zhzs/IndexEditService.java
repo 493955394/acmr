@@ -87,4 +87,10 @@ public class IndexEditService {
         }
         return submods;
     }
+    /**
+     * 新增指数或者指标
+     */
+    public int addZStoModel(IndexMoudle indexMoudle){
+        return IndexEditDao.Fator.getInstance().getIndexdatadao().addZS(indexMoudle);
+    }
 }
