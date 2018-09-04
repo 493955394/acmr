@@ -242,13 +242,8 @@ define(function (require,exports,module) {
      * 时间选择自动补上中间的时间期，以及数据检查
      */
     var selecttime = "";//时间
-    var zbcode = "";//指标code
-    var zbco = "";//指标主体
-    var zbds = "";//指标数据来源
-    var zbunit ="";//指标单位
-    var zbname = "";//指标名称
 
-        $("#datachecks").click(function () {
+    $("#datachecks").click(function () {
         selecttime = "";//初始化时间
        $("#data_check_show").empty();//初始化表格
         var begintime = $('input[name = begintime]').val();
@@ -266,6 +261,11 @@ define(function (require,exports,module) {
             for (var i = endtime; i >= begintime ; i--) {
                 selecttime += i+",";
             }
+            var zbcode = "";//指标code
+            var zbco = "";//指标主体
+            var zbds = "";//指标数据来源
+            var zbunit ="";//指标单位
+            var zbname = "";//指标名称
             var zbs=zbAdd.zbs;//获取指标的信息
             for (var i = 0; i <zbs.length ; i++) {
                 zbcode += zbs[i].zbcode+",";
@@ -305,7 +305,6 @@ define(function (require,exports,module) {
                 var checkdata = $('input[id=checkreturn]').val();
                 checkdata = checkdata.substr(0, checkdata.length - 1);//去除最后一个逗号
                 var checkreturn = checkdata.split(",");
-                console.log(checkdata)
                 for(var i=0;i<select.length;i++){
                     if(select[i].name=="" && select[i].code==""){
                         showreg +="";
@@ -324,6 +323,24 @@ define(function (require,exports,module) {
     });
     $("#selectreg").on('click','.clickli', function() {
         var reg =$(this).attr("id");
+        var zbcode = "";//指标code
+        var zbco = "";//指标主体
+        var zbds = "";//指标数据来源
+        var zbunit ="";//指标单位
+        var zbname = "";//指标名称
+        var zbs=zbAdd.zbs;//获取指标的信息
+        for (var i = 0; i <zbs.length ; i++) {
+            zbcode += zbs[i].zbcode+",";
+            zbco += zbs[i].cocode+",";
+            zbds += zbs[i].dscode+",";
+            zbname += zbs[i].zbname+",";
+            zbunit += zbs[i].unitcode+",";
+        }
+        zbcode = zbcode.substr(0, zbcode.length - 1);//去除最后一个逗号
+        zbco = zbco.substr(0, zbco.length - 1);//去除最后一个逗号
+        zbds = zbds.substr(0, zbds.length - 1);//去除最后一个逗号
+        zbname = zbname.substr(0, zbname.length - 1);//去除最后一个逗号
+        zbunit = zbunit.substr(0, zbunit.length - 1);//去除最后一个逗号
         $.pjax({
             url: common.rootPath+'zbdata/zsjhedit.htm?m=getCheckSingle&indexcode='+incode,
             type: "post",
