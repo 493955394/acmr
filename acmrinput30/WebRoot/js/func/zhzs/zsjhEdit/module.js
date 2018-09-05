@@ -8,6 +8,8 @@ define(function (require,exports,module) {
 
     var indexCode=$("#index_code").val();
     var st = new Date().getTime();//时间戳
+    $(".weight_set").click(setWeight);
+
     var choosedprocode = "",
         choosedname = "";
 
@@ -150,6 +152,10 @@ define(function (require,exports,module) {
         }
         //console.log(codes)
         return codes
+    }
+
+    function setWeight(){
+        window.open(common.rootPath+"zbdata/weightset.htm?m=editweight&icode="+indexCode)
     }
 
     $(document).ready(function () {

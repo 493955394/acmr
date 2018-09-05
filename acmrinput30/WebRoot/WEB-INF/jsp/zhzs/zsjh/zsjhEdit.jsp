@@ -293,7 +293,7 @@
                                     <div class="toolbar-right">
                                         <div class="toolbar-group" style="position: relative;">
                                             <button class="btn btn-default btn-sm J_Add_ZS" type="button">新增</button>&nbsp
-                                            <button class="btn btn-default btn-sm J_Add" type="button">新增权重设置</button>&nbsp
+                                            <button class="btn btn-default btn-sm J_Add weight_set" type="button">新增权重设置</button>&nbsp
                                         </div>
                                     </div>
                                 </div>
