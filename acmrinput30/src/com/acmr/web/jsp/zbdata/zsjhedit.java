@@ -535,6 +535,29 @@ public class zsjhedit extends BaseAction {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modTableList").addObject("mods",mods);
         }
     }
+    
+    /** 
+    * @Description: 根据code删除模型节点
+    * @Param: [] 
+    * @return: void 
+    * @Author: lyh
+    * @Date: 2018/9/5 
+    */ 
+    public void deleteMod() throws IOException {
+        HttpServletRequest req=this.getRequest();
+        String code=req.getParameter("code");
+        String icode=req.getParameter("indexcode");
+        PubInfo.printStr(code);
+        IndexEditService indexEditService=new IndexEditService();
+        int m=0;
+        if (indexEditService.getSubMod(code,icode).size()==0){
+            m=indexEditService.deleteMod(code);
+        }
+        else {
+            m=0;
+        }
+        this.sendJson(m);
+    }
     /**
      * 模型规划新增节点展示页面
      */

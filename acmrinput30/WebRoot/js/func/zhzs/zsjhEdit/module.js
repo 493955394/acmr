@@ -30,7 +30,7 @@ define(function (require,exports,module) {
     var treeObj = $.fn.zTree.init($("#moduleTree"), setting, rootNode);
 
     function clickEvent(event, treeid, treeNode) {
-        console.log("clickevent")
+        //console.log("clickevent")
         if (treeNode.isParent == true) {
             sendPjax(treeNode.id)
         }
@@ -39,7 +39,8 @@ define(function (require,exports,module) {
         }
 
     }
-    
+
+    //根据code加载子节点
     function sendPjax(code) {
 
         $.pjax({
@@ -48,8 +49,30 @@ define(function (require,exports,module) {
             timeout:2000
         })
         $(document).on('pjax:success', function() {
-            console.log("pjax:success")
+            $(".mod_delete").unbind("click")
+            $(".mod_delete").click(deleteMod)
         });
+    }
+
+    function deleteMod(){
+        console.log("delete")
+        var modcode=$(this).parent().prevAll()[6].innerHTML
+        var procode=$(this).parent().prevAll()[0].value;
+        console.log(procode)
+        $.ajax({
+            url:common.rootPath+"zbdata/zsjhedit.htm?m=deleteMod&code="+modcode+"&indexcode="+indexCode,
+            type:'get',
+            dataType:'json',
+            success:function (re) {
+                console.log(re)
+                if (re==0){
+                    alert("该节点下有子节点，不能删除")
+                }
+                else {
+                    sendPjax(procode)
+                }
+            }
+        })
     }
 
     $(document).ready(function () {

@@ -28,6 +28,15 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {icode,code});
         }
     }
+
+    @Override
+    public int deleteMod(String code) {
+        StringBuffer sbf = new StringBuffer();
+        sbf.append("delete from tb_coindex_module where code=?");
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sbf.toString(),new Object[]{code});
+
+    }
+
     @Override
     public DataTable getLikeCode(String code) {
         String sql = "select * from tb_coindex_module where lower(code) like ? ";

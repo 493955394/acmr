@@ -26,6 +26,7 @@
                         <td>${module.getWeight()}</td>
                         <td>${module.getFormula()}</td>
                         <td>${module.getDacimal()}</td>
+                        <input type="hidden" name="thisprocode" value="${module.getProcode()}">
                         <td>
                             <a href="#" class="mod_edit">编辑</a>
                             <a href="#" class="mod_delete">删除</a>

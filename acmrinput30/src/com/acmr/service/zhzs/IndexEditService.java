@@ -87,6 +87,9 @@ public class IndexEditService {
         }
         return submods;
     }
+    public int deleteMod(String code){
+        return IndexEditDao.Fator.getInstance().getIndexdatadao().deleteMod(code);
+    }
     /**
      * 查找功能
      */
