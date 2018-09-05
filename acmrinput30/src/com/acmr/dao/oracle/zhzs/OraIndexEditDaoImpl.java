@@ -78,4 +78,20 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
         String sql = "select * from tb_coindex_module where code = ? and indexcode = ? ";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code,icode});
     }
+    /**
+     * 查询指数列表
+     */
+    @Override
+    public DataTable getZSList(String icode){
+        String sql = "select * from tb_coindex_module where ifzs = 1 and indexcode = ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode});
+    }
+    @Override
+    public DataTable getCurrentSort(String procode,String icode){
+        String sql = "select max(sortcode) from tb_coindex_module where indexcode = ? and procode = ? ";
+        List<Object> params = new ArrayList<Object>();
+        params.add(icode);
+        params.add(procode);
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
+    }
 }

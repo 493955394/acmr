@@ -1,11 +1,13 @@
 package com.acmr.service.zhzs;
 
 import acmr.cubequery.service.cubequery.entity.CubeUnit;
+import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IndexEditDao;
 import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.service.zbdata.OriginService;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -159,5 +161,38 @@ public class IndexEditService {
         indexMoudle.setDacimal(data.getString("dacimal"));
         indexMoudle.setWeight(data.getString("weight"));
         return indexMoudle;
+    }
+    /**
+     * 查询当前最大的sortcode是多少
+     */
+    public int getCurrentSort(String procode,String icode){
+       DataTableRow data = IndexEditDao.Fator.getInstance().getIndexdatadao().getCurrentSort(procode,icode).getRows().get(0);
+       int i = data.getint(0);
+        return i+1;//加1返回
+    }
+
+    /**
+     * 查询zslist
+     * @param
+     */
+    public ArrayList<IndexMoudle> getZSList(String icode){
+        ArrayList<IndexMoudle> indexMoudles=new ArrayList<IndexMoudle>();
+        List<DataTableRow> data = new ArrayList<>();
+        data = IndexEditDao.Fator.getInstance().getIndexdatadao().getZSList(icode).getRows();
+        for(int i=0;i<data.size();i++){
+            IndexMoudle index= new IndexMoudle();
+            index.setCode(data.get(i).getString("code"));
+            index.setCname(data.get(i).getString("cname"));
+            index.setProcode(data.get(i).getString("procode"));
+            index.setIndexcode(data.get(i).getString("indexcode"));
+            index.setIfzs(data.get(i).getString("ifzs"));
+            index.setDacimal(data.get(i).getString("dacimal"));
+            index.setWeight( data.get(i).getString("weight"));
+            index.setSortcode( data.get(i).getString("sortcode"));
+            index.setIfzb(data.get(i).getString("ifzb"));
+            index.setFormula(data.get(i).getString("formula"));
+            indexMoudles.add(index);
+        }
+        return indexMoudles;
     }
 }
