@@ -38,6 +38,12 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
     }
 
     @Override
+    public void setSort(String code, int sort) {
+        String sql="update tb_coindex_module set sortcode=? where code=?";
+        AcmrInputDPFactor.getQuickQuery().executeSql(sql,new Object[]{sort,code});
+    }
+
+    @Override
     public DataTable getLikeCode(String code) {
         String sql = "select * from tb_coindex_module where lower(code) like ? ";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + code + "%"});

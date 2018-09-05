@@ -51,6 +51,10 @@ define(function (require,exports,module) {
         $(document).on('pjax:success', function() {
             $(".mod_delete").unbind("click")
             $(".mod_delete").click(deleteMod)
+            $(".mod_up").unbind("click")
+            $(".mod_up").click(upmove)
+            $(".mod_down").unbind("click")
+            $(".mod_down").click(downmove)
         });
     }
 
@@ -73,6 +77,76 @@ define(function (require,exports,module) {
                 }
             }
         })
+    }
+
+    function upmove(){
+        //console.log("上移")
+        var pcode=$(this).parent().prevAll()[0].value;
+        var prevs=$(this).parent().parent().prevAll()
+        var nexts=$(this).parent().parent().nextAll()
+        var precodes=getcodes(prevs)
+        var nextcodes=getcodes(nexts)
+        var thiscode=$(this).parent().prevAll()[6].innerHTML
+        var switchcode=precodes[precodes.length-1];
+        precodes[precodes.length-1]=thiscode
+        precodes.push(switchcode);
+        //console.log(precodes)
+        //var codes=precodes+","+nextcodes
+        for (var i=nextcodes.length-1;i>=0;i--){
+            precodes.push(nextcodes[i])
+        }
+        console.log(precodes)
+        //return precodes
+        $.ajax({
+            url:common.rootPath+"zbdata/zsjhedit.htm?m=resort&codes="+precodes,
+            type:'get',
+            data:'json',
+            success:function (re) {
+                sendPjax(pcode)
+            }
+        })
+
+    }
+
+    function downmove() {
+        var pcode=$(this).parent().prevAll()[0].value;
+        var prevs=$(this).parent().parent().prevAll()
+        var nexts=$(this).parent().parent().nextAll()
+        var precodes=getcodes(prevs)
+        var nextcodes=getcodes(nexts)
+        var thiscode=$(this).parent().prevAll()[6].innerHTML
+        //console.log(precodes)
+        //console.log(nextcodes)
+        //console.log(thiscode)
+        var codes=[];
+        for (var j=0;j<precodes.length;j++){
+            codes.push(precodes[j])
+        }
+        codes.push(nextcodes[nextcodes.length-1])
+        codes.push(thiscode)
+        for(var i=nextcodes.length-2;i>=0;i--){
+            codes.push(nextcodes[i])
+        }
+        //console.log(codes)
+        $.ajax({
+            url:common.rootPath+"zbdata/zsjhedit.htm?m=resort&codes="+codes,
+            type:'get',
+            data:'json',
+            success:function (re) {
+                sendPjax(pcode)
+            }
+        })
+
+    }
+
+    function getcodes(nodes){
+        var codes=[]
+        for(var i=nodes.length-1;i>=0;i--){
+            //console.log(nodes[i].innerText.split("\t")[0])
+            codes.push(nodes[i].innerText.split("\t")[0])
+        }
+        //console.log(codes)
+        return codes
     }
 
     $(document).ready(function () {

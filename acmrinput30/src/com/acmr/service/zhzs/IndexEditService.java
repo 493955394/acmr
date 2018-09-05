@@ -13,11 +13,15 @@ import java.util.List;
 import java.util.Map;
 
 public class IndexEditService {
-/*
-    public static void main(String[] args) {
-        getSubMod("module1","R0010");
-    }
-*/
+/*    public static void main(String[] args) {
+        List<String> codes=new ArrayList<>();
+        codes.add("m5");
+        codes.add("m2");
+        codes.add("m3");
+        codes.add("m4");
+        codes.add("m1");
+        resort(codes);
+    }*/
 
     /** 
     * @Description: 根据计划的code查询返回该计划下的筛选条件列表
@@ -87,8 +91,22 @@ public class IndexEditService {
         }
         return submods;
     }
+
+    /**
+    * @Description: 根据指定的code删除节点
+    * @Param: [code]
+    * @return: int
+    * @Author: lyh
+    * @Date: 2018/9/5
+    */
     public int deleteMod(String code){
         return IndexEditDao.Fator.getInstance().getIndexdatadao().deleteMod(code);
+    }
+
+    public  void resort(List<String> codes){
+        for (int i=0;i<codes.size();i++){
+            IndexEditDao.Fator.getInstance().getIndexdatadao().setSort(codes.get(i),i);
+        }
     }
     /**
      * 查找功能

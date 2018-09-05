@@ -17,6 +17,7 @@ import com.acmr.service.zbdata.RegdataService;
 import com.acmr.service.zbdata.ZBdataService;
 import com.acmr.service.zhzs.IndexEditService;
 import com.acmr.service.zhzs.IndexListService;
+import com.acmr.web.jsp.Index;
 import com.alibaba.fastjson.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -557,6 +558,23 @@ public class zsjhedit extends BaseAction {
             m=0;
         }
         this.sendJson(m);
+    }
+
+    /**
+    * @Description: 根据传来的string里的code顺序，对应的节点重新排序
+    * @Param: []
+    * @return: void
+    * @Author: lyh
+    * @Date: 2018/9/5
+    */
+    public void resort(){
+        HttpServletRequest req=this.getRequest();
+        String codestring=req.getParameter("codes");
+        PubInfo.printStr(codestring);
+        List<String> codes=new ArrayList<>();
+        codes= Arrays.asList(codestring.split(","));
+        IndexEditService indexEditService=new IndexEditService();
+        indexEditService.resort(codes);
     }
     /**
      * 模型规划新增节点展示页面
