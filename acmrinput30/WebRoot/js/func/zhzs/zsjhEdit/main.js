@@ -385,4 +385,31 @@ define(function (require,exports,module) {
             }
         }
     }
+    /**
+     * 模型规划搜索框
+     */
+    var delIds = [];
+    var isMove = true;
+    var searchField = "";
+    $(document).on('submit', '.J_search_form', function(event) {
+        event.preventDefault();
+        var self = this,
+            requestUrl = $(self).prop('action'),
+            key = $('select',self).val(),
+            val = $('input',self).val(),
+            str = "";
+        var requestData = common.formatData(key,val);
+        if(requestData.length>0){
+            requestData="&"+requestData;
+        }
+        searchField = requestData+str;
+        isMove = false;
+        $.pjax({
+            url: requestUrl+searchField+'&icode'+incode,
+            container: '.J_zsjh_module_table'
+        });
+        $(document).on('pjax:success', function() {
+            delIds = [];
+        });
+    });
 });

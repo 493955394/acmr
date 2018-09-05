@@ -7,5 +7,7 @@ import com.acmr.model.zhzs.IndexMoudle;
 public interface IIndexEditDao {
     public DataTable getZBSbyIndexCode(String icode);
     public DataTable getSubModsbyCode(String code,String icode);
+    public DataTable getLikeCode(String code);
+    public DataTable getLikeCname(String cname);
     public int addZS(IndexMoudle indexMoudle);
 }

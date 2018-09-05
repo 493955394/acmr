@@ -28,6 +28,17 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {icode,code});
         }
     }
+    @Override
+    public DataTable getLikeCode(String code) {
+        String sql = "select * from tb_coindex_module where lower(code) like ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + code + "%"});
+    }
+
+    @Override
+    public DataTable getLikeCname(String cname) {
+        String sql = "select * from tb_coindex_module where lower(cname) like ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + cname + "%"});
+    }
     public int addZS(IndexMoudle indexMoudle){
         String sql1 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal) values(?,?,?,?,?,?,?,?,?,?)";
         List<Object> params = new ArrayList<Object>();

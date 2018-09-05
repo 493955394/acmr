@@ -88,6 +88,35 @@ public class IndexEditService {
         return submods;
     }
     /**
+     * 查找功能
+     */
+    //查找功能
+    public ArrayList<IndexMoudle> found(int type,String code){
+        ArrayList<IndexMoudle> indexMoudles=new ArrayList<IndexMoudle>();
+        List<DataTableRow> data = new ArrayList<>();
+        if(type==0){//0表示是通过code查的
+            data = IndexEditDao.Fator.getInstance().getIndexdatadao().getLikeCode(code).getRows();
+
+        }else if(type==1){//1表示是通过cname查的
+            data = IndexEditDao.Fator.getInstance().getIndexdatadao().getLikeCname(code).getRows();
+        }
+        for(int i=0;i<data.size();i++){
+            IndexMoudle index= new IndexMoudle();
+            index.setCode(data.get(i).getString("code"));
+            index.setCname(data.get(i).getString("cname"));
+            index.setProcode(data.get(i).getString("procode"));
+            index.setIndexcode(data.get(i).getString("indexcode"));
+            index.setIfzs(data.get(i).getString("ifzs"));
+            index.setDacimal(data.get(i).getString("dacimal"));
+            index.setWeight( data.get(i).getString("weight"));
+            index.setSortcode( data.get(i).getString("sortcode"));
+            index.setIfzb(data.get(i).getString("ifzb"));
+            index.setFormula(data.get(i).getString("formula"));
+            indexMoudles.add(index);
+        }
+        return indexMoudles;
+    }
+    /**
      * 新增指数或者指标
      */
     public int addZStoModel(IndexMoudle indexMoudle){

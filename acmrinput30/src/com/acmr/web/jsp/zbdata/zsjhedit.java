@@ -8,6 +8,7 @@ import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.helper.util.StringUtil;
+import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.pub.TreeNode;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexMoudle;
@@ -235,9 +236,8 @@ public class zsjhedit extends BaseAction {
                     double resulttemp = result.get(k).getData().getData()*rate;
                     datas.add(resulttemp+"") ;
                 }
-                data1.add(datas);
             }
-            PubInfo.printStr(data1.toString());
+            data1.add(datas);
         }
         if (StringUtil.isEmpty(pjax)) {
             String code=req.getParameter("indexcode");
@@ -533,6 +533,82 @@ public class zsjhedit extends BaseAction {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modTableList").addObject("mods",mods);
+        }
+    }
+    /**
+     * 模型规划新增节点展示页面
+     */
+    public ModelAndView toAdd()throws IOException{
+        HttpServletRequest req = this.getRequest();
+        String procodeId = req.getParameter("procodeId");
+        String procodeName = req.getParameter("procodeName");
+        String indexCode = req.getParameter("indexCode");
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/toAddZB").addObject("procodeId",procodeId).addObject("procodeName",procodeName).addObject("indexCode",indexCode);
+    }
+    /**
+     * 新增模型节点保存方法
+     */
+    public void toSaveZS() throws IOException{
+        IndexMoudle indexMoudle = new IndexMoudle();
+        JSONReturnData data = new JSONReturnData("");
+        HttpServletRequest req = this.getRequest();
+        String procodeId = PubInfo.getString(req.getParameter("procodeId"));
+        String indexCode = PubInfo.getString(req.getParameter("indexCode"));
+        String code = PubInfo.getString(req.getParameter("ZS_code"));
+        String name = PubInfo.getString(req.getParameter("ZS_cname"));
+        String ifzs = PubInfo.getString(req.getParameter("ifzs"));
+        String ifzb = "1";//是指标
+        String formula = "";
+        String sortcode = "0";
+        String dacimal = PubInfo.getString(req.getParameter("dotcount"));
+
+            indexMoudle.setCode(code);
+            indexMoudle.setCname(name);
+            indexMoudle.setProcode(procodeId);
+            indexMoudle.setIndexcode(indexCode);
+            indexMoudle.setIfzs(ifzs);
+            indexMoudle.setDacimal(dacimal);
+            indexMoudle.setWeight("0");
+            indexMoudle.setSortcode(sortcode);
+        if(ifzb.equals(1)){
+            indexMoudle.setIfzb(ifzb);
+            indexMoudle.setFormula(formula);
+        }
+        IndexEditService indexEditService=new IndexEditService();
+        int back = indexEditService.addZStoModel(indexMoudle);
+        data.setReturndata(indexMoudle);
+        this.sendJson(data);
+    }
+    /**
+     * 综合指数查找
+     * @return
+     * @throws IOException
+     */
+    public ModelAndView searchFind() throws IOException{
+        HttpServletRequest req = this.getRequest();
+        ArrayList<IndexMoudle> mods= new ArrayList<IndexMoudle>();
+        // 获取查询数据
+        String zs_code = StringUtil.toLowerString(req.getParameter("zs_code"));
+        String zs_cname = StringUtil.toLowerString(req.getParameter("zs_cname"));
+        String icode = req.getParameter("icode");
+        // 判断是否pjax 请求
+        String pjax = req.getHeader("X-PJAX");
+        if (!StringUtil.isEmpty(zs_code)) {
+            mods= new IndexEditService().found(0,zs_code);
+        }
+        if (!StringUtil.isEmpty(zs_cname)) {
+            mods= new IndexEditService().found(1,zs_cname);
+        }
+        Map<String, String> codes = new HashMap<String, String>();
+        codes.put("zs_code", zs_code);
+        codes.put("zs_cname", zs_cname);
+        if (StringUtil.isEmpty(pjax)) {
+            JSONObject zbs=getZBS(icode);
+            IndexListService indexListService=new IndexListService();
+            IndexList list =indexListService.getData(icode);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list);
+        } else {
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modTableList").addObject("mods",mods).addObject("codes",codes);
         }
     }
 }

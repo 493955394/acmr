@@ -275,11 +275,11 @@
                             <div class="panel-default panel">
                                 <div class="panel-body">
                                     <div class="toolbar-left">
-                                        <form class="form-inline J_search_form" action="">
+                                        <form class="form-inline J_search_form" action="${ctx}/zbdata/zsjhedit.htm?m=searchFind">
                                             <div class="form-group">
                                                 <select id="querykey" class="form-control input-sm">
-                                                    <%-- <option value="cname" <c:if test="${code != '' && code!= null}">selected</c:if>>名称</option>
-                                                     <option value="code" <c:if test="${cname != '' && cname != null}">selected</c:if>>编码</option>--%>
+                                                  <option value="zs_cname" <c:if test="${zs_code != '' && zs_code!= null}">selected</c:if>>名称</option>
+                                                    <option value="zs_code" <c:if test="${zs_cname != '' && zs_cname != null}">selected</c:if>>编码</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -292,7 +292,7 @@
                                     </div>
                                     <div class="toolbar-right">
                                         <div class="toolbar-group" style="position: relative;">
-                                            <button class="btn btn-default btn-sm J_Add" type="button">新增</button>&nbsp
+                                            <button class="btn btn-default btn-sm J_Add_ZS" type="button">新增</button>&nbsp
                                             <button class="btn btn-default btn-sm J_Add" type="button">新增权重设置</button>&nbsp
                                         </div>
                                     </div>
