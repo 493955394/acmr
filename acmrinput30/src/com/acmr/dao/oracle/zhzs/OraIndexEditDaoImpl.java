@@ -54,6 +54,7 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
         String sql = "select * from tb_coindex_module where lower(cname) like ? ";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + cname + "%"});
     }
+    @Override
     public int addZS(IndexMoudle indexMoudle){
         String sql1 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal) values(?,?,?,?,?,?,?,?,?,?)";
         List<Object> params = new ArrayList<Object>();
@@ -68,5 +69,13 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
         params.add(indexMoudle.getWeight());
         params.add(indexMoudle.getDacimal());
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
+    }
+    /*
+     *通过code查信息
+     */
+    @Override
+    public DataTable getDataByCode(String code,String icode) {
+        String sql = "select * from tb_coindex_module where code = ? and indexcode = ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code,icode});
     }
 }

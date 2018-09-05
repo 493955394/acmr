@@ -577,14 +577,17 @@ public class zsjhedit extends BaseAction {
         indexEditService.resort(codes);
     }
     /**
-     * 模型规划新增节点展示页面
+     * 模型规划新增节点
      */
-    public ModelAndView toAdd()throws IOException{
+    public void toAdd()throws IOException{
         HttpServletRequest req = this.getRequest();
         String procodeId = req.getParameter("procodeId");
         String procodeName = req.getParameter("procodeName");
         String indexCode = req.getParameter("indexCode");
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/toAddZB").addObject("procodeId",procodeId).addObject("procodeName",procodeName).addObject("indexCode",indexCode);
+        IndexEditService indexEditService=new IndexEditService();
+        IndexMoudle data = indexEditService.getData(procodeId,indexCode);
+        String result = data.getIfzs();
+        this.sendJson(result);
     }
     /**
      * 新增模型节点保存方法

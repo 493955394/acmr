@@ -111,7 +111,6 @@ public class IndexEditService {
     /**
      * 查找功能
      */
-    //查找功能
     public ArrayList<IndexMoudle> found(int type,String code){
         ArrayList<IndexMoudle> indexMoudles=new ArrayList<IndexMoudle>();
         List<DataTableRow> data = new ArrayList<>();
@@ -142,5 +141,23 @@ public class IndexEditService {
      */
     public int addZStoModel(IndexMoudle indexMoudle){
         return IndexEditDao.Fator.getInstance().getIndexdatadao().addZS(indexMoudle);
+    }
+    /**
+     * 查所选的树的节点信息
+     */
+    public IndexMoudle getData(String code,String icode){
+        IndexMoudle indexMoudle = new IndexMoudle();
+        DataTableRow data = IndexEditDao.Fator.getInstance().getIndexdatadao().getDataByCode(code,icode).getRows().get(0);
+        indexMoudle.setCode(data.getString("code"));
+        indexMoudle.setCname(data.getString("cname"));
+        indexMoudle.setProcode(data.getString("procode"));
+        indexMoudle.setSortcode(data.getString("sortcode"));
+        indexMoudle.setIndexcode(data.getString("indexcode"));
+        indexMoudle.setIfzb(data.getString("ifzb"));
+        indexMoudle.setIfzs(data.getString("ifzs"));
+        indexMoudle.setFormula(data.getString("formula"));
+        indexMoudle.setDacimal(data.getString("dacimal"));
+        indexMoudle.setWeight(data.getString("weight"));
+        return indexMoudle;
     }
 }

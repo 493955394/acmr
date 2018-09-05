@@ -12,4 +12,5 @@ public interface IIndexEditDao {
     public DataTable getLikeCode(String code);
     public DataTable getLikeCname(String cname);
     public int addZS(IndexMoudle indexMoudle);
+    public DataTable getDataByCode(String code,String icode);
 }

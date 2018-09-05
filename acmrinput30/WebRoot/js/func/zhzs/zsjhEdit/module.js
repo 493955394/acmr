@@ -8,7 +8,8 @@ define(function (require,exports,module) {
 
     var indexCode=$("#index_code").val();
     var st = new Date().getTime();//时间戳
-
+    var choosedprocode = "";
+    var choosedname = "";
 
     var setting = {
         async: {
@@ -37,7 +38,8 @@ define(function (require,exports,module) {
         else {
             return
         }
-
+        choosedprocode = treeNode.id;
+        choosedname = treeNode.name;
     }
 
     //根据code加载子节点
@@ -152,4 +154,51 @@ define(function (require,exports,module) {
     $(document).ready(function () {
         sendPjax("")
     })
+    /**
+     * 新增模型节点模态框弹出
+     */
+    $(document).on('click', '.J_Add_ZS', function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: common.rootPath+'zbdata/zsjhedit.htm?m=toAdd&procodeId='+choosedprocode+'&procodeName='+choosedname+'&indexCode='+indexCode,
+            type:'get',
+            data:'json',
+            success:function (re){
+                if(re != "1"){
+                    alert("指标下不能添加内容！");
+                    return;
+                }else{
+
+                }
+            }
+        })
+    });
+    /**
+     * 新增模型节点
+     */
+    $(document).on('submit', '.J_addZS_form', function(event) {
+        event.preventDefault();
+        var self = this,
+            currentUrl = $(self).attr('action');
+        $.ajax({
+            url: currentUrl,
+            data: $(self).serialize(),
+            type: 'post',
+            dataType: 'json',
+            timeout: 10000,
+            success: function(data) {
+                if (data.returncode == 200) {
+                    alert("保存成功");
+                }else {
+                    alert("保存失败");
+                }
+            },
+            error: function() {
+                common.commonTips('添加失败');
+
+            }
+
+        })
+
+    });
 })
