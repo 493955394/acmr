@@ -8,8 +8,8 @@ define(function (require,exports,module) {
 
     var indexCode=$("#index_code").val();
     var st = new Date().getTime();//时间戳
-    var choosedprocode = "";
-    var choosedname = "";
+    var choosedprocode = "",
+        choosedname = "";
 
     var setting = {
         async: {
@@ -32,14 +32,15 @@ define(function (require,exports,module) {
 
     function clickEvent(event, treeid, treeNode) {
         //console.log("clickevent")
+        choosedprocode = treeNode.id;
+        choosedname = treeNode.name;
         if (treeNode.isParent == true) {
             sendPjax(treeNode.id)
         }
         else {
             return
         }
-        choosedprocode = treeNode.id;
-        choosedname = treeNode.name;
+
     }
 
     //根据code加载子节点
@@ -159,18 +160,18 @@ define(function (require,exports,module) {
      */
     $(document).on('click', '.J_Add_ZS', function(event) {
         event.preventDefault();
-        $.ajax({
-            url: common.rootPath+'zbdata/zsjhedit.htm?m=toAdd&procodeId='+choosedprocode+'&procodeName='+choosedname+'&indexCode='+indexCode,
-            type:'get',
-            data:'json',
-            success:function (re){
-                if(re != "1"){
-                    alert("指标下不能添加内容！");
-                    return;
-                }else{
-                    window.location.href=common.rootPath+'zbdata/zsjhedit.htm?m=toAdd&procodeId='+choosedprocode+'&procodeName='+choosedname+'&indexCode='+indexCode;
+            $.ajax({
+                url: common.rootPath+'zbdata/zsjhedit.htm?m=toAdd&procodeId='+choosedprocode+'&procodeName='+choosedname+'&indexCode='+indexCode,
+                type:'get',
+                datatype:'json',
+                success:function (re){
+                    if(re != "1"){
+                        alert("指标下不能添加内容！");
+                        return;
+                    }else{
+                        window.open(common.rootPath+'zbdata/zsjhedit.htm?m=toAddShow&procodeId='+choosedprocode+'&procodeName='+choosedname+'&indexCode='+indexCode);
+                    }
                 }
-            }
-        })
+            })
     });
 })

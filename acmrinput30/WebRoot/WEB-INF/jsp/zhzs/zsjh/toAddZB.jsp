@@ -22,7 +22,6 @@
         <div class="panel-heading">基本信息</div>
         <div class="panel-body">
             <form class="form-horizontal J_addZS_form" action="${ctx}/zbdata/zsjhedit.htm?m=toSaveZS">
-                <input type="hidden" name="procodeId" value="${procodeId}"/>
                 <input type="hidden" name="procodeName" value="${procodeName}"/>
                 <input type="hidden" name="indexCode" value="${indexCode}"/>
                 <div class="form-group">
@@ -39,22 +38,63 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">节点类别</label>
+                    <label class="col-sm-2 control-label">节点类别：</label>
                     <div class="col-sm-5">
-                        <select class="form-control" name="ifzs" autocomplete="off">
-                            <option value="1">总指数</option>
+                        <select class="form-control" name="ifzs" autocomplete="off" id="selectifzs">
+                            <c:if test="${procodeId == '' || procodeId== null}">
+                                <option value="2">总指数</option>
+                            </c:if>
                             <option value="1">次级指数</option>
                             <option value="0">指标</option>
                         </select>
                     </div>
                 </div>
+                <div id="secend_zs" style="display: none">
+                    <span class="col-sm-2">次级指数设置</span>
+                    <hr class="col-sm-10"/>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">小数点位数</label>
+                        <label class="col-sm-2 control-label">所属节点：</label>
                         <div class="col-sm-5">
-                            <input name="dotcount" type="text" class="form-control" value="1"/>
+                            <select class="form-control" name="zs_ifzb" autocomplete="off" >
+                                <option value="${procodeId}">${procodeName}</option>
+                            </select>
                         </div>
                     </div>
+                </div>
+                <div id="select_zb" style="display: none">
+                    <span class="col-sm-2">指标设置</span>
+                    <hr class="col-sm-10"/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">所属节点：</label>
+                        <div class="col-sm-5">
+                            <select class="form-control" name="zb_ifzb" autocomplete="off" >
+                                <option value="${procodeId}">${procodeName}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">指标类型：</label>
+                        <div class="col-sm-5">
+                            <select class="form-control" name="formula" autocomplete="off">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">小数点位数：</label>
+                    <div class="col-sm-5">
+                        <input name="dotcount" type="text" class="form-control" value="1"/>
+                    </div>
+                </div>
+                <div class="hidden_group">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <select size="7" class="zb_index">
 
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary ZS_Add">确认</button>
