@@ -59,7 +59,7 @@
                         <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
-                                    <form class="form-horizontal J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insert">
+                                    <form class="form-horizontal J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insertcate">
                                         <input type="hidden" class="form-control" name="ifdata" value="0" >
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -103,7 +103,7 @@
                         <div class="modal" id="mymodal-data1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
-                                    <form class="form-horizontal J_add_plan"  action="${ctx}/zbdata/indexlist.htm?m=insert">
+                                    <form class="form-horizontal J_add_plan"  action="${ctx}/zbdata/indexlist.htm?m=insertplan">
                                         <input type="hidden" class="form-control" name="ifdata" value="1" >
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -217,7 +217,6 @@
         module.exports={
             indexlist:indexlist
         }
-
     })
     seajs.use('${ctx}/js/func/zhzs/indexlist/main');
 </script>

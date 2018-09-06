@@ -1,6 +1,7 @@
 package com.acmr.service.zhzs;
 
 import acmr.util.DataTableRow;
+import acmr.util.ListHashMap;
 import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.model.zhzs.IndexList;
@@ -124,6 +125,7 @@ public class IndexListService {
         index.setStartperiod(data.getString("startperiod"));
         return index;
     }
+
     //查找功能
     public ArrayList<IndexList> found(int type,String code){
         ArrayList<IndexList> indexLists=new ArrayList<>();
@@ -157,9 +159,9 @@ public class IndexListService {
     public int addCp(IndexList indexList) {
         return IndexListDao.Fator.getInstance().getIndexdatadao().addIndexlist(indexList);
     }
-    public int updatePlan(IndexList indexList,String code) {
+   /* public int updatePlan(IndexList indexList,String code) {
         return IndexListDao.Fator.getInstance().getIndexdatadao().addNplan(indexList,code);
-    }
+    }*/
     public static int delCataplan(String code){
         return IndexListDao.Fator.getInstance().getIndexdatadao().delIndexcp(code);
     }
@@ -169,7 +171,16 @@ public class IndexListService {
     public static int updateCatePlan(IndexList indexList){
         return IndexListDao.Fator.getInstance().getIndexdatadao().updateCp(indexList);
     }
-
+    //复制到
+    public int addCopyplan(IndexList data1){
+        return IndexListDao.Fator.getInstance().getIndexdatadao().addCopyplan(data1);
+    }
+    public int checkCode(String code){
+        return IndexListDao.Fator.getInstance().getIndexdatadao().checkCode(code);
+    }
+    public int checkProcode(String procode){
+        return IndexListDao.Fator.getInstance().getIndexdatadao().checkProcode(procode);
+    }
 
 
 

@@ -1,5 +1,6 @@
 package com.acmr.web.jsp.zbdata;
 
+import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
@@ -49,45 +50,29 @@ public class indexlist extends BaseAction {
      * @param
      * @return
      */
-    public void insert() throws IOException {
+    public void insertcate() throws IOException {
         IndexListService indexListService = new IndexListService();
         HttpServletRequest req = this.getRequest();
         String code = PubInfo.getString(req.getParameter("cocode"));
-        String code1 = PubInfo.getString(req.getParameter("plancode"));
         JSONReturnData data = new JSONReturnData("");
-        if (indexListService.getData(code).getCode()!=null){
+        int x = indexListService.checkCode(code);
+        if (x == 0) {
             data.setReturncode(300);
             this.sendJson(data);
             return;
-        }
-        if (indexListService.getData(code1).getCode()!=null){
-            data.setReturncode(300);
-            this.sendJson(data);
-            return;
+        } else {
+            data.setReturncode(200);
         }
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
-        int ifdata = Integer.parseInt(ifdata1);
         String cname = PubInfo.getString(req.getParameter("cocname"));
-        String cname1 = PubInfo.getString(req.getParameter("plancname"));
         String procode = PubInfo.getString(req.getParameter("idcata"));
-        String procode1 = PubInfo.getString(req.getParameter("idplan"));
-        String sort = PubInfo.getString(req.getParameter("sort"));
         String createuser = "usercode01";
-        String state = "0";
         IndexList indexList = new IndexList();
         indexList.setIfdata(ifdata1);
         indexList.setCreateuser(createuser);
-        if(ifdata == 0){
-            indexList.setCode(code);
-            indexList.setCname(cname);
-            indexList.setProcode(procode);
-        }else {
-            indexList.setCode(code1);
-            indexList.setCname(cname1);
-            indexList.setProcode(procode1);
-            indexList.setSort(sort);
-            indexList.setState(state);
-        }
+        indexList.setCode(code);
+        indexList.setCname(cname);
+        indexList.setProcode(procode);
         int int1 = indexListService.addCp(indexList);
         /*if (int1 == -1) {
             data.setReturncode(501);
@@ -95,7 +80,45 @@ public class indexlist extends BaseAction {
             this.sendJson(data);
             return;
         }*/
+        data.setReturndata(indexList);
+        this.sendJson(data);
 
+    }
+    //计划新增
+    public void insertplan() throws IOException {
+        IndexListService indexListService = new IndexListService();
+        HttpServletRequest req = this.getRequest();
+        String code = PubInfo.getString(req.getParameter("plancode"));
+        JSONReturnData data = new JSONReturnData("");
+        int x = indexListService.checkCode(code);
+        if (x == 0) {
+            data.setReturncode(300);
+            this.sendJson(data);
+            return;
+        } else {
+            data.setReturncode(200);
+        }
+        String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
+        String cname = PubInfo.getString(req.getParameter("plancname"));
+        String procode = PubInfo.getString(req.getParameter("idplan"));
+        String sort = PubInfo.getString(req.getParameter("sort"));
+        String createuser = "usercode01";
+        String state = "0";
+        IndexList indexList = new IndexList();
+        indexList.setCode(code);
+        indexList.setIfdata(ifdata1);
+        indexList.setCreateuser(createuser);
+        indexList.setCname(cname);
+        indexList.setProcode(procode);
+        indexList.setSort(sort);
+        indexList.setState(state);
+        int int1 = indexListService.addCp(indexList);
+        /*if (int1 == -1) {
+            data.setReturncode(501);
+            data.setReturndata("fail");
+            this.sendJson(data);
+            return;
+        }*/
         data.setReturndata(indexList);
         this.sendJson(data);
 
@@ -104,32 +127,36 @@ public class indexlist extends BaseAction {
     public void copy() throws IOException {
         IndexListService indexListService = new IndexListService();
         HttpServletRequest req = this.getRequest();
-        String code = PubInfo.getString(req.getParameter("copycode"));
+        String cpcode = PubInfo.getString(req.getParameter("copycode"));
         //String ifdata1 = PubInfo.getString(req.getParameter("cifdata"));
         //int ifdata = Integer.parseInt(ifdata1);
-        String ncode = PubInfo.getString(req.getParameter("plcode"));
+        String code = PubInfo.getString(req.getParameter("plcode"));
         JSONReturnData data = new JSONReturnData("");
-        if (indexListService.getData(ncode).getCode()!=null){
+        int x = indexListService.checkCode(code);
+        if (x == 0) {
             data.setReturncode(300);
             this.sendJson(data);
             return;
+        } else {
+            data.setReturncode(200);
         }
         String cname = PubInfo.getString(req.getParameter("zname"));
         String nprocode = PubInfo.getString(req.getParameter("newprocode"));
-        IndexList indexList = new IndexList();
-        indexList.setCode(ncode);
-        indexList.setCname(cname);
-        indexList.setProcode(nprocode);
-        indexListService.updatePlan(indexList,code);
+        IndexList data1 = indexListService.getData(cpcode);
+        data1.setCode(code);
+        data1.setCname(cname);
+        data1.setProcode(nprocode);
+        indexListService.addCopyplan(data1);
         /*if (int1 == -1) {
             data.setReturncode(501);
             data.setReturndata("fail");
             this.sendJson(data);
             return;
         }*/
-        data.setReturndata(indexList);
+        data.setReturndata(data1);
         this.sendJson(data);
     }
+    //编辑
     public void update() throws IOException{
         HttpServletRequest req = this.getRequest();
         //IndexListService indexListService = new IndexListService();
@@ -140,16 +167,23 @@ public class indexlist extends BaseAction {
         IndexList indexList = new IndexList();
         indexList.setCode(code);
         indexList.setProcode(procode);
-        //IndexListService.updateCatePlan(code,procode);
-        IndexListService.updateCatePlan(indexList);
+        IndexListService.updateCate(code,procode);
         data.setReturndata("");
         this.sendJson(data);
     }
     public void delete() throws IOException {
         // 构造返回对象
         JSONReturnData data = new JSONReturnData("");
-        data.setReturncode(200);
         String code = PubInfo.getString(this.getRequest().getParameter("id"));
+        IndexListService indexListService = new IndexListService();
+        int y = indexListService.checkProcode(code);
+        if (y == 0) {
+            data.setReturncode(300);
+            this.sendJson(data);
+            return;
+        } else {
+            data.setReturncode(200);
+        }
         int int1 = IndexListService.delCataplan(code);
         data.setReturndata("");
         this.sendJson(data);
@@ -166,28 +200,52 @@ public class indexlist extends BaseAction {
         data.setReturncode(200);
         this.sendJson(data);
     }
-    public void checkCode() throws IOException {
+    /*//页面后台检查
+    public void checkcoCode() throws IOException {
         HttpServletRequest req = this.getRequest();
         IndexListService indexListService = new IndexListService();
         String code = PubInfo.getString(req.getParameter("cocode"));
-        String code1 = PubInfo.getString(req.getParameter("plancode"));
-        String ncode = PubInfo.getString(req.getParameter("plcode"));//复制到的code
+        *//*String code1 = PubInfo.getString(req.getParameter("plancode"));
+        String ncode = PubInfo.getString(req.getParameter("plcode"));//复制到的code*//*
         JSONReturnData data = new JSONReturnData("");
-        List<String> list = new ArrayList();
-        list.add(code);
-        list.add(code1);
-        list.add(ncode);
-        for(int i = 0;i<list.size();i++){
-            if (indexListService.getData(list.get(i)).getCode()!=null) {
+        int x = indexListService.checkCode(code);
+        if (x == 0) {
                 data.setReturncode(300);
             } else {
                 data.setReturncode(200);
             }
-        }
-
-
         this.sendJson(data);
     }
+    public void checkplCode() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        IndexListService indexListService = new IndexListService();
+        //String code = PubInfo.getString(req.getParameter("cocode"));
+        String code = PubInfo.getString(req.getParameter("plancode"));
+        //String ncode = PubInfo.getString(req.getParameter("plcode"));//复制到的code
+        JSONReturnData data = new JSONReturnData("");
+        int x = indexListService.checkCode(code);
+        if (x == 0) {
+            data.setReturncode(300);
+        } else {
+            data.setReturncode(200);
+        }
+        this.sendJson(data);
+    }
+    public void checknCode() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        IndexListService indexListService = new IndexListService();
+        //String code = PubInfo.getString(req.getParameter("cocode"));
+        //String code1 = PubInfo.getString(req.getParameter("plancode"));
+        String code = PubInfo.getString(req.getParameter("plcode"));//复制到的code
+        JSONReturnData data = new JSONReturnData("");
+        int x = indexListService.checkCode(code);
+        if (x == 0) {
+            data.setReturncode(300);
+        } else {
+            data.setReturncode(200);
+        }
+        this.sendJson(data);
+    }*/
     /**
      * 综合指数查找
      * @return

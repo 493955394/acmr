@@ -4,9 +4,11 @@ define(function (require,exports,module) {
         VaildNormal = require('vaildnormal'),
         tree = require('tree'),
         common = require('common'),
+        dropdown = require('dropdown'),
         pjax=require('pjax'),
         modal = require('modal'),
-        listjsp= require('listjsp');
+        listjsp= require('listjsp'),
+        AjaxMods = require('AjaxMods');
     /**
      * 新增目录ajax提交
      */
@@ -39,16 +41,14 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function(data) {
                 if (data.returncode == 200) {
-                    alert("保存成功");
-                    $('#mymodal-data').modal('hide');
+                    alert("保存成功！");
                     window.location.reload(true);
-                }else {
-                    alert("目录已存在");
-                    $('#mymodal-data').modal('show');
+                }else if (data.returncode == 300) {
+                    alert("该编码已存在");
+                    $("#mymodal-data").modal('show');
+                } else {
+                    alert("添加失败");
                 }
-            },
-            error: function() {
-                common.commonTips('添加失败');
             }
         })
     });
@@ -81,15 +81,13 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function(data) {
                 if (data.returncode == 200) {
-                    alert("保存成功");
-                    $('#mymodal-data1').modal('hide');
+                    alert("保存成功！");
                     window.location.reload(true);
-                    //window.location.reload();
-                    //common.commonTips('保存成功！');
+                } else if (data.returncode == 300) {
+                    alert("该编码已存在");
+                    $("#mymodal-data1").modal('show');
                 } else {
-                    alert("计划已存在");
-                    $('#mymodal-data1').modal('show');
-                    // common.commonTips('保存出错！');
+                    alert("添加失败");
                 }
             }
         })
@@ -116,16 +114,17 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function(data) {
                 if (data.returncode == 200) {
-                    alert("保存成功");
-                    $('#mymodal-data3').modal('hide');
+                   common.commonTips('保存成功！');
                     window.location.reload(true);
-                    //window.location.reload();
-                    //common.commonTips('保存成功！');
+                } else if (data.returncode == 300) {
+                    common.commonTips('添加失败');
                 } else {
-                    alert("保存失败");
-                    $('#mymodal-data3').modal('show');
-                    // common.commonTips('保存出错！');
+                    common.commonTips('添加失败');
                 }
+            },
+            error: function() {
+                common.commonTips('添加失败');
+
             }
 
         })
@@ -197,15 +196,13 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function(data) {
                 if (data.returncode == 200) {
-                    alert("保存成功");
-                    $('#mymodal-data2').modal('hide');
+                    alert("保存成功！");
                     window.location.reload(true);
-                    //window.location.reload();
-                    //common.commonTips('保存成功！');
+                } else if (data.returncode == 300) {
+                    alert("该编码已存在");
+                    $("#mymodal-data2").modal('show');
                 } else {
-                    alert("该计划已存在");
-                    $('#mymodal-data2').modal('show');
-                    // common.commonTips('保存出错！');
+                    alert("添加失败");
                 }
             }
         })
@@ -213,10 +210,10 @@ define(function (require,exports,module) {
     /**
     * 后台检查
     */
-    function checkCode(cocode, checkDelegate) {
+   /* function checkcoCode(cocode, checkDelegate) {
         var flag;
         $.ajax({
-            url: common.rootPath + 'zbdata/indexlist.htm?m=checkCode',
+            url: common.rootPath + 'zbdata/indexlist.htm?m=checkcoCode',
             timeout: 5000,
             type: 'post',
             async: false,
@@ -226,7 +223,7 @@ define(function (require,exports,module) {
                 if (data.returncode == 200) {
                     checkDelegate.viewTipAjax($('input[name="cocode"]'), true);
                     flag = true;
-                } else {
+                } else{
                     checkDelegate.viewTipAjax($('input[name="cocode"]'), false, "该编码已存在");
                     flag = false;
                 }
@@ -240,10 +237,10 @@ define(function (require,exports,module) {
         checkDelegate = new VaildNormal();
         checkCode($('input[name="cocode"]').val(), checkDelegate);
     });
-    function checkCode(plancode, checkDelegate) {
+    function checkplCode(plancode, checkDelegate) {
         var flag;
         $.ajax({
-            url: common.rootPath + 'zbdata/indexlist.htm?m=checkCode',
+            url: common.rootPath + 'zbdata/indexlist.htm?m=checkplCode',
             timeout: 5000,
             type: 'post',
             async: false,
@@ -267,10 +264,10 @@ define(function (require,exports,module) {
         checkDelegate = new VaildNormal();
         checkCode($('input[name="plancode"]').val(), checkDelegate);
     });
-    function checkCode(plcode, checkDelegate) {
+    function checkCode(plncode, checkDelegate) {
         var flag;
         $.ajax({
-            url: common.rootPath + 'zbdata/indexlist.htm?m=checkCode',
+            url: common.rootPath + 'zbdata/indexlist.htm?m=checknCode',
             timeout: 5000,
             type: 'post',
             async: false,
@@ -293,7 +290,7 @@ define(function (require,exports,module) {
             checkDelegate;
         checkDelegate = new VaildNormal();
         checkCode($('input[name="plcode"]').val(), checkDelegate);
-    });
+    });*/
     /**
      * 删除数据
      */
@@ -311,11 +308,13 @@ define(function (require,exports,module) {
             dataType:'json',
             timeout:1000,
             success:function(data){
-                if(data.returncode == 200){
-                    common.commonTips("删除成功");
+                if (data.returncode == 200) {
+                    alert("删除成功！");
                     window.location.reload(true);
-                }else{
-                    common.commonTips(data.returndata);
+                } else if (data.returncode == 300) {
+                    alert("目录下存在计划，删除失败");
+                } else {
+                    alert("删除失败");
                 }
             }
         });
@@ -585,9 +584,12 @@ define(function (require,exports,module) {
 
     //CategoryNode为只有目录的树结构nodes
     var CategoryNodes=[];
+    //console.log(zNodes)
     for(i=0;i<zNodes.length;i++){
-        if (zNodes[i].isParent==true&&zNodes[i].pId!="#2"&&zNodes[i].pId!="#3"){
+        //console.log(zNodes[i])
+        if (zNodes[i].sou==true&&zNodes[i].pId!="#2"&&zNodes[i].pId!="#3"&&zNodes[i].id!="#2"&&zNodes[i].id!="#3"){
             CategoryNodes.push(zNodes[i])
+            //console.log(CategoryNodes)
         }
     }
     //console.log(CategoryNodes)
