@@ -233,7 +233,7 @@ define(function (require,exports,module) {
     /**
      * 绑定li标签点击效果
      */
-    $("#selectreg").on('click','.list-group-item', function() {
+    $("#selectreg").on('click','.selectedli', function() {
         $(this).siblings('li').css("background","#ffffff");
         $(this).css("background","#f6f6f6");
         select_li = $(this).index();
@@ -241,7 +241,9 @@ define(function (require,exports,module) {
     /**
      * 时间选择自动补上中间的时间期，以及数据检查
      */
-    var selecttime = "";//时间
+    var selecttime = "",//时间
+        checkdata="",
+        checkreturn=[];
 
     $("#datachecks").click(function () {
         selecttime = "";//初始化时间
@@ -288,7 +290,6 @@ define(function (require,exports,module) {
             }
             regselect = regselect.substr(0, regselect.length - 1);//去除最后一个逗号
             regselectname = regselectname.substr(0, regselectname.length - 1);//去除最后一个逗号
-
             $.pjax({
                 url: common.rootPath+'zbdata/zsjhedit.htm?m=getCheckData&indexcode='+incode,
                 type: "post",
@@ -296,15 +297,14 @@ define(function (require,exports,module) {
                 container:'.data_check_show'
             });
             $(document).on('pjax:success', function() {
-               // uniteTable(tabledata,1);
+               mc('tabledata',0,0,0);
                 $("#data_single").hide();
                 $("#tabledata").show();
                 $('ul.regul').html("");
                 select_li = "error";
                 var showreg ="";
-                var checkdata = $('input[id=checkreturn]').val();
-                checkdata = checkdata.substr(0, checkdata.length - 1);//去除最后一个逗号
-                var checkreturn = checkdata.split(",");
+                 checkdata = $('input[id=checkreturn]').val();
+                 checkreturn = checkdata.split(",");
                 for(var i=0;i<select.length;i++){
                     if(select[i].name=="" && select[i].code==""){
                         showreg +="";
@@ -344,10 +344,11 @@ define(function (require,exports,module) {
         $.pjax({
             url: common.rootPath+'zbdata/zsjhedit.htm?m=getCheckSingle&indexcode='+incode,
             type: "post",
-            data: {"reg": reg,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit},
+            data: {"reg": reg,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit,"checkdata":checkdata},
             container:'.data_check_show'
         });
         $(document).on('pjax:success', function() {
+            console.log(checkreturn)
             $("#tabledata").hide();
             $("#data_single").show();
         });
@@ -357,31 +358,22 @@ define(function (require,exports,module) {
      * @param tb的id
      * @param colLength要合并的列数
      */
-    function   uniteTable(tb,colLength){
-        var   i=0;
-        var   j=0;
-        var   rowCount=tb.rows.length; //   行数
-        var   colCount=tb.rows[0].cells.length; //   列数
-        var   obj1=null;
-        var   obj2=null;
-        //   为每个单元格命名
-        for   (i=0;i<rowCount;i++){
-            for   (j=0;j<colCount;j++){
-                tb.rows[i].cells[j].id="tb__"   +   i.toString()   +   "_"   +   j.toString();
-            }
+    function mc(tableId, startRow, endRow, col) {
+        var tb = document.getElementById(tableId);
+        if (col >= tb.rows[0].cells.length) {//第一行的列数
+            return;
         }
-        //   逐列检查合并
-        for   (i=0;i<colCount;i++){
-            if   (i==colLength)   return;
-            obj1=document.getElementById("tb__0_"+i.toString())
-            for   (j=1;j<rowCount;j++){
-                obj2=document.getElementById("tb__"+j.toString()+"_"+i.toString());
-                if   (obj1.innerText   ==   obj2.innerText){
-                    obj1.rowSpan++;
-                    obj2.parentNode.removeChild(obj2);
-                }else{
-                    obj1=document.getElementById("tb__"+j.toString()+"_"+i.toString());
+        if (col == 0) { endRow = tb.rows.length-1; }
+        for (var i = startRow; i < endRow; i++) {
+            if (tb.rows[startRow].cells[col].innerHTML == tb.rows[i + 1].cells[0].innerHTML) {
+                tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[0]);
+                tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan | 0) + 1;
+                if (i == endRow - 1 && startRow != endRow) {
+                    mc(tableId, startRow, endRow, col + 1);
                 }
+            } else {
+                mc(tableId, startRow, i + 0, col + 1);
+                startRow = i + 1;
             }
         }
     }

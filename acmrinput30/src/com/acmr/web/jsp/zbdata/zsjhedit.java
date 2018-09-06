@@ -146,9 +146,13 @@ public class zsjhedit extends BaseAction {
                     double resulttemp = result.get(k).getData().getData()*rate;
                     datas.add(resulttemp+"") ;
                 }
+                for (int k = datas.size(); k <regs.length+2 ; k++) {//补齐单元格
+                    datas.add("0.0");
+                }
                 data1.add(datas);
             }
         }
+
         /**
          * 检查数据是否完整
          */
@@ -177,7 +181,7 @@ public class zsjhedit extends BaseAction {
     public String CheckResult(String [] regs,String [] sjs,String [] zbcodes,String [] dss,String [] cos){
         String result="";
         for (int i = 0; i <regs.length ; i++) {
-            String check = "0";
+            String check = "1";
             for (int j = 0; j <zbcodes.length ; j++) {
                 CubeWdCodes where = new CubeWdCodes();
                 where.Add("zb", zbcodes[j]);
@@ -188,13 +192,14 @@ public class zsjhedit extends BaseAction {
                 ArrayList<CubeQueryData> result1 = RegdataService.queryData("cuscxnd",where);
                 for (int k = 0; k <result1.size() ; k++) {
                     double result2 = result1.get(k).getData().getData();
-                    if(result2 == 0.0){
-                        check ="1";
+                    if(result2 != 0.0 ){
+                        check ="0";
                     }
                 }
             }
             result += check + ",";
         }
+        result = result.substring(0,result.length()-1);
         return result;
     }
     /**
@@ -211,6 +216,7 @@ public class zsjhedit extends BaseAction {
         String ds = PubInfo.getString(req.getParameter("ds"));//数据来源
         String co = PubInfo.getString(req.getParameter("co"));//主体
         String zbunit = PubInfo.getString(req.getParameter("zbunit"));//单位
+        String check = PubInfo.getString(req.getParameter("checkdata"));
         String [] sjs = sj.split(",");
         String [] zbcodes = zbcode.split(",");
         String [] zbnames = zbname.split(",");
@@ -237,9 +243,13 @@ public class zsjhedit extends BaseAction {
                     double resulttemp = result.get(k).getData().getData()*rate;
                     datas.add(resulttemp+"") ;
                 }
+                for (int k = datas.size(); k <sjs.length+1 ; k++) {//补齐单元格
+                    datas.add("0.0");
+                }
             }
             data1.add(datas);
         }
+        System.out.println(check);
         if (StringUtil.isEmpty(pjax)) {
             String code=req.getParameter("indexcode");
             JSONObject zbs=getZBS(code);
@@ -254,7 +264,7 @@ public class zsjhedit extends BaseAction {
             ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("list",list).addObject("zbs",zbs).addObject("indexlist",indexlist).addObject("proname",proname);
         } else {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/regSelect").addObject("regname",regname).addObject("singledata",data1).addObject("times",sjs);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/regSelect").addObject("regname",regname).addObject("singledata",data1).addObject("times",sjs).addObject("check",check);
         }
     }
     /**

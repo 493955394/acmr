@@ -100,6 +100,9 @@
                 </div>
                 <div class="hidden_group" style="display: none">
                     <div class="row">
+                        <div class="col-sm-2">
+                            <span>公式编辑器：</span>
+                        </div>
                         <div class="col-sm-3">
                             <select size="15" class="zb_index" style="width: 90%">
                                 <c:forEach items="${zblist.zbchoose}" var="zbl">
@@ -108,7 +111,7 @@
                             </select>
                         </div>
                         <div class="col-sm-1">
-                            <button type="button">添加</button>
+                            <button type="button">添加></button>
                         </div>
                         <div class="col-sm-3">
                             <select size="5" style="width: 300px">
@@ -136,9 +139,9 @@
                             <button class="btn btn-default" type="button">/</button>
                         </div>
                         <div class="col-sm-1">
-                            <button type="button">添加</button>
+                            <button type="button"><添加</button>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-2">
                             <select size="15" >
                                 <option>Math.abs</option>
                                 <option>Math.max</option>

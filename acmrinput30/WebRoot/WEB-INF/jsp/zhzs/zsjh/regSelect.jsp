@@ -27,12 +27,14 @@
         <c:forEach items="${data}" var="list">
             <tr>
                 <c:forEach items="${list}" var="list1">
-                    <c:if test="${list1=='0.0'}">
-                        <td class="red"></td>
-                    </c:if>
-                    <c:if test="${list1!='0.0'}">
-                        <td>${list1}</td>
-                    </c:if>
+                    <c:choose>
+                        <c:when test="${list1=='0.0'||list1== null || list1==''}">
+                            <td class="red"></td>
+                        </c:when>
+                        <c:otherwise>
+                            <td>${list1}</td>
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
             </tr>
         </c:forEach>
