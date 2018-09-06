@@ -1,6 +1,7 @@
 package com.acmr.dao.oracle.zhzs;
 
 import acmr.util.DataTable;
+import acmr.util.DataTableRow;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexListDao;
 import com.acmr.model.zhzs.IndexList;
@@ -72,19 +73,57 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         params.add(indexList.getUpdatetime());
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
     }
-
-    @Override
     //复制到
-    public int addNplan(IndexList indexList, String code) {
-        String sql1 = "update tb_coindex_index set code=? ,cname=? ,procode=? where code=?";
+    @Override
+    public int addCopyplan(IndexList data1) {
+        String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         List<Object> params = new ArrayList<Object>();
-        params.add(indexList.getCode());
-        params.add(indexList.getCname());
-        params.add(indexList.getProcode());
-        params.add(code);
+        params.add(data1.getCode());
+        params.add(data1.getCname());
+        params.add(data1.getProcode());
+        params.add(data1.getIfdata());
+        params.add(data1.getState());
+        params.add(data1.getSort());
+        params.add(data1.getStartperiod());
+        params.add(data1.getDelayday());
+        params.add(data1.getPlanperiod());
+        params.add(data1.getPlantime());
+        params.add(data1.getCreateuser());
+        params.add(data1.getCreatetime());
+        params.add(data1.getUpdatetime());
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
     }
+    //检查
+    @Override
+    public int checkCode(String code){
+        String sql = "select count(*) from tb_coindex_index where code = ?";
+        List<Object> params = new ArrayList<Object>();
+        params.add(code);
+        DataTable dt = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
+        List<DataTableRow> rows = dt.getRows();
+        int getint = rows.get(0).getint(0);
+        if (getint > 0) {
+            return 0;
+        }else {
+            return 1;
+        }
 
+    }
+    @Override
+    public int checkProcode(String procode){
+        String sql = "select count(*) from tb_coindex_index where code = ?";
+        List<Object> params = new ArrayList<Object>();
+        params.add(procode);
+        DataTable dt = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
+        List<DataTableRow> rows = dt.getRows();
+        int getint = rows.get(0).getint(0);
+        if (getint > 0) {
+            return 0;
+        }else {
+            return 1;
+        }
+
+    }
     @Override
     public int updateCategory(String code,String procode) {
         String sql1 = "update tb_coindex_index set procode=? where code=?";
