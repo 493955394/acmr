@@ -623,8 +623,13 @@ public class zsjhedit extends BaseAction {
         String code = PubInfo.getString(req.getParameter("ZS_code"));
         String name = PubInfo.getString(req.getParameter("ZS_cname"));
         String ifzs = PubInfo.getString(req.getParameter("ifzs"));
-        if(ifzs != "0"){
-            ifzs = "1";
+        if(ifzs.equals("1")){//选了次级指标
+            String zs = PubInfo.getString(req.getParameter("cjzs"));//次级指数的所属节点类别
+            procodeId = zs;
+        }
+        else if(ifzs.equals("0")){//要是选了指标
+            String zb = PubInfo.getString(req.getParameter("zb_ifzs"));//指标的所属节点类别
+            procodeId = zb;
         }
         String ifzb = "1";//是指标
         String formula = "";
@@ -635,6 +640,9 @@ public class zsjhedit extends BaseAction {
             this.sendJson(data); //要是code已经存在
         }
         else {
+            if(ifzs != "0"){
+                ifzs = "1";
+            }
             indexMoudle.setCode(code);
             indexMoudle.setCname(name);
             indexMoudle.setProcode(procodeId);

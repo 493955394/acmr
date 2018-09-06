@@ -22,7 +22,7 @@
         <div class="panel-heading">基本信息</div>
         <div class="panel-body">
             <form class="form-horizontal J_addZS_form" action="${ctx}/zbdata/zsjhedit.htm?m=toSaveZS">
-                <input type="hidden" name="procodeName" value="${datas.procodeName}"/>
+                <input type="hidden" name="procodeId" value="${datas.procodeId}"/>
                 <input type="hidden" name="icode" value="${datas.indexCode}"/>
                 <div class="form-group">
                     <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
@@ -41,11 +41,15 @@
                     <label class="col-sm-2 control-label">节点类别：</label>
                     <div class="col-sm-5">
                         <select class="form-control" name="ifzs" autocomplete="off" id="selectifzs">
-                            <c:if test="${procodeId == '' || procodeId== null}">
-                                <option value="2">总指数</option>
-                            </c:if>
-                            <option value="1">次级指数</option>
-                            <option value="0">指标</option>
+                            <c:choose>
+                                <c:when test="${datas.procodeId == '' || datas.procodeId== null}">
+                                    <option value="2">总指数</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="1">次级指数</option>
+                                    <option value="0">指标</option>
+                                </c:otherwise>
+                            </c:choose>
                         </select>
                     </div>
                 </div>
@@ -55,8 +59,10 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">所属节点：</label>
                         <div class="col-sm-5">
-                            <select class="form-control" name="zs_ifzb" autocomplete="off" >
-                                <option value="${procodeId}">${procodeName}</option>
+                            <select class="form-control" name="cjzs" autocomplete="off" >
+                                <c:forEach items="${zslist}" var="list">
+                                    <option value="${list.getCode()}" <c:if test="${list.getCode() == datas.procodeId}"> selected</c:if>>${list.getCname()}</option>
+                                </c:forEach>
                             </select>
                         </div>
                     </div>
@@ -67,8 +73,10 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">所属节点：</label>
                         <div class="col-sm-5">
-                            <select class="form-control" name="zb_ifzb" autocomplete="off" >
-                                <option value="${procodeId}">${procodeName}</option>
+                            <select class="form-control" name="zb_ifzs" autocomplete="off" >
+                                <c:forEach items="${zslist}" var="list">
+                                    <option value="${list.getCode()}" <c:if test="${list.getCode() == datas.procodeId}"> selected</c:if>>${list.getCname()}</option>
+                                </c:forEach>
                             </select>
                         </div>
                     </div>
