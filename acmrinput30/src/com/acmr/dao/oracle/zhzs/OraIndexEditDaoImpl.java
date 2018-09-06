@@ -2,6 +2,7 @@ package com.acmr.dao.oracle.zhzs;
 
 
 import acmr.util.DataTable;
+import acmr.util.DataTableRow;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexEditDao;
 import com.acmr.model.zhzs.IndexMoudle;
@@ -88,10 +89,30 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
     }
     @Override
     public DataTable getCurrentSort(String procode,String icode){
-        String sql = "select max(sortcode) from tb_coindex_module where indexcode = ? and procode = ? ";
+        if(procode==""){
+            String sql = "select max(sortcode) from tb_coindex_module where indexcode = ? and procode is null ";
+            List<Object> params = new ArrayList<Object>();
+            params.add(icode);
+            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
+        }else {
+            String sql = "select max(sortcode) from tb_coindex_module where indexcode = ? and procode = ? ";
+            List<Object> params = new ArrayList<Object>();
+            params.add(icode);
+            params.add(procode);
+            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
+        }
+    }
+    @Override
+    public boolean checkCode(String code){
+        String sql = "select count(*) from tb_coindex_module where code = ?";
         List<Object> params = new ArrayList<Object>();
-        params.add(icode);
-        params.add(procode);
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
+        params.add(code);
+        DataTable dt = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
+        List<DataTableRow> rows = dt.getRows();
+        int getint = rows.get(0).getint(0);
+        if (getint > 0) {
+            return true;
+        }
+        return false;
     }
 }

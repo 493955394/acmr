@@ -22,8 +22,8 @@
         <div class="panel-heading">基本信息</div>
         <div class="panel-body">
             <form class="form-horizontal J_addZS_form" action="${ctx}/zbdata/zsjhedit.htm?m=toSaveZS">
-                <input type="hidden" name="procodeName" value="${procodeName}"/>
-                <input type="hidden" name="indexCode" value="${indexCode}"/>
+                <input type="hidden" name="procodeName" value="${datas.procodeName}"/>
+                <input type="hidden" name="icode" value="${datas.indexCode}"/>
                 <div class="form-group">
                     <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                     <div class="col-sm-5">

@@ -601,25 +601,40 @@ public class zsjhedit extends BaseAction {
         String procodeId = req.getParameter("procodeId");
         String procodeName = req.getParameter("procodeName");
         String indexCode = req.getParameter("indexCode");
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/toAddZB").addObject("procodeId",procodeId).addObject("procodeName",procodeName).addObject("indexCode",indexCode);
+        List<IndexMoudle> zslist = new ArrayList<IndexMoudle>();
+        IndexEditService indexEditService = new IndexEditService();
+        zslist = indexEditService.getZSList(indexCode);
+        Map<String, String> datas = new HashMap<String, String>();
+        datas.put("procodeId", procodeId);
+        datas.put("procodeName", procodeName);
+        datas.put("indexCode", indexCode);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/toAddZB").addObject("datas",datas).addObject("zslist",zslist);
     }
     /**
      * 新增模型节点保存方法
      */
     public void toSaveZS() throws IOException{
         IndexMoudle indexMoudle = new IndexMoudle();
+        IndexEditService indexEditService = new IndexEditService();
         JSONReturnData data = new JSONReturnData("");
         HttpServletRequest req = this.getRequest();
         String procodeId = PubInfo.getString(req.getParameter("procodeId"));
-        String indexCode = PubInfo.getString(req.getParameter("indexCode"));
+        String indexCode = PubInfo.getString(req.getParameter("icode"));
         String code = PubInfo.getString(req.getParameter("ZS_code"));
         String name = PubInfo.getString(req.getParameter("ZS_cname"));
         String ifzs = PubInfo.getString(req.getParameter("ifzs"));
+        if(ifzs != "0"){
+            ifzs = "1";
+        }
         String ifzb = "1";//是指标
         String formula = "";
-        String sortcode = "0";
+        String sortcode = indexEditService.getCurrentSort(procodeId,indexCode);
         String dacimal = PubInfo.getString(req.getParameter("dotcount"));
-
+        if(checkCode(code)){
+            data.setReturncode(501);
+            this.sendJson(data); //要是code已经存在
+        }
+        else {
             indexMoudle.setCode(code);
             indexMoudle.setCname(name);
             indexMoudle.setProcode(procodeId);
@@ -632,10 +647,12 @@ public class zsjhedit extends BaseAction {
             indexMoudle.setIfzb(ifzb);
             indexMoudle.setFormula(formula);
         }
-        IndexEditService indexEditService=new IndexEditService();
         int back = indexEditService.addZStoModel(indexMoudle);
-        data.setReturndata(indexMoudle);
-        this.sendJson(data);
+        if(back == 1){
+            data.setReturncode(200);
+            this.sendJson(data);
+        }
+        }
     }
     /**
      * 综合指数查找
@@ -668,5 +685,15 @@ public class zsjhedit extends BaseAction {
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modTableList").addObject("mods",mods).addObject("codes",codes);
         }
+    }
+
+    /**
+     * 检查code是否存在了，true是已存在
+     * @param code
+     * @return
+     */
+    public boolean checkCode(String code){
+        IndexEditService indexListService=new IndexEditService();
+        return indexListService.checkCode(code);
     }
 }

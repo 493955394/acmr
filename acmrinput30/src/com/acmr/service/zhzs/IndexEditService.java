@@ -165,10 +165,11 @@ public class IndexEditService {
     /**
      * 查询当前最大的sortcode是多少
      */
-    public int getCurrentSort(String procode,String icode){
+    public String getCurrentSort(String procode,String icode){
        DataTableRow data = IndexEditDao.Fator.getInstance().getIndexdatadao().getCurrentSort(procode,icode).getRows().get(0);
        int i = data.getint(0);
-        return i+1;//加1返回
+       String result = String.valueOf(i+1);
+        return result;//加1返回
     }
 
     /**
@@ -194,5 +195,11 @@ public class IndexEditService {
             indexMoudles.add(index);
         }
         return indexMoudles;
+    }
+    /**
+     * 检查code是否已经存在
+     */
+    public boolean checkCode(String code){
+        return IndexEditDao.Fator.getInstance().getIndexdatadao().checkCode(code);
     }
 }
