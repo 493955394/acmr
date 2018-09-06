@@ -101,10 +101,59 @@
                 <div class="hidden_group" style="display: none">
                     <div class="row">
                         <div class="col-sm-3">
-                            <select size="7" class="zb_index">
+                            <select size="15" class="zb_index" style="width: 90%">
                                 <c:forEach items="${zblist.zbchoose}" var="zbl">
                                     <option value="${zbl.zbcode}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
                                 </c:forEach>
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button">添加</button>
+                        </div>
+                        <div class="col-sm-3">
+                            <select size="5" style="width: 300px">
+                            </select>
+                            <div class="clearfix"></div>
+                            <p></p>
+                            <button class="btn btn-default" type="button">1</button>
+                            <button class="btn btn-default" type="button">2</button>
+                            <button class="btn btn-default" type="button">3</button>
+                            <button class="btn btn-default" type="button">+</button>
+                            <div class="clearfix"></div>
+                            <button class="btn btn-default" type="button">4</button>
+                            <button class="btn btn-default" type="button">5</button>
+                            <button class="btn btn-default" type="button">6</button>
+                            <button class="btn btn-default" type="button">-</button>
+                            <div class="clearfix"></div>
+                            <button class="btn btn-default" type="button">7</button>
+                            <button class="btn btn-default" type="button">8</button>
+                            <button class="btn btn-default" type="button">9</button>
+                            <button class="btn btn-default" type="button">*</button>
+                            <div class="clearfix"></div>
+                            <button class="btn btn-default" type="button">()</button>
+                            <button class="btn btn-default" type="button">0</button>
+                            <button class="btn btn-default" type="button">.</button>
+                            <button class="btn btn-default" type="button">/</button>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button">添加</button>
+                        </div>
+                        <div class="col-sm-4">
+                            <select size="15" >
+                                <option>Math.abs</option>
+                                <option>Math.max</option>
+                                <option>Math.min</option>
+                                <option>Math.pow(x,y)</option>
+                                <option>Math.exp</option>
+                                <option>Math.log10</option>
+                                <option>Math.log</option>
+                                <option>Math.random</option>
+                                <option>add(BigInteger val)</option>
+                                <option>subtract(BigInteger val)</option>
+                                <option>multiply(BigInteger val)</option>
+                                <option>divide(BigInteger val)</option>
+                                <option>compareTo(BigInteger val)</option>
+                                <option>pow(int exponent)</option>
                             </select>
                         </div>
                     </div>

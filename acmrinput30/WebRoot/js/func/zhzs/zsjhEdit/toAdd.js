@@ -1,6 +1,7 @@
 define(function (require,exports,module) {
     'use strict';
     var $ = require('jquery'),
+        VaildNormal = require('vaildnormal'),
         tree = require('tree'),
         common = require('common'),
         pjax=require('pjax'),
@@ -11,7 +12,23 @@ define(function (require,exports,module) {
     $(document).on('submit', '.J_addZS_form', function(event) {
         event.preventDefault();
         var self = this,
-            currentUrl = $(self).attr('action');
+            currentUrl = $(self).attr('action'),
+            checkDelegate;
+        checkDelegate = new VaildNormal();
+        var flag = true;
+        //前端检查
+        if (!checkDelegate.checkNormal($('input[name="ZS_code"]'), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="ZS_code"]'), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
+            !checkDelegate.checkNormal($('input[name="ZS_code"]'), [{ 'name': 'maxlength', 'msg': '编码最大长度为20', 'param': 21 }])) {
+            flag = false;
+        }
+        if (!checkDelegate.checkNormal($('input[name="ZS_cname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="ZS_cname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
+            flag = false;
+        }
+        if (flag == false) {
+            return;
+        }
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),
@@ -19,7 +36,6 @@ define(function (require,exports,module) {
             dataType: 'json',
             timeout: 10000,
             success: function(data) {
-                console.log(data)
                 if (data.returncode == 200) {
                     alert("保存成功");
                 }else if(data.returncode == 501){
@@ -49,6 +65,9 @@ define(function (require,exports,module) {
             $('#select_zb').show();
         }
     })
+    /**
+     * 控制显示和隐藏
+     */
     $(document).on('change', '[name=ifzs]', function(event){
         var isGroup = $(this).val();
         if(isGroup === '1'){
