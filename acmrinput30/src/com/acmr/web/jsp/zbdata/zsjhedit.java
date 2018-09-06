@@ -604,11 +604,13 @@ public class zsjhedit extends BaseAction {
         List<IndexMoudle> zslist = new ArrayList<IndexMoudle>();
         IndexEditService indexEditService = new IndexEditService();
         zslist = indexEditService.getZSList(indexCode);
+        //筛选指标信息
+        JSONObject zblist=getZBS(indexCode);
         Map<String, String> datas = new HashMap<String, String>();
         datas.put("procodeId", procodeId);
         datas.put("procodeName", procodeName);
         datas.put("indexCode", indexCode);
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/toAddZB").addObject("datas",datas).addObject("zslist",zslist);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/toAddZB").addObject("datas",datas).addObject("zslist",zslist).addObject("zblist",zblist);
     }
     /**
      * 新增模型节点保存方法

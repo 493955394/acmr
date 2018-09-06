@@ -59,7 +59,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">所属节点：</label>
                         <div class="col-sm-5">
-                            <select class="form-control" name="cjzs" autocomplete="off" >
+                            <select class="form-control cjzs" name="cjzs" autocomplete="off" >
                                 <c:forEach items="${zslist}" var="list">
                                     <option value="${list.getCode()}" <c:if test="${list.getCode() == datas.procodeId}"> selected</c:if>>${list.getCname()}</option>
                                 </c:forEach>
@@ -73,7 +73,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">所属节点：</label>
                         <div class="col-sm-5">
-                            <select class="form-control" name="zb_ifzs" autocomplete="off" >
+                            <select class="form-control zb_ifzs" name="zb_ifzs" autocomplete="off" >
                                 <c:forEach items="${zslist}" var="list">
                                     <option value="${list.getCode()}" <c:if test="${list.getCode() == datas.procodeId}"> selected</c:if>>${list.getCname()}</option>
                                 </c:forEach>
@@ -83,7 +83,11 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">指标类型：</label>
                         <div class="col-sm-5">
-                            <select class="form-control" name="formula" autocomplete="off">
+                            <select class="form-control formula" name="formula" autocomplete="off">
+                                <c:forEach items="${zblist.zbchoose}" var="zbl">
+                                    <option value="${zbl.zbcode}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
+                                </c:forEach>
+                                <option value="userdefined">自定义</option>
                             </select>
                         </div>
                     </div>
@@ -94,11 +98,13 @@
                         <input name="dotcount" type="text" class="form-control" value="1"/>
                     </div>
                 </div>
-                <div class="hidden_group">
+                <div class="hidden_group" style="display: none">
                     <div class="row">
                         <div class="col-sm-3">
                             <select size="7" class="zb_index">
-
+                                <c:forEach items="${zblist.zbchoose}" var="zbl">
+                                    <option value="${zbl.zbcode}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
+                                </c:forEach>
                             </select>
                         </div>
                     </div>

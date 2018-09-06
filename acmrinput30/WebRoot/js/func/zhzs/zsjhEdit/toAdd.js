@@ -51,17 +51,31 @@ define(function (require,exports,module) {
     })
     $(document).on('change', '[name=ifzs]', function(event){
         var isGroup = $(this).val();
-        console.log(isGroup)
         if(isGroup === '1'){
+           cleanContents();
             $('#select_zb').hide();
+            $('.hidden_group').hide();
             $('#secend_zs').show();
         }else if(isGroup === '0'){
-            //clearContent();
             $('#secend_zs').hide();
+            cleanContents();
             $('#select_zb').show();
         }else {
             $('#select_zb').hide();
             $('#secend_zs').hide();
         }
     })
+    $(document).on('change', '[name=formula]', function(event){
+        var isGroup = $(this).val();
+        if(isGroup == "userdefined"){
+            $('.hidden_group').show();
+        }else{
+            $('.hidden_group').hide();
+        }
+    })
+    function  cleanContents(){
+        //清空所选
+        $('select.zb_ifzs,select.cjzs,select.formula').prop('selectedIndex', 0);
+        $('[name=dotcount]').val('1');
+    }
 })
