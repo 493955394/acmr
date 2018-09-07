@@ -55,6 +55,7 @@ define(function (require,exports,module) {
 
 
     function clickEvent(event, treeid, treeNode) {
+
         if(treeNode.isParent==false){
             zb=[treeNode.id,treeNode.name]
             if (zbclick(zb,true)){
@@ -62,6 +63,8 @@ define(function (require,exports,module) {
                 $(".zb_panel").css("background-color","inherit")
                 $(".zb_panel_add").css("background-color","inherit")
                 $(".zb_add").css("display","inline")
+                $(".zb_delete").css("display","none")
+                $(".zb_save").css("display","none")
                 $(".panel_zbname").html(treeNode.name).attr("code",treeNode.id)
             }
         }
