@@ -112,7 +112,7 @@
                             <button type="button" class="btn btn-default">添加></button>
                         </div>
                         <div class="col-sm-3">
-                            <textarea style="width: 300px;height: 200px" id="formulatext" ></textarea>
+                            <textarea style="width: 300px;height: 200px" id="formulatext" name="formulatext"></textarea>
                             <div class="clearfix"></div>
                             <p></p>
                             <button class="btn btn-default" type="button">1</button>
