@@ -15,51 +15,106 @@
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
 </head>
 <body>
-<style type="text/css">
-</style>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
-<h2>权重设置</h2>
-<button type="button" class="btn btn-primary btn-sm save_weight" style="float: right">保存设置</button>
 
-
-<table class="table table-striped table-hover">
-    <c:forEach items="${mods}" var="module">
-        <c:if test="${module.getProcode()==''}">
-            <tr>
-                <td rowspan="3">${module.getCname()}</td>
-            </tr>
-            <tr>c</tr>
-            <tr>c</tr>
-        </c:if>
-    </c:forEach>
-
-
-<%--    <tr>
+<div class="container-fluid" id="mainpanel">
+    <h2>权重设置</h2>
+    <button type="button" class="btn btn-primary btn-sm save_weight" style="float: right">保存设置</button>
+    <table class="table table-striped table-hover">
         <c:forEach items="${mods}" var="module">
-            <td>${module.getCname()}</td>
-        </c:forEach>
-    </tr>
-    <tr>
-        <c:forEach items="${mods}" var="module">
-            <td>${module.getProcode()}</td>
             <c:if test="${module.getProcode()==''}">
-                <td>测试</td>
+                <c:if test="${module.hasChild()}">
+                    <tbody>
+                    <tr>
+                        <td rowspan="${module.ZBnums()}" class="root_zs ${module.getCode()}">${module.getCname()}</td>
+                        <input type="hidden" name="module_code" value="${module.getCode()}">
+                            <%--<td>test</td>--%>
+                    </tr>
+                    </tbody>
+                </c:if>
+                <c:if test="${!module.hasChild()}">
+                    <tbody>
+                    <tr>
+                        <td class="root_zs_nochild">${module.getCname()}</td>
+                        <td>该指数下为空</td>
+                    </tr>
+                    </tbody>
+
+                </c:if>
             </c:if>
         </c:forEach>
-    </tr>--%>
-<%--    <tr>
-        <td rowspan="3">总指数</td>
-        <td>分指数1</td>
-    </tr>
-    <tr>
-        <td>分指数2</td>
-    </tr>
-    <tr>
-        <td>分指数3</td>
-    </tr>--%>
-</table>
+    </table>
+</div>
+
+<div class="test"></div>
+
 </body>
+
 <script>
+    define("weightset",function (require,exports,module) {
+        var $=require('jquery')
+        console.log("test")
+        $(".root_zs").each(function () {
+            //var pcode=$(this).next().val()
+            var rnums=$(this).attr("rowspan")
+            //console.log(rnums)
+            for(var i=rnums-1;i>=0;i--){
+                $(this).parent().after("<tr></tr>")
+            }
+            var flag=0;//行计数器
+            <c:forEach items="${mods}" var="module">
+            <c:if test="${module.getProcode()!=''}">
+            var thiszbnums= parseInt("${module.ZBnums()}")
+            var classname="${module.getProcode()}"
+            //说明是这一级别的第一个节点
+            if (flag==0){
+                console.log("是第一个节点")
+                if (${module.ZBnums()!=0}) {
+                    $("."+classname).after("<td class='" +
+                        "${module.getCode()}"+"' rowspan='" +
+                        "${module.ZBnums()}"+"'>" +
+                        "${module.getCname()}"+"</td>")
+                }
+                else {
+                    $("."+classname).after("<td class='" +
+                        "${module.getCode()}"+"'>" +
+                        "${module.getCname()}"+"</td>")
+                }
+                flag=flag+thiszbnums;
+                console.log(flag)
+            }
+            //不是此级别的第一个节点
+            else {
+                console.log("不是第一个节点")
+                if(${module.ZBnums()!=0}){
+                    var index=flag
+                    $("."+classname).parent().parent().children(":eq(" +
+                        index+")").append("<td class='" +
+                        "${module.getCode()}"+"' rowspan='" +
+                        "${module.ZBnums()}"+"'>" +
+                        "${module.getCname()}"+"</td>")
+                }
+                else {
+                    var index=flag
+                    $("."+classname).parent().parent().children(":eq(" +
+                        index+")").append("<td class='" +
+                        "${module.getCode()}"+"'>" +
+                        "${module.getCode()}"+"</td>")
+                }
+                flag=flag+thiszbnums
+                if (flag==rnums){
+                    console.log("flag="+flag+"flag重置")
+                    flag=0
+                }
+                console.log(flag)
+            }
+            </c:if>
+            </c:forEach>
+
+        })
+    })
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/weight');
 </script>
+
 </html>
+

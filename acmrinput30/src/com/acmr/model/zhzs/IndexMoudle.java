@@ -1,5 +1,11 @@
 package com.acmr.model.zhzs;
 
+import acmr.util.PubInfo;
+import com.acmr.service.zhzs.IndexEditService;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class IndexMoudle {
     private String code;
     private  String cname;
@@ -90,5 +96,42 @@ public class IndexMoudle {
 
     public void setDacimal(String dacimal) {
         this.dacimal = dacimal;
+    }
+
+    public boolean hasChild(){
+        IndexEditService indexEditService=new IndexEditService();
+        if (indexEditService.getSubMod(this.code,this.indexcode).size()>0){
+            return true;
+        }
+        else return false;
+    }
+
+    public int ZBnums(){
+        if (this.ifzs.equals("1")){
+            //PubInfo.printStr("====================1");
+            int nums=0;
+            IndexEditService indexEditService=new IndexEditService();
+            List<IndexMoudle> mods=indexEditService.getAllMods(this.code,this.indexcode);
+            for (int i=0;i<mods.size();i++){
+                if (mods.get(i).getIfzs().equals("0")){
+                    nums=nums+1;
+                }
+            }
+            if (mods.size()==0){
+                nums=1;
+            }
+            PubInfo.printStr("nums:"+nums);
+            return nums;
+        }
+        else {
+            //PubInfo.printStr("========================0");
+            return 1;
+        }
+    }
+
+    public List<IndexMoudle> getChilds(){
+        IndexEditService indexEditService=new IndexEditService();
+        List<IndexMoudle> childs=indexEditService.getSubMod(this.code,this.indexcode);
+        return childs;
     }
 }

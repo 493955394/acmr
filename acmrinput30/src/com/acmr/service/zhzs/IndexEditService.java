@@ -67,6 +67,26 @@ public class IndexEditService {
     }
 
     /**
+     * @Description: 根据给定的模型节点code和计划code返回该节点下所有的模型节点，包括子节点的子节点
+     * @Param: [code, icode]
+     * @return: java.util.List<com.acmr.model.zhzs.IndexMoudle>
+     * @Author: lyh
+     * @Date: 2018/9/6
+     */
+    public List<IndexMoudle> getAllMods(String code,String icode){
+        List<IndexMoudle> allmods=new ArrayList<>();
+        List<IndexMoudle> thissubs=getSubMod(code,icode);
+        if (thissubs.size()>0){
+            allmods.addAll(thissubs);
+            for (int i=0;i<thissubs.size();i++){
+                allmods.addAll(getAllMods(thissubs.get(i).getCode(),icode));
+            }
+        }
+        return allmods;
+    }
+
+
+    /**
     * @Description: 根据给定模型节点的code和所属计划的icode返回submods
     * @Param: [code,icode]
     * @return: java.util.List<com.acmr.model.zhzs.IndexMoudle>
