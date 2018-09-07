@@ -102,6 +102,39 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
         }
     }
+
+    /**
+     *
+     * @param procode
+     * @return
+     */
+    @Override
+    public boolean checkProcode(String procode,String icode){
+        if(procode==""){
+            String sql = "select count(*) from tb_coindex_module where indexcode = ? and procode is null ";
+            List<Object> params = new ArrayList<Object>();
+            params.add(icode);
+            DataTable dt = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
+            List<DataTableRow> rows = dt.getRows();
+            int getint = rows.get(0).getint(0);
+            if (getint > 0) {
+                return true;
+            }
+            return false;
+        }else {
+        String sql = "select count(*) from tb_coindex_module where procode = ? and indexcode = ?";
+        List<Object> params = new ArrayList<Object>();
+        params.add(procode);
+        params.add(icode);
+        DataTable dt = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
+        List<DataTableRow> rows = dt.getRows();
+        int getint = rows.get(0).getint(0);
+        if (getint > 0) {
+            return true;
+        }
+        return false;
+        }
+    }
     @Override
     public boolean checkCode(String code){
         String sql = "select count(*) from tb_coindex_module where code = ?";

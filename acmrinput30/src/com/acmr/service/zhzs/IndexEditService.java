@@ -186,9 +186,16 @@ public class IndexEditService {
      * 查询当前最大的sortcode是多少
      */
     public String getCurrentSort(String procode,String icode){
-       DataTableRow data = IndexEditDao.Fator.getInstance().getIndexdatadao().getCurrentSort(procode,icode).getRows().get(0);
-       int i = data.getint(0);
-       String result = String.valueOf(i+1);
+        //先检查这个procode下面有没有东西
+        String result = "";
+        boolean rs = IndexEditDao.Fator.getInstance().getIndexdatadao().checkProcode(procode,icode);
+        if(rs){
+            DataTableRow data = IndexEditDao.Fator.getInstance().getIndexdatadao().getCurrentSort(procode,icode).getRows().get(0);
+            int i = data.getint(0);
+             result = String.valueOf(i+1);
+        }else{
+            result = "0";
+        }
         return result;//加1返回
     }
 
