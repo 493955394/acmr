@@ -16,7 +16,7 @@ define(function (require,exports,module) {
     var setting = {
         async: {
             enable: true,
-            url: common.rootPath+'zbdata/zsjhedit.htm?m=getModTree&icode='+indexCode,
+            url: common.rootPath+'zbdata/zsjhedit.htm?m=getModTree&icode='+indexCode+'&st='+st,
             contentType: 'application/json',
             type: 'get',
             autoParam: ["id"]

@@ -116,10 +116,10 @@ public class IndexMoudle {
                 if (mods.get(i).getIfzs().equals("0")){
                     nums=nums+1;
                 }
-            }
+            }/*
             if (mods.size()==0){
                 nums=1;
-            }
+            }*/
             PubInfo.printStr("nums:"+nums);
             return nums;
         }
