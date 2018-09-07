@@ -652,7 +652,7 @@ public class zsjhedit extends BaseAction {
             this.sendJson(data); //要是code已经存在
         }
         else {
-            if(ifzs != "0"){
+            if(ifzs.equals("1")||ifzs.equals("2")){
                 ifzs = "1";
             }
             indexMoudle.setCode(code);

@@ -98,11 +98,9 @@
                         <input name="dotcount" type="text" class="form-control" value="1"/>
                     </div>
                 </div>
-                <div class="hidden_group" style="display: none">
+                <div class="hidden_group form-group" style="display: none">
                     <div class="row">
-                        <div class="col-sm-2">
-                            <span>公式编辑器：</span>
-                        </div>
+                        <label class="col-sm-2 control-label">公式编辑器：</label>
                         <div class="col-sm-3">
                             <select size="15" class="zb_index" style="width: 90%">
                                 <c:forEach items="${zblist.zbchoose}" var="zbl">
@@ -111,11 +109,10 @@
                             </select>
                         </div>
                         <div class="col-sm-1">
-                            <button type="button">添加></button>
+                            <button type="button" class="btn btn-default">添加></button>
                         </div>
                         <div class="col-sm-3">
-                            <select size="5" style="width: 300px">
-                            </select>
+                            <textarea style="width: 300px;height: 200px" id="formulatext" ></textarea>
                             <div class="clearfix"></div>
                             <p></p>
                             <button class="btn btn-default" type="button">1</button>
@@ -139,7 +136,7 @@
                             <button class="btn btn-default" type="button">/</button>
                         </div>
                         <div class="col-sm-1">
-                            <button type="button"><添加</button>
+                            <button type="button" class="btn btn-default"><添加</button>
                         </div>
                         <div class="col-sm-2">
                             <select size="15" >
