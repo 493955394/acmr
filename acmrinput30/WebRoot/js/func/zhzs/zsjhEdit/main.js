@@ -295,29 +295,29 @@ define(function (require,exports,module) {
                 type: "post",
                 data: {"reg": regselect,"regname":regselectname,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit},
                 container:'.data_check_show'
-            });
+            })
             $(document).on('pjax:success', function() {
-               mc('tabledata',0,0,0);
-                $("#data_single").hide();
-                $("#tabledata").show();
-                $('ul.regul').html("");
-                select_li = "error";
-                var showreg ="";
-                 checkdata = $('input[id=checkreturn]').val();
-                 checkreturn = checkdata.split(",");
-                for(var i=0;i<select.length;i++){
-                    if(select[i].name=="" && select[i].code==""){
-                        showreg +="";
-                    }else {
-                        if(checkreturn[i]=="0"){
-                            showreg += '<li class="list-group-item clickli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-ok"></i></span></li>';
-                        }
-                       else {
-                            showreg += '<li class="list-group-item clickli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-remove"></i></span></li>';
+                    mc('tabledata',0,0,0);
+                    $("#data_single").hide();
+                    $("#tabledata").show();
+                    $('ul.regul').html("");
+                    select_li = "error";
+                    var showreg ="";
+                    checkdata = $('input[id=checkreturn]').val();
+                    checkreturn = checkdata.split(",");
+                    for(var i=0;i<select.length;i++){
+                        if(select[i].name=="" && select[i].code==""){
+                            showreg +="";
+                        }else {
+                            if(checkreturn[i]=="0"){
+                                showreg += '<li class="list-group-item clickli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-ok"></i></span></li>';
+                            }
+                            else {
+                                showreg += '<li class="list-group-item clickli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-remove"></i></span></li>';
+                            }
                         }
                     }
-                }
-                $("#selectreg").append(showreg);
+                    $("#selectreg").append(showreg);
             });
         }
     });
@@ -346,13 +346,26 @@ define(function (require,exports,module) {
             type: "post",
             data: {"reg": reg,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit,"checkdata":checkdata},
             container:'.data_check_show'
-        });
+        })
         $(document).on('pjax:success', function() {
             console.log(checkreturn)
             $("#tabledata").hide();
             $("#data_single").show();
         });
     }) ;
+
+    /**
+     * 检查数据是否完整
+     */
+    function checkTable(tableId){
+        var tb = document.getElementById(tableId);
+        if(tb.rows.length==0) return false;
+        if(tb.rows[0].cells.length==0) return false;
+        for(var i=0;i<tb.rows.length;i++){
+            if(tb.rows[0].cells.length!=tb.rows[i].cells.length) return false;
+        }
+        return true;
+    }
     /**
      * 数据下载
      * @author wf
@@ -441,4 +454,5 @@ define(function (require,exports,module) {
             delIds = [];
         });
     });
+
 });

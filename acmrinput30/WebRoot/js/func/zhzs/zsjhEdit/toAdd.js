@@ -6,6 +6,8 @@ define(function (require,exports,module) {
         common = require('common'),
         pjax=require('pjax'),
         modal = require('modal');
+    var ciji = $(".cjzs option:selected").val();
+    var zhibiao = $(".zb_ifzs option:selected").val();
     /**
      * 新增模型节点
      */
@@ -40,6 +42,9 @@ define(function (require,exports,module) {
                     alert("保存成功");
                 }else if(data.returncode == 501){
                     alert("该编码已经存在");
+                }
+                else if(data.returncode == 300){
+                    alert("表达式有误");
                 }
             },
             error: function() {
@@ -94,7 +99,47 @@ define(function (require,exports,module) {
     })
     function  cleanContents(){
         //清空所选
-        $('select.zb_ifzs,select.cjzs,select.formula').prop('selectedIndex', 0);
+        $('select.formula').prop('selectedIndex', 0);
+        $(".cjzs").find("option[value = '"+ciji+"']").attr('selected',true);
+        $(".zb_ifzs").find("option[value = '"+zhibiao+"']").attr('selected',true);
         $('[name=dotcount]').val('1');
+        $("#formulatext").val("");
+    }
+
+    /**
+     * 公式编辑器添加左边的筛选指标
+     */
+    $("#add_zb").click(function (){
+        $(".zb_index").val();//获取当前选择项的值.
+        var options=$(".zb_index option:selected");//获取当前选择项
+        var code = options.val();//获取当前选择项的值
+        var cname = options.text();//获取当前选择项的文本
+        var str = "#"+cname+"#";
+        addExpressContent(str);
+    })
+    /**
+     * 函数的添加
+     */
+    $("#add_hanshu").click(function () {
+        $("#hanshu").val();//获取当前选择项的值.
+        var options=$("#hanshu option:selected");//获取当前选择项
+        var code = options.val();//获取当前选择项的值
+        var cname = options.text();//获取当前选择项的文本
+        var str = cname;
+        addExpressContent(str);
+    });
+
+    /**
+     * 检查自定义公式是否合理
+     * @param str
+     * @returns {boolean}
+     */
+    function checkZB(str) {
+        $(".zb_index option").each(function () {
+            var text = $(this).text(); //获取option的text
+            var cname = "#" + text + "#";
+            str = str.replace(cname, " 2.0 ");
+        });
+        return str;
     }
 })

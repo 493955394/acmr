@@ -85,7 +85,7 @@
                         <div class="col-sm-5">
                             <select class="form-control formula" name="formula" autocomplete="off">
                                 <c:forEach items="${zblist.zbchoose}" var="zbl">
-                                    <option value="${zbl.zbcode}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
+                                    <option value="${zbl.code}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
                                 </c:forEach>
                                 <option value="userdefined">自定义</option>
                             </select>
@@ -104,42 +104,42 @@
                         <div class="col-sm-3">
                             <select size="15" class="zb_index" style="width: 90%">
                                 <c:forEach items="${zblist.zbchoose}" var="zbl">
-                                    <option value="${zbl.zbcode}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
+                                    <option value="${zbl.code}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
                                 </c:forEach>
                             </select>
                         </div>
                         <div class="col-sm-1">
-                            <button type="button" class="btn btn-default">添加></button>
+                            <button type="button" class="btn btn-default" id="add_zb">添加></button>
                         </div>
                         <div class="col-sm-3">
-                            <textarea style="width: 300px;height: 200px" id="formulatext" name="formulatext"></textarea>
+                            <textarea rows="8" cols="35" id="formulatext" name="formulatext"></textarea>
                             <div class="clearfix"></div>
                             <p></p>
-                            <button class="btn btn-default" type="button">1</button>
-                            <button class="btn btn-default" type="button">2</button>
-                            <button class="btn btn-default" type="button">3</button>
-                            <button class="btn btn-default" type="button">+</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('1')">1</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('2')">2</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('3')">3</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('+')">+</button>
                             <div class="clearfix"></div>
-                            <button class="btn btn-default" type="button">4</button>
-                            <button class="btn btn-default" type="button">5</button>
-                            <button class="btn btn-default" type="button">6</button>
-                            <button class="btn btn-default" type="button">-</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('4')">4</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('5')">5</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('6')">6</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('-')">-</button>
                             <div class="clearfix"></div>
-                            <button class="btn btn-default" type="button">7</button>
-                            <button class="btn btn-default" type="button">8</button>
-                            <button class="btn btn-default" type="button">9</button>
-                            <button class="btn btn-default" type="button">*</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('7')">7</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('8')">8</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('9')">9</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('*')">*</button>
                             <div class="clearfix"></div>
-                            <button class="btn btn-default" type="button">()</button>
-                            <button class="btn btn-default" type="button">0</button>
-                            <button class="btn btn-default" type="button">.</button>
-                            <button class="btn btn-default" type="button">/</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('()')">()</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('0')">0</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('.')">.</button>
+                            <button type="button" class="btn btn-default" onclick="addExpressContent('/')">/</button>
                         </div>
                         <div class="col-sm-1">
-                            <button type="button" class="btn btn-default"><添加</button>
+                            <button type="button" class="btn btn-default" id="add_hanshu"><添加</button>
                         </div>
                         <div class="col-sm-2">
-                            <select size="15" >
+                            <select size="15" id="hanshu">
                                 <option>Math.abs</option>
                                 <option>Math.max</option>
                                 <option>Math.min</option>
@@ -169,6 +169,22 @@
     </div>
 </div>
 <script type="text/javascript">
+    /**
+     * 添加内容
+     */
+    function addExpressContent(str){
+        var tc = document.getElementById("formulatext");
+        var tclen = tc.value.length;
+        tc.focus();
+        if(typeof document.selection != "undefined")
+        {
+            document.selection.createRange().text = str;
+        }
+        else
+        {
+            tc.value = tc.value.substr(0,tc.selectionStart)+str+tc.value.substring(tc.selectionStart,tclen);
+        }
+    }
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/toAdd');
 </script>
 </body>

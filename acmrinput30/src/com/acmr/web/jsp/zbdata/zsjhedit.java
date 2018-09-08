@@ -25,9 +25,10 @@ import com.acmr.service.zbdata.RegdataService;
 import com.acmr.service.zbdata.ZBdataService;
 import com.acmr.service.zhzs.IndexEditService;
 import com.acmr.service.zhzs.IndexListService;
-import com.acmr.web.jsp.Index;
 import com.alibaba.fastjson.JSONObject;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -47,6 +48,7 @@ public class zsjhedit extends BaseAction {
     private  String singleregname;
     private  String excelsj;
 
+    static ScriptEngine jse = new ScriptEngineManager().getEngineByName("JavaScript");
     public ModelAndView editIndex(){
         /* 第一个分页显示*/
         String code = this.getRequest().getParameter("id");
@@ -167,11 +169,9 @@ public class zsjhedit extends BaseAction {
                 data1.add(datas);
             }
         }
-
         /**
          * 检查数据是否完整
          */
-
         if (StringUtil.isEmpty(pjax)) {
             String code=req.getParameter("indexcode");
             JSONObject zbs=getZBS(code);
@@ -803,7 +803,6 @@ public class zsjhedit extends BaseAction {
         String ifzs = PubInfo.getString(req.getParameter("ifzs"));
         String formula = PubInfo.getString(req.getParameter("formula"));//判断是不是自定义，是指标还是公式
         String formulatext = PubInfo.getString(req.getParameter("formulatext"));
-        System.out.println("========自定义公式" +formulatext);
         String ifzb = "";
         if(ifzs.equals("1")){//选了次级指标
             String zs = PubInfo.getString(req.getParameter("cjzs"));//次级指数的所属节点类别
@@ -823,8 +822,8 @@ public class zsjhedit extends BaseAction {
         if(checkCode(code)){
             data.setReturncode(501);
             this.sendJson(data); //要是code已经存在
+            return;
         }
-        else {
             if(ifzs.equals("1")||ifzs.equals("2")){
                 ifzs = "1";//总指数或者次级指数
             }
@@ -841,15 +840,23 @@ public class zsjhedit extends BaseAction {
             indexMoudle.setFormula(formula);
         }
            else if(ifzb.equals("0")){
-                indexMoudle.setIfzb(ifzb);
-                indexMoudle.setFormula(formulatext);
+                indexMoudle.setIfzb(ifzb);//是选的自定义公式，要做校验
+           if(checkFormula(formulatext,indexCode)){
+               formulatext = changeFormula(formulatext,indexCode);
+               indexMoudle.setFormula(formulatext);
+           }else {
+               data.setReturncode(300);
+               this.sendJson(data);
+               return;
+           }
             }
         int back = indexEditService.addZStoModel(indexMoudle);
         if(back == 1){
             data.setReturncode(200);
             this.sendJson(data);
+            return;
         }
-        }
+
     }
     /**
      * 综合指数查找
@@ -892,5 +899,41 @@ public class zsjhedit extends BaseAction {
     public boolean checkCode(String code){
         IndexEditService indexListService=new IndexEditService();
         return indexListService.checkCode(code);
+    }
+    /**
+     * 校验公式是否合理
+     */
+    public boolean checkFormula(String str,String icode){
+        IndexEditService indexEditService=new IndexEditService();
+        //String icode=this.getRequest().getParameter("icode");
+        List<Map> zbchoose=indexEditService.getZBS(icode);
+        for (int i = 0; i <zbchoose.size() ; i++) {
+            String temp = "#"+zbchoose.get(i).get("zbname").toString()+"("+zbchoose.get(i).get("dsname").toString()+","+zbchoose.get(i).get("unitname").toString()+")#";
+            str = str.replace(temp," 2.0 ");//随便给个数算
+        }
+        try {
+            System.out.println(jse.eval(str));
+        } catch (Exception t) {
+            System.out.println("error");
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 转换成code存入数据库
+     * @param str
+     * @param icode
+     * @return
+     */
+    public String changeFormula(String str,String icode){
+        IndexEditService indexEditService=new IndexEditService();
+        //String icode=this.getRequest().getParameter("icode");
+        List<Map> zbchoose=indexEditService.getZBS(icode);
+        for (int i = 0; i <zbchoose.size() ; i++) {
+            String temp = "#"+zbchoose.get(i).get("zbname").toString()+"("+zbchoose.get(i).get("dsname").toString()+","+zbchoose.get(i).get("unitname").toString()+")#";
+            str = str.replace(temp,"#"+zbchoose.get(i).get("code").toString()+"#");//换成ZB表里的code
+        }
+        return str;
     }
 }
