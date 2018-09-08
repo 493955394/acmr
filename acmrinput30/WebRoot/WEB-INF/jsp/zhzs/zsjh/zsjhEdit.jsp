@@ -257,7 +257,7 @@
                                     ~
                                     <input name="endtime"/>
                                     <button id="datachecks">数据检查</button>
-                                    <button>数据下载</button>
+                                    <button class="J_plan_excel">数据下载</button>
                                     <div class="data_check_show">
                                         <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/regSelect.jsp" flush="true"/>
                                     </div>

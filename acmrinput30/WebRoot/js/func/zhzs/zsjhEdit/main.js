@@ -354,6 +354,43 @@ define(function (require,exports,module) {
         });
     }) ;
     /**
+     * 数据下载
+     * @author wf
+     * @date
+     * @param []
+     * @return
+     */
+    $(document).on('click', '.J_plan_excel', function() {
+        var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toExcel';
+        $.ajax({
+            url: url,
+            type: 'post',
+            success: function(data) {
+                if (data.returncode == 300) {
+                    alert("请选择筛选条件");
+                } else {
+                    alert("下载成功!");
+                }
+            }
+        })
+        window.location.href = url;
+    });
+    $(document).on('click', '.J_excel_singlereg', function() {
+        var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toExcelSinglereg';
+        $.ajax({
+            url: url,
+            type: 'post',
+            success: function(data) {
+                if (data.returncode == 300) {
+                    alert("请选择筛选条件");
+                } else {
+                    alert("下载成功!");
+                }
+            }
+        })
+        window.location.href = url;
+    });
+    /**
      * 合并第一列
      * @param tb的id
      * @param colLength要合并的列数

@@ -4,7 +4,15 @@ import acmr.cubequery.service.cubequery.entity.CubeNode;
 import acmr.cubequery.service.cubequery.entity.CubeQueryData;
 import acmr.cubequery.service.cubequery.entity.CubeUnit;
 import acmr.cubequery.service.cubequery.entity.CubeWdCodes;
+
+import acmr.excel.ExcelException;
+import acmr.excel.pojo.Constants.XLSTYPE;
+import acmr.excel.pojo.ExcelBook;
+import acmr.excel.pojo.ExcelCell;
+import acmr.excel.pojo.ExcelRow;
+import acmr.excel.pojo.ExcelSheet;
 import acmr.util.PubInfo;
+
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.helper.util.StringUtil;
@@ -21,8 +29,10 @@ import com.acmr.web.jsp.Index;
 import com.alibaba.fastjson.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
+
 
 public class zsjhedit extends BaseAction {
     //指数计划编辑页面
@@ -31,6 +41,11 @@ public class zsjhedit extends BaseAction {
      *
      * @author chenyf
      */
+    private List data1;
+    private  String regname;
+    private  List singledata1;
+    private  String singleregname;
+    private  String excelsj;
 
     public ModelAndView editIndex(){
         /* 第一个分页显示*/
@@ -110,7 +125,7 @@ public class zsjhedit extends BaseAction {
         String pjax = req.getHeader("X-PJAX");
         OriginService originService=new OriginService();
         String reg = PubInfo.getString(req.getParameter("reg"));//地区
-        String regname = PubInfo.getString(req.getParameter("regname"));//地区名称
+        regname = PubInfo.getString(req.getParameter("regname"));//地区名称
         String sj = PubInfo.getString(req.getParameter("sj"));//时间
         String zbcode = PubInfo.getString(req.getParameter("zb"));//zbcode
         String zbname = PubInfo.getString(req.getParameter("zbname"));//zbname
@@ -126,11 +141,11 @@ public class zsjhedit extends BaseAction {
         String [] dss = ds.split(",");
         String [] cos = co.split(",");
         String [] units = zbunit.split(",");
-        List data1 = new ArrayList();
+        data1 = new ArrayList();
         String checkresult =CheckResult(regs,sjs,zbcodes,dss,cos);
         for (int i = 0; i <sjs.length ; i++) {
             for (int j = 0; j <zbcodes.length ; j++) {
-                List datas=new ArrayList();
+                List <String> datas=new ArrayList();
                 CubeWdCodes where = new CubeWdCodes();
                 String funit=originService.getwdnode("zb",zbcodes[j]).getUnitcode();
                 double rate=originService.getRate(funit,units[j],sjs[i]);
@@ -146,9 +161,9 @@ public class zsjhedit extends BaseAction {
                     double resulttemp = result.get(k).getData().getData()*rate;
                     datas.add(resulttemp+"") ;
                 }
-                for (int k = datas.size(); k <regs.length+2 ; k++) {//补齐单元格
+                /*for (int k = datas.size(); k <regs.length+2 ; k++) {//补齐单元格
                     datas.add("0.0");
-                }
+                }*/
                 data1.add(datas);
             }
         }
@@ -181,7 +196,7 @@ public class zsjhedit extends BaseAction {
     public String CheckResult(String [] regs,String [] sjs,String [] zbcodes,String [] dss,String [] cos){
         String result="";
         for (int i = 0; i <regs.length ; i++) {
-            String check = "1";
+            String check = "0";
             for (int j = 0; j <zbcodes.length ; j++) {
                 CubeWdCodes where = new CubeWdCodes();
                 where.Add("zb", zbcodes[j]);
@@ -192,8 +207,8 @@ public class zsjhedit extends BaseAction {
                 ArrayList<CubeQueryData> result1 = RegdataService.queryData("cuscxnd",where);
                 for (int k = 0; k <result1.size() ; k++) {
                     double result2 = result1.get(k).getData().getData();
-                    if(result2 != 0.0 ){
-                        check ="0";
+                    if(result2 == 0.0 ){
+                        check ="1";
                     }
                 }
             }
@@ -210,23 +225,23 @@ public class zsjhedit extends BaseAction {
         String pjax = req.getHeader("X-PJAX");
         OriginService originService=new OriginService();
         String reg = PubInfo.getString(req.getParameter("reg"));//地区
-        String sj = PubInfo.getString(req.getParameter("sj"));//时间
+        excelsj = PubInfo.getString(req.getParameter("sj"));//时间
         String zbcode = PubInfo.getString(req.getParameter("zb"));//zbcode
         String zbname = PubInfo.getString(req.getParameter("zbname"));//zbname
         String ds = PubInfo.getString(req.getParameter("ds"));//数据来源
         String co = PubInfo.getString(req.getParameter("co"));//主体
         String zbunit = PubInfo.getString(req.getParameter("zbunit"));//单位
         String check = PubInfo.getString(req.getParameter("checkdata"));
-        String [] sjs = sj.split(",");
+        String [] sjs = excelsj.split(",");
         String [] zbcodes = zbcode.split(",");
         String [] zbnames = zbname.split(",");
         String [] dss = ds.split(",");
         String [] cos = co.split(",");
         String [] units = zbunit.split(",");
         String regname = originService.getwdnode("reg",reg).getName();
-        List data1 = new ArrayList();
+        singledata1 = new ArrayList();
         for (int i = 0; i <zbcodes.length ; i++) {
-            List datas=new ArrayList();
+            List <String> datas=new ArrayList();
             datas.add(zbnames[i]);//获取指标名
             for (int j = 0; j <sjs.length ; j++) {
 
@@ -243,11 +258,8 @@ public class zsjhedit extends BaseAction {
                     double resulttemp = result.get(k).getData().getData()*rate;
                     datas.add(resulttemp+"") ;
                 }
-                for (int k = datas.size(); k <sjs.length+1 ; k++) {//补齐单元格
-                    datas.add("0.0");
-                }
             }
-            data1.add(datas);
+            singledata1.add(datas);
         }
         System.out.println(check);
         if (StringUtil.isEmpty(pjax)) {
@@ -264,7 +276,161 @@ public class zsjhedit extends BaseAction {
             ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("list",list).addObject("zbs",zbs).addObject("indexlist",indexlist).addObject("proname",proname);
         } else {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/regSelect").addObject("regname",regname).addObject("singledata",data1).addObject("times",sjs).addObject("check",check);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/regSelect").addObject("regname",regname).addObject("singledata",singledata1).addObject("times",sjs).addObject("check",check);
+        }
+    }
+    /**
+     * 数据下载
+     *
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    /**
+     * 全部地区数据下载
+     *
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public void toExcel() throws IOException {
+        //接参
+        HttpServletRequest req = this.getRequest();
+        /*req.getAttribute("excelregs");
+        req.getAttribute("exceldata");*/
+        /*String regname = PubInfo.getString(req.getParameter("excelregs"));//地区名称
+        String [] regnames = regname.split(",");
+        String data1=PubInfo.getString(req.getParameter("exceldata"));
+        String [] datas = regname.split(",");*/
+        JSONReturnData data = new JSONReturnData("");
+        if(regname == null || data1 ==null){
+            data.setReturncode(300);
+            this.sendJson(data);
+            return;
+        } else {
+            data.setReturncode(200);
+        }
+        String [] regnames = regname.split(",");
+        ExcelBook book = new ExcelBook();
+        ExcelSheet sheet1 = new ExcelSheet();
+        sheet1.setName("sheet1");
+        sheet1.addColumn();
+        sheet1.addColumn();
+        ExcelCell cell1 = new ExcelCell();
+        ExcelRow dr1 = sheet1.addRow();
+        ExcelCell cell2 = cell1.clone();
+        cell2.setCellValue("时间");
+        dr1.set(0, cell2);
+        cell2 = cell1.clone();
+        cell2.setCellValue("指标");
+        dr1.set(1, cell2);
+        // for (int a=2;a<)
+        for (int k = 0; k < regnames.length; k++){
+            int m =k+2;
+            sheet1.addColumn();
+            cell2 = cell1.clone();
+            cell2.setCellValue(regnames[k]);
+            dr1.set(m, cell2);
+        }
+        cell1.getCellstyle().getFont().setBoldweight((short) 10);
+        //System.out.println(data1);
+        for(int i=0;i<data1.size();i++){
+            String [] arr =data1.get(i).toString().substring(1,data1.get(i).toString().length()-1).split(",");
+            /*String [] arr = (String[]) data1.get(i);
+            String [] arr =new String[datas.size()];
+            Object ob=data1.get(i);
+            Object[] obs = (Object[]) ob;
+            String ceshi = obs[2].toString();*/
+            dr1 = sheet1.addRow();
+            for(int j=0;j<arr.length;j++){
+                cell2 = cell1.clone();
+                cell2.setCellValue(arr[j]);
+                dr1.set(j, cell2);
+            }
+        }
+        book.getSheets().add(sheet1);
+        HttpServletResponse resp = this.getResponse();
+        resp.reset();
+        resp.setContentType("application/vnd.ms-excel");
+        resp.setHeader("Pragma", "public");
+        resp.setHeader("Cache-Control", "max-age=30");
+        resp.addHeader("Content-Disposition", "attachment; filename=" + "index.xlsx");
+        try {
+            book.saveExcel(resp.getOutputStream(), XLSTYPE.XLSX);
+        } catch (ExcelException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    //单个地区的下载
+
+    public void toExcelsinglereg() throws IOException {
+        //接参
+        HttpServletRequest req = this.getRequest();
+        /*req.getAttribute("excelregs");
+        req.getAttribute("exceldata");*/
+        /*String regname = PubInfo.getString(req.getParameter("excelregs"));//地区名称
+        String [] regnames = regname.split(",");
+        String data1=PubInfo.getString(req.getParameter("exceldata"));
+        String [] datas = regname.split(",");*/
+        JSONReturnData data = new JSONReturnData("");
+        if(singledata1 ==null){
+            data.setReturncode(300);
+            this.sendJson(data);
+            return;
+        } else {
+            data.setReturncode(200);
+            this.sendJson(data);
+        }
+        String [] sj = excelsj.split(",");
+        ExcelBook book = new ExcelBook();
+        ExcelSheet sheet1 = new ExcelSheet();
+        sheet1.setName("sheet1");
+        sheet1.addColumn();
+        sheet1.addColumn();
+        ExcelCell cell1 = new ExcelCell();
+        ExcelRow dr1 = sheet1.addRow();
+        ExcelCell cell2 = cell1.clone();
+        cell2.setCellValue("指标");
+        dr1.set(0, cell2);
+        // for (int a=2;a<)
+        for (int k = 0; k < sj.length; k++){
+            int m =k+1;
+            sheet1.addColumn();
+            cell2 = cell1.clone();
+            cell2.setCellValue(sj[k]);
+            dr1.set(m, cell2);
+        }
+        cell1.getCellstyle().getFont().setBoldweight((short) 10);
+        //System.out.println(data1);
+        for(int i=0;i<singledata1.size();i++){
+            String [] arr =singledata1.get(i).toString().substring(1,singledata1.get(i).toString().length()-1).split(",");
+            /*String [] arr = (String[]) data1.get(i);
+            String [] arr =new String[datas.size()];
+            Object ob=data1.get(i);
+            Object[] obs = (Object[]) ob;
+            String ceshi = obs[2].toString();*/
+            dr1 = sheet1.addRow();
+            for(int j=0;j<arr.length;j++){
+                cell2 = cell1.clone();
+                cell2.setCellValue(arr[j]);
+                dr1.set(j, cell2);
+            }
+        }
+        book.getSheets().add(sheet1);
+        HttpServletResponse resp = this.getResponse();
+        resp.reset();
+        resp.setContentType("application/vnd.ms-excel");
+        resp.setHeader("Pragma", "public");
+        resp.setHeader("Cache-Control", "max-age=30");
+        resp.addHeader("Content-Disposition", "attachment; filename=" + "singleindex.xlsx");
+        try {
+            book.saveExcel(resp.getOutputStream(), XLSTYPE.XLSX);
+        } catch (ExcelException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
     /**

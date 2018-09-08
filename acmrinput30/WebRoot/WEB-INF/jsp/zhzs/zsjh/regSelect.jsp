@@ -46,6 +46,7 @@
     <span>
         检查结果：${regname}
     </span>
+    <button class="J_excel_singlereg">本地区数据下载</button>
     <table class="table table-bordered" id="tabledata_single" >
         <thead>
         <tr>
