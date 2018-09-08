@@ -31,6 +31,12 @@ define(function (require,exports,module) {
         if (flag == false) {
             return;
         }
+        var formulas = $(".formula option:selected").val();
+        var formulatexts = $("#formulatext").val();
+        if(formulas =="userdefined" &&(formulatexts == "" ||formulatexts == null) ){
+            alert("请筛选对应指标！");
+            return;
+        }
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),
