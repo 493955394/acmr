@@ -26,7 +26,7 @@ public class WeightEditService {
         if (table==0){
             List<DataTableRow> rows = WeightEditDao.Fator.getInstance().getIndexdatadao().getModsbyIcode(tcode).getRows();
             for (int i=0;i<rows.size();i++){
-                PubInfo.printStr(rows.get(i).getRows().toString());
+                //PubInfo.printStr(rows.get(i).getRows().toString());
                 IndexMoudle indexMoudle=new IndexMoudle();
                 indexMoudle.setCname(rows.get(i).getString("cname"));
                 indexMoudle.setCode(rows.get(i).getString("code"));
@@ -44,5 +44,16 @@ public class WeightEditService {
         }
         return mods;
 
+    }
+
+    /**
+    * @Description: 设置模型节点权重值，code为该节点的code，weight为该节点要设置的权重的值
+    * @Param: [code, weight]
+    * @return: void
+    * @Author: lyh
+    * @Date: 2018/9/9
+    */
+    public void setWeight(String code,String weight){
+        int i=WeightEditDao.Fator.getInstance().getIndexdatadao().weightset(code,weight);
     }
 }

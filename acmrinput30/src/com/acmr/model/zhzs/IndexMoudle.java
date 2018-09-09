@@ -134,7 +134,7 @@ public class IndexMoudle {
             if (mods.size()==0){
                 nums=1;
             }*/
-            PubInfo.printStr("nums:"+nums);
+            //PubInfo.printStr("nums:"+nums);
             return nums;
         }
         else {
@@ -176,7 +176,7 @@ public class IndexMoudle {
         }
         String lastsort =b+"";
         if (this.sortcode.equals(lastsort)){
-            PubInfo.printStr("last is:"+this.cname);
+            //PubInfo.printStr("last is:"+this.cname);
             return true;
         }
         else {

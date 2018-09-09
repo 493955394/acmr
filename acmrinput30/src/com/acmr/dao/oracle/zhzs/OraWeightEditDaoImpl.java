@@ -11,4 +11,10 @@ public class OraWeightEditDaoImpl implements IWeightEditDao {
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode});
 
     }
+
+    @Override
+    public int weightset(String code, String weight) {
+        String sql="update tb_coindex_module set weight=? where code=?";
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sql,new Object[]{weight,code});
+    }
 }
