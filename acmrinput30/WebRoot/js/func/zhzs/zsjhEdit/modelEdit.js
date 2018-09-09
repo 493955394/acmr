@@ -74,7 +74,7 @@ define(function (require,exports,module) {
         }
         var formulas = $(".formula option:selected").val();
         var formulatexts = $("#formulatext").val();
-        if(formulas =="userdefined" &&(formulatexts == "" ||formulatexts == null) ){
+        if(formulas =="userdefined" &&(formulatexts == "" ||formulatexts == null) && ifzs == 0 ){
             alert("请筛选对应指标！");
             return;
         }
@@ -93,7 +93,7 @@ define(function (require,exports,module) {
                 }
             },
             error: function() {
-                common.commonTips('添加失败');
+                common.commonTips('更新失败');
 
             }
 

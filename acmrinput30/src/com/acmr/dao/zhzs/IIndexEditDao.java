@@ -15,6 +15,7 @@ public interface IIndexEditDao {
     public DataTable getDataByCode(String code,String icode);
     public DataTable getZSList(String icode);
     public DataTable getCurrentSort(String procode,String icode);
+    public int updateModel(IndexMoudle indexMoudle);
     public boolean checkCode (String code);
     public boolean checkProcode(String procode,String indexcode);
 }

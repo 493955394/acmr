@@ -7,6 +7,7 @@ import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexEditDao;
 import com.acmr.model.zhzs.IndexMoudle;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +103,42 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
         }
     }
-
+    @Override
+    public int updateModel(IndexMoudle indexMoudle){
+        String sql1 = "";
+        List<Object> parms = new ArrayList<Object>();
+        if (indexMoudle.getCname() != null) {
+            sql1 += ",cname=?";
+            parms.add(indexMoudle.getCname());
+        }
+        if(indexMoudle.getProcode()!=null&& indexMoudle.getProcode()!=""){
+            sql1+=",procode=?";
+            parms.add(indexMoudle.getProcode());
+        }
+        if(indexMoudle.getIfzs()!=null){
+            sql1+=",ifzs=?";
+            parms.add(indexMoudle.getIfzs());
+        }
+        if(indexMoudle.getIfzb()!=null){
+            sql1+=",ifzb=?";
+            parms.add(indexMoudle.getIfzb());
+        }
+        if(indexMoudle.getFormula()!=null){
+            sql1+=",formula=?";
+            parms.add(indexMoudle.getFormula());
+        }
+        if(indexMoudle.getDacimal()!=null){
+            sql1+=",dacimal=?";
+            parms.add(indexMoudle.getDacimal());
+        }
+        if (sql1.equals("")) {
+            return 0;
+        }
+        sql1 = "update tb_coindex_module set " + sql1.substring(1) + " where code=? and indexcode=?";
+        parms.add(indexMoudle.getCode());
+        parms.add(indexMoudle.getIndexcode());
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, parms.toArray());
+    }
     /**
      *
      * @param procode

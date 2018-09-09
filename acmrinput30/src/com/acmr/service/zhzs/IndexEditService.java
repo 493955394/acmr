@@ -164,6 +164,15 @@ public class IndexEditService {
     public int addZStoModel(IndexMoudle indexMoudle){
         return IndexEditDao.Fator.getInstance().getIndexdatadao().addZS(indexMoudle);
     }
+
+    /**
+     * 编辑模型节点更新
+     * @param indexMoudle
+     * @return
+     */
+    public static int updateToModel(IndexMoudle indexMoudle){
+        return IndexEditDao.Fator.getInstance().getIndexdatadao().updateModel(indexMoudle);
+    }
     /**
      * 查所选的树的节点信息
      */
