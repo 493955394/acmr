@@ -60,6 +60,8 @@ define(function (require,exports,module) {
             $(".mod_up").click(upmove)
             $(".mod_down").unbind("click")
             $(".mod_down").click(downmove)
+            $(".mod_edit").unbind("click")
+            $(".mod_edit").click(jumpedit)
         });
     }
 
@@ -162,7 +164,7 @@ define(function (require,exports,module) {
         sendPjax("")
     })
     /**
-     * 新增模型节点模态框弹出
+     * 新增模型节点
      */
     $(document).on('click', '.J_Add_ZS', function(event) {
         event.preventDefault();
@@ -180,4 +182,8 @@ define(function (require,exports,module) {
                 }
             })
     });
+    function jumpedit() {
+        var code = $(this).parent().prevAll()[6].innerHTML
+        window.open(common.rootPath+'zbdata/zsjhedit.htm?m=toEditShow&indexCode='+indexCode+'&code='+code);
+    }
 })

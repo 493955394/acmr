@@ -842,7 +842,7 @@ public class zsjhedit extends BaseAction {
            else if(ifzb.equals("0")){
                 indexMoudle.setIfzb(ifzb);//是选的自定义公式，要做校验
            if(checkFormula(formulatext,indexCode)){
-               formulatext = changeFormula(formulatext,indexCode);
+               formulatext = changeFormula(formulatext,indexCode,"NTC");
                indexMoudle.setFormula(formulatext);
            }else {
                data.setReturncode(300);
@@ -921,19 +921,53 @@ public class zsjhedit extends BaseAction {
     }
 
     /**
-     * 转换成code存入数据库
+     * code 和name互相转换
      * @param str
      * @param icode
      * @return
      */
-    public String changeFormula(String str,String icode){
+    public String changeFormula(String str,String icode,String type){
         IndexEditService indexEditService=new IndexEditService();
         //String icode=this.getRequest().getParameter("icode");
         List<Map> zbchoose=indexEditService.getZBS(icode);
         for (int i = 0; i <zbchoose.size() ; i++) {
             String temp = "#"+zbchoose.get(i).get("zbname").toString()+"("+zbchoose.get(i).get("dsname").toString()+","+zbchoose.get(i).get("unitname").toString()+")#";
-            str = str.replace(temp,"#"+zbchoose.get(i).get("code").toString()+"#");//换成ZB表里的code
+            if(type.equals("NTC")){
+                str = str.replace(temp,"#"+zbchoose.get(i).get("code").toString()+"#");//换成ZB表里的code
+            }
+            else if(type.equals("CTN")){
+                str = str.replace("#"+zbchoose.get(i).get("code").toString()+"#",temp);//换成回显的格式
+            }
         }
         return str;
     }
+
+    /**
+     * 模型规划编辑页面
+     * @return
+     * @throws IOException
+     */
+    public ModelAndView toEditShow()throws IOException{
+        HttpServletRequest req = this.getRequest();
+        String code = req.getParameter("code");
+        String indexCode = req.getParameter("indexCode");
+        List<IndexMoudle> zslist = new ArrayList<IndexMoudle>();
+        IndexEditService indexEditService = new IndexEditService();
+        zslist = indexEditService.getZSList(indexCode);
+        IndexMoudle getdata = indexEditService.getData(code,indexCode);
+       /* String procodeId =getdata.getProcode() ;
+        String proname = indexEditService.getData(procodeId,indexCode).getCname();*/
+        //要是是自定义公式，读取的时候要换成对应的名字
+       if (getdata.getIfzb().equals("0")){
+           String formula = getdata.getFormula();
+           getdata.setFormula(changeFormula(formula,indexCode,"CTN"));
+       }
+        //筛选指标信息
+        JSONObject zblist=getZBS(indexCode);
+     //   Map<String, String> datas = new HashMap<String, String>();
+      //  datas.put("proname", proname);
+//        datas.put("procodeId", getdata.getProcode());
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modelEdit").addObject("icode",indexCode).addObject("zslist",zslist).addObject("zblist",zblist).addObject("data",getdata);
+    }
+
 }

@@ -27,14 +27,14 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" name="ZS_code" value="${code}">
+                        <input type="text" class="form-control" name="ZS_code">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" name="ZS_cname" value="${name}">
+                        <input type="text" class="form-control" name="ZS_cname">
                     </div>
                 </div>
                 <div class="form-group">
