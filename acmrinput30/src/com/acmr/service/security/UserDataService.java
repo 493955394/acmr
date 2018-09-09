@@ -27,8 +27,12 @@ public class UserDataService {
         ListHashMap<Department> deps = SecurityService.fator.getInstance().getDeps();
         return deps;
     }
+    //得到所有的组织
+    public List<ZTreeNode> getSubDepartments(String pcode) {
+        return SecurityService.fator.getInstance().getsubDepartMent(pcode);
+    }
     //查询单个组织信息
-    public  Department getDepartment(String code) {
+    public Department getDepartment(String code) {
         ListHashMap<Department> deps = userdata.getDeps();
         if (deps.containsKey(code)) {
             return deps.get(code);
