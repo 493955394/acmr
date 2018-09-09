@@ -17,6 +17,15 @@ public class IndexMoudle {
     private String sortcode;//上下移动排序，同级别的节点从0递增，0表示第一
     private String weight;//权重
     private String dacimal;//小数点位数
+    private String level;//节点层级
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
 
     public String getCode() {
         return code;

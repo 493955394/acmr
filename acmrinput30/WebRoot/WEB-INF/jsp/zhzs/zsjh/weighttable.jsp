@@ -40,15 +40,35 @@
         })
 
         var flag=0;//行计数器
+        var level=0;//节点层级
         <c:forEach items="${mods}" var="module">
         <c:if test="${module.getProcode()!=''&&module.ZBnums()!=0}">
         //console.log("处理："+"${module.getCname()}")
         var thiszbnums= parseInt("${module.ZBnums()}")
         var classname="${module.getProcode()}"
         var rnums=$("."+classname).parent().parent().children(":eq(0)").children(":eq(0)").attr("rowspan")
+        var thislevel="${module.getLevel()}"
+        //说明是下一级的点
+        if (thislevel>level&&flag!=0){
+           // console.log("是下一级的点")
+            //console.log("${module.getCname()}")
+            $("."+classname).after("<td code='" +
+                "${module.getCode()}"+"' procode='" +
+                "${module.getProcode()}"+"' sort='" +
+                "${module.getSortcode()}"+"'  rowspan='" +
+                "${module.ZBnums()}"+"'>" +
+                "${module.getCname()}"+"</td><td rowspan='" +
+                "${module.ZBnums()}"+"'>" +
+                "<input class='input_weight " +
+                "${module.getProcode()}"+"' value='" +
+                "${module.getWeight()}"+"'>"+"</td><td class='" +
+                "${module.getCode()}"+"' rowspan='" +
+                "${module.ZBnums()}"+"'><label class='btn-disabled mod_up_noclick'>上移</label><a href='#' class='mod_down'>下移</a></td>")
+        }
         //说明是这一级别的第一个节点
         if (flag==0){
             //console.log("是第一个节点")
+            //console.log("${module.getCname()}")
             //第一节点肯定不能上移
             $("."+classname).after("<td code='" +
                 "${module.getCode()}"+"' procode='" +
@@ -69,8 +89,9 @@
             //console.log(flag)
         }
         //不是此级别的第一个节点
-        else {
-            //console.log("不是第一个节点")
+        else if (flag!=0&&thislevel<=level) {
+            console.log("不是第一个节点")
+            console.log("${module.getCname()}")
             var index=flag
             var thissort="${module.getSortcode()}"
             //不能上移
@@ -121,12 +142,19 @@
                     "${module.getCode()}"+"'><a href='#' class='mod_up'>上移</a><a href='#' class='mod_down'>下移</a></td>")
             }
 
+
+
             flag=flag+thiszbnums
             if (flag==rnums){
                 //console.log("flag="+flag+"flag重置")
                 flag=0
             }
             //console.log(flag)
+        }
+        //console.log("level:"+level)
+        //console.log("thisleve:"+thislevel)
+        if (thislevel>level) {
+            level = thislevel
         }
 
         </c:if>
