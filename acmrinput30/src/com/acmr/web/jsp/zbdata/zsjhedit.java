@@ -26,6 +26,7 @@ import com.acmr.service.zbdata.ZBdataService;
 import com.acmr.service.zhzs.IndexEditService;
 import com.acmr.service.zhzs.IndexListService;
 import com.alibaba.fastjson.JSONObject;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -1053,5 +1054,23 @@ public class zsjhedit extends BaseAction {
             return;
         }
 
+    }
+
+
+    /**
+    * @Description:  判断要删除的筛选指标是否被模型引用
+    * @Param: []
+    * @return: boolean
+    * @Author: lyh
+    * @Date: 2018/9/10
+    */
+    public void checkModule() throws IOException {
+        HttpServletRequest req=this.getRequest();
+        String code=req.getParameter("code");
+       // PubInfo.printStr("==================================code:");
+       // PubInfo.printStr(code);
+        IndexEditService indexEditService=new IndexEditService();
+        Boolean bool=indexEditService.checkModule(code);
+        this.sendJson(bool);
     }
 }

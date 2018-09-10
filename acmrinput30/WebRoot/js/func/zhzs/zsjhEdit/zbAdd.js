@@ -340,13 +340,36 @@ define(function (require,exports,module) {
         event.stopPropagation();
         //console.log("zbdelete")
         var zbcode=$(this).prevAll()[8].defaultValue
+        var code=$(this).prevAll()[9].defaultValue
+       // console.log(code)
+        var isUsed=true
         //console.log(zbcode)
-        for(var i=0;i<zbs.length;i++){
-            if (zbs[i].zbcode==zbcode){
-                zbs.splice(i,1)
+        $.ajaxSettings.async=false
+        $.ajax({
+            url:common.rootPath+"zbdata/zsjhedit.htm?m=checkModule&code="+code,
+            type:'get',
+            data:'json',
+            success:function (re) {
+                console.log(re)
+                if (re==false){
+                    //console.log("不被占用")
+                    isUsed=false
+                }
+                else {
+                    alert("该指标被模型节点引用，不能删除！")
+                }
             }
+        })
+        if (isUsed==false){
+            for(var i=0;i<zbs.length;i++){
+                //console.log("zbcssa")
+                if (zbs[i].zbcode==zbcode){
+                    zbs.splice(i,1)
+                }
+            }
+            $($(this).parent()[0]).parent().remove();
         }
-        $($(this).parent()[0]).parent().remove();
+
     }
 
     function clickbind(){

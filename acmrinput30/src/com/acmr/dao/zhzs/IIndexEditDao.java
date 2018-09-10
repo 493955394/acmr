@@ -18,4 +18,5 @@ public interface IIndexEditDao {
     public int updateModel(IndexMoudle indexMoudle);
     public boolean checkCode (String code);
     public boolean checkProcode(String procode,String indexcode);
+    public boolean checkModule(String code);
 }

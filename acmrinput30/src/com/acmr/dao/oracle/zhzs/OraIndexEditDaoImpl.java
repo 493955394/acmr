@@ -3,6 +3,7 @@ package com.acmr.dao.oracle.zhzs;
 
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
+import acmr.util.PubInfo;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexEditDao;
 import com.acmr.model.zhzs.IndexMoudle;
@@ -171,6 +172,19 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
         return false;
         }
     }
+
+    @Override
+    public boolean checkModule(String code) {
+        String sql="select * from tb_coindex_module where formula like ?";
+        DataTable rows= AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {"%"+code+"%"});
+        if (rows.getRows().size()>0){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     @Override
     public boolean checkCode(String code){
         String sql = "select count(*) from tb_coindex_module where code = ?";

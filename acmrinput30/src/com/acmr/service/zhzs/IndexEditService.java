@@ -249,4 +249,16 @@ public class IndexEditService {
     public boolean checkCode(String code){
         return IndexEditDao.Fator.getInstance().getIndexdatadao().checkCode(code);
     }
+    
+    /** 
+    * @Description: 检查module的公式中是否引用了code 
+    * @Param: [code] 
+    * @return: boolean 
+    * @Author: lyh
+    * @Date: 2018/9/10 
+    */ 
+    public boolean checkModule(String code){
+        Boolean bool=IndexEditDao.Fator.getInstance().getIndexdatadao().checkModule(code);
+        return bool;
+    }
 }
