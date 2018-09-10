@@ -644,8 +644,9 @@ public class zsjhedit extends BaseAction {
                 IndexList list1 =indexListService.getData(procode);
                 proname = list1.getCname();
             }
+            ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
             PubInfo.printStr("isempty");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname).addObject("indexlist",indexlist);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/ZBdataList").addObject("sjs",sjs).addObject("rows",rows).addObject("nodata",nodata);
         }
@@ -718,8 +719,9 @@ public class zsjhedit extends BaseAction {
                 IndexList list1 =indexListService.getData(procode);
                 proname = list1.getCname();
             }
+            ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
             PubInfo.printStr("isempty");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname).addObject("indexlist",indexlist);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modTableList").addObject("mods",mods);
         }
@@ -905,7 +907,8 @@ public class zsjhedit extends BaseAction {
                 IndexList list1 =indexListService.getData(procode);
                 proname = list1.getCname();
             }
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname);
+            ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname).addObject("indexlist",indexlist);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modTableList").addObject("mods",mods).addObject("codes",codes);
         }
