@@ -8,6 +8,7 @@ import com.acmr.dao.zhzs.IndexEditDao;
 import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.service.zbdata.OriginService;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import org.apache.xmlbeans.impl.xb.xsdschema.LocalSimpleType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -122,7 +123,17 @@ public class IndexEditService {
     * @Date: 2018/9/5
     */
     public int deleteMod(String code){
-        return IndexEditDao.Fator.getInstance().getIndexdatadao().deleteMod(code);
+        IndexMoudle indexMoudle=getData(code);
+        String pcode=indexMoudle.getProcode();
+        String icode=indexMoudle.getIndexcode();
+        int i= IndexEditDao.Fator.getInstance().getIndexdatadao().deleteMod(code);
+        List<IndexMoudle> subs=getSubMod(pcode,icode);
+        List<String> codes=new ArrayList<>();
+        for (int j=0;j<subs.size();j++){
+            codes.add(subs.get(j).getCode());
+        }
+        resort(codes);
+        return i;
     }
 
     public  void resort(List<String> codes){
