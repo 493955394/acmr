@@ -1,7 +1,7 @@
 define(function (require,exports,module) {
     var $ = require('jquery'),
         pjax=require('pjax'),
-        weightset=require('weightset'),
+        //weightset=require('weightset'),
         common = require('common');
 
 
@@ -10,10 +10,25 @@ define(function (require,exports,module) {
     $(".save_weight").click(save)
     var icode=$(".indexCode").val()
     var st = new Date().getTime();//时间戳
+    console.log(icode)
 
+
+    function sendPjax() {
+        $.pjax({
+            url:common.rootPath+'zbdata/weightset.htm?m=editweight&icode='+icode+'&st='+st,
+            container:'.J_weight_table',
+            timeout:5000
+        })
+        $(document).on('pjax:success', function() {
+            $(".mod_up").unbind("click")
+            $(".mod_up").click(moveup)
+            $(".mod_down").unbind("click")
+            $(".mod_down").click(movedown)
+        });
+    }
 
     function moveup() {
-       // console.log("上移")
+        console.log("上移")
         var thiscode=$(this).parent().prev().prev().attr("code")
         var pcode=$(this).parent().prev().prev().attr("procode")
         //console.log(thiscode)
@@ -39,7 +54,8 @@ define(function (require,exports,module) {
             data:'json',
             success:function (re) {
                // console.log("success")
-                window.location.reload()
+                //window.location.reload()
+                sendPjax()
             }
         })
     }
@@ -60,14 +76,15 @@ define(function (require,exports,module) {
                 break
             }
         }
-        // console.log(codes)
+        console.log(codes)
         $.ajax({
             url:common.rootPath+"zbdata/zsjhedit.htm?m=resort&codes="+codes,
             type:'get',
             data:'json',
             success:function (re) {
                 // console.log("success")
-                window.location.reload()
+                //window.location.reload()
+                sendPjax()
             }
         })
     }
@@ -145,13 +162,6 @@ define(function (require,exports,module) {
 
     }
 
-/*    function sendPjax() {
-        $.pjax({
-            url:common.rootPath+'zbdata/weightset.htm?m=editweight&icode='+icode+'&st='+st,
-            container:'.J_weight_table',
-            timeout:5000
-        })
-    }*/
 
 
 })

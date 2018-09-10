@@ -761,9 +761,8 @@ public class zsjhedit extends BaseAction {
     public void resort(){
         HttpServletRequest req=this.getRequest();
         String codestring=req.getParameter("codes");
-        PubInfo.printStr(codestring);
         List<String> codes=new ArrayList<>();
-
+        codes= Arrays.asList(codestring.split(","));
         IndexEditService indexEditService=new IndexEditService();
         indexEditService.resort(codes);
     }
