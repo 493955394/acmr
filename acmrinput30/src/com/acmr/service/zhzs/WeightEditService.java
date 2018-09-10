@@ -38,7 +38,6 @@ public class WeightEditService {
                 indexMoudle.setProcode(rows.get(i).getString("procode"));
                 indexMoudle.setSortcode(rows.get(i).getString("sortcode"));
                 indexMoudle.setWeight(rows.get(i).getString("weight"));
-                indexMoudle.setLevel(rows.get(i).getString("level"));
                 mods.add(indexMoudle);
             }
 

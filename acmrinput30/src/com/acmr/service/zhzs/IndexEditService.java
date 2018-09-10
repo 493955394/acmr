@@ -109,7 +109,6 @@ public class IndexEditService {
             mod.setProcode(subs.get(i).getString("procode"));
             mod.setSortcode(subs.get(i).getString("sortcode"));
             mod.setWeight(subs.get(i).getString("weight"));
-            mod.setLevel(subs.get(i).getString("level"));
             submods.add(mod);
         }
         return submods;
@@ -155,7 +154,6 @@ public class IndexEditService {
             index.setSortcode( data.get(i).getString("sortcode"));
             index.setIfzb(data.get(i).getString("ifzb"));
             index.setFormula(data.get(i).getString("formula"));
-            index.setLevel(data.get(i).getString("level"));
             indexMoudles.add(index);
         }
         return indexMoudles;
@@ -191,7 +189,6 @@ public class IndexEditService {
         indexMoudle.setFormula(data.getString("formula"));
         indexMoudle.setDacimal(data.getString("dacimal"));
         indexMoudle.setWeight(data.getString("weight"));
-        indexMoudle.setLevel(data.getString("level"));
         return indexMoudle;
     }
     /**
@@ -231,7 +228,6 @@ public class IndexEditService {
             index.setSortcode( data.get(i).getString("sortcode"));
             index.setIfzb(data.get(i).getString("ifzb"));
             index.setFormula(data.get(i).getString("formula"));
-            index.setLevel(data.get(i).getString("level"));
             indexMoudles.add(index);
         }
         return indexMoudles;

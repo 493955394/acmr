@@ -17,7 +17,7 @@
                 <c:if test="${module.ZBnums()!=0}">
                     <tbody>
                     <tr>
-                        <td rowspan="${module.ZBnums()}" class="root_zs ${module.getCode()}">${module.getCname()}</td>
+                        <td rowspan="${module.ZBnums()}" flag="0" class="root_zs p_${module.getCode()}">${module.getCname()}</td>
 
 
                             <%--<td>test</td>--%>
@@ -43,16 +43,11 @@
         var level=0;//节点层级
         <c:forEach items="${mods}" var="module">
         <c:if test="${module.getProcode()!=''&&module.ZBnums()!=0}">
-        //console.log("处理："+"${module.getCname()}")
-        var thiszbnums= parseInt("${module.ZBnums()}")
         var classname="${module.getProcode()}"
-        var rnums=$("."+classname).parent().parent().children(":eq(0)").children(":eq(0)").attr("rowspan")
-        var thislevel="${module.getLevel()}"
-        //说明是下一级的点
-        if (thislevel>level&&flag!=0){
-           // console.log("是下一级的点")
-            //console.log("${module.getCname()}")
-            $("."+classname).after("<td code='" +
+        var thiszbnums= parseInt("${module.ZBnums()}")
+        //同一父节点的第一个
+        if (${module.getSortcode().equals("0")&&module.isLast()==false}){
+            $(".p_"+classname).after("<td code='" +
                 "${module.getCode()}"+"' procode='" +
                 "${module.getProcode()}"+"' sort='" +
                 "${module.getSortcode()}"+"'  rowspan='" +
@@ -62,15 +57,12 @@
                 "<input class='input_weight " +
                 "${module.getProcode()}"+"' value='" +
                 "${module.getWeight()}"+"'>"+"</td><td class='" +
-                "${module.getCode()}"+"' rowspan='" +
+                "p_${module.getCode()}"+"' flag='0' rowspan='" +
                 "${module.ZBnums()}"+"'><label class='btn-disabled mod_up_noclick'>上移</label><a href='#' class='mod_down'>下移</a></td>")
+            $(".p_"+classname).attr("flag",parseInt($(".p_"+classname).attr("flag"))+thiszbnums)
         }
-        //说明是这一级别的第一个节点
-        if (flag==0){
-            //console.log("是第一个节点")
-            //console.log("${module.getCname()}")
-            //第一节点肯定不能上移
-            $("."+classname).after("<td code='" +
+        else if (${module.getSortcode().equals("0")&&module.isLast()==true}){
+            $(".p_"+classname).after("<td code='" +
                 "${module.getCode()}"+"' procode='" +
                 "${module.getProcode()}"+"' sort='" +
                 "${module.getSortcode()}"+"'  rowspan='" +
@@ -80,82 +72,50 @@
                 "<input class='input_weight " +
                 "${module.getProcode()}"+"' value='" +
                 "${module.getWeight()}"+"'>"+"</td><td class='" +
-                "${module.getCode()}"+"' rowspan='" +
-                "${module.ZBnums()}"+"'><label class='btn-disabled mod_up_noclick'>上移</label><a href='#' class='mod_down'>下移</a></td>")
-            flag=flag+thiszbnums;
-            if (flag==rnums){
-                flag=0
-            }
-            //console.log(flag)
+                "p_${module.getCode()}"+"' flag='0' rowspan='" +
+                "${module.ZBnums()}"+"'><label class='btn-disabled mod_up_noclick'>上移</label><label class='btn-disabled mod_down_noclick'>下移</label></td>")
+            $(".p_"+classname).attr("flag",parseInt($(".p_"+classname).attr("flag"))+thiszbnums)
         }
-        //不是此级别的第一个节点
-        else if (flag!=0&&thislevel<=level) {
-            console.log("不是第一个节点")
-            console.log("${module.getCname()}")
-            var index=flag
-            var thissort="${module.getSortcode()}"
-            //不能上移
-            if (thissort=="0"){
-                $("."+classname).parent().parent().children(":eq(" +
-                    index+")").append("<td code='" +
-                    "${module.getCode()}"+"' procode='" +
-                    "${module.getProcode()}"+"' sort='" +
-                    "${module.getSortcode()}}"+"' rowspan='" +
-                    "${module.ZBnums()}"+"'>" +
-                    "${module.getCname()}"+"</td><td rowspan='" +
-                    "${module.ZBnums()}"+"'>" +
-                    "<input class='input_weight " +
-                    "${module.getProcode()}"+"' value='" +
-                    "${module.getWeight()}"+"'"+"</td><td rowspan='" +
-                    "${module.ZBnums()}"+"' class='" +
-                    "${module.getCode()}"+"'><label class='btn-disabled mod_up_noclick'>上移</label><a href='#' class='mod_down'>下移</a></td>")
-            }
-            //不能下移
-            else if (${module.isLast()==true}){
-                $("."+classname).parent().parent().children(":eq(" +
-                    index+")").append("<td code='" +
-                    "${module.getCode()}"+"' procode='" +
-                    "${module.getProcode()}"+"' sort='" +
-                    "${module.getSortcode()}"+"' rowspan='" +
-                    "${module.ZBnums()}"+"'>" +
-                    "${module.getCname()}"+"</td><td rowspan='" +
-                    "${module.ZBnums()}"+"'>" +
-                    "<input class='input_weight " +
-                    "${module.getProcode()}"+"' value='" +
-                    "${module.getWeight()}"+"'"+"</td><td rowspan='" +
-                    "${module.ZBnums()}"+"' class='" +
-                    "${module.getCode()}"+"'><a href='#' class='mod_up'>上移</a><label class='btn-disabled mod_up_noclick'>下移</label></td>")
-            }
-            else {
-                $("."+classname).parent().parent().children(":eq(" +
-                    index+")").append("<td code='" +
-                    "${module.getCode()}"+"' procode='" +
-                    "${module.getProcode()}"+"' sort='" +
-                    "${module.getSortcode()}"+"' rowspan='" +
-                    "${module.ZBnums()}"+"'>" +
-                    "${module.getCname()}"+"</td><td rowspan='" +
-                    "${module.ZBnums()}"+"'>" +
-                    "<input class='input_weight " +
-                    "${module.getProcode()}"+"' value='" +
-                    "${module.getWeight()}"+"'"+"</td><td rowspan='" +
-                    "${module.ZBnums()}"+"' class='" +
-                    "${module.getCode()}"+"'><a href='#' class='mod_up'>上移</a><a href='#' class='mod_down'>下移</a></td>")
-            }
+
+        else if (${module.isLast()==true}) {
+            console.log( $(".p_"+classname).parent().nextAll())
+            var index=parseInt($(".p_"+classname).attr("flag"))-1
+            $(".p_"+classname).parent().nextAll(":eq(" +
+                index+")").append("<td code='" +
+                "${module.getCode()}"+"' procode='" +
+                "${module.getProcode()}"+"' sort='" +
+                "${module.getSortcode()}"+"' rowspan='" +
+                "${module.ZBnums()}"+"'>" +
+                "${module.getCname()}"+"</td><td rowspan='" +
+                "${module.ZBnums()}"+"'>" +
+                "<input class='input_weight " +
+                "${module.getProcode()}"+"' value='" +
+                "${module.getWeight()}"+"'"+"</td><td rowspan='" +
+                "${module.ZBnums()}"+"' class='" +
+                "p_${module.getCode()}"+"' flag='0'><a href='#' class='mod_up'>上移</a><label class='btn-disabled mod_up_noclick'>下移</label></td>")
+            $(".p_"+classname).attr("flag",parseInt($(".p_"+classname).attr("flag"))+thiszbnums)
+
+        }
+        else {
+            var index=parseInt($(".p_"+classname).attr("flag"))-1
+            $(".p_"+classname).parent().nextAll(":eq(" +
+                index+")").append("<td code='" +
+                "${module.getCode()}"+"' procode='" +
+                "${module.getProcode()}"+"' sort='" +
+                "${module.getSortcode()}"+"' rowspan='" +
+                "${module.ZBnums()}"+"'>" +
+                "${module.getCname()}"+"</td><td rowspan='" +
+                "${module.ZBnums()}"+"'>" +
+                "<input class='input_weight " +
+                "${module.getProcode()}"+"' value='" +
+                "${module.getWeight()}"+"'"+"</td><td rowspan='" +
+                "${module.ZBnums()}"+"' class='" +
+                "p_${module.getCode()}"+"' flag='0'><a href='#' class='mod_up'>上移</a><a href='#' class='mod_up'>下移</a></td>")
+            $(".p_"+classname).attr("flag",parseInt($(".p_"+classname).attr("flag"))+thiszbnums)
+
+        }
 
 
-
-            flag=flag+thiszbnums
-            if (flag==rnums){
-                //console.log("flag="+flag+"flag重置")
-                flag=0
-            }
-            //console.log(flag)
-        }
-        //console.log("level:"+level)
-        //console.log("thisleve:"+thislevel)
-        if (thislevel>level) {
-            level = thislevel
-        }
 
         </c:if>
         </c:forEach>
