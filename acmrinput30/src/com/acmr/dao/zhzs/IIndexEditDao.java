@@ -12,7 +12,7 @@ public interface IIndexEditDao {
     public DataTable getLikeCode(String code);
     public DataTable getLikeCname(String cname);
     public int addZS(IndexMoudle indexMoudle);
-    public DataTable getDataByCode(String code,String icode);
+    public DataTable getDataByCode(String code);
     public DataTable getZSList(String icode);
     public DataTable getCurrentSort(String procode,String icode);
     public int updateModel(IndexMoudle indexMoudle);

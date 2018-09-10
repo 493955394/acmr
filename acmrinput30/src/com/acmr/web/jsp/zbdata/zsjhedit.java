@@ -765,7 +765,7 @@ public class zsjhedit extends BaseAction {
             this.sendJson(rs);
         }
         IndexEditService indexEditService=new IndexEditService();
-        IndexMoudle data = indexEditService.getData(procodeId,indexCode);
+        IndexMoudle data = indexEditService.getData(procodeId);
         String result = data.getIfzs();
         this.sendJson(result);
     }
@@ -956,7 +956,7 @@ public class zsjhedit extends BaseAction {
         List<IndexMoudle> zslist = new ArrayList<IndexMoudle>();
         IndexEditService indexEditService = new IndexEditService();
         zslist = indexEditService.getZSList(indexCode);
-        IndexMoudle getdata = indexEditService.getData(code,indexCode);
+        IndexMoudle getdata = indexEditService.getData(code);
        /* String procodeId =getdata.getProcode() ;
         String proname = indexEditService.getData(procodeId,indexCode).getCname();*/
         //要是是自定义公式，读取的时候要换成对应的名字

@@ -76,9 +76,9 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
      *通过code查信息
      */
     @Override
-    public DataTable getDataByCode(String code,String icode) {
-        String sql = "select * from tb_coindex_module where code = ? and indexcode = ? ";
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code,icode});
+    public DataTable getDataByCode(String code) {
+        String sql = "select * from tb_coindex_module where code = ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code});
     }
     /**
      * 查询指数列表

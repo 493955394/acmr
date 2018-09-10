@@ -176,9 +176,9 @@ public class IndexEditService {
     /**
      * 查所选的树的节点信息
      */
-    public IndexMoudle getData(String code,String icode){
+    public IndexMoudle getData(String code){
         IndexMoudle indexMoudle = new IndexMoudle();
-        DataTableRow data = IndexEditDao.Fator.getInstance().getIndexdatadao().getDataByCode(code,icode).getRows().get(0);
+        DataTableRow data = IndexEditDao.Fator.getInstance().getIndexdatadao().getDataByCode(code).getRows().get(0);
         indexMoudle.setCode(data.getString("code"));
         indexMoudle.setCname(data.getString("cname"));
         indexMoudle.setProcode(data.getString("procode"));
