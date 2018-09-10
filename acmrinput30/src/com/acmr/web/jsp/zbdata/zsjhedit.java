@@ -638,8 +638,14 @@ public class zsjhedit extends BaseAction {
             JSONObject zbs=getZBS(code);
             IndexListService indexListService=new IndexListService();
             IndexList list =indexListService.getData(code);
+            String procode = list.getProcode();
+            String proname = null;
+            if(procode!= null && procode!=""){//处理为空的步骤
+                IndexList list1 =indexListService.getData(procode);
+                proname = list1.getCname();
+            }
             PubInfo.printStr("isempty");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/ZBdataList").addObject("sjs",sjs).addObject("rows",rows).addObject("nodata",nodata);
         }
@@ -706,8 +712,14 @@ public class zsjhedit extends BaseAction {
             JSONObject zbs=getZBS(icode);
             IndexListService indexListService=new IndexListService();
             IndexList list =indexListService.getData(icode);
+            String procode = list.getProcode();
+            String proname = null;
+            if(procode!= null && procode!=""){//处理为空的步骤
+                IndexList list1 =indexListService.getData(procode);
+                proname = list1.getCname();
+            }
             PubInfo.printStr("isempty");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modTableList").addObject("mods",mods);
         }
@@ -887,6 +899,7 @@ public class zsjhedit extends BaseAction {
             JSONObject zbs=getZBS(icode);
             IndexListService indexListService=new IndexListService();
             IndexList list =indexListService.getData(icode);
+
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modTableList").addObject("mods",mods).addObject("codes",codes);
