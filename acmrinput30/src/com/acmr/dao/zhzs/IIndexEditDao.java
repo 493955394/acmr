@@ -1,7 +1,12 @@
 package com.acmr.dao.zhzs;
 
 import acmr.util.DataTable;
+import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexMoudle;
+import com.acmr.model.zhzs.IndexZb;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 
 public interface IIndexEditDao {
@@ -19,4 +24,5 @@ public interface IIndexEditDao {
     public boolean checkCode (String code);
     public boolean checkProcode(String procode,String indexcode);
     public boolean checkModule(String code);
+    public int toSaveAll(String indexcode, ArrayList<IndexZb> indexZb, IndexList indexList);
 }

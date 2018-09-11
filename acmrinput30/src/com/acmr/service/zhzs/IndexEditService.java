@@ -5,8 +5,11 @@ import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IndexEditDao;
+import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexMoudle;
+import com.acmr.model.zhzs.IndexZb;
 import com.acmr.service.zbdata.OriginService;
+import com.acmr.web.jsp.Index;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.apache.xmlbeans.impl.xb.xsdschema.LocalSimpleType;
 
@@ -260,5 +263,8 @@ public class IndexEditService {
     public boolean checkModule(String code){
         Boolean bool=IndexEditDao.Fator.getInstance().getIndexdatadao().checkModule(code);
         return bool;
+    }
+    public int toSaveAll(String indexcode, ArrayList<IndexZb> indexzb, IndexList indexList){
+       return IndexEditDao.Fator.getInstance().getIndexdatadao().toSaveAll(indexcode,indexzb,indexList);
     }
 }

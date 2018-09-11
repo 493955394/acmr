@@ -1,6 +1,7 @@
 define(function (require,exports,module) {
     'use strict';
     var $ = require('jquery'),
+        VaildNormal = require('vaildnormal'),
         Pagination = require('pagination'),
         common = require('common'),
         pjax=require('pjax'),
@@ -39,8 +40,7 @@ define(function (require,exports,module) {
     function clickEvent(event,treeId,treeNode) {
         if (treeNode.id != '') {
             $('input[name=proname]').val(treeNode.name);
-            $('input[name=procode]').val(treeNode.id);
-            console.log(treeNode.id)
+            $('input[name=index_procode]').val(treeNode.id);
         } else {
             $('input[name=proname]').val('');
         }
@@ -457,5 +457,70 @@ define(function (require,exports,module) {
             delIds = [];
         });
     });
+    //基本信息页重置
+    $(".resetindex").click(function () {
+        $("input[type=reset]").trigger("click");
+    })
+    //右下角保存按钮
+    $(".tosaveall").click(function () {
+       var checkDelegate = new VaildNormal();
+        var flag = true;
+        //前端检查
+        if (!checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'required', 'msg': '计划名称不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'maxlength', 'msg': '计划名称最大长度为20', 'param': 21 }])) {
+            flag = false;
+        }
+        if (!checkDelegate.checkNormal($('input[name="startpeirod"]'), [{ 'name': 'required', 'msg': '起始数据期不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="startpeirod"]'), [{ 'name': 'ch', 'msg': '起始数据期不能包含汉字' }])) {
+            flag = false;
+        }
+        if (!checkDelegate.checkNormal($('input[name="delayday"]'), [{ 'name': 'required', 'msg': '该项不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="delayday"]'), [{ 'name': 'ch', 'msg': '不能包含汉字' }])) {
+            flag = false;
+        }
+        if (flag == false) {
+            return;
+        }
+        var zbcode = "";//指标code
+        var zbco = "";//指标主体
+        var zbds = "";//指标数据来源
+        var zbunit ="";//指标单位
+        var sxcode = "";//指标名称
+        var regselect ="";//地区信息
+        var zbs=zbAdd.zbs;//获取指标的信息
+        for (var i = 0; i <zbs.length ; i++) {
+            zbcode += zbs[i].zbcode+",";
+            zbco += zbs[i].cocode+",";
+            zbds += zbs[i].dscode+",";
+            sxcode += zbs[i].code+",";
+            zbunit += zbs[i].unitcode+",";
+        }
+        zbcode = zbcode.substr(0, zbcode.length - 1);//去除最后一个逗号
+        zbco = zbco.substr(0, zbco.length - 1);//去除最后一个逗号
+        zbds = zbds.substr(0, zbds.length - 1);//去除最后一个逗号
+        sxcode = sxcode.substr(0, sxcode.length - 1);//去除最后一个逗号
+        zbunit = zbunit.substr(0, zbunit.length - 1);//去除最后一个逗号
+        for (var i = 0; i <select.length ; i++) {
+            regselect += select[i].code+",";
+        }
+        regselect = regselect.substr(0, regselect.length - 1);//去除最后一个逗号
+        $("#indexForm").serialize();
+        $.ajax({
+            url: common.rootPath+'zbdata/zsjhedit.htm?m=toSaveAll',
+            data: $.param({'zbcode':zbcode,'zbco':zbco,'zbds':zbds,'sxcode':sxcode,'zbunit':zbunit,'regselect':regselect})+'&'+$("#indexForm").serialize(),
+            type: 'post',
+            dataType: 'json',
+            timeout: 10000,
+            success: function(data) {
+                if (data.returncode == 200) {
+                    alert("保存成功！");
+                    window.location.reload(true);
+                }
+               else {
+                    alert("添加失败");
+                }
+            }
+        })
 
+    })
 });
