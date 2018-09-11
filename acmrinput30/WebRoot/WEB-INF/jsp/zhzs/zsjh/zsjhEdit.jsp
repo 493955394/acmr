@@ -46,24 +46,24 @@
                 <!-- Tab panes -->
                 <div class="tab-content row" style="padding-top: 20px;">
                     <div role="tabpanel" class="tab-pane active" id="jbxx">
-                        <form class="form-horizontal" id="myform" action="" method="post">
-                            <input type="hidden" name="procode" value="${procode}">
+                        <form class="form-horizontal" id="indexForm" action="" method="post">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">编码：</label>
                                 <div class="col-sm-5">
-                                    <input type="text" id="index_code" class="form-control" value="${list.getCode()}" disabled>
+                                    <input name="index_code" id="index_code" class="form-control" value="${list.getCode()}" readonly>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label ">计划名称：</label>
                                 <div class="col-sm-5">
-                                    <input id="cname" name="cname" class="form-control" type="text" value="${list.getCname()}" />
+                                    <input id="index_cname" name="index_cname" class="form-control" value="${list.getCname()}" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">所属目录：</label>
                                 <div class="col-sm-5">
                                     <input type="text"  class="form-control hid-bottom" name="proname" value="${proname}" readonly>
+                                    <input type="hidden" name="index_procode">
                                     <ul id="tree" class="ztree select-tree hid-top"></ul>
                                 </div>
                                 <div class="clearfix"></div>
@@ -71,7 +71,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">统计周期：</label>
                                 <div class="col-sm-5">
-                                    <select class="form-control" name="sort" disabled>
+                                    <select class="form-control" name="index_sort" disabled>
                                         <c:if test="${list.getSort() == 'm'}"><option value="m" >月度</option></c:if>
                                         <c:if test="${list.getSort() == 'y'}"><option value="y" >年度</option></c:if>
                                         <c:if test="${list.getSort() == 'q'}"><option value="q" >季度</option></c:if>
@@ -95,6 +95,7 @@
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
+                            <input type="reset" style="display:none;" />
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="zssx">
@@ -314,7 +315,12 @@
             </div>
         </div>
     </div>
+    <div style="float: right">
+        <button type="button" class="btn btn-primary tosaveall">保存</button>
+        <button type="reset" class="btn btn-primary resetindex">取消</button>
+    </div>
 </div>
+
 </div>
 </body>
 <script>

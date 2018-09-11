@@ -20,6 +20,7 @@ import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.pub.TreeNode;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexMoudle;
+import com.acmr.model.zhzs.IndexZb;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zbdata.RegdataService;
 import com.acmr.service.zbdata.ZBdataService;
@@ -1111,4 +1112,65 @@ public class zsjhedit extends BaseAction {
         }
         return regions;
     }
+    /**
+     * 保存所有
+     */
+    public void toSaveAll() throws IOException{
+        HttpServletRequest req = this.getRequest();
+        IndexEditService indexEditService = new IndexEditService();
+        //index表中的信息
+        String index_code = PubInfo.getString(req.getParameter("index_code"));//code
+        String index_cname = PubInfo.getString(req.getParameter("index_cname"));//code
+        String index_procode = PubInfo.getString(req.getParameter("index_procode"));//所属目录
+        String startpeirod = PubInfo.getString(req.getParameter("startpeirod"));
+        String delayday = PubInfo.getString(req.getParameter("delayday"));
+        //ZB表的信息
+        String reg = PubInfo.getString(req.getParameter("regselect"));//地区
+        String zbcode = PubInfo.getString(req.getParameter("zbcode"));//zbcode
+        String ds = PubInfo.getString(req.getParameter("zbds"));//数据来源
+        String co = PubInfo.getString(req.getParameter("zbco"));//主体
+        String zbunit = PubInfo.getString(req.getParameter("zbunit"));//单位
+        String sxcode = PubInfo.getString(req.getParameter("sxcode"));//ZB表的code
+        String [] zbcodes = zbcode.split(",");
+        String [] dss = ds.split(",");
+        String [] cos = co.split(",");
+        String [] units = zbunit.split(",");
+        String [] sxcodes = sxcode.split(",");
+        JSONReturnData data = new JSONReturnData("");
+        //前三个标签页的数据都能取到，分别存到zb和index表里
+        ArrayList<IndexZb> zbs = new ArrayList<IndexZb>();
+        if(sxcode != ""){
+            for (int i = 0; i <sxcodes.length ; i++) {
+                IndexZb zb = new IndexZb();
+                zb.setCode(sxcodes[i]);
+                zb.setZbcode(zbcodes[i]);
+                zb.setIndexcode(index_code);
+                zb.setCompany(cos[i]);
+                zb.setDatasource(dss[i]);
+                zb.setRegions(reg);
+                zb.setUnitcode(units[i]);
+                zbs.add(zb);
+            }
+        }
+        //基本信息表的信息
+        IndexList indexList = new IndexList();
+        indexList.setCode(index_code);
+        if(index_procode != null && index_procode !=""){
+            indexList.setProcode(index_procode);
+        }
+        indexList.setCname(index_cname);
+        indexList.setStartperiod(startpeirod);
+        indexList.setDelayday(delayday);
+        int result = indexEditService.toSaveAll(index_code,zbs,indexList);
+        if(result ==0){
+            data.setReturncode(200);
+            this.sendJson(data);
+            return;
+        }else if(result ==1){
+            data.setReturncode(501);
+            this.sendJson(data);
+            return;
+        }
+    }
+
 }

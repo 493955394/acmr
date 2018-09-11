@@ -1,14 +1,19 @@
 package com.acmr.dao.oracle.zhzs;
 
 
+import acmr.data.DataQuery;
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexEditDao;
+import com.acmr.helper.util.StringUtil;
+import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexMoudle;
+import com.acmr.model.zhzs.IndexZb;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -197,5 +202,68 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
             return true;
         }
         return false;
+    }
+    @Override
+    public int toSaveAll(String indexcode, ArrayList<IndexZb> indexZb, IndexList indexList){
+        // return值暂时无用
+        if (indexcode == null) {
+            return 0;
+        }
+        DataQuery dataQuery = null;
+        try {
+
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+            // 删除旧的
+
+            String delold = "delete from tb_coindex_zb where indexcode = ?";
+            dataQuery.executeSql(delold, new Object[] { indexcode });
+            // 添加新的
+            if(indexZb.size()>0){
+            String sql = "insert into tb_coindex_zb (code,indexcode,zbcode,company,datasource,regions,unitcode) values(?,?,?,?,?,?,?)";
+            for (int i = 0; i < indexZb.size(); i++) {
+                ArrayList<Object> parms = new ArrayList<Object>();
+                parms.add(indexZb.get(i).getCode());
+                parms.add(indexZb.get(i).getIndexcode());
+                parms.add(indexZb.get(i).getZbcode());
+                parms.add(indexZb.get(i).getCompany());
+                parms.add(indexZb.get(i).getDatasource());
+                parms.add(indexZb.get(i).getRegions());
+                parms.add(indexZb.get(i).getUnitcode());
+                dataQuery.executeSql(sql, parms.toArray());
+            }
+            }
+            //更新基本信息表
+            String sql1 = "";
+            List<Object> upd = new ArrayList<Object>();
+            if(indexList.getProcode()!=null&& indexList.getProcode()!=""){
+                sql1+=",procode=?";
+                upd.add(indexList.getProcode());
+            }
+                sql1+=",cname=?";
+                upd.add(indexList.getCname());
+                sql1+=",startperiod=?";
+                upd.add(indexList.getStartperiod());
+                sql1+=",delayday=?";
+                upd.add(indexList.getDelayday());
+            if (sql1.equals("")) {
+                return 0;
+            }
+            sql1 = "update tb_coindex_index set " + sql1.substring(1) + " where code=?";
+            upd.add(indexList.getCode());
+            dataQuery.executeSql(sql1, upd.toArray());
+            dataQuery.commit();
+        } catch (SQLException e) {
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                return 1;
+            }
+            e.printStackTrace();
+        } finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+        return 0;
     }
 }
