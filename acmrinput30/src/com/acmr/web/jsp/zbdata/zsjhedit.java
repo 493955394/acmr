@@ -1131,16 +1131,18 @@ public class zsjhedit extends BaseAction {
         JSONReturnData data = new JSONReturnData("");
         //前三个标签页的数据都能取到，分别存到zb和index表里
         ArrayList<IndexZb> zbs = new ArrayList<IndexZb>();
-        for (int i = 0; i <sxcodes.length ; i++) {
-            IndexZb zb = new IndexZb();
-            zb.setCode(sxcodes[i]);
-            zb.setZbcode(zbcodes[i]);
-            zb.setIndexcode(index_code);
-            zb.setCompany(cos[i]);
-            zb.setDatasource(dss[i]);
-            zb.setRegions(reg);
-            zb.setUnitcode(units[i]);
-            zbs.add(zb);
+        if(sxcode != ""){
+            for (int i = 0; i <sxcodes.length ; i++) {
+                IndexZb zb = new IndexZb();
+                zb.setCode(sxcodes[i]);
+                zb.setZbcode(zbcodes[i]);
+                zb.setIndexcode(index_code);
+                zb.setCompany(cos[i]);
+                zb.setDatasource(dss[i]);
+                zb.setRegions(reg);
+                zb.setUnitcode(units[i]);
+                zbs.add(zb);
+            }
         }
         //基本信息表的信息
         IndexList indexList = new IndexList();

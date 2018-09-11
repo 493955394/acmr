@@ -211,9 +211,12 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
         }
         DataQuery dataQuery = null;
         try {
+
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
             // 删除旧的
+            if(indexZb.size()>0){
+                System.out.println(indexZb.size());
             String delold = "delete from tb_coindex_zb where indexcode = ?";
             dataQuery.executeSql(delold, new Object[] { indexcode });
             // 添加新的
@@ -229,6 +232,7 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
                 parms.add(indexZb.get(i).getUnitcode());
                 dataQuery.executeSql(sql, parms.toArray());
             }
+            }
             //更新基本信息表
             String sql1 = "";
             List<Object> upd = new ArrayList<Object>();
@@ -238,7 +242,7 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
             }
                 sql1+=",cname=?";
                 upd.add(indexList.getCname());
-                sql1+=",startpeirod=?";
+                sql1+=",startperiod=?";
                 upd.add(indexList.getStartperiod());
                 sql1+=",delayday=?";
                 upd.add(indexList.getDelayday());
