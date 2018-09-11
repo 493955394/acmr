@@ -339,16 +339,24 @@ public class zsjhedit extends BaseAction {
         cell1.getCellstyle().getFont().setBoldweight((short) 10);
         //System.out.println(data1);
         for(int i=0;i<data1.size();i++){
-            String [] arr =data1.get(i).toString().substring(1,data1.get(i).toString().length()-1).split(",");
+            //String [] arr =data1.get(i).toString().substring(1,data1.get(i).toString().length()-1).split(",");
             /*String [] arr = (String[]) data1.get(i);
             String [] arr =new String[datas.size()];
             Object ob=data1.get(i);
             Object[] obs = (Object[]) ob;
             String ceshi = obs[2].toString();*/
+            String arr =data1.get(i).toString().substring(1,data1.get(i).toString().length()-1);
             dr1 = sheet1.addRow();
-            for(int j=0;j<arr.length;j++){
+            String a2 = arr.replaceAll("0.0"," ");
+            String [] a3 = a2.split(",");
+            for(int j=0;j<a3.length;j++){
+                /*int a = arr[j];
+                if(a == 0.0){
+                    arr[j].replaceAll("0.0", "-");
+                }*/
+                //a2[j].replaceAll("0.0", "***");
                 cell2 = cell1.clone();
-                cell2.setCellValue(arr[j]);
+                cell2.setCellValue(a3[j]);
                 dr1.set(j, cell2);
             }
         }
