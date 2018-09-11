@@ -64,7 +64,8 @@ public class zsjhedit extends BaseAction {
         ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
         /* 第一个分页显示*/
         JSONObject zbs=getZBS(code);
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("proname",proname).addObject("list",list).addObject("indexlist",indexlist).addObject("zbs",zbs);
+        List<Map> regs = regshow(code);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("proname",proname).addObject("list",list).addObject("indexlist",indexlist).addObject("zbs",zbs).addObject("regs",regs);
     }
     /**
      *
@@ -646,8 +647,10 @@ public class zsjhedit extends BaseAction {
                 proname = list1.getCname();
             }
             ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
+
+            List<Map> regoins = regshow(code);
             PubInfo.printStr("isempty");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname).addObject("indexlist",indexlist);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname).addObject("indexlist",indexlist).addObject("regs",regoins);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/ZBdataList").addObject("sjs",sjs).addObject("rows",rows).addObject("nodata",nodata);
         }
@@ -721,8 +724,9 @@ public class zsjhedit extends BaseAction {
                 proname = list1.getCname();
             }
             ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
+            List<Map> regs = regshow(icode);
             PubInfo.printStr("isempty");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname).addObject("indexlist",indexlist);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname).addObject("indexlist",indexlist).addObject("regs",regs);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modTableList").addObject("mods",mods);
         }
@@ -908,7 +912,8 @@ public class zsjhedit extends BaseAction {
                 proname = list1.getCname();
             }
             ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname).addObject("indexlist",indexlist);
+            List<Map> regs = regshow(icode);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname).addObject("indexlist",indexlist).addObject("regs",regs);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modTableList").addObject("mods",mods).addObject("codes",codes);
         }
@@ -1071,5 +1076,31 @@ public class zsjhedit extends BaseAction {
         IndexEditService indexEditService=new IndexEditService();
         Boolean bool=indexEditService.checkModule(code);
         this.sendJson(bool);
+    }
+
+   /* *
+     * 保存之后地区回显
+     * @param icode
+     * @return
+     * @throws IOException
+     */
+    public  List<Map> regshow(String icode){
+        List<Map> regions = new ArrayList<Map>();
+        RegdataService regdataService = new RegdataService();
+        IndexEditService indexEditService=new IndexEditService();
+        List<Map> zbchoose=indexEditService.getZBS(icode);
+        if(zbchoose.size()>0){
+            String region =  zbchoose.get(0).get("regcode").toString();
+            if (region !=null && region != ""){
+                String [] temp = region.split(",");
+                for (int i = 0; i <temp.length ; i++) {
+                    Map<String, String> items = new HashMap<String, String>();
+                    items.put("regcode", temp[i]);
+                    items.put("regcname", regdataService.getRegNode("cuscxnd",temp[i]).getCname());
+                    regions.add(items);
+                }
+            }
+        }
+        return regions;
     }
 }

@@ -12,8 +12,8 @@
         background-color: red;
     }
 </style>
-<div style="height: 500px;width: 710px;overflow:auto ">
-    <table class="table table-bordered" id="tabledata" style="display: none">
+<div style="height: 500px;width: 710px;overflow:auto;display: none " id="regtable">
+    <table class="table table-bordered" id="tabledata" >
         <thead>
         <tr>
         <th class="text-center">时间</th>

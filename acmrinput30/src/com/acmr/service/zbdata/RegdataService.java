@@ -18,7 +18,7 @@ public class RegdataService {
         return wdlist;
     }
     //获取地区的名字
-    public static CubeNode getRegNode(String dbcode,String dqcode) {
+    public CubeNode getRegNode(String dbcode,String dqcode) {
         CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
         CubeNode nodes = cube1.getWeiNode(dbcode, "reg", dqcode);
       return nodes;

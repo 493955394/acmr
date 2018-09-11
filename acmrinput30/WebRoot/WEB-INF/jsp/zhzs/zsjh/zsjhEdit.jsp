@@ -227,7 +227,8 @@
                                 <div class="panel-heading" style="text-align:center">地区树</div>
                             </div>
                             <div class="panel-body" style="height: 500px;width: 440px;overflow:auto ">
-                                <ul id="treeDemo" class="ztree ztree-margin"></ul></div>
+                                <ul id="treeDemo" class="ztree ztree-margin">
+                                </ul></div>
                             <input type="hidden" name="regcode" value="" />
                             <input type="hidden" name="regname" value="" />
                         </div>
@@ -245,7 +246,11 @@
                                 <div class="panel-heading" style="text-align:center">地区列表</div>
                             </div>
                             <div  style="height: 500px;width: 440px;overflow:auto ">
-                                <ul class="list-group regul" id="selectreg"></ul>
+                                <ul class="list-group regul" id="selectreg">
+                                    <c:forEach items="${regs}" var="reg">
+                                        <li class="list-group-item selectedli"  id="${reg.regcode}">${reg.regcname}</li>
+                                    </c:forEach>
+                                </ul>
                             </div>
                         </div>
 

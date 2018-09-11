@@ -13,7 +13,9 @@ define(function (require,exports,module) {
         editjsp = require('editjsp');
 
     var incode=$("#index_code").val();
+    var select = [];
     var select_li = "error";//选择移除的li的下标
+
     var zNodes =[
         { id:"#1", pId:0, name:"指数",isParent:true}
     ];
@@ -57,9 +59,10 @@ define(function (require,exports,module) {
     $(document).ready(function(){
         $.fn.zTree.init($("#tree"), setting, zNodes);
         fixIcon();
-
+        $('ul.regul').find('li').each(function() {
+            select.push({code:$(this).attr("id"),name:$(this).text()});
+            })
         //修正添加的table的classname，方便和树联动
-
     });
     /**
      * 菜单树
@@ -139,7 +142,7 @@ define(function (require,exports,module) {
     /**
      * 选中单个地区
      */
-    var select = [];
+
     $("#sigglechoose").click(function () {
         var regcode =  $('input[name=regcode]').val();
         var regcname =  $('input[name=regname]').val();
@@ -299,7 +302,7 @@ define(function (require,exports,module) {
             $(document).on('pjax:success', function() {
                     mc('tabledata',0,0,0);
                     $("#data_single").hide();
-                    $("#tabledata").show();
+                    $("#regtable").show();
                     $('ul.regul').html("");
                     select_li = "error";
                     var showreg ="";
@@ -349,7 +352,7 @@ define(function (require,exports,module) {
         })
         $(document).on('pjax:success', function() {
             console.log(checkreturn)
-            $("#tabledata").hide();
+            $("#regtable").hide();
             $("#data_single").show();
         });
     }) ;
