@@ -31,8 +31,15 @@
                 <th><input type="checkbox" if="${index.getIfdata()}" id="${index.getCode()}" getname="${index.getCname()}"></th>
                 <td >${index.getCode()}</td>
                 <td >${index.getCname()}</td>
-                <td>${index.getIfdata()}</td>
-                <td>${index.getSort()}</td>
+                <td>
+                    <c:if test="${index.getIfdata() == 0}">目录</c:if>
+                    <c:if test="${index.getIfdata() == 1}">计划</c:if>
+                </td>
+                <td>
+                    <c:if test="${index.getSort() == 'y'}">年度</c:if>
+                    <c:if test="${index.getSort() == 'q'}">季度</c:if>
+                    <c:if test="${index.getSort() == 'm'}">月度</c:if>
+                </td>
                 <td>${index.getPlanperiod()}</td>
                 <td>
                     <c:if test="${index.getIfdata()==1}">
