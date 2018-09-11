@@ -47,7 +47,7 @@ public class zsjhedit extends BaseAction {
     private List data1;
     private  String regname;
     private  List singledata1;
-    private  String singleregname;
+    private  String regionname;
     private  String excelsj;
 
     static ScriptEngine jse = new ScriptEngineManager().getEngineByName("JavaScript");
@@ -241,7 +241,7 @@ public class zsjhedit extends BaseAction {
         String [] dss = ds.split(",");
         String [] cos = co.split(",");
         String [] units = zbunit.split(",");
-        String regname = originService.getwdnode("reg",reg).getName();
+        regionname = originService.getwdnode("reg",reg).getName();
         singledata1 = new ArrayList();
         for (int i = 0; i <zbcodes.length ; i++) {
             List <String> datas=new ArrayList();
@@ -279,7 +279,7 @@ public class zsjhedit extends BaseAction {
             ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("list",list).addObject("zbs",zbs).addObject("indexlist",indexlist).addObject("proname",proname);
         } else {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/regSelect").addObject("regname",regname).addObject("singledata",singledata1).addObject("times",sjs).addObject("check",check);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/regSelect").addObject("regname",regionname).addObject("singledata",singledata1).addObject("times",sjs).addObject("check",check);
         }
     }
     /**
@@ -364,10 +364,14 @@ public class zsjhedit extends BaseAction {
         book.getSheets().add(sheet1);
         HttpServletResponse resp = this.getResponse();
         resp.reset();
-        resp.setContentType("application/vnd.ms-excel");
+        resp.setContentType("application/vnd.ms-excel; charset=UTF-8");
         resp.setHeader("Pragma", "public");
         resp.setHeader("Cache-Control", "max-age=30");
-        resp.addHeader("Content-Disposition", "attachment; filename=" + "index.xlsx");
+        //String name = "计划数据";
+        String fileName="指数计划.xlsx";
+        fileName=java.net.URLEncoder.encode(fileName, "UTF-8");
+        resp.addHeader("Content-Disposition", "attachment; filename="+fileName);
+        //Export("application/ms-excel", "订单报表.xls");
         try {
             book.saveExcel(resp.getOutputStream(), XLSTYPE.XLSX);
         } catch (ExcelException e) {
@@ -380,6 +384,7 @@ public class zsjhedit extends BaseAction {
     public void toExcelsinglereg() throws IOException {
         //接参
         HttpServletRequest req = this.getRequest();
+        OriginService originService=new OriginService();
         /*req.getAttribute("excelregs");
         req.getAttribute("exceldata");*/
         /*String regname = PubInfo.getString(req.getParameter("excelregs"));//地区名称
@@ -417,26 +422,33 @@ public class zsjhedit extends BaseAction {
         cell1.getCellstyle().getFont().setBoldweight((short) 10);
         //System.out.println(data1);
         for(int i=0;i<singledata1.size();i++){
-            String [] arr =singledata1.get(i).toString().substring(1,singledata1.get(i).toString().length()-1).split(",");
+           // String [] arr =singledata1.get(i).toString().substring(1,singledata1.get(i).toString().length()-1).split(",");
             /*String [] arr = (String[]) data1.get(i);
             String [] arr =new String[datas.size()];
             Object ob=data1.get(i);
             Object[] obs = (Object[]) ob;
             String ceshi = obs[2].toString();*/
             dr1 = sheet1.addRow();
-            for(int j=0;j<arr.length;j++){
+            String arr =data1.get(i).toString().substring(1,data1.get(i).toString().length()-1);
+            dr1 = sheet1.addRow();
+            String a2 = arr.replaceAll("0.0"," ");
+            String [] a3 = a2.split(",");
+            for(int j=0;j<a3.length;j++){
                 cell2 = cell1.clone();
-                cell2.setCellValue(arr[j]);
+                cell2.setCellValue(a3[j]);
                 dr1.set(j, cell2);
             }
         }
         book.getSheets().add(sheet1);
         HttpServletResponse resp = this.getResponse();
         resp.reset();
-        resp.setContentType("application/vnd.ms-excel");
+        resp.setContentType("application/vnd.ms-excel; charset=UTF-8");
         resp.setHeader("Pragma", "public");
         resp.setHeader("Cache-Control", "max-age=30");
-        resp.addHeader("Content-Disposition", "attachment; filename=" + "singleindex.xlsx");
+        String fileName=regionname;
+        fileName=java.net.URLEncoder.encode(fileName, "UTF-8");
+        resp.addHeader("Content-Disposition", "attachment; filename="+fileName+".xlsx");
+        //resp.addHeader("Content-Disposition", "attachment; filename=" + "singleindex.xlsx");
         try {
             book.saveExcel(resp.getOutputStream(), XLSTYPE.XLSX);
         } catch (ExcelException e) {
