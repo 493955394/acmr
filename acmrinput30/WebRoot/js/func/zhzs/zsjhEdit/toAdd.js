@@ -8,6 +8,8 @@ define(function (require,exports,module) {
         modal = require('modal');
     var ciji = $(".cjzs option:selected").val();
     var zhibiao = $(".zb_ifzs option:selected").val();
+    var ifzs = $("#selectifzs option:selected").val();
+
     /**
      * 新增模型节点
      */
@@ -33,7 +35,8 @@ define(function (require,exports,module) {
         }
         var formulas = $(".formula option:selected").val();
         var formulatexts = $("#formulatext").val();
-        if(formulas =="userdefined" &&(formulatexts == "" ||formulatexts == null) ){
+        var ifzscheck = $("#selectifzs option:selected").val();
+        if(formulas =="userdefined" &&(formulatexts == "" ||formulatexts == null) && ifzscheck == 0  ){
             alert("请筛选对应指标！");
             return;
         }
@@ -65,7 +68,7 @@ define(function (require,exports,module) {
      * 点击选择按钮之后隐藏和显示的内容
      */
     $(document).ready(function(){
-        var obj, index, id;
+        var obj, index, id,userdefine;
         obj = document.getElementById('selectifzs');
         index = obj.selectedIndex;
         id = obj.options[index].value;
@@ -74,6 +77,10 @@ define(function (require,exports,module) {
         }
         else if(id == 0){
             $('#select_zb').show();
+        }
+        userdefine = $(".formula option:selected").val();
+        if(userdefine == "userdefined" && ifzs == 0){
+            $('.hidden_group').show();
         }
     })
     /**
@@ -90,6 +97,10 @@ define(function (require,exports,module) {
             $('#secend_zs').hide();
             cleanContents();
             $('#select_zb').show();
+            var userdefine = $(".formula option:selected").val();
+            if(userdefine == "userdefined"){
+                $('.hidden_group').show();
+            }
         }else {
             $('#select_zb').hide();
             $('#secend_zs').hide();
