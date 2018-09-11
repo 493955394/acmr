@@ -1158,6 +1158,10 @@ public class zsjhedit extends BaseAction {
             data.setReturncode(200);
             this.sendJson(data);
             return;
+        }else if(result ==1){
+            data.setReturncode(501);
+            this.sendJson(data);
+            return;
         }
     }
 

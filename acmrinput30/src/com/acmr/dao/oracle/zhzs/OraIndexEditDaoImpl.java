@@ -215,11 +215,11 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
             // 删除旧的
-            if(indexZb.size()>0){
-                System.out.println(indexZb.size());
+
             String delold = "delete from tb_coindex_zb where indexcode = ?";
             dataQuery.executeSql(delold, new Object[] { indexcode });
             // 添加新的
+            if(indexZb.size()>0){
             String sql = "insert into tb_coindex_zb (code,indexcode,zbcode,company,datasource,regions,unitcode) values(?,?,?,?,?,?,?)";
             for (int i = 0; i < indexZb.size(); i++) {
                 ArrayList<Object> parms = new ArrayList<Object>();
@@ -256,6 +256,7 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
         } catch (SQLException e) {
             if (dataQuery != null) {
                 dataQuery.rollback();
+                return 1;
             }
             e.printStackTrace();
         } finally {

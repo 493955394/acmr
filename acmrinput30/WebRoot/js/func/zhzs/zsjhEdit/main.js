@@ -272,6 +272,10 @@ define(function (require,exports,module) {
             var zbunit ="";//指标单位
             var zbname = "";//指标名称
             var zbs=zbAdd.zbs;//获取指标的信息
+            if(zbs.length == 0){
+                alert("未筛选指标");
+                return;
+            }
             for (var i = 0; i <zbs.length ; i++) {
                 zbcode += zbs[i].zbcode+",";
                 zbco += zbs[i].cocode+",";
