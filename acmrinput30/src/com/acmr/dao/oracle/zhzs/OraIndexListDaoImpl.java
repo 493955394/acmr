@@ -13,9 +13,9 @@ import java.util.List;
 public class OraIndexListDaoImpl implements IIndexListDao {
 
     @Override
-    public DataTable getStartLists() {
-        String sql="select * from tb_coindex_index where state=1";
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql);
+    public DataTable getStartLists(String date) {
+        String sql="select * from tb_coindex_index where plantime < to_date(?,'yyyy-mm-dd hh24:mi:ss')";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{date});
     }
 
     @Override
