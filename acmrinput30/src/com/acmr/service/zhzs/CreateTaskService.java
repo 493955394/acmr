@@ -3,12 +3,16 @@ package com.acmr.service.zhzs;
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
+import com.acmr.dao.zhzs.IIndexTaskDao;
 import com.acmr.dao.zhzs.IndexListDao;
+import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.model.zhzs.IndexList;
+import com.acmr.model.zhzs.IndexTask;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -46,22 +50,74 @@ public class CreateTaskService {
     }
 
     /**
-    * @Description: 返回指定code的计划应该存在的所有periods(期数)
+    * @Description: 返回指定code的计划应该生成的periods(期数)
     * @Param: [code]
     * @return: void
     * @Author: lyh
     * @Date: 2018/9/11
     */
-    public List<String> getPeriods(String code){
+    public List<String> getPeriods(IndexList index){
         List<String> periods=new ArrayList<>();
+        String code=index.getCode();
+        String sort=index.getSort();
+        String startperiod=index.getStartperiod();
+        //统计周期为年度
+        if (sort.equals("y")){
+            Calendar calendar=Calendar.getInstance();
+            int now=calendar.get(Calendar.YEAR);
+            int start= Integer.parseInt(startperiod);
+            for (int i=start;i<now;i++){
+                Boolean bool=IndexTaskDao.Fator.getInstance().getIndexdatadao().hasTask(code, String.valueOf(i));
+                if (!bool){
+                    periods.add(String.valueOf(i));
+                }
+            }
+        }
+        //统计周期为季度
+        else if (sort.equals("q")){
 
+        }
+        //统计周期为月度
+        else if (sort.equals("m")){
+
+        }
         return periods;
+    }
+
+    /**
+    * @Description: 生成指定计划的任务
+    * @Param: [index, periods]
+    * @return: void
+    * @Author: lyh
+    * @Date: 2018/9/11
+    */
+    public void createTasks(IndexList index,List<String> periods){
+
+    }
+
+    /**
+    * @Description: 生成所有的计划的所有的任务
+    * @Param: []
+    * @return: void
+    * @Author: lyh
+    * @Date: 2018/9/11
+    */
+    public void createAll() throws ParseException {
+        List<IndexList> list=getStartIndex();
+        for (int i=0;i<list.size();i++){
+            IndexList index=list.get(i);
+            List<String> periods=getPeriods(index);
+            createTasks(index,periods);
+        }
     }
 
 
 
-/*
-    public static void main(String[] args) throws ParseException {
-        getStartIndex();
+/*    public static void main(String[] args) throws ParseException {
+        List<IndexList> indexLists=getStartIndex();
+        for (int i=0;i<indexLists.size();i++){
+            List<String> periods=getPeriods(indexLists.get(i));
+            PubInfo.printStr(periods.toString());
+        }
     }*/
 }
