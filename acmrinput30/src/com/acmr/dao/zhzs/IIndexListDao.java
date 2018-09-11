@@ -6,6 +6,7 @@ import com.acmr.model.zhzs.IndexList;
 import javax.xml.crypto.Data;
 
 public interface IIndexListDao {
+    public DataTable getStartLists();
     public DataTable getSubLists(String code,String usercode);
     public String getName();
     public DataTable getByUser(String usercode);

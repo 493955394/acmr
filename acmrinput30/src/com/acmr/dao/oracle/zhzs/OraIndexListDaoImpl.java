@@ -13,6 +13,12 @@ import java.util.List;
 public class OraIndexListDaoImpl implements IIndexListDao {
 
     @Override
+    public DataTable getStartLists() {
+        String sql="select * from tb_coindex_index where state=1";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql);
+    }
+
+    @Override
     public DataTable getSubLists(String code,String usercode) {
         if (code==""){
             String sql = "select * from tb_coindex_index where createuser= ? ";
