@@ -276,6 +276,10 @@ define(function (require,exports,module) {
                 alert("未筛选指标");
                 return;
             }
+            if(select.length == 0){
+                alert("未筛选地区");
+                return;
+            }
             for (var i = 0; i <zbs.length ; i++) {
                 zbcode += zbs[i].zbcode+",";
                 zbco += zbs[i].cocode+",";
@@ -355,7 +359,6 @@ define(function (require,exports,module) {
             container:'.data_check_show'
         })
         $(document).on('pjax:success', function() {
-            console.log(checkreturn)
             $("#regtable").hide();
             $("#data_single").show();
         });
@@ -518,7 +521,7 @@ define(function (require,exports,module) {
             success: function(data) {
                 if (data.returncode == 200) {
                     alert("保存成功！");
-                    window.location.reload(true);
+                    window.location.href= common.rootPath+"zbdata/indexlist.htm";
                 }
                else {
                     alert("添加失败");
