@@ -2,6 +2,7 @@ package com.acmr.service.zhzs;
 
 import acmr.util.PubInfo;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
@@ -17,8 +18,13 @@ public class TaskTimerService {
 			Calendar calendar = Calendar.getInstance();
 			Date time = calendar.getTime();
 			PubInfo.printStr("time:"+time.toString());
-			//CreateTaskService createTaskService=new CreateTaskService();
-			//createTaskService.getStartIndex();
+			CreateTaskService createTaskService=new CreateTaskService();
+			try {
+				createTaskService.createAll();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
 		}
 	}
 

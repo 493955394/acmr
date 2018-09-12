@@ -11,10 +11,7 @@ import com.acmr.model.zhzs.IndexTask;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class CreateTaskService {
     
@@ -91,8 +88,14 @@ public class CreateTaskService {
     * @Author: lyh
     * @Date: 2018/9/11
     */
-    public void createTasks(IndexList index,List<String> periods){
-
+    public void createTasks(IndexList index, List<String> periods){
+        String indexcode=index.getCode();
+        for (int i=0;i<periods.size();i++){
+            String tcode= UUID.randomUUID().toString().replace("-", "").toLowerCase();
+            String ayearmon=periods.get(i);
+            String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            IndexTaskDao.Fator.getInstance().getIndexdatadao().create(indexcode,tcode,ayearmon,createtime);
+        }
     }
 
     /**
@@ -104,20 +107,18 @@ public class CreateTaskService {
     */
     public void createAll() throws ParseException {
         List<IndexList> list=getStartIndex();
-        for (int i=0;i<list.size();i++){
-            IndexList index=list.get(i);
-            List<String> periods=getPeriods(index);
-            createTasks(index,periods);
+        if (list.size()>0){
+            for (int i=0;i<list.size();i++){
+                IndexList index=list.get(i);
+                List<String> periods=getPeriods(index);
+                createTasks(index,periods);
+            }
         }
     }
 
 
 
 /*    public static void main(String[] args) throws ParseException {
-        List<IndexList> indexLists=getStartIndex();
-        for (int i=0;i<indexLists.size();i++){
-            List<String> periods=getPeriods(indexLists.get(i));
-            PubInfo.printStr(periods.toString());
-        }
+        createAll();
     }*/
 }
