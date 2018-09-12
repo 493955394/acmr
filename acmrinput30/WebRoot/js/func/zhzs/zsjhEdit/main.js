@@ -16,6 +16,7 @@ define(function (require,exports,module) {
     var incode=$("#index_code").val();
     var select = [];
     var select_li = "error";//选择移除的li的下标
+    var timesort = $("#index_sort option:selected").val();
 
     var zNodes =[
         { id:"#1", pId:0, name:"指数",isParent:true}
@@ -473,6 +474,35 @@ define(function (require,exports,module) {
        var checkDelegate = new VaildNormal();
         var flag = true;
         //前端检查
+        var timetext = $("#startpeirod").val();
+            if(timesort == "y"){
+                var reg=/^\d{4}$/;
+                var r= timetext.match(reg);
+                if(r==null){
+                    alert("您的"+"年度"+"起始数据期格式有误")
+                    return;
+                }
+            }else if(timesort == "q"){
+                var reg=/^(\d{4})([A-Da-d]{1})$/;
+                var r= timetext.match(reg);
+                if(r==null){
+                    alert("您的季度起始数据期格式有误")
+                    return;
+                }
+            }else if(timesort == "m"){
+                var reg=/^\d{6}$/;
+                var r= timetext.match(reg);
+                if(r==null){
+                    alert("您的"+"月度"+"起始数据期格式有误")
+                    return;
+                }
+            }
+                var regDelayDays=/^[0-9]*$/;
+                var r=$('input[name="delayday"]').val().match(regDelayDays);
+                if(r==null){
+                    alert("您的"+"数据期时间间隔"+"有误");
+                    return;
+                }
         if (!checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'required', 'msg': '计划名称不能为空' }]) ||
             !checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'maxlength', 'msg': '计划名称最大长度为20', 'param': 21 }])) {
             flag = false;

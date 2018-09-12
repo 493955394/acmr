@@ -71,7 +71,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">统计周期：</label>
                                 <div class="col-sm-5">
-                                    <select class="form-control" name="index_sort" disabled>
+                                    <select class="form-control" name="index_sort" id="index_sort" disabled>
                                         <c:if test="${list.getSort() == 'm'}"><option value="m" >月度</option></c:if>
                                         <c:if test="${list.getSort() == 'y'}"><option value="y" >年度</option></c:if>
                                         <c:if test="${list.getSort() == 'q'}"><option value="q" >季度</option></c:if>
