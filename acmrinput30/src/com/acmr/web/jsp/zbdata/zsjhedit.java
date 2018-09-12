@@ -429,8 +429,7 @@ public class zsjhedit extends BaseAction {
             Object[] obs = (Object[]) ob;
             String ceshi = obs[2].toString();*/
             dr1 = sheet1.addRow();
-            String arr =data1.get(i).toString().substring(1,data1.get(i).toString().length()-1);
-            dr1 = sheet1.addRow();
+            String arr =singledata1.get(i).toString().substring(1,singledata1.get(i).toString().length()-1);
             String a2 = arr.replaceAll("0.0"," ");
             String [] a3 = a2.split(",");
             for(int j=0;j<a3.length;j++){
