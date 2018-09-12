@@ -22,7 +22,10 @@
                     <tr>
                         <td>${module.getCode()}</td>
                         <td>${module.getCname()}</td>
-                        <td>${module.getIfzs()}</td>
+                        <td>
+                            <c:if test="${module.getIfzs()==1}" >指数</c:if>
+                                <c:if test="${module.getIfzs()==0}" >指标</c:if>
+                        </td>
                         <td>${module.getWeight()}</td>
                         <td>${module.getFormula()}</td>
                         <td>${module.getDacimal()}</td>

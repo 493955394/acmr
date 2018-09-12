@@ -267,4 +267,21 @@ public class IndexEditService {
     public int toSaveAll(String indexcode, ArrayList<IndexZb> indexzb, IndexList indexList){
        return IndexEditDao.Fator.getInstance().getIndexdatadao().toSaveAll(indexcode,indexzb,indexList);
     }
+    /**
+     * 指标表查单个信息
+     */
+    public IndexZb getZBData(String code){
+        IndexZb indexZb = new IndexZb();
+        DataTableRow data = IndexEditDao.Fator.getInstance().getIndexdatadao().getZBData(code).getRows().get(0);
+        indexZb.setCode(data.getString("code"));
+        indexZb.setZbcode(data.getString("zbcode"));
+        indexZb.setDatasource(data.getString("datasource"));
+        indexZb.setIndexcode(data.getString("indexcode"));
+        indexZb.setCompany(data.getString("company"));
+        indexZb.setDatatimes(data.getString("datatimes"));
+        indexZb.setUnitcode(data.getString("unitcode"));
+        indexZb.setRegions(data.getString("regions"));
+        indexZb.setDacimal(data.getString("dacimal"));
+        return indexZb;
+    }
 }

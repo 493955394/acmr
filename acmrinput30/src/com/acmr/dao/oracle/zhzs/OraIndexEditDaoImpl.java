@@ -266,4 +266,9 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
         }
         return 0;
     }
+    @Override
+    public DataTable getZBData(String code) {
+        String sql = "select * from tb_coindex_zb where code = ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code});
+    }
 }

@@ -722,6 +722,15 @@ public class zsjhedit extends BaseAction {
         String code=req.getParameter("code");
         IndexEditService indexEditService=new IndexEditService();
         List<IndexMoudle> mods=indexEditService.getSubMod(code,icode);
+        for (int i = 0; i <mods.size() ; i++) {
+            if (mods.get(i).getIfzb().equals("0")){
+                String formula = mods.get(i).getFormula();
+                mods.get(i).setFormula(changeFormula(formula,icode,"CTN"));
+            }else  if (mods.get(i).getIfzb().equals("1")){
+                String formula = mods.get(i).getFormula();
+                mods.get(i).setFormula(formulaShow(formula,icode));
+            }
+        }
         if (StringUtil.isEmpty(pjax)) {
             JSONObject zbs=getZBS(icode);
             IndexListService indexListService=new IndexListService();
@@ -978,7 +987,18 @@ public class zsjhedit extends BaseAction {
         }
         return str;
     }
-
+    /**
+     * 纯指标替换中文
+     */
+    public String formulaShow(String str,String icode){
+        IndexEditService indexEditService=new IndexEditService();
+        List<Map> zbchoose=indexEditService.getZBS(icode);
+        for (int i = 0; i <zbchoose.size() ; i++) {
+            String temp = zbchoose.get(i).get("zbname").toString()+"("+zbchoose.get(i).get("dsname").toString()+","+zbchoose.get(i).get("unitname").toString()+")";
+                str = str.replace(zbchoose.get(i).get("code").toString(),temp);//换成ZB表里的code
+             }
+        return str;
+    }
     /**
      * 模型规划编辑页面
      * @return

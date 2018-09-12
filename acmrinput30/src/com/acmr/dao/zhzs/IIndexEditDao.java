@@ -25,4 +25,5 @@ public interface IIndexEditDao {
     public boolean checkProcode(String procode,String indexcode);
     public boolean checkModule(String code);
     public int toSaveAll(String indexcode, ArrayList<IndexZb> indexZb, IndexList indexList);
+    public DataTable getZBData(String code);
 }
