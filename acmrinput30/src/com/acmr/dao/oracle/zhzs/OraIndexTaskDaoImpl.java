@@ -6,8 +6,11 @@ import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexTaskDao;
+import com.acmr.model.zhzs.TaskZb;
 
+import javax.xml.crypto.Data;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -78,6 +81,39 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                 String dacimal=rows1.get(j).getString("dacimal");
                 String sql5="insert into tb_coindex_task_zb (code,taskcode,zbcode,company,datasource,regions,datatimes,unitcode,dacimal) values(?,?,?,?,?,?,?,?,?)";
                 dataQuery.executeSql(sql5,new Object[]{code,tcode,zbcode,company,datasource,regions,datatimes,unitcode,dacimal});
+            }
+
+            //取数存入tb_coindex_data
+            String sql6="select * from tb_coindex_task_zb where taskcode=?";
+            DataTable table2=dataQuery.getDataTableSql(sql6,new Object[]{tcode});
+            List<DataTableRow> rows2=table2.getRows();
+            for (int m=0;m<rows2.size();m++){
+                PubInfo.printStr(rows2.get(m).getRows().toString());
+                String code=rows2.get(m).getString("code");
+                String zbcode=rows2.get(m).getString("zbcode");
+                String company=rows2.get(m).getString("company");
+                String datasource=rows2.get(m).getString("datasource");
+                String regions=rows2.get(m).getString("regions");
+                String unitcode=rows2.get(m).getString("unitcode");
+                TaskZb taskZb=new TaskZb(code,tcode,zbcode,company,datasource,regions,unitcode);
+                String sql7="select * from tb_coindex_task where code=?";
+                String ayearmon1=dataQuery.getDataTableSql(sql7,new Object[]{tcode}).getRows().get(0).getString("ayearmon");
+                String zbcode1=taskZb.getCode();
+
+                List<String> regs= Arrays.asList(taskZb.getRegions().split(","));
+                List<Double> datas=taskZb.getData(ayearmon1);
+                for (int n=0;n<regs.size();n++){
+                    String region=regs.get(n);
+                    if (datas.get(n)!=null){
+                        String data= String.valueOf(datas.get(n));
+                        String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,data) values(?,?,?,?,to_number(?))";
+                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,data});
+                    }
+                    else {
+                        String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon) values(?,?,?,?)";
+                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1});
+                    }
+                }
             }
 
             dataQuery.commit();
