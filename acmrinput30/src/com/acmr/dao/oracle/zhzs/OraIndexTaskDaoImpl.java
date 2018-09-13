@@ -10,6 +10,7 @@ import com.acmr.model.zhzs.TaskZb;
 
 import javax.xml.crypto.Data;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -142,6 +143,11 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
         String sql = "select * from tb_coindex_task where indexcode= ? ";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode});
     }
+    @Override
+    public DataTable findTask(String time,String icode){
+        String sql = "select * from tb_coindex_task where ayearmon=? and indexcode= ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{time,icode});
+    }
 
     @Override
     public boolean hasData(String sessionid,String taskcode) {
@@ -158,7 +164,14 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
             return false;
         }
     }
-
+    @Override
+    public int delTask(String code){
+        StringBuffer sbf = new StringBuffer();
+        List<Object> params = new ArrayList<Object>();
+        sbf.append("delete from tb_coindex_task t where t.code = ? ");
+        params.add(code);
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sbf.toString(), params.toArray());
+    }
 /*    public static void main(String[] args) {
         OraIndexTaskDaoImpl oraIndexTaskDao=new OraIndexTaskDaoImpl();
         oraIndexTaskDao.hasTask("R001","2014");
