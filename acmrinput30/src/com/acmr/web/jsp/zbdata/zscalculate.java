@@ -16,10 +16,10 @@ public class zscalculate extends BaseAction {
     * @Date: 2018/9/13
     */
     public ModelAndView ZsCalculate(){
-        List<String> data=new ArrayList<>();
         //String test="重新计算";
         HttpServletRequest req=this.getRequest();
         String taskcode=req.getParameter("taskcode");
+        List<List<String>> data=getOriginData(false,taskcode);
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data",data);
     }
 
@@ -35,7 +35,7 @@ public class zscalculate extends BaseAction {
         String sessionid=req.getSession().getId();
         String taskcode=req.getParameter("taskcode");
         //取对应id的数据
-        List<String> data=new ArrayList<>();
+        List<List<String>> data=getOriginData(true,taskcode);
         //String test="继续上次计算";
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data",data);
 
