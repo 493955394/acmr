@@ -17,13 +17,13 @@ define(function (require,exports,module) {
                 console.log(re)
                 if (!re){
                     //console.log("跳转")
-                    window.location.href=common.rootPath+"zbdata/zscalculate.htm"
+                    window.location.href=common.rootPath+"zbdata/zscalculate.htm?m=ZsCalculate"
                 }
                 else {
                     //有session，弹出框
                     $("#mymodal").modal('toggle')
                     $(".new_calculate").click(function () {
-                        window.location.href=common.rootPath+"zbdata/zscalculate.htm"
+                        window.location.href=common.rootPath+"zbdata/zscalculate.htm?m=ZsCalculate"
                     })
                     $(".re_calculate").click(function () {
                         window.location.href=common.rootPath+"zbdata/zscalculate.htm?m=ReCalculate"

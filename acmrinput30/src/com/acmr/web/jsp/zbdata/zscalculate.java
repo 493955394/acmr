@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class zscalculate extends BaseAction {
-    public ModelAndView main() throws IOException {
+    public ModelAndView ZsCalculate(){
         List<String> data=new ArrayList<>();
         String test="重新计算";
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data",data).addObject("test",test);

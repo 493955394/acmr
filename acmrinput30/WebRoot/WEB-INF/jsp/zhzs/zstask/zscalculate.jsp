@@ -9,8 +9,45 @@
 <html>
 <head>
     <title>Title</title>
+    <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
 </head>
 <body>
-${test}
+<jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
+<div class="container-fluid" id="mainpanel">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                        <li role="presentation" class="active"><a href="#qzsz" aria-controls="qzsz" role="tab" data-toggle="tab">权重设置</a></li>
+                        <li role="presentation"><a href="#yssj" aria-controls="yssj" role="tab" data-toggle="tab">原始数据</a></li>
+                        <li role="presentation"><a href="#jsjg" aria-controls="jsjg" role="tab" data-toggle="tab">计算结果</a></li>
+                    </ul>
+                </div>
+                <!-- Tab panes -->
+                <div class="tab-content row" style="padding-top: 20px;">
+                    <div role="tabpanel" class="tab-pane active" id="qzsz">
+                        <div>
+                            qszs
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="yssj">
+                        <div>
+                            yssj
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="jsjg">
+                        <div>
+                            jsjg
+                        </div>
+                    </div>
+                    <!--Tab panes end-->
+                </div>
+            </div>
+        </div>
+</div>
 </body>
+<script>
+    seajs.use('${ctx}/js/func/zhzs/zstask/caculate');
+</script>
 </html>
