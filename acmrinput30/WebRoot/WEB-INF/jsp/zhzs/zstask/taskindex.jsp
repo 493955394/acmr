@@ -43,10 +43,10 @@
     </div>
 
     <div class="panel-body">
-    <form class="form-inline J_search_form" action="${ctx}/zbdata/indexlist.htm?m=find">
+    <form class="form-inline J_search_form" action="${ctx}/zbdata/zstask.htm?m=findTask">
         <div class="form-group">
             <span>任务时间期：</span>
-            <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="">
+            <input id="time" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-sm">查询</button>
@@ -56,7 +56,7 @@
         </div>
     </form>
 
-        <table class="table table-striped table-hover J_regmgr_table">
+        <table class="table table-striped table-hover J_zsrw_table">
             <thead>
             <tr>
                 <th>任务时间期</th>
@@ -72,6 +72,7 @@
                     <td>${vo.getCreatetime()}</td>
                     <td>${vo.getUpdatetime()}</td>
                     <input type="hidden" value="${vo.getCode()}" id="getcode">
+                    <input type="hidden" value="${vo.getIndexcode()}" id="geticode">
                     <td>
                         <a class="zs_calculate">计算</a>
                         <a class="zs_delete">删除</a>
@@ -83,23 +84,6 @@
     </div>
 </div>
 
-<div class="modal fade del_confirm" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"></h4>
-            </div>
-            <div class="modal-body" style="text-align: center">
-                <p>确认要删除该期任务吗？</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">点错了</button>
-                <button type="button" class="btn btn-primary done_confirm">确认删除</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 </body>
 <script>
     seajs.use('${ctx}/js/func/zhzs/zstask/main');

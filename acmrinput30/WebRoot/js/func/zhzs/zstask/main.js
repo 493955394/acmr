@@ -35,10 +35,9 @@ define(function (require,exports,module) {
     }
     //删除任务
     $(".zs_delete").click(function () {
-        $(".del_confirm").modal("show");
-    })
-    $(".done_confirm").click(function (){
-        $(".del_confirm").modal("hide");
+        if(!confirm("确定要删除该期任务吗？")){
+            return;
+        }
        var code = $("#getcode").val();
         $.ajax({
             url:common.rootPath+"zbdata/zstask.htm?m=delTask",
@@ -55,5 +54,26 @@ define(function (require,exports,module) {
                 }
             }
         })
-    })
+    });
+    //查询框
+
+    $(document).on('submit', '.J_search_form', function(event) {
+        event.preventDefault();
+        var self = this,
+            requestUrl = $(self).prop('action');
+        var time = $("#time").val();
+        var icode = $("#geticode").val();
+            $.ajax({
+            url:requestUrl,
+            data:{"icode":icode,"time":time},
+            type:'post',
+            datatype:'json',
+            timeout: 10000,
+            success:function (re) {
+
+                
+            }
+        })
+
+    });
 });

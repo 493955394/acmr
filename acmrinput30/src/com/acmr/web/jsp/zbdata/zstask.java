@@ -68,7 +68,6 @@ public class zstask extends BaseAction {
         JSONReturnData data = new JSONReturnData("");
         IndexTaskService indexTaskService =new IndexTaskService();
         String code = PubInfo.getString(req.getParameter("code"));
-        System.out.println(code);
         int result = indexTaskService.delTask(code);
         if(result == 1){
             data.setReturncode(200);

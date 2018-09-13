@@ -1,10 +1,11 @@
 package com.acmr.service.zhzs;
 
+import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.model.zhzs.IndexTask;
 import com.acmr.web.jsp.Index;
-
+import acmr.util.ListHashMap;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,13 +36,20 @@ public class IndexTaskService {
      * 任务列表按照任务时间期查询
      */
     public IndexTask findByTime(String time,String icode){
-        DataTableRow data = IndexTaskDao.Fator.getInstance().getIndexdatadao().findTask(time,icode).getRows().get(0);
+        DataTable data = IndexTaskDao.Fator.getInstance().getIndexdatadao().findTask(icode);
         IndexTask task = new IndexTask();
-        task.setCode(data.getString("code"));
-        task.setAyearmon(data.getString("ayearmon"));
-        task.setIndexcode(data.getString("indexcode"));
-        task.setCreatetime(data.getDate("createtime"));
-        task.setUpdatetime(data.getDate("updatetime"));
+        if(time.equals("")){
+            return task;
+        }
+        for (int i = 0; i <data.getRows().size() ; i++) {
+            if(data.getRows().get(i).getString("ayearmon").equals(time)){
+                task.setCode(data.getRows().get(i).getString("code"));
+                task.setAyearmon(data.getRows().get(i).getString("ayearmon"));
+                task.setIndexcode(data.getRows().get(i).getString("indexcode"));
+                task.setCreatetime(data.getRows().get(i).getDate("createtime"));
+                task.setUpdatetime(data.getRows().get(i).getDate("updatetime"));
+            }
+        }
         return task;
     }
     /**
