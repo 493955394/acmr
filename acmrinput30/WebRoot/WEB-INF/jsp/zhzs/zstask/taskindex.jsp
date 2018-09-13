@@ -50,6 +50,9 @@
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-sm">查询</button>
+            <%--文件上传--%>
+            <span class="btn btn-success fileinput-button"><span>文件上传测试使用</span><input type="file" name="file" id="J_fileupload_importTask" ></span>
+            <span id="import_count" class="form-group" style="margin-right:10px;"></span>
         </div>
     </form>
 
@@ -82,5 +85,6 @@
 </body>
 <script>
     seajs.use('${ctx}/js/func/zhzs/zstask/main');
+    seajs.use('${ctx}/js/func/zhzs/zstask/import');
 </script>
 </html>
