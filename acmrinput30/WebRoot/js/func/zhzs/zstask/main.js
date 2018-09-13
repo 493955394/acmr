@@ -33,4 +33,27 @@ define(function (require,exports,module) {
             }
         })
     }
+    //删除任务
+    $(".zs_delete").click(function () {
+        $(".del_confirm").modal("show");
+    })
+    $(".done_confirm").click(function (){
+        $(".del_confirm").modal("hide");
+       var code = $("#getcode").val();
+        $.ajax({
+            url:common.rootPath+"zbdata/zstask.htm?m=delTask",
+            data:{"code":code},
+            type:'post',
+            datatype:'json',
+            timeout: 10000,
+            success:function (re) {
+                if(re.returncode == 200){
+                    alert("删除成功！")
+                    window.location.reload(true);
+                }else {
+                    alert("删除失败！")
+                }
+            }
+        })
+    })
 });

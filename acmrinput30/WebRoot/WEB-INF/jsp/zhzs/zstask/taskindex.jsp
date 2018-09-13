@@ -71,10 +71,10 @@
                     <td>${vo.getAyearmon()}</td>
                     <td>${vo.getCreatetime()}</td>
                     <td>${vo.getUpdatetime()}</td>
-                    <input type="hidden" value="${vo.getCode()}">
+                    <input type="hidden" value="${vo.getCode()}" id="getcode">
                     <td>
                         <a class="zs_calculate">计算</a>
-                        <a>删除</a>
+                        <a class="zs_delete">删除</a>
                     </td>
                 </tr>
             </c:forEach>
@@ -82,6 +82,24 @@
         </table>
     </div>
 </div>
+
+<div class="modal fade del_confirm" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <p>确认要删除该期任务吗？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">点错了</button>
+                <button type="button" class="btn btn-primary done_confirm">确认删除</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </body>
 <script>
     seajs.use('${ctx}/js/func/zhzs/zstask/main');

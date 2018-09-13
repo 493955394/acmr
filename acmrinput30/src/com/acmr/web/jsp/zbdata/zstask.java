@@ -4,6 +4,7 @@ import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.helper.util.StringUtil;
+import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexTask;
 import com.acmr.service.zhzs.CreateTaskService;
@@ -46,13 +47,33 @@ public class zstask extends BaseAction {
      * @return
      * @throws IOException
      */
-    public ModelAndView findTask() throws IOException{
+    public void findTask() throws IOException{
         HttpServletRequest req = this.getRequest();
         // 获取查询数据
         IndexTaskService indexTaskService =new IndexTaskService();
-        String time = StringUtil.toLowerString(req.getParameter("time"));
-        String icode = StringUtil.toLowerString(req.getParameter("icode"));
+        String time = PubInfo.getString(req.getParameter("time"));
+        String icode = PubInfo.getString(req.getParameter("icode"));
         IndexTask indexTask = indexTaskService.findByTime(time,icode);
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/taskindex");
+        this.sendJson(indexTask);
+        return;
+    }
+
+    /**
+     * 删除任务
+     * @throws IOException
+     */
+    public void delTask() throws IOException{
+        HttpServletRequest req = this.getRequest();
+        // 获取要删的数据
+        JSONReturnData data = new JSONReturnData("");
+        IndexTaskService indexTaskService =new IndexTaskService();
+        String code = PubInfo.getString(req.getParameter("code"));
+        System.out.println(code);
+        int result = indexTaskService.delTask(code);
+        if(result == 1){
+            data.setReturncode(200);
+            this.sendJson(data);
+            return;
+        }
     }
 }
