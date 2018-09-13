@@ -136,6 +136,13 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
 
     }
 
+
+    @Override
+    public DataTable getTaskList(String icode){
+        String sql = "select * from tb_coindex_task where indexcode= ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode});
+    }
+
 /*    public static void main(String[] args) {
         OraIndexTaskDaoImpl oraIndexTaskDao=new OraIndexTaskDaoImpl();
         oraIndexTaskDao.hasTask("R001","2014");

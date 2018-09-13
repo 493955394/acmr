@@ -55,7 +55,7 @@
                         </c:if>
                         <a href="/">权限管理</a>
                         <a href="/">查看往期</a>
-                        <a href="/">指数任务</a>
+                        <a href="${ctx}/zbdata/zstask.htm?&id=${index.getCode()}">指数任务</a>
                     </c:if>
                     <c:if test="${index.getIfdata()==0}">
                         <a class="category_edit" href="javascript:;" name="${index.getCname()}" id="${index.getCode()}">编辑</a>
