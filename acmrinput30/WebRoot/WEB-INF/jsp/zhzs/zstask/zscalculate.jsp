@@ -22,6 +22,12 @@
                         <li role="presentation" class="active"><a href="#qzsz" aria-controls="qzsz" role="tab" data-toggle="tab">权重设置</a></li>
                         <li role="presentation"><a href="#yssj" aria-controls="yssj" role="tab" data-toggle="tab">原始数据</a></li>
                         <li role="presentation"><a href="#jsjg" aria-controls="jsjg" role="tab" data-toggle="tab">计算结果</a></li>
+                        <li role="presentation">
+                            <button type="button" class="btn btn-default">重新计算</button>
+                            <button type="button" class="btn btn-default">重置</button>
+                            <button type="button" class="btn btn-default">保存并重新计算</button>
+                            <button type="button" class="btn btn-default">关闭</button>
+                        </li>
                     </ul>
                 </div>
                 <!-- Tab panes -->
@@ -32,9 +38,17 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="yssj">
-                        <div>
-                            yssj
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <button type="button" class="btn btn-default" id="data_download">下载</button>
+                                <button type="button" class="btn btn-default" id="data_upload">上传数据</button>
+                                <button type="button" class="btn btn-default" id="data_reload">重新读取数据</button>
+                            </div>
+                            <div class="panel-body J_zsjs_data">
+                                <jsp:include page="/WEB-INF/jsp/zhzs/zstask/dataTable.jsp" flush="true"/>
+                            </div>
                         </div>
+
                     </div>
                     <div role="tabpanel" class="tab-pane" id="jsjg">
                         <div>

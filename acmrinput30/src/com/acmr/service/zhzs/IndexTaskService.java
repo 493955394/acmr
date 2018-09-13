@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IndexTaskService {
-    public boolean findSession(String sessionid){
-        Boolean bool= IndexTaskDao.Fator.getInstance().getIndexdatadao().hasData(sessionid);
+    public boolean findSession(String sessionid,String taskcode){
+        Boolean bool= IndexTaskDao.Fator.getInstance().getIndexdatadao().hasData(sessionid,taskcode);
         return bool;
     }
 

@@ -35,7 +35,8 @@ public class zstask extends BaseAction {
         HttpServletRequest req=this.getRequest();
         String sessionid=req.getSession().getId();
         PubInfo.printStr("id:"+sessionid);
+        String taskcode=req.getParameter("taskcode");
         IndexTaskService indexTaskService=new IndexTaskService();
-        this.sendJson(indexTaskService.findSession(sessionid));
+        this.sendJson(indexTaskService.findSession(sessionid,taskcode));
     }
 }

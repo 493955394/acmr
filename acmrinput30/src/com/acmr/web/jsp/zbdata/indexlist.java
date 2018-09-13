@@ -7,6 +7,7 @@ import acmr.web.entity.ModelAndView;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.zhzs.IndexList;
+import com.acmr.service.zhzs.CreateTaskService;
 import com.acmr.service.zhzs.IndexListService;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
@@ -198,6 +199,12 @@ public class indexlist extends BaseAction {
         indexList.setState(state);
         IndexListService.updateCatePlan(indexList);
         data.setReturncode(200);
+        //启用自动生成未生成的任务
+        IndexListService indexListService=new IndexListService();
+        IndexList index=indexListService.getData(code);
+        CreateTaskService createTaskService=new CreateTaskService();
+        List<String> periods=createTaskService.getPeriods(index);
+        createTaskService.createTasks(index,periods);
         this.sendJson(data);
     }
     /*//页面后台检查

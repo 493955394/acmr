@@ -144,12 +144,12 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
     }
 
     @Override
-    public boolean hasData(String sessionid) {
-        String sql="select * from tb_coindex_data_tmp where sessionid=?";
-        DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{sessionid});
+    public boolean hasData(String sessionid,String taskcode) {
+        String sql="select * from tb_coindex_data_tmp where sessionid=? and taskcode=?";
+        DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{sessionid,taskcode});
         List<DataTableRow> row=table.getRows();
-        String sql1="select * from tb_coindex_data_result_tmp where sessionid=?";
-        DataTable table1=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql1,new Object[]{sessionid});
+        String sql1="select * from tb_coindex_data_result_tmp where sessionid=? and taskcode=?";
+        DataTable table1=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql1,new Object[]{sessionid,taskcode});
         List<DataTableRow> row1=table1.getRows();
         if (row.size()>0||row1.size()>0){
             return true;

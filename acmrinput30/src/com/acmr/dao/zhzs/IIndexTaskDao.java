@@ -6,5 +6,5 @@ public interface IIndexTaskDao {
     public boolean hasTask(String indexcode,String ayearmon);
     public int create(String indexcode,String tcode,String ayearmon,String createtime);
     public DataTable getTaskList(String icode);
-    public boolean hasData(String sessionid);
+    public boolean hasData(String sessionid,String taskcode);
 }
