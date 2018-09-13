@@ -18,7 +18,7 @@ public class zstask extends BaseAction {
 
     public ModelAndView main() throws IOException {
         String icode = this.getRequest().getParameter("id");
-        CreateTaskService task = new CreateTaskService();
+        IndexTaskService task = new IndexTaskService();
         List<IndexTask> tasklist = task.getTaskByIcode(icode);
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/taskindex").addObject("tasklist",tasklist);
     }

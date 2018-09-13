@@ -116,24 +116,6 @@ public class CreateTaskService {
         }
     }
 
-    /**
-     * 任务列表展示
-     */
-    public ArrayList<IndexTask> getTaskByIcode(String icode){
-        ArrayList<IndexTask> indexTasks = new ArrayList<>();
-        List<DataTableRow> data = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskList(icode).getRows();
-        for (int i = 0; i <data.size() ; i++) {
-            IndexTask task = new IndexTask();
-            task.setCode(data.get(i).getString("code"));
-            task.setAyearmon(data.get(i).getString("ayearmon"));
-            task.setIndexcode(data.get(i).getString("indexcode"));
-            task.setCreatetime(data.get(i).getDate("createtime"));
-            task.setUpdatetime(data.get(i).getDate("updatetime"));
-            indexTasks.add(task);
-        }
-        return indexTasks;
-    }
-
 
 /*    public static void main(String[] args) throws ParseException {
         createAll();
