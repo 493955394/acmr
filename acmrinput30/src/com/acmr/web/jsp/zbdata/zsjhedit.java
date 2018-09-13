@@ -187,7 +187,8 @@ public class zsjhedit extends BaseAction {
                 proname = list1.getCname();
             }
             ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("list",list).addObject("zbs",zbs).addObject("indexlist",indexlist).addObject("proname",proname);
+            List<Map> region = regshow(code);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("list",list).addObject("zbs",zbs).addObject("indexlist",indexlist).addObject("proname",proname).addObject("regs",region);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/regSelect").addObject("regs",regnames).addObject("data",data1).addObject("check",checkresult);
         }
@@ -277,7 +278,8 @@ public class zsjhedit extends BaseAction {
                 proname = list1.getCname();
             }
             ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("list",list).addObject("zbs",zbs).addObject("indexlist",indexlist).addObject("proname",proname);
+            List<Map> region = regshow(code);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("list",list).addObject("zbs",zbs).addObject("indexlist",indexlist).addObject("proname",proname).addObject("regs",region);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/regSelect").addObject("regname",regionname).addObject("singledata",singledata1).addObject("times",sjs).addObject("check",check);
         }

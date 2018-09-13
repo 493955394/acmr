@@ -11,13 +11,16 @@
     .red{
         background-color: red;
     }
+    table{
+        table-layout:fixed;word-break:break-all;
+    }
 </style>
 <div style="height: 500px;width: 710px;overflow:auto;display: none " id="regtable">
     <table class="table table-bordered" id="tabledata" >
         <thead>
         <tr>
-        <th class="text-center">时间</th>
-        <th>指标</th>
+        <th width="10%">时间</th>
+        <th width="20%">指标</th>
         <c:forEach items="${regs}" var="reg">
             <th>${reg}</th>
         </c:forEach>
