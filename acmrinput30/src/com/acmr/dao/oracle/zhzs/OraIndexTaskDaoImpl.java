@@ -143,6 +143,22 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode});
     }
 
+    @Override
+    public boolean hasData(String sessionid) {
+        String sql="select * from tb_coindex_data_tmp where sessionid=?";
+        DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{sessionid});
+        List<DataTableRow> row=table.getRows();
+        String sql1="select * from tb_coindex_data_result_tmp where sessionid=?";
+        DataTable table1=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql1,new Object[]{sessionid});
+        List<DataTableRow> row1=table1.getRows();
+        if (row.size()>0||row1.size()>0){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 /*    public static void main(String[] args) {
         OraIndexTaskDaoImpl oraIndexTaskDao=new OraIndexTaskDaoImpl();
         oraIndexTaskDao.hasTask("R001","2014");
