@@ -11,6 +11,8 @@ import acmr.excel.pojo.ExcelBook;
 import acmr.excel.pojo.ExcelCell;
 import acmr.excel.pojo.ExcelRow;
 import acmr.excel.pojo.ExcelSheet;
+import acmr.math.CalculateExpression;
+import acmr.math.entity.MathException;
 import acmr.util.PubInfo;
 
 import acmr.web.control.BaseAction;
@@ -26,6 +28,7 @@ import com.acmr.service.zbdata.RegdataService;
 import com.acmr.service.zbdata.ZBdataService;
 import com.acmr.service.zhzs.IndexEditService;
 import com.acmr.service.zhzs.IndexListService;
+import com.acmr.service.zhzs.MathService;
 import com.alibaba.fastjson.JSONObject;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
@@ -50,7 +53,7 @@ public class zsjhedit extends BaseAction {
     private  String regionname;
     private  String excelsj;
 
-    static ScriptEngine jse = new ScriptEngineManager().getEngineByName("JavaScript");
+    private CalculateExpression ce = new CalculateExpression();
     public ModelAndView editIndex(){
         /* 第一个分页显示*/
         String code = this.getRequest().getParameter("id");
@@ -970,9 +973,12 @@ public class zsjhedit extends BaseAction {
             String temp = "#"+zbchoose.get(i).get("zbname").toString()+"("+zbchoose.get(i).get("dsname").toString()+","+zbchoose.get(i).get("unitname").toString()+")#";
             str = str.replace(temp," 2.0 ");//随便给个数算
         }
+        str = str.replace("random()","chance()");//不能用random这个函数名因为有个and会报错
         try {
-            System.out.println(jse.eval(str));
-        } catch (Exception t) {
+            ce.setFunctionclass(new MathService());
+            System.out.println(ce.Eval(str));
+        } catch (MathException e) {
+            e.printStackTrace();
             System.out.println("error");
             return false;
         }

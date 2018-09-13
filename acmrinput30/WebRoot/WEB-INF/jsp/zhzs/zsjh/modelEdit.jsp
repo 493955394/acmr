@@ -147,20 +147,20 @@
                         </div>
                         <div class="col-sm-2">
                             <select size="15" id="hanshu">
-                                <option>Math.abs</option>
-                                <option>Math.max</option>
-                                <option>Math.min</option>
-                                <option>Math.pow(x,y)</option>
-                                <option>Math.exp</option>
-                                <option>Math.log10</option>
-                                <option>Math.log</option>
-                                <option>Math.random</option>
-                                <option>add(BigInteger val)</option>
+                                <option value="abs()">Math.abs</option>
+                                <option value="max()">Math.max</option>
+                                <option value="min()">Math.min</option>
+                                <option value="pow()">Math.pow(x,y)</option>
+                                <option value="exp()">Math.exp</option>
+                                <option value="log10()">Math.log10</option>
+                                <option value="log()">Math.log</option>
+                                <option value="random()">Math.random</option>
+                             <%--   <option>add(BigInteger val)</option>
                                 <option>subtract(BigInteger val)</option>
                                 <option>multiply(BigInteger val)</option>
                                 <option>divide(BigInteger val)</option>
                                 <option>compareTo(BigInteger val)</option>
-                                <option>pow(int exponent)</option>
+                                <option>pow(int exponent)</option>--%>
                             </select>
                         </div>
                     </div>

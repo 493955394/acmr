@@ -129,10 +129,14 @@ define(function (require,exports,module) {
     $("#add_zb").click(function (){
         $(".zb_index").val();//获取当前选择项的值.
         var options=$(".zb_index option:selected");//获取当前选择项
-        var code = options.val();//获取当前选择项的值
-        var cname = options.text();//获取当前选择项的文本
-        var str = "#"+cname+"#";
-        addExpressContent(str);
+        if(options){
+            var code = options.val();//获取当前选择项的值
+            var cname = options.text();//获取当前选择项的文本
+            var str = "#"+cname+"#";
+            if(cname !=""){
+                addExpressContent(str);
+            }
+        }
     })
     /**
      * 函数的添加
@@ -140,9 +144,8 @@ define(function (require,exports,module) {
     $("#add_hanshu").click(function () {
         $("#hanshu").val();//获取当前选择项的值.
         var options=$("#hanshu option:selected");//获取当前选择项
-        var code = options.val();//获取当前选择项的值
-        var cname = options.text();//获取当前选择项的文本
-        var str = cname;
+        var str = options.val();//获取当前选择项的值
+        var text = options.text();//获取当前选择项的文本
         addExpressContent(str);
     });
 
