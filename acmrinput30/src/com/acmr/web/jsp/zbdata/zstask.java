@@ -23,7 +23,7 @@ public class zstask extends BaseAction {
         String icode = this.getRequest().getParameter("id");
         IndexTaskService task = new IndexTaskService();
         List<IndexTask> tasklist = task.getTaskByIcode(icode);
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/taskindex").addObject("tasklist",tasklist);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/taskindex").addObject("tasklist",tasklist).addObject("icode",icode);
     }
     /**
     * @Description:  根据传来的session在数据临时表中找是否有记录过的
@@ -47,15 +47,21 @@ public class zstask extends BaseAction {
      * @return
      * @throws IOException
      */
-    public void findTask() throws IOException{
+    public ModelAndView findTask() throws IOException{
         HttpServletRequest req = this.getRequest();
         // 获取查询数据
         IndexTaskService indexTaskService =new IndexTaskService();
-        String time = PubInfo.getString(req.getParameter("time"));
-        String icode = PubInfo.getString(req.getParameter("icode"));
-        IndexTask indexTask = indexTaskService.findByTime(time,icode);
-        this.sendJson(indexTask);
-        return;
+        String time = StringUtil.toLowerString(req.getParameter("time"));
+        String icode = PubInfo.getString(req.getParameter("id"));
+        ArrayList<IndexTask> indexTask = indexTaskService.findByTime(time,icode);
+        // 判断是否pjax 请求
+        String pjax = req.getHeader("X-PJAX");
+        if (StringUtil.isEmpty(pjax)) {
+            List<IndexTask> tasklist = indexTaskService.getTaskByIcode(icode);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/taskindex").addObject("tasklist",tasklist).addObject("icode",icode);
+        } else {
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tasktable").addObject("tasklist",indexTask);
+        }
     }
 
     /**

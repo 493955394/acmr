@@ -55,32 +55,10 @@
             <span id="import_count" class="form-group" style="margin-right:10px;"></span>
         </div>
     </form>
-
-        <table class="table table-striped table-hover J_zsrw_table">
-            <thead>
-            <tr>
-                <th>任务时间期</th>
-                <th>创建时间</th>
-                <th>更新时间</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody class="list_body my_received">
-            <c:forEach items="${tasklist}" var="vo">
-                <tr>
-                    <td>${vo.getAyearmon()}</td>
-                    <td>${vo.getCreatetime()}</td>
-                    <td>${vo.getUpdatetime()}</td>
-                    <input type="hidden" value="${vo.getCode()}" id="getcode">
-                    <input type="hidden" value="${vo.getIndexcode()}" id="geticode">
-                    <td>
-                        <a class="zs_calculate">计算</a>
-                        <a class="zs_delete">删除</a>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+        <input type="hidden" class="geticode" value="${icode}">
+        <div class="task_table">
+        <jsp:include page="/WEB-INF/jsp/zhzs/zstask/tasktable.jsp" flush="true"/>
+        </div>
     </div>
 </div>
 

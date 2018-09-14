@@ -3,9 +3,9 @@ define(function (require,exports,module) {
     var $ = require('jquery'),
         Pagination = require('pagination'),
         common = require('common'),
+        pjax=require('pjax'),
         modal = require('modal');
-
-
+    var icode = $(".geticode").val();
     $(".zs_calculate").click(hasSession)
 
     function hasSession(){
@@ -38,7 +38,7 @@ define(function (require,exports,module) {
         if(!confirm("确定要删除该期任务吗？")){
             return;
         }
-       var code = $("#getcode").val();
+        var code=$(this).parent().prev().val();
         $.ajax({
             url:common.rootPath+"zbdata/zstask.htm?m=delTask",
             data:{"code":code},
@@ -62,18 +62,9 @@ define(function (require,exports,module) {
         var self = this,
             requestUrl = $(self).prop('action');
         var time = $("#time").val();
-        var icode = $("#geticode").val();
-            $.ajax({
-            url:requestUrl,
-            data:{"icode":icode,"time":time},
-            type:'post',
-            datatype:'json',
-            timeout: 10000,
-            success:function (re) {
-
-                
-            }
-        })
-
+        $.pjax({
+            url: requestUrl+"&time="+time+"&id="+icode,
+            container: '.task_table'
+        });
     });
 });
