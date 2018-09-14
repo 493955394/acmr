@@ -35,22 +35,22 @@ public class IndexTaskService {
     /**
      * 任务列表按照任务时间期查询
      */
-    public IndexTask findByTime(String time,String icode){
-        DataTable data = IndexTaskDao.Fator.getInstance().getIndexdatadao().findTask(icode);
-        IndexTask task = new IndexTask();
+    public ArrayList<IndexTask> findByTime(String time,String icode){
+        DataTable data = IndexTaskDao.Fator.getInstance().getIndexdatadao().findTask(icode,time);
+        ArrayList<IndexTask> tasklist = new ArrayList<IndexTask>();
         if(time.equals("")){
-            return task;
+            return tasklist;
         }
         for (int i = 0; i <data.getRows().size() ; i++) {
-            if(data.getRows().get(i).getString("ayearmon").equals(time)){
+            IndexTask task = new IndexTask();
                 task.setCode(data.getRows().get(i).getString("code"));
                 task.setAyearmon(data.getRows().get(i).getString("ayearmon"));
                 task.setIndexcode(data.getRows().get(i).getString("indexcode"));
                 task.setCreatetime(data.getRows().get(i).getDate("createtime"));
                 task.setUpdatetime(data.getRows().get(i).getDate("updatetime"));
-            }
+                tasklist.add(task);
         }
-        return task;
+        return tasklist;
     }
     /**
      * 指数任务删除
@@ -59,3 +59,4 @@ public class IndexTaskService {
         return IndexTaskDao.Fator.getInstance().getIndexdatadao().delTask(code);
     }
 }
+
