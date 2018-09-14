@@ -166,8 +166,14 @@ public class zsjhedit extends BaseAction {
                 datas.add(sjs[i]);//获取时间
                 datas.add(zbnames[j]);//获取地区
                 for (int k = 0; k <result.size() ; k++) {
-                    double resulttemp = result.get(k).getData().getData()*rate;
-                    datas.add(resulttemp+"") ;
+                    if(result.get(k).getData().toString() != ""){
+                        double resulttemp = result.get(k).getData().getData()*rate;
+                        datas.add(resulttemp+"");
+                    }
+                    else{
+                        datas.add("");
+                    }
+
                 }
                 /*for (int k = datas.size(); k <regs.length+2 ; k++) {//补齐单元格
                     datas.add("0.0");
@@ -213,8 +219,8 @@ public class zsjhedit extends BaseAction {
                 where.Add("sj", Arrays.asList(sjs));
                 ArrayList<CubeQueryData> result1 = RegdataService.queryData("cuscxnd",where);
                 for (int k = 0; k <result1.size() ; k++) {
-                    double result2 = result1.get(k).getData().getData();
-                    if(result2 == 0.0 ){
+                    String result2 = result1.get(k).getData().toString();
+                    if(result2 =="" ){
                         check ="1";
                     }
                 }
@@ -353,8 +359,8 @@ public class zsjhedit extends BaseAction {
             String ceshi = obs[2].toString();*/
             String arr =data1.get(i).toString().substring(1,data1.get(i).toString().length()-1);
             dr1 = sheet1.addRow();
-            String a2 = arr.replaceAll("0.0"," ");
-            String [] a3 = a2.split(",");
+           // String a2 = arr.replaceAll("0.0"," ");
+            String [] a3 = arr.split(",");
             for(int j=0;j<a3.length;j++){
                 /*int a = arr[j];
                 if(a == 0.0){
@@ -436,8 +442,8 @@ public class zsjhedit extends BaseAction {
             String ceshi = obs[2].toString();*/
             dr1 = sheet1.addRow();
             String arr =singledata1.get(i).toString().substring(1,singledata1.get(i).toString().length()-1);
-            String a2 = arr.replaceAll("0.0"," ");
-            String [] a3 = a2.split(",");
+          //  String a2 = arr.replaceAll("0.0"," ");
+            String [] a3 = arr.split(",");
             for(int j=0;j<a3.length;j++){
                 cell2 = cell1.clone();
                 cell2.setCellValue(a3[j]);
