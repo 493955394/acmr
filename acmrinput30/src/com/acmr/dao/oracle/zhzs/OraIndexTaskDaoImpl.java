@@ -7,6 +7,7 @@ import acmr.util.PubInfo;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexTaskDao;
 import com.acmr.model.zhzs.TaskZb;
+import org.omg.PortableInterceptor.ACTIVE;
 
 import javax.xml.crypto.Data;
 import java.sql.SQLException;
@@ -197,6 +198,12 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
         String sql="select * from tb_coindex_task where code=?";
         String ayearmon=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{taskcode}).getRows().get(0).getString("ayearmon");
         return ayearmon;
+    }
+
+    @Override
+    public String getzbcode(String ZBcode) {
+        String sql="select zbcode from tb_coindex_task_zb where code=?";
+        return AcmrInputDPFactor.getQuickQuery().getDataScarSql(sql,new Object[]{ZBcode});
     }
 /*    public static void main(String[] args) {
         OraIndexTaskDaoImpl oraIndexTaskDao=new OraIndexTaskDaoImpl();

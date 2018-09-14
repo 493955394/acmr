@@ -6,6 +6,7 @@ import acmr.web.entity.ModelAndView;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zhzs.IndexListService;
 import com.acmr.service.zhzs.IndexTaskService;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,10 +25,15 @@ public class zscalculate extends BaseAction {
         //String test="重新计算";
         HttpServletRequest req=this.getRequest();
         IndexTaskService indexTaskService=new IndexTaskService();
+        OriginService originService=new OriginService();
         String taskcode=req.getParameter("taskcode");
         String ayearmon=indexTaskService.getTime(taskcode);
         List<List<String>> data=getOriginData(false,taskcode,ayearmon);
-        List<String> regs=indexTaskService.getTaskRegs(taskcode);
+        List<String> regscode=indexTaskService.getTaskRegs(taskcode);
+        List<String> regs=new ArrayList<>();
+        for (int i=0;i<regscode.size();i++){
+            regs.add(originService.getwdnode("reg",regscode.get(i)).getName());
+        }
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data",data).addObject("regs",regs);
     }
 
@@ -42,11 +48,16 @@ public class zscalculate extends BaseAction {
         HttpServletRequest req=this.getRequest();
         String sessionid=req.getSession().getId();
         IndexTaskService indexTaskService=new IndexTaskService();
+        OriginService originService=new OriginService();
         String taskcode=req.getParameter("taskcode");
         //取对应id的数据
         String ayearmon=indexTaskService.getTime(taskcode);
         List<List<String>> data=getOriginData(true,taskcode,ayearmon);
-        List<String> regs=indexTaskService.getTaskRegs(taskcode);
+        List<String> regscode=indexTaskService.getTaskRegs(taskcode);
+        List<String> regs=new ArrayList<>();
+        for (int i=0;i<regscode.size();i++){
+            regs.add(originService.getwdnode("reg",regscode.get(i)).getName());
+        }
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data",data).addObject("regs",regs);
 
     }
@@ -72,7 +83,8 @@ public class zscalculate extends BaseAction {
         else {
             for (int i=0;i<ZBcodes.size();i++){
                 List<String> row=new ArrayList<>();
-                row.add(ZBcodes.get(i));
+                String ZBcode=ZBcodes.get(i);
+                row.add(indexTaskService.getzbname(ZBcode));
                 for (int j=0;j<regs.size();j++){
                     String data=indexTaskService.getData(taskcode,regs.get(j),ZBcodes.get(i),ayearmon);
                     row.add(data);

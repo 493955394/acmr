@@ -4,6 +4,7 @@ import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.model.zhzs.IndexTask;
+import com.acmr.service.zbdata.OriginService;
 import com.acmr.web.jsp.Index;
 import acmr.util.ListHashMap;
 import java.util.ArrayList;
@@ -112,6 +113,20 @@ public class IndexTaskService {
     public String getTime(String taskcode){
         String ayearmon=IndexTaskDao.Fator.getInstance().getIndexdatadao().getTime(taskcode);
         return ayearmon;
+    }
+
+    /**
+    * @Description: 获取指标的名称
+    * @Param: [code]
+    * @return: java.lang.String
+    * @Author: lyh
+    * @Date: 2018/9/14
+    */
+    public String getzbname(String ZBcode){
+        String zbcode=IndexTaskDao.Fator.getInstance().getIndexdatadao().getzbcode(ZBcode);
+        OriginService originService=new OriginService();
+        String zbname=originService.getwdnode("zb",zbcode).getName();
+        return zbname;
     }
 }
 
