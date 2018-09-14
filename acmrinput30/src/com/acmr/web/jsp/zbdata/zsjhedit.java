@@ -50,7 +50,7 @@ public class zsjhedit extends BaseAction {
     private List data1;
     private  String regname;
     private  List singledata1;
-    private  String regionname;
+    private  String singlereg;
     private  String excelsj;
 
     private CalculateExpression ce = new CalculateExpression();
@@ -231,7 +231,7 @@ public class zsjhedit extends BaseAction {
         HttpServletRequest req = this.getRequest();
         String pjax = req.getHeader("X-PJAX");
         OriginService originService=new OriginService();
-        String reg = PubInfo.getString(req.getParameter("reg"));//地区
+        singlereg = PubInfo.getString(req.getParameter("reg"));//地区
         excelsj = PubInfo.getString(req.getParameter("sj"));//时间
         String zbcode = PubInfo.getString(req.getParameter("zb"));//zbcode
         String zbname = PubInfo.getString(req.getParameter("zbname"));//zbname
@@ -245,7 +245,7 @@ public class zsjhedit extends BaseAction {
         String [] dss = ds.split(",");
         String [] cos = co.split(",");
         String [] units = zbunit.split(",");
-        regionname = originService.getwdnode("reg",reg).getName();
+        String regionname = originService.getwdnode("reg",singlereg).getName();
         singledata1 = new ArrayList();
         for (int i = 0; i <zbcodes.length ; i++) {
             List <String> datas=new ArrayList();
@@ -258,7 +258,7 @@ public class zsjhedit extends BaseAction {
                 where.Add("zb", zbcodes[i]);
                 where.Add("ds", dss[i]);
                 where.Add("co", cos[i]);
-                where.Add("reg", reg);
+                where.Add("reg", singlereg);
                 where.Add("sj", sjs[j]);
                 ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
                 for (int k = 0; k <result.size() ; k++) {
@@ -390,6 +390,7 @@ public class zsjhedit extends BaseAction {
         //接参
         HttpServletRequest req = this.getRequest();
         OriginService originService=new OriginService();
+        String name = originService.getwdnode("reg",singlereg).getName();
         /*req.getAttribute("excelregs");
         req.getAttribute("exceldata");*/
         /*String regname = PubInfo.getString(req.getParameter("excelregs"));//地区名称
@@ -449,7 +450,7 @@ public class zsjhedit extends BaseAction {
         resp.setContentType("application/vnd.ms-excel; charset=UTF-8");
         resp.setHeader("Pragma", "public");
         resp.setHeader("Cache-Control", "max-age=30");
-        String fileName=regionname;
+        String fileName=name;
         fileName=java.net.URLEncoder.encode(fileName, "UTF-8");
         resp.addHeader("Content-Disposition", "attachment; filename="+fileName+".xlsx");
         //resp.addHeader("Content-Disposition", "attachment; filename=" + "singleindex.xlsx");
