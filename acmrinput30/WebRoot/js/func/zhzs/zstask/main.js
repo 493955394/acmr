@@ -6,7 +6,9 @@ define(function (require,exports,module) {
         pjax=require('pjax'),
         modal = require('modal');
     var icode = $(".geticode").val();
-    $(".zs_calculate").click(hasSession)
+
+    $(document).on("click",".zs_calculate",hasSession)
+    //$(".zs_calculate").click(hasSession)
 
     function hasSession(){
         var taskcode=$(this).parent().prev().val();
@@ -34,7 +36,7 @@ define(function (require,exports,module) {
         })
     }
     //删除任务
-    $(".zs_delete").click(function () {
+    $(document).on("click",".zs_delete",function () {
         if(!confirm("确定要删除该期任务吗？")){
             return;
         }
@@ -54,7 +56,7 @@ define(function (require,exports,module) {
                 }
             }
         })
-    });
+    })
     //查询框
 
     $(document).on('submit', '.J_search_form', function(event) {
