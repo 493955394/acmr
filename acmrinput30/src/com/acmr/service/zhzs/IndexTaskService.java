@@ -7,6 +7,7 @@ import com.acmr.model.zhzs.IndexTask;
 import com.acmr.web.jsp.Index;
 import acmr.util.ListHashMap;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class IndexTaskService {
@@ -57,6 +58,60 @@ public class IndexTaskService {
      */
     public int delTask(String code){
         return IndexTaskDao.Fator.getInstance().getIndexdatadao().delTask(code);
+    }
+    
+    /** 
+    * @Description: 返回任务的地区list  
+    * @Param: [taskcode] 
+    * @return: java.util.List<java.lang.String> 
+    * @Author: lyh
+    * @Date: 2018/9/14 
+    */ 
+    public List<String> getTaskRegs(String taskcode){
+        List<String> regs=new ArrayList<>();
+        List<DataTableRow> rows=IndexTaskDao.Fator.getInstance().getIndexdatadao().getZBs(taskcode).getRows();
+        String tregs=rows.get(0).getString("regions");
+        regs= Arrays.asList(tregs.split(","));
+        return regs;
+    }
+    
+    /** 
+    * @Description: 返回任务的指标code列表 
+    * @Param: [taskcode] 
+    * @return: java.util.List<java.lang.String> 
+    * @Author: lyh
+    * @Date: 2018/9/14 
+    */ 
+    public List<String> getZBcodes(String taskcode){
+        List<String> ZBcodes=new ArrayList<>();
+        List<DataTableRow> rows=IndexTaskDao.Fator.getInstance().getIndexdatadao().getZBs(taskcode).getRows();
+        for (int i=0;i<rows.size();i++){
+            ZBcodes.add(rows.get(i).getString("code"));
+        }
+        return ZBcodes;
+    }
+
+    /**
+    * @Description: 从原始data表中返回数据
+    * @Param: [taskcode, region, zbcode, ayearmon]
+    * @return: java.lang.String
+    * @Author: lyh
+    * @Date: 2018/9/14
+    */
+    public String getData(String taskcode,String region,String zbcode,String ayearmon){
+        return IndexTaskDao.Fator.getInstance().getIndexdatadao().getData(taskcode,region,zbcode,ayearmon);
+    }
+
+    /**
+    * @Description: 返回任务的时间期
+    * @Param: [taskcode]
+    * @return: java.lang.String
+    * @Author: lyh
+    * @Date: 2018/9/14
+    */
+    public String getTime(String taskcode){
+        String ayearmon=IndexTaskDao.Fator.getInstance().getIndexdatadao().getTime(taskcode);
+        return ayearmon;
     }
 }
 

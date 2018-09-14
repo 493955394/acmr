@@ -35,10 +35,9 @@ public class IndexList {
     /** 更新时间 */
 
     public IndexList(){
-        PubInfo.printStr("indexlist无参构造方法");
+
     }
     public IndexList(String code,String cname,String procode,String sort,String startperiod,String delayday,String planperiod,Date plantime,String createuser){
-        PubInfo.printStr("indexlist有参构造方法");
         this.code=code;
         this.cname=cname;
         this.procode=procode;

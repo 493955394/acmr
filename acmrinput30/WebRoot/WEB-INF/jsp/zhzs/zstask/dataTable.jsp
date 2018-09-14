@@ -9,9 +9,20 @@
                 <thead>
                 <tr id="mod_list_head">
                     <td>指标</td>
-
+                    <c:forEach items="${regs}" var="reg">
+                        <td>${reg}</td>
+                    </c:forEach>
                 </tr>
                 </thead>
+                <tbody>
+                <c:forEach items="${data}" var="row">
+                    <tr>
+                        <c:forEach items="${row}" var="td">
+                            <td>${td}</td>
+                        </c:forEach>
+                    </tr>
+                </c:forEach>
+                </tbody>
             </table>
         </div>
     </div>

@@ -17,7 +17,7 @@ define(function (require,exports,module) {
         $.pjax({
             url:common.rootPath+'zbdata/weightset.htm?m=editweight&icode='+icode+'&st='+st,
             container:'.J_weight_table',
-            timeout:5000
+            timeout:10000
         })
         $(document).on('pjax:success', function() {
             $(".mod_up").unbind("click")

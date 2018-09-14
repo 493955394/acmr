@@ -3,6 +3,7 @@ package com.acmr.model.zhzs;
 import acmr.cubequery.service.cubequery.entity.CubeWdCodes;
 import acmr.util.PubInfo;
 import com.acmr.service.zbdata.OriginService;
+import com.acmr.service.zbdata.ZBdataService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +30,7 @@ public class TaskZb {
     /** 小数点位数 */
 
     public TaskZb(){
-        PubInfo.printStr("无参构造方法");
+
     }
     public TaskZb(String code,String taskcode,String zbcode,String company,String datasource,String regions,String unitcode){
         this.code=code;
@@ -126,21 +127,45 @@ public class TaskZb {
         List<String> regs= Arrays.asList(this.regions.split(","));
         String funit=originService.getwdnode("zb",this.zbcode).getUnitcode();
         double rate=originService.getRate(funit,this.unitcode,time);
-        for (int i=0;i<regs.size();i++){
-            CubeWdCodes where = new CubeWdCodes();
-            where.Add("reg",regs.get(i));
-            where.Add("zb",this.zbcode);
-            where.Add("ds",this.datasource);
-            where.Add("co",this.company);
-            where.Add("sj",time);
-            if(originService.querydata(where).size()>0){
-                double d=originService.querydata(where).get(0).getData().getData()*rate;
-                data.add(d);
+        //查这个时间是否有值
+        ZBdataService zBdataService=new ZBdataService();
+        List<String> sjs=zBdataService.getHasDataNodeO(zbcode,"sj");
+        Boolean hassj=false;
+        for (int s=0;s<sjs.size();s++){
+            if (sjs.get(s).equals(time)){
+                hassj=true;
             }
-            else {
+        }
+        if (hassj){
+            for (int i=0;i<regs.size();i++){
+                //检查这个地区是否有值
+                List<String> hasregs=zBdataService.getHasDataNodeO(zbcode,"reg");
+                Boolean hasreg=false;
+                for (int r=0;r<hasregs.size();r++){
+                    if (hasregs.get(r).equals(regs.get(i))){
+                        hasreg=true;
+                    }
+                }
+                if (hasreg){
+                    CubeWdCodes where = new CubeWdCodes();
+                    where.Add("reg",regs.get(i));
+                    where.Add("zb",this.zbcode);
+                    where.Add("ds",this.datasource);
+                    where.Add("co",this.company);
+                    where.Add("sj",time);
+                    double d=originService.querydata(where).get(0).getData().getData()*rate;
+                   // PubInfo.printStr("sj:"+time+"reg"+regs.get(i)+"d"+String.valueOf(d));
+                    data.add(d);
+                }
+                else data.add(null);
+            }
+        }
+        else {
+            for (int i=0;i<regs.size();i++){
                 data.add(null);
             }
         }
+
         return data;
     }
 }

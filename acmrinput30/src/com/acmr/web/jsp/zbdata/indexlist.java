@@ -200,11 +200,13 @@ public class indexlist extends BaseAction {
         IndexListService.updateCatePlan(indexList);
         data.setReturncode(200);
         //启用自动生成未生成的任务
-        IndexListService indexListService=new IndexListService();
-        IndexList index=indexListService.getData(code);
-        CreateTaskService createTaskService=new CreateTaskService();
-        List<String> periods=createTaskService.getPeriods(index);
-        createTaskService.createTasks(index,periods);
+        if (state.equals("1")){
+            IndexListService indexListService=new IndexListService();
+            IndexList index=indexListService.getData(code);
+            CreateTaskService createTaskService=new CreateTaskService();
+            List<String> periods=createTaskService.getPeriods(index);
+            createTaskService.createTasks(index,periods);
+        }
         this.sendJson(data);
     }
     /*//页面后台检查

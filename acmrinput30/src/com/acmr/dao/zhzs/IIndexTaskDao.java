@@ -9,4 +9,7 @@ public interface IIndexTaskDao {
     public boolean hasData(String sessionid,String taskcode);
     public DataTable findTask(String icode,String time);
     public int delTask(String code);
+    public DataTable getZBs(String taskcode);
+    public String getData(String taskcode,String region,String zbcode,String ayearmon);
+    public String getTime(String taskcode);
 }
