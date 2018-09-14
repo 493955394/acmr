@@ -96,13 +96,15 @@ define(function (require,exports,module) {
     /**
      * 编辑数据
      */
-    $('.category_edit').click(function () {
+    $(document).on('click','.category_edit',function (event) {
+        event.preventDefault();
         var code =$(this).attr('id');
         var name = $(this).attr('name');
         $('input[name=editcode]').val(code);
         $('input[name=editcname]').val(name);
         $("#mymodal-data3").modal('show');
-    });
+    })
+
     $(document).on('submit', '.J_add_edit', function(event) {
         event.preventDefault();
         var self = this,
