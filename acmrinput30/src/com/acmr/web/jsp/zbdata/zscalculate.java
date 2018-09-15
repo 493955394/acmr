@@ -3,11 +3,10 @@ package com.acmr.web.jsp.zbdata;
 import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
+import com.acmr.dao.zhzs.IndexTaskDao;
+import com.acmr.helper.util.StringUtil;
 import com.acmr.service.zbdata.OriginService;
-import com.acmr.service.zhzs.IndexListService;
 import com.acmr.service.zhzs.IndexTaskService;
-import com.sun.org.apache.xpath.internal.operations.Or;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class zscalculate extends BaseAction {
         for (int i=0;i<regscode.size();i++){
             regs.add(originService.getwdnode("reg",regscode.get(i)).getName());
         }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data",data).addObject("regs",regs);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data",data).addObject("regs",regs).addObject("taskcode",taskcode);
     }
 
     /**
@@ -58,8 +57,23 @@ public class zscalculate extends BaseAction {
         for (int i=0;i<regscode.size();i++){
             regs.add(originService.getwdnode("reg",regscode.get(i)).getName());
         }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data",data).addObject("regs",regs);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data",data).addObject("regs",regs).addObject("taskcode",taskcode);
 
+    }
+
+    public void ReData(){
+        HttpServletRequest req = this.getRequest();
+        IndexTaskService indexTaskService=new IndexTaskService();
+        String taskcode=req.getParameter("taskcode");
+        String ayearmon=indexTaskService.getTime(taskcode);
+        IndexTaskDao.Fator.getInstance().getIndexdatadao().ReData(taskcode);
+      /*  List<List<String>> data=getOriginData(true,taskcode,ayearmon);
+        String pjax = req.getHeader("X-PJAX");
+        if (StringUtil.isEmpty(pjax)) {
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("data",data);
+        } else {
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
+        }*/
     }
 
 

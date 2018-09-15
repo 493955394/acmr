@@ -109,7 +109,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                     String region=regs.get(n);
                     if (datas.get(n)!=null){
                         String data= String.valueOf(datas.get(n));
-                        PubInfo.printStr("data:"+data);
+                        //PubInfo.printStr("data:"+data);
                         String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,data) values(?,?,?,?,to_number(?))";
                         dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,data});
                     }
@@ -205,6 +205,44 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
     public String getzbcode(String ZBcode) {
         String sql="select zbcode from tb_coindex_task_zb where code=?";
         return AcmrInputDPFactor.getQuickQuery().getDataScarSql(sql,new Object[]{ZBcode});
+    }
+
+    @Override
+    public int ReData(String tcode) {
+        //取数存入tb_coindex_data
+        String sql6="select * from tb_coindex_task_zb where taskcode=?";
+        DataTable table2=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql6,new Object[]{tcode});
+        List<DataTableRow> rows2=table2.getRows();
+        for (int m=0;m<rows2.size();m++){
+            //PubInfo.printStr(rows2.get(m).getRows().toString());
+            String code=rows2.get(m).getString("code");
+            String zbcode=rows2.get(m).getString("zbcode");
+            String company=rows2.get(m).getString("company");
+            String datasource=rows2.get(m).getString("datasource");
+            String regions=rows2.get(m).getString("regions");
+            String unitcode=rows2.get(m).getString("unitcode");
+            TaskZb taskZb=new TaskZb(code,tcode,zbcode,company,datasource,regions,unitcode);
+            String sql7="select * from tb_coindex_task where code=?";
+            String ayearmon1=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql7,new Object[]{tcode}).getRows().get(0).getString("ayearmon");
+            String zbcode1=taskZb.getCode();
+
+            List<String> regs= Arrays.asList(taskZb.getRegions().split(","));
+            List<Double> datas=taskZb.getData(ayearmon1);
+            for (int n=0;n<regs.size();n++){
+                String region=regs.get(n);
+                if (datas.get(n)!=null){
+                    String data= String.valueOf(datas.get(n));
+                    //PubInfo.printStr("data:"+data);
+                    String sql8="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data) values(?,?,?,?,to_number(?))";
+                    AcmrInputDPFactor.getQuickQuery().executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,data});
+                }
+                else {
+                    String sql8="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon) values(?,?,?,?)";
+                    AcmrInputDPFactor.getQuickQuery().executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1});
+                }
+            }
+        }
+        return 1;
     }
 /*    public static void main(String[] args) {
         OraIndexTaskDaoImpl oraIndexTaskDao=new OraIndexTaskDaoImpl();

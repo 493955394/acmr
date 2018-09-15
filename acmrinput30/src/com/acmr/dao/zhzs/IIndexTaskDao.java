@@ -13,4 +13,5 @@ public interface IIndexTaskDao {
     public String getData(String taskcode,String region,String zbcode,String ayearmon);
     public String getTime(String taskcode);
     public String getzbcode(String ZBcode);
+    public int ReData(String tcode);
 }
