@@ -113,8 +113,63 @@ public class CreateTaskService {
         }
         //统计周期为月度
         else if (sort.equals("m")){
-
+            Calendar calendar=Calendar.getInstance();
+            int syear= Integer.parseInt(startperiod.substring(0,4));
+            int sm= Integer.parseInt(startperiod.substring(4));
+            int nyear=calendar.get(Calendar.YEAR);
+            int nm=calendar.get(Calendar.MONTH);
+            for (int i=syear;i<=nyear;i++){
+                //处理第一年
+                if (i==syear){
+                    for (int j=sm;j<13;j++){
+                        String thisp;
+                        if (j<10){
+                            thisp=String.valueOf(i)+"0"+String.valueOf(j);
+                        }
+                        else {
+                            thisp=String.valueOf(i)+String.valueOf(j);
+                        }
+                        Boolean bool=IndexTaskDao.Fator.getInstance().getIndexdatadao().hasTask(code, thisp);
+                        if (!bool){
+                            periods.add(thisp);
+                        }
+                    }
+                }
+                //处理最后一年
+                if (i==nyear){
+                    for (int j=nm;j>0;j--){
+                        String thisp;
+                        if (j<10){
+                            thisp=String.valueOf(i)+"0"+String.valueOf(j);
+                        }
+                        else {
+                            thisp=String.valueOf(i)+String.valueOf(j);
+                        }
+                        Boolean bool=IndexTaskDao.Fator.getInstance().getIndexdatadao().hasTask(code, thisp);
+                        if (!bool){
+                            periods.add(thisp);
+                        }
+                    }
+                }
+                //处理中间年
+                else if (syear<i&&i<nyear){
+                    for (int j=1;j<13;j++){
+                        String thisp;
+                        if (j<10){
+                            thisp=String.valueOf(i)+"0"+String.valueOf(j);
+                        }
+                        else {
+                            thisp=String.valueOf(i)+String.valueOf(j);
+                        }
+                        Boolean bool=IndexTaskDao.Fator.getInstance().getIndexdatadao().hasTask(code, thisp);
+                        if (!bool){
+                            periods.add(thisp);
+                        }
+                    }
+                }
+            }
         }
+        PubInfo.printStr(periods.toString());
         return periods;
     }
 
