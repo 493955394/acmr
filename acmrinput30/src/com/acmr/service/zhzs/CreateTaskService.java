@@ -25,7 +25,7 @@ public class CreateTaskService {
     public List<IndexList> getStartIndex() throws ParseException {
         List<IndexList> indexlist=new ArrayList<>();
         String date=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        PubInfo.printStr(date);
+        //PubInfo.printStr(date);
         DataTable table=IndexListDao.Fator.getInstance().getIndexdatadao().getStartLists(date);
         List<DataTableRow> list=table.getRows();
         for (int i=0;i<list.size();i++){
@@ -72,6 +72,43 @@ public class CreateTaskService {
         }
         //统计周期为季度
         else if (sort.equals("q")){
+            Calendar calendar=Calendar.getInstance();
+            int syear= Integer.parseInt(startperiod.substring(0,4));
+            //转为asc码，65，66，67，68，ABCD
+            int sq=startperiod.charAt(4);
+            int nyear=calendar.get(Calendar.YEAR);
+            int nq=getQ(calendar.get(Calendar.MONTH));
+            for (int i=syear;i<nyear;i++){
+                //处理第一年
+                if (i==syear){
+                    for (int j=sq;j<69;j++){
+                        String thisp=String.valueOf(i)+(char)j;
+                        Boolean bool=IndexTaskDao.Fator.getInstance().getIndexdatadao().hasTask(code, thisp);
+                        if (!bool){
+                            periods.add(thisp);
+                        }
+                    }
+                }
+                //处理中间年
+                else {
+                    for (int j=65;j<69;j++){
+                        String thisp=String.valueOf(i)+(char)j;
+                        Boolean bool=IndexTaskDao.Fator.getInstance().getIndexdatadao().hasTask(code, thisp);
+                        if (!bool){
+                            periods.add(thisp);
+                        }
+                    }
+                }
+            }
+            //处理最后一年
+            for (int i=nq-1;i>64;i--){
+                String thisp=String.valueOf(nyear)+(char)i;
+                Boolean bool=IndexTaskDao.Fator.getInstance().getIndexdatadao().hasTask(code, thisp);
+                if (!bool){
+                    periods.add(thisp);
+                }
+            }
+
 
         }
         //统计周期为月度
@@ -79,6 +116,21 @@ public class CreateTaskService {
 
         }
         return periods;
+    }
+
+    public char getQ(int mon){
+        if (mon<4){
+            return 'A';
+        }
+        else if (4<=mon&&mon<7){
+            return 'B';
+        }
+        else if (7<=mon&&mon<10){
+            return 'C';
+        }
+        else {
+            return 'D';
+        }
     }
 
     /**
