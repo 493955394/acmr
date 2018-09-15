@@ -18,6 +18,11 @@ import java.util.UUID;
 
 public class OraIndexTaskDaoImpl implements IIndexTaskDao {
     @Override
+    public DataTable getTaskZb(String taskcode){
+        String sql = "select * from tb_coindex_task_zb where taskcode= ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode});
+    }
+    @Override
     public  boolean hasTask(String indexcode, String ayearmon) {
         String sql="select * from tb_coindex_task where indexcode=? and ayearmon=?";
         DataTable table= AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{indexcode,ayearmon});

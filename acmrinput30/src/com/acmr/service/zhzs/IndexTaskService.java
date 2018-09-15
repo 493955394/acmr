@@ -4,6 +4,7 @@ import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.model.zhzs.IndexTask;
+import com.acmr.model.zhzs.TaskZb;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.web.jsp.Index;
 import acmr.util.ListHashMap;
@@ -16,7 +17,32 @@ public class IndexTaskService {
         Boolean bool= IndexTaskDao.Fator.getInstance().getIndexdatadao().hasData(sessionid,taskcode);
         return bool;
     }
-
+    /**
+     * 重新读取数据
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public ArrayList<TaskZb> getTaskzb(String taskcode){
+        ArrayList<TaskZb> taskZbs = new ArrayList<>();
+        List<DataTableRow> data = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskZb(taskcode).getRows();
+        for (int i = 0; i <data.size() ; i++) {
+            TaskZb taskZb = new TaskZb();
+            taskZb.setCode(data.get(i).getString("code"));
+            taskZb.setTaskcode(data.get(i).getString("taskcode"));
+            taskZb.setZbcode(data.get(i).getString("zbcode"));
+            taskZb.setCompany(data.get(i).getString("company"));
+            taskZb.setDatasource(data.get(i).getString("datasource"));
+            taskZb.setRegions(data.get(i).getString("regions"));
+            taskZb.setDatatimes(data.get(i).getString("datatimes"));
+            taskZb.setUnitcode(data.get(i).getString("unitcode"));
+            taskZb.setDacimal(data.get(i).getString("dacimal"));
+            taskZb.setProcode(data.get(i).getString("procode"));
+            taskZbs.add(taskZb);
+        }
+        return taskZbs;
+    }
     /**
      * 任务列表展示
      */

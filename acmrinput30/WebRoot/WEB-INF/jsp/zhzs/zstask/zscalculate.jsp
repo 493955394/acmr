@@ -44,6 +44,7 @@
                                 <button type="button" class="btn btn-default" id="data_download">下载</button>
                                 <button type="button" class="btn btn-default" id="data_upload">上传数据</button>
                                 <button type="button" class="btn btn-default" id="data_reload">重新读取数据</button>
+                                <input type="hidden" class="reloaddata" value="${taskcode}">
                             </div>
                             <div class="panel-body J_zsjs_data">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zstask/dataTable.jsp" flush="true"/>
@@ -64,5 +65,6 @@
 </body>
 <script>
     seajs.use('${ctx}/js/func/zhzs/zstask/caculate');
+    seajs.use('${ctx}/js/func/zhzs/zstask/datahandle');
 </script>
 </html>

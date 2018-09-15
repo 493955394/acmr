@@ -1,6 +1,7 @@
 package com.acmr.dao.zhzs;
 
 import acmr.util.DataTable;
+import acmr.util.DataTableRow;
 
 public interface IIndexTaskDao {
     public boolean hasTask(String indexcode,String ayearmon);
@@ -14,4 +15,5 @@ public interface IIndexTaskDao {
     public String getTime(String taskcode);
     public String getzbcode(String ZBcode);
     public int ReData(String tcode);
+    public DataTable getTaskZb(String taskcode);
 }

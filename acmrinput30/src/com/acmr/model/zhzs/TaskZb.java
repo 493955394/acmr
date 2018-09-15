@@ -121,6 +121,10 @@ public class TaskZb {
         this.dacimal = dacimal;
     }
 
+    public void setProcode(String procode) {
+        this.procode = procode;
+    }
+
     /**
     * @Description: 根据给的时间，查该指标的数，并按照regions中地区顺序返回list
     * @Param: [time]
