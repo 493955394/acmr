@@ -44,6 +44,21 @@ public class IndexTaskService {
         return taskZbs;
     }
     /**
+     * 得到指标任务的code
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    /*public List<String> origionZBcodes(String taskcode){
+        List<String> ZBcodes=new ArrayList<>();
+        List<DataTableRow> rows=IndexTaskDao.Fator.getInstance().getIndexdatadao().getZBs(taskcode).getRows();
+        for (int i=0;i<rows.size();i++){
+            ZBcodes.add(rows.get(i).getString("code"));
+        }
+        return ZBcodes;
+    }*/
+    /**
      * 任务列表展示
      */
     public ArrayList<IndexTask> getTaskByIcode(String icode){
