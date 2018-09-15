@@ -18,7 +18,7 @@ define(function(require,exports,module) {
         var taskcode=$(".reloaddata").val();
         //var time = $("#time").val();
         $.ajax({
-            url:common.rootPath+"zbdata/zstask.htm?m=findSession&taskcode="+taskcode,
+            url:common.rootPath+"zbdata/datahandle.htm?m=reGetData&taskcode="+taskcode,
             type:'get',
             data:'json',
             success:function (re) {

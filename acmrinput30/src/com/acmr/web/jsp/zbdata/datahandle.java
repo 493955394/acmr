@@ -51,7 +51,7 @@ public class datahandle extends BaseAction {
      * @param
      * @return
      */
-    public ModelAndView ReCalculate(){
+    public ModelAndView reGetData(){
         HttpServletRequest req=this.getRequest();
         String sessionid=req.getSession().getId();
         IndexTaskService indexTaskService=new IndexTaskService();
@@ -109,60 +109,6 @@ public class datahandle extends BaseAction {
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data",data).addObject("regs",regs);
 
     }
-    /**
-     * 重新读取数据data
-     * @author wf
-     * @date
-     * @param
-     * @return
-     */
-    public ModelAndView reGetdata() {
-        HttpServletRequest req = this.getRequest();
-        OriginService originService = new OriginService();
-        String reg = PubInfo.getString(req.getParameter("reg"));//地区
-        String regname = PubInfo.getString(req.getParameter("regname"));//地区名称
-        String sj = PubInfo.getString(req.getParameter("sj"));//时间
-        String zbcode = PubInfo.getString(req.getParameter("zb"));//zbcode
-        String zbname = PubInfo.getString(req.getParameter("zbname"));//zbname
-        String ds = PubInfo.getString(req.getParameter("ds"));//数据来源
-        String co = PubInfo.getString(req.getParameter("co"));//主体
-        String zbunit = PubInfo.getString(req.getParameter("zbunit"));//单位
-        //String code=PubInfo.getString(req.getParameter("indexcode"));
-        String[] regs = reg.split(",");
-        String[] regnames = regname.split(",");
-        String[] zbcodes = zbcode.split(",");
-        String[] zbnames = zbname.split(",");
-        String[] dss = ds.split(",");
-        String[] cos = co.split(",");
-        String[] units = zbunit.split(",");
-        List data1 = new ArrayList();
-            for (int j = 0; j < zbcodes.length; j++) {
-                List<String> datas = new ArrayList();
-                CubeWdCodes where = new CubeWdCodes();
-                String funit = originService.getwdnode("zb", zbcodes[j]).getUnitcode();
-                double rate = originService.getRate(funit, units[j], sj);
-                where.Add("zb", zbcodes[j]);
-                where.Add("ds", dss[j]);
-                where.Add("co", cos[j]);
-                where.Add("reg", Arrays.asList(regs));
-                where.Add("sj", sj);
-                ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd", where);
-                datas.add(zbnames[j]);//获取地区
-                for (int k = 0; k < result.size(); k++) {
-                    if (result.get(k).getData().toString() != "") {
-                        double resulttemp = result.get(k).getData().getData() * rate;
-                        datas.add(resulttemp + "");
-                    } else {
-                        datas.add("");
-                    }
-
-                }
-                data1.add(datas);
-            }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data",data1).addObject("regs",regs);
-    }
-
-
     /**
      * 文件上传
      *
