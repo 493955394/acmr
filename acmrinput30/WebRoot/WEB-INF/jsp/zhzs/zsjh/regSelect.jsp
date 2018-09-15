@@ -17,7 +17,7 @@
         <thead>
         <tr>
         <th>时间</th>
-        <th>指标</th>
+        <th style="min-width: 200px">指标</th>
         <c:forEach items="${regs}" var="reg">
             <th>${reg}</th>
         </c:forEach>

@@ -45,7 +45,7 @@
                     <c:if test="${index.getIfdata()==1}">
                         <c:if test="${index.getState()==0}">
                             <a href="javascript:;" class="start" name="${index.getCode()}">启用</a>
-                            <a href="${ctx}/zbdata/zsjhedit.htm?m=editIndex&id=${index.getCode()}">编辑</a>
+                            <a href="${ctx}/zbdata/zsjhedit.htm?id=${index.getCode()}">编辑</a>
                             <a href="javascript:;" class="btn-opr J_opr_del" id="${index.getCode()}">删除</a>
                         </c:if>
                         <c:if test="${index.getState()==1}">

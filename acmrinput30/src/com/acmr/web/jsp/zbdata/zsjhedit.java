@@ -54,7 +54,7 @@ public class zsjhedit extends BaseAction {
     private  String excelsj;
 
     private CalculateExpression ce = new CalculateExpression();
-    public ModelAndView editIndex(){
+    public ModelAndView main(){
         /* 第一个分页显示*/
         String code = this.getRequest().getParameter("id");
         String proname =null;

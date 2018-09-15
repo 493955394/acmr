@@ -470,7 +470,8 @@ define(function (require,exports,module) {
         $("input[type=reset]").trigger("click");
     })
     //右下角保存按钮
-    $(".tosaveall").click(function () {
+    $(document).on('click','.tosaveall',function (event) {
+        event.preventDefault();
        var checkDelegate = new VaildNormal();
         var flag = true;
         //前端检查
