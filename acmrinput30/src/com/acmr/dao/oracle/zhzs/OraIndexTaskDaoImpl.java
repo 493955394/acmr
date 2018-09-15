@@ -81,8 +81,9 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                 String datatimes=rows1.get(j).getString("datatimes");
                 String unitcode=rows1.get(j).getString("unitcode");
                 String dacimal=rows1.get(j).getString("dacimal");
-                String sql5="insert into tb_coindex_task_zb (code,taskcode,zbcode,company,datasource,regions,datatimes,unitcode,dacimal) values(?,?,?,?,?,?,?,?,?)";
-                dataQuery.executeSql(sql5,new Object[]{code,tcode,zbcode,company,datasource,regions,datatimes,unitcode,dacimal});
+                String procode=rows1.get(j).getString("code");
+                String sql5="insert into tb_coindex_task_zb (code,taskcode,zbcode,company,datasource,regions,datatimes,unitcode,dacimal,procode) values(?,?,?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql5,new Object[]{code,tcode,zbcode,company,datasource,regions,datatimes,unitcode,dacimal,procode});
             }
 
             //取数存入tb_coindex_data

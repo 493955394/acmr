@@ -28,6 +28,13 @@ public class TaskZb {
     /** 单位code */
     private String dacimal;
     /** 小数点位数 */
+    private String procode;
+
+    public String getProcode() {
+        return procode;
+    }
+
+    /** 原指标的code */
 
     public TaskZb(){
 
