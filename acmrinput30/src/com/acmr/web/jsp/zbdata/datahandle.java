@@ -58,7 +58,7 @@ public class datahandle extends BaseAction {
         OriginService originService=new OriginService();
         String taskcode=req.getParameter("taskcode");
         List<String> origionZBcodes = indexTaskService.getZBcodes(taskcode);//取得指标code
-        String[] ZBcodes = origionZBcodes.toArray(new String[origionZBcodes.size()]);
+        //String[] ZBcodes = origionZBcodes.toArray(new String[origionZBcodes.size()]);
         List<String> reg=indexTaskService.getTaskRegs(taskcode);//地区
         String[] regscode = reg.toArray(new String[reg.size()]);
         String sj=indexTaskService.getTime(taskcode);//时间ayearmon
@@ -72,31 +72,33 @@ public class datahandle extends BaseAction {
             regs.add(originService.getwdnode("reg",reg.get(i)).getName());
         }
         List<List<String>> data = new ArrayList<>();
-        for(int j=0;j<ZBcodes.length;j++){
+        for(int j=0;j<regscode.length;j++){
             List<String> rows = new ArrayList<>();
-            String zbcode = ZBcodes[j];
-            rows.add(indexTaskService.getzbname(zbcode));
-            for(int m=0;m<regscode.length;m++){
+            for(int m=0;m<origionZBcodes.size();m++){
                 CubeWdCodes where = new CubeWdCodes();
-                String funit=originService.getwdnode("zb",zbcode).getUnitcode();
+                //String funit=originService.getwdnode("zb",zbcode).getUnitcode();
+                String zbcode = origionZBcodes.get(m);
+                rows.add(indexTaskService.getzbname(zbcode));
                 String zbunit =indexTaskService.getTaskzb(taskcode).get(m).getUnitcode();
-                String[] units = zbunit.split(",");
-                String co = indexTaskService.getTaskzb(taskcode).get(m).getCompany();//主体
-                String[] cos = co.split(",");
-                String ds = indexTaskService.getTaskzb(taskcode).get(m).getDatasource();//数据来源
-                String[] dss = ds.split(",");
-                double rate=originService.getRate(funit,units[j],sj);
-                where.Add("zb", ZBcodes[j]);
-                where.Add("ds", dss[j]);
-                where.Add("co", cos[j]);
-                where.Add("reg", Arrays.asList(regscode));
+                //String[] units = zbunit.split(",");
+                //String co = indexTaskService.getTaskzb(taskcode).get(m).getCompany();//主体
+                //String[] cos = co.split(",");
+                //String ds = indexTaskService.getTaskzb(taskcode).get(m).getDatasource();//数据来源
+                //String[] dss = ds.split(",");
+                //String funit=originService.getwdnode("zb",origionZBcodes.get(j)).getUnitcode();
+                //double rate=originService.getRate(funit,indexTaskService.getTaskzb(taskcode).get(m).getUnitcode(),sj);
+                where.Add("zb", zbcode);
+                where.Add("ds", indexTaskService.getTaskzb(taskcode).get(m).getDatasource());
+                where.Add("co", indexTaskService.getTaskzb(taskcode).get(m).getCompany());
+                where.Add("reg",reg.get(j));
                 where.Add("sj", sj);
                 ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
                 /*rows.add(sjs[i]);//获取时间
                 datas.add(zbnames[j]);//获取指标*/
                 for (int k = 0; k <result.size() ; k++) {
                     if(result.get(k).getData().toString() != ""){
-                        double resulttemp = result.get(k).getData().getData()*rate;
+                        //double resulttemp = result.get(k).getData().getData()*rate;
+                        double resulttemp = result.get(k).getData().getData();
                         rows.add(resulttemp+"");
                     }
                     else{

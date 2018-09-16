@@ -11,7 +11,9 @@ define(function(require,exports,module) {
         modal = require('modal'),
         modal = require('modal'),
         ZeroClipboard = require('ZeroClipboard');
-
+    /**
+     * 重新读取数据
+     */
     $(document).on("click","#data_reload",reloadOrigindata)
 
     function reloadOrigindata(){
@@ -23,9 +25,34 @@ define(function(require,exports,module) {
             data:'json',
             success:function (re) {
                 console.log(re)
-                window.location.reload(true);
+                window.location.href = common.rootPath+"zbdata/datahandle.htm?m=reGetData&taskcode="+taskcode
             }
         })
+    }
+
+    /**
+     * 数据下载
+     */
+    $(document).on("click","#data_download",downdata)
+
+    function downdata(){
+        var istmp=$(".istmpdata").val();
+        var url = common.rootPath+"zbdata/zscalculate.htm?m=toExcel";
+        //var time = $("#time").val();
+        $.ajax({
+            url:url,
+            type:'post',
+            dataType: 'json',
+            data:"istmp"+istmp,
+            success:function (data) {
+                if (data.returncode == 300) {
+                    alert("数据为空");
+                } else {
+                    alert("下载成功!");
+                }
+            }
+        })
+        window.location.href = url;
     }
     /**
      * 文件上传

@@ -42,6 +42,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <button type="button" class="btn btn-default" id="data_download">下载</button>
+                                <input type="hidden" class="istmpdata" value="${istmp}">
                                 <button type="button" class="btn btn-default" id="data_upload">上传数据</button>
                                 <button type="button" class="btn btn-default" id="data_reload">重新读取数据</button>
                                 <input type="hidden" class="reloaddata" value="${taskcode}">
