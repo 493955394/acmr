@@ -15,6 +15,18 @@ define(function (require,exports,module) {
             timeout:2000
         })
     }
-    
+
+    //重新计算弹框
+    $(document).on('click','#recalculate',function () {
+        $.pjax({
+            url: common.rootPath+'zbdata/zscalculate.htm?m=docalculate&taskcode='+taskcode,
+            type: "get",
+            container:'.calculate_result'
+        })
+        $(document).on('pjax:success', function() {
+            alert("ok");
+        });
+    })
+
 
 });

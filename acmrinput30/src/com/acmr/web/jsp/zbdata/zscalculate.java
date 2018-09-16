@@ -13,6 +13,7 @@ import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
 import com.acmr.service.zbdata.OriginService;
+import com.acmr.service.zhzs.IndexEditService;
 import com.acmr.service.zhzs.IndexTaskService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class zscalculate extends BaseAction {
 
@@ -241,5 +243,57 @@ public class zscalculate extends BaseAction {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 重新计算页面
+     */
+    public ModelAndView docalculate(){
+        HttpServletRequest req = this.getRequest();
+        // 获取查询数据
+        IndexTaskService indexTaskService =new IndexTaskService();
+        String taskcode = PubInfo.getString(req.getParameter("taskcode"));
+        // 判断是否pjax 请求
+        String pjax = req.getHeader("X-PJAX");
+        //通过taskcode去查值
+        String ayearmon = findAyearmon(taskcode);
+        //从原始数据表读取数据做计算
+        String regs = findRegions(taskcode);
+        if (StringUtil.isEmpty(pjax)) {
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
+        } else {
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
+        }
+    }
+    /**
+     * 查时间期，并返回时间期
+     */
+    public String findAyearmon(String taskcode){
+        IndexTaskService indexTaskService = new IndexTaskService();
+        return indexTaskService.getTime(taskcode);
+    }
+    /**
+     * 查对应的地区
+     */
+    public String findRegions(String taskcode){
+        IndexTaskService indexTaskService = new IndexTaskService();
+        return indexTaskService.getRegions(taskcode);
+    }
+    /**
+     * 计算的方法
+     */
+    public List<Map> calculateFunction(String taskcode, String time, String regs){
+        List<Map> value = new ArrayList<>();
+        IndexTaskService indexTaskService = new IndexTaskService();
+        List<Map> data = indexTaskService.getModuleFormula(taskcode);
+        for (int i = 0; i <data.size() ; i++) {
+            if(data.get(i).get("ifzb").toString().equals("1")){//如果是直接用筛选的指标的话直接去查值
+                //先去查tb_coindex_zb
+                IndexEditService zb = new IndexEditService();
+                String zbcode = zb.getZBData(data.get(i).get("formula").toString()).getZbcode();//得到了zbcode
+
+            }
+        }
+        return value;
     }
 }

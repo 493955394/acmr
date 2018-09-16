@@ -8,9 +8,8 @@ import com.acmr.model.zhzs.TaskZb;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.web.jsp.Index;
 import acmr.util.ListHashMap;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
+import java.util.*;
 
 public class IndexTaskService {
     public boolean findSession(String sessionid,String taskcode){
@@ -169,5 +168,40 @@ public class IndexTaskService {
         String zbname=originService.getwdnode("zb",zbcode).getName();
         return zbname;
     }
+    /*
+    获取对应任务的所有公式
+     */
+    public List<Map> getModuleFormula(String taskcode){
+        List<Map> indexTasks = new ArrayList<>();
+        List<DataTableRow> data = IndexTaskDao.Fator.getInstance().getIndexdatadao().getModuleData(taskcode).getRows();
+        for (int i = 0; i <data.size() ; i++) {
+            Map arr = new HashMap();
+            arr.put("ifzb",data.get(i).getString("ifzb"));
+            arr.put("formula",data.get(i).getString("formula"));
+            indexTasks.add(arr);
+        }
+        return indexTasks;
+    }
+
+    /**
+     * 获取地区
+     * @param taskcode
+     * @return
+     */
+    public String getRegions (String taskcode){
+        String Regions="";
+        List<DataTableRow> rows=IndexTaskDao.Fator.getInstance().getIndexdatadao().getZBs(taskcode).getRows();
+        if(rows.get(0).getString("code")!= "")
+            Regions = rows.get(0).getString("code");
+        return Regions;
+    }
+
+    /*public static void main(String[] args) {
+        IndexTaskService indexTask = new IndexTaskService();
+        List<Map> test = indexTask.getModuleFormula("bb4016ee54d143cbb2d9f47d4b221e9b");
+        for (int i = 0; i <test.size() ; i++) {
+            System.out.println(test.get(i).toString()+"====test");
+        }
+    }*/
 }
 

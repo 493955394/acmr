@@ -24,7 +24,7 @@
                         <li role="presentation"><a href="#yssj" aria-controls="yssj" role="tab" data-toggle="tab">原始数据</a></li>
                         <li role="presentation"><a href="#jsjg" aria-controls="jsjg" role="tab" data-toggle="tab">计算结果</a></li>
                         <li role="presentation">
-                            <button type="button" class="btn btn-default">重新计算</button>
+                            <button type="button" class="btn btn-default" id="recalculate">重新计算</button>
                             <button type="button" class="btn btn-default">重置</button>
                             <button type="button" class="btn btn-default">保存并重新计算</button>
                             <button type="button" class="btn btn-default">关闭</button>
@@ -54,7 +54,7 @@
 
                     </div>
                     <div role="tabpanel" class="tab-pane" id="jsjg">
-                        <div>
+                        <div class="calculate_result">
                             jsjg
                         </div>
                     </div>

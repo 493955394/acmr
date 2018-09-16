@@ -10,11 +10,9 @@ import com.acmr.model.zhzs.TaskZb;
 import org.omg.PortableInterceptor.ACTIVE;
 
 import javax.xml.crypto.Data;
+import javax.xml.datatype.DatatypeConfigurationException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class OraIndexTaskDaoImpl implements IIndexTaskDao {
     @Override
@@ -248,6 +246,10 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
             }
         }
         return 1;
+    }
+    public DataTable getModuleData(String taskcode){
+        String sql = "select * from tb_coindex_task_module_tmp where taskcode = ? and ifzs =0";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode});
     }
 /*    public static void main(String[] args) {
         OraIndexTaskDaoImpl oraIndexTaskDao=new OraIndexTaskDaoImpl();
