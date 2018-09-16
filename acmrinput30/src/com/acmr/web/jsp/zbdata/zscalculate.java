@@ -6,15 +6,20 @@ import acmr.excel.pojo.ExcelBook;
 import acmr.excel.pojo.ExcelCell;
 import acmr.excel.pojo.ExcelRow;
 import acmr.excel.pojo.ExcelSheet;
+import acmr.math.CalculateExpression;
+import acmr.math.entity.MathException;
 import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
+import com.acmr.model.zhzs.IndexZb;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zhzs.IndexEditService;
 import com.acmr.service.zhzs.IndexTaskService;
+import com.acmr.service.zhzs.MathService;
+import com.acmr.service.zhzs.OriginDataService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +34,7 @@ public class zscalculate extends BaseAction {
     private List<List<String>> datatmp;
     private List<String> regs;
     private List<String> regstmp;
+    private CalculateExpression ce = new CalculateExpression();
 
     /**
      * @Description: 从data表中读数时返回页面
@@ -259,6 +265,7 @@ public class zscalculate extends BaseAction {
         String ayearmon = findAyearmon(taskcode);
         //从原始数据表读取数据做计算
         String regs = findRegions(taskcode);
+        String indexcode = findicode(taskcode);
         if (StringUtil.isEmpty(pjax)) {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
         } else {
@@ -273,6 +280,13 @@ public class zscalculate extends BaseAction {
         return indexTaskService.getTime(taskcode);
     }
     /**
+     * 返回icode
+     */
+    public String findicode(String taskcode){
+        IndexTaskService indexTaskService = new IndexTaskService();
+        return indexTaskService.geticode(taskcode);
+    }
+    /**
      * 查对应的地区
      */
     public String findRegions(String taskcode){
@@ -280,20 +294,63 @@ public class zscalculate extends BaseAction {
         return indexTaskService.getRegions(taskcode);
     }
     /**
-     * 计算的方法
+     * 计算的方法,,环比和指数的还没有做
      */
-    public List<Map> calculateFunction(String taskcode, String time, String regs){
-        List<Map> value = new ArrayList<>();
+    public List calculateFunction(String taskcode, String time, String regs,String icode){
+        List values = new ArrayList();
+        String [] reg = regs.split(",");
         IndexTaskService indexTaskService = new IndexTaskService();
         List<Map> data = indexTaskService.getModuleFormula(taskcode);
         for (int i = 0; i <data.size() ; i++) {
+            IndexEditService indexEditService = new IndexEditService();
+            List <String> temp = new ArrayList();
+            temp.add(data.get(i).get("cname").toString());
             if(data.get(i).get("ifzb").toString().equals("1")){//如果是直接用筛选的指标的话直接去查值
                 //先去查tb_coindex_zb
-                IndexEditService zb = new IndexEditService();
-                String zbcode = zb.getZBData(data.get(i).get("formula").toString()).getZbcode();//得到了zbcode
+                String zbcode = indexEditService.getZBData(data.get(i).get("formula").toString()).getZbcode();//得到了zbcode
+                OriginDataService originDataService = new OriginDataService();
+                for (int j = 0; j <reg.length ; j++) {
+                    String val = originDataService.getvalue(taskcode,zbcode,reg[j],time);
+                    temp.add(val);
+                }
+            }
+            else if(data.get(i).get("ifzb").toString().equals("0")){//如果是自己编辑的公式
+                OriginDataService originDataService = new OriginDataService();
+                //先处理公式
+                String formula = data.get(i).get("formula").toString();
+              List<Map>  zbs = indexEditService.getZBS(icode);//把这个icode下所有的code全都找出来,去遍历
+                for (int j = 0; j <reg.length ; j++) {//地区循环
+                    for (int k = 0; k <zbs.size() ; k++) {
+                        if(formula.contains(zbs.get(k).get("code").toString())){//要是存在这个code,就去取对应的zbcode
+                            String tempval = originDataService.getvalue(taskcode,zbs.get(k).get("zbcode").toString(),reg[j],time);
+                            //替换公式中的值
+                           formula = formula.replace("#"+zbs.get(k).get("zbcode")+"#",tempval);//换成对应的value
+                        }
+                    }
+                    //全部替换完成后开始做计算
+                    String val = tocalculate(formula);
+                    temp.add(val);
+                }
 
             }
         }
-        return value;
+        return values;
+    }
+
+    /**
+     * 自定义公式计算函数
+     */
+    public String tocalculate(String formula){
+        String result="";
+        formula = formula.replace("random()","chance()");//不能用random这个函数名因为有个and会报错
+        try {
+            ce.setFunctionclass(new MathService());
+            result = ce.Eval(formula);
+            System.out.println(ce.Eval(formula));
+        } catch (MathException e) {
+            e.printStackTrace();
+            System.out.println("error");
+        }
+        return result;
     }
 }

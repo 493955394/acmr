@@ -247,9 +247,17 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
         }
         return 1;
     }
+    @Override
     public DataTable getModuleData(String taskcode){
         String sql = "select * from tb_coindex_task_module_tmp where taskcode = ? and ifzs =0";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode});
+    }
+
+    @Override
+    public String getIcode(String taskcode) {
+        String sql="select * from tb_coindex_task where code=?";
+        String icode=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{taskcode}).getRows().get(0).getString("indexcode");
+        return icode;
     }
 /*    public static void main(String[] args) {
         OraIndexTaskDaoImpl oraIndexTaskDao=new OraIndexTaskDaoImpl();

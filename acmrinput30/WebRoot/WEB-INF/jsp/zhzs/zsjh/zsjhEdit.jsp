@@ -246,7 +246,7 @@
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">地区列表</div>
                             </div>
-                            <div  style="height: 500px;width: 440px;overflow:auto ">
+                            <div  style="height: 500px;width:100%;overflow:auto ">
                                 <ul class="list-group regul" id="selectreg">
                                     <c:forEach items="${regs}" var="reg">
                                         <li class="list-group-item selectedli"  id="${reg.regcode}">${reg.regcname}</li>

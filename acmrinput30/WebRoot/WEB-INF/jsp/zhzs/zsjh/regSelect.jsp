@@ -12,7 +12,7 @@
         background-color: red;
     }
 </style>
-<div style="height: 500px;width: 710px;overflow:auto;display: none " id="regtable">
+<div style="height: 500px;width: 100%;overflow:auto;display: none " id="regtable">
     <table class="table table-bordered" id="tabledata" >
         <thead>
         <tr>
@@ -42,7 +42,7 @@
         <input type="hidden" value="${check}" id="checkreturn">
     </table>
 </div>
-<div style="height: 500px;width: 710px;overflow:auto; display: none" id="data_single">
+<div style="height: 500px;width:100%;overflow:auto; display: none" id="data_single">
     <span>
         检查结果：${regname}
     </span>

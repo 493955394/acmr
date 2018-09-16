@@ -195,6 +195,13 @@ public class IndexTaskService {
             Regions = rows.get(0).getString("code");
         return Regions;
     }
+    /**
+     * 返回任务的icode
+     */
+    public String geticode(String taskcode){
+        String icode=IndexTaskDao.Fator.getInstance().getIndexdatadao().getIcode(taskcode);
+        return icode;
+    }
 
     /*public static void main(String[] args) {
         IndexTaskService indexTask = new IndexTaskService();
