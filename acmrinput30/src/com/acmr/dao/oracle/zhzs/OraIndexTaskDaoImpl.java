@@ -168,7 +168,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
 
     @Override
     public DataTable getTaskList(String icode){
-        String sql = "select * from tb_coindex_task where indexcode= ? ";
+        String sql = "select * from tb_coindex_task where indexcode= ? order by ayearmon desc";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode});
     }
     @Override
