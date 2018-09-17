@@ -6,7 +6,7 @@ import java.util.List;
 
 public class TaskModule {
     private String code;
-    private  String cname;
+    private String cname;
     private String taskcode;//TB_COINDEX_TASK的CODE
     private String procode;//指标树形级别
     private String ifzs;//节点类别，1表示指数0指标
@@ -15,7 +15,22 @@ public class TaskModule {
     private String sortcode;//上下移动排序，同级别的节点从0递增，0表示第一
     private String weight;//权重
     private String dacimal;//小数点位数
+    private String orcode;//原模型的code
 
+
+    public TaskModule(){
+
+    }
+
+    public TaskModule(String code,String cname,String taskcode,String procode,String sortcode,String weight,String ifzs){
+        this.code=code;
+        this.cname=cname;
+        this.taskcode=taskcode;
+        this.procode=procode;
+        this.sortcode=sortcode;
+        this.weight=weight;
+        this.ifzs=ifzs;
+    }
 
     public String getCode() {
         return code;

@@ -12,8 +12,10 @@ import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.dao.zhzs.IndexTaskDao;
+import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
+import com.acmr.model.zhzs.TaskModule;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zhzs.*;
 import org.apache.commons.fileupload.FileItem;
@@ -60,7 +62,13 @@ public class zscalculate extends BaseAction {
         for (int i = 0; i < regscode.size(); i++) {
             regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
         }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", data1).addObject("regs", regs).addObject("taskcode", taskcode).addObject("istmp", false);
+
+        WeightEditService weightEditService=new WeightEditService();
+        List<TaskModule> mods=weightEditService.getTMods(taskcode);
+        for (int i=0;i<mods.size();i++){
+            PubInfo.printStr(mods.get(i).getCname());
+        }
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", data1).addObject("regs", regs).addObject("taskcode", taskcode).addObject("istmp", false).addObject("mods",mods);
     }
 
     /**
@@ -85,7 +93,13 @@ public class zscalculate extends BaseAction {
         for (int i = 0; i < regscode.size(); i++) {
             regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
         }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", datatmp).addObject("regs", regstmp).addObject("taskcode", taskcode).addObject("istmp", true);
+
+        WeightEditService weightEditService=new WeightEditService();
+        List<TaskModule> mods=weightEditService.getTMods(taskcode);
+        for (int i=0;i<mods.size();i++){
+            PubInfo.printStr(mods.get(i).getCname());
+        }
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", datatmp).addObject("regs", regstmp).addObject("taskcode", taskcode).addObject("istmp", true).addObject("mods",mods);
 
     }
 
@@ -150,6 +164,8 @@ public class zscalculate extends BaseAction {
         }
         return rows;
     }
+    
+
 
     /**
      * 数据下载
