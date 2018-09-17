@@ -49,13 +49,14 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
             String sql="insert into tb_coindex_task (code,indexcode,ayearmon,createtime) values (?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
             dataQuery.executeSql(sql,new Object[]{tcode,indexcode,ayearmon,createtime});
 
-            //复制模型tb_coindex_task_module,tb_coindex_task_module_tmp
+            //复制模型tb_coindex_task_module
             String sql1="select * from tb_coindex_module where indexcode=?";
             DataTable table=dataQuery.getDataTableSql(sql1,new Object[]{indexcode});
             List<DataTableRow> rows=table.getRows();
             for (int i=0;i<rows.size();i++){
                 //PubInfo.printStr(rows.get(i).getRows().toString());
                 String code=UUID.randomUUID().toString().replace("-", "").toLowerCase();
+                String orcode=rows.get(i).getString("code");
                 String cname=rows.get(i).getString("cname");
                 String procode=rows.get(i).getString("procode");
                 String ifzs=rows.get(i).getString("ifzs");
@@ -64,11 +65,32 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                 String sortcode=rows.get(i).getString("sortcode");
                 String weight=rows.get(i).getString("weight");
                 String dacimal=rows.get(i).getString("dacimal");
-                String sql2="insert into tb_coindex_task_module (code,cname,taskcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal) values(?,?,?,?,?,?,?,?,?,?)";
-                String sql3="insert into tb_coindex_task_module_tmp (code,cname,taskcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal) values(?,?,?,?,?,?,?,?,?,?)";
-                dataQuery.executeSql(sql2,new Object[]{code,cname,tcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal});
-                dataQuery.executeSql(sql3,new Object[]{code,cname,tcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal});
+                String sql2="insert into tb_coindex_task_module (code,cname,taskcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,orcode) values(?,?,?,?,?,?,?,?,?,?,?)";
+                //String sql3="insert into tb_coindex_task_module_tmp (code,cname,taskcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,orcode) values(?,?,?,?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql2,new Object[]{code,cname,tcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,orcode});
+               // dataQuery.executeSql(sql3,new Object[]{code,cname,tcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,orcode});
             }
+
+            //修正tb_coindex_task_module的procode
+            String sql9="select * from tb_coindex_task_module where taskcode=?";
+            DataTable table3=dataQuery.getDataTableSql(sql9,new Object[]{tcode});
+            List<DataTableRow> rows3=table3.getRows();
+            for (int r=0;r<rows3.size();r++){
+                String orprocode=rows3.get(r).getString("procode");
+                String code=rows3.get(r).getString("code");
+                String sql10="select * from tb_coindex_task_module where orcode=? and taskcode=?";
+                if (orprocode!=""){
+                    String procode=dataQuery.getDataTableSql(sql10,new Object[]{orprocode,tcode}).getRows().get(0).getString("code");
+                    //更新这条module的procode
+                    String sql11="update tb_coindex_task_module set procode=? where code=?";
+                    dataQuery.executeSql(sql11,new Object[]{procode,code});
+                }
+            }
+
+
+            //复制tb_coindex_task_module到tb_coindex_task_module_tmp
+            String sql12="insert into tb_coindex_task_module_tmp (select * from tb_coindex_task_module where taskcode=?)";
+            dataQuery.executeSql(sql12,new Object[]{tcode});
 
             //复制指标tb_coindex_task_zb
             String sql4="select * from tb_coindex_zb where indexcode=?";
