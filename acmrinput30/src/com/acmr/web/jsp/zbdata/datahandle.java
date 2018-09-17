@@ -51,7 +51,7 @@ public class datahandle extends BaseAction {
      * @param
      * @return
      */
-    public ModelAndView reGetData(){
+    /*public ModelAndView reGetData(){
         HttpServletRequest req=this.getRequest();
         String sessionid=req.getSession().getId();
         IndexTaskService indexTaskService=new IndexTaskService();
@@ -62,11 +62,11 @@ public class datahandle extends BaseAction {
         List<String> reg=indexTaskService.getTaskRegs(taskcode);//地区
         String[] regscode = reg.toArray(new String[reg.size()]);
         String sj=indexTaskService.getTime(taskcode);//时间ayearmon
-        /*String[] reg = regscode.split(",");
+        *//*String[] reg = regscode.split(",");
         String[] regnames = regname.split(",");
         String[] zbcodes = zbcode.split(",");
         String[] zbnames = zbname.split(",");
-        */
+        *//*
         List<String> regs=new ArrayList<>();
         for (int i=0;i<reg.size();i++){
             regs.add(originService.getwdnode("reg",reg.get(i)).getName());
@@ -81,20 +81,20 @@ public class datahandle extends BaseAction {
                 rows.add(indexTaskService.getzbname(zbcode));
                 String zbunit =indexTaskService.getTaskzb(taskcode).get(m).getUnitcode();
                 //String[] units = zbunit.split(",");
-                //String co = indexTaskService.getTaskzb(taskcode).get(m).getCompany();//主体
+                String co = indexTaskService.getTaskzb(taskcode).get(m).getCompany();//主体
                 //String[] cos = co.split(",");
-                //String ds = indexTaskService.getTaskzb(taskcode).get(m).getDatasource();//数据来源
+                String ds = indexTaskService.getTaskzb(taskcode).get(m).getDatasource();//数据来源
                 //String[] dss = ds.split(",");
                 //String funit=originService.getwdnode("zb",origionZBcodes.get(j)).getUnitcode();
                 //double rate=originService.getRate(funit,indexTaskService.getTaskzb(taskcode).get(m).getUnitcode(),sj);
                 where.Add("zb", zbcode);
-                where.Add("ds", indexTaskService.getTaskzb(taskcode).get(m).getDatasource());
-                where.Add("co", indexTaskService.getTaskzb(taskcode).get(m).getCompany());
+                where.Add("ds", ds);
+                where.Add("co", co);
                 where.Add("reg",reg.get(j));
                 where.Add("sj", sj);
                 ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
-                /*rows.add(sjs[i]);//获取时间
-                datas.add(zbnames[j]);//获取指标*/
+                *//*rows.add(sjs[i]);//获取时间
+                datas.add(zbnames[j]);//获取指标*//*
                 for (int k = 0; k <result.size() ; k++) {
                     if(result.get(k).getData().toString() != ""){
                         //double resulttemp = result.get(k).getData().getData()*rate;
@@ -110,7 +110,7 @@ public class datahandle extends BaseAction {
         }
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data",data).addObject("regs",regs);
 
-    }
+    }*/
     /**
      * 文件上传
      *

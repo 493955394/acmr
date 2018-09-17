@@ -139,7 +139,7 @@ public class zscalculate extends BaseAction {
     }
 
     /**
-     * 全部地区数据下载
+     * 数据下载
      *
      * @param
      * @return
