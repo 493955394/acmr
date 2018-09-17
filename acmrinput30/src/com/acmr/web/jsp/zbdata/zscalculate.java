@@ -367,6 +367,7 @@ public class zscalculate extends BaseAction {
     public ModelAndView docalculate(){
         HttpServletRequest req = this.getRequest();
         // 获取查询数据
+        String sessionid = req.getRequestedSessionId();
         IndexTaskService indexTaskService =new IndexTaskService();
         String taskcode = PubInfo.getString(req.getParameter("taskcode"));
         // 判断是否pjax 请求
@@ -406,7 +407,7 @@ public class zscalculate extends BaseAction {
     /**
      * 计算的方法,,环比和指数的还没有做
      */
-    public List calculateFunction(String taskcode, String time, String regs,String icode){
+    public List calculateFunction(String taskcode, String time, String regs,String icode,String sessionid){
         List values = new ArrayList();
         String [] reg = regs.split(",");
         IndexTaskService indexTaskService = new IndexTaskService();
@@ -420,7 +421,7 @@ public class zscalculate extends BaseAction {
                 String zbcode = indexEditService.getZBData(data.get(i).get("formula").toString()).getZbcode();//得到了zbcode
                 OriginDataService originDataService = new OriginDataService();
                 for (int j = 0; j <reg.length ; j++) {
-                    String val = originDataService.getvalue(taskcode,zbcode,reg[j],time);
+                    String val = originDataService.getvalue(taskcode,zbcode,reg[j],time,sessionid);
                     temp.add(val);
                 }
             }
@@ -432,7 +433,7 @@ public class zscalculate extends BaseAction {
                 for (int j = 0; j <reg.length ; j++) {//地区循环
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(formula.contains(zbs.get(k).get("code").toString())){//要是存在这个code,就去取对应的zbcode
-                            String tempval = originDataService.getvalue(taskcode,zbs.get(k).get("zbcode").toString(),reg[j],time);
+                            String tempval = originDataService.getvalue(taskcode,zbs.get(k).get("zbcode").toString(),reg[j],time,sessionid);
                             //替换公式中的值
                            formula = formula.replace("#"+zbs.get(k).get("zbcode")+"#",tempval);//换成对应的value
                         }

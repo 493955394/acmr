@@ -13,9 +13,9 @@ public class OriginDataService {
     /**
      * 查询对应的data值
      */
-    public String getvalue(String taskcode,String zbcode,String region,String time){
+    public String getvalue(String taskcode,String zbcode,String region,String time,String sessionid){
         String value = "";
-        DataTable data = DataDao.Fator.getInstance().getIndexdatadao().getData(taskcode,zbcode,region,time);
+        DataTable data = DataDao.Fator.getInstance().getIndexdatadao().getData(taskcode,zbcode,region,time,sessionid);
         if(data.getRows().size()!=0){
             value = data.getRows().get(0).getString("data");
         }
