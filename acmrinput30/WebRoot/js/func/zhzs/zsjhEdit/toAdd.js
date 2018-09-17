@@ -33,6 +33,13 @@ define(function (require,exports,module) {
         if (flag == false) {
             return;
         }
+        var ifavalible =  /^([0-9a-zA-Z]*)$/;
+        var zs_code = $('input[name="ZS_code"]').val();
+        var check =zs_code.match(ifavalible);
+        if(check == null){
+            alert("非法的编码");
+            return;
+        }
         var formulas = $(".formula option:selected").val();
         var formulatexts = $("#formulatext").val();
         var ifzscheck = $("#selectifzs option:selected").val();
