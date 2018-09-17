@@ -6,10 +6,10 @@ import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexTaskDao;
+import com.acmr.model.zhzs.Data;
 import com.acmr.model.zhzs.TaskZb;
 import org.omg.PortableInterceptor.ACTIVE;
 
-import javax.xml.crypto.Data;
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.sql.SQLException;
 import java.util.*;
@@ -325,6 +325,46 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
         String sql="select * from tb_coindex_task where code=?";
         String icode=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{taskcode}).getRows().get(0).getString("indexcode");
         return icode;
+    }
+
+    @Override
+    public int copyData(String taskcode, String sessionid) {
+        DataQuery dataQuery=null;
+        try {
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+            //删除session之前的记录
+            String sql="delete from tb_coindex_data_tmp where sessionid=? and taskcode=?";
+            dataQuery.executeSql(sql,new Object[]{sessionid,taskcode});
+
+            //从tb_coindex_data复制数据到tb_coindex_data_tmp
+            String sql1="select * from tb_coindex_data where taskcode=?";
+            DataTable table=dataQuery.getDataTableSql(sql1,new Object[]{taskcode});
+            List<DataTableRow> rows=table.getRows();
+            for (int i=0;i<rows.size();i++){
+                String zbcode=rows.get(i).getString("zbcode");
+                String region=rows.get(i).getString("region");
+                String ayearmon=rows.get(i).getString("ayearmon");
+                String data=rows.get(i).getString("data");
+                String sql2="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,sessionid) values(?,?,?,?,?)";
+                dataQuery.executeSql(sql2,new Object[]{taskcode,zbcode,region,ayearmon,data,sessionid});
+            }
+            dataQuery.commit();
+
+        }
+        catch (SQLException e){
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                e.printStackTrace();
+                return 1;
+            }
+        }
+        finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+        return 0;
     }
 /*    public static void main(String[] args) {
         OraIndexTaskDaoImpl oraIndexTaskDao=new OraIndexTaskDaoImpl();

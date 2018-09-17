@@ -50,6 +50,9 @@ public class zscalculate extends BaseAction {
        // boolean istmp = false;
         OriginService originService = new OriginService();
         String taskcode = req.getParameter("taskcode");
+        //把data_tmp表中的数据覆盖了
+        String sessionid=req.getSession().getId();
+        IndexTaskDao.Fator.getInstance().getIndexdatadao().copyData(taskcode,sessionid);
         String ayearmon = indexTaskService.getTime(taskcode);
         data1 = getOriginData(false, taskcode, ayearmon,null);
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);

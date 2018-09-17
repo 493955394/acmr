@@ -19,4 +19,5 @@ public interface IIndexTaskDao {
     public DataTable getTaskZb(String taskcode);
     public DataTable getModuleData(String taskcode);
     public String getIcode(String taskcode);
+    public int copyData(String taskcode,String sessionid);
 }
