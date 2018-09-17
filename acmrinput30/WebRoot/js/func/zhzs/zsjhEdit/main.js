@@ -329,10 +329,10 @@ define(function (require,exports,module) {
                     if(eyear == byear){//如果是同一年
                         for (var j = eyear1; j >=byear1 ; j--) {
                             if(j<10){
-                                selecttime += i.toString()+"0"+j.toString()+",";
+                                selecttime += eyear.toString()+"0"+j.toString()+",";
                             }
                             else{
-                                selecttime += i.toString()+j.toString()+",";
+                                selecttime += eyear.toString()+j.toString()+",";
                             }
                         }
                     }else{//如果不是同一年
