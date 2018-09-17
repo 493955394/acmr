@@ -198,6 +198,17 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
     }
 
     @Override
+    public String getTmpData(String taskcode, String region, String zbcode, String ayearmon, String sessionid) {
+        String sql="select * from tb_coindex_data_tmp where taskcode=? and region=? and zbcode=? and ayearmon=? and sessionid=?";
+        DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{taskcode,region,zbcode,ayearmon,sessionid});
+        if (table.getRows().get(0).get("data")!=null){
+            String data= String.valueOf(table.getRows().get(0).get("data"));
+            return data;
+        }
+        else return null;
+    }
+
+    @Override
     public String getTime(String taskcode) {
         String sql="select * from tb_coindex_task where code=?";
         String ayearmon=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{taskcode}).getRows().get(0).getString("ayearmon");
@@ -218,8 +229,8 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
             dataQuery.beginTranse();
 
             //删掉tmp表中该session的记录
-            String sql="delete from tb_coindex_data_tmp where sessionid=?";
-            dataQuery.executeSql(sql,new Object[]{sessionid});
+            String sql="delete from tb_coindex_data_tmp where sessionid=? and taskcode=?";
+            dataQuery.executeSql(sql,new Object[]{sessionid,tcode});
     /*String sql="select * from tb_coindex_data_tmp where sessionid=?";
     DataTable table=dataQuery.getDataTableSql(sql,new Object[]{sessionid});
     if (table.getRows().size()>0){

@@ -47,17 +47,17 @@ public class zscalculate extends BaseAction {
         //String test="重新计算";
         HttpServletRequest req = this.getRequest();
         IndexTaskService indexTaskService = new IndexTaskService();
-        boolean istmp = false;
+       // boolean istmp = false;
         OriginService originService = new OriginService();
         String taskcode = req.getParameter("taskcode");
         String ayearmon = indexTaskService.getTime(taskcode);
-        data1 = getOriginData(istmp, taskcode, ayearmon);
+        data1 = getOriginData(false, taskcode, ayearmon,null);
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
         regs = new ArrayList<>();
         for (int i = 0; i < regscode.size(); i++) {
             regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
         }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", data1).addObject("regs", regs).addObject("taskcode", taskcode).addObject("istmp", istmp);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", data1).addObject("regs", regs).addObject("taskcode", taskcode).addObject("istmp", false);
     }
 
     /**
@@ -71,21 +71,28 @@ public class zscalculate extends BaseAction {
         HttpServletRequest req = this.getRequest();
         String sessionid = req.getSession().getId();
         IndexTaskService indexTaskService = new IndexTaskService();
-        boolean istmp = true;
+        //boolean istmp = true;
         OriginService originService = new OriginService();
         String taskcode = req.getParameter("taskcode");
         //取对应id的数据
         String ayearmon = indexTaskService.getTime(taskcode);
-        datatmp = getOriginData(istmp, taskcode, ayearmon);
+        datatmp = getOriginData(true,taskcode,ayearmon,sessionid);
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
         regstmp = new ArrayList<>();
         for (int i = 0; i < regscode.size(); i++) {
             regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
         }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", datatmp).addObject("regs", regstmp).addObject("taskcode", taskcode).addObject("istmp", istmp);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", datatmp).addObject("regs", regstmp).addObject("taskcode", taskcode).addObject("istmp", true);
 
     }
 
+    /**
+    * @Description: 重新读取数据，插入数据库，并局部刷新原始数据
+    * @Param: []
+    * @return: acmr.web.entity.ModelAndView
+    * @Author: lyh
+    * @Date: 2018/9/17
+    */
     public ModelAndView ReData() {
         HttpServletRequest req = this.getRequest();
         IndexTaskService indexTaskService = new IndexTaskService();
@@ -93,8 +100,9 @@ public class zscalculate extends BaseAction {
         String taskcode = req.getParameter("taskcode");
         String sessionid = req.getSession().getId();
         String ayearmon = indexTaskService.getTime(taskcode);
+        //插入数据库data_tmp表
         IndexTaskDao.Fator.getInstance().getIndexdatadao().ReData(taskcode, sessionid);
-        //List<List<String>> data=getOriginData(true,taskcode,ayearmon);
+        List<List<String>> data=getOriginData(true,taskcode,ayearmon,sessionid);
         String pjax = req.getHeader("X-PJAX");
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
         List<String> regs = new ArrayList<>();
@@ -103,10 +111,10 @@ public class zscalculate extends BaseAction {
         }
         if (StringUtil.isEmpty(pjax)) {
             PubInfo.printStr("===================================emptyredata");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
         } else {
             PubInfo.printStr("=====================================pjaxredata");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("regs", regs);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
 
         }
 
@@ -118,31 +126,24 @@ public class zscalculate extends BaseAction {
      * @Author: lyh
      * @Date: 2018/9/13
      */
-    public List<List<String>> getOriginData (Boolean istmp, String taskcode, String ayearmon) {
+    public List<List<String>> getOriginData (Boolean istmp, String taskcode, String ayearmon,String sessionid) {
         List<List<String>> rows = new ArrayList<>();
         IndexTaskService indexTaskService = new IndexTaskService();
         List<String> ZBcodes = indexTaskService.getZBcodes(taskcode);
         List<String> regs = indexTaskService.getTaskRegs(taskcode);
-        //从临时表中取数
-        if (istmp) {
-
+        for (int i = 0; i < ZBcodes.size(); i++) {
+            List<String> row = new ArrayList<>();
+            String ZBcode = ZBcodes.get(i);
+            row.add(indexTaskService.getzbname(ZBcode));
+            for (int j = 0; j < regs.size(); j++) {
+                String data = indexTaskService.getData(istmp,taskcode, regs.get(j), ZBcodes.get(i), ayearmon,sessionid);
+                row.add(data);
+            }
+            //PubInfo.printStr("row:"+row.toString());
+            rows.add(row);
         }
-        //从原始表中取数
-        else {
-            for (int i = 0; i < ZBcodes.size(); i++) {
-                List<String> row = new ArrayList<>();
-                String ZBcode = ZBcodes.get(i);
-                row.add(indexTaskService.getzbname(ZBcode));
-                for (int j = 0; j < regs.size(); j++) {
-                    String data = indexTaskService.getData(taskcode, regs.get(j), ZBcodes.get(i), ayearmon);
-                    row.add(data);
-                }
-                //PubInfo.printStr("row:"+row.toString());
-                rows.add(row);
-            }
-            for (int m = 0; m < rows.size(); m++) {
-                PubInfo.printStr(rows.get(m).toString());
-            }
+        for (int m = 0; m < rows.size(); m++) {
+            PubInfo.printStr(rows.get(m).toString());
         }
         return rows;
     }
