@@ -248,6 +248,7 @@ define(function (require,exports,module) {
     var selecttime = "",//时间
         checkdata="",
         checkreturn=[];
+    var timesort = $("#index_sort option:selected").val();
 
     $("#datachecks").click(function () {
         selecttime = "";//初始化时间
@@ -264,9 +265,113 @@ define(function (require,exports,module) {
             alert("开始时间不能大于结束时间，请重新输入");
         }
         else{
-            for (var i = endtime; i >= begintime ; i--) {
-                selecttime += i+",";
+            //对时间做补齐操作
+            if(timesort == "y"){//如果是年度
+                var reg=/^\d{4}$/;
+                var r= begintime.match(reg);
+                var s= endtime.match(reg);
+                if(r==null||s==null){
+                    alert("您的时间格式有误");
+                    return;
+                }else{
+                    for (var i = endtime; i >= begintime ; i--) {
+                        selecttime += i+",";
+                    }
+                }
+            }else if(timesort == "q"){//如果是季度的话
+                var reg=/^(\d{4})([A-Da-d]{1})$/;
+                var r= begintime.match(reg);
+                var s= endtime.match(reg);
+                if(r==null||s==null){
+                    alert("您的时间格式有误");
+                    return;
+                }else{
+                    var eyear = endtime.slice(0,4);
+                    var byear = begintime.slice(0,4);
+                    var eyear1 = endtime.toUpperCase().slice(4,5).charCodeAt();
+                    var byear1 = begintime.toUpperCase().slice(4,5).charCodeAt();//转为ascii码
+                    if(eyear == byear){//如果是同一年
+                        for (var j = eyear1; j >=byear1 ; j--) {
+                            selecttime += eyear+String.fromCharCode(j)+",";
+                        }
+                    }else{//如果不是同一年
+                        for (var i = eyear; i >= byear ; i--) {
+                            if(i == eyear){//处理第一年
+                                for (var j = eyear1; j >64 ; j--) {
+                                    selecttime += i+String.fromCharCode(j)+",";
+                                }
+                            }
+                            else if(byear<i && i<eyear) {//处理中间年
+                                for (var j = 68; j >64 ; j--) {
+                                    selecttime += i+String.fromCharCode(j)+",";
+                                }
+                            }
+                            else if(i == byear){
+                                    for (var j = 68; j >=byear1 ; j--) {
+                                        selecttime += i+String.fromCharCode(j)+",";
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }else if(timesort == "m"){//如果是月度的话
+                var reg=/^\d{6}$/;
+                var r= begintime.match(reg);
+                var s= endtime.match(reg);
+                if(r==null||s==null){
+                    alert("您的时间格式有误");
+                    return;
+                }else{
+                    var eyear = endtime.slice(0,4);
+                    var byear = begintime.slice(0,4);
+                    var eyear1 = parseInt(endtime.slice(4,6));
+                    var byear1 = parseInt(begintime.slice(4,6));
+                    if(eyear == byear){//如果是同一年
+                        for (var j = eyear1; j >=byear1 ; j--) {
+                            if(j<10){
+                                selecttime += i.toString()+"0"+j.toString()+",";
+                            }
+                            else{
+                                selecttime += i.toString()+j.toString()+",";
+                            }
+                        }
+                    }else{//如果不是同一年
+                        for (var i = eyear; i >= byear ; i--) {
+                            if(i == eyear){//处理第一年
+                                for (var j = eyear1; j >=1 ; j--) {
+                                    if(j<10){
+                                        selecttime += i.toString()+"0"+j+",";
+                                    }
+                                    else{
+                                        selecttime += i.toString()+j.toString()+",";
+                                    }
+                                }
+                            }
+                            else if(byear<i && i<eyear) {//处理中间年
+                                for (var j = 12; j >1 ; j--) {
+                                    if(j<10){
+                                        selecttime += i.toString()+"0"+j.toString()+",";
+                                    }
+                                    else{
+                                        selecttime += i.toString()+j.toString()+",";
+                                    }
+                                }
+                            }
+                            else if(i == byear){
+                                for (var j = 12; j >=byear1 ; j--) {
+                                    if(j<10){
+                                        selecttime += i.toString()+"0"+j.toString()+",";
+                                    }
+                                    else{
+                                        selecttime += i.toString()+j.toString()+",";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
+
             var zbcode = "";//指标code
             var zbco = "";//指标主体
             var zbds = "";//指标数据来源

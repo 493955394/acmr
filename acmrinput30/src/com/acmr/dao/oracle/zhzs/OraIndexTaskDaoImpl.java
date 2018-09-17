@@ -211,41 +211,75 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
     }
 
     @Override
-    public int ReData(String tcode) {
-        //取数存入tb_coindex_data
-        String sql6="select * from tb_coindex_task_zb where taskcode=?";
-        DataTable table2=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql6,new Object[]{tcode});
-        List<DataTableRow> rows2=table2.getRows();
-        for (int m=0;m<rows2.size();m++){
-            //PubInfo.printStr(rows2.get(m).getRows().toString());
-            String code=rows2.get(m).getString("code");
-            String zbcode=rows2.get(m).getString("zbcode");
-            String company=rows2.get(m).getString("company");
-            String datasource=rows2.get(m).getString("datasource");
-            String regions=rows2.get(m).getString("regions");
-            String unitcode=rows2.get(m).getString("unitcode");
-            TaskZb taskZb=new TaskZb(code,tcode,zbcode,company,datasource,regions,unitcode);
-            String sql7="select * from tb_coindex_task where code=?";
-            String ayearmon1=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql7,new Object[]{tcode}).getRows().get(0).getString("ayearmon");
-            String zbcode1=taskZb.getCode();
+    public int ReData(String tcode,String sessionid) {
+        DataQuery dataQuery=null;
+        try{
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
 
-            List<String> regs= Arrays.asList(taskZb.getRegions().split(","));
-            List<Double> datas=taskZb.getData(ayearmon1);
-            for (int n=0;n<regs.size();n++){
-                String region=regs.get(n);
-                if (datas.get(n)!=null){
-                    String data= String.valueOf(datas.get(n));
-                    //PubInfo.printStr("data:"+data);
-                    String sql8="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data) values(?,?,?,?,to_number(?))";
-                    AcmrInputDPFactor.getQuickQuery().executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,data});
-                }
-                else {
-                    String sql8="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon) values(?,?,?,?)";
-                    AcmrInputDPFactor.getQuickQuery().executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1});
+            //删掉tmp表中该session的记录
+            String sql="delete from tb_coindex_data_tmp where sessionid=?";
+            dataQuery.executeSql(sql,new Object[]{sessionid});
+    /*String sql="select * from tb_coindex_data_tmp where sessionid=?";
+    DataTable table=dataQuery.getDataTableSql(sql,new Object[]{sessionid});
+    if (table.getRows().size()>0){
+        //表中有session的记录，删掉
+        String
+    }*/
+
+            //从zb中找筛选条件取数
+            String sql6="select * from tb_coindex_task_zb where taskcode=?";
+            DataTable table2=dataQuery.getDataTableSql(sql6,new Object[]{tcode});
+            List<DataTableRow> rows2=table2.getRows();
+            for (int m=0;m<rows2.size();m++){
+                //PubInfo.printStr(rows2.get(m).getRows().toString());
+                String code=rows2.get(m).getString("code");
+                String zbcode=rows2.get(m).getString("zbcode");
+                String company=rows2.get(m).getString("company");
+                String datasource=rows2.get(m).getString("datasource");
+                String regions=rows2.get(m).getString("regions");
+                String unitcode=rows2.get(m).getString("unitcode");
+                TaskZb taskZb=new TaskZb(code,tcode,zbcode,company,datasource,regions,unitcode);
+                String sql7="select * from tb_coindex_task where code=?";
+                String ayearmon1=dataQuery.getDataTableSql(sql7,new Object[]{tcode}).getRows().get(0).getString("ayearmon");
+                String zbcode1=taskZb.getCode();
+                //对每个地区，时间 取值并按序存入tmp表
+                List<String> regs= Arrays.asList(taskZb.getRegions().split(","));
+                List<Double> datas=taskZb.getData(ayearmon1);
+                for (int n=0;n<regs.size();n++){
+                    String region=regs.get(n);
+                    if (datas.get(n)!=null){
+                        String data= String.valueOf(datas.get(n));
+                        //PubInfo.printStr("data:"+data);
+                        String sql8="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,sessionid) values(?,?,?,?,to_number(?),?)";
+                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,data,sessionid});
+                    }
+                    else {
+                        String sql8="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,sessionid) values(?,?,?,?,?)";
+                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,sessionid});
+                    }
                 }
             }
+
+            dataQuery.commit();
+
+
         }
-        return 1;
+        catch (SQLException e){
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                e.printStackTrace();
+                return 1;
+            }
+        }
+        finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+
+        return 0;
+
     }
     @Override
     public DataTable getModuleData(String taskcode){

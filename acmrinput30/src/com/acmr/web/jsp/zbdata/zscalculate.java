@@ -14,7 +14,6 @@ import acmr.web.entity.ModelAndView;
 import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
-import com.acmr.model.zhzs.IndexZb;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zhzs.*;
 import org.apache.commons.fileupload.FileItem;
@@ -87,22 +86,31 @@ public class zscalculate extends BaseAction {
 
     }
 
-    public void ReData() {
+    public ModelAndView ReData() {
         HttpServletRequest req = this.getRequest();
         IndexTaskService indexTaskService = new IndexTaskService();
+        OriginService originService = new OriginService();
         String taskcode = req.getParameter("taskcode");
+        String sessionid = req.getSession().getId();
         String ayearmon = indexTaskService.getTime(taskcode);
-        IndexTaskDao.Fator.getInstance().getIndexdatadao().ReData(taskcode);
-      /*  List<List<String>> data=getOriginData(true,taskcode,ayearmon);
+        IndexTaskDao.Fator.getInstance().getIndexdatadao().ReData(taskcode, sessionid);
+        //List<List<String>> data=getOriginData(true,taskcode,ayearmon);
         String pjax = req.getHeader("X-PJAX");
+        List<String> regscode = indexTaskService.getTaskRegs(taskcode);
+        List<String> regs = new ArrayList<>();
+        for (int i = 0; i < regscode.size(); i++) {
+            regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
+        }
         if (StringUtil.isEmpty(pjax)) {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("data",data);
-        } else {
+            PubInfo.printStr("===================================emptyredata");
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
-        }*/
+        } else {
+            PubInfo.printStr("=====================================pjaxredata");
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("regs", regs);
+
+        }
+
     }
-
-
     /**
      * @Description: istmp为true，表示从临时表中读数，false从data表中读数，返回rows，用于绘制原始数据表
      * @Param: [istmp, taskcode]
@@ -110,7 +118,7 @@ public class zscalculate extends BaseAction {
      * @Author: lyh
      * @Date: 2018/9/13
      */
-    public List<List<String>> getOriginData(Boolean istmp, String taskcode, String ayearmon) {
+    public List<List<String>> getOriginData (Boolean istmp, String taskcode, String ayearmon) {
         List<List<String>> rows = new ArrayList<>();
         IndexTaskService indexTaskService = new IndexTaskService();
         List<String> ZBcodes = indexTaskService.getZBcodes(taskcode);
