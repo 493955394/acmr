@@ -64,7 +64,7 @@ define(function(require,exports,module) {
 
     function uploadData() {
         $('#J_fileupload_importTask', document).fileupload({
-            url: common.rootPath + 'zbdata/datahandle.htm?m=importTaskData',
+            url: common.rootPath + 'zbdata/datahandle.htm?m=updateTaskData',
             dataType: 'json',
             done: function (e, data) {
                 var result = data.result;
