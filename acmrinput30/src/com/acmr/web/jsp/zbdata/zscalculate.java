@@ -16,15 +16,16 @@ import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.zhzs.IndexZb;
 import com.acmr.service.zbdata.OriginService;
-import com.acmr.service.zhzs.IndexEditService;
-import com.acmr.service.zhzs.IndexTaskService;
-import com.acmr.service.zhzs.MathService;
-import com.acmr.service.zhzs.OriginDataService;
+import com.acmr.service.zhzs.*;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -247,6 +248,103 @@ public class zscalculate extends BaseAction {
             book.saveExcel(resp.getOutputStream(), XLSTYPE.XLSX);
         } catch (ExcelException e) {
             // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    /**
+     * 文件上传
+     *
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public void updateTaskData() {
+        CreateTaskService createTaskService = new CreateTaskService();
+        JSONReturnData data = new JSONReturnData("");
+        ServletFileUpload uploader = new ServletFileUpload(new DiskFileItemFactory());
+        uploader.setHeaderEncoding("utf-8");
+        try {
+            ArrayList<FileItem> files = (ArrayList<FileItem>) uploader.parseRequest(this.getRequest());
+            if (files.size() > 0) {
+                FileItem file = files.get(0);
+                String name = file.getName();
+                if (file != null) {
+                    try {
+                        XLSTYPE xlstype = XLSTYPE.XLS;
+                        if (name.endsWith("xlsx")) {
+                            xlstype = XLSTYPE.XLSX;
+                        }
+                        ExcelBook book1 = new ExcelBook();
+                        book1.LoadExcel(file.getInputStream(), xlstype);
+                        ExcelSheet sheet = book1.getSheets().get(0);
+                        if (sheet == null) {
+                            data.setReturncode(500);
+                            data.setReturndata("没有发现上传的文件");
+                            this.sendJson(data);
+                            return;
+                        }
+                        int rows = sheet.getRows().size();
+                        // 必填项
+                        Map<Integer, String> mkey = new HashMap<Integer, String>();
+                        // 数据量
+                        int count = 0;
+                        //获取地区并进行检查
+                        for(int r=0;r<regstmp.size();r++){
+                            String reg = sheet.getRows().get(0).toString().substring(1,sheet.getRows().get(0).toString().length()-1);
+                            String [] regname = reg.split(",");
+                            List code = new ArrayList();
+                            for (int i=0;i<regname.length-1;i++){
+                                int j = i+1;
+                                System.out.println(regname[j]);
+                            }
+                        }
+                        // 遍历所有数据
+                        for (int j=1;j<sheet.getRows().size();j++){
+                        if (rows >= 1 && sheet.getRows().get(j) != null) {
+                            ExcelRow Rows = sheet.getRows().get(j);
+
+                            if (Rows != null) {
+                                int cells = Rows.getCells().size();
+                                for (int i = 0; i < cells; i++) {
+                                    ExcelCell cell = Rows.getCells().get(i);
+                                    if (cell != null) {
+                                        String value = cell.getText() + "";
+                                        if (StringUtil.isEmpty(value)) {
+                                            continue;
+                                        }
+                                        if (!mkey.containsValue(value)) {
+                                            mkey.put(i, value);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        }
+                        boolean uState = false;
+                        List<Map<String, Object>> update = new ArrayList<Map<String, Object>>(); // 更新
+                        // 如果插入的数据量大于10000条，则提示用户数量超标
+                        if (count >= 10000) {
+                            data.setReturncode(400);
+                            data.setReturndata("导入的数据不能超过10000行，目前有" + count + "行");
+                            return;
+                        }
+                        // 入库
+                        if (uState) {
+                            //createTaskService.UpdateRows(update);
+                        }
+                        data.setParam1(count);
+                        data.setReturncode(200);
+                        data.setReturndata("数据文件上传成功");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        data.setReturncode(500);
+                        data.setReturndata("数据导入失败");
+                    }
+                }
+            }
+            this.sendJson(data);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -65,6 +65,6 @@
 </body>
 <script>
     seajs.use('${ctx}/js/func/zhzs/zstask/main');
-    seajs.use('${ctx}/js/func/zhzs/zstask/import');
+    seajs.use('${ctx}/js/func/zhzs/zstask/datahandle');
 </script>
 </html>
