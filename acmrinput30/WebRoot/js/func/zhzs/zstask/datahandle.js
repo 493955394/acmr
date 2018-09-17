@@ -11,9 +11,10 @@ define(function(require,exports,module) {
         modal = require('modal'),
         modal = require('modal'),
         ZeroClipboard = require('ZeroClipboard');
-    /**
+/*
+    /!**
      * 重新读取数据
-     */
+     *!/
     $(document).on("click","#data_reload",reloadOrigindata)
 
     function reloadOrigindata(){
@@ -29,6 +30,7 @@ define(function(require,exports,module) {
             }
         })
     }
+*/
 
     /**
      * 数据下载
