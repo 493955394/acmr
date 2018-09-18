@@ -2,14 +2,10 @@ package com.acmr.service.zhzs;
 
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
-import acmr.util.ListHashMap;
-import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.model.zhzs.IndexList;
 
-import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class IndexListService {
@@ -55,6 +51,30 @@ public class IndexListService {
             }
             //PubInfo.printStr("indexcode:"+index.getCode());
             indexLists.add(index);
+        }
+        return indexLists;
+    }
+
+    public List<IndexList> getSubCate(String pcode){
+        List<IndexList> indexLists=new ArrayList<>();
+        List<DataTableRow> rows = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists(pcode,"usercode01").getRows();
+        for (int i=0;i<rows.size();i++){
+            //只取目录，不取计划
+            if (rows.get(i).getString("ifdata").equals("0")){
+                String code=rows.get(i).getString("code");
+                String cname=rows.get(i).getString("cname");
+                String procode=rows.get(i).getString("procode");
+                String sort=rows.get(i).getString("sort");
+                String startperiod=rows.get(i).getString("startperiod");
+                String delaydat=rows.get(i).getString("delayday");
+                String planperiod=rows.get(i).getString("planperiod");
+                String plantime=rows.get(i).getString("plantime");
+                String createuser=rows.get(i).getString("createuser");
+                String ifdata=rows.get(i).getString("ifdata");
+                String state=rows.get(i).getString("state");
+                IndexList indexList=new IndexList(code,cname,procode,sort,startperiod,delaydat,planperiod,plantime,createuser,ifdata,state);
+                indexLists.add(indexList);
+            }
         }
         return indexLists;
     }
@@ -199,7 +219,9 @@ public class IndexListService {
             String planperiod=rows.get(i).getString("planperiod");
             String plantime=rows.get(i).getString("plantime");
             String createuser=rows.get(i).getString("createuser");
-            IndexList indexList=new IndexList(code,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser);
+            String ifdata=rows.get(i).getString("ifdata");
+            String state=rows.get(i).getString("state");
+            IndexList indexList=new IndexList(code,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser,ifdata,state);
             list.add(indexList);
         }
         return list;

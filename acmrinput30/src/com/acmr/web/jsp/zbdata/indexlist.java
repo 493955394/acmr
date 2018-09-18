@@ -6,13 +6,17 @@ import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
+import com.acmr.model.pub.PageBean;
+import com.acmr.model.pub.TreeNode;
 import com.acmr.model.zhzs.IndexList;
+import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.service.zhzs.CreateTaskService;
 import com.acmr.service.zhzs.IndexListService;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,25 +24,116 @@ import java.util.Map;
 
 public class indexlist extends BaseAction {
     public ModelAndView main() throws IOException {
-        ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
-        return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("indexlist",indexlist);
+        ArrayList<IndexList> allindexlist= new IndexListService().getIndexList();
+        IndexListService indexListService=new IndexListService();
+        PageBean<IndexList> page=new PageBean<>();
+        StringBuffer sb = new StringBuffer();
+        sb.append(this.getRequest().getRequestURI());
+        sb.append("?m=turn");
+        try {
+            List<IndexList> indexLists=indexListService.getIndexListByPage("usercode01",page.getPageNum() - 1,page.getPageSize());
+            page.setData(indexLists);
+            page.setTotalRecorder(allindexlist.size());
+            page.setUrl(sb.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("page",page);
+    }
+    
+    /** 
+    * @Description: 翻页
+    * @Param: [] 
+    * @return: void 
+    * @Author: lyh
+    * @Date: 2018/9/18 
+    */ 
+    public void turn(){
+        
     }
 
+
+    /**
+    * @Description: 异步获取指数计划的目录结构树
+    * @Param: []
+    * @return: void
+    * @Author: lyh
+    * @Date: 2018/9/18
+    */
+    public void getListTree() throws IOException {
+        HttpServletRequest req=this.getRequest();
+        String code=req.getParameter("id");
+        IndexListService indexListService=new IndexListService();
+        ArrayList<IndexList> indexlist=indexListService.getSublist(code);
+        List<TreeNode> list=new ArrayList<>();
+        for (int i=0;i<indexlist.size();i++){
+            TreeNode node=new TreeNode();
+            node.setPId(indexlist.get(i).getProcode());
+            node.setId(indexlist.get(i).getCode());
+            node.setName(indexlist.get(i).getCname());
+            if (indexlist.get(i).getIfdata().equals("0")){
+                node.setIsParent(true);
+            }
+            else node.setIsParent(false);
+            list.add(node);
+        }
+        this.sendJson(list);
+
+    }
+
+    public void getCateTree() throws IOException {
+        HttpServletRequest req=this.getRequest();
+        String code=req.getParameter("id");
+        IndexListService indexListService=new IndexListService();
+        List<IndexList> indexlist=indexListService.getSubCate(code);
+        List<TreeNode> list=new ArrayList<>();
+        for (int i=0;i<indexlist.size();i++){
+            TreeNode node=new TreeNode();
+            node.setPId(indexlist.get(i).getProcode());
+            node.setId(indexlist.get(i).getCode());
+            node.setName(indexlist.get(i).getCname());
+            node.setIsParent(true);
+            list.add(node);
+        }
+        this.sendJson(list);
+    }
+
+
+    /**
+    * @Description: 点击树刷新列表
+    * @Param: []
+    * @return: acmr.web.entity.ModelAndView
+    * @Author: lyh
+    * @Date: 2018/9/18
+    */
     public ModelAndView getIndexList() throws IOException {
         HttpServletRequest req = this.getRequest();
         String pjax = req.getHeader("X-PJAX");
         String code=req.getParameter("code");
         PubInfo.printStr("code"+code);
-        ArrayList<IndexList> indexlist= new IndexListService().getSublist(code);
+        ArrayList<IndexList> indexlist=new ArrayList<>();
+        if (code=="#1"){
+            indexlist=new IndexListService().getSublist("");
+        }else {
+            indexlist= new IndexListService().getSublist(code);
+        }
         if (indexlist.size()==0){
             indexlist.add(new IndexListService().getData(code));
         }
+        PageBean<IndexList> page=new PageBean<>();
+        StringBuffer sb = new StringBuffer();
+        sb.append(this.getRequest().getRequestURI());
+        sb.append("?m=turn");
+        page.setData(indexlist);
+        page.setTotalRecorder(indexlist.size());
+        page.setUrl(sb.toString());
         if (StringUtil.isEmpty(pjax)) {
             PubInfo.printStr("isempty");
             this.getResponse().sendRedirect("/zbdata/indexlist.htm");
         } else {
             PubInfo.printStr("pjax");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/indextable").addObject("indexlist",indexlist);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/indextable").addObject("page",page);
         }
         return null;
     }

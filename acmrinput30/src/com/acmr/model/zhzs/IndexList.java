@@ -37,7 +37,7 @@ public class IndexList {
     public IndexList(){
 
     }
-    public IndexList(String code,String cname,String procode,String sort,String startperiod,String delayday,String planperiod,String plantime,String createuser){
+    public IndexList(String code,String cname,String procode,String sort,String startperiod,String delayday,String planperiod,String plantime,String createuser,String ifdata,String state){
         this.code=code;
         this.cname=cname;
         this.procode=procode;
@@ -47,6 +47,9 @@ public class IndexList {
         this.planperiod=planperiod;
         this.plantime=plantime;
         this.createuser=createuser;
+        this.ifdata=ifdata;
+        this.state=state;
+
     }
     public String getCode() {
         return code;

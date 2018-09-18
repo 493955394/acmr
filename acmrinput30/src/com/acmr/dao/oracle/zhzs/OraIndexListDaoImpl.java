@@ -21,8 +21,8 @@ public class OraIndexListDaoImpl implements IIndexListDao {
 
     @Override
     public DataTable getSubLists(String code,String usercode) {
-        if (code==""){
-            String sql = "select * from tb_coindex_index where createuser= ? ";
+        if (code.equals("")){
+            String sql = "select * from tb_coindex_index where createuser= ? and procode is null";
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{usercode});
         }
         else {

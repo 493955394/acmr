@@ -7,8 +7,12 @@ define(function (require,exports,module) {
         dropdown = require('dropdown'),
         pjax=require('pjax'),
         modal = require('modal'),
-        listjsp= require('listjsp'),
+       // listjsp= require('listjsp'),
         AjaxMods = require('AjaxMods');
+
+
+    var st = new Date().getTime();//时间戳
+
 
     /**
      * 新增目录ajax提交
@@ -396,15 +400,32 @@ define(function (require,exports,module) {
         { id:"#2", pId:0, name:"我收到的指数",isParent:true,sou:true},
         { id:"#3", pId:0, name:"我共享的指数", isParent:true,sou:true}
     ];
-    var indexlist=listjsp.indexlist;
+    var cNodes=[
+        { id:"#1", pId:0, name:"指数",isParent:true,sou:true}
+    ]
+    /*var indexlist=listjsp.indexlist;
     for(var i=0;i<indexlist.length;i++){
         zNodes.push(indexlist[i])
-    }
+    }*/
     var setting = {
-        data: {
-            simpleData: {
-                enable: true
-            }
+        async: {
+            enable: true,
+            url: common.rootPath+'zbdata/indexlist.htm?m=getListTree&st='+st,
+            contentType: 'application/json',
+            type: 'get',
+            autoParam: ["id"]
+        },
+        callback:{
+            onClick:clickEvent
+        }
+    };
+    var settingc = {
+        async: {
+            enable: true,
+            url: common.rootPath+'zbdata/indexlist.htm?m=getCateTree&st='+st,
+            contentType: 'application/json',
+            type: 'get',
+            autoParam: ["id"]
         },
         callback:{
             onClick:clickEvent
@@ -574,6 +595,7 @@ define(function (require,exports,module) {
         fixIcon("treeDemo");
         addPath();
 
+        //        $.fn.zTree.init($("#你的id"), settingc, CNodes);
         $.fn.zTree.init($("#treeCata"), setting1, CategoryNodes);
         fixIcon("treeCata");
         $.fn.zTree.init($("#treePlan"), setting2, CategoryNodes);
@@ -588,13 +610,13 @@ define(function (require,exports,module) {
     //CategoryNode为只有目录的树结构nodes
     var CategoryNodes=[];
     //console.log(zNodes)
-    for(i=0;i<zNodes.length;i++){
+    /*for(i=0;i<zNodes.length;i++){
         //console.log(zNodes[i])
         if (zNodes[i].sou==true&&zNodes[i].pId!="#2"&&zNodes[i].pId!="#3"&&zNodes[i].id!="#2"&&zNodes[i].id!="#3"){
             CategoryNodes.push(zNodes[i])
             //console.log(CategoryNodes)
         }
-    }
+    }*/
     //console.log(CategoryNodes)
 
     module.exports={
