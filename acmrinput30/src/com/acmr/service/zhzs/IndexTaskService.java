@@ -51,7 +51,7 @@ public class IndexTaskService {
      * @param
      * @return
      */
-    public int updateData(String taskcode,String ayearmon,String sessionid,Map<String,Map> zbandreg){
+    public int updateData(String taskcode,String ayearmon,String sessionid,List<List<String>> zbandreg){
         return IndexTaskDao.Fator.getInstance().getIndexdatadao().updateDataTmp(taskcode,ayearmon,sessionid,zbandreg);
     }
     /*public List<String> origionZBcodes(String taskcode){

@@ -23,11 +23,36 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
      * @return
      */
     @Override
-    public int updateDataTmp(String taskcode,String ayearmon,String sessionid,Map<String, Map> zbandreg) {
-        String sql1 = "update tb_coindex_index set procode=? where code=?";
+    public int updateDataTmp(String taskcode,String ayearmon,String sessionid,List<List<String>> zbandreg) {
+        /*String sql1 = "update tb_coindex_index set procode=? where code=?";
         List<Object> params = new ArrayList<Object>();
         //params.add(procode);
-        return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());*/
+        DataQuery dataQuery = null;
+        try{
+
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+            //String zbcode = zbandreg.containsKey();
+
+            dataQuery.commit();
+
+        }
+        catch (SQLException e){
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                e.printStackTrace();
+                return 1;
+            }
+        }
+        finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+
+        return 0;
+
     }
 
     @Override

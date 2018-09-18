@@ -351,7 +351,7 @@ public class zscalculate extends BaseAction {
                         }
 
                         // 遍历数据并进行封装
-                        Map<String,Map> zbandreg = new HashMap<>();
+                        List<List<String>> zbandreg = new ArrayList<>();
                         for (int j=0;j<sheet.getRows().size();j++){
                             //对指标进行比对
                             List<String> ZBname = new ArrayList<>();
@@ -372,7 +372,8 @@ public class zscalculate extends BaseAction {
                                 ExcelRow Rows = sheet.getRows().get(k);
                                 if (Rows != null) {
                                     int cells = Rows.getCells().size();
-                                    Map<String, String> mkey = new HashMap<String, String>();
+                                    //Map<String, String> mkey = new HashMap<String, String>();
+                                    List<String> reganddata = new ArrayList<>();
                                     for (int i = 0; i < cells; i++) {
                                         ExcelCell cell = Rows.getCells().get(i);
                                         if (cell != null) {
@@ -380,12 +381,14 @@ public class zscalculate extends BaseAction {
                                             if (StringUtil.isEmpty(value)) {
                                                 continue;
                                             }
-                                            if (!mkey.containsValue(value)) {
+                                            /*if (!mkey.containsValue(value)) {
                                                 mkey.put(regscode.get(i), value);
-                                            }
-                                            zbandreg.put(ZBcode,mkey);
+                                            }*/
+                                            reganddata.add(value);
+                                            reganddata.add(regscode.get(i));
                                         }
                                     }
+                                    zbandreg.add(reganddata);
                                 }
                             }
                         }

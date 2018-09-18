@@ -3,6 +3,7 @@ package com.acmr.dao.zhzs;
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 
+import java.util.List;
 import java.util.Map;
 
 public interface IIndexTaskDao {
@@ -22,5 +23,5 @@ public interface IIndexTaskDao {
     public DataTable getModuleData(String taskcode,String ifzs);
     public String getIcode(String taskcode);
     public int copyData(String taskcode,String sessionid);
-    public int updateDataTmp(String taskcode,String ayearmon,String sessionid,Map<String, Map> zbandreg);
+    public int updateDataTmp(String taskcode,String ayearmon,String sessionid,List<List<String>> zbandreg);
 }
