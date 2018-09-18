@@ -45,7 +45,9 @@
                             <div class="panel-heading">
                                 <button type="button" class="btn btn-default" id="data_download">下载</button>
                                 <input type="hidden" class="istmpdata" value="${istmp}">
-                                <button type="button" class="btn btn-default" id="data_upload">上传数据</button>
+                                <span class="btn btn-default fileinput-button"><span>上传数据</span><input type="file" name="file" id="data_upload"></span>
+                                <span id="import_count" class="form-group" style="margin-right:10px;"></span>
+                                <%--<button type="button" class="btn btn-default" id="data_upload">上传数据</button>--%>
                                 <button type="button" class="btn btn-default" id="data_reload">重新读取数据</button>
                                 <input type="hidden" class="reloaddata" value="${taskcode}">
                             </div>

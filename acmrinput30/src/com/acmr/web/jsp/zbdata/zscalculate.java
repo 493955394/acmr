@@ -288,8 +288,22 @@ public class zscalculate extends BaseAction {
      * @return
      */
     public void updateTaskData() {
-        CreateTaskService createTaskService = new CreateTaskService();
+        //CreateTaskService createTaskService = new CreateTaskService();
+        IndexTaskService indexTaskService = new IndexTaskService();
+        OriginService originService = new OriginService();
+        HttpServletRequest req = this.getRequest();
         JSONReturnData data = new JSONReturnData("");
+        String sessionid = req.getSession().getId();
+        String taskcode = req.getParameter("taskcode");
+        List<String> regscode = indexTaskService.getTaskRegs(taskcode);
+
+        List<String> regs = new ArrayList<>();
+        for (int i = 0; i < regscode.size(); i++) {
+            regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
+        }
+        List<String> ZBcodes = indexTaskService.getZBcodes(taskcode);
+        String ayearmon = indexTaskService.getTime(taskcode);
+
         ServletFileUpload uploader = new ServletFileUpload(new DiskFileItemFactory());
         uploader.setHeaderEncoding("utf-8");
         try {
@@ -313,61 +327,75 @@ public class zscalculate extends BaseAction {
                             return;
                         }
                         int rows = sheet.getRows().size();
-                        // 必填项
-                        Map<Integer, String> mkey = new HashMap<Integer, String>();
+
                         // 数据量
                         int count = 0;
-                        //获取地区并进行检查
-                        for(int r=0;r<regstmp.size();r++){
+                        //对地区进行比对
+                        for(int r=0;r<regs.size();r++){
                             String reg = sheet.getRows().get(0).toString().substring(1,sheet.getRows().get(0).toString().length()-1);
-                            String [] regname = reg.split(",");
-                            List code = new ArrayList();
-                            for (int i=0;i<regname.length-1;i++){
-                                int j = i+1;
-                                System.out.println(regname[j]);
+                            String [] getregname = reg.split(",");
+
+                            if(!getregname[r].equals(regs.get(r))){
+                                data.setReturncode(300);
+                                data.setReturndata("指标或地区有误，请比对下载进行数据修改");
+                                this.sendJson(data);
+                                return;
                             }
                         }
-                        // 遍历所有数据
-                        for (int j=1;j<sheet.getRows().size();j++){
-                        if (rows >= 1 && sheet.getRows().get(j) != null) {
-                            ExcelRow Rows = sheet.getRows().get(j);
 
-                            if (Rows != null) {
-                                int cells = Rows.getCells().size();
-                                for (int i = 0; i < cells; i++) {
-                                    ExcelCell cell = Rows.getCells().get(i);
-                                    if (cell != null) {
-                                        String value = cell.getText() + "";
-                                        if (StringUtil.isEmpty(value)) {
-                                            continue;
-                                        }
-                                        if (!mkey.containsValue(value)) {
-                                            mkey.put(i, value);
+                        // 遍历数据并进行封装
+                        Map<String,Map> zbandreg = new HashMap<>();
+                        for (int j=1;j<sheet.getRows().size();j++){
+                            //对指标进行比对
+                            List<String> ZBname = new ArrayList<>();
+                            String ZBcode = ZBcodes.get(j);
+                            ZBname.add(indexTaskService.getzbname(ZBcode));
+                            ExcelCell zb = sheet.getRows().get(j).getCells().get(0);
+                            String zbname = zb.getText() + "";
+                            String [] getzbname = zbname.split(",");
+                            if(!getzbname[j].equals(ZBname.get(j))){
+                                data.setReturncode(300);
+                                data.setReturndata("指标或地区有误，请比对下载进行数据修改");
+                                this.sendJson(data);
+                                return;
+                            }
+
+                            if (rows >= 1 && sheet.getRows().get(j) != null) {
+                                ExcelRow Rows = sheet.getRows().get(j);
+                                if (Rows != null) {
+                                    int cells = Rows.getCells().size();
+                                    Map<String, String> mkey = new HashMap<String, String>();
+                                    for (int i = 0; i < cells; i++) {
+                                        ExcelCell cell = Rows.getCells().get(i);
+                                        if (cell != null) {
+                                            String value = cell.getText() + "";
+                                            if (StringUtil.isEmpty(value)) {
+                                                continue;
+                                            }
+                                            if (!mkey.containsValue(value)) {
+                                                mkey.put(regscode.get(i), value);
+                                            }
+                                            zbandreg.put(ZBcode,mkey);
                                         }
                                     }
                                 }
                             }
                         }
-                        }
-                        boolean uState = false;
-                        List<Map<String, Object>> update = new ArrayList<Map<String, Object>>(); // 更新
-                        // 如果插入的数据量大于10000条，则提示用户数量超标
+
                         if (count >= 10000) {
                             data.setReturncode(400);
-                            data.setReturndata("导入的数据不能超过10000行，目前有" + count + "行");
+                            data.setReturndata("导入的数据不能超过10000行");
                             return;
                         }
                         // 入库
-                        if (uState) {
-                            //createTaskService.UpdateRows(update);
-                        }
+
                         data.setParam1(count);
                         data.setReturncode(200);
                         data.setReturndata("数据文件上传成功");
                     } catch (Exception e) {
                         e.printStackTrace();
                         data.setReturncode(500);
-                        data.setReturndata("数据导入失败");
+                        data.setReturndata("数据上传失败");
                     }
                 }
             }
