@@ -291,7 +291,7 @@ public class zscalculate extends BaseAction {
      * @param
      * @return
      */
-    public void updateTaskData() {
+    /*public void updateTaskData() {
         //CreateTaskService createTaskService = new CreateTaskService();
         IndexTaskService indexTaskService = new IndexTaskService();
         OriginService originService = new OriginService();
@@ -352,7 +352,7 @@ public class zscalculate extends BaseAction {
 
                         // 遍历数据并进行封装
                         List<List<String>> zbandreg = new ArrayList<>();
-                        for (int j=0;j<sheet.getRows().size();j++){
+                        for (int j=0;j<ZBcodes.size();j++){
                             //对指标进行比对
                             List<String> ZBname = new ArrayList<>();
                             String ZBcode = ZBcodes.get(j);
@@ -368,22 +368,23 @@ public class zscalculate extends BaseAction {
                                 return;
                             }
 
-                            if (rows >= 1 && sheet.getRows().get(j) != null) {
+                            if (rows >= 1 && sheet.getRows().get(k) != null) {
                                 ExcelRow Rows = sheet.getRows().get(k);
                                 if (Rows != null) {
                                     int cells = Rows.getCells().size();
                                     //Map<String, String> mkey = new HashMap<String, String>();
                                     List<String> reganddata = new ArrayList<>();
-                                    for (int i = 0; i < cells; i++) {
-                                        ExcelCell cell = Rows.getCells().get(i);
+                                    for (int i = 0; i < regscode.size(); i++) {
+                                        int m = i+1;
+                                        ExcelCell cell = Rows.getCells().get(m);
                                         if (cell != null) {
                                             String value = cell.getText() + "";
-                                            if (StringUtil.isEmpty(value)) {
+                                            *//*if (StringUtil.isEmpty(value)) {
                                                 continue;
-                                            }
-                                            /*if (!mkey.containsValue(value)) {
+                                            }*//*
+                                            *//*if (!mkey.containsValue(value)) {
                                                 mkey.put(regscode.get(i), value);
-                                            }*/
+                                            }*//*
                                             reganddata.add(value);
                                             reganddata.add(regscode.get(i));
                                         }
@@ -414,7 +415,7 @@ public class zscalculate extends BaseAction {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     /**
      * 重新计算页面

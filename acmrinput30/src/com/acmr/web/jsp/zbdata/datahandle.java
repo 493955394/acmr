@@ -31,16 +31,38 @@ import acmr.excel.pojo.ExcelCell;
 import acmr.excel.pojo.ExcelRow;
 import acmr.excel.pojo.ExcelSheet;
 import acmr.util.DataTable;
+import acmr.excel.ExcelException;
+import acmr.excel.pojo.Constants.XLSTYPE;
+import acmr.excel.pojo.ExcelBook;
+import acmr.excel.pojo.ExcelCell;
+import acmr.excel.pojo.ExcelRow;
+import acmr.excel.pojo.ExcelSheet;
+import acmr.math.CalculateExpression;
+import acmr.math.entity.MathException;
+import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
-import acmr.web.core.CurrentContext;
 import acmr.web.entity.ModelAndView;
-
+import com.acmr.dao.zhzs.IndexTaskDao;
+import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
-import com.acmr.model.pub.PageBean;
-import com.acmr.service.metadata.MetaDataExport;
-import com.acmr.service.metadata.MetaService;
-import com.acmr.service.metadata.MetaServiceManager;
+import com.acmr.model.zhzs.Data;
+import com.acmr.model.zhzs.DataResult;
+import com.acmr.model.zhzs.IndexZb;
+import com.acmr.model.zhzs.TaskModule;
+import com.acmr.service.zbdata.OriginService;
+import com.acmr.service.zhzs.*;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 public class datahandle extends BaseAction {
 
     /**
@@ -119,9 +141,23 @@ public class datahandle extends BaseAction {
      * @param
      * @return
      */
-    public void importTaskData() {
-        CreateTaskService createTaskService = new CreateTaskService();
+    public void updateTaskData() {
+        //CreateTaskService createTaskService = new CreateTaskService();
+        IndexTaskService indexTaskService = new IndexTaskService();
+        OriginService originService = new OriginService();
+        HttpServletRequest req = this.getRequest();
         JSONReturnData data = new JSONReturnData("");
+        String sessionid = req.getSession().getId();
+        String taskcode = req.getParameter("taskcode");
+        List<String> regscode = indexTaskService.getTaskRegs(taskcode);
+
+        List<String> regs = new ArrayList<>();
+        for (int i = 0; i < regscode.size(); i++) {
+            regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
+        }
+        List<String> ZBcodes = indexTaskService.getZBcodes(taskcode);
+        String ayearmon = indexTaskService.getTime(taskcode);
+
         ServletFileUpload uploader = new ServletFileUpload(new DiskFileItemFactory());
         uploader.setHeaderEncoding("utf-8");
         try {
@@ -145,63 +181,98 @@ public class datahandle extends BaseAction {
                             return;
                         }
                         int rows = sheet.getRows().size();
-                        // 必填项
-                        Map<Integer, String> mkey = new HashMap<Integer, String>();
+
                         // 数据量
                         int count = 0;
-                        //获取地区
-                        String reg = sheet.getRows().get(0).toString().substring(1,sheet.getRows().get(0).toString().length()-1);
-                        String [] regname = reg.split(",");
-                        List code = new ArrayList();
-                        for (int i=0;i<regname.length-1;i++){
-                            int j = i+1;
-                            System.out.println(regname[j]);
+                        //对地区进行比对
+                        for(int r=0;r<regs.size();r++){
+                            //String reg = sheet.getRows().get(0).toString().substring(4,sheet.getRows().get(0).toString().length()-1);
+                            int s= r+1;
+                            String getreg =sheet.getRows().get(0).getCells().get(s).getText() + "";
+                            String [] getregname = getreg.split(",");
+                            String reg = regs.get(r);
+                            String b = regs.get(0);
+                            if(!getreg.equals(reg)){
+                                data.setReturncode(300);
+                                data.setReturndata("指标或地区有误，请比对下载进行数据修改");
+                                this.sendJson(data);
+                                return;
+                            }
+                        }
+                        List<String> ZBname = new ArrayList<>();
 
+                        //对指标进行比对
+                        for(int z=0;z<ZBcodes.size();z++){
+                            //String reg = sheet.getRows().get(0).toString().substring(4,sheet.getRows().get(0).toString().length()-1);
+                            int n= z+1;
+                            String getzb =sheet.getRows().get(n).getCells().get(0).getText() + "";
+                            //String ceshi = sheet.getRows().get(2).getCells().get(0).getText() + "";
+                            //String [] getregname = getreg.split(",");
+                            String ZBcode = ZBcodes.get(z);
+                            ZBname.add(indexTaskService.getzbname(ZBcode));
+                            String zbname = ZBname.get(z);
+                            if(!getzb.equals(zbname)){
+                                data.setReturncode(300);
+                                data.setReturndata("指标或地区有误，请比对下载进行数据修改");
+                                this.sendJson(data);
+                                return;
+                            }
                         }
-                        //测试指标列
-                        String [] zbname = sheet.getCols().get(1).toString().split(",");
-                        for(int k=0;k<zbname.length-1;k++){
-                            int l = k+1;
-                            System.out.println(zbname[l]);
-                        }
-                        // 遍历标识列
-                        if (rows >= 1 && sheet.getRows().get(1) != null) {
-                            ExcelRow firstRow = sheet.getRows().get(1);
-                            if (firstRow != null) {
-                                int cells = firstRow.getCells().size();
-                                for (int i = 0; i < cells; i++) {
-                                    ExcelCell cell = firstRow.getCells().get(i);
-                                    if (cell != null) {
-                                        String value = cell.getText() + "";
-                                        if (StringUtil.isEmpty(value)) {
-                                            continue;
-                                        }
-                                        if (!mkey.containsValue(value)) {
-                                            mkey.put(i, value);
+                        // 遍历数据并进行封装
+                        List<List<String>> zbandreg = new ArrayList<>();
+                        for (int j=0;j<ZBcodes.size();j++){
+                            int k = j+1;
+                            /*
+                            ExcelCell zb = sheet.getRows().get(k).getCells().get(0);
+                            String zbname = zb.getText() + "";
+                            String [] getzbname = zbname.split(",");
+                            if(!getzbname[k].equals(ZBname.get(j))){
+                                data.setReturncode(300);
+                                data.setReturndata("指标或地区有误，请比对下载进行数据修改");
+                                this.sendJson(data);
+                                return;
+                            }*/
+
+                            if (rows >= 1 && sheet.getRows().get(k) != null) {
+                                ExcelRow Rows = sheet.getRows().get(k);
+                                if (Rows != null) {
+                                    //int cells = Rows.getCells().size();
+                                    //Map<String, String> mkey = new HashMap<String, String>();
+                                    List<String> reganddata = new ArrayList<>();
+                                    for (int i = 0; i < regscode.size(); i++) {
+                                        int m = i+1;
+                                        ExcelCell cell = Rows.getCells().get(m);
+                                        if (cell != null) {
+                                            String value = cell.getText() + "";
+                                            /*if (StringUtil.isEmpty(value)) {
+                                                continue;
+                                            }*/
+                                            /*if (!mkey.containsValue(value)) {
+                                                mkey.put(regscode.get(i), value);
+                                            }*/
+                                            reganddata.add(value);
+                                            reganddata.add(regscode.get(i));
                                         }
                                     }
+                                    zbandreg.add(reganddata);
                                 }
                             }
                         }
-                        boolean uState = false;
-                        List<Map<String, Object>> update = new ArrayList<Map<String, Object>>(); // 更新
-                        // 如果插入的数据量大于10000条，则提示用户数量超标
+
                         if (count >= 10000) {
                             data.setReturncode(400);
-                            data.setReturndata("导入的数据不能超过10000行，目前有" + count + "行");
+                            data.setReturndata("导入的数据不能超过10000行");
                             return;
                         }
                         // 入库
-                        if (uState) {
-                            //createTaskService.UpdateRows(update);
-                        }
+                        int uploaddata = indexTaskService.updateData(taskcode,ayearmon,sessionid,zbandreg);
                         data.setParam1(count);
                         data.setReturncode(200);
                         data.setReturndata("数据文件上传成功");
                     } catch (Exception e) {
                         e.printStackTrace();
                         data.setReturncode(500);
-                        data.setReturndata("数据导入失败");
+                        data.setReturndata("数据上传失败");
                     }
                 }
             }
