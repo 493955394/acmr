@@ -15,6 +15,9 @@ import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
+import com.acmr.model.zhzs.Data;
+import com.acmr.model.zhzs.DataResult;
+import com.acmr.model.zhzs.IndexZb;
 import com.acmr.model.zhzs.TaskModule;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zhzs.*;
@@ -420,6 +423,7 @@ public class zscalculate extends BaseAction {
         String ayearmon = findAyearmon(taskcode);
         //从原始数据表读取数据做计算
         String regs = findRegions(taskcode);
+        String [] reg = regs.split(",");
         String indexcode = findicode(taskcode);
         if (StringUtil.isEmpty(pjax)) {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
@@ -449,47 +453,56 @@ public class zscalculate extends BaseAction {
         return indexTaskService.getRegions(taskcode);
     }
     /**
-     * 计算的方法,,环比和指数的还没有做
+     * 计算的方法,环比和指数的还没有做
      */
-    public List calculateFunction(String taskcode, String time, String regs,String icode,String sessionid){
-        List values = new ArrayList();
+    public boolean calculateFunction(String taskcode, String time, String regs,String icode,String sessionid){
         String [] reg = regs.split(",");
         IndexTaskService indexTaskService = new IndexTaskService();
-        List<Map> data = indexTaskService.getModuleFormula(taskcode);
-        for (int i = 0; i <data.size() ; i++) {
+        OriginDataService originDataService = new OriginDataService();
+        List<DataResult> newadd = new ArrayList<>();
+        List<TaskModule> data = indexTaskService.getModuleFormula(taskcode,"0");//取的是指标的list
+        for (int i = 0; i <data.size() ; i++) {//开始循环
             IndexEditService indexEditService = new IndexEditService();
-            List <String> temp = new ArrayList();
-            temp.add(data.get(i).get("cname").toString());
-            if(data.get(i).get("ifzb").toString().equals("1")){//如果是直接用筛选的指标的话直接去查值
+            if(data.get(i).getIfzb().equals("1")){//如果是直接用筛选的指标的话直接去查值
                 //先去查tb_coindex_zb
-                String zbcode = indexEditService.getZBData(data.get(i).get("formula").toString()).getZbcode();//得到了zbcode
-                OriginDataService originDataService = new OriginDataService();
+                String zbcode = indexEditService.getZBData(data.get(i).getFormula()).getZbcode();//得到了zbcode
                 for (int j = 0; j <reg.length ; j++) {
+                    DataResult da = new DataResult();
+                    da.setAyearmon(time);
+                    da.setRegion(reg[j]);
+                    da.setTaskcode(taskcode);
+                    da.setModcode(data.get(i).getCode());
                     String val = originDataService.getvalue(taskcode,zbcode,reg[j],time,sessionid);
-                    temp.add(val);
+                    da.setData(val);
+                    newadd.add(da);
                 }
             }
-            else if(data.get(i).get("ifzb").toString().equals("0")){//如果是自己编辑的公式
-                OriginDataService originDataService = new OriginDataService();
+            else if(data.get(i).getIfzb().equals("0")){//如果是自己编辑的公式
                 //先处理公式
-                String formula = data.get(i).get("formula").toString();
-              List<Map>  zbs = indexEditService.getZBS(icode);//把这个icode下所有的code全都找出来,去遍历
+                String formula = data.get(i).getFormula();
+                List<Map>  zbs = indexEditService.getZBS(icode);//把这个icode下所有的code全都找出来,去遍历
                 for (int j = 0; j <reg.length ; j++) {//地区循环
+                    DataResult da = new DataResult();
+                    da.setAyearmon(time);
+                    da.setRegion(reg[j]);
+                    da.setTaskcode(taskcode);
+                    da.setModcode(data.get(i).getCode());
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(formula.contains(zbs.get(k).get("code").toString())){//要是存在这个code,就去取对应的zbcode
                             String tempval = originDataService.getvalue(taskcode,zbs.get(k).get("zbcode").toString(),reg[j],time,sessionid);
                             //替换公式中的值
-                           formula = formula.replace("#"+zbs.get(k).get("zbcode")+"#",tempval);//换成对应的value
+                            formula = formula.replace("#"+zbs.get(k).get("zbcode")+"#",tempval);//换成对应的value
                         }
                     }
                     //全部替换完成后开始做计算
                     String val = tocalculate(formula);
-                    temp.add(val);
+                    da.setData(val);
+                    newadd.add(da);
                 }
-
             }
         }
-        return values;
+        originDataService.addDataresult(newadd);
+        return true;
     }
 
     /**

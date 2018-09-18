@@ -3,7 +3,9 @@ package com.acmr.service.zhzs;
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import com.acmr.dao.zhzs.IndexTaskDao;
+import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.model.zhzs.IndexTask;
+import com.acmr.model.zhzs.TaskModule;
 import com.acmr.model.zhzs.TaskZb;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.web.jsp.Index;
@@ -174,20 +176,14 @@ public class IndexTaskService {
         return zbname;
     }
     /*
-    获取对应任务的所有公式
+    获取对应任务的所有list
      */
-    public List<Map> getModuleFormula(String taskcode){
-        List<Map> indexTasks = new ArrayList<>();
-        List<DataTableRow> data = IndexTaskDao.Fator.getInstance().getIndexdatadao().getModuleData(taskcode).getRows();
-        for (int i = 0; i <data.size() ; i++) {
-            Map arr = new HashMap();
-            arr.put("ifzb",data.get(i).getString("ifzb"));
-            arr.put("formula",data.get(i).getString("formula"));
-            indexTasks.add(arr);
-        }
-        return indexTasks;
-    }
+    public List<TaskModule> getModuleFormula(String taskcode,String ifzs){
+        List<TaskModule> taskModules = new ArrayList<>();
+        List<DataTableRow> data = IndexTaskDao.Fator.getInstance().getIndexdatadao().getModuleData(taskcode,ifzs).getRows();
 
+        return taskModules;
+    }
     /**
      * 获取地区
      * @param taskcode
