@@ -214,8 +214,9 @@ public class zscalculate extends BaseAction {
             for (int i = 0; i < datatmp.size(); i++) {
                 String arr = data1.get(i).toString().substring(1, data1.get(i).toString().length() - 1);
                 //String arr =datatmp.get(i).toString();
+                String a2 = arr.replaceAll("null"," ");
+                String [] a3 = a2.split(",");
                 dr1 = sheet1.addRow();
-                String[] a3 = arr.split(",");
                 for (int j = 0; j < a3.length; j++) {
                     cell2 = cell1.clone();
                     cell2.setCellValue(a3[j]);
@@ -332,10 +333,13 @@ public class zscalculate extends BaseAction {
                         int count = 0;
                         //对地区进行比对
                         for(int r=0;r<regs.size();r++){
-                            String reg = sheet.getRows().get(0).toString().substring(1,sheet.getRows().get(0).toString().length()-1);
-                            String [] getregname = reg.split(",");
-
-                            if(!getregname[r].equals(regs.get(r))){
+                            //String reg = sheet.getRows().get(0).toString().substring(4,sheet.getRows().get(0).toString().length()-1);
+                           int s= r+1;
+                            String getreg =sheet.getRows().get(0).getCells().get(s).getText() + "";
+                            String [] getregname = getreg.split(",");
+                            String reg = regs.get(r);
+                            String b = regs.get(0);
+                            if(!getreg.equals(reg)){
                                 data.setReturncode(300);
                                 data.setReturndata("指标或地区有误，请比对下载进行数据修改");
                                 this.sendJson(data);
@@ -345,15 +349,16 @@ public class zscalculate extends BaseAction {
 
                         // 遍历数据并进行封装
                         Map<String,Map> zbandreg = new HashMap<>();
-                        for (int j=1;j<sheet.getRows().size();j++){
+                        for (int j=0;j<sheet.getRows().size();j++){
                             //对指标进行比对
                             List<String> ZBname = new ArrayList<>();
                             String ZBcode = ZBcodes.get(j);
                             ZBname.add(indexTaskService.getzbname(ZBcode));
-                            ExcelCell zb = sheet.getRows().get(j).getCells().get(0);
+                            int k = j+1;
+                            ExcelCell zb = sheet.getRows().get(k).getCells().get(0);
                             String zbname = zb.getText() + "";
                             String [] getzbname = zbname.split(",");
-                            if(!getzbname[j].equals(ZBname.get(j))){
+                            if(!zbname.equals(ZBname.get(j))){
                                 data.setReturncode(300);
                                 data.setReturndata("指标或地区有误，请比对下载进行数据修改");
                                 this.sendJson(data);
@@ -361,7 +366,7 @@ public class zscalculate extends BaseAction {
                             }
 
                             if (rows >= 1 && sheet.getRows().get(j) != null) {
-                                ExcelRow Rows = sheet.getRows().get(j);
+                                ExcelRow Rows = sheet.getRows().get(k);
                                 if (Rows != null) {
                                     int cells = Rows.getCells().size();
                                     Map<String, String> mkey = new HashMap<String, String>();
