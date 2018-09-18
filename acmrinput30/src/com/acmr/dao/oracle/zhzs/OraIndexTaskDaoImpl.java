@@ -316,9 +316,9 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
 
     }
     @Override
-    public DataTable getModuleData(String taskcode){
-        String sql = "select * from tb_coindex_task_module_tmp where taskcode = ? and ifzs =0";
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode});
+    public DataTable getModuleData(String taskcode,String ifzs){
+        String sql = "select * from tb_coindex_task_module_tmp where taskcode = ? and ifzs=?";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,ifzs});
     }
 
     @Override
