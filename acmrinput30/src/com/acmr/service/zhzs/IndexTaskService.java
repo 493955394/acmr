@@ -139,8 +139,13 @@ public class IndexTaskService {
     * @Author: lyh
     * @Date: 2018/9/14
     */
-    public String getData(String taskcode,String region,String zbcode,String ayearmon){
-        return IndexTaskDao.Fator.getInstance().getIndexdatadao().getData(taskcode,region,zbcode,ayearmon);
+    public String getData(Boolean istmp,String taskcode,String region,String zbcode,String ayearmon,String sessionid){
+        if (istmp){
+            return IndexTaskDao.Fator.getInstance().getIndexdatadao().getTmpData(taskcode,region,zbcode,ayearmon,sessionid);
+        }
+        else {
+            return IndexTaskDao.Fator.getInstance().getIndexdatadao().getData(taskcode,region,zbcode,ayearmon);
+        }
     }
 
     /**

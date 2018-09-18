@@ -1,12 +1,13 @@
 package com.acmr.model.zhzs;
 
 import com.acmr.service.zhzs.IndexEditService;
+import com.acmr.service.zhzs.WeightEditService;
 
 import java.util.List;
 
 public class TaskModule {
     private String code;
-    private  String cname;
+    private String cname;
     private String taskcode;//TB_COINDEX_TASK的CODE
     private String procode;//指标树形级别
     private String ifzs;//节点类别，1表示指数0指标
@@ -15,7 +16,22 @@ public class TaskModule {
     private String sortcode;//上下移动排序，同级别的节点从0递增，0表示第一
     private String weight;//权重
     private String dacimal;//小数点位数
+    private String orcode;//原模型的code
 
+
+    public TaskModule(){
+
+    }
+
+    public TaskModule(String code,String cname,String taskcode,String procode,String sortcode,String weight,String ifzs){
+        this.code=code;
+        this.cname=cname;
+        this.taskcode=taskcode;
+        this.procode=procode;
+        this.sortcode=sortcode;
+        this.weight=weight;
+        this.ifzs=ifzs;
+    }
 
     public String getCode() {
         return code;
@@ -97,48 +113,31 @@ public class TaskModule {
         this.dacimal = dacimal;
     }
 
-/*
-    */
-/**
-     * @Description: 这个module是否有子节点
-     * @Param: []
-     * @return: boolean
-     * @Author: lyh
-     * @Date: 2018/9/7
-     *//*
 
-    public boolean hasChild(){
-        IndexEditService indexEditService=new IndexEditService();
-        if (indexEditService.getSubMod(this.code,this.taskcode).size()>0){
-            return true;
-        }
-        else return false;
-    }
-
-    */
 /**
      * @Description: 这个module下层的指标数（包括下层的下层）
      * @Param: []
      * @return: int
      * @Author: lyh
      * @Date: 2018/9/7
-     *//*
+     */
 
     public int ZBnums(){
         if (this.ifzs.equals("1")){
             //PubInfo.printStr("====================1");
             int nums=0;
-            IndexEditService indexEditService=new IndexEditService();
-            List<IndexMoudle> mods=indexEditService.getAllMods(this.code,this.taskcode);
+            //W indexEditService=new IndexEditService();
+            WeightEditService weightEditService=new WeightEditService();
+            //List<IndexMoudle> mods=indexEditService.getAllMods(this.code,this.taskcode);
+            List<TaskModule> mods=weightEditService.getAllSubTMods(this.code,this.taskcode);
             for (int i=0;i<mods.size();i++){
                 if (mods.get(i).getIfzs().equals("0")){
                     nums=nums+1;
                 }
-            }*/
-/*
+            }
             if (mods.size()==0){
                 nums=1;
-            }*//*
+            }
 
             //PubInfo.printStr("nums:"+nums);
             return nums;
@@ -148,51 +147,5 @@ public class TaskModule {
             return 1;
         }
     }
-
-    */
-/**
-     * @Description: 返回这个module的子节点
-     * @Param: []
-     * @return: java.util.List<com.acmr.model.zhzs.IndexMoudle>
-     * @Author: lyh
-     * @Date: 2018/9/7
-     *//*
-
-
-    public List<IndexMoudle> getChilds(){
-        IndexEditService indexEditService=new IndexEditService();
-        List<IndexMoudle> childs=indexEditService.getSubMod(this.code,this.taskcode);
-        return childs;
-    }
-
-    */
-/**
-     * @Description: 判断这个module是否是同一个父节点的最后一个
-     * @Param: []
-     * @return: boolean
-     * @Author: lyh
-     * @Date: 2018/9/7
-     *//*
-
-    public boolean isLast(){
-        IndexEditService indexEditService=new IndexEditService();
-        String cs=indexEditService.getCurrentSort(this.procode,this.taskcode);
-        int b=0;
-        try {
-            b = Integer.parseInt(cs)-1;
-
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        String lastsort =b+"";
-        if (this.sortcode.equals(lastsort)){
-            //PubInfo.printStr("last is:"+this.cname);
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-*/
 
 }

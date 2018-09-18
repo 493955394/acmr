@@ -589,7 +589,7 @@ define(function (require,exports,module) {
                     return;
                 }
             }else if(timesort == "q"){
-                var reg=/^(\d{4})([A-Da-d]{1})$/;
+                var reg=/^(\d{4})([A-D]{1})$/;
                 var r= timetext.match(reg);
                 if(r==null){
                     alert("您的季度起始数据期格式有误")

@@ -12,8 +12,10 @@ import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.dao.zhzs.IndexTaskDao;
+import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
+import com.acmr.model.zhzs.TaskModule;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zhzs.*;
 import org.apache.commons.fileupload.FileItem;
@@ -47,17 +49,26 @@ public class zscalculate extends BaseAction {
         //String test="重新计算";
         HttpServletRequest req = this.getRequest();
         IndexTaskService indexTaskService = new IndexTaskService();
-        boolean istmp = false;
+       // boolean istmp = false;
         OriginService originService = new OriginService();
         String taskcode = req.getParameter("taskcode");
+        //把data_tmp表中的数据覆盖了
+        String sessionid=req.getSession().getId();
+        IndexTaskDao.Fator.getInstance().getIndexdatadao().copyData(taskcode,sessionid);
         String ayearmon = indexTaskService.getTime(taskcode);
-        data1 = getOriginData(istmp, taskcode, ayearmon);
+        data1 = getOriginData(false, taskcode, ayearmon,null);
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
         regs = new ArrayList<>();
         for (int i = 0; i < regscode.size(); i++) {
             regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
         }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", data1).addObject("regs", regs).addObject("taskcode", taskcode).addObject("istmp", istmp);
+
+        WeightEditService weightEditService=new WeightEditService();
+        List<TaskModule> mods=weightEditService.getTMods(taskcode);
+        for (int i=0;i<mods.size();i++){
+            PubInfo.printStr(mods.get(i).getCname());
+        }
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", data1).addObject("regs", regs).addObject("taskcode", taskcode).addObject("istmp", false).addObject("mods",mods);
     }
 
     /**
@@ -71,21 +82,34 @@ public class zscalculate extends BaseAction {
         HttpServletRequest req = this.getRequest();
         String sessionid = req.getSession().getId();
         IndexTaskService indexTaskService = new IndexTaskService();
-        boolean istmp = true;
+        //boolean istmp = true;
         OriginService originService = new OriginService();
         String taskcode = req.getParameter("taskcode");
         //取对应id的数据
         String ayearmon = indexTaskService.getTime(taskcode);
-        datatmp = getOriginData(istmp, taskcode, ayearmon);
+        datatmp = getOriginData(true,taskcode,ayearmon,sessionid);
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
         regstmp = new ArrayList<>();
         for (int i = 0; i < regscode.size(); i++) {
             regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
         }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", datatmp).addObject("regs", regstmp).addObject("taskcode", taskcode).addObject("istmp", istmp);
+
+        WeightEditService weightEditService=new WeightEditService();
+        List<TaskModule> mods=weightEditService.getTMods(taskcode);
+        for (int i=0;i<mods.size();i++){
+            PubInfo.printStr(mods.get(i).getCname());
+        }
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", datatmp).addObject("regs", regstmp).addObject("taskcode", taskcode).addObject("istmp", true).addObject("mods",mods);
 
     }
 
+    /**
+    * @Description: 重新读取数据，插入数据库，并局部刷新原始数据
+    * @Param: []
+    * @return: acmr.web.entity.ModelAndView
+    * @Author: lyh
+    * @Date: 2018/9/17
+    */
     public ModelAndView ReData() {
         HttpServletRequest req = this.getRequest();
         IndexTaskService indexTaskService = new IndexTaskService();
@@ -93,8 +117,9 @@ public class zscalculate extends BaseAction {
         String taskcode = req.getParameter("taskcode");
         String sessionid = req.getSession().getId();
         String ayearmon = indexTaskService.getTime(taskcode);
+        //插入数据库data_tmp表
         IndexTaskDao.Fator.getInstance().getIndexdatadao().ReData(taskcode, sessionid);
-        //List<List<String>> data=getOriginData(true,taskcode,ayearmon);
+        List<List<String>> data=getOriginData(true,taskcode,ayearmon,sessionid);
         String pjax = req.getHeader("X-PJAX");
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
         List<String> regs = new ArrayList<>();
@@ -103,10 +128,10 @@ public class zscalculate extends BaseAction {
         }
         if (StringUtil.isEmpty(pjax)) {
             PubInfo.printStr("===================================emptyredata");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
         } else {
             PubInfo.printStr("=====================================pjaxredata");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("regs", regs);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
 
         }
 
@@ -118,34 +143,29 @@ public class zscalculate extends BaseAction {
      * @Author: lyh
      * @Date: 2018/9/13
      */
-    public List<List<String>> getOriginData (Boolean istmp, String taskcode, String ayearmon) {
+    public List<List<String>> getOriginData (Boolean istmp, String taskcode, String ayearmon,String sessionid) {
         List<List<String>> rows = new ArrayList<>();
         IndexTaskService indexTaskService = new IndexTaskService();
         List<String> ZBcodes = indexTaskService.getZBcodes(taskcode);
         List<String> regs = indexTaskService.getTaskRegs(taskcode);
-        //从临时表中取数
-        if (istmp) {
-
+        for (int i = 0; i < ZBcodes.size(); i++) {
+            List<String> row = new ArrayList<>();
+            String ZBcode = ZBcodes.get(i);
+            row.add(indexTaskService.getzbname(ZBcode));
+            for (int j = 0; j < regs.size(); j++) {
+                String data = indexTaskService.getData(istmp,taskcode, regs.get(j), ZBcodes.get(i), ayearmon,sessionid);
+                row.add(data);
+            }
+            //PubInfo.printStr("row:"+row.toString());
+            rows.add(row);
         }
-        //从原始表中取数
-        else {
-            for (int i = 0; i < ZBcodes.size(); i++) {
-                List<String> row = new ArrayList<>();
-                String ZBcode = ZBcodes.get(i);
-                row.add(indexTaskService.getzbname(ZBcode));
-                for (int j = 0; j < regs.size(); j++) {
-                    String data = indexTaskService.getData(taskcode, regs.get(j), ZBcodes.get(i), ayearmon);
-                    row.add(data);
-                }
-                //PubInfo.printStr("row:"+row.toString());
-                rows.add(row);
-            }
-            for (int m = 0; m < rows.size(); m++) {
-                PubInfo.printStr(rows.get(m).toString());
-            }
+        for (int m = 0; m < rows.size(); m++) {
+            PubInfo.printStr(rows.get(m).toString());
         }
         return rows;
     }
+    
+
 
     /**
      * 数据下载
@@ -363,6 +383,7 @@ public class zscalculate extends BaseAction {
     public ModelAndView docalculate(){
         HttpServletRequest req = this.getRequest();
         // 获取查询数据
+        String sessionid = req.getRequestedSessionId();
         IndexTaskService indexTaskService =new IndexTaskService();
         String taskcode = PubInfo.getString(req.getParameter("taskcode"));
         // 判断是否pjax 请求
@@ -402,7 +423,7 @@ public class zscalculate extends BaseAction {
     /**
      * 计算的方法,,环比和指数的还没有做
      */
-    public List calculateFunction(String taskcode, String time, String regs,String icode){
+    public List calculateFunction(String taskcode, String time, String regs,String icode,String sessionid){
         List values = new ArrayList();
         String [] reg = regs.split(",");
         IndexTaskService indexTaskService = new IndexTaskService();
@@ -416,7 +437,7 @@ public class zscalculate extends BaseAction {
                 String zbcode = indexEditService.getZBData(data.get(i).get("formula").toString()).getZbcode();//得到了zbcode
                 OriginDataService originDataService = new OriginDataService();
                 for (int j = 0; j <reg.length ; j++) {
-                    String val = originDataService.getvalue(taskcode,zbcode,reg[j],time);
+                    String val = originDataService.getvalue(taskcode,zbcode,reg[j],time,sessionid);
                     temp.add(val);
                 }
             }
@@ -428,7 +449,7 @@ public class zscalculate extends BaseAction {
                 for (int j = 0; j <reg.length ; j++) {//地区循环
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(formula.contains(zbs.get(k).get("code").toString())){//要是存在这个code,就去取对应的zbcode
-                            String tempval = originDataService.getvalue(taskcode,zbs.get(k).get("zbcode").toString(),reg[j],time);
+                            String tempval = originDataService.getvalue(taskcode,zbs.get(k).get("zbcode").toString(),reg[j],time,sessionid);
                             //替换公式中的值
                            formula = formula.replace("#"+zbs.get(k).get("zbcode")+"#",tempval);//换成对应的value
                         }

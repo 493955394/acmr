@@ -12,8 +12,8 @@ import java.util.List;
 
 public class OraDataDaoImpl implements IDataDao {
     @Override
-    public DataTable getData(String taskcode,String zbcode,String region,String time){
-        String sql = "select * from tb_coindex_data where taskcode = ? and zbcode=? and region=? and time=?";
+    public DataTable getData(String taskcode,String zbcode,String region,String time,String sessionid){
+        String sql = "select * from tb_coindex_data_tmp where taskcode =? and zbcode=? and region=? and time=? and sessionid=?";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,zbcode,region,time});
     }
 }

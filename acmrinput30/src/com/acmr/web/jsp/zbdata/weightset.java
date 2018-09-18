@@ -34,7 +34,7 @@ public class weightset extends BaseAction {
         String icode=req.getParameter("icode");
         WeightEditService weightEditService=new WeightEditService();
         IndexEditService indexEditService=new IndexEditService();
-        List<IndexMoudle> re=weightEditService.getMods(icode,0);
+        List<IndexMoudle> re=weightEditService.getMods(icode);
         List<IndexMoudle> mods=new ArrayList<>();
         for (int j=0;j<re.size();j++){
             if (re.get(j).getProcode()==""){

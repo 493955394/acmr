@@ -21,8 +21,8 @@
     <c:forEach items="${tasklist}" var="vo">
         <tr>
             <td>${vo.getAyearmon()}</td>
-            <td>${vo.getCreatetime()}</td>
-            <td>${vo.getUpdatetime()}</td>
+            <td><fmt:formatDate value="${vo.getCreatetime()}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <td><fmt:formatDate value="${vo.getUpdatetime()}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <input type="hidden" value="${vo.getCode()}">
             <td>
                 <a class="zs_calculate">计算</a>

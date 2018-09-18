@@ -6,10 +6,10 @@ import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexTaskDao;
+import com.acmr.model.zhzs.Data;
 import com.acmr.model.zhzs.TaskZb;
 import org.omg.PortableInterceptor.ACTIVE;
 
-import javax.xml.crypto.Data;
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.sql.SQLException;
 import java.util.*;
@@ -49,13 +49,14 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
             String sql="insert into tb_coindex_task (code,indexcode,ayearmon,createtime) values (?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
             dataQuery.executeSql(sql,new Object[]{tcode,indexcode,ayearmon,createtime});
 
-            //复制模型tb_coindex_task_module,tb_coindex_task_module_tmp
+            //复制模型tb_coindex_task_module
             String sql1="select * from tb_coindex_module where indexcode=?";
             DataTable table=dataQuery.getDataTableSql(sql1,new Object[]{indexcode});
             List<DataTableRow> rows=table.getRows();
             for (int i=0;i<rows.size();i++){
                 //PubInfo.printStr(rows.get(i).getRows().toString());
                 String code=UUID.randomUUID().toString().replace("-", "").toLowerCase();
+                String orcode=rows.get(i).getString("code");
                 String cname=rows.get(i).getString("cname");
                 String procode=rows.get(i).getString("procode");
                 String ifzs=rows.get(i).getString("ifzs");
@@ -63,12 +64,34 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                 String formula=rows.get(i).getString("formula");
                 String sortcode=rows.get(i).getString("sortcode");
                 String weight=rows.get(i).getString("weight");
+                PubInfo.printStr("weight:"+weight);
                 String dacimal=rows.get(i).getString("dacimal");
-                String sql2="insert into tb_coindex_task_module (code,cname,taskcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal) values(?,?,?,?,?,?,?,?,?,?)";
-                String sql3="insert into tb_coindex_task_module_tmp (code,cname,taskcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal) values(?,?,?,?,?,?,?,?,?,?)";
-                dataQuery.executeSql(sql2,new Object[]{code,cname,tcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal});
-                dataQuery.executeSql(sql3,new Object[]{code,cname,tcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal});
+                String sql2="insert into tb_coindex_task_module (code,cname,taskcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,orcode) values(?,?,?,?,?,?,?,?,?,?,?)";
+                //String sql3="insert into tb_coindex_task_module_tmp (code,cname,taskcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,orcode) values(?,?,?,?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql2,new Object[]{code,cname,tcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,orcode});
+               // dataQuery.executeSql(sql3,new Object[]{code,cname,tcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,orcode});
             }
+
+            //修正tb_coindex_task_module的procode
+            String sql9="select * from tb_coindex_task_module where taskcode=?";
+            DataTable table3=dataQuery.getDataTableSql(sql9,new Object[]{tcode});
+            List<DataTableRow> rows3=table3.getRows();
+            for (int r=0;r<rows3.size();r++){
+                String orprocode=rows3.get(r).getString("procode");
+                String code=rows3.get(r).getString("code");
+                String sql10="select * from tb_coindex_task_module where orcode=? and taskcode=?";
+                if (orprocode!=""){
+                    String procode=dataQuery.getDataTableSql(sql10,new Object[]{orprocode,tcode}).getRows().get(0).getString("code");
+                    //更新这条module的procode
+                    String sql11="update tb_coindex_task_module set procode=? where code=?";
+                    dataQuery.executeSql(sql11,new Object[]{procode,code});
+                }
+            }
+
+
+            //复制tb_coindex_task_module到tb_coindex_task_module_tmp
+            String sql12="insert into tb_coindex_task_module_tmp (select * from tb_coindex_task_module where taskcode=?)";
+            dataQuery.executeSql(sql12,new Object[]{tcode});
 
             //复制指标tb_coindex_task_zb
             String sql4="select * from tb_coindex_zb where indexcode=?";
@@ -113,7 +136,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                     if (datas.get(n)!=null){
                         String data= String.valueOf(datas.get(n));
                         //PubInfo.printStr("data:"+data);
-                        String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,data) values(?,?,?,?,to_number(?))";
+                        String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,data) values(?,?,?,?,?)";
                         dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,data});
                     }
                     else {
@@ -146,7 +169,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
 
     @Override
     public DataTable getTaskList(String icode){
-        String sql = "select * from tb_coindex_task where indexcode= ? ";
+        String sql = "select * from tb_coindex_task where indexcode= ? order by ayearmon desc";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode});
     }
     @Override
@@ -198,6 +221,17 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
     }
 
     @Override
+    public String getTmpData(String taskcode, String region, String zbcode, String ayearmon, String sessionid) {
+        String sql="select * from tb_coindex_data_tmp where taskcode=? and region=? and zbcode=? and ayearmon=? and sessionid=?";
+        DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{taskcode,region,zbcode,ayearmon,sessionid});
+        if (table.getRows().get(0).get("data")!=null){
+            String data= String.valueOf(table.getRows().get(0).get("data"));
+            return data;
+        }
+        else return null;
+    }
+
+    @Override
     public String getTime(String taskcode) {
         String sql="select * from tb_coindex_task where code=?";
         String ayearmon=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{taskcode}).getRows().get(0).getString("ayearmon");
@@ -218,8 +252,8 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
             dataQuery.beginTranse();
 
             //删掉tmp表中该session的记录
-            String sql="delete from tb_coindex_data_tmp where sessionid=?";
-            dataQuery.executeSql(sql,new Object[]{sessionid});
+            String sql="delete from tb_coindex_data_tmp where sessionid=? and taskcode=?";
+            dataQuery.executeSql(sql,new Object[]{sessionid,tcode});
     /*String sql="select * from tb_coindex_data_tmp where sessionid=?";
     DataTable table=dataQuery.getDataTableSql(sql,new Object[]{sessionid});
     if (table.getRows().size()>0){
@@ -292,6 +326,46 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
         String sql="select * from tb_coindex_task where code=?";
         String icode=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{taskcode}).getRows().get(0).getString("indexcode");
         return icode;
+    }
+
+    @Override
+    public int copyData(String taskcode, String sessionid) {
+        DataQuery dataQuery=null;
+        try {
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+            //删除session之前的记录
+            String sql="delete from tb_coindex_data_tmp where sessionid=? and taskcode=?";
+            dataQuery.executeSql(sql,new Object[]{sessionid,taskcode});
+
+            //从tb_coindex_data复制数据到tb_coindex_data_tmp
+            String sql1="select * from tb_coindex_data where taskcode=?";
+            DataTable table=dataQuery.getDataTableSql(sql1,new Object[]{taskcode});
+            List<DataTableRow> rows=table.getRows();
+            for (int i=0;i<rows.size();i++){
+                String zbcode=rows.get(i).getString("zbcode");
+                String region=rows.get(i).getString("region");
+                String ayearmon=rows.get(i).getString("ayearmon");
+                String data=rows.get(i).getString("data");
+                String sql2="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,sessionid) values(?,?,?,?,?)";
+                dataQuery.executeSql(sql2,new Object[]{taskcode,zbcode,region,ayearmon,data,sessionid});
+            }
+            dataQuery.commit();
+
+        }
+        catch (SQLException e){
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                e.printStackTrace();
+                return 1;
+            }
+        }
+        finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+        return 0;
     }
 /*    public static void main(String[] args) {
         OraIndexTaskDaoImpl oraIndexTaskDao=new OraIndexTaskDaoImpl();
