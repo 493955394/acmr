@@ -15,6 +15,21 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class OraIndexTaskDaoImpl implements IIndexTaskDao {
+    /**
+     * 上传文件
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    @Override
+    public int updateDataTmp(String taskcode,String ayearmon,String sessionid,Map<String, Map> zbandreg) {
+        String sql1 = "update tb_coindex_index set procode=? where code=?";
+        List<Object> params = new ArrayList<Object>();
+        //params.add(procode);
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
+    }
+
     @Override
     public DataTable getTaskZb(String taskcode){
         String sql = "select * from tb_coindex_task_zb where taskcode= ? ";

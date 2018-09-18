@@ -396,7 +396,7 @@ public class zscalculate extends BaseAction {
                             return;
                         }
                         // 入库
-
+            int uploaddata = indexTaskService.updateData(taskcode,ayearmon,sessionid,zbandreg);
                         data.setParam1(count);
                         data.setReturncode(200);
                         data.setReturndata("数据文件上传成功");

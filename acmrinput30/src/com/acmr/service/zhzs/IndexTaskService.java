@@ -45,12 +45,15 @@ public class IndexTaskService {
         return taskZbs;
     }
     /**
-     * 得到指标任务的code
+     * 上传文件
      * @author wf
      * @date
      * @param
      * @return
      */
+    public int updateData(String taskcode,String ayearmon,String sessionid,Map<String,Map> zbandreg){
+        return IndexTaskDao.Fator.getInstance().getIndexdatadao().updateDataTmp(taskcode,ayearmon,sessionid,zbandreg);
+    }
     /*public List<String> origionZBcodes(String taskcode){
         List<String> ZBcodes=new ArrayList<>();
         List<DataTableRow> rows=IndexTaskDao.Fator.getInstance().getIndexdatadao().getZBs(taskcode).getRows();
