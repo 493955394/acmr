@@ -1,6 +1,7 @@
 package com.acmr.model.zhzs;
 
 import com.acmr.service.zhzs.IndexEditService;
+import com.acmr.service.zhzs.WeightEditService;
 
 import java.util.List;
 
@@ -112,48 +113,31 @@ public class TaskModule {
         this.dacimal = dacimal;
     }
 
-/*
-    */
-/**
-     * @Description: 这个module是否有子节点
-     * @Param: []
-     * @return: boolean
-     * @Author: lyh
-     * @Date: 2018/9/7
-     *//*
 
-    public boolean hasChild(){
-        IndexEditService indexEditService=new IndexEditService();
-        if (indexEditService.getSubMod(this.code,this.taskcode).size()>0){
-            return true;
-        }
-        else return false;
-    }
-
-    */
 /**
      * @Description: 这个module下层的指标数（包括下层的下层）
      * @Param: []
      * @return: int
      * @Author: lyh
      * @Date: 2018/9/7
-     *//*
+     */
 
     public int ZBnums(){
         if (this.ifzs.equals("1")){
             //PubInfo.printStr("====================1");
             int nums=0;
-            IndexEditService indexEditService=new IndexEditService();
-            List<IndexMoudle> mods=indexEditService.getAllMods(this.code,this.taskcode);
+            //W indexEditService=new IndexEditService();
+            WeightEditService weightEditService=new WeightEditService();
+            //List<IndexMoudle> mods=indexEditService.getAllMods(this.code,this.taskcode);
+            List<TaskModule> mods=weightEditService.getAllSubTMods(this.code,this.taskcode);
             for (int i=0;i<mods.size();i++){
                 if (mods.get(i).getIfzs().equals("0")){
                     nums=nums+1;
                 }
-            }*/
-/*
+            }
             if (mods.size()==0){
                 nums=1;
-            }*//*
+            }
 
             //PubInfo.printStr("nums:"+nums);
             return nums;
@@ -163,51 +147,5 @@ public class TaskModule {
             return 1;
         }
     }
-
-    */
-/**
-     * @Description: 返回这个module的子节点
-     * @Param: []
-     * @return: java.util.List<com.acmr.model.zhzs.IndexMoudle>
-     * @Author: lyh
-     * @Date: 2018/9/7
-     *//*
-
-
-    public List<IndexMoudle> getChilds(){
-        IndexEditService indexEditService=new IndexEditService();
-        List<IndexMoudle> childs=indexEditService.getSubMod(this.code,this.taskcode);
-        return childs;
-    }
-
-    */
-/**
-     * @Description: 判断这个module是否是同一个父节点的最后一个
-     * @Param: []
-     * @return: boolean
-     * @Author: lyh
-     * @Date: 2018/9/7
-     *//*
-
-    public boolean isLast(){
-        IndexEditService indexEditService=new IndexEditService();
-        String cs=indexEditService.getCurrentSort(this.procode,this.taskcode);
-        int b=0;
-        try {
-            b = Integer.parseInt(cs)-1;
-
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        String lastsort =b+"";
-        if (this.sortcode.equals(lastsort)){
-            //PubInfo.printStr("last is:"+this.cname);
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-*/
 
 }

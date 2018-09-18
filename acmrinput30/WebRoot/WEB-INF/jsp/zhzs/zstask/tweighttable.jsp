@@ -18,7 +18,7 @@
             <c:if test="${module.getProcode()==''}">
                     <tbody>
                     <tr>
-                        <td  flag="0" class="root_zs p_${module.getCode()}">${module.getCname()}</td>
+                        <td rowspan="${module.ZBnums()}" flag="0" class="root_zs p_${module.getCode()}">${module.getCname()}</td>
                             <%--<td>test</td>--%>
                     </tr>
                     </tbody>
@@ -28,6 +28,52 @@
 </div>
 </body>
 <script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
+<script>
+    $(".root_zs").each(function () {
+        var rnums=$(this).attr("rowspan")-1
+        for (var i=rnums;i>0;i--){
+            $(this).parent().after("<tr></tr>")
+        }
+    })
+
+    <c:forEach items="${mods}" var="module">
+    <c:if test="${module.getProcode()!=''}">
+    var classname="${module.getProcode()}"
+    var thiszbnums= parseInt("${module.ZBnums()}")
+    //同一父节点的第一个
+    if (${module.getSortcode().equals("0")}){
+        $(".p_"+classname).after("<td code='" +
+            "${module.getCode()}"+"' procode='" +
+            "${module.getProcode()}"+"' sort='" +
+            "${module.getSortcode()}"+"'  rowspan='" +
+            "${module.ZBnums()}"+"'>" +
+            "${module.getCname()}"+"</td><td class='" +
+            "p_${module.getCode()}"+"' rowspan='" +
+            "${module.ZBnums()}"+"'>" +
+            "<input class='input_weight " +
+            "${module.getProcode()}"+"' value='" +
+            "${module.getWeight()}"+"'>")
+        $(".p_"+classname).attr("flag",parseInt($(".p_"+classname).attr("flag"))+thiszbnums)
+    }
+    else {
+        var index=parseInt($(".p_"+classname).attr("flag"))-1
+        $(".p_"+classname).parent().nextAll(":eq(" +
+            index+")").append("<td code='" +
+            "${module.getCode()}"+"' procode='" +
+            "${module.getProcode()}"+"' sort='" +
+            "${module.getSortcode()}"+"' rowspan='" +
+            "${module.ZBnums()}"+"'>" +
+            "${module.getCname()}"+"</td><td class='" +
+            "p_${module.getCode()}"+"' rowspan='" +
+            "${module.ZBnums()}"+"'>" +
+            "<input class='input_weight " +
+            "${module.getProcode()}"+"' value='" +
+            "${module.getWeight()}"+"'"+"</td>")
+        $(".p_"+classname).attr("flag",parseInt($(".p_"+classname).attr("flag"))+thiszbnums)
+    }
+    </c:if>
+    </c:forEach>
+</script>
 
 
 

@@ -64,6 +64,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                 String formula=rows.get(i).getString("formula");
                 String sortcode=rows.get(i).getString("sortcode");
                 String weight=rows.get(i).getString("weight");
+                PubInfo.printStr("weight:"+weight);
                 String dacimal=rows.get(i).getString("dacimal");
                 String sql2="insert into tb_coindex_task_module (code,cname,taskcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,orcode) values(?,?,?,?,?,?,?,?,?,?,?)";
                 //String sql3="insert into tb_coindex_task_module_tmp (code,cname,taskcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,orcode) values(?,?,?,?,?,?,?,?,?,?,?)";
@@ -135,7 +136,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                     if (datas.get(n)!=null){
                         String data= String.valueOf(datas.get(n));
                         //PubInfo.printStr("data:"+data);
-                        String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,data) values(?,?,?,?,to_number(?))";
+                        String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,data) values(?,?,?,?,?)";
                         dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,data});
                     }
                     else {
