@@ -25,19 +25,19 @@ public class IndexList {
     /** 自然日 */
     private String planperiod;
     /** 将生成的最新期数 */
-    private Date plantime;
+    private String plantime;
     /** 将生成的时间 */
     private String createuser;
     /** 创建用户的code */
-    private Date createtime;
+    private String createtime;
     /** 创建时间 */
-    private Date updatetime;
+    private String updatetime;
     /** 更新时间 */
 
     public IndexList(){
 
     }
-    public IndexList(String code,String cname,String procode,String sort,String startperiod,String delayday,String planperiod,Date plantime,String createuser){
+    public IndexList(String code,String cname,String procode,String sort,String startperiod,String delayday,String planperiod,String plantime,String createuser){
         this.code=code;
         this.cname=cname;
         this.procode=procode;
@@ -120,11 +120,11 @@ public class IndexList {
         this.planperiod = planperiod;
     }
 
-    public Date getPlantime() {
+    public String getPlantime() {
         return plantime;
     }
 
-    public void setPlantime(Date plantime) {
+    public void setPlantime(String plantime) {
         this.plantime = plantime;
     }
 
@@ -136,19 +136,19 @@ public class IndexList {
         this.createuser = createuser;
     }
 
-    public Date getCreatetime() {
+    public String getCreatetime() {
         return createtime;
     }
 
-    public void setCreatetime(Date createtime) {
+    public void setCreatetime(String createtime) {
         this.createtime = createtime;
     }
 
-    public Date getUpdatetime() {
+    public String getUpdatetime() {
         return updatetime;
     }
 
-    public void setUpdatetime(Date updatetime) {
+    public void setUpdatetime(String updatetime) {
         this.updatetime = updatetime;
     }
 }

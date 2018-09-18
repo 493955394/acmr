@@ -1,5 +1,6 @@
 package com.acmr.service.zhzs;
 
+import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import acmr.util.ListHashMap;
 import acmr.util.PubInfo;
@@ -7,6 +8,8 @@ import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.model.zhzs.IndexList;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class IndexListService {
@@ -28,12 +31,12 @@ public class IndexListService {
             if (indexlist.get(i).get("state")!=null){
                 index.setState(indexlist.get(i).get("state").toString());
             }
-            index.setCreatetime((Date) indexlist.get(i).get("createtime"));
+            index.setCreatetime(indexlist.get(i).getString("createtime"));
             if(indexlist.get(i).get("plantime")!=null){
-                index.setPlantime((Date) indexlist.get(i).get("plantime"));
+                index.setPlantime(indexlist.get(i).getString("plantime"));
             }
             if(indexlist.get(i).get("updatetime")!=null){
-                index.setUpdatetime((Date) indexlist.get(i).get("updatetime"));
+                index.setUpdatetime(indexlist.get(i).getString("updatetime"));
             }
             if(indexlist.get(i).get("delayday")!=null){
                 index.setDelayday(indexlist.get(i).get("delayday").toString());
@@ -75,12 +78,12 @@ public class IndexListService {
             if (indexlist.get(i).get("state")!=null){
                 index.setState(indexlist.get(i).get("state").toString());
             }
-            index.setCreatetime((Date) indexlist.get(i).get("createtime"));
+            index.setCreatetime(indexlist.get(i).getString("createtime"));
             if(indexlist.get(i).get("plantime")!=null){
-                index.setPlantime((Date) indexlist.get(i).get("plantime"));
+                index.setPlantime(indexlist.get(i).getString("plantime"));
             }
             if(indexlist.get(i).get("updatetime")!=null){
-                index.setUpdatetime((Date) indexlist.get(i).get("updatetime"));
+                index.setUpdatetime( indexlist.get(i).getString("updatetime"));
             }
             if(indexlist.get(i).get("delayday")!=null){
                 index.setDelayday(indexlist.get(i).get("delayday").toString());
@@ -115,9 +118,9 @@ public class IndexListService {
         index.setCreateuser(data.getString("createuser"));
         index.setIfdata(data.getString("ifdata"));
         index.setState(data.getString("state"));
-        index.setCreatetime(data.getDate("createtime"));
-        index.setPlantime( data.getDate("plantime"));
-        index.setUpdatetime( data.getDate("updatetime"));
+        index.setCreatetime(data.getString("createtime"));
+        index.setPlantime( data.getString("plantime"));
+        index.setUpdatetime( data.getString("updatetime"));
         index.setDelayday(data.getString("delayday"));
         index.setPlanperiod(data.getString("planperiod"));
         index.setProcode(data.getString("procode"));
@@ -143,9 +146,9 @@ public class IndexListService {
             index.setCreateuser(data.get(i).getString("createuser"));
             index.setIfdata(data.get(i).getString("ifdata"));
             index.setState(data.get(i).getString("state"));
-            index.setCreatetime(data.get(i).getDate("createtime"));
-            index.setPlantime( data.get(i).getDate("plantime"));
-            index.setUpdatetime( data.get(i).getDate("updatetime"));
+            index.setCreatetime(data.get(i).getString("createtime"));
+            index.setPlantime( data.get(i).getString("plantime"));
+            index.setUpdatetime( data.get(i).getString("updatetime"));
             index.setDelayday(data.get(i).getString("delayday"));
             index.setPlanperiod(data.get(i).getString("planperiod"));
             index.setProcode(data.get(i).getString("procode"));
@@ -180,6 +183,31 @@ public class IndexListService {
     }
     public int checkProcode(String procode){
         return IndexListDao.Fator.getInstance().getIndexdatadao().checkProcode(procode);
+    }
+
+    public List<IndexList> getIndexListByPage(String usercode,int page, int pagesize) throws ParseException {
+        List<IndexList> list= new ArrayList<>();
+        DataTable table=IndexListDao.Fator.getInstance().getIndexdatadao().getIndexListByPage(usercode,page,pagesize);
+        List<DataTableRow> rows=table.getRows();
+        for (int i=0;i<rows.size();i++){
+            String code=rows.get(i).getString("code");
+            String cname=rows.get(i).getString("cname");
+            String procode=rows.get(i).getString("procode");
+            String sort=rows.get(i).getString("sort");
+            String startperiod=rows.get(i).getString("startperiod");
+            String delayday=rows.get(i).getString("delayday");
+            String planperiod=rows.get(i).getString("planperiod");
+            String plantime=rows.get(i).getString("plantime");
+            String createuser=rows.get(i).getString("createuser");
+            IndexList indexList=new IndexList(code,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser);
+            list.add(indexList);
+        }
+        return list;
+    }
+
+    public static void main(String[] args) throws ParseException {
+        IndexListService indexListService=new IndexListService();
+        indexListService.getIndexListByPage("usercode01",0,10);
     }
 
 

@@ -2,6 +2,7 @@ package com.acmr.dao.oracle.zhzs;
 
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
+import acmr.util.PubInfo;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexListDao;
 import com.acmr.model.zhzs.IndexList;
@@ -99,6 +100,9 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         params.add(data1.getUpdatetime());
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
     }
+
+
+
     //检查
     @Override
     public int checkCode(String code){
@@ -197,4 +201,18 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         parms.add(indexList.getCode());
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, parms.toArray());
     }
+
+    @Override
+    public DataTable getIndexListByPage(String usercode, int page, int pagesize) {
+        int b1 = page * pagesize + 1;
+        int e1 = b1 + pagesize;
+        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where createuser=?) d1) where no>="+b1+" and rownum<"+ e1;
+        DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{usercode});
+        return table;
+    }
+/*
+    public static void main(String[] args) {
+        OraIndexListDaoImpl oraIndexListDao=new OraIndexListDaoImpl();
+        oraIndexListDao.getIndexListByPage("usercode01",0,5);
+    }*/
 }

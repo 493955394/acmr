@@ -40,7 +40,7 @@ public class CreateTaskService {
             String plantime1=list.get(i).getString("plantime");
             Date plantime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(plantime1);
             String createuser=list.get(i).getString("createuser");
-            IndexList indexList=new IndexList(code,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser);
+            IndexList indexList=new IndexList(code,cname,procode,sort,startperiod,delayday,planperiod,plantime1,createuser);
             indexlist.add(indexList);
         }
         return indexlist;
