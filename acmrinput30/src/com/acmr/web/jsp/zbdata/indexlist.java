@@ -11,6 +11,7 @@ import com.acmr.model.pub.TreeNode;
 import com.acmr.model.security.User;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexMoudle;
+import com.acmr.service.security.UserService;
 import com.acmr.service.zhzs.CreateTaskService;
 import com.acmr.service.zhzs.IndexListService;
 import org.omg.CORBA.PUBLIC_MEMBER;
@@ -25,6 +26,10 @@ import java.util.Map;
 
 public class indexlist extends BaseAction {
     public ModelAndView main() throws IOException {
+
+        User cu=UserService.getCurrentUser();
+        //PubInfo.printStr("userid:"+cu.getUserid());
+        String usercode=cu.getUserid();
         ArrayList<IndexList> allindexlist= new IndexListService().getIndexList();
         IndexListService indexListService=new IndexListService();
         PageBean<IndexList> page=new PageBean<>();
@@ -32,7 +37,7 @@ public class indexlist extends BaseAction {
         sb.append(this.getRequest().getRequestURI());
         sb.append("?m=getIndexList");
         try {
-            List<IndexList> indexLists=indexListService.getIndexListByPage("usercode01",page.getPageNum() - 1,page.getPageSize());
+            List<IndexList> indexLists=indexListService.getIndexListByPage(usercode,page.getPageNum() - 1,page.getPageSize());
             page.setData(indexLists);
             page.setTotalRecorder(allindexlist.size());
             page.setUrl(sb.toString());
@@ -99,6 +104,10 @@ public class indexlist extends BaseAction {
     * @Date: 2018/9/18
     */
     public ModelAndView getIndexList() throws IOException, ParseException {
+        User cu=UserService.getCurrentUser();
+        //PubInfo.printStr("userid:"+cu.getUserid());
+        String usercode=cu.getUserid();
+
         HttpServletRequest req = this.getRequest();
         String pjax = req.getHeader("X-PJAX");
         String code=req.getParameter("code");
@@ -116,7 +125,7 @@ public class indexlist extends BaseAction {
         List<IndexList> indexlist=new ArrayList<>();
         //code为null表示查询所有的计划
         if (code==null){
-            indexlist=indexListService.getIndexListByPage("usercode01",page.getPageNum()-1,page.getPageSize());
+            indexlist=indexListService.getIndexListByPage(usercode,page.getPageNum()-1,page.getPageSize());
         }
         else if (code=="#1"){
             indexlist=indexListService.getSubIndexListByPage("",page.getPageNum()-1,page.getPageSize());

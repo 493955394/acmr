@@ -2,8 +2,11 @@ package com.acmr.service.zhzs;
 
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
+import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IndexListDao;
+import com.acmr.model.security.User;
 import com.acmr.model.zhzs.IndexList;
+import com.acmr.service.security.UserService;
 
 import java.text.ParseException;
 import java.util.*;
@@ -13,10 +16,13 @@ public class IndexListService {
     //通过usercode得到计划和目录列表
 
     public ArrayList<IndexList> getSublist(String code){
+        User cu= UserService.getCurrentUser();
+        //PubInfo.printStr("userid:"+cu.getUserid());
+        String usercode=cu.getUserid();
         ArrayList<IndexList> indexLists=new ArrayList<>();
-        List<DataTableRow> indexlist = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists(code,"usercode01").getRows();
+        List<DataTableRow> indexlist = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists(code,usercode).getRows();
         if (code.equals("#1")){
-            indexlist = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists("","usercode01").getRows();
+            indexlist = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists("",usercode).getRows();
         }
         /*for (int i=0;i<indexlist.size();i++){
             PubInfo.printStr(indexlist.get(i).getRows().toString());
@@ -59,10 +65,14 @@ public class IndexListService {
     }
 
     public List<IndexList> getSubCate(String pcode){
+        User cu=UserService.getCurrentUser();
+        //PubInfo.printStr("userid:"+cu.getUserid());
+        String usercode=cu.getUserid();
+
         List<IndexList> indexLists=new ArrayList<>();
-        List<DataTableRow> rows = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists(pcode,"usercode01").getRows();
+        List<DataTableRow> rows = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists(pcode,usercode).getRows();
         if (pcode.equals("#1")){
-            rows = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists("","usercode01").getRows();
+            rows = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists("",usercode).getRows();
         }
         for (int i=0;i<rows.size();i++){
             //只取目录，不取计划
@@ -93,7 +103,10 @@ public class IndexListService {
     * @Date: 2018/8/28
     */
     public ArrayList<IndexList> getIndexList(){
-        List<DataTableRow> indexlist = IndexListDao.Fator.getInstance().getIndexdatadao().getByUser("usercode01").getRows();
+        User cu=UserService.getCurrentUser();
+        String usercode=cu.getUserid();
+
+        List<DataTableRow> indexlist = IndexListDao.Fator.getInstance().getIndexdatadao().getByUser(usercode).getRows();
         ArrayList<IndexList> indexLists=new ArrayList<>();
         for(int i=0;i<indexlist.size();i++){
             IndexList index=new IndexList();
@@ -251,8 +264,12 @@ public class IndexListService {
     */
 
     public List<IndexList> getSubIndexListByPage(String pcode,int page,int pagesize){
+
+        User cu=UserService.getCurrentUser();
+        String usercode=cu.getUserid();
+
         List<IndexList> list= new ArrayList<>();
-        DataTable table=IndexListDao.Fator.getInstance().getIndexdatadao().getSubIndexListByPage("usercode01",pcode,page,pagesize);
+        DataTable table=IndexListDao.Fator.getInstance().getIndexdatadao().getSubIndexListByPage(usercode,pcode,page,pagesize);
         List<DataTableRow> rows=table.getRows();
         for (int i=0;i<rows.size();i++){
             String code=rows.get(i).getString("code");
