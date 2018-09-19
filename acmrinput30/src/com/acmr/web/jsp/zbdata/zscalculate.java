@@ -217,9 +217,9 @@ public class zscalculate extends BaseAction {
             for (int i = 0; i < datatmp.size(); i++) {
                 String arr = data1.get(i).toString().substring(1, data1.get(i).toString().length() - 1);
                 //String arr =datatmp.get(i).toString();
-                String a2 = arr.replaceAll("null"," ");
-                String [] a3 = a2.split(",");
                 dr1 = sheet1.addRow();
+                String a2 = arr.replaceAll("null"," ");
+                String[] a3 = a2.split(",");
                 for (int j = 0; j < a3.length; j++) {
                     cell2 = cell1.clone();
                     cell2.setCellValue(a3[j]);
@@ -257,8 +257,8 @@ public class zscalculate extends BaseAction {
                 String arr = data1.get(i).toString().substring(1, data1.get(i).toString().length() - 1);
                 //String arr =data1.get(i).toString();
                 dr1 = sheet1.addRow();
-                // String a2 = arr.replaceAll("0.0"," ");
-                String[] a3 = arr.split(",");
+                String a2 = arr.replaceAll("null"," ");
+                String[] a3 = a2.split(",");
                 for (int j = 0; j < a3.length; j++) {
                     cell2 = cell1.clone();
                     cell2.setCellValue(a3[j]);
@@ -283,139 +283,6 @@ public class zscalculate extends BaseAction {
             e.printStackTrace();
         }
     }
-    /**
-     * 文件上传
-     *
-     * @author wf
-     * @date
-     * @param
-     * @return
-     */
-    /*public void updateTaskData() {
-        //CreateTaskService createTaskService = new CreateTaskService();
-        IndexTaskService indexTaskService = new IndexTaskService();
-        OriginService originService = new OriginService();
-        HttpServletRequest req = this.getRequest();
-        JSONReturnData data = new JSONReturnData("");
-        String sessionid = req.getSession().getId();
-        String taskcode = req.getParameter("taskcode");
-        List<String> regscode = indexTaskService.getTaskRegs(taskcode);
-
-        List<String> regs = new ArrayList<>();
-        for (int i = 0; i < regscode.size(); i++) {
-            regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
-        }
-        List<String> ZBcodes = indexTaskService.getZBcodes(taskcode);
-        String ayearmon = indexTaskService.getTime(taskcode);
-
-        ServletFileUpload uploader = new ServletFileUpload(new DiskFileItemFactory());
-        uploader.setHeaderEncoding("utf-8");
-        try {
-            ArrayList<FileItem> files = (ArrayList<FileItem>) uploader.parseRequest(this.getRequest());
-            if (files.size() > 0) {
-                FileItem file = files.get(0);
-                String name = file.getName();
-                if (file != null) {
-                    try {
-                        XLSTYPE xlstype = XLSTYPE.XLS;
-                        if (name.endsWith("xlsx")) {
-                            xlstype = XLSTYPE.XLSX;
-                        }
-                        ExcelBook book1 = new ExcelBook();
-                        book1.LoadExcel(file.getInputStream(), xlstype);
-                        ExcelSheet sheet = book1.getSheets().get(0);
-                        if (sheet == null) {
-                            data.setReturncode(500);
-                            data.setReturndata("没有发现上传的文件");
-                            this.sendJson(data);
-                            return;
-                        }
-                        int rows = sheet.getRows().size();
-
-                        // 数据量
-                        int count = 0;
-                        //对地区进行比对
-                        for(int r=0;r<regs.size();r++){
-                            //String reg = sheet.getRows().get(0).toString().substring(4,sheet.getRows().get(0).toString().length()-1);
-                           int s= r+1;
-                            String getreg =sheet.getRows().get(0).getCells().get(s).getText() + "";
-                            String [] getregname = getreg.split(",");
-                            String reg = regs.get(r);
-                            String b = regs.get(0);
-                            if(!getreg.equals(reg)){
-                                data.setReturncode(300);
-                                data.setReturndata("指标或地区有误，请比对下载进行数据修改");
-                                this.sendJson(data);
-                                return;
-                            }
-                        }
-
-                        // 遍历数据并进行封装
-                        List<List<String>> zbandreg = new ArrayList<>();
-                        for (int j=0;j<ZBcodes.size();j++){
-                            //对指标进行比对
-                            List<String> ZBname = new ArrayList<>();
-                            String ZBcode = ZBcodes.get(j);
-                            ZBname.add(indexTaskService.getzbname(ZBcode));
-                            int k = j+1;
-                            ExcelCell zb = sheet.getRows().get(k).getCells().get(0);
-                            String zbname = zb.getText() + "";
-                            String [] getzbname = zbname.split(",");
-                            if(!zbname.equals(ZBname.get(j))){
-                                data.setReturncode(300);
-                                data.setReturndata("指标或地区有误，请比对下载进行数据修改");
-                                this.sendJson(data);
-                                return;
-                            }
-
-                            if (rows >= 1 && sheet.getRows().get(k) != null) {
-                                ExcelRow Rows = sheet.getRows().get(k);
-                                if (Rows != null) {
-                                    int cells = Rows.getCells().size();
-                                    //Map<String, String> mkey = new HashMap<String, String>();
-                                    List<String> reganddata = new ArrayList<>();
-                                    for (int i = 0; i < regscode.size(); i++) {
-                                        int m = i+1;
-                                        ExcelCell cell = Rows.getCells().get(m);
-                                        if (cell != null) {
-                                            String value = cell.getText() + "";
-                                            *//*if (StringUtil.isEmpty(value)) {
-                                                continue;
-                                            }*//*
-                                            *//*if (!mkey.containsValue(value)) {
-                                                mkey.put(regscode.get(i), value);
-                                            }*//*
-                                            reganddata.add(value);
-                                            reganddata.add(regscode.get(i));
-                                        }
-                                    }
-                                    zbandreg.add(reganddata);
-                                }
-                            }
-                        }
-
-                        if (count >= 10000) {
-                            data.setReturncode(400);
-                            data.setReturndata("导入的数据不能超过10000行");
-                            return;
-                        }
-                        // 入库
-            int uploaddata = indexTaskService.updateData(taskcode,ayearmon,sessionid,zbandreg);
-                        data.setParam1(count);
-                        data.setReturncode(200);
-                        data.setReturndata("数据文件上传成功");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        data.setReturncode(500);
-                        data.setReturndata("数据上传失败");
-                    }
-                }
-            }
-            this.sendJson(data);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
     /**
      * 重新计算页面
@@ -434,6 +301,17 @@ public class zscalculate extends BaseAction {
         String regs = findRegions(taskcode);
         String [] reg = regs.split(",");
         String indexcode = findicode(taskcode);
+            //开始计算指数的值，包括乘上weight
+       if(calculateZB(taskcode,ayearmon,regs,indexcode,sessionid)){
+           //指标已经算完
+           List<TaskModule> zong = indexTaskService.findRoot(taskcode);
+           for (int i = 0; i <zong.size() ; i++) {
+               for (int j = 0; j <reg.length ; j++) {//一个地区一个地区地算
+                   calculateZS(zong.get(i).getCode(),taskcode,ayearmon,reg[j],sessionid);
+               }
+           }
+       }
+
         if (StringUtil.isEmpty(pjax)) {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
         } else {
@@ -462,9 +340,9 @@ public class zscalculate extends BaseAction {
         return indexTaskService.getRegions(taskcode);
     }
     /**
-     * 计算的方法,环比和指数的还没有做
+     * 计算的方法,只算指标
      */
-    public boolean calculateFunction(String taskcode, String time, String regs,String icode,String sessionid){
+    public boolean calculateZB(String taskcode, String time, String regs,String icode,String sessionid){
         String [] reg = regs.split(",");
         IndexTaskService indexTaskService = new IndexTaskService();
         OriginDataService originDataService = new OriginDataService();
@@ -529,5 +407,35 @@ public class zscalculate extends BaseAction {
             System.out.println("error");
         }
         return result;
+    }
+    /**
+     * 计算指数（乘上权重），递归
+     */
+    public  void calculateZS(String code,String taskcode, String time, String reg,String sessionid){
+        DataResult zsdata = new DataResult();
+        OriginDataService originDataService = new OriginDataService();
+        List<TaskModule> subs = originDataService.findSubMod(code,reg,time,sessionid);
+        int check = originDataService.subDataCheck(subs,reg,time,sessionid);
+        if(check ==1){//下一级的值不全
+            for (int i = 0; i <subs.size() ; i++) {
+                calculateZS(subs.get(i).getCode(),taskcode,time,reg,sessionid);
+            }
+        }
+        else{//要是下一级的值是全的，就把值加到zsdatas中
+            TaskModule temp = originDataService.getModData(code);
+            zsdata.setAyearmon(time);
+            zsdata.setRegion(reg);
+            zsdata.setSessionid(sessionid);
+            zsdata.setTaskcode(taskcode);
+            zsdata.setTaskcode(temp.getTaskcode());
+            zsdata.setModcode(temp.getCode());
+            String formula = "";
+            for (int i = 0; i <subs.size() ; i++) {
+                String data = originDataService.getzbvalue(taskcode,temp.getCode(),reg,time,sessionid);
+                formula += data+"*"+temp.getWeight();
+            }
+            zsdata.setData(tocalculate(formula));
+            originDataService.addzsdata(zsdata);
+        }
     }
 }

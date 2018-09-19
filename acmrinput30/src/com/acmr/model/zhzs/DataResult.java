@@ -9,6 +9,14 @@ public class DataResult {
     private String ayearmon;
     private String data;
     private String updatetime;
+    private String sessionid;
+    public String getSessionid() {
+        return sessionid;
+    }
+
+    public void setSessionid(String sessionid) {
+        this.sessionid = sessionid;
+    }
 
     public String getModcode() {
         return modcode;

@@ -207,6 +207,29 @@ public class IndexTaskService {
         return icode;
     }
 
+    /**
+     * 返回总指数列表
+     */
+    public List<TaskModule> findRoot(String taskcode){
+        List<TaskModule> taskModules = new ArrayList<>();
+        List<DataTableRow> data = IndexTaskDao.Fator.getInstance().getIndexdatadao().getRootData(taskcode).getRows();
+        for (int i = 0; i <data.size() ; i++) {
+            TaskModule taskModule = new TaskModule();
+            taskModule.setCode(data.get(i).getString("code"));
+            taskModule.setCname(data.get(i).getString("cname"));
+            taskModule.setTaskcode(data.get(i).getString("taskcode"));
+            taskModule.setProcode(data.get(i).getString("procode"));
+            taskModule.setIfzs(data.get(i).getString("ifzs"));
+            taskModule.setIfzb(data.get(i).getString("ifzb"));
+            taskModule.setFormula(data.get(i).getString("formula"));
+            taskModule.setWeight(data.get(i).getString("weight"));
+            taskModule.setSortcode(data.get(i).getString("sortcode"));
+            taskModule.setDacimal(data.get(i).getString("dacimal"));
+            taskModules.add(taskModule);
+        }
+        return taskModules;
+    }
+
     /*public static void main(String[] args) {
         IndexTaskService indexTask = new IndexTaskService();
         List<Map> test = indexTask.getModuleFormula("bb4016ee54d143cbb2d9f47d4b221e9b");
