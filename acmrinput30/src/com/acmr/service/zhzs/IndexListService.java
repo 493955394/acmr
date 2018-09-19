@@ -242,6 +242,14 @@ public class IndexListService {
         return list;
     }
 
+    /**
+    * @Description: 获取子计划列表，包括分页
+    * @Param: [pcode, page, pagesize]
+    * @return: java.util.List<com.acmr.model.zhzs.IndexList>
+    * @Author: lyh
+    * @Date: 2018/9/19
+    */
+
     public List<IndexList> getSubIndexListByPage(String pcode,int page,int pagesize){
         List<IndexList> list= new ArrayList<>();
         DataTable table=IndexListDao.Fator.getInstance().getIndexdatadao().getSubIndexListByPage("usercode01",pcode,page,pagesize);
@@ -264,10 +272,12 @@ public class IndexListService {
         return list;
     }
 
+/*
     public static void main(String[] args) throws ParseException {
         IndexListService indexListService=new IndexListService();
         indexListService.getIndexListByPage("usercode01",0,10);
     }
+*/
 
 
 

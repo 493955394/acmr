@@ -61,7 +61,7 @@ public class IndexTaskService {
         return ZBcodes;
     }*/
     /**
-     * 任务列表展示
+     * 任务列表展示（包括分页）
      */
     public ArrayList<IndexTask> getTaskByIcode(String icode,int page,int pagesize){
         ArrayList<IndexTask> indexTasks = new ArrayList<>();
@@ -78,6 +78,13 @@ public class IndexTaskService {
         return indexTasks;
     }
 
+    /**
+    * @Description: 获取全部任务列表，不包括分页
+    * @Param: [icode]
+    * @return: java.util.List<com.acmr.model.zhzs.IndexTask>
+    * @Author: lyh
+    * @Date: 2018/9/19
+    */
     public List<IndexTask> getAllTask(String icode){
         ArrayList<IndexTask> indexTasks = new ArrayList<>();
         List<DataTableRow> data = IndexTaskDao.Fator.getInstance().getIndexdatadao().getAllTaskList(icode).getRows();
