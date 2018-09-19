@@ -15,10 +15,7 @@ import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
-import com.acmr.model.zhzs.Data;
-import com.acmr.model.zhzs.DataResult;
-import com.acmr.model.zhzs.IndexZb;
-import com.acmr.model.zhzs.TaskModule;
+import com.acmr.model.zhzs.*;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zhzs.*;
 import org.apache.commons.fileupload.FileItem;
@@ -300,9 +297,8 @@ public class zscalculate extends BaseAction {
         //从原始数据表读取数据做计算
         String regs = findRegions(taskcode);
         String [] reg = regs.split(",");
-        String indexcode = findicode(taskcode);
             //开始计算指数的值，包括乘上weight
-       if(calculateZB(taskcode,ayearmon,regs,indexcode,sessionid)){
+       if(calculateZB(taskcode,ayearmon,regs,sessionid)){
            //指标已经算完
            List<TaskModule> zong = indexTaskService.findRoot(taskcode);
            for (int i = 0; i <zong.size() ; i++) {
@@ -326,11 +322,11 @@ public class zscalculate extends BaseAction {
         return indexTaskService.getTime(taskcode);
     }
     /**
-     * 返回icode
+     * 返回task_zb_list
      */
-    public String findicode(String taskcode){
+    public List<TaskZb> findtaskzb(String taskcode){
         IndexTaskService indexTaskService = new IndexTaskService();
-        return indexTaskService.geticode(taskcode);
+        return indexTaskService.gettaskzblist(taskcode);
     }
     /**
      * 查对应的地区
@@ -342,43 +338,47 @@ public class zscalculate extends BaseAction {
     /**
      * 计算的方法,只算指标
      */
-    public boolean calculateZB(String taskcode, String time, String regs,String icode,String sessionid){
+    public boolean calculateZB(String taskcode, String time, String regs,String sessionid){
         String [] reg = regs.split(",");
         IndexTaskService indexTaskService = new IndexTaskService();
         OriginDataService originDataService = new OriginDataService();
         List<DataResult> newadd = new ArrayList<>();
         List<TaskModule> data = indexTaskService.getModuleFormula(taskcode,"0");//取的是指标的list
+        List<TaskZb> zbs = findtaskzb(taskcode);
         for (int i = 0; i <data.size() ; i++) {//开始循环
-            IndexEditService indexEditService = new IndexEditService();
             if(data.get(i).getIfzb().equals("1")){//如果是直接用筛选的指标的话直接去查值
                 //先去查tb_coindex_zb
-                String zbcode = indexEditService.getZBData(data.get(i).getFormula()).getZbcode();//得到了zbcode
                 for (int j = 0; j <reg.length ; j++) {
                     DataResult da = new DataResult();
                     da.setAyearmon(time);
                     da.setRegion(reg[j]);
                     da.setTaskcode(taskcode);
                     da.setModcode(data.get(i).getCode());
-                    String val = originDataService.getvalue(taskcode,zbcode,reg[j],time,sessionid);
-                    da.setData(val);
-                    newadd.add(da);
+                    da.setSessionid(sessionid);
+                    for (int k = 0; k <zbs.size() ; k++) {
+                        if(data.get(i).getFormula().contains(zbs.get(k).getProcode())){//要是存在这个code,就去取对应的zbcode
+                            String val = originDataService.getvalue(taskcode,zbs.get(k).getCode(),reg[j],time,sessionid);
+                            da.setData(val);
+                            newadd.add(da);}
+                        }
                 }
             }
             else if(data.get(i).getIfzb().equals("0")){//如果是自己编辑的公式
                 //先处理公式
-                String formula = data.get(i).getFormula();
-                List<Map>  zbs = indexEditService.getZBS(icode);//把这个icode下所有的code全都找出来,去遍历
+
                 for (int j = 0; j <reg.length ; j++) {//地区循环
+                    String formula = data.get(i).getFormula();
                     DataResult da = new DataResult();
                     da.setAyearmon(time);
                     da.setRegion(reg[j]);
                     da.setTaskcode(taskcode);
                     da.setModcode(data.get(i).getCode());
+                    da.setSessionid(sessionid);
                     for (int k = 0; k <zbs.size() ; k++) {
-                        if(formula.contains(zbs.get(k).get("code").toString())){//要是存在这个code,就去取对应的zbcode
-                            String tempval = originDataService.getvalue(taskcode,zbs.get(k).get("zbcode").toString(),reg[j],time,sessionid);
+                        if(formula.contains(zbs.get(k).getProcode())){//要是存在这个code,就去取对应的zbcode
+                            String tempval = originDataService.getvalue(taskcode,zbs.get(k).getCode(),reg[j],time,sessionid);
                             //替换公式中的值
-                            formula = formula.replace("#"+zbs.get(k).get("zbcode")+"#",tempval);//换成对应的value
+                            formula = formula.replace("#"+zbs.get(k).getProcode()+"#",tempval);//换成对应的value
                         }
                     }
                     //全部替换完成后开始做计算
@@ -417,14 +417,20 @@ public class zscalculate extends BaseAction {
     public  void calculateZS(String code,String taskcode, String time, String reg,String sessionid){
         DataResult zsdata = new DataResult();
         OriginDataService originDataService = new OriginDataService();
-        List<TaskModule> subs = originDataService.findSubMod(code,reg,time,sessionid);
+        List<TaskModule> subs = originDataService.findSubMod(code);
         int check = originDataService.subDataCheck(subs,reg,time,sessionid);
         if(check ==1){//下一级的值不全
             for (int i = 0; i <subs.size() ; i++) {
-                calculateZS(subs.get(i).getCode(),taskcode,time,reg,sessionid);
+                //先去检查数据库有没有值，有值就不算了
+                List<TaskModule> tmp =new ArrayList<>();
+                tmp.add(subs.get(i));
+                if(originDataService.subDataCheck(tmp,reg,time,sessionid)==1){
+                    calculateZS(subs.get(i).getCode(),taskcode,time,reg,sessionid);
+                }
             }
+            calculateZS(code,taskcode,time,reg,sessionid);//计算一遍它的父级
         }
-        else{//要是下一级的值是全的，就把值加到zsdatas中
+        else {//要是下一级的值是全的，就把值加到zsdatas中
             TaskModule temp = originDataService.getModData(code);
             zsdata.setAyearmon(time);
             zsdata.setRegion(reg);
@@ -433,11 +439,11 @@ public class zscalculate extends BaseAction {
             zsdata.setTaskcode(temp.getTaskcode());
             zsdata.setModcode(temp.getCode());
             String formula = "";
-            for (int i = 0; i <subs.size() ; i++) {
-                String data = originDataService.getzbvalue(taskcode,temp.getCode(),reg,time,sessionid);
-                formula += data+"*"+temp.getWeight();
+            for (int i = 0; i < subs.size(); i++) {
+                String data = originDataService.getzbvalue(taskcode, subs.get(i).getCode(), reg, time, sessionid);
+                formula += "+" + data + "*" + subs.get(i).getWeight();
             }
-            zsdata.setData(tocalculate(formula));
+            zsdata.setData(tocalculate(formula.substring(1)));
             originDataService.addzsdata(zsdata);
         }
     }

@@ -34,9 +34,10 @@ public class OriginDataService {
     /**
      * 查询submod
      */
-    public List<TaskModule> findSubMod(String code,String reg,String time,String sessionid){
+    public List<TaskModule> findSubMod(String code){
         List<TaskModule> taskModules = new ArrayList<>();
-        List<DataTableRow> data = DataDao.Fator.getInstance().getIndexdatadao().getSubMod(code).getRows();
+        List<DataTableRow> data =new ArrayList<>();
+        data = DataDao.Fator.getInstance().getIndexdatadao().getSubMod(code).getRows();
         for (int i = 0; i <data.size() ; i++) {
             TaskModule taskModule = new TaskModule();
             taskModule.setCode(data.get(i).getString("code"));
