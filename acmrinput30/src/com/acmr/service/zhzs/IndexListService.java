@@ -15,6 +15,9 @@ public class IndexListService {
     public ArrayList<IndexList> getSublist(String code){
         ArrayList<IndexList> indexLists=new ArrayList<>();
         List<DataTableRow> indexlist = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists(code,"usercode01").getRows();
+        if (code.equals("#1")){
+            indexlist = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists("","usercode01").getRows();
+        }
         /*for (int i=0;i<indexlist.size();i++){
             PubInfo.printStr(indexlist.get(i).getRows().toString());
         }*/
@@ -58,6 +61,9 @@ public class IndexListService {
     public List<IndexList> getSubCate(String pcode){
         List<IndexList> indexLists=new ArrayList<>();
         List<DataTableRow> rows = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists(pcode,"usercode01").getRows();
+        if (pcode.equals("#1")){
+            rows = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists("","usercode01").getRows();
+        }
         for (int i=0;i<rows.size();i++){
             //只取目录，不取计划
             if (rows.get(i).getString("ifdata").equals("0")){
@@ -131,6 +137,7 @@ public class IndexListService {
      * @return
      */
     public IndexList getData(String code){
+
         DataTableRow data = IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(code).getRows().get(0);
         IndexList index= new IndexList();
         index.setCode(data.getString("code"));
@@ -205,9 +212,39 @@ public class IndexListService {
         return IndexListDao.Fator.getInstance().getIndexdatadao().checkProcode(procode);
     }
 
+
+    /**
+    * @Description: 获取用户创建的所有指数列表，带分页
+    * @Param: [usercode, page, pagesize]
+    * @return: java.util.List<com.acmr.model.zhzs.IndexList>
+    * @Author: lyh
+    * @Date: 2018/9/19
+    */
     public List<IndexList> getIndexListByPage(String usercode,int page, int pagesize) throws ParseException {
         List<IndexList> list= new ArrayList<>();
-        DataTable table=IndexListDao.Fator.getInstance().getIndexdatadao().getIndexListByPage(usercode,page,pagesize);
+        DataTable table=IndexListDao.Fator.getInstance().getIndexdatadao().getAllIndexListByPage(usercode,page,pagesize);
+        List<DataTableRow> rows=table.getRows();
+        for (int i=0;i<rows.size();i++){
+            String code=rows.get(i).getString("code");
+            String cname=rows.get(i).getString("cname");
+            String procode=rows.get(i).getString("procode");
+            String sort=rows.get(i).getString("sort");
+            String startperiod=rows.get(i).getString("startperiod");
+            String delayday=rows.get(i).getString("delayday");
+            String planperiod=rows.get(i).getString("planperiod");
+            String plantime=rows.get(i).getString("plantime");
+            String createuser=rows.get(i).getString("createuser");
+            String ifdata=rows.get(i).getString("ifdata");
+            String state=rows.get(i).getString("state");
+            IndexList indexList=new IndexList(code,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser,ifdata,state);
+            list.add(indexList);
+        }
+        return list;
+    }
+
+    public List<IndexList> getSubIndexListByPage(String pcode,int page,int pagesize){
+        List<IndexList> list= new ArrayList<>();
+        DataTable table=IndexListDao.Fator.getInstance().getIndexdatadao().getSubIndexListByPage("usercode01",pcode,page,pagesize);
         List<DataTableRow> rows=table.getRows();
         for (int i=0;i<rows.size();i++){
             String code=rows.get(i).getString("code");

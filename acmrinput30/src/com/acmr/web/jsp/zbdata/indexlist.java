@@ -29,7 +29,7 @@ public class indexlist extends BaseAction {
         PageBean<IndexList> page=new PageBean<>();
         StringBuffer sb = new StringBuffer();
         sb.append(this.getRequest().getRequestURI());
-        sb.append("?m=turn");
+        sb.append("?m=getIndexList");
         try {
             List<IndexList> indexLists=indexListService.getIndexListByPage("usercode01",page.getPageNum() - 1,page.getPageSize());
             page.setData(indexLists);
@@ -41,17 +41,7 @@ public class indexlist extends BaseAction {
 
         return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("page",page);
     }
-    
-    /** 
-    * @Description: 翻页
-    * @Param: [] 
-    * @return: void 
-    * @Author: lyh
-    * @Date: 2018/9/18 
-    */ 
-    public void turn(){
-        
-    }
+
 
 
     /**
@@ -107,27 +97,47 @@ public class indexlist extends BaseAction {
     * @Author: lyh
     * @Date: 2018/9/18
     */
-    public ModelAndView getIndexList() throws IOException {
+    public ModelAndView getIndexList() throws IOException, ParseException {
         HttpServletRequest req = this.getRequest();
         String pjax = req.getHeader("X-PJAX");
         String code=req.getParameter("code");
-        PubInfo.printStr("code"+code);
-        ArrayList<IndexList> indexlist=new ArrayList<>();
-        if (code=="#1"){
-            indexlist=new IndexListService().getSublist("");
-        }else {
-            indexlist= new IndexListService().getSublist(code);
+        IndexListService indexListService=new IndexListService();
+        //PubInfo.printStr("code"+code);
+        List<IndexList> allindexlist=new ArrayList<>();
+        if (code==null){
+            allindexlist=indexListService.getIndexList();
         }
-        if (indexlist.size()==0){
-            indexlist.add(new IndexListService().getData(code));
+        else {
+            allindexlist=indexListService.getSublist(code);
         }
+
         PageBean<IndexList> page=new PageBean<>();
+        List<IndexList> indexlist=new ArrayList<>();
+        //code为null表示查询所有的计划
+        if (code==null){
+            indexlist=indexListService.getIndexListByPage("usercode01",page.getPageNum()-1,page.getPageSize());
+        }
+        else if (code=="#1"){
+            indexlist=indexListService.getSubIndexListByPage("",page.getPageNum()-1,page.getPageSize());
+        }
+        else {
+            indexlist=indexListService.getSubIndexListByPage(code,page.getPageNum()-1,page.getPageSize());
+            if (allindexlist.size()==0){
+                indexlist.add(indexListService.getData(code));
+            }
+        }
         StringBuffer sb = new StringBuffer();
-        sb.append(this.getRequest().getRequestURI());
-        sb.append("?m=turn");
-        page.setData(indexlist);
-        page.setTotalRecorder(indexlist.size());
+        sb.append(req.getRequestURL());
+        if (code!=null){
+            sb.append("?m=getIndexList&code="+code);
+        }
+        else {
+            sb.append("?m=getIndexList");
+        }
+        page.setTotalRecorder(allindexlist.size());
         page.setUrl(sb.toString());
+        page.setData(indexlist);
+
         if (StringUtil.isEmpty(pjax)) {
             PubInfo.printStr("isempty");
             this.getResponse().sendRedirect("/zbdata/indexlist.htm");

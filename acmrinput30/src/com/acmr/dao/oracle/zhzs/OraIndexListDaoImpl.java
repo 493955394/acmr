@@ -203,11 +203,28 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     }
 
     @Override
-    public DataTable getIndexListByPage(String usercode, int page, int pagesize) {
+    public DataTable getAllIndexListByPage(String usercode, int page, int pagesize) {
         int b1 = page * pagesize + 1;
         int e1 = b1 + pagesize;
-        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where createuser=?) d1) where no>="+b1+" and rownum<"+ e1;
+        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where createuser=?) d1) where no>="+b1+" and no<"+ e1;
         DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{usercode});
+        return table;
+    }
+
+    @Override
+    public DataTable getSubIndexListByPage(String usercode,String code, int page, int pagesize) {
+        int b1 = page * pagesize + 1;
+        int e1 = b1 + pagesize;
+        DataTable table;
+        String sql;
+        if (code.equals("")){
+            sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where procode is null and createuser=?) d1) where no>="+b1+" and no<"+ e1;
+            table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{usercode});
+        }
+        else {
+            sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where procode=? and createuser=?) d1) where no>="+b1+" and no<"+ e1;
+            table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{code,usercode});
+        }
         return table;
     }
 /*
