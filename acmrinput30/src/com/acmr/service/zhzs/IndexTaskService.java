@@ -184,6 +184,20 @@ public class IndexTaskService {
     public List<TaskModule> getModuleFormula(String taskcode,String ifzs){
         List<TaskModule> taskModules = new ArrayList<>();
         List<DataTableRow> data = IndexTaskDao.Fator.getInstance().getIndexdatadao().getModuleData(taskcode,ifzs).getRows();
+        for (int i = 0; i <data.size(); i++) {
+            TaskModule taskModule = new TaskModule();
+            taskModule.setCode(data.get(i).getString("code"));
+            taskModule.setCname(data.get(i).getString("cname"));
+            taskModule.setTaskcode(data.get(i).getString("taskcode"));
+            taskModule.setProcode(data.get(i).getString("procode"));
+            taskModule.setIfzs(data.get(i).getString("ifzs"));
+            taskModule.setIfzb(data.get(i).getString("ifzb"));
+            taskModule.setFormula(data.get(i).getString("formula"));
+            taskModule.setWeight(data.get(i).getString("weight"));
+            taskModule.setSortcode(data.get(i).getString("sortcode"));
+            taskModule.setDacimal(data.get(i).getString("dacimal"));
+            taskModules.add(taskModule);
+        }
 
         return taskModules;
     }
@@ -195,8 +209,8 @@ public class IndexTaskService {
     public String getRegions (String taskcode){
         String Regions="";
         List<DataTableRow> rows=IndexTaskDao.Fator.getInstance().getIndexdatadao().getZBs(taskcode).getRows();
-        if(rows.get(0).getString("code")!= "")
-            Regions = rows.get(0).getString("code");
+        if(rows.get(0).getString("regions")!= "")
+            Regions = rows.get(0).getString("regions");
         return Regions;
     }
     /**

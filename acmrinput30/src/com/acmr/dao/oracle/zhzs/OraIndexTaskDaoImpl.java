@@ -405,7 +405,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                 String region=rows.get(i).getString("region");
                 String ayearmon=rows.get(i).getString("ayearmon");
                 String data=rows.get(i).getString("data");
-                String sql2="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,sessionid) values(?,?,?,?,?)";
+                String sql2="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,sessionid) values(?,?,?,?,?,?)";
                 dataQuery.executeSql(sql2,new Object[]{taskcode,zbcode,region,ayearmon,data,sessionid});
             }
             dataQuery.commit();
