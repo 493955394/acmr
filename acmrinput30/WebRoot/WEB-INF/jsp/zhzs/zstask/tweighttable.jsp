@@ -47,7 +47,7 @@
             "${module.getProcode()}"+"' sort='" +
             "${module.getSortcode()}"+"'  rowspan='" +
             "${module.ZBnums()}"+"'>" +
-            "${module.getCname()}"+"</td><td class='" +
+            "${module.getCname()}"+"</td><td  flag='0' class='" +
             "p_${module.getCode()}"+"' rowspan='" +
             "${module.ZBnums()}"+"'>" +
             "<input class='input_weight " +
@@ -63,7 +63,7 @@
             "${module.getProcode()}"+"' sort='" +
             "${module.getSortcode()}"+"' rowspan='" +
             "${module.ZBnums()}"+"'>" +
-            "${module.getCname()}"+"</td><td class='" +
+            "${module.getCname()}"+"</td><td flag='0' class='" +
             "p_${module.getCode()}"+"' rowspan='" +
             "${module.ZBnums()}"+"'>" +
             "<input class='input_weight " +
