@@ -419,7 +419,7 @@ define(function (require,exports,module) {
             onClick:clickEvent
         }
     };
-    var settingc = {
+    /*var settingc = {
         async: {
             enable: true,
             url: common.rootPath+'zbdata/indexlist.htm?m=getCateTree&st='+st,
@@ -430,54 +430,50 @@ define(function (require,exports,module) {
         callback:{
             onClick:clickEvent
         }
-    };
+    };*/
     var setting1 = {
-        async:{
-
-        },
-        data: {
-            simpleData: {
-                enable: true
-            }
+        async: {
+            enable: true,
+            url: common.rootPath+'zbdata/indexlist.htm?m=getCateTree&st='+st,
+            contentType: 'application/json',
+            type: 'get',
+            autoParam: ["id"]
         },
         callback:{
             onClick:clickEvent1
         }
     };
     var setting2 = {
-        async:{
-
-        },
-        data: {
-            simpleData: {
-                enable: true
-            }
+        async: {
+            enable: true,
+            url: common.rootPath+'zbdata/indexlist.htm?m=getCateTree&st='+st,
+            contentType: 'application/json',
+            type: 'get',
+            autoParam: ["id"]
         },
         callback:{
             onClick:clickEvent2
         }
     };
     var setting3 = {
-        async:{
-
-        },
-        data: {
-            simpleData: {
-                enable: true
-            }
+        async: {
+            enable: true,
+            url: common.rootPath+'zbdata/indexlist.htm?m=getCateTree&st='+st,
+            contentType: 'application/json',
+            type: 'get',
+            autoParam: ["id"]
         },
         callback:{
             onClick:clickEvent3
         }
     };
     var setting4 = {
-        async:{
-
-        },
-        data: {
-            simpleData: {
-                enable: true
-            }
+        async: {
+            enable: true,
+            url: common.rootPath+'zbdata/indexlist.htm?m=getCateTree&st='+st,
+            contentType: 'application/json',
+            type: 'get',
+            autoParam: ["id"]
         },
         callback:{
             onClick:clickEvent4
@@ -595,15 +591,19 @@ define(function (require,exports,module) {
         fixIcon("treeDemo");
         addPath();
 
-        //        $.fn.zTree.init($("#你的id"), settingc, CNodes);
-        $.fn.zTree.init($("#treeCata"), setting1, CategoryNodes);
+        //        $.fn.zTree.init($("#你的id"), settingc, cNodes);
+        $.fn.zTree.init($("#treeCata"), setting1, cNodes);
         fixIcon("treeCata");
-        $.fn.zTree.init($("#treePlan"), setting2, CategoryNodes);
+        addPath();
+        $.fn.zTree.init($("#treePlan"), setting2, cNodes);
         fixIcon("treePlan");
-        $.fn.zTree.init($("#treeZs"), setting3, zNodes);
+        addPath();
+        $.fn.zTree.init($("#treeZs"), setting3, cNodes);
         fixIcon("treeZs");
-        $.fn.zTree.init($("#treeEditc"), setting4, zNodes);
+        addPath();
+        $.fn.zTree.init($("#treeEditc"), setting4, cNodes);
         fixIcon("treeEditc");
+        addPath();
     });
 
 
