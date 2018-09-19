@@ -219,7 +219,7 @@ public class datahandle extends BaseAction {
                             }
                         }
                         // 遍历数据并进行封装
-                        List<List<String>> zbandreg = new ArrayList<>();
+                        List zbandreg = new ArrayList<>();
                         for (int j=0;j<ZBcodes.size();j++){
                             int k = j+1;
                             /*
@@ -239,7 +239,10 @@ public class datahandle extends BaseAction {
                                     //int cells = Rows.getCells().size();
                                     //Map<String, String> mkey = new HashMap<String, String>();
                                     List<String> reganddata = new ArrayList<>();
+                                    reganddata.add(ZBcodes.get(j));
                                     for (int i = 0; i < regscode.size(); i++) {
+
+                                        reganddata.add(regscode.get(i));
                                         int m = i+1;
                                         ExcelCell cell = Rows.getCells().get(m);
                                         if (cell != null) {
@@ -251,11 +254,12 @@ public class datahandle extends BaseAction {
                                                 mkey.put(regscode.get(i), value);
                                             }*/
                                             reganddata.add(value);
-                                            reganddata.add(regscode.get(i));
+
                                         }
                                     }
                                     zbandreg.add(reganddata);
                                 }
+
                             }
                         }
 
