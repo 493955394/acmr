@@ -21,7 +21,7 @@ public interface IIndexTaskDao {
     public int ReData(String tcode,String sessionid);
     public DataTable getTaskZb(String taskcode);
     public DataTable getModuleData(String taskcode,String ifzs);
-    public String getIcode(String taskcode);
+    public DataTable getTaskZBList(String taskcode);
     public int copyData(String taskcode,String sessionid);
     public int updateDataTmp(String taskcode,String ayearmon,String sessionid,List<String> regscode,List zbandreg);
     public DataTable getRootData(String taskcode);

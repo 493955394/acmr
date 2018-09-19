@@ -3,13 +3,11 @@ package com.acmr.service.zhzs;
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import com.acmr.dao.zhzs.IndexTaskDao;
-import com.acmr.model.zhzs.IndexMoudle;
-import com.acmr.model.zhzs.IndexTask;
-import com.acmr.model.zhzs.TaskModule;
-import com.acmr.model.zhzs.TaskZb;
+import com.acmr.model.zhzs.*;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.web.jsp.Index;
 import acmr.util.ListHashMap;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.*;
 
@@ -214,11 +212,26 @@ public class IndexTaskService {
         return Regions;
     }
     /**
-     * 返回任务的icode
+     * 返回任务的zb的数据
      */
-    public String geticode(String taskcode){
-        String icode=IndexTaskDao.Fator.getInstance().getIndexdatadao().getIcode(taskcode);
-        return icode;
+    public List<TaskZb> gettaskzblist(String taskcode){
+        List<TaskZb> taskZbs = new ArrayList<>();
+        List<DataTableRow> data=IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskZBList(taskcode).getRows();
+        for (int i = 0; i <data.size() ; i++) {
+            TaskZb taskZb = new TaskZb();
+            taskZb.setCode(data.get(i).getString("code"));
+            taskZb.setTaskcode(data.get(i).getString("taskcode"));
+            taskZb.setZbcode(data.get(i).getString("zbcode"));
+            taskZb.setCompany(data.get(i).getString("company"));
+            taskZb.setDatasource(data.get(i).getString("datasource"));
+            taskZb.setRegions(data.get(i).getString("regions"));
+            taskZb.setDatatimes(data.get(i).getString("datatimes"));
+            taskZb.setUnitcode(data.get(i).getString("unitcode"));
+            taskZb.setDacimal(data.get(i).getString("dacimal"));
+            taskZb.setProcode(data.get(i).getString("procode"));
+            taskZbs.add(taskZb);
+        }
+      return taskZbs;
     }
 
     /**
