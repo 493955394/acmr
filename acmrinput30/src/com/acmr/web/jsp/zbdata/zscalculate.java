@@ -290,7 +290,7 @@ public class zscalculate extends BaseAction {
     public ModelAndView docalculate(){
         HttpServletRequest req = this.getRequest();
         // 获取查询数据
-        String sessionid = req.getRequestedSessionId();
+        String sessionid = req.getSession().getId();
         IndexTaskService indexTaskService =new IndexTaskService();
         String taskcode = PubInfo.getString(req.getParameter("taskcode"));
         // 判断是否pjax 请求
@@ -388,7 +388,10 @@ public class zscalculate extends BaseAction {
                 }
             }
         }
-        originDataService.addDataresult(newadd);
+        int i=originDataService.addDataresult(newadd);
+        if (i!=1){
+            return false;
+        }
         return true;
     }
 
