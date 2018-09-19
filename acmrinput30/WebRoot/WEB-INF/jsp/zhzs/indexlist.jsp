@@ -198,7 +198,7 @@
                 </div>
 
             </div>
-            <div class="J_regmgr_data_table">
+            <div class="J_zsjh_data_table">
                 <jsp:include page="/WEB-INF/jsp/zhzs/indextable.jsp" flush="true"/>
             </div>
         </div>

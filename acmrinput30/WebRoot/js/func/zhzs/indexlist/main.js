@@ -388,7 +388,7 @@ define(function (require,exports,module) {
         isMove = false;
         $.pjax({
             url: requestUrl+searchField,
-            container: '.J_regmgr_data_table'
+            container: '.J_zsjh_data_table'
         });
         $(document).on('pjax:success', function() {
             delIds = [];
@@ -396,12 +396,12 @@ define(function (require,exports,module) {
     });
 
     var zNodes =[
-        { id:"#1", pId:0, name:"指数",isParent:true,sou:true},
-        { id:"#2", pId:0, name:"我收到的指数",isParent:true,sou:true},
-        { id:"#3", pId:0, name:"我共享的指数", isParent:true,sou:true}
+        { id:"#1", pId:0, name:"指数",isParent:true},
+        { id:"#2", pId:0, name:"我收到的指数",isParent:true},
+        { id:"#3", pId:0, name:"我共享的指数", isParent:true}
     ];
     var cNodes=[
-        { id:"#1", pId:0, name:"指数",isParent:true,sou:true}
+        { id:"#1", pId:0, name:"指数",isParent:true}
     ]
     /*var indexlist=listjsp.indexlist;
     for(var i=0;i<indexlist.length;i++){
@@ -486,12 +486,17 @@ define(function (require,exports,module) {
     }
     console.log("rootpath:"+common.rootPath)
     function clickEvent(event,treeId,treeNode) {
-        console.log("click")
-        $.pjax({
-            url:common.rootPath+'zbdata/indexlist.htm?m=getIndexList&code='+treeNode.id,
-            container:'.J_regmgr_data_table',
-            timeout:2000
-        })
+       // console.log("click")
+        if (treeNode.id=="#2"||treeNode.id=="#3"){
+            console.log("我收到的，我共享的")
+        }
+        else {
+            $.pjax({
+                url:common.rootPath+'zbdata/indexlist.htm?m=getIndexList&code='+treeNode.id,
+                container:'.J_zsjh_data_table',
+                timeout:2000
+            })
+        }
         /*if(treeNode.isParent==false){
             return false
         }
@@ -511,6 +516,9 @@ define(function (require,exports,module) {
         if (treeNode.id != '') {
             $('input[name=cataname]').val(treeNode.name);
             $('input[name=idcata]').val(treeNode.id);
+            if (treeNode.id=="#1"){
+                $('input[name=idcata]').val(null);
+            }
         } else {
             $('input[name=cataname]').val('');
         }
@@ -521,6 +529,9 @@ define(function (require,exports,module) {
         if (treeNode.id != '') {
             $('input[name=planname]').val(treeNode.name);
             $('input[name=idplan]').val(treeNode.id);
+            if (treeNode.id=="#1"){
+                $('input[name=idplan]').val(null);
+            }
         } else {
             $('input[name=planname]').val('');
         }
@@ -531,6 +542,9 @@ define(function (require,exports,module) {
         if (treeNode.id != '') {
             $('input[name=indexname]').val(treeNode.name);
             $('input[name=newprocode]').val(treeNode.id);
+            if (treeNode.id=="#1"){
+                $('input[name=newprocode]').val(null);
+            }
         } else {
             $('input[name=indexname]').val('');
         }
@@ -541,6 +555,9 @@ define(function (require,exports,module) {
         if (treeNode.id != '') {
             $('input[name=editname]').val(treeNode.name);
             $('input[name=editprocode]').val(treeNode.id);
+            if (treeNode.id=="#1"){
+                $('input[name=editprocode]').val(null);
+            }
         } else {
             $('input[name=editname]').val('');
         }
@@ -605,6 +622,9 @@ define(function (require,exports,module) {
         fixIcon("treeEditc");
         addPath();
     });
+
+    $(document).pjax('.J_zsjh_pagination a', '.J_zsjh_data_table');
+
 
 
     //CategoryNode为只有目录的树结构nodes

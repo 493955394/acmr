@@ -115,7 +115,7 @@
     </div>
 </div>
 <div class="toolbar-right">
-    <ul class="pagination J_regmgr_pagination">${page}</ul>
+    <ul class="pagination J_zsjh_pagination">${page}</ul>
 </div>
 <script>
     seajs.use('${ctx}/js/func/zhzs/indexlist/main');
