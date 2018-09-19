@@ -232,7 +232,6 @@ public class datahandle extends BaseAction {
                                 this.sendJson(data);
                                 return;
                             }*/
-
                             if (rows >= 1 && sheet.getRows().get(k) != null) {
                                 ExcelRow Rows = sheet.getRows().get(k);
                                 if (Rows != null) {
@@ -241,8 +240,6 @@ public class datahandle extends BaseAction {
                                     List<String> reganddata = new ArrayList<>();
                                     reganddata.add(ZBcodes.get(j));
                                     for (int i = 0; i < regscode.size(); i++) {
-
-                                        reganddata.add(regscode.get(i));
                                         int m = i+1;
                                         ExcelCell cell = Rows.getCells().get(m);
                                         if (cell != null) {
@@ -262,6 +259,9 @@ public class datahandle extends BaseAction {
 
                             }
                         }
+                        for (int m = 0; m < zbandreg.size(); m++) {
+                            PubInfo.printStr(zbandreg.get(m).toString());
+                        }
 
                         if (count >= 10000) {
                             data.setReturncode(400);
@@ -269,7 +269,7 @@ public class datahandle extends BaseAction {
                             return;
                         }
                         // 入库
-                        int uploaddata = indexTaskService.updateData(taskcode,ayearmon,sessionid,zbandreg);
+                        int uploaddata = indexTaskService.updateData(taskcode,ayearmon,sessionid,regscode,zbandreg);
                         data.setParam1(count);
                         data.setReturncode(200);
                         data.setReturndata("数据文件上传成功");

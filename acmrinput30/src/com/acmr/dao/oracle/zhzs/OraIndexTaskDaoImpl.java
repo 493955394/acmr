@@ -23,7 +23,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
      * @return
      */
     @Override
-    public int updateDataTmp(String taskcode,String ayearmon,String sessionid,List<List<String>> zbandreg) {
+    public int updateDataTmp(String taskcode,String ayearmon,String sessionid,List<String> regscode,List zbandreg) {
         /*String sql1 = "update tb_coindex_index set procode=? where code=?";
         List<Object> params = new ArrayList<Object>();
         //params.add(procode);

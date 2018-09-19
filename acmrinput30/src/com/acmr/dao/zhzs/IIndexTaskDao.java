@@ -23,6 +23,6 @@ public interface IIndexTaskDao {
     public DataTable getModuleData(String taskcode,String ifzs);
     public String getIcode(String taskcode);
     public int copyData(String taskcode,String sessionid);
-    public int updateDataTmp(String taskcode,String ayearmon,String sessionid,List<List<String>> zbandreg);
+    public int updateDataTmp(String taskcode,String ayearmon,String sessionid,List<String> regscode,List zbandreg);
     public DataTable getRootData(String taskcode);
 }
