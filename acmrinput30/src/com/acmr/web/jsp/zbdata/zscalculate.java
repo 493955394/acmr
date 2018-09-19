@@ -218,7 +218,7 @@ public class zscalculate extends BaseAction {
                 String arr = data1.get(i).toString().substring(1, data1.get(i).toString().length() - 1);
                 //String arr =datatmp.get(i).toString();
                 dr1 = sheet1.addRow();
-                String a2 = arr.replaceAll("null"," ");
+                String a2 = arr.replaceAll("null"," ").replaceAll("0"," ");
                 String[] a3 = a2.split(",");
                 for (int j = 0; j < a3.length; j++) {
                     cell2 = cell1.clone();
@@ -257,7 +257,7 @@ public class zscalculate extends BaseAction {
                 String arr = data1.get(i).toString().substring(1, data1.get(i).toString().length() - 1);
                 //String arr =data1.get(i).toString();
                 dr1 = sheet1.addRow();
-                String a2 = arr.replaceAll("null"," ");
+                String a2 = arr.replaceAll("null"," ").replaceAll("0"," ");
                 String[] a3 = a2.split(",");
                 for (int j = 0; j < a3.length; j++) {
                     cell2 = cell1.clone();
@@ -272,7 +272,7 @@ public class zscalculate extends BaseAction {
         resp.setContentType("application/vnd.ms-excel; charset=UTF-8");
         resp.setHeader("Pragma", "public");
         resp.setHeader("Cache-Control", "max-age=30");
-        String fileName = "task.xlsx";
+        String fileName = "任务数据.xlsx";
         fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
         resp.addHeader("Content-Disposition", "attachment; filename=" + fileName);
         //Export("application/ms-excel", "订单报表.xls");

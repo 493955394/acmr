@@ -244,12 +244,19 @@ public class datahandle extends BaseAction {
                                         ExcelCell cell = Rows.getCells().get(m);
                                         if (cell != null) {
                                             String value = cell.getText() + "";
+                                            System.out.println(value);
                                             /*if (StringUtil.isEmpty(value)) {
                                                 continue;
                                             }*/
                                             /*if (!mkey.containsValue(value)) {
                                                 mkey.put(regscode.get(i), value);
                                             }*/
+                                            if(value.equals("  ")){
+                                                data.setReturncode(300);
+                                                data.setReturndata("数据不能为空");
+                                                this.sendJson(data);
+                                                return;
+                                            }
                                             reganddata.add(value);
 
                                         }
@@ -273,6 +280,7 @@ public class datahandle extends BaseAction {
                         if(uploaddata == 1){
                             data.setReturncode(500);
                             data.setReturndata("数据存入数据库失败");
+                            return;
                         }
                         data.setParam1(count);
                         data.setReturncode(200);
