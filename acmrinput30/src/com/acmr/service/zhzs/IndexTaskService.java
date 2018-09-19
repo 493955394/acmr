@@ -63,9 +63,24 @@ public class IndexTaskService {
     /**
      * 任务列表展示
      */
-    public ArrayList<IndexTask> getTaskByIcode(String icode){
+    public ArrayList<IndexTask> getTaskByIcode(String icode,int page,int pagesize){
         ArrayList<IndexTask> indexTasks = new ArrayList<>();
-        List<DataTableRow> data = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskList(icode).getRows();
+        List<DataTableRow> data = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskListByPage(icode,page,pagesize).getRows();
+        for (int i = 0; i <data.size() ; i++) {
+            IndexTask task = new IndexTask();
+            task.setCode(data.get(i).getString("code"));
+            task.setAyearmon(data.get(i).getString("ayearmon"));
+            task.setIndexcode(data.get(i).getString("indexcode"));
+            task.setCreatetime(data.get(i).getDate("createtime"));
+            task.setUpdatetime(data.get(i).getDate("updatetime"));
+            indexTasks.add(task);
+        }
+        return indexTasks;
+    }
+
+    public List<IndexTask> getAllTask(String icode){
+        ArrayList<IndexTask> indexTasks = new ArrayList<>();
+        List<DataTableRow> data = IndexTaskDao.Fator.getInstance().getIndexdatadao().getAllTaskList(icode).getRows();
         for (int i = 0; i <data.size() ; i++) {
             IndexTask task = new IndexTask();
             task.setCode(data.get(i).getString("code"));

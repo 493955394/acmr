@@ -5,16 +5,15 @@ import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
+import com.acmr.model.pub.PageBean;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexTask;
-import com.acmr.service.zhzs.CreateTaskService;
 import com.acmr.service.zhzs.IndexTaskService;
 
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class zstask extends BaseAction {
@@ -22,8 +21,40 @@ public class zstask extends BaseAction {
     public ModelAndView main() throws IOException {
         String icode = this.getRequest().getParameter("id");
         IndexTaskService task = new IndexTaskService();
-        List<IndexTask> tasklist = task.getTaskByIcode(icode);
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/taskindex").addObject("tasklist",tasklist).addObject("icode",icode);
+        PageBean<IndexTask> page=new PageBean<>();
+        List<IndexTask> alllist=task.getAllTask(icode);
+        List<IndexTask> tasklist = task.getTaskByIcode(icode,page.getPageNum()-1,page.getPageSize());
+        StringBuffer sb = new StringBuffer();
+        sb.append(this.getRequest().getRequestURI());
+        sb.append("?m=turn&icode="+icode);
+        page.setData(tasklist);
+        page.setUrl(sb.toString());
+        page.setTotalRecorder(alllist.size());
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/taskindex").addObject("page",page).addObject("icode",icode);
+    }
+
+    public ModelAndView turn() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        String pjax = req.getHeader("X-PJAX");
+        String icode=req.getParameter("icode");
+        PageBean<IndexTask> page=new PageBean<>();
+        IndexTaskService indexTaskService=new IndexTaskService();
+        List<IndexTask> alllist=indexTaskService.getAllTask(icode);
+        List<IndexTask> taskList=indexTaskService.getTaskByIcode(icode,page.getPageNum()-1,page.getPageSize());
+        page.setData(taskList);
+        page.setTotalRecorder(alllist.size());
+        StringBuffer sb = new StringBuffer();
+        sb.append(req.getRequestURL());
+        sb.append("?m=turn&icode="+icode);
+        page.setUrl(sb.toString());
+        if (StringUtil.isEmpty(pjax)) {
+            PubInfo.printStr("isempty");
+            this.getResponse().sendRedirect("/zbdata/zstask.htm&id="+icode);
+        } else {
+            PubInfo.printStr("pjax");
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tasktable").addObject("page",page);
+        }
+        return null;
     }
     /**
     * @Description:  根据传来的session在数据临时表中找是否有记录过的
@@ -56,8 +87,9 @@ public class zstask extends BaseAction {
         ArrayList<IndexTask> indexTask = indexTaskService.findByTime(time,icode);
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
+        PageBean<IndexTask> page=new PageBean<>();
         if (StringUtil.isEmpty(pjax)) {
-            List<IndexTask> tasklist = indexTaskService.getTaskByIcode(icode);
+            List<IndexTask> tasklist = indexTaskService.getTaskByIcode(icode,page.getPageNum(),page.getPageSize());
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/taskindex").addObject("tasklist",tasklist).addObject("icode",icode);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tasktable").addObject("tasklist",indexTask);

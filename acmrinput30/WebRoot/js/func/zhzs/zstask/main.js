@@ -69,4 +69,8 @@ define(function (require,exports,module) {
             container: '.task_table'
         });
     });
+
+    $(document).pjax('.J_task_pagination a', '.task_table');
+
+
 });

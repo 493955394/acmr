@@ -221,10 +221,20 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
 
 
     @Override
-    public DataTable getTaskList(String icode){
-        String sql = "select * from tb_coindex_task where indexcode= ? order by ayearmon desc";
+    public DataTable getTaskListByPage(String icode,int page,int pagesize){
+        int b1 = page * pagesize + 1;
+        int e1 = b1 + pagesize;
+        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_task where indexcode=?) d1) where no>="+b1+" and no<"+ e1+" order by ayearmon desc";
+       // String sql = "select * from tb_coindex_task where indexcode= ? order by ayearmon desc";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode});
     }
+
+    @Override
+    public DataTable getAllTaskList(String icode) {
+        String sql="select * from tb_coindex_task where indexcode=? order by ayearmon desc";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode});
+    }
+
     @Override
     public DataTable findTask(String icode,String time){
         String sql = "select * from tb_coindex_task where indexcode= ? and lower(ayearmon) like?";

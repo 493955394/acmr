@@ -9,7 +9,8 @@ import java.util.Map;
 public interface IIndexTaskDao {
     public boolean hasTask(String indexcode,String ayearmon);
     public int create(String indexcode,String tcode,String ayearmon,String createtime);
-    public DataTable getTaskList(String icode);
+    public DataTable getTaskListByPage(String icode,int page,int pagesize);
+    public DataTable getAllTaskList(String icode);
     public boolean hasData(String sessionid,String taskcode);
     public DataTable findTask(String icode,String time);
     public int delTask(String code);
