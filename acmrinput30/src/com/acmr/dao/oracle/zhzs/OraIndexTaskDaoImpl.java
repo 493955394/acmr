@@ -33,16 +33,20 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
 
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
+            if(taskcode == null || ayearmon == null || sessionid == null){
+                return 1;
+            }
             //String zbcode = zbandreg.containsKey();
             for (int i = 0; i < zbandreg.size(); i++) {
                 String arr = zbandreg.get(i).toString().substring(1, zbandreg.get(i).toString().length() - 1);
                 //String arr =data1.get(i).toString();
                 // String a2 = arr.replaceAll("0.0"," ");
                 String[] a3 = arr.split(",");
-                for (int j = 0; j < a3.length; j++) {
-                    String data = a3[0];
-                    String zbcode = a3[1];
-                    String region = a3[2];
+                for (int j = 0; j < regscode.size(); j++) {
+                    int k = j+1;
+                    String data = a3[k];
+                    String zbcode = a3[0];
+                    String region = regscode.get(j);
                     String sql="update tb_coindex_data_tmp set data=?,sessionid=? where taskcode=? and zbcode=? and ayearmon=? and region=?";
                     dataQuery.executeSql(sql,new Object[]{data,sessionid,taskcode,zbcode,ayearmon,region});
                 }
