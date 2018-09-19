@@ -8,6 +8,7 @@ import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.pub.PageBean;
 import com.acmr.model.pub.TreeNode;
+import com.acmr.model.security.User;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.service.zhzs.CreateTaskService;
@@ -172,7 +173,8 @@ public class indexlist extends BaseAction {
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
         String cname = PubInfo.getString(req.getParameter("cocname"));
         String procode = PubInfo.getString(req.getParameter("idcata"));
-        String createuser = "usercode01";
+        User user = (User) this.getSession().getAttribute("loginuser");
+        String createuser = user.getUserid();
         IndexList indexList = new IndexList();
         indexList.setIfdata(ifdata1);
         indexList.setCreateuser(createuser);
@@ -208,7 +210,9 @@ public class indexlist extends BaseAction {
         String cname = PubInfo.getString(req.getParameter("plancname"));
         String procode = PubInfo.getString(req.getParameter("idplan"));
         String sort = PubInfo.getString(req.getParameter("sort"));
-        String createuser = "usercode01";
+        //String createuser = "usercode01";
+        User user = (User) this.getSession().getAttribute("loginuser");
+        String createuser = user.getUserid();
         String state = "0";
         IndexList indexList = new IndexList();
         indexList.setCode(code);
