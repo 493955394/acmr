@@ -4,10 +4,12 @@ import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IndexListDao;
+import com.acmr.model.security.Department;
 import com.acmr.model.security.User;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexTask;
 import com.acmr.service.security.UserService;
+import com.acmr.service.zbdata.UserDepService;
 
 import java.text.ParseException;
 import java.util.*;
@@ -346,8 +348,27 @@ public class IndexListService {
             m.put("depusercode",depusercode);
             m.put("sort",sort);
             //应该传depuser的name，但是没找到接口
+            //分享的是用戶
+            if (rightrows.get(i).getString("sort").equals("2")){
+                String depusername= UserDepService.getUserNameByCode(depusercode);
+                m.put("depusername",depusername);
+            }
+            //分享的是组织
+            else {
+
+            }
             list.add(m);
         }
+        return list;
+    }
+
+    public List<Map<String,Object>> getReceivedList(){
+        List<Map<String,Object>> list=new ArrayList<>();
+        /*User cu=UserService.getCurrentUser();
+        String usercode=cu.getUserid();
+        List<Department> deps=new ArrayList<>();
+*/
+
         return list;
     }
 

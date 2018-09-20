@@ -91,7 +91,7 @@
         <c:forEach  items="${page.data}" var="index">
             <tr class="my_shared">
                 <td>${index.get("cname")}</td>
-                <td>${index.get("depusercode")}</td>
+                <td>${index.get("depusername")}</td>
                 <td>
                     <c:if test="${index.get('sort') == '0'}">查看</c:if>
                     <c:if test="${index.get('sort') == '1'}">协作</c:if>

@@ -140,6 +140,10 @@ public class indexlist extends BaseAction {
             page.setData(indexlist);
 
         }
+        else if (code.equals("!2")){
+            //List<Map<String,String>> list=
+        }
+        //返回我共享的指数list
         else if (code.equals("!3")){
             List<Map<String,String>> list=indexListService.getSharedList(usercode);
             int b=(page.getPageNum()-1)*page.getPageSize()+1;
