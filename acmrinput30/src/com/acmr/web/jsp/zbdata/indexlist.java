@@ -33,6 +33,7 @@ public class indexlist extends BaseAction {
         String usercode=cu.getUserid();
         ArrayList<IndexList> allindexlist= new IndexListService().getIndexList();
         IndexListService indexListService=new IndexListService();
+        String state="0";
         PageBean<IndexList> page=new PageBean<>();
         StringBuffer sb = new StringBuffer();
         sb.append(this.getRequest().getRequestURI());
@@ -46,7 +47,7 @@ public class indexlist extends BaseAction {
             e.printStackTrace();
         }
 
-        return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("page",page);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("page",page).addObject("state",state);
     }
 
 
@@ -116,6 +117,10 @@ public class indexlist extends BaseAction {
         IndexListService indexListService=new IndexListService();
         //PubInfo.printStr("code"+code);
         List<IndexList> allindexlist=new ArrayList<>();
+        //state=0,查看指数目录，=1，查看我收到的指数，=2，查看我共享的指数
+        String state="0";
+
+
         if (code==null){
             allindexlist=indexListService.getIndexList();
         }
@@ -131,18 +136,6 @@ public class indexlist extends BaseAction {
         }
         else if (code.equals("!1")){
             indexlist=indexListService.getSubIndexListByPage("",page.getPageNum()-1,page.getPageSize());
-        }
-        else if (code.equals("!3")){
-            List<IndexList> allsharedList=indexListService.getSharedList(usercode);
-            indexlist.clear();
-            int b=(page.getPageNum()-1)*page.getPageSize()+1;
-            int e=b+page.getPageSize();
-            for (int i=0;i<allsharedList.size();i++){
-                int j=i+1;
-                if (j>=b&&j<e){
-                    indexlist.add(allsharedList.get(i));
-                }
-            }
         }
         else {
             indexlist=indexListService.getSubIndexListByPage(code,page.getPageNum()-1,page.getPageSize());
@@ -161,13 +154,28 @@ public class indexlist extends BaseAction {
         page.setTotalRecorder(allindexlist.size());
         page.setUrl(sb.toString());
         page.setData(indexlist);
+        //我共享的指数
+        if (code.equals("!3")){
+            List<IndexList> allsharedList=indexListService.getSharedList(usercode);
+            indexlist.clear();
+            int b=(page.getPageNum()-1)*page.getPageSize()+1;
+            int e=b+page.getPageSize();
+            for (int i=0;i<allsharedList.size();i++){
+                int j=i+1;
+                if (j>=b&&j<e){
+                    indexlist.add(allsharedList.get(i));
+                }
+            }
+            page.setData(indexlist);
+            state="2";
+        }
 
         if (StringUtil.isEmpty(pjax)) {
             PubInfo.printStr("isempty");
             this.getResponse().sendRedirect("/zbdata/indexlist.htm");
         } else {
             PubInfo.printStr("pjax");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/indextable").addObject("page",page);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/indextable").addObject("page",page).addObject("state",state);
         }
         return null;
     }

@@ -13,61 +13,82 @@
         <col width="27%"/>
         <col width="18%"/>
     </colgroup>
-    <thead>
-    <tr>
-        <th><input type="radio" style="display: none;"></th>
-        <th>编码</th>
-        <th>名称</th>
-        <th>类型</th>
-        <th>周期</th>
-        <th>最新数据期</th>
-        <th>操作</th>
-    </tr>
-    </thead>
-    <c:if test="${page.data.size()!=0}">
-        <tbody class="list_body " id="my_index_all">
+
+    <c:if test="${state.equals('0')}">
+        <thead>
+        <tr>
+            <th><input type="radio" style="display: none;"></th>
+            <th>编码</th>
+            <th>名称</th>
+            <th>类型</th>
+            <th>周期</th>
+            <th>最新数据期</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <c:if test="${page.data.size()!=0}">
+            <tbody class="list_body " id="my_index_all">
+            <c:forEach  items="${page.data}" var="index">
+                <tr class="my_index pro-${index.getCode()}">
+                    <th><input type="checkbox" if="${index.getIfdata()}" id="${index.getCode()}" getname="${index.getCname()}"></th>
+                    <td >${index.getCode()}</td>
+                    <td >${index.getCname()}</td>
+                    <td>
+                        <c:if test="${index.getIfdata() == 0}">目录</c:if>
+                        <c:if test="${index.getIfdata() == 1}">计划</c:if>
+                    </td>
+                    <td>
+                        <c:if test="${index.getSort() == 'y'}">年度</c:if>
+                        <c:if test="${index.getSort() == 'q'}">季度</c:if>
+                        <c:if test="${index.getSort() == 'm'}">月度</c:if>
+                    </td>
+                    <td>${index.getPlanperiod()}</td>
+                    <td>
+                        <c:if test="${index.getIfdata().equals('1')}">
+                            <c:if test="${index.getState().equals('0')}">
+                                <a href="javascript:;" class="start" name="${index.getCode()}">启用</a>
+                                <a href="${ctx}/zbdata/zsjhedit.htm?id=${index.getCode()}">编辑</a>
+                                <a href="javascript:;" class="btn-opr J_opr_del" id="${index.getCode()}">删除</a>
+                            </c:if>
+                            <c:if test="${index.getState().equals('1')}">
+                                <a href="javascript:;" class="stop" name="${index.getCode()}">停用</a>
+                                <label class="btn-disabled">编辑</label>
+                                <label class="btn-disabled">删除</label>
+                            </c:if>
+                            <a href="/">权限管理</a>
+                            <a href="/">查看往期</a>
+                            <a href="${ctx}/zbdata/zstask.htm?&id=${index.getCode()}">指数任务</a>
+                        </c:if>
+                        <c:if test="${index.getIfdata().equals('0')}">
+                            <a class="category_edit" href="javascript:;" name="${index.getCname()}" id="${index.getCode()}">编辑</a>
+                            <a href="javascript:;" class="btn-opr J_opr_del" id="${index.getCode()}">删除</a>
+                        </c:if>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </c:if>
+    </c:if>
+    <c:if test="${state.equals('2')}">
+        <thead>
+        <tr>
+            <th>名称</th>
+            <th>时间周期</th>
+        </tr>
+        </thead>
+        <tbody class="list_body my_shared">
         <c:forEach  items="${page.data}" var="index">
             <tr class="my_index pro-${index.getCode()}">
-                <th><input type="checkbox" if="${index.getIfdata()}" id="${index.getCode()}" getname="${index.getCname()}"></th>
-                <td >${index.getCode()}</td>
                 <td >${index.getCname()}</td>
-                <td>
-                    <c:if test="${index.getIfdata() == 0}">目录</c:if>
-                    <c:if test="${index.getIfdata() == 1}">计划</c:if>
-                </td>
                 <td>
                     <c:if test="${index.getSort() == 'y'}">年度</c:if>
                     <c:if test="${index.getSort() == 'q'}">季度</c:if>
                     <c:if test="${index.getSort() == 'm'}">月度</c:if>
                 </td>
-                <td>${index.getPlanperiod()}</td>
-                <td>
-                    <c:if test="${index.getIfdata().equals('1')}">
-                        <c:if test="${index.getState().equals('0')}">
-                            <a href="javascript:;" class="start" name="${index.getCode()}">启用</a>
-                            <a href="${ctx}/zbdata/zsjhedit.htm?id=${index.getCode()}">编辑</a>
-                            <a href="javascript:;" class="btn-opr J_opr_del" id="${index.getCode()}">删除</a>
-                        </c:if>
-                        <c:if test="${index.getState().equals('1')}">
-                            <a href="javascript:;" class="stop" name="${index.getCode()}">停用</a>
-                            <label class="btn-disabled">编辑</label>
-                            <label class="btn-disabled">删除</label>
-                        </c:if>
-                        <a href="/">权限管理</a>
-                        <a href="/">查看往期</a>
-                        <a href="${ctx}/zbdata/zstask.htm?&id=${index.getCode()}">指数任务</a>
-                    </c:if>
-                    <c:if test="${index.getIfdata().equals('0')}">
-                        <a class="category_edit" href="javascript:;" name="${index.getCname()}" id="${index.getCode()}">编辑</a>
-                        <a href="javascript:;" class="btn-opr J_opr_del" id="${index.getCode()}">删除</a>
-                    </c:if>
-                </td>
             </tr>
         </c:forEach>
-    </tbody>
+        </tbody>
     </c:if>
-    <tbody class="list_body my_shared">
-    </tbody>
     <tbody class="list_body my_received">
     </tbody>
 
