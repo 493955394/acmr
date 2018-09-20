@@ -16,7 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class OriginDataService {
+public class OriginDataService {//这个表是做计算的
     private CalculateExpression ce = new CalculateExpression();
     /**
      * 查询对应的data值

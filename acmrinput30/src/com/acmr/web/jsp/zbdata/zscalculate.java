@@ -26,10 +26,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class zscalculate extends BaseAction {
 
@@ -292,6 +289,15 @@ public class zscalculate extends BaseAction {
         IndexTaskService indexTaskService =new IndexTaskService();
         OriginDataService originDataService = new OriginDataService();
         String taskcode = PubInfo.getString(req.getParameter("taskcode"));
+        String cws=req.getParameter("cws");//获取当前的权重
+        PubInfo.printStr(cws);
+        List<String> cw= Arrays.asList(cws.split(","));
+        for (int i=0;i<cw.size();i++){
+            String code=cw.get(i).split(":")[0];
+            String weight=cw.get(i).split(":")[1];
+            WeightEditService weightEditService=new WeightEditService();
+            weightEditService.tWeightUpadte(code,weight);
+        }
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
         //通过taskcode去查值

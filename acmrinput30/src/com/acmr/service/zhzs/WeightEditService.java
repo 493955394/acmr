@@ -134,4 +134,6 @@ public class WeightEditService {
         }
         return subs;
     }
+
+    public int tWeightUpadte(String modcode,String weight){return WeightEditDao.Fator.getInstance().getIndexdatadao().tWeightUpd(modcode,weight);}
 }
