@@ -165,4 +165,45 @@ public class OraDataDaoImpl implements IDataDao {
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,modcode,reg,time}).getRows().get(0).getString("data");
         }
     }
+
+    @Override
+    public int copyDataResult(String taskcode,String sessionid){
+        DataQuery dataQuery=null;
+        try {
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+            //删除session之前的记录
+            String sql="delete from tb_coindex_data_result_tmp where sessionid=? and taskcode=?";
+            dataQuery.executeSql(sql,new Object[]{sessionid,taskcode});
+
+            //从tb_coindex_data_result复制数据到tb_coindex_data_result_tmp
+            String sql1="select * from tb_coindex_data_result where taskcode=?";
+            DataTable table=dataQuery.getDataTableSql(sql1,new Object[]{taskcode});
+            List<DataTableRow> rows=table.getRows();
+            for (int i=0;i<rows.size();i++){
+                String modcode=rows.get(i).getString("modcode");
+                String region=rows.get(i).getString("region");
+                String ayearmon=rows.get(i).getString("ayearmon");
+                String data=rows.get(i).getString("data");
+                Date updatetime = rows.get(i).getDate("updatetime");
+                String sql2="insert into tb_coindex_data_result_tmp (taskcode,modcode,region,ayearmon,data,updatetime,sessionid) values(?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql2,new Object[]{taskcode,modcode,region,ayearmon,data,updatetime,sessionid});
+            }
+            dataQuery.commit();
+
+        }
+        catch (SQLException e){
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                e.printStackTrace();
+                return 1;
+            }
+        }
+        finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+        return 0;
+    }
 }

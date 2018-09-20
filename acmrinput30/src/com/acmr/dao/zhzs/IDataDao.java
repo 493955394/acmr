@@ -14,4 +14,5 @@ public interface IDataDao {
     public int subDataCheck(boolean iftmp,String taskcode,String modcode,String reg,String time,String sessionid);
     public int addZSData (boolean iftmp,DataResult dataResult);
     public String getDataResult(boolean iftmp,String taskcode,String modcode,String reg,String time,String sessionid);
+    public int copyDataResult (String taskcode,String sessionid);
 }

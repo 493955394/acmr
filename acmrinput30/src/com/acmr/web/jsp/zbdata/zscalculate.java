@@ -11,6 +11,7 @@ import acmr.math.entity.MathException;
 import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
+import com.acmr.dao.zhzs.DataDao;
 import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.helper.util.StringUtil;
@@ -54,6 +55,7 @@ public class zscalculate extends BaseAction {
         //把data_tmp表中的数据覆盖了
         String sessionid=req.getSession().getId();
         IndexTaskDao.Fator.getInstance().getIndexdatadao().copyData(taskcode,sessionid);
+        DataDao.Fator.getInstance().getIndexdatadao().copyDataResult(taskcode,sessionid);
         String ayearmon = indexTaskService.getTime(taskcode);
         data1 = getOriginData(false, taskcode, ayearmon,null);
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
