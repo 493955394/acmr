@@ -4,17 +4,18 @@
 <input type="hidden" id="top" value="${top}" />
 <input type="hidden" id="bottom" value="${bottom}" />
 <table class="table table-striped table-hover J_regmgr_table">
-    <colgroup>
-        <col width="3%"/>
-        <col width="5%"/>
-        <col width="10%"/>
-        <col width="27%"/>
-        <col width="10%"/>
-        <col width="27%"/>
-        <col width="18%"/>
-    </colgroup>
+
 
     <c:if test="${state.equals('0')}">
+        <colgroup>
+            <col width="3%"/>
+            <col width="5%"/>
+            <col width="10%"/>
+            <col width="27%"/>
+            <col width="10%"/>
+            <col width="27%"/>
+            <col width="18%"/>
+        </colgroup>
         <thead>
         <tr>
             <th><input type="radio" style="display: none;"></th>
@@ -70,6 +71,13 @@
         </c:if>
     </c:if>
     <c:if test="${state.equals('2')}">
+        <colgroup>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+        </colgroup>
         <thead>
         <tr>
             <th>名称</th>
