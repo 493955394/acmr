@@ -226,7 +226,7 @@ public class IndexTaskService {
      * @param taskcode
      * @return
      */
-    public String getRegions (String taskcode){
+    public String findRegions (String taskcode){
         String Regions="";
         List<DataTableRow> rows=IndexTaskDao.Fator.getInstance().getIndexdatadao().getZBs(taskcode).getRows();
         if(rows.get(0).getString("regions")!= "")
@@ -236,7 +236,7 @@ public class IndexTaskService {
     /**
      * 返回任务的zb的数据
      */
-    public List<TaskZb> gettaskzblist(String taskcode){
+    public List<TaskZb> findtaskzb(String taskcode){
         List<TaskZb> taskZbs = new ArrayList<>();
         List<DataTableRow> data=IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskZBList(taskcode).getRows();
         for (int i = 0; i <data.size() ; i++) {
@@ -280,23 +280,9 @@ public class IndexTaskService {
     }
 
     /**
-     * 查时间期，并返回时间期
+     * 查计划的icode,用于返回指数任务界面
      */
-    public String findAyearmon(String taskcode){
-        return getTime(taskcode);
-    }
-    /**
-     * 返回task_zb_list
-     */
-    public List<TaskZb> findtaskzb(String taskcode){
-        return gettaskzblist(taskcode);
-    }
-    /**
-     * 查对应的地区
-     */
-    public String findRegions(String taskcode){
-        return getRegions(taskcode);
-    }
+    public String findIcode(String taskcode){ return IndexTaskDao.Fator.getInstance().getIndexdatadao().getIcode(taskcode);}
 
     /*public static void main(String[] args) {
         IndexTaskService indexTask = new IndexTaskService();
