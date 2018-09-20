@@ -67,7 +67,30 @@ public class IndexListService {
         //我共享的指数
         if (code.equals("!3")){
             PubInfo.printStr("我共享的");
-            indexLists= (ArrayList<IndexList>) getSharedList(usercode);
+            List<IndexList> list=new ArrayList<>();
+            List<DataTableRow> rightrows= IndexListDao.Fator.getInstance().getIndexdatadao().getRightListByCreateUser(usercode).getRows();
+            List<String> codes=new ArrayList<>();
+            for (int i=0;i<rightrows.size();i++){
+                String thiscode=rightrows.get(i).getString("indexcode");
+                codes.add(thiscode);
+            }
+            for (int j=0;j<codes.size();j++){
+                DataTableRow row=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(codes.get(j)).getRows().get(0);
+                String icode=row.getString("code");
+                String cname=row.getString("cname");
+                String procode=row.getString("procode");
+                String sort=row.getString("sort");
+                String startperiod=row.getString("startperiod");
+                String delayday=row.getString("delayday");
+                String planperiod=row.getString("planperiod");
+                String plantime=row.getString("plantime");
+                String createuser=row.getString("createuser");
+                String ifdata=row.getString("ifdata");
+                String state=row.getString("state");
+                IndexList indexList=new IndexList(icode,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser,ifdata,state);
+                list.add(indexList);
+            }
+            indexLists= (ArrayList<IndexList>) list;
         }
         return indexLists;
     }
@@ -306,31 +329,23 @@ public class IndexListService {
     * @Author: lyh
     * @Date: 2018/9/20
     */
-    public List<IndexList> getSharedList(String usercode){
-        List<IndexList> list=new ArrayList<>();
+    public List<Map<String,String>> getSharedList(String usercode){
         List<DataTableRow> rightrows= IndexListDao.Fator.getInstance().getIndexdatadao().getRightListByCreateUser(usercode).getRows();
-        List<String> codes=new ArrayList<>();
+        List<Map<String,String>> list=new ArrayList<>();
         for (int i=0;i<rightrows.size();i++){
             String code=rightrows.get(i).getString("indexcode");
-            codes.add(code);
+            String depusercode=rightrows.get(i).getString("depusercode");
+            DataTableRow row=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(code).getRows().get(0);
+            String cname=row.getString("cname");
+            String timesort=row.getString("sort");
+            Map m=new HashMap();
+            m.put("code",code);
+            m.put("cname",cname);
+            m.put("timesort",timesort);
+            m.put("depusercode",depusercode);
+            //应该传depuser的name，但是没找到接口
+            list.add(m);
         }
-        for (int j=0;j<codes.size();j++){
-          DataTableRow row=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(codes.get(j)).getRows().get(0);
-          String code=row.getString("code");
-          String cname=row.getString("cname");
-          String procode=row.getString("procode");
-          String sort=row.getString("sort");
-          String startperiod=row.getString("startperiod");
-          String delayday=row.getString("delayday");
-          String planperiod=row.getString("planperiod");
-          String plantime=row.getString("plantime");
-          String createuser=row.getString("createuser");
-          String ifdata=row.getString("ifdata");
-          String state=row.getString("state");
-          IndexList indexList=new IndexList(code,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser,ifdata,state);
-          list.add(indexList);
-        }
-
         return list;
     }
 

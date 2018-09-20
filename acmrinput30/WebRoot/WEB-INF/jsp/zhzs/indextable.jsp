@@ -73,19 +73,33 @@
         <thead>
         <tr>
             <th>名称</th>
+            <th>被分享人</th>
             <th>时间周期</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody class="list_body my_shared">
         <c:forEach  items="${page.data}" var="index">
-            <tr class="my_index pro-${index.getCode()}">
+            <tr class="my_shared">
+                <td>${index.get("cname")}</td>
+                <td>${index.get("depusercode")}</td>
+                <td>
+                    <c:if test="${index.get('timesort') == 'y'}">年度</c:if>
+                    <c:if test="${index.get('timesort') == 'q'}">季度</c:if>
+                    <c:if test="${index.get('timesort') == 'm'}">月度</c:if>
+                </td>
+                <td>
+                    <a href="#" class="share_withdraw">撤回</a>
+                </td>
+            </tr>
+            <%--<tr class="my_index pro-${index.getCode()}">
                 <td >${index.getCname()}</td>
                 <td>
                     <c:if test="${index.getSort() == 'y'}">年度</c:if>
                     <c:if test="${index.getSort() == 'q'}">季度</c:if>
                     <c:if test="${index.getSort() == 'm'}">月度</c:if>
                 </td>
-            </tr>
+            </tr>--%>
         </c:forEach>
         </tbody>
     </c:if>
