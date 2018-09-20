@@ -227,6 +227,12 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         }
         return table;
     }
+
+    @Override
+    public DataTable getRightListByCreateUser(String usercode) {
+        String sql="select * from tb_coindex_right where createuser=?";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{usercode});
+    }
 /*
     public static void main(String[] args) {
         OraIndexListDaoImpl oraIndexListDao=new OraIndexListDaoImpl();

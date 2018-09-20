@@ -1,6 +1,7 @@
 package com.acmr.dao.zhzs;
 
 import acmr.util.DataTable;
+import acmr.util.DataTableRow;
 import com.acmr.model.zhzs.IndexList;
 
 import javax.xml.crypto.Data;
@@ -23,4 +24,5 @@ public interface IIndexListDao {
     public int addCopyplan(IndexList data1);
     public DataTable getAllIndexListByPage(String usercode,int page, int pagesize);
     public DataTable getSubIndexListByPage(String usercode,String code,int page,int pagesize);
+    public DataTable getRightListByCreateUser(String usercode);
 }
