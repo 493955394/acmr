@@ -84,6 +84,23 @@ define(function (require,exports,module) {
             //alert("ok");
         });
     })
+    /**
+     * 关闭按钮
+     */
+    //关闭按钮
+    $(document).on('click','#goback',function () {
+        var taskcode = $("#t_code").val();
+        $.ajax({
+            url:common.rootPath+"zbdata/zscalculate.htm?m=goback",
+            data:{"taskcode":taskcode},
+            type:'post',
+            datatype:'json',
+            timeout: 10000,
+            success:function (re) {
+                window.location.href=common.rootPath+"zbdata/zstask.htm?id="+re.returndata;
+            }
+        })
+    })
 
 
 });

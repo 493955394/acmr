@@ -27,7 +27,7 @@
                             <button type="button" class="btn btn-default" id="recalculate">重新计算</button>
                             <button type="button" class="btn btn-default">重置</button>
                             <button type="button" class="btn btn-default">保存并重新计算</button>
-                            <button type="button" class="btn btn-default">关闭</button>
+                            <button type="button" class="btn btn-default" id="goback">关闭</button>
                         </li>
                     </ul>
                 </div>

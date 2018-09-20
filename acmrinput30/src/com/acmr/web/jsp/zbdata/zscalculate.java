@@ -301,7 +301,7 @@ public class zscalculate extends BaseAction {
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
         //通过taskcode去查值
-        String ayearmon = indexTaskService.findAyearmon(taskcode);
+        String ayearmon = indexTaskService.getTime(taskcode);
         //从临时数据表读取数据做计算
         String regs = indexTaskService.findRegions(taskcode);
         String [] reg = regs.split(",");
@@ -325,5 +325,18 @@ public class zscalculate extends BaseAction {
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
         }
+    }
+
+    /**
+     * 关闭按钮返回指数任务界面
+     */
+    public void goback() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        String taskcode = PubInfo.getString(req.getParameter("taskcode"));
+        IndexTaskService indexTaskService =new IndexTaskService();
+        String re=indexTaskService.findIcode(taskcode);
+        JSONReturnData data = new JSONReturnData("");
+        data.setReturndata(re);
+        this.sendJson(data);
     }
 }
