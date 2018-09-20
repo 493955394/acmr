@@ -39,7 +39,7 @@ define(function(require,exports,module) {
 
     function downdata(){
         var istmp=$(".istmpdata").val();
-        //var taskcode=$(".reloaddata").val();
+        var taskcode=$(".reloaddata").val();
         console.log(istmp)
         console.log(taskcode)
         var url = common.rootPath+"zbdata/zscalculate.htm?m=toExcel";
