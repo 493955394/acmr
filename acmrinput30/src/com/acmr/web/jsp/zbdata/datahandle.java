@@ -32,11 +32,6 @@ import acmr.excel.pojo.ExcelRow;
 import acmr.excel.pojo.ExcelSheet;
 import acmr.util.DataTable;
 import acmr.excel.ExcelException;
-import acmr.excel.pojo.Constants.XLSTYPE;
-import acmr.excel.pojo.ExcelBook;
-import acmr.excel.pojo.ExcelCell;
-import acmr.excel.pojo.ExcelRow;
-import acmr.excel.pojo.ExcelSheet;
 import acmr.math.CalculateExpression;
 import acmr.math.entity.MathException;
 import acmr.util.PubInfo;
@@ -64,6 +59,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 public class datahandle extends BaseAction {
+
+
+
 
     /**
      *  重新读取数据
@@ -141,7 +139,7 @@ public class datahandle extends BaseAction {
      * @param
      * @return
      */
-    public void updateTaskData() {
+    public void insertTaskData() {
         //CreateTaskService createTaskService = new CreateTaskService();
         IndexTaskService indexTaskService = new IndexTaskService();
         OriginService originService = new OriginService();

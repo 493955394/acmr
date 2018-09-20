@@ -9,7 +9,6 @@ define(function(require,exports,module) {
         fileupload = require('fileupload'),
         PackAjax = require('Packajax'),
         modal = require('modal'),
-        modal = require('modal'),
         ZeroClipboard = require('ZeroClipboard');
 /*
     /!**
@@ -36,25 +35,30 @@ define(function(require,exports,module) {
      * 数据下载
      */
     $(document).on("click","#data_download",downdata)
+    //$("#data_download").click(downdata)
 
     function downdata(){
         var istmp=$(".istmpdata").val();
+        //var taskcode=$(".reloaddata").val();
+        console.log(istmp)
+        console.log(taskcode)
         var url = common.rootPath+"zbdata/zscalculate.htm?m=toExcel";
         //var time = $("#time").val();
         $.ajax({
             url:url,
             type:'post',
             dataType: 'json',
-            data:"istmp"+istmp,
+            data:{'istmp':istmp,'taskcode':taskcode},
             success:function (data) {
+                console.log("success")
                 if (data.returncode == 300) {
                     alert("数据为空");
                 } else {
                     alert("下载成功!");
                 }
+                //window.location.href = url;
             }
         })
-        window.location.href = url;
     }
     /**
      * 文件上传
@@ -74,7 +78,7 @@ define(function(require,exports,module) {
         })*/
         $('input[name=taskcode]').val(taskcode);
         $('#data_upload', document).fileupload({
-            url: common.rootPath + 'zbdata/datahandle.htm?m=updateTaskData&taskcode='+taskcode,
+            url: common.rootPath + 'zbdata/datahandle.htm?m=insertTaskData&taskcode='+taskcode,
             //url: common.rootPath + 'zbdata/zscalculate.htm?m=updateTaskData',
             dataType: 'json',
             /*add: function (e, data) {
@@ -95,6 +99,11 @@ define(function(require,exports,module) {
                 } else {
                     alert("数据不正确,上传失败");
                 }
+                $.pjax({
+                    url:common.rootPath+'zbdata/zscalculate.htm?m=showupload&taskcode='+taskcode,
+                    container:'.J_zsjs_data',
+                    timeout:2000
+                })
             }
         })
         /*$('#data_upload').bind('fileuploadsubmit', function (e, data) {

@@ -20,7 +20,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
      * @date
      * @param
      * @return
-     */
+             */
     @Override
     public int updateDataTmp(String taskcode,String ayearmon,String sessionid,List<String> regscode,List zbandreg) {
         /*String sql1 = "update tb_coindex_index set procode=? where code=?";
@@ -32,6 +32,9 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
 
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
+            //删掉tmp表中该session的记录
+            String sql="delete from tb_coindex_data_tmp where sessionid=? and taskcode=?";
+            dataQuery.executeSql(sql,new Object[]{sessionid,taskcode});
             if(taskcode == null || ayearmon == null || sessionid == null){
                 return 1;
             }
@@ -46,8 +49,9 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                     String data = a3[k];
                     String zbcode = a3[0];
                     String region = regscode.get(j);
-                    String sql="update tb_coindex_data_tmp set data=?,sessionid=? where taskcode=? and zbcode=? and ayearmon=? and region=?";
-                    dataQuery.executeSql(sql,new Object[]{data,sessionid,taskcode,zbcode,ayearmon,region});
+                    String sql1="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,sessionid) values(?,?,?,?,to_number(?),?)";
+                    //String sql1="update tb_coindex_data_tmp set data=?,sessionid=? where taskcode=? and zbcode=? and ayearmon=? and region=?";
+                    dataQuery.executeSql(sql1,new Object[]{taskcode,zbcode,region,ayearmon,data,sessionid});
                 }
             }
             dataQuery.commit();
