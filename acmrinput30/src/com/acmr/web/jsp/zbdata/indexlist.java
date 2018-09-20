@@ -128,20 +128,38 @@ public class indexlist extends BaseAction {
             allindexlist=indexListService.getSublist(code);
         }
 
-        PageBean<IndexList> page=new PageBean<>();
+        PageBean page=new PageBean<>();
         List<IndexList> indexlist=new ArrayList<>();
         //code为null表示查询所有的计划
         if (code==null){
             indexlist=indexListService.getIndexListByPage(usercode,page.getPageNum()-1,page.getPageSize());
+            page.setData(indexlist);
         }
         else if (code.equals("!1")){
             indexlist=indexListService.getSubIndexListByPage("",page.getPageNum()-1,page.getPageSize());
+            page.setData(indexlist);
+
+        }
+        else if (code.equals("!3")){
+            List<Map<String,String>> list=indexListService.getSharedList(usercode);
+            int b=(page.getPageNum()-1)*page.getPageSize()+1;
+            int e=b+page.getPageSize();
+            List<Map<String,String>> plist=new ArrayList<>();
+            for (int i=0;i<list.size();i++){
+                int j=i+1;
+                if (j>=b&&j<e){
+                    plist.add(list.get(i));
+                }
+            }
+            page.setData(plist);
+            state="2";
         }
         else {
             indexlist=indexListService.getSubIndexListByPage(code,page.getPageNum()-1,page.getPageSize());
             if (allindexlist.size()==0){
                 indexlist.add(indexListService.getData(code));
             }
+            page.setData(indexlist);
         }
         StringBuffer sb = new StringBuffer();
         sb.append(req.getRequestURL());
@@ -153,10 +171,9 @@ public class indexlist extends BaseAction {
         }
         page.setTotalRecorder(allindexlist.size());
         page.setUrl(sb.toString());
-        page.setData(indexlist);
         //我共享的指数
-        if (code.equals("!3")){
-            List<IndexList> allsharedList=indexListService.getSharedList(usercode);
+       /* if (code.equals("!3")){
+            *//*List<IndexList> allsharedList=indexListService.getSharedList(usercode);
             indexlist.clear();
             int b=(page.getPageNum()-1)*page.getPageSize()+1;
             int e=b+page.getPageSize();
@@ -167,8 +184,8 @@ public class indexlist extends BaseAction {
                 }
             }
             page.setData(indexlist);
-            state="2";
-        }
+            state="2";*//*
+        }*/
 
         if (StringUtil.isEmpty(pjax)) {
             PubInfo.printStr("isempty");

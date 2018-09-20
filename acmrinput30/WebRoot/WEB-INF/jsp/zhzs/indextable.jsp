@@ -4,17 +4,18 @@
 <input type="hidden" id="top" value="${top}" />
 <input type="hidden" id="bottom" value="${bottom}" />
 <table class="table table-striped table-hover J_regmgr_table">
-    <colgroup>
-        <col width="3%"/>
-        <col width="5%"/>
-        <col width="10%"/>
-        <col width="27%"/>
-        <col width="10%"/>
-        <col width="27%"/>
-        <col width="18%"/>
-    </colgroup>
+
 
     <c:if test="${state.equals('0')}">
+        <colgroup>
+            <col width="3%"/>
+            <col width="5%"/>
+            <col width="10%"/>
+            <col width="27%"/>
+            <col width="10%"/>
+            <col width="27%"/>
+            <col width="18%"/>
+        </colgroup>
         <thead>
         <tr>
             <th><input type="radio" style="display: none;"></th>
@@ -70,22 +71,49 @@
         </c:if>
     </c:if>
     <c:if test="${state.equals('2')}">
+        <colgroup>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+        </colgroup>
         <thead>
         <tr>
             <th>名称</th>
+            <th>被分享人</th>
+            <th>权限</th>
             <th>时间周期</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody class="list_body my_shared">
         <c:forEach  items="${page.data}" var="index">
-            <tr class="my_index pro-${index.getCode()}">
+            <tr class="my_shared">
+                <td>${index.get("cname")}</td>
+                <td>${index.get("depusercode")}</td>
+                <td>
+                    <c:if test="${index.get('sort') == '0'}">查看</c:if>
+                    <c:if test="${index.get('sort') == '1'}">协作</c:if>
+                    <c:if test="${index.get('sort') == '2'}">管理</c:if>
+                </td>
+                <td>
+                    <c:if test="${index.get('timesort') == 'y'}">年度</c:if>
+                    <c:if test="${index.get('timesort') == 'q'}">季度</c:if>
+                    <c:if test="${index.get('timesort') == 'm'}">月度</c:if>
+                </td>
+                <td>
+                    <a href="#" class="share_withdraw">撤回</a>
+                </td>
+            </tr>
+            <%--<tr class="my_index pro-${index.getCode()}">
                 <td >${index.getCname()}</td>
                 <td>
                     <c:if test="${index.getSort() == 'y'}">年度</c:if>
                     <c:if test="${index.getSort() == 'q'}">季度</c:if>
                     <c:if test="${index.getSort() == 'm'}">月度</c:if>
                 </td>
-            </tr>
+            </tr>--%>
         </c:forEach>
         </tbody>
     </c:if>
