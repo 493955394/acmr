@@ -204,6 +204,9 @@ public class CreateTaskService {
             String ayearmon=periods.get(i);
             String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
             IndexTaskDao.Fator.getInstance().getIndexdatadao().create(indexcode,tcode,ayearmon,createtime);
+             //生成完之后开始做计算，从data表和module_tmp表里取数
+            OriginDataService originDataService = new OriginDataService();
+            originDataService.todocalculate(tcode,ayearmon);
         }
     }
 

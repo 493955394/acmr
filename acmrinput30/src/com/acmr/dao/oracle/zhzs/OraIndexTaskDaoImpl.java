@@ -6,7 +6,9 @@ import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexTaskDao;
+import com.acmr.model.zhzs.TaskModule;
 import com.acmr.model.zhzs.TaskZb;
+import javafx.concurrent.Task;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -198,9 +200,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                     }
                 }
             }
-
             dataQuery.commit();
-
         }
         catch (SQLException e){
             if (dataQuery != null) {

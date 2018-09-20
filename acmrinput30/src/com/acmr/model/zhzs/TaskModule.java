@@ -1,6 +1,7 @@
 package com.acmr.model.zhzs;
 
 import com.acmr.service.zhzs.IndexEditService;
+import com.acmr.service.zhzs.OriginDataService;
 import com.acmr.service.zhzs.WeightEditService;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public class TaskModule {
     private String sortcode;//上下移动排序，同级别的节点从0递增，0表示第一
     private String weight;//权重
     private String dacimal;//小数点位数
+
+
     private String orcode;//原模型的code
 
 
@@ -112,6 +115,13 @@ public class TaskModule {
     public void setDacimal(String dacimal) {
         this.dacimal = dacimal;
     }
+    public String getOrcode() {
+        return orcode;
+    }
+
+    public void setOrcode(String orcode) {
+        this.orcode = orcode;
+    }
 
 
 /**
@@ -147,5 +157,4 @@ public class TaskModule {
             return 1;
         }
     }
-
 }

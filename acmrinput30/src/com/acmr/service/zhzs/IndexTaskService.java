@@ -279,6 +279,25 @@ public class IndexTaskService {
         return taskModules;
     }
 
+    /**
+     * 查时间期，并返回时间期
+     */
+    public String findAyearmon(String taskcode){
+        return getTime(taskcode);
+    }
+    /**
+     * 返回task_zb_list
+     */
+    public List<TaskZb> findtaskzb(String taskcode){
+        return gettaskzblist(taskcode);
+    }
+    /**
+     * 查对应的地区
+     */
+    public String findRegions(String taskcode){
+        return getRegions(taskcode);
+    }
+
     /*public static void main(String[] args) {
         IndexTaskService indexTask = new IndexTaskService();
         List<Map> test = indexTask.getModuleFormula("bb4016ee54d143cbb2d9f47d4b221e9b");

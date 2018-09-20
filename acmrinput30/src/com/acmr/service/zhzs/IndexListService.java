@@ -151,21 +151,22 @@ public class IndexListService {
      */
     public IndexList getData(String code){
 
-        DataTableRow data = IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(code).getRows().get(0);
+        List<DataTableRow> data = IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(code).getRows();
         IndexList index= new IndexList();
-        index.setCode(data.getString("code"));
-        index.setCname(data.getString("cname"));
-        index.setCreateuser(data.getString("createuser"));
-        index.setIfdata(data.getString("ifdata"));
-        index.setState(data.getString("state"));
-        index.setCreatetime(data.getString("createtime"));
-        index.setPlantime( data.getString("plantime"));
-        index.setUpdatetime( data.getString("updatetime"));
-        index.setDelayday(data.getString("delayday"));
-        index.setPlanperiod(data.getString("planperiod"));
-        index.setProcode(data.getString("procode"));
-        index.setSort(data.getString("sort"));
-        index.setStartperiod(data.getString("startperiod"));
+        if(data.size()>0){
+        index.setCode(data.get(0).getString("code"));
+        index.setCname(data.get(0).getString("cname"));
+        index.setCreateuser(data.get(0).getString("createuser"));
+        index.setIfdata(data.get(0).getString("ifdata"));
+        index.setState(data.get(0).getString("state"));
+        index.setCreatetime(data.get(0).getString("createtime"));
+        index.setPlantime( data.get(0).getString("plantime"));
+        index.setUpdatetime( data.get(0).getString("updatetime"));
+        index.setDelayday(data.get(0).getString("delayday"));
+        index.setPlanperiod(data.get(0).getString("planperiod"));
+        index.setProcode(data.get(0).getString("procode"));
+        index.setSort(data.get(0).getString("sort"));
+        index.setStartperiod(data.get(0).getString("startperiod"));}
         return index;
     }
 
