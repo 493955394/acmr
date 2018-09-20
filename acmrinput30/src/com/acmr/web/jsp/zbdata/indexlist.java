@@ -14,6 +14,7 @@ import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.service.security.UserService;
 import com.acmr.service.zhzs.CreateTaskService;
 import com.acmr.service.zhzs.IndexListService;
+import com.acmr.web.jsp.Index;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import javax.servlet.http.HttpServletRequest;
@@ -111,6 +112,7 @@ public class indexlist extends BaseAction {
         HttpServletRequest req = this.getRequest();
         String pjax = req.getHeader("X-PJAX");
         String code=req.getParameter("code");
+        PubInfo.printStr("code:"+code);
         IndexListService indexListService=new IndexListService();
         //PubInfo.printStr("code"+code);
         List<IndexList> allindexlist=new ArrayList<>();
@@ -127,8 +129,20 @@ public class indexlist extends BaseAction {
         if (code==null){
             indexlist=indexListService.getIndexListByPage(usercode,page.getPageNum()-1,page.getPageSize());
         }
-        else if (code=="#1"){
+        else if (code.equals("!1")){
             indexlist=indexListService.getSubIndexListByPage("",page.getPageNum()-1,page.getPageSize());
+        }
+        else if (code.equals("!3")){
+            List<IndexList> allsharedList=indexListService.getSharedList(usercode);
+            indexlist.clear();
+            int b=(page.getPageNum()-1)*page.getPageSize()+1;
+            int e=b+page.getPageSize();
+            for (int i=0;i<allsharedList.size();i++){
+                int j=i+1;
+                if (j>=b&&j<e){
+                    indexlist.add(allsharedList.get(i));
+                }
+            }
         }
         else {
             indexlist=indexListService.getSubIndexListByPage(code,page.getPageNum()-1,page.getPageSize());

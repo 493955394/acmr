@@ -22,7 +22,8 @@ public class IndexListService {
         String usercode=cu.getUserid();
         ArrayList<IndexList> indexLists=new ArrayList<>();
         List<DataTableRow> indexlist = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists(code,usercode).getRows();
-        if (code.equals("#1")){
+        //我创建的指数
+        if (code.equals("!1")){
             indexlist = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists("",usercode).getRows();
         }
         /*for (int i=0;i<indexlist.size();i++){
@@ -62,6 +63,12 @@ public class IndexListService {
             //PubInfo.printStr("indexcode:"+index.getCode());
             indexLists.add(index);
         }
+
+        //我共享的指数
+        if (code.equals("!3")){
+            PubInfo.printStr("我共享的");
+            indexLists= (ArrayList<IndexList>) getSharedList(usercode);
+        }
         return indexLists;
     }
 
@@ -72,7 +79,7 @@ public class IndexListService {
 
         List<IndexList> indexLists=new ArrayList<>();
         List<DataTableRow> rows = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists(pcode,usercode).getRows();
-        if (pcode.equals("#1")){
+        if (pcode.equals("!1")){
             rows = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists("",usercode).getRows();
         }
         for (int i=0;i<rows.size();i++){
@@ -304,7 +311,8 @@ public class IndexListService {
         List<DataTableRow> rightrows= IndexListDao.Fator.getInstance().getIndexdatadao().getRightListByCreateUser(usercode).getRows();
         List<String> codes=new ArrayList<>();
         for (int i=0;i<rightrows.size();i++){
-            codes.add(rightrows.get(i).getString("indexcode"));
+            String code=rightrows.get(i).getString("indexcode");
+            codes.add(code);
         }
         for (int j=0;j<codes.size();j++){
           DataTableRow row=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(codes.get(j)).getRows().get(0);

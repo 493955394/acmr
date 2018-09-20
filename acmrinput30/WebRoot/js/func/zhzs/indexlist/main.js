@@ -396,12 +396,12 @@ define(function (require,exports,module) {
     });
 
     var zNodes =[
-        { id:"#1", pId:0, name:"指数",isParent:true},
-        { id:"#2", pId:0, name:"我收到的指数",isParent:true},
-        { id:"#3", pId:0, name:"我共享的指数", isParent:true}
+        { id:"!1", pId:0, name:"指数",isParent:true},
+        { id:"!2", pId:0, name:"我收到的指数",isParent:true},
+        { id:"!3", pId:0, name:"我共享的指数", isParent:true}
     ];
     var cNodes=[
-        { id:"#1", pId:0, name:"指数",isParent:true}
+        { id:"!1", pId:0, name:"指数",isParent:true}
     ]
     /*var indexlist=listjsp.indexlist;
     for(var i=0;i<indexlist.length;i++){
@@ -486,13 +486,14 @@ define(function (require,exports,module) {
     }
     console.log("rootpath:"+common.rootPath)
     function clickEvent(event,treeId,treeNode) {
-       // console.log("click")
-        if (treeNode.id=="#2"||treeNode.id=="#3"){
+        console.log(treeNode.id)
+        var code=treeNode.id
+        if (treeNode.id=="!2"){
             console.log("我收到的，我共享的")
         }
         else {
             $.pjax({
-                url:common.rootPath+'zbdata/indexlist.htm?m=getIndexList&code='+treeNode.id,
+                url:common.rootPath+'zbdata/indexlist.htm?m=getIndexList&code='+code,
                 container:'.J_zsjh_data_table',
                 timeout:2000
             })
@@ -516,7 +517,7 @@ define(function (require,exports,module) {
         if (treeNode.id != '') {
             $('input[name=cataname]').val(treeNode.name);
             $('input[name=idcata]').val(treeNode.id);
-            if (treeNode.id=="#1"){
+            if (treeNode.id=="!1"){
                 $('input[name=idcata]').val(null);
             }
         } else {
@@ -529,7 +530,7 @@ define(function (require,exports,module) {
         if (treeNode.id != '') {
             $('input[name=planname]').val(treeNode.name);
             $('input[name=idplan]').val(treeNode.id);
-            if (treeNode.id=="#1"){
+            if (treeNode.id=="!1"){
                 $('input[name=idplan]').val(null);
             }
         } else {
@@ -542,7 +543,7 @@ define(function (require,exports,module) {
         if (treeNode.id != '') {
             $('input[name=indexname]').val(treeNode.name);
             $('input[name=newprocode]').val(treeNode.id);
-            if (treeNode.id=="#1"){
+            if (treeNode.id=="!1"){
                 $('input[name=newprocode]').val(null);
             }
         } else {
@@ -555,7 +556,7 @@ define(function (require,exports,module) {
         if (treeNode.id != '') {
             $('input[name=editname]').val(treeNode.name);
             $('input[name=editprocode]').val(treeNode.id);
-            if (treeNode.id=="#1"){
+            if (treeNode.id=="!1"){
                 $('input[name=editprocode]').val(null);
             }
         } else {
