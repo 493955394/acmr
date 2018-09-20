@@ -206,4 +206,68 @@ public class OraDataDaoImpl implements IDataDao {
         }
         return 0;
     }
+
+    @Override
+    public int resetPage(String taskcode,String sessionid) {
+        DataQuery dataQuery=null;
+        try {
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+            //删除结果临时表中session之前的记录
+            String sql="delete from tb_coindex_data_result_tmp where sessionid=? and taskcode=?";
+            dataQuery.executeSql(sql,new Object[]{sessionid,taskcode});
+
+            //从tb_coindex_data_result复制数据到tb_coindex_data_result_tmp
+            String sql1="select * from tb_coindex_data_result where taskcode=?";
+            DataTable table=dataQuery.getDataTableSql(sql1,new Object[]{taskcode});
+            List<DataTableRow> rows=table.getRows();
+            for (int i=0;i<rows.size();i++){
+                String modcode=rows.get(i).getString("modcode");
+                String region=rows.get(i).getString("region");
+                String ayearmon=rows.get(i).getString("ayearmon");
+                String data=rows.get(i).getString("data");
+                Date updatetime = rows.get(i).getDate("updatetime");
+                String sql2="insert into tb_coindex_data_result_tmp (taskcode,modcode,region,ayearmon,data,updatetime,sessionid) values(?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql2,new Object[]{taskcode,modcode,region,ayearmon,data,updatetime,sessionid});
+            }
+
+            //删除data临时表中session之前的记录
+            String sqldata="delete from tb_coindex_data_tmp where sessionid=? and taskcode=?";
+            dataQuery.executeSql(sqldata,new Object[]{sessionid,taskcode});
+
+            //从tb_coindex_data复制数据到tb_coindex_data_tmp
+            String sql3="select * from tb_coindex_data where taskcode=?";
+            DataTable tabledata=dataQuery.getDataTableSql(sql3,new Object[]{taskcode});
+            List<DataTableRow> rows1=tabledata.getRows();
+            for (int i=0;i<rows1.size();i++){
+                String zbcode=rows1.get(i).getString("zbcode");
+                String region=rows1.get(i).getString("region");
+                String ayearmon=rows1.get(i).getString("ayearmon");
+                String data=rows1.get(i).getString("data");
+                String sql4="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,sessionid) values(?,?,?,?,?,?)";
+                dataQuery.executeSql(sql4,new Object[]{taskcode,zbcode,region,ayearmon,data,sessionid});
+            }
+            //删除tb_coindex_task_module_tmp中的记录
+            String sqlmodel="delete from tb_coindex_task_module_tmp where taskcode=?";
+            dataQuery.executeSql(sqlmodel,new Object[]{taskcode});
+            //复制tb_coindex_task_module到tb_coindex_task_module_tmp
+            String sql12="insert into tb_coindex_task_module_tmp (select * from tb_coindex_task_module where taskcode=?)";
+            dataQuery.executeSql(sql12,new Object[]{taskcode});
+            dataQuery.commit();
+
+        }
+        catch (SQLException e){
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                e.printStackTrace();
+                return 1;
+            }
+        }
+        finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+        return 0;
+    }
 }

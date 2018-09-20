@@ -5,6 +5,7 @@ import acmr.math.entity.MathException;
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
+import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.DataDao;
 import com.acmr.model.taskindex.TaskIndex;
 import com.acmr.model.zhzs.Data;
@@ -16,7 +17,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class OriginDataService {//这个表是做计算的
+public class OriginDataService {
+    //这个表是做计算的,和指数计算有关的功能都在这
     private CalculateExpression ce = new CalculateExpression();
     /**
      * 查询对应的data值
@@ -236,4 +238,11 @@ public class OriginDataService {//这个表是做计算的
             originDataService.addzsdata(iftmp,zsdata);
         }
     }
+
+    /**
+     * 重置的功能
+     * @param taskcode
+     * @return
+     */
+    public int resetPage(String taskcode,String sessionid){ return DataDao.Fator.getInstance().getIndexdatadao().resetPage(taskcode,sessionid);}
 }

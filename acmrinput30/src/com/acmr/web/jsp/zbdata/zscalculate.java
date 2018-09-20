@@ -289,7 +289,8 @@ public class zscalculate extends BaseAction {
         IndexTaskService indexTaskService =new IndexTaskService();
         OriginDataService originDataService = new OriginDataService();
         String taskcode = PubInfo.getString(req.getParameter("taskcode"));
-        String cws=req.getParameter("cws");//获取当前的权重
+        String cws=PubInfo.getString(req.getParameter("cws"));//获取当前的权重
+        cws = cws.substring(0, cws.length() - 1);//去除最后一个逗号
         PubInfo.printStr(cws);
         List<String> cw= Arrays.asList(cws.split(","));
         for (int i=0;i<cw.size();i++){
@@ -337,6 +338,24 @@ public class zscalculate extends BaseAction {
         String re=indexTaskService.findIcode(taskcode);
         JSONReturnData data = new JSONReturnData("");
         data.setReturndata(re);
+        this.sendJson(data);
+    }
+    /**
+     * 指数计算界面的重置功能，将权重设置、原始数据、和计算结果，从正式表覆盖临时表
+     */
+    public void reset() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        JSONReturnData data = new JSONReturnData("");
+        String taskcode = PubInfo.getString(req.getParameter("taskcode"));
+        String sessionid = req.getSession().getId();
+        OriginDataService originDataService = new OriginDataService();
+        int i = originDataService.resetPage(taskcode,sessionid);
+        if(i == 1){
+            data.setReturncode(300);//要是回滚了证明没有重置成功
+            this.sendJson(data);
+            return;
+        }
+        data.setReturncode(200);
         this.sendJson(data);
     }
 }

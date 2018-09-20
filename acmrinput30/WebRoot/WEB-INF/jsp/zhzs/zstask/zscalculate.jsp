@@ -25,8 +25,8 @@
                         <li role="presentation"><a href="#jsjg" aria-controls="jsjg" role="tab" data-toggle="tab">计算结果</a></li>
                         <li role="presentation">
                             <button type="button" class="btn btn-default" id="recalculate">重新计算</button>
-                            <button type="button" class="btn btn-default">重置</button>
-                            <button type="button" class="btn btn-default">保存并重新计算</button>
+                            <button type="button" class="btn btn-default" id="resetpage">重置</button>
+                            <button type="button" class="btn btn-default" id="save_calculate">保存并重新计算</button>
                             <button type="button" class="btn btn-default" id="goback">关闭</button>
                         </li>
                     </ul>

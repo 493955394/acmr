@@ -67,12 +67,12 @@ define(function (require,exports,module) {
         }
 
         //检查通过，保存
-        var cws=[]
+        var cws="";
         $(".input_weight").each(function () {
             var code=$(this).parent().prev().attr("code")
             var weight=$(this).val()
-            cws.push(code+":"+weight)
-        })
+            cws +=code+":"+weight+","
+        });
       //  console.log(cws)
         $.pjax({
             url: common.rootPath+'zbdata/zscalculate.htm?m=docalculate&taskcode='+taskcode,
@@ -87,8 +87,10 @@ define(function (require,exports,module) {
     /**
      * 关闭按钮
      */
-    //关闭按钮
     $(document).on('click','#goback',function () {
+        if(!confirm("确定要关闭吗？")){
+            return;
+        }
         var taskcode = $("#t_code").val();
         $.ajax({
             url:common.rootPath+"zbdata/zscalculate.htm?m=goback",
@@ -102,5 +104,30 @@ define(function (require,exports,module) {
         })
     })
 
+    /**
+     * 重置按钮
+     */
+    $(document).on('click','#resetpage',function () {
+        if(!confirm("确定要重置吗？")){
+            return;
+        }
+        var taskcode = $("#t_code").val();
+        $.ajax({
+            url:common.rootPath+"zbdata/zscalculate.htm?m=reset",
+            data:{"taskcode":taskcode},
+            type:'post',
+            datatype:'json',
+            timeout: 10000,
+            success:function (re) {
+                if(re.returncode == 200){
+                    window.location.reload(true);
+                }
+                else if(re.returncode == 300){
+                    alert("重置失败！")
+                    window.location.reload(true);
+                }
+            }
+        })
+    })
 
 });
