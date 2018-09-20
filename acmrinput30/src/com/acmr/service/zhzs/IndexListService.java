@@ -335,6 +335,7 @@ public class IndexListService {
         for (int i=0;i<rightrows.size();i++){
             String code=rightrows.get(i).getString("indexcode");
             String depusercode=rightrows.get(i).getString("depusercode");
+            String sort=rightrows.get(i).getString("sort");
             DataTableRow row=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(code).getRows().get(0);
             String cname=row.getString("cname");
             String timesort=row.getString("sort");
@@ -343,6 +344,7 @@ public class IndexListService {
             m.put("cname",cname);
             m.put("timesort",timesort);
             m.put("depusercode",depusercode);
+            m.put("sort",sort);
             //应该传depuser的name，但是没找到接口
             list.add(m);
         }

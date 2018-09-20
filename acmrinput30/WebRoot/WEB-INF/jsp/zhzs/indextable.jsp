@@ -74,6 +74,7 @@
         <tr>
             <th>名称</th>
             <th>被分享人</th>
+            <th>权限</th>
             <th>时间周期</th>
             <th>操作</th>
         </tr>
@@ -83,6 +84,11 @@
             <tr class="my_shared">
                 <td>${index.get("cname")}</td>
                 <td>${index.get("depusercode")}</td>
+                <td>
+                    <c:if test="${index.get('sort') == '0'}">查看</c:if>
+                    <c:if test="${index.get('sort') == '1'}">协作</c:if>
+                    <c:if test="${index.get('sort') == '2'}">管理</c:if>
+                </td>
                 <td>
                     <c:if test="${index.get('timesort') == 'y'}">年度</c:if>
                     <c:if test="${index.get('timesort') == 'q'}">季度</c:if>
