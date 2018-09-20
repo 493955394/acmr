@@ -6,6 +6,7 @@ import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.model.security.User;
 import com.acmr.model.zhzs.IndexList;
+import com.acmr.model.zhzs.IndexTask;
 import com.acmr.service.security.UserService;
 
 import java.text.ParseException;
@@ -290,6 +291,41 @@ public class IndexListService {
         return list;
     }
 
+
+    /**
+    * @Description: 返回该user分享的计划列表
+    * @Param: [usercode]
+    * @return: java.util.List<com.acmr.model.zhzs.IndexList>
+    * @Author: lyh
+    * @Date: 2018/9/20
+    */
+    public List<IndexList> getSharedList(String usercode){
+        List<IndexList> list=new ArrayList<>();
+        List<DataTableRow> rightrows= IndexListDao.Fator.getInstance().getIndexdatadao().getRightListByCreateUser(usercode).getRows();
+        List<String> codes=new ArrayList<>();
+        for (int i=0;i<rightrows.size();i++){
+            codes.add(rightrows.get(i).getString("indexcode"));
+        }
+        for (int j=0;j<codes.size();j++){
+          DataTableRow row=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(codes.get(j)).getRows().get(0);
+          String code=row.getString("code");
+          String cname=row.getString("cname");
+          String procode=row.getString("procode");
+          String sort=row.getString("sort");
+          String startperiod=row.getString("startperiod");
+          String delayday=row.getString("delayday");
+          String planperiod=row.getString("planperiod");
+          String plantime=row.getString("plantime");
+          String createuser=row.getString("createuser");
+          String ifdata=row.getString("ifdata");
+          String state=row.getString("state");
+          IndexList indexList=new IndexList(code,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser,ifdata,state);
+          list.add(indexList);
+        }
+
+        return list;
+    }
+
 /*
     public static void main(String[] args) throws ParseException {
         IndexListService indexListService=new IndexListService();
@@ -310,5 +346,6 @@ public class IndexListService {
         }*/
 /*        PubInfo.printStr(code.getRows().get(1).getRows().toString());
         PubInfo.printStr(code.getColumns().get(0).getColumnName());*/
-    }
+
+}
 
