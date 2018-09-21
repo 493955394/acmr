@@ -162,17 +162,38 @@ public class zscalculate extends BaseAction {
         }
         return rows;
     }
-    
-
 
     /**
-     * 数据下载
-     *
-     * @param
-     * @return
+     * 上传数据回显
      * @author wf
      * @date
+     * @param
+     * @return
      */
+    public ModelAndView showupload() {
+        HttpServletRequest req = this.getRequest();
+        IndexTaskService indexTaskService = new IndexTaskService();
+        OriginService originService = new OriginService();
+        String taskcode = req.getParameter("taskcode");
+        String sessionid = req.getSession().getId();
+        String ayearmon = indexTaskService.getTime(taskcode);
+        List<List<String>> data=getOriginData(true,taskcode,ayearmon,sessionid);
+        String pjax = req.getHeader("X-PJAX");
+        List<String> regscode = indexTaskService.getTaskRegs(taskcode);
+        List<String> regs = new ArrayList<>();
+        for (int i = 0; i < regscode.size(); i++) {
+            regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
+        }
+        if (StringUtil.isEmpty(pjax)) {
+            PubInfo.printStr("===================================emptyredata");
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
+        } else {
+            PubInfo.printStr("=====================================pjaxredata");
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
+
+        }
+
+    }
     /**
      * 数据下载
      *
