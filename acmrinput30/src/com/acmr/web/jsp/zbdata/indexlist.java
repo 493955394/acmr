@@ -389,13 +389,12 @@ public class indexlist extends BaseAction {
         //校验部分
         Boolean check=indexListService.checkModule(code);
 
-
         //校验通过
         if (check){
             IndexList indexList = new IndexList();
             indexList.setCode(code);
             indexList.setState(state);
-            IndexListService.updateCatePlan(indexList);
+            IndexListService.updateSwitch(indexList);
             data.setReturncode(200);
             //启用自动生成未生成的任务
             if (state.equals("1")){

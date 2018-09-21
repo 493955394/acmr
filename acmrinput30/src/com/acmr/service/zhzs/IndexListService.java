@@ -233,7 +233,7 @@ public class IndexListService {
         }
         return indexLists;
     }
-
+    //新增目录和计划
     public int addCp(IndexList indexList) {
         return IndexListDao.Fator.getInstance().getIndexdatadao().addIndexlist(indexList);
     }
@@ -243,10 +243,11 @@ public class IndexListService {
     public static int delCataplan(String code){
         return IndexListDao.Fator.getInstance().getIndexdatadao().delIndexcp(code);
     }
+    //编辑目录
     public static int updateCate(String code,String procode){
         return IndexListDao.Fator.getInstance().getIndexdatadao().updateCategory(code,procode);
     }
-    public static int updateCatePlan(IndexList indexList){
+    public static int updateSwitch(IndexList indexList){
         return IndexListDao.Fator.getInstance().getIndexdatadao().updateCp(indexList);
     }
     //复制到

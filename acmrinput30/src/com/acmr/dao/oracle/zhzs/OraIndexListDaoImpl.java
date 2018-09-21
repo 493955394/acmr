@@ -135,6 +135,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         }
 
     }
+    //编辑目录
     @Override
     public int updateCategory(String code,String procode) {
         String sql1 = "update tb_coindex_index set procode=?,updatetime=? where code=?";
@@ -164,6 +165,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         return AcmrInputDPFactor.getQuickQuery().executeSql(sbf.toString(), params.toArray());
 
     }
+    //启用停用
     public int updateCp(IndexList indexList) {
         String sql1 = "";
         List<Object> parms = new ArrayList<Object>();
