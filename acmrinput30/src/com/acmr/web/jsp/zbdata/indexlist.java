@@ -355,20 +355,33 @@ public class indexlist extends BaseAction {
         String code = PubInfo.getString(req.getParameter("code"));
         JSONReturnData data = new JSONReturnData("");
         String state = PubInfo.getString(req.getParameter("state"));
-        IndexList indexList = new IndexList();
-        indexList.setCode(code);
-        indexList.setState(state);
-        IndexListService.updateCatePlan(indexList);
-        data.setReturncode(200);
-        //启用自动生成未生成的任务
-        if (state.equals("1")){
-            IndexListService indexListService=new IndexListService();
-            IndexList index=indexListService.getData(code);
-            CreateTaskService createTaskService=new CreateTaskService();
-            List<String> periods=createTaskService.getPeriods(index);
-            createTaskService.createTasks(index,periods);
+        IndexListService indexListService=new IndexListService();
+
+
+        //校验部分
+        Boolean check=indexListService.checkModule(code);
+
+
+        //校验通过
+        if (check){
+            IndexList indexList = new IndexList();
+            indexList.setCode(code);
+            indexList.setState(state);
+            IndexListService.updateCatePlan(indexList);
+            data.setReturncode(200);
+            //启用自动生成未生成的任务
+            if (state.equals("1")){
+                IndexList index=indexListService.getData(code);
+                CreateTaskService createTaskService=new CreateTaskService();
+                List<String> periods=createTaskService.getPeriods(index);
+                createTaskService.createTasks(index,periods);
+            }
+            this.sendJson(data);
         }
-        this.sendJson(data);
+        else {
+            this.sendJson("400");
+        }
+
     }
     /*//页面后台检查
     public void checkcoCode() throws IOException {

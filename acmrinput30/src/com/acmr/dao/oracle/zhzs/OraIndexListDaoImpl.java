@@ -233,6 +233,12 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         String sql="select * from tb_coindex_right where createuser=?";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{usercode});
     }
+
+    @Override
+    public DataTable getZSMods(String icode) {
+        String sql="select * from tb_coindex_module where indexcode=? and ifzs=1";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode});
+    }
 /*
     public static void main(String[] args) {
         OraIndexListDaoImpl oraIndexListDao=new OraIndexListDaoImpl();
