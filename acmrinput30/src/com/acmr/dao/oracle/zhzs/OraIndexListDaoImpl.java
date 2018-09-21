@@ -8,6 +8,7 @@ import com.acmr.dao.zhzs.IIndexListDao;
 import com.acmr.model.zhzs.IndexList;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
 
     @Override
     public int addIndexlist(IndexList indexList) {
-        String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
         List<Object> params = new ArrayList<Object>();
         params.add(indexList.getCode());
         params.add(indexList.getCname());
@@ -77,13 +78,13 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         params.add(indexList.getPlantime());
         params.add(indexList.getCreateuser());
         params.add(indexList.getCreatetime());
-        params.add(indexList.getUpdatetime());
+        params.add(new Timestamp(new java.util.Date().getTime()));
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
     }
     //复制到
     @Override
     public int addCopyplan(IndexList data1) {
-        String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
         List<Object> params = new ArrayList<Object>();
         params.add(data1.getCode());
         params.add(data1.getCname());
@@ -97,7 +98,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         params.add(data1.getPlantime());
         params.add(data1.getCreateuser());
         params.add(data1.getCreatetime());
-        params.add(data1.getUpdatetime());
+        params.add(new Timestamp(new java.util.Date().getTime()));
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
     }
 
@@ -134,11 +135,13 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         }
 
     }
+    //编辑目录
     @Override
     public int updateCategory(String code,String procode) {
-        String sql1 = "update tb_coindex_index set procode=? where code=?";
+        String sql1 = "update tb_coindex_index set procode=?,updatetime=? where code=?";
         List<Object> params = new ArrayList<Object>();
         params.add(procode);
+        params.add(new Timestamp(new java.util.Date().getTime()));
         params.add(code);
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
     }
@@ -162,6 +165,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         return AcmrInputDPFactor.getQuickQuery().executeSql(sbf.toString(), params.toArray());
 
     }
+    //启用停用
     public int updateCp(IndexList indexList) {
         String sql1 = "";
         List<Object> parms = new ArrayList<Object>();
