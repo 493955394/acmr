@@ -25,5 +25,6 @@ public interface IIndexListDao {
     public DataTable getAllIndexListByPage(String usercode,int page, int pagesize);
     public DataTable getSubIndexListByPage(String usercode,String code,int page,int pagesize);
     public DataTable getRightListByCreateUser(String usercode);
+    public DataTable getRightListByDepUserCode(String depusercode);
     public DataTable getZSMods(String icode);
 }
