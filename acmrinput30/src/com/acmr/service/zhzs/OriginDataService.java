@@ -245,4 +245,36 @@ public class OriginDataService {
      * @return
      */
     public int resetPage(String taskcode,String sessionid){ return DataDao.Fator.getInstance().getIndexdatadao().resetPage(taskcode,sessionid);}
+
+    /**
+     * 重新计算，保存到临时表
+     */
+    public boolean recalculate(String taskcode,String time,String sessionid){
+        IndexTaskService indexTaskService = new IndexTaskService();
+        String regs = indexTaskService.findRegions(taskcode);
+        String [] reg = regs.split(",");
+        //开始计算指数的值，包括乘上weight
+        try {
+            if(calculateZB(true,taskcode,time,regs,sessionid)){
+                //指标已经算完
+                List<TaskModule> zong = indexTaskService.findRoot(taskcode);
+                for (int i = 0; i <zong.size() ; i++) {
+                    for (int j = 0; j <reg.length ; j++) {//一个地区一个地区地算
+                        calculateZS(true,zong.get(i).getCode(),taskcode,time,reg[j],sessionid);
+                    }
+                }
+            }
+        } catch (MathException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 保存并重新计算，要是recalculate返回true就把临时表的数据覆盖正式表
+     */
+    public int savecalculateresult(String taskcode,String sessionid){
+        return DataDao.Fator.getInstance().getIndexdatadao().saveResult(taskcode,sessionid);
+    }
 }

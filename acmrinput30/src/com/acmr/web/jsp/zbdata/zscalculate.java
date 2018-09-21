@@ -355,27 +355,11 @@ public class zscalculate extends BaseAction {
         //通过taskcode去查值
         String ayearmon = indexTaskService.getTime(taskcode);
         //从临时数据表读取数据做计算
-        String regs = indexTaskService.findRegions(taskcode);
-        String [] reg = regs.split(",");
-            //开始计算指数的值，包括乘上weight
-        try {
-            if(originDataService.calculateZB(true,taskcode,ayearmon,regs,sessionid)){
-                //指标已经算完
-                List<TaskModule> zong = indexTaskService.findRoot(taskcode);
-                for (int i = 0; i <zong.size() ; i++) {
-                    for (int j = 0; j <reg.length ; j++) {//一个地区一个地区地算
-                        originDataService.calculateZS(true,zong.get(i).getCode(),taskcode,ayearmon,reg[j],sessionid);
-                    }
-                }
-            }
-        } catch (MathException e) {
-            e.printStackTrace();
-        }
-
+        boolean back = originDataService.recalculate(taskcode,ayearmon,sessionid);
         if (StringUtil.isEmpty(pjax)) {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
         } else {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tbdataresult");
         }
     }
 
@@ -408,5 +392,41 @@ public class zscalculate extends BaseAction {
         }
         data.setReturncode(200);
         this.sendJson(data);
+    }
+
+    /**
+     * 保存并重新计算
+     */
+    public ModelAndView savecalculate() {
+        HttpServletRequest req = this.getRequest();
+        // 获取查询数据
+        String sessionid = req.getSession().getId();
+        IndexTaskService indexTaskService = new IndexTaskService();
+        OriginDataService originDataService = new OriginDataService();
+        String taskcode = PubInfo.getString(req.getParameter("taskcode"));
+        String cws = PubInfo.getString(req.getParameter("cws"));//获取当前的权重
+        cws = cws.substring(0, cws.length() - 1);//去除最后一个逗号
+        List<String> cw = Arrays.asList(cws.split(","));
+        for (int i = 0; i < cw.size(); i++) {
+            String code = cw.get(i).split(":")[0];
+            String weight = cw.get(i).split(":")[1];
+            WeightEditService weightEditService = new WeightEditService();
+            weightEditService.tWeightUpadte(code, weight);
+        }
+        // 判断是否pjax 请求
+        String pjax = req.getHeader("X-PJAX");
+        //通过taskcode去查值
+        String ayearmon = indexTaskService.getTime(taskcode);
+        //从临时数据表读取数据做计算,存入临时表
+       boolean back = originDataService.recalculate(taskcode,ayearmon,sessionid);
+       //存完之后临时表覆盖原始表
+        if(back){
+            originDataService.savecalculateresult(taskcode,sessionid);
+        }
+        if (StringUtil.isEmpty(pjax)) {
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
+        } else {
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tbdataresult");
+        }
     }
 }

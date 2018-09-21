@@ -270,4 +270,58 @@ public class OraDataDaoImpl implements IDataDao {
         }
         return 0;
     }
+
+    @Override
+    public int saveResult(String taskcode, String sessionid) {
+        DataQuery dataQuery=null;
+        try {
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+            //删除tb_coindex_data_result表中之前的记录
+            String sql="delete from tb_coindex_data_result where taskcode=?";
+            dataQuery.executeSql(sql,new Object[]{taskcode});
+            //从tb_coindex_data_result_tmp复制数据到tb_coindex_data_result
+            String sql2="insert into tb_coindex_data_result (taskcode,modcode,region,ayearmon,data,updatetime)";
+            sql2 = sql2+" select taskcode,modcode,region,ayearmon,data,updatetime from tb_coindex_data_result_tmp b where b.taskcode=? and b.sessionid=?";
+            dataQuery.executeSql(sql2,new Object[]{taskcode,sessionid});
+
+            //删除tb_coindex_data表中之前的记录
+            String sqldata="delete from tb_coindex_data where taskcode=?";
+            dataQuery.executeSql(sqldata,new Object[]{taskcode});
+            //从tb_coindex_data_tmp复制数据到tb_coindex_data
+            String sql3="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,data)";
+            sql3 = sql3+" select taskcode,zbcode,region,ayearmon,data from tb_coindex_data_tmp b where b.taskcode=? and b.sessionid=?";
+            dataQuery.executeSql(sql3,new Object[]{taskcode,sessionid});
+
+            //删除tb_coindex_task_module中的记录
+            String sqlmodel="delete from tb_coindex_task_module where taskcode=?";
+            dataQuery.executeSql(sqlmodel,new Object[]{taskcode});
+            //复制tb_coindex_task_module到tb_coindex_task_module_tmp
+            String sql12="insert into tb_coindex_task_module (select * from tb_coindex_task_module_tmp where taskcode=?)";
+            dataQuery.executeSql(sql12,new Object[]{taskcode});
+
+            //更新tb_coindex_task的updatetime时间
+            String sqltask="update tb_coindex_task set updatetime=? where code=?";
+            List<Object> params = new ArrayList<Object>();
+            params.add(new Timestamp(new Date().getTime()));
+            params.add(taskcode);
+            dataQuery.executeSql(sqltask, params.toArray());
+
+            dataQuery.commit();
+
+        }
+        catch (SQLException e){
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                e.printStackTrace();
+                return 1;
+            }
+        }
+        finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+        return 0;
+    }
 }

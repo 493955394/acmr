@@ -16,4 +16,5 @@ public interface IDataDao {
     public String getDataResult(boolean iftmp,String taskcode,String modcode,String reg,String time,String sessionid);
     public int copyDataResult (String taskcode,String sessionid);
     public int resetPage(String taskcode,String sessionid);
+    public int saveResult(String taskcode,String sessionid);
 }
