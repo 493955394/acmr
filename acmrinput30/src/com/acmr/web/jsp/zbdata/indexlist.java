@@ -15,6 +15,7 @@ import com.acmr.service.security.UserService;
 import com.acmr.service.zhzs.CreateTaskService;
 import com.acmr.service.zhzs.IndexListService;
 import com.acmr.web.jsp.Index;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import javax.servlet.http.HttpServletRequest;
@@ -359,7 +360,9 @@ public class indexlist extends BaseAction {
 
 
         //校验部分
-        Boolean check=indexListService.checkModule(code);
+        Boolean check=false;
+        Boolean checkmod=indexListService.checkModule(code);
+        check=checkmod;
 
 
         //校验通过
