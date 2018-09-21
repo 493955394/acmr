@@ -34,23 +34,25 @@ define(function(require,exports,module) {
     /**
      * 数据下载
      */
-    $(document).on("click","#data_download",downdata)
+    //$(document).on("click","#data_download",downdata)
     //$("#data_download").click(downdata)
-
-    function downdata(){
+    $(document).on('click', '#data_download', function(event) {
+    //function downdata(){
+        event.preventDefault();
         var istmp=$(".istmpdata").val();
         var taskcode=$(".reloaddata").val();
         console.log(istmp)
         console.log(taskcode)
-        var url = common.rootPath+"zbdata/zscalculate.htm?m=toExcel";
+        var url = common.rootPath+"zbdata/zscalculate.htm?m=toExcel&istmp="+ istmp+"&taskcode="+taskcode;
+        //var url = common.rootPath+"zbdata/zscalculate.htm?m=toExcel";
         //var time = $("#time").val();
         $.ajax({
-            url:url,
-            type:'post',
+            url: url,
+            type: 'get',
             dataType: 'json',
-            data:{'istmp':istmp,'taskcode':taskcode},
-            success:function (data) {
-                console.log("success")
+            //data: {'istmp': istmp, 'taskcode': taskcode},
+            success: function (data) {
+
                 if (data.returncode == 300) {
                     alert("数据为空");
                 } else {
@@ -59,7 +61,8 @@ define(function(require,exports,module) {
                 //window.location.href = url;
             }
         })
-    }
+        window.location.href = url;
+})
     /**
      * 文件上传
      */

@@ -30,10 +30,10 @@ import java.util.*;
 
 public class zscalculate extends BaseAction {
 
-    private List<List<String>> data1;
+    /*private List<List<String>> data1;
     private List<List<String>> datatmp;
     private List<String> regs;
-    private List<String> regstmp;
+    private List<String> regstmp;*/
 
     /**
      * @Description: 从data表中读数时返回页面
@@ -54,9 +54,9 @@ public class zscalculate extends BaseAction {
         IndexTaskDao.Fator.getInstance().getIndexdatadao().copyData(taskcode,sessionid);
         DataDao.Fator.getInstance().getIndexdatadao().copyDataResult(taskcode,sessionid);
         String ayearmon = indexTaskService.getTime(taskcode);
-        data1 = getOriginData(false, taskcode, ayearmon,null);
+        List<List<String>> data1 = getOriginData(false, taskcode, ayearmon,null);
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
-        regs = new ArrayList<>();
+        List<String> regs = new ArrayList<>();
         for (int i = 0; i < regscode.size(); i++) {
             regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
         }
@@ -85,11 +85,11 @@ public class zscalculate extends BaseAction {
         String taskcode = req.getParameter("taskcode");
         //取对应id的数据
         String ayearmon = indexTaskService.getTime(taskcode);
-        datatmp = getOriginData(true,taskcode,ayearmon,sessionid);
+        List<List<String>> datatmp = getOriginData(true,taskcode,ayearmon,sessionid);
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
-        regstmp = new ArrayList<>();
+        List<String> regstmp = new ArrayList<>();
         for (int i = 0; i < regscode.size(); i++) {
-            regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
+            regstmp.add(originService.getwdnode("reg", regscode.get(i)).getName());
         }
 
         WeightEditService weightEditService=new WeightEditService();
@@ -183,23 +183,27 @@ public class zscalculate extends BaseAction {
      */
     public void toExcel() throws IOException {
         //接参
-        HttpServletRequest req = this.getRequest();
+        //HttpServletRequest req = this.getRequest();
         /*String regname = PubInfo.getString(req.getParameter("excelregs"));//地区名称
         String [] regnames = regname.split(",");
         String data1=PubInfo.getString(req.getParameter("exceldata"));
         String [] datas = regname.split(",");*/
-        String istmp = PubInfo.getString(req.getParameter("istmp"));//判断读取数据的data表
-        PubInfo.printStr("istmp:"+istmp);
+        //String istmp = PubInfo.getString(req.getParameter("istmp"));//判断读取数据的data表
+        //PubInfo.printStr("istmp:"+istmp);
         //String taskcode = req.getParameter("taskcode");
-        String taskcode =PubInfo.getString(req.getParameter("taskcode"));
+        String istmp = PubInfo.getString(this.getRequest().getParameter("istmp"));//判断读取数据的data表
+        String taskcode = PubInfo.getString(this.getRequest().getParameter("taskcode"));
+        //String taskcode =PubInfo.getString(req.getParameter("taskcode"));
         IndexTaskService indexTaskService = new IndexTaskService();
         OriginService originService = new OriginService();
-        String sessionid = req.getSession().getId();
+        String sessionid = this.getRequest().getSession().getId();
         String ayearmon = indexTaskService.getTime(taskcode);
         // PubInfo.printStr("ayearmon:"+ayearmon);
         // ExcelBook book = new ExcelBook();
+        ExcelBook book = new ExcelBook();
+        ExcelSheet sheet1 = new ExcelSheet();
+        sheet1.setName("sheet1");
         if (istmp.equals("true")){
-
             List<List<String>> datatmp = getOriginData(true,taskcode,ayearmon,sessionid);
             List<String> regscode = indexTaskService.getTaskRegs(taskcode);
             List<String> regstmp = new ArrayList<>();
@@ -214,9 +218,6 @@ public class zscalculate extends BaseAction {
             } else {
                 data.setReturncode(200);
             }
-            ExcelBook book = new ExcelBook();
-            ExcelSheet sheet1 = new ExcelSheet();
-            sheet1.setName("sheet1");
             sheet1.addColumn();
             ExcelCell cell1 = new ExcelCell();
             ExcelRow dr1 = sheet1.addRow();
@@ -245,22 +246,6 @@ public class zscalculate extends BaseAction {
                     dr1.set(j, cell2);
                 }
             }
-            book.getSheets().add(sheet1);
-            HttpServletResponse resp = this.getResponse();
-            resp.reset();
-            resp.setContentType("application/vnd.ms-excel; charset=UTF-8");
-            resp.setHeader("Pragma", "public");
-            resp.setHeader("Cache-Control", "max-age=30");
-            String fileName = "task.xlsx";
-            fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
-            resp.addHeader("Content-Disposition", "attachment; filename=" + fileName+".xlsx");
-            //Export("application/ms-excel", "订单报表.xls");
-            try {
-                book.saveExcel(resp.getOutputStream(), XLSTYPE.XLSX);
-            } catch (ExcelException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
         } else {
             //String ayearmon = indexTaskService.getTime(taskcode);
             List<List<String>> data1 = getOriginData(false,taskcode,ayearmon,sessionid);
@@ -277,9 +262,6 @@ public class zscalculate extends BaseAction {
             } else {
                 data.setReturncode(200);
             }
-            ExcelBook book = new ExcelBook();
-            ExcelSheet sheet1 = new ExcelSheet();
-            sheet1.setName("sheet1");
             sheet1.addColumn();
             ExcelCell cell1 = new ExcelCell();
             ExcelRow dr1 = sheet1.addRow();
@@ -307,22 +289,22 @@ public class zscalculate extends BaseAction {
                     dr1.set(j, cell2);
                 }
             }
-            book.getSheets().add(sheet1);
-            HttpServletResponse resp = this.getResponse();
-            resp.reset();
-            resp.setContentType("application/vnd.ms-excel; charset=UTF-8");
-            resp.setHeader("Pragma", "public");
-            resp.setHeader("Cache-Control", "max-age=30");
-            String fileName = "task.xlsx";
-            fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
-            resp.addHeader("Content-Disposition", "attachment; filename=" + fileName+".xlsx");
-            //Export("application/ms-excel", "订单报表.xls");
-            try {
-                book.saveExcel(resp.getOutputStream(), XLSTYPE.XLSX);
-            } catch (ExcelException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+        }
+        book.getSheets().add(sheet1);
+        HttpServletResponse resp = this.getResponse();
+        resp.reset();
+        resp.setContentType("application/vnd.ms-excel; charset=UTF-8");
+        resp.setHeader("Pragma", "public");
+        resp.setHeader("Cache-Control", "max-age=30");
+        String fileName = "任务数据.xlsx";
+        fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
+        resp.addHeader("Content-Disposition", "attachment; filename="+fileName);
+        //Export("application/ms-excel", "订单报表.xls");
+        try {
+            book.saveExcel(resp.getOutputStream(), XLSTYPE.XLSX);
+        } catch (ExcelException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
     }
