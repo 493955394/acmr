@@ -15,15 +15,14 @@ import com.acmr.service.security.UserService;
 import com.acmr.service.zhzs.CreateTaskService;
 import com.acmr.service.zhzs.IndexListService;
 import com.acmr.web.jsp.Index;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class indexlist extends BaseAction {
     public ModelAndView main() throws IOException {
@@ -202,8 +201,7 @@ public class indexlist extends BaseAction {
     }
 
     /**
-     *
-     *
+     * 新增目录
      * @author wf
      * @date
      * @param
@@ -227,12 +225,14 @@ public class indexlist extends BaseAction {
         String procode = PubInfo.getString(req.getParameter("idcata"));
         User user = (User) this.getSession().getAttribute("loginuser");
         String createuser = user.getUserid();
+        String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         IndexList indexList = new IndexList();
         indexList.setIfdata(ifdata1);
         indexList.setCreateuser(createuser);
         indexList.setCode(code);
         indexList.setCname(cname);
         indexList.setProcode(procode);
+        indexList.setCreatetime(createtime);
         int int1 = indexListService.addCp(indexList);
         /*if (int1 == -1) {
             data.setReturncode(501);
@@ -244,7 +244,13 @@ public class indexlist extends BaseAction {
         this.sendJson(data);
 
     }
-    //计划新增
+    /**
+     * 计划新增
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
     public void insertplan() throws IOException {
         IndexListService indexListService = new IndexListService();
         HttpServletRequest req = this.getRequest();
@@ -262,6 +268,7 @@ public class indexlist extends BaseAction {
         String cname = PubInfo.getString(req.getParameter("plancname"));
         String procode = PubInfo.getString(req.getParameter("idplan"));
         String sort = PubInfo.getString(req.getParameter("sort"));
+        String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         //String createuser = "usercode01";
         User user = (User) this.getSession().getAttribute("loginuser");
         String createuser = user.getUserid();
@@ -274,6 +281,7 @@ public class indexlist extends BaseAction {
         indexList.setProcode(procode);
         indexList.setSort(sort);
         indexList.setState(state);
+        indexList.setCreatetime(createtime);
         int int1 = indexListService.addCp(indexList);
         /*if (int1 == -1) {
             data.setReturncode(501);
@@ -285,7 +293,13 @@ public class indexlist extends BaseAction {
         this.sendJson(data);
 
     }
-    //复制到
+    /**
+     * 复制到
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
     public void copy() throws IOException {
         IndexListService indexListService = new IndexListService();
         HttpServletRequest req = this.getRequest();
@@ -304,10 +318,12 @@ public class indexlist extends BaseAction {
         }
         String cname = PubInfo.getString(req.getParameter("zname"));
         String nprocode = PubInfo.getString(req.getParameter("newprocode"));
+        String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         IndexList data1 = indexListService.getData(cpcode);
         data1.setCode(code);
         data1.setCname(cname);
         data1.setProcode(nprocode);
+        data1.setCreatetime(createtime);
         indexListService.addCopyplan(data1);
         /*if (int1 == -1) {
             data.setReturncode(501);
@@ -318,7 +334,13 @@ public class indexlist extends BaseAction {
         data.setReturndata(data1);
         this.sendJson(data);
     }
-    //编辑
+    /**
+     * 目录编辑
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
     public void update() throws IOException{
         HttpServletRequest req = this.getRequest();
         //IndexListService indexListService = new IndexListService();
@@ -333,6 +355,13 @@ public class indexlist extends BaseAction {
         data.setReturndata("");
         this.sendJson(data);
     }
+    /**
+     * 目录、计划删除
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
     public void delete() throws IOException {
         // 构造返回对象
         JSONReturnData data = new JSONReturnData("");
@@ -355,20 +384,34 @@ public class indexlist extends BaseAction {
         String code = PubInfo.getString(req.getParameter("code"));
         JSONReturnData data = new JSONReturnData("");
         String state = PubInfo.getString(req.getParameter("state"));
-        IndexList indexList = new IndexList();
-        indexList.setCode(code);
-        indexList.setState(state);
-        IndexListService.updateCatePlan(indexList);
-        data.setReturncode(200);
-        //启用自动生成未生成的任务
-        if (state.equals("1")){
-            IndexListService indexListService=new IndexListService();
-            IndexList index=indexListService.getData(code);
-            CreateTaskService createTaskService=new CreateTaskService();
-            List<String> periods=createTaskService.getPeriods(index);
-            createTaskService.createTasks(index,periods);
+        IndexListService indexListService=new IndexListService();
+
+
+        //校验部分
+        Boolean check=false;
+        Boolean checkmod=indexListService.checkModule(code);
+        check=checkmod;
+
+        //校验通过
+        if (check){
+            IndexList indexList = new IndexList();
+            indexList.setCode(code);
+            indexList.setState(state);
+            IndexListService.updateSwitch(indexList);
+            data.setReturncode(200);
+            //启用自动生成未生成的任务
+            if (state.equals("1")){
+                IndexList index=indexListService.getData(code);
+                CreateTaskService createTaskService=new CreateTaskService();
+                List<String> periods=createTaskService.getPeriods(index);
+                createTaskService.createTasks(index,periods);
+            }
+            this.sendJson(data);
         }
-        this.sendJson(data);
+        else {
+            this.sendJson("400");
+        }
+
     }
     /*//页面后台检查
     public void checkcoCode() throws IOException {
