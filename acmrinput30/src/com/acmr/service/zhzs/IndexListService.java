@@ -7,6 +7,7 @@ import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.model.security.Department;
 import com.acmr.model.security.User;
 import com.acmr.model.zhzs.IndexList;
+import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.model.zhzs.IndexTask;
 import com.acmr.service.security.UserService;
 import com.acmr.service.zbdata.UserDepService;
@@ -370,6 +371,30 @@ public class IndexListService {
 */
 
         return list;
+    }
+
+    public Boolean checkModule(String icode){
+        List<DataTableRow> rows=IndexListDao.Fator.getInstance().getIndexdatadao().getZSMods(icode).getRows();
+       // List<IndexMoudle> mods=new ArrayList<>();
+        Boolean check=true;
+        for (int i=0;i<rows.size();i++){
+            String code=rows.get(i).getString("code");
+            String cname=rows.get(i).getString("cname");
+            String indexcode=rows.get(i).getString("indexcode");
+            String procode=rows.get(i).getString("procode");
+            String ifzs=rows.get(i).getString("ifzs");
+            String ifzb=rows.get(i).getString("ifzb");
+            String formula=rows.get(i).getString("formula");
+            String sortcode=rows.get(i).getString("sortcode");
+            String weight=rows.get(i).getString("weight");
+            String dacimal=rows.get(i).getString("dacimal");
+            IndexMoudle mod=new IndexMoudle(code,cname,indexcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal);
+            if (mod.ZBnums()<1){
+                check=false;
+            }
+          //  mods.add(mod);
+        }
+        return check;
     }
 
 /*

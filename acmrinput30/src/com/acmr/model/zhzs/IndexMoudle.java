@@ -18,6 +18,22 @@ public class IndexMoudle {
     private String weight;//权重
     private String dacimal;//小数点位数
 
+    public IndexMoudle(){
+
+    }
+    public IndexMoudle(String code,String cname,String indexcode,String procode,String ifzs,String ifzb,String formula,String sortcode,String weight,String dacimal){
+        this.code=code;
+        this.cname=cname;
+        this.indexcode=indexcode;
+        this.procode=procode;
+        this.ifzs=ifzs;
+        this.ifzb=ifzb;
+        this.formula=formula;
+        this.sortcode=sortcode;
+        this.weight=weight;
+        this.dacimal=dacimal;
+    }
+
 
     public String getCode() {
         return code;
