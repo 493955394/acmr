@@ -34,6 +34,7 @@ public class zscalculate extends BaseAction {
     private List<List<String>> datatmp;
     private List<String> regs;
     private List<String> regstmp;*/
+    private CalculateExpression ce = new CalculateExpression();
 
     /**
      * @Description: 从data表中读数时返回页面
@@ -339,6 +340,8 @@ public class zscalculate extends BaseAction {
         String sessionid = req.getSession().getId();
         IndexTaskService indexTaskService =new IndexTaskService();
         OriginDataService originDataService = new OriginDataService();
+        OriginService originService = new OriginService();
+        List<List<String>> datas = new ArrayList<List<String>>();
         String taskcode = PubInfo.getString(req.getParameter("taskcode"));
         String cws=PubInfo.getString(req.getParameter("cws"));//获取当前的权重
         cws = cws.substring(0, cws.length() - 1);//去除最后一个逗号
@@ -355,11 +358,19 @@ public class zscalculate extends BaseAction {
         //通过taskcode去查值
         String ayearmon = indexTaskService.getTime(taskcode);
         //从临时数据表读取数据做计算
+        List<String> regscode = indexTaskService.getTaskRegs(taskcode);
+        List<String> regs = new ArrayList<>();
         boolean back = originDataService.recalculate(taskcode,ayearmon,sessionid);
+        for (int i = 0; i < regscode.size(); i++) {
+            regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
+        }
+        if(back){
+                datas = getResultList(taskcode,regscode,sessionid);
+        }
         if (StringUtil.isEmpty(pjax)) {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
         } else {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tbdataresult");
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tbdataresult").addObject("rsdatas",datas).addObject("regs",regs);
         }
     }
 
@@ -403,6 +414,8 @@ public class zscalculate extends BaseAction {
         String sessionid = req.getSession().getId();
         IndexTaskService indexTaskService = new IndexTaskService();
         OriginDataService originDataService = new OriginDataService();
+        OriginService originService = new OriginService();
+        List<List<String>> datas = new ArrayList<List<String>>();
         String taskcode = PubInfo.getString(req.getParameter("taskcode"));
         String cws = PubInfo.getString(req.getParameter("cws"));//获取当前的权重
         cws = cws.substring(0, cws.length() - 1);//去除最后一个逗号
@@ -420,13 +433,75 @@ public class zscalculate extends BaseAction {
         //从临时数据表读取数据做计算,存入临时表
        boolean back = originDataService.recalculate(taskcode,ayearmon,sessionid);
        //存完之后临时表覆盖原始表
+        List<String> regscode = indexTaskService.getTaskRegs(taskcode);
+        List<String> regs = new ArrayList<>();
+        for (int i = 0; i < regscode.size(); i++) {
+            regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
+        }
         if(back){
-            originDataService.savecalculateresult(taskcode,sessionid);
+            if(originDataService.savecalculateresult(taskcode,sessionid) == 0){
+               datas = getResultList(taskcode,regscode,sessionid);
+            }
         }
         if (StringUtil.isEmpty(pjax)) {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
         } else {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tbdataresult");
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tbdataresult").addObject("regs",regs).addObject("rsdatas",datas);
         }
+    }
+
+    public List<List<String>> getResultList(String taskcode,List<String> regscode,String sessionid){
+        List<List<String>> result = new ArrayList<List<String>>();
+        OriginDataService originDataService = new OriginDataService();
+        IndexTaskService indexTaskService = new IndexTaskService();
+        List<Map> arr = originDataService.modelTree(taskcode);//得到模型节点列表
+        String ayearmon = indexTaskService.getTime(taskcode);//得到时间期
+        for (int i = 0; i <arr.size() ; i++) {
+            List<String> rows = new ArrayList<>() ;
+            rows.add(arr.get(i).get("name").toString());
+            for (int j = 0; j <regscode.size() ; j++) {
+                String current = originDataService.getzbvalue(true,taskcode,arr.get(i).get("code").toString(),regscode.get(j),ayearmon,sessionid);
+                rows.add(current);//本期值
+                //查询是否有上期，有的话返回taskcode
+                String oldtaskcode = originDataService.findoldtask(taskcode);
+                if(oldtaskcode!=null){
+                    String oldmodcode = originDataService.findoldmod(oldtaskcode,arr.get(i).get("orcode").toString());
+                    System.out.println(oldmodcode+"==========oldmod");
+                    if(oldmodcode !=null){
+                        String time = indexTaskService.getTime(oldtaskcode);
+                        String prodata = originDataService.getzbvalue(false,oldtaskcode,oldmodcode,regscode.get(j),time,"");
+                        String formula = current+"/"+prodata;
+                        String value = calculateFunction(formula);
+                        rows.add(value);
+                    }else{
+                        //要是上期没有这个模型节点环比就是0
+                        rows.add("");
+                    }
+                }
+                else {
+                    //要是没有上期环比就是0
+                    rows.add("");
+                }
+            }
+            result.add(rows);
+        }
+        return result;
+    }
+    /**
+     * 环比公式计算函数
+     * 环比=本期值/上期*100%
+     */
+    public String calculateFunction(String formula){
+        String result = "";
+        try {
+            ce.setFunctionclass(new MathService());
+            result = ce.Eval(formula);
+            System.out.println(ce.Eval(formula));
+        } catch (MathException e) {
+            e.printStackTrace();
+            System.out.println("error");
+            return "-";//要是上期数据是0，环比就报错
+        }
+        return result;
     }
 }

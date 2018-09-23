@@ -4,6 +4,7 @@ import acmr.data.DataQuery;
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import com.acmr.dao.AcmrInputDPFactor;
+import com.acmr.dao.zhzs.DataDao;
 import com.acmr.dao.zhzs.IDataDao;
 import com.acmr.model.zhzs.Data;
 import com.acmr.model.zhzs.DataResult;
@@ -108,7 +109,7 @@ public class OraDataDaoImpl implements IDataDao {
     }
     @Override
     public DataTable getSubMod(String code){
-            String sql = "select * from tb_coindex_task_module_tmp where procode=?";
+            String sql = "select * from tb_coindex_task_module_tmp where procode=? order by sortcode";
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code});
     }
     public DataTable getModData(String code){
@@ -324,4 +325,47 @@ public class OraDataDaoImpl implements IDataDao {
         }
         return 0;
     }
+
+    /**
+     * 获取上期的taskcode,如果有的话
+     * @param icode
+     * @param ayearmon
+     * @return
+     */
+    @Override
+    public DataTable findOldTask(String icode, String ayearmon) {
+        try{
+        String sql = "select * from tb_coindex_task where ayearmon =(select max(ayearmon) from tb_coindex_task where indexcode=? and ayearmon<?) and indexcode =?";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode,ayearmon,icode});
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 通过taskcode和orcode查询对应的模型节点
+     * @param taskcode
+     * @param orcode
+     * @return
+     */
+    @Override
+    public String findModCode(String taskcode, String orcode) {
+        String sql = "select code from tb_coindex_task_module_tmp where taskcode=? and orcode =?";
+        DataTable table= AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,orcode});
+        if(table.getRows().size()>0)
+        return table.getRows().get(0).toString();
+        return null;
+    }
+   /*public static void main(String[] args) throws NullPointerException {
+            DataTable re=DataDao.Fator.getInstance().getIndexdatadao().findOldTask("C0010","2014C");
+            if(re.getRows().size()>0)
+            {System.out.println(re.getRows().get(0).getString("ayearmon"));}
+            else{
+           System.out.println("hahah");
+       }
+    }*/
+
+
 }

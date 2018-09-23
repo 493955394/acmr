@@ -199,7 +199,7 @@ public class IndexTaskService {
         return zbname;
     }
     /*
-    获取对应任务的所有list
+    获取对应任务的指数或者指标的list
      */
     public List<TaskModule> getModuleFormula(String taskcode,String ifzs){
         List<TaskModule> taskModules = new ArrayList<>();
@@ -216,6 +216,7 @@ public class IndexTaskService {
             taskModule.setWeight(data.get(i).getString("weight"));
             taskModule.setSortcode(data.get(i).getString("sortcode"));
             taskModule.setDacimal(data.get(i).getString("dacimal"));
+            taskModule.setOrcode(data.get(i).getString("orcode"));
             taskModules.add(taskModule);
         }
 
@@ -274,6 +275,7 @@ public class IndexTaskService {
             taskModule.setWeight(data.get(i).getString("weight"));
             taskModule.setSortcode(data.get(i).getString("sortcode"));
             taskModule.setDacimal(data.get(i).getString("dacimal"));
+            taskModule.setOrcode(data.get(i).getString("orcode"));
             taskModules.add(taskModule);
         }
         return taskModules;

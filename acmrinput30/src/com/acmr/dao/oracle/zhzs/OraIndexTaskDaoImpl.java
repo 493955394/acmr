@@ -241,7 +241,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
 
     @Override
     public DataTable findTask(String icode,String time){
-        String sql = "select * from tb_coindex_task where indexcode= ? and lower(ayearmon) like?";
+        String sql = "select * from tb_coindex_task where indexcode= ? and lower(ayearmon) like? order by ayearmon desc";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode,'%'+time+'%'});
     }
 
@@ -390,7 +390,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
 
     @Override
     public DataTable getRootData(String taskcode){
-        String sql = "select * from tb_coindex_task_module_tmp where taskcode = ? and ifzs=1 and procode is null";
+        String sql = "select * from tb_coindex_task_module_tmp where taskcode = ? and ifzs=1 and procode is null order by sortcode ";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode});
     }
 

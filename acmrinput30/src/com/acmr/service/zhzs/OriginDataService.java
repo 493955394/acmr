@@ -56,6 +56,7 @@ public class OriginDataService {
             taskModule.setWeight(data.get(i).getString("weight"));
             taskModule.setSortcode(data.get(i).getString("sortcode"));
             taskModule.setDacimal(data.get(i).getString("dacimal"));
+            taskModule.setOrcode(data.get(i).getString("orcode"));
             taskModules.add(taskModule);
         }
         return taskModules;
@@ -90,6 +91,7 @@ public class OriginDataService {
             taskModule.setWeight(data.get(0).getString("weight"));
             taskModule.setSortcode(data.get(0).getString("sortcode"));
             taskModule.setDacimal(data.get(0).getString("dacimal"));
+            taskModule.setOrcode(data.get(0).getString("orcode"));
         }
         return taskModule;
     }
@@ -277,4 +279,63 @@ public class OriginDataService {
     public int savecalculateresult(String taskcode,String sessionid){
         return DataDao.Fator.getInstance().getIndexdatadao().saveResult(taskcode,sessionid);
     }
+
+    //以下是页面回显
+
+    /**
+     * 计算结果的回显，测试指标树的列表展示
+     */
+    public List<Map> modelTree (String taskcode){
+        IndexTaskService indexTaskService = new IndexTaskService();
+        List<TaskModule> zong = indexTaskService.findRoot(taskcode);
+        List<Map> list = new ArrayList<>();
+        for (int i = 0; i <zong.size(); i++) {
+            Map arr = new HashMap();
+            arr.put("name",zong.get(i).getCname());
+            arr.put("code",zong.get(i).getCode());
+            arr.put("orcode",zong.get(i).getOrcode());
+            list.add(arr);
+            list.addAll(modelList(taskcode,zong.get(i).getCode()));
+        }
+        return list;
+    }
+
+    public  List<Map> modelList(String taskcode,String modcode){
+        List<Map> mode= new ArrayList<>();
+        List<TaskModule> tmp = findSubMod(modcode);
+        for (int i = 0; i <tmp.size() ; i++) {
+            Map arr = new HashMap();
+            arr.put("name",tmp.get(i).getCname());
+            arr.put("code",tmp.get(i).getCode());
+            arr.put("orcode",tmp.get(i).getOrcode());
+            mode.add(arr);
+            if(tmp.get(i).getIfzs().equals("1")){
+                mode.addAll(modelList(taskcode,tmp.get(i).getCode()));
+            }
+
+        }
+        return mode;
+    }
+
+    /**
+     * 返回上期的modellist，如果有的话
+     * @param taskcode
+     * @return
+     */
+    public String findoldtask(String taskcode){
+        IndexTaskService indexTaskService= new IndexTaskService();
+        String icode = indexTaskService.findIcode(taskcode);
+        String ayearmon = indexTaskService.getTime(taskcode);
+       DataTable olddata = DataDao.Fator.getInstance().getIndexdatadao().findOldTask(icode,ayearmon);
+       if(olddata.getRows().size()>0){
+           String oldtcode = olddata.getRows().get(0).getString("code");
+           return oldtcode;
+       }
+        return null;
+    }
+
+    /**
+     * 通过taskcode和orcode去找是否有模型节点，有的话返回模型节点的code,用于查上期值
+     */
+    public String findoldmod(String taskcode,String orcode){return DataDao.Fator.getInstance().getIndexdatadao().findModCode(taskcode,orcode);}
 }

@@ -17,4 +17,6 @@ public interface IDataDao {
     public int copyDataResult (String taskcode,String sessionid);
     public int resetPage(String taskcode,String sessionid);
     public int saveResult(String taskcode,String sessionid);
+    public DataTable findOldTask(String icode,String ayearmon);
+    public String findModCode(String taskcode,String orcode);
 }
