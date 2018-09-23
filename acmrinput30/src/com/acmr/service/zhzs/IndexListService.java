@@ -9,6 +9,7 @@ import com.acmr.model.security.User;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.model.zhzs.IndexTask;
+import com.acmr.service.security.DepartmentService;
 import com.acmr.service.security.UserService;
 import com.acmr.service.zbdata.UserDepService;
 
@@ -349,7 +350,6 @@ public class IndexListService {
             m.put("timesort",timesort);
             m.put("depusercode",depusercode);
             m.put("sort",sort);
-            //应该传depuser的name，但是没找到接口
             //分享的是用戶
             if (rightrows.get(i).getString("sort").equals("2")){
                 String depusername= UserDepService.getUserNameByCode(depusercode);
@@ -357,19 +357,53 @@ public class IndexListService {
             }
             //分享的是组织
             else {
-
+                String depusername= DepartmentService.getDepartment(depusercode).getCname();
+                m.put("depusername",depusername);
             }
             list.add(m);
         }
         return list;
     }
 
+    /**
+    * @Description: 返回当前用户收到的指数信息，Map中包括指数计划对象，和其他信息（主要是String-String型的）
+    * @Param: []
+    * @return: java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+    * @Author: lyh
+    * @Date: 2018/9/21
+    */
     public List<Map<String,Object>> getReceivedList(){
         List<Map<String,Object>> list=new ArrayList<>();
-        /*User cu=UserService.getCurrentUser();
+        User cu=UserService.getCurrentUser();
         String usercode=cu.getUserid();
-        List<Department> deps=new ArrayList<>();
-*/
+        //用户的部门层级列表
+        List<Department> deps=UserDepService.getDepPath(usercode);
+
+        //先获取直接分享给用户的指数列表
+        List<DataTableRow> rowu=IndexListDao.Fator.getInstance().getIndexdatadao().getRightListByDepUserCode(usercode).getRows();
+        for (int i=0;i<rowu.size();i++){
+            HashMap<String,Object> m=new HashMap<>();
+            String indexcode=rowu.get(i).getString("indexcode");
+            m.put("indexcode",indexcode);
+            DataTableRow row=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(indexcode).getRows().get(0);
+            String cname=row.getString("cname");
+            String procode=row.getString("procode");
+            String sort=row.getString("sort");
+            String startperiod=row.getString("startperiod");
+            String delayday=row.getString("delayday");
+            String planperiod=row.getString("planperiod");
+            String plantime=row.getString("plantime");
+            String createuser=row.getString("createuser");
+            String ifdata=row.getString("ifdata");
+            String state=row.getString("state");
+            IndexList index=new IndexList(indexcode,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser,ifdata,state);
+            m.put("index",index);
+            String right=rowu.get(i).getString("right");
+            m.put("right",right);
+            list.add(m);
+        }
+        //获取分享给组织的计划，未完成（要过滤掉list中已经有的）
+
 
         return list;
     }
