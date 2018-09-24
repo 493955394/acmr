@@ -151,6 +151,9 @@ public class OriginDataService {
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(data.get(i).getFormula().contains(zbs.get(k).getProcode())){//要是存在这个code,就去取对应的zbcode
                             String val = originDataService.getvalue(iftmp,taskcode,zbs.get(k).getCode(),reg[j],time,sessionid);
+                            if((val!= null)&&(val!="")){//如果有值的话
+                                val = String.format("%."+data.get(i).getDacimal()+"f",Double.valueOf(val));//保留几位小数
+                            }
                             da.setData(val);
                             newadd.add(da);}
                     }
@@ -175,7 +178,7 @@ public class OriginDataService {
                         }
                     }
                     //全部替换完成后开始做计算
-                    String val = tocalculate(formula);
+                    String val = tocalculate(formula,data.get(i).getDacimal());
                     da.setData(val);
                     newadd.add(da);
                 }
@@ -191,12 +194,13 @@ public class OriginDataService {
     /**
      * 自定义公式计算函数
      */
-    public String tocalculate(String formula){
+    public String tocalculate(String formula,String dacimal){
         String result="";
         formula = formula.replace("random()","chance()");//不能用random这个函数名因为有个and会报错
         try {
             ce.setFunctionclass(new MathService());
             result = ce.Eval(formula);
+            result = String.format("%."+dacimal+"f",Double.valueOf(result));//保留几位小数
             System.out.println(ce.Eval(formula));
         } catch (MathException e) {
             e.printStackTrace();
@@ -236,7 +240,7 @@ public class OriginDataService {
                 String data = originDataService.getzbvalue(iftmp,taskcode, subs.get(i).getCode(), reg, time, sessionid);
                 formula += "+" + data + "*" + subs.get(i).getWeight();
             }
-            zsdata.setData(tocalculate(formula.substring(1)));
+            zsdata.setData(tocalculate(formula.substring(1),temp.getDacimal()));
             originDataService.addzsdata(iftmp,zsdata);
         }
     }
@@ -294,6 +298,7 @@ public class OriginDataService {
             arr.put("name",zong.get(i).getCname());
             arr.put("code",zong.get(i).getCode());
             arr.put("orcode",zong.get(i).getOrcode());
+            arr.put("dotcount",zong.get(i).getDacimal());
             list.add(arr);
             list.addAll(modelList(taskcode,zong.get(i).getCode()));
         }
@@ -308,6 +313,7 @@ public class OriginDataService {
             arr.put("name",tmp.get(i).getCname());
             arr.put("code",tmp.get(i).getCode());
             arr.put("orcode",tmp.get(i).getOrcode());
+            arr.put("dotcount",tmp.get(i).getDacimal());
             mode.add(arr);
             if(tmp.get(i).getIfzs().equals("1")){
                 mode.addAll(modelList(taskcode,tmp.get(i).getCode()));

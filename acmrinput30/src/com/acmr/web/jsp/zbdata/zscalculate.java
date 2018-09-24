@@ -67,7 +67,8 @@ public class zscalculate extends BaseAction {
         for (int i=0;i<mods.size();i++){
             PubInfo.printStr(mods.get(i).getCname());
         }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", data1).addObject("regs", regs).addObject("taskcode", taskcode).addObject("istmp", false).addObject("mods",mods);
+        List<List<String>> datas = getResultList(taskcode,regscode,sessionid);//计算结果
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", data1).addObject("regs", regs).addObject("taskcode", taskcode).addObject("istmp", false).addObject("mods",mods).addObject("rsdatas",datas);
     }
 
     /**
@@ -98,7 +99,8 @@ public class zscalculate extends BaseAction {
         for (int i=0;i<mods.size();i++){
             PubInfo.printStr(mods.get(i).getCname());
         }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", datatmp).addObject("regs", regstmp).addObject("taskcode", taskcode).addObject("istmp", true).addObject("mods",mods);
+        List<List<String>> datas = getResultList(taskcode,regscode,sessionid);//计算结果
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", datatmp).addObject("regs", regstmp).addObject("taskcode", taskcode).addObject("istmp", true).addObject("mods",mods).addObject("rsdatas",datas);
 
     }
 
@@ -125,12 +127,13 @@ public class zscalculate extends BaseAction {
         for (int i = 0; i < regscode.size(); i++) {
             regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
         }
+        List<List<String>> datas = getResultList(taskcode,regscode,sessionid);//计算结果
         if (StringUtil.isEmpty(pjax)) {
             PubInfo.printStr("===================================emptyredata");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas);
         } else {
             PubInfo.printStr("=====================================pjaxredata");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas);
 
         }
 
@@ -368,7 +371,8 @@ public class zscalculate extends BaseAction {
                 datas = getResultList(taskcode,regscode,sessionid);
         }
         if (StringUtil.isEmpty(pjax)) {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
+            List<List<String>> data=getOriginData(true,taskcode,ayearmon,sessionid);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tbdataresult").addObject("rsdatas",datas).addObject("regs",regs);
         }
@@ -444,7 +448,9 @@ public class zscalculate extends BaseAction {
             }
         }
         if (StringUtil.isEmpty(pjax)) {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate");
+            datas = getResultList(taskcode,regscode,sessionid);
+            List<List<String>> data=getOriginData(true,taskcode,ayearmon,sessionid);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tbdataresult").addObject("regs",regs).addObject("rsdatas",datas);
         }
@@ -471,7 +477,7 @@ public class zscalculate extends BaseAction {
                         String time = indexTaskService.getTime(oldtaskcode);
                         String prodata = originDataService.getzbvalue(false,oldtaskcode,oldmodcode,regscode.get(j),time,"");
                         String formula = current+"/"+prodata;
-                        String value = calculateFunction(formula);
+                        String value = calculateFunction(formula,arr.get(i).get("dotcount").toString());
                         rows.add(value);
                     }else{
                         //要是上期没有这个模型节点环比就是0
@@ -491,11 +497,12 @@ public class zscalculate extends BaseAction {
      * 环比公式计算函数
      * 环比=本期值/上期*100%
      */
-    public String calculateFunction(String formula){
+    public String calculateFunction(String formula,String dacimal){
         String result = "";
         try {
             ce.setFunctionclass(new MathService());
             result = ce.Eval(formula);
+            result = String.format("%."+dacimal+"f",Double.valueOf(result));//保留几位小数
             System.out.println(ce.Eval(formula));
         } catch (MathException e) {
             e.printStackTrace();
