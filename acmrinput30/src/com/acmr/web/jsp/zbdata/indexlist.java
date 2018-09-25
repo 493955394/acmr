@@ -489,8 +489,25 @@ public class indexlist extends BaseAction {
         }
     }
 
-
-
-
+    /**
+     * 分享的撤回功能
+     */
+    public void shareWithDraw() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        JSONReturnData data = new JSONReturnData("");
+        String indexcode = PubInfo.getString(req.getParameter("indexcode"));
+        String depusercode = PubInfo.getString(req.getParameter("depusercode"));
+        String sort = PubInfo.getSortString(req.getParameter("sort"));
+        IndexListService indexListService = new IndexListService();
+        if (indexListService.delShare(indexcode,depusercode,sort)==1){
+         data.setReturncode(200);
+         this.sendJson(data);
+         return;
+        }else {
+            data.setReturncode(300);
+            this.sendJson(data);
+            return;
+        }
+    }
 }
 

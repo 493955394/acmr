@@ -326,6 +326,12 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         String sql="select * from tb_coindex_module where indexcode=? and ifzs=1";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode});
     }
+
+    @Override
+    public int delShare(String indexcode, String depusercode,String sort) {
+        String sql = "delete from tb_coindex_right t where t.indexcode = ? and t.depusercode =? and t.sort=?";
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sql,new Object[]{indexcode,depusercode,sort});
+    }
 /*
     public static void main(String[] args) {
         OraIndexListDaoImpl oraIndexListDao=new OraIndexListDaoImpl();

@@ -626,7 +626,34 @@ define(function (require,exports,module) {
 
     $(document).pjax('.J_zsjh_pagination a', '.J_zsjh_data_table');
 
-
+    /**
+     * 撤回操作
+     * @type
+     */
+    $(document).on('click',".share_withdraw",function (event) {
+        event.preventDefault();
+        if(!confirm("确定要撤回该计划吗？")){
+            return;
+        }
+        var sort =$(this).prev().prev().prev().val();
+        var sharecode = $(this).prev().prev().val();
+            var usercode =$(this).prev().val();
+        $.ajax({
+            url:common.rootPath+"zbdata/indexlist.htm?m=shareWithDraw",
+            data:{"indexcode":sharecode,"depusercode":usercode,"sort":sort},
+            type:'post',
+            datatype:'json',
+            timeout: 10000,
+            success:function (re) {
+                if(re.returncode == 200){
+                    alert("撤回成功！")
+                    window.location.reload(true);
+                }else {
+                    alert("撤回失败！")
+                }
+            }
+        })
+    })
 
     //CategoryNode为只有目录的树结构nodes
     var CategoryNodes=[];

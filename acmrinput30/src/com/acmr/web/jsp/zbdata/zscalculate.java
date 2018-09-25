@@ -34,7 +34,7 @@ public class zscalculate extends BaseAction {
     private List<List<String>> datatmp;
     private List<String> regs;
     private List<String> regstmp;*/
-    private CalculateExpression ce = new CalculateExpression();
+    private static CalculateExpression ce = new CalculateExpression();
 
     /**
      * @Description: 从data表中读数时返回页面
@@ -190,7 +190,8 @@ public class zscalculate extends BaseAction {
         }
         if (StringUtil.isEmpty(pjax)) {
             PubInfo.printStr("===================================emptyredata");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
+            List<List<String>> datas = getResultList(taskcode,regscode,sessionid);//计算结果
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas);
         } else {
             PubInfo.printStr("=====================================pjaxredata");
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
@@ -499,7 +500,7 @@ public class zscalculate extends BaseAction {
     }
     /**
      * 环比公式计算函数
-     * 环比=本期值/上期*100%
+     * 环比=本期值/上期
      */
     public String calculateFunction(String formula,String dacimal){
         String result = "";
@@ -515,4 +516,18 @@ public class zscalculate extends BaseAction {
         }
         return result;
     }
+
+ /*   public static void main(String[] args) {
+        String formula = "0*3";
+        String result = "";
+        try {
+            ce.setFunctionclass(new MathService());
+            result = ce.Eval(formula);
+            result = String.format("%.1f",Double.valueOf(result));//保留几位小数
+            System.out.println(result);
+        } catch (MathException e) {
+            e.printStackTrace();
+            System.out.println("error");
+        }
+    }*/
 }

@@ -431,6 +431,9 @@ public class IndexListService {
         }
         return check;
     }
+    public int delShare(String indexcode,String depusercode,String sort){
+        return IndexListDao.Fator.getInstance().getIndexdatadao().delShare(indexcode,depusercode,sort);
+    }
 
 /*
     public static void main(String[] args) throws ParseException {

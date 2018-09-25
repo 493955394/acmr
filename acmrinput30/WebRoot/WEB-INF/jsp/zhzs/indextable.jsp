@@ -103,6 +103,9 @@
                     <c:if test="${index.get('timesort') == 'm'}">月度</c:if>
                 </td>
                 <td>
+                    <input type="hidden" value="${index.get("sort")}">
+                    <input type="hidden" value="${index.get("code")}">
+                    <input type="hidden" value="${index.get("depusercode")}">
                     <a href="#" class="share_withdraw">撤回</a>
                 </td>
             </tr>

@@ -27,4 +27,5 @@ public interface IIndexListDao {
     public DataTable getRightListByCreateUser(String usercode);
     public DataTable getRightListByDepUserCode(String depusercode);
     public DataTable getZSMods(String icode);
+    public int delShare(String indexcode,String depusercode,String sort);
 }
