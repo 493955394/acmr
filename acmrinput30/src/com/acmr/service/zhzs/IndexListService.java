@@ -252,8 +252,8 @@ public class IndexListService {
         return IndexListDao.Fator.getInstance().getIndexdatadao().updateCp(indexList);
     }
     //复制到
-    public int addCopyplan(IndexList data1){
-        return IndexListDao.Fator.getInstance().getIndexdatadao().addCopyplan(data1);
+    public int addCopyplan(String cpcode,IndexList data1){
+        return IndexListDao.Fator.getInstance().getIndexdatadao().addCopyplan(cpcode,data1);
     }
     public int checkCode(String code){
         return IndexListDao.Fator.getInstance().getIndexdatadao().checkCode(code);
