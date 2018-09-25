@@ -139,8 +139,20 @@ public class indexlist extends BaseAction {
             page.setData(indexlist);
 
         }
+        //返回我收到的指数list
         else if (code.equals("!2")){
-            //List<Map<String,String>> list=
+            List<Map<String,Object>> list=indexListService.getReceivedList();
+            int b=(page.getPageNum()-1)*page.getPageSize()+1;
+            int e=b+page.getPageSize();
+            List<Map<String,Object>> rlist=new ArrayList<>();
+            for (int i=0;i<list.size();i++){
+                int j=i+1;
+                if (j>=b&&j<e){
+                    rlist.add(list.get(i));
+                }
+            }
+            page.setData(rlist);
+            state="1";
         }
         //返回我共享的指数list
         else if (code.equals("!3")){

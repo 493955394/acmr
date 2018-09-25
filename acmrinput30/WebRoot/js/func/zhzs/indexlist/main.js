@@ -488,16 +488,13 @@ define(function (require,exports,module) {
     function clickEvent(event,treeId,treeNode) {
         console.log(treeNode.id)
         var code=treeNode.id
-        if (treeNode.id=="!2"){
-            console.log("我收到的，我共享的")
-        }
-        else {
-            $.pjax({
-                url:common.rootPath+'zbdata/indexlist.htm?m=getIndexList&code='+code,
-                container:'.J_zsjh_data_table',
-                timeout:2000
-            })
-        }
+
+        $.pjax({
+            url:common.rootPath+'zbdata/indexlist.htm?m=getIndexList&code='+code,
+            container:'.J_zsjh_data_table',
+            timeout:2000
+        })
+
         /*if(treeNode.isParent==false){
             return false
         }
