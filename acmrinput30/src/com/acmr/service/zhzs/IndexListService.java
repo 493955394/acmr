@@ -341,6 +341,7 @@ public class IndexListService {
             String code=rightrows.get(i).getString("indexcode");
             String depusercode=rightrows.get(i).getString("depusercode");
             String sort=rightrows.get(i).getString("sort");
+            String right=rightrows.get(i).getString("right");
             DataTableRow row=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(code).getRows().get(0);
             String cname=row.getString("cname");
             String timesort=row.getString("sort");
@@ -350,6 +351,7 @@ public class IndexListService {
             m.put("timesort",timesort);
             m.put("depusercode",depusercode);
             m.put("sort",sort);
+            m.put("right",right);
             //分享的是用戶
             if (rightrows.get(i).getString("sort").equals("2")){
                 String depusername= UserDepService.getUserNameByCode(depusercode);
@@ -374,35 +376,56 @@ public class IndexListService {
     */
     public List<Map<String,Object>> getReceivedList(){
         List<Map<String,Object>> list=new ArrayList<>();
+        //已经存在的icode
+        List<String> icodes=new ArrayList<>();
         User cu=UserService.getCurrentUser();
         String usercode=cu.getUserid();
         //用户的部门层级列表
         List<Department> deps=UserDepService.getDepPath(usercode);
-
-        //先获取直接分享给用户的指数列表
-        List<DataTableRow> rowu=IndexListDao.Fator.getInstance().getIndexdatadao().getRightListByDepUserCode(usercode).getRows();
-        for (int i=0;i<rowu.size();i++){
-            HashMap<String,Object> m=new HashMap<>();
-            String indexcode=rowu.get(i).getString("indexcode");
-            m.put("indexcode",indexcode);
-            DataTableRow row=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(indexcode).getRows().get(0);
-            String cname=row.getString("cname");
-            String procode=row.getString("procode");
-            String sort=row.getString("sort");
-            String startperiod=row.getString("startperiod");
-            String delayday=row.getString("delayday");
-            String planperiod=row.getString("planperiod");
-            String plantime=row.getString("plantime");
-            String createuser=row.getString("createuser");
-            String ifdata=row.getString("ifdata");
-            String state=row.getString("state");
-            IndexList index=new IndexList(indexcode,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser,ifdata,state);
-            m.put("index",index);
-            String right=rowu.get(i).getString("right");
-            m.put("right",right);
-            list.add(m);
+        List<String> depusercodes=new ArrayList<>();
+        depusercodes.add(usercode);
+        for (int j=0;j<deps.size();j++){
+            depusercodes.add(deps.get(j).getCode());
         }
-        //获取分享给组织的计划，未完成（要过滤掉list中已经有的）
+        //先获取直接分享给用户的指数列表
+        //再获取分享给组织的计划，未完成（要过滤掉icodelist中已经有的）
+        for (int n=0;n<depusercodes.size();n++){
+            List<DataTableRow> rowu=IndexListDao.Fator.getInstance().getIndexdatadao().getRightListByDepUserCode(depusercodes.get(n)).getRows();
+            for (int i=0;i<rowu.size();i++){
+                HashMap<String,Object> m=new HashMap<>();
+                String indexcode=rowu.get(i).getString("indexcode");
+                //判断该index是否已经存在
+                Boolean already=false;
+                for (int j=0;j<icodes.size();j++){
+                    if (icodes.get(j).equals(indexcode)){
+                        already=true;
+                        break;
+                    }
+                }
+                if (!already){
+                    m.put("indexcode",indexcode);
+                    icodes.add(indexcode);
+                    DataTableRow row=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(indexcode).getRows().get(0);
+                    String cname=row.getString("cname");
+                    String procode=row.getString("procode");
+                    String sort=row.getString("sort");
+                    String startperiod=row.getString("startperiod");
+                    String delayday=row.getString("delayday");
+                    String planperiod=row.getString("planperiod");
+                    String plantime=row.getString("plantime");
+                    String createuser=row.getString("createuser");
+                    String createusername=UserDepService.getUserNameByCode(createuser);
+                    m.put("createuser",createusername);
+                    String ifdata=row.getString("ifdata");
+                    String state=row.getString("state");
+                    IndexList index=new IndexList(indexcode,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser,ifdata,state);
+                    m.put("index",index);
+                    String right=rowu.get(i).getString("right");
+                    m.put("right",right);
+                    list.add(m);
+                }
+            }
+        }
 
 
         return list;

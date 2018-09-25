@@ -60,7 +60,7 @@
                     <div role="tabpanel" class="tab-pane" id="jsjg">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <button type="button" class="btn btn-default" >下载数据</button>
+                                <button type="button" class="btn btn-default" id="result_download">下载数据</button>
                             </div>
                         <div class="calculate_result">
                             <jsp:include page="/WEB-INF/jsp/zhzs/zstask/tbdataresult.jsp" flush="true"/>
