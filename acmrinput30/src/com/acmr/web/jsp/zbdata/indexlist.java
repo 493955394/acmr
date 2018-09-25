@@ -320,11 +320,12 @@ public class indexlist extends BaseAction {
         String nprocode = PubInfo.getString(req.getParameter("newprocode"));
         String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         IndexList data1 = indexListService.getData(cpcode);
+
         data1.setCode(code);
         data1.setCname(cname);
         data1.setProcode(nprocode);
         data1.setCreatetime(createtime);
-        indexListService.addCopyplan(data1);
+        int int1 = indexListService.addCopyplan(cpcode,data1);
         /*if (int1 == -1) {
             data.setReturncode(501);
             data.setReturndata("fail");

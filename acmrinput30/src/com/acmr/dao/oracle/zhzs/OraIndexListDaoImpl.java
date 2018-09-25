@@ -1,5 +1,6 @@
 package com.acmr.dao.oracle.zhzs;
 
+import acmr.data.DataQuery;
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
@@ -7,28 +8,31 @@ import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexListDao;
 import com.acmr.model.zhzs.IndexList;
 
-import java.sql.Date;
+//import java.sql.Date;
+import javax.print.DocFlavor;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class OraIndexListDaoImpl implements IIndexListDao {
 
     @Override
     public DataTable getStartLists(String date) {
-        String sql="select * from tb_coindex_index where plantime < to_date(?,'yyyy-mm-dd hh24:mi:ss') and state=1";
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{date});
+        String sql = "select * from tb_coindex_index where plantime < to_date(?,'yyyy-mm-dd hh24:mi:ss') and state=1";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{date});
     }
 
     @Override
-    public DataTable getSubLists(String code,String usercode) {
-        if (code.equals("")){
+    public DataTable getSubLists(String code, String usercode) {
+        if (code.equals("")) {
             String sql = "select * from tb_coindex_index where createuser= ? and procode is null";
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{usercode});
-        }
-        else {
+        } else {
             String sql = "select * from tb_coindex_index where procode=? and createuser= ? ";
-            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code,usercode});
+            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code, usercode});
         }
     }
 
@@ -81,9 +85,83 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         params.add(new Timestamp(new java.util.Date().getTime()));
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
     }
+
     //复制到
     @Override
-    public int addCopyplan(IndexList data1) {
+    public int addCopyplan(String cpcode,IndexList data1) {
+        DataQuery dataQuery = null;
+        try {
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+            java.util.Date now = new java.util.Date();
+            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
+            String icode = data1.getCode();
+            String icname = data1.getCname();
+            String iprocode = data1.getProcode();
+            String iifdata = data1.getIfdata();
+            String istate = data1.getState();
+            String isort = data1.getSort();
+            String istartpeiod = data1.getStartperiod();
+            String idelayday = data1.getDelayday();
+            //String iplanperiod = data1.getPlanperiod();
+            //String iplantime = data1.getPlantime();
+            String createuser = data1.getCreateuser();
+            String createtime = data1.getCreatetime();
+            java.sql.Timestamp updatetime = new java.sql.Timestamp(now.getTime());
+            //Object up = new Timestamp(new Date().getTime());
+            dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,createuser,createtime,updatetime});
+            //复制模型
+            String sql2 = "select * from tb_coindex_module where indexcode=?";
+            DataTable table1=dataQuery.getDataTableSql(sql2,new Object[]{cpcode});
+            List<DataTableRow> rows1=table1.getRows();
+            for(int i=0;i<rows1.size();i++){
+                String code= UUID.randomUUID().toString().replace("-", "").toLowerCase();
+                String cname=rows1.get(i).getString("cname");
+                String procode = rows1.get(i).getString("procode");
+                String ifzs = rows1.get(i).getString("ifzs");
+                String ifzb = rows1.get(i).getString("ifzb");
+                String formula = rows1.get(i).getString("formula");
+                String sortcode = rows1.get(i).getString("sortcode");
+                String weight = rows1.get(i).getString("weight");
+                String dacimal = rows1.get(i).getString("dacimal");
+                String sql3 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal) values(?,?,?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql3,new Object[]{code,cname,procode,icode,ifzs,ifzb,formula,sortcode,weight,dacimal});
+            }
+            //复制筛选条件
+            String sql4 = "select * from tb_coindex_zb where indexcode=?";
+            DataTable table2 = dataQuery.getDataTableSql(sql4,new Object[]{cpcode});
+            List<DataTableRow> row2 = table2.getRows();
+            for(int j=0;j<row2.size();j++){
+                String code = UUID.randomUUID().toString().replace("-", "").toLowerCase();
+                //String incode1 = row2.get(j).getString("indexcode");
+                String zbcode = row2.get(j).getString("zbcode");
+                String company = row2.get(j).getString("company");
+                String datasource = row2.get(j).getString("datasource");
+                String regions = row2.get(j).getString("regions");
+                String unitcode = row2.get(j).getString("unitcode");
+                String dacimal = row2.get(j).getString("dacimal");
+                String sql5 = "insert into tb_coindex_zb (code,indexcode,zbcode,company,datasource,regions,unitcode,dacimal) values(?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql5,new Object[]{code,icode,zbcode,company,datasource,regions,unitcode,dacimal});
+            }
+            dataQuery.commit();
+
+        } catch (SQLException e) {
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                e.printStackTrace();
+                return 1;
+            }
+        } finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+
+        return 0;
+
+    }
+
+        /*}
         String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
         List<Object> params = new ArrayList<Object>();
         params.add(data1.getCode());
@@ -100,8 +178,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         params.add(data1.getCreatetime());
         params.add(new Timestamp(new java.util.Date().getTime()));
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
-    }
-
+    }*/
 
 
     //检查
