@@ -341,6 +341,7 @@ public class IndexListService {
             String code=rightrows.get(i).getString("indexcode");
             String depusercode=rightrows.get(i).getString("depusercode");
             String sort=rightrows.get(i).getString("sort");
+            String right=rightrows.get(i).getString("right");
             DataTableRow row=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(code).getRows().get(0);
             String cname=row.getString("cname");
             String timesort=row.getString("sort");
@@ -350,6 +351,7 @@ public class IndexListService {
             m.put("timesort",timesort);
             m.put("depusercode",depusercode);
             m.put("sort",sort);
+            m.put("right",right);
             //分享的是用戶
             if (rightrows.get(i).getString("sort").equals("2")){
                 String depusername= UserDepService.getUserNameByCode(depusercode);

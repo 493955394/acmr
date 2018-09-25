@@ -165,9 +165,9 @@
                 <td>${index.get("cname")}</td>
                 <td>${index.get("depusername")}</td>
                 <td>
-                    <c:if test="${index.get('sort') == '0'}">查看</c:if>
-                    <c:if test="${index.get('sort') == '1'}">协作</c:if>
-                    <c:if test="${index.get('sort') == '2'}">管理</c:if>
+                    <c:if test="${index.get('right') == '0'}">查看</c:if>
+                    <c:if test="${index.get('right') == '1'}">协作</c:if>
+                    <c:if test="${index.get('right') == '2'}">管理</c:if>
                 </td>
                 <td>
                     <c:if test="${index.get('timesort') == 'y'}">年度</c:if>
