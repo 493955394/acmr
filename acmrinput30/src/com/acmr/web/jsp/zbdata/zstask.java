@@ -20,6 +20,7 @@ public class zstask extends BaseAction {
 
     public ModelAndView main() throws IOException {
         String icode = this.getRequest().getParameter("id");
+        String right=this.getRequest().getParameter("right");
         IndexTaskService task = new IndexTaskService();
         PageBean<IndexTask> page=new PageBean<>();
         List<IndexTask> alllist=task.getAllTask(icode);
@@ -30,7 +31,7 @@ public class zstask extends BaseAction {
         page.setData(tasklist);
         page.setUrl(sb.toString());
         page.setTotalRecorder(alllist.size());
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/taskindex").addObject("page",page).addObject("icode",icode);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/taskindex").addObject("page",page).addObject("icode",icode).addObject("right",right);
     }
 
     /**

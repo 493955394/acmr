@@ -50,6 +50,7 @@ public class zscalculate extends BaseAction {
        // boolean istmp = false;
         OriginService originService = new OriginService();
         String taskcode = req.getParameter("taskcode");
+        String right=req.getParameter("right");
         //把data_tmp表中的数据覆盖了
         String sessionid=req.getSession().getId();
         IndexTaskDao.Fator.getInstance().getIndexdatadao().copyData(taskcode,sessionid);
@@ -68,7 +69,7 @@ public class zscalculate extends BaseAction {
             PubInfo.printStr(mods.get(i).getCname());
         }
         List<List<String>> datas = getResultList(taskcode,regscode,sessionid);//计算结果
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", data1).addObject("regs", regs).addObject("taskcode", taskcode).addObject("istmp", false).addObject("mods",mods).addObject("rsdatas",datas);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", data1).addObject("regs", regs).addObject("taskcode", taskcode).addObject("istmp", false).addObject("mods",mods).addObject("rsdatas",datas).addObject("right",right);
     }
 
     /**

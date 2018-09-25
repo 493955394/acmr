@@ -25,10 +25,17 @@
                 <td><fmt:formatDate value="${vo.getCreatetime()}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                 <td><fmt:formatDate value="${vo.getUpdatetime()}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                 <input type="hidden" value="${vo.getCode()}">
-                <td>
-                    <a class="zs_calculate">计算</a>
-                    <a class="zs_delete">删除</a>
-                </td>
+                <c:if test="${right!='0'}">
+                    <td>
+                        <a class="zs_calculate">计算</a>
+                        <a class="zs_delete">删除</a>
+                    </td>
+                </c:if>
+                <c:if test="${right=='0'}">
+                    <td>
+                        <a class="zs_read">查看</a>
+                    </td>
+                </c:if>
             </tr>
         </c:forEach>
         </tbody>

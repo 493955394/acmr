@@ -57,6 +57,8 @@ public class zsjhedit extends BaseAction {
     public ModelAndView main(){
         /* 第一个分页显示*/
         String code = this.getRequest().getParameter("id");
+        //获取用户权限
+        String right=this.getRequest().getParameter("right");
         String proname =null;
         IndexListService indexListService=new IndexListService();
         IndexList list =indexListService.getData(code);
@@ -69,7 +71,7 @@ public class zsjhedit extends BaseAction {
         /* 第一个分页显示*/
         JSONObject zbs=getZBS(code);
         List<Map> regs = regshow(code);
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("proname",proname).addObject("list",list).addObject("indexlist",indexlist).addObject("zbs",zbs).addObject("regs",regs);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("proname",proname).addObject("list",list).addObject("indexlist",indexlist).addObject("zbs",zbs).addObject("regs",regs).addObject("right",right);
     }
     /**
      *
