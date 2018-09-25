@@ -398,7 +398,7 @@ public class indexlist extends BaseAction {
             IndexList indexList = new IndexList();
             indexList.setCode(code);
             indexList.setState(state);
-            IndexListService.updateSwitch(indexList);
+            int int1 = IndexListService.updateSwitch(indexList);
             data.setReturncode(200);
             //启用自动生成未生成的任务
             if (state.equals("1")){

@@ -272,7 +272,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         }*/
         if (sql1.length() > 0) {
             sql1 += ",updatetime=?";
-            parms.add(new Date(System.currentTimeMillis()));
+            parms.add(new Timestamp(new Date().getTime()));
 
         }
         if (sql1.equals("")) {
