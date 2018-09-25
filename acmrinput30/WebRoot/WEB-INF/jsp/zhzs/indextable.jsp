@@ -70,6 +70,63 @@
             </tbody>
         </c:if>
     </c:if>
+    <c:if test="${state.equals('1')}">
+        <colgroup>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>名称</th>
+            <th>分享人</th>
+            <th>权限</th>
+            <th>时间周期</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody class="list_body_my_received">
+        <c:forEach items="${page.data}" var="index">
+            <tr class="my_received">
+                <td>${index.get("index").getCname()}</td>
+                <td>${index.get("createuser")}</td>
+                <td>
+                    <c:if test="${index.get('right')== '0'}">查看</c:if>
+                    <c:if test="${index.get('right') == '1'}">协作</c:if>
+                    <c:if test="${index.get('right') == '2'}">管理</c:if>
+                </td>
+                <td>
+                    <c:if test="${index.get('index').getSort() == 'y'}">年度</c:if>
+                    <c:if test="${index.get('index').getSort() == 'q'}">季度</c:if>
+                    <c:if test="${index.get('index').getSort() == 'm'}">月度</c:if>
+                </td>
+                <td>
+                    <c:if test="${index.get('index').getIfdata().equals('1')}">
+                        <c:if test="${index.get('index').getState().equals('0')}">
+                        <a href="javascript:;" class="start" name="${index.get('index').getCode()}">启用</a>
+                        <a href="${ctx}/zbdata/zsjhedit.htm?id=${index.get('index').getCode()}">编辑</a>
+                        <a href="javascript:;" class="btn-opr J_opr_del" id="${index.get('index').getCode()}">删除</a>
+                        </c:if>
+                        <c:if test="${index.get('index').getState().equals('1')}">
+                        <a href="javascript:;" class="stop" name="${index.get('index').getCode()}">停用</a>
+                        <label class="btn-disabled">编辑</label>
+                        <label class="btn-disabled">删除</label>
+                        </c:if>
+                        <a href="/">权限管理</a>
+                        <a href="/">查看往期</a>
+                        <a href="${ctx}/zbdata/zstask.htm?&id=${index.get('index').getCode()}">指数任务</a>
+                    </c:if>
+                    <c:if test="${index.get('index').getIfdata().equals('0')}">
+                        <a class="category_edit" href="javascript:;" name="${index.get('index').getCname()}" id="${index.getCode()}">编辑</a>
+                        <a href="javascript:;" class="btn-opr J_opr_del" id="${index.get('index').getCode()}">删除</a>
+                    </c:if>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </c:if>
     <c:if test="${state.equals('2')}">
         <colgroup>
             <col width="20%"/>
