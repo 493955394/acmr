@@ -131,7 +131,7 @@
                             <label class="btn-disabled">权限管理</label>
                         </c:if>
                         <a href="/">查看往期</a>
-                        <a href="${ctx}/zbdata/zstask.htm?&id=${index.get('index').getCode()}">指数任务</a>
+                        <a href="${ctx}/zbdata/zstask.htm?&id=${index.get('index').getCode()}&right=${index.get('right')}">指数任务</a>
                     </c:if>
                     <c:if test="${index.get('index').getIfdata().equals('0')}">
                         <a class="category_edit" href="javascript:;" name="${index.get('index').getCname()}" id="${index.getCode()}&right=${index.get('right')}">编辑</a>

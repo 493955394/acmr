@@ -8,8 +8,15 @@ define(function (require,exports,module) {
     var icode = $(".geticode").val();
 
     $(document).on("click",".zs_calculate",hasSession)
-    //$(".zs_calculate").click(hasSession)
+    $(".zs_read").click(readCal)
 
+    //查看，直接从底库中读取数据并展示
+    function readCal() {
+        var taskcode=$(this).parent().prev().val();
+        window.location.href=common.rootPath+"zbdata/zscalculate.htm?m=ZsCalculate&taskcode="+taskcode+"&right=0"
+    }
+
+    //计算（判断session中是否有记录）
     function hasSession(){
         var taskcode=$(this).parent().prev().val();
         $.ajax({

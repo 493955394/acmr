@@ -9,10 +9,12 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <body>
 <div class="container-fluid" id="mainpanel">
-    <select style="float: right">
-        <option>请选择</option>
-        <option>恢复默认值</option>
-    </select>
+    <c:if test="${right!='0'}">
+        <select style="float: right">
+            <option>请选择</option>
+            <option>恢复默认值</option>
+        </select>
+    </c:if>
     <table class="table table-striped table-hover">
         <c:forEach items="${mods}" var="module">
             <c:if test="${module.getProcode()==''}">
