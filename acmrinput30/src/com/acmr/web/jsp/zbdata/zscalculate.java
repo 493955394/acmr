@@ -468,25 +468,29 @@ public class zscalculate extends BaseAction {
             for (int j = 0; j <regscode.size() ; j++) {
                 String current = originDataService.getzbvalue(true,taskcode,arr.get(i).get("code").toString(),regscode.get(j),ayearmon,sessionid);
                 rows.add(current);//本期值
-                //查询是否有上期，有的话返回taskcode
-                String oldtaskcode = originDataService.findoldtask(taskcode);
-                if(oldtaskcode!=null){
-                    String oldmodcode = originDataService.findoldmod(oldtaskcode,arr.get(i).get("orcode").toString());
-                    System.out.println(oldmodcode+"==========oldmod");
-                    if(oldmodcode !=null){
-                        String time = indexTaskService.getTime(oldtaskcode);
-                        String prodata = originDataService.getzbvalue(false,oldtaskcode,oldmodcode,regscode.get(j),time,"");
-                        String formula = current+"/"+prodata;
-                        String value = calculateFunction(formula,arr.get(i).get("dotcount").toString());
-                        rows.add(value);
-                    }else{
-                        //要是上期没有这个模型节点环比就是0
+                if(current=="" ||current ==null){
+                    rows.add(String.format("%."+arr.get(i).get("dotcount").toString()+"f",0.0));
+                }else{
+                    //查询是否有上期，有的话返回taskcode
+                    String oldtaskcode = originDataService.findoldtask(taskcode);
+                    if(oldtaskcode!=null){
+                        String oldmodcode = originDataService.findoldmod(oldtaskcode,arr.get(i).get("orcode").toString());
+                        System.out.println(oldmodcode+"==========oldmod");
+                        if(oldmodcode !=null){
+                            String time = indexTaskService.getTime(oldtaskcode);
+                            String prodata = originDataService.getzbvalue(false,oldtaskcode,oldmodcode,regscode.get(j),time,"");
+                            String formula = current+"/"+prodata;
+                            String value = calculateFunction(formula,arr.get(i).get("dotcount").toString());
+                            rows.add(value);
+                        }else{
+                            //要是上期没有这个模型节点环比就是0
+                            rows.add("");
+                        }
+                    }
+                    else {
+                        //要是没有上期环比就是0
                         rows.add("");
                     }
-                }
-                else {
-                    //要是没有上期环比就是0
-                    rows.add("");
                 }
             }
             result.add(rows);
