@@ -246,6 +246,14 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
     }
 
     @Override
+    public DataTable findTaskByPage(String icode, String time, int page, int pagesize) {
+        int b1 = page * pagesize + 1;
+        int e1 = b1 + pagesize;
+        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_task where indexcode= ? and lower(ayearmon) like? order by ayearmon desc) d1) where no>="+b1+" and no<"+ e1;
+        return  AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode,'%'+time+'%'});
+    }
+
+    @Override
     public boolean hasData(String sessionid,String taskcode) {
         String sql="select * from tb_coindex_data_tmp where sessionid=? and taskcode=?";
         DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{sessionid,taskcode});

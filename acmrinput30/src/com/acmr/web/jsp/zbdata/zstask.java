@@ -96,11 +96,18 @@ public class zstask extends BaseAction {
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
         PageBean<IndexTask> page=new PageBean<>();
+        StringBuffer sb = new StringBuffer();
+        sb.append(this.getRequest().getRequestURI());
+        sb.append("?m=findTask&time="+time+"&id="+icode);
+        ArrayList<IndexTask> indexTaskList = indexTaskService.findByTime(time,icode,page.getPageNum() - 1,page.getPageSize());
+        page.setData(indexTaskList);
+        page.setTotalRecorder(indexTask.size());
+        page.setUrl(sb.toString());
         if (StringUtil.isEmpty(pjax)) {
-            List<IndexTask> tasklist = indexTaskService.getTaskByIcode(icode,page.getPageNum(),page.getPageSize());
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/taskindex").addObject("tasklist",tasklist).addObject("icode",icode);
+
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/taskindex").addObject("page",page).addObject("icode",icode);
         } else {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tasktable").addObject("tasklist",indexTask);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tasktable").addObject("page",page);
         }
     }
 

@@ -120,6 +120,26 @@ public class IndexTaskService {
         return tasklist;
     }
     /**
+     * 任务列表按照任务时间期查询,加上分页
+     */
+    public ArrayList<IndexTask> findByTime(String time,String icode,int page,int pagesize){
+        DataTable data = IndexTaskDao.Fator.getInstance().getIndexdatadao().findTaskByPage(icode,time,page,pagesize);
+        ArrayList<IndexTask> tasklist = new ArrayList<IndexTask>();
+        if(time.equals("")){
+            return tasklist;
+        }
+        for (int i = 0; i <data.getRows().size() ; i++) {
+            IndexTask task = new IndexTask();
+            task.setCode(data.getRows().get(i).getString("code"));
+            task.setAyearmon(data.getRows().get(i).getString("ayearmon"));
+            task.setIndexcode(data.getRows().get(i).getString("indexcode"));
+            task.setCreatetime(data.getRows().get(i).getDate("createtime"));
+            task.setUpdatetime(data.getRows().get(i).getDate("updatetime"));
+            tasklist.add(task);
+        }
+        return tasklist;
+    }
+    /**
      * 指数任务删除
      */
     public int delTask(String code){
