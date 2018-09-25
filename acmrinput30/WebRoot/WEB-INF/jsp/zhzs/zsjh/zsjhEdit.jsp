@@ -56,7 +56,12 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label ">计划名称：</label>
                                 <div class="col-sm-5">
-                                    <input id="index_cname" name="index_cname" class="form-control" value="${list.getCname()}" />
+                                    <c:if test="${right!='1'}">
+                                        <input id="index_cname" name="index_cname" class="form-control" value="${list.getCname()}" />
+                                    </c:if>
+                                    <c:if test="${right=='1'}">
+                                        <input id="index_cname" name="index_cname" class="form-control" value="${list.getCname()}" readonly />
+                                    </c:if>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -64,7 +69,9 @@
                                 <div class="col-sm-5">
                                     <input type="text"  class="form-control hid-bottom" name="proname" value="${proname}" readonly>
                                     <input type="hidden" name="index_procode">
-                                    <ul id="tree" class="ztree select-tree hid-top"></ul>
+                                    <c:if test="${right!='1'}">
+                                        <ul id="tree" class="ztree select-tree hid-top"></ul>
+                                    </c:if>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -81,14 +88,24 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label talign-center fz13">起始数据期：</label>
                                 <div class="col-sm-5">
-                                    <input id="startpeirod" name="startpeirod" class="form-control" type="text" value="${list.getStartperiod()}" placeholder="年度：2015，季度：2015A，月度：201501" />
+                                    <c:if test="${right!='1'}">
+                                        <input id="startpeirod" name="startpeirod" class="form-control" type="text" value="${list.getStartperiod()}" placeholder="年度：2015，季度：2015A，月度：201501" />
+                                    </c:if>
+                                    <c:if test="${right=='1'}">
+                                        <input id="startpeirod" name="startpeirod" class="form-control" type="text" value="${list.getStartperiod()}" placeholder="年度：2015，季度：2015A，月度：201501" readonly />
+                                    </c:if>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label ">数据期满后：</label>
                                 <div class="col-sm-5">
-                                    <input id="delayday" name="delayday" value="${list.getDelayday()}"  class="form-control"/>
+                                    <c:if test="${right!='1'}">
+                                        <input id="delayday" name="delayday" value="${list.getDelayday()}"  class="form-control"/>
+                                    </c:if>
+                                    <c:if test="${right=='1'}">
+                                        <input id="delayday" name="delayday" value="${list.getDelayday()}"  class="form-control" readonly/>
+                                    </c:if>
                                 </div>
                                 <div>
                                     <label class="control-label ">自然日</label>

@@ -417,6 +417,7 @@ public class IndexListService {
         List<String> depusercodes=new ArrayList<>();
         depusercodes.add(usercode);
         for (int j=0;j<deps.size();j++){
+          //  PubInfo.printStr("deps:"+deps.get(j).getCode());
             depusercodes.add(deps.get(j).getCode());
         }
         //先获取直接分享给用户的指数列表
