@@ -477,27 +477,40 @@ public class indexlist extends BaseAction {
      * @return
      * @throws IOException
      */
-    public ModelAndView find() throws IOException{
+    public ModelAndView find(){
         HttpServletRequest req = this.getRequest();
-        ArrayList<IndexList> indexlist= new ArrayList<IndexList>();
+        IndexListService indexListService=new IndexListService();
+        ArrayList<IndexList> indexAllList= new ArrayList<IndexList>();
+        List<IndexList> indexList= new ArrayList<IndexList>();
         // 获取查询数据
         String code = StringUtil.toLowerString(req.getParameter("code"));
         String cname = StringUtil.toLowerString(req.getParameter("cname"));
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
+
+        PageBean<IndexList> page = new PageBean<IndexList>();
+        StringBuffer sb = new StringBuffer();
+        sb.append(this.getRequest().getRequestURI());
         if (!StringUtil.isEmpty(code)) {
-            indexlist= new IndexListService().found(0,code);
+            indexAllList= new IndexListService().found(0,code);
+            indexList= indexListService.found(0,code,page.getPageNum() - 1,page.getPageSize());
+            sb.append("?m=find&code="+code);
         }
         if (!StringUtil.isEmpty(cname)) {
-            indexlist= new IndexListService().found(1,cname);
+            indexAllList= new IndexListService().found(1,cname);
+            indexList= indexListService.found(1,cname,page.getPageNum() - 1,page.getPageSize());
+            sb.append("?m=find&cname="+cname);
         }
+        page.setData(indexList);
+        page.setTotalRecorder(indexAllList.size());
+        page.setUrl(sb.toString());
         Map<String, String> codes = new HashMap<String, String>();
         codes.put("code", code);
         codes.put("cname", cname);
         if (StringUtil.isEmpty(pjax)) {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("indexlist",indexlist).addObject("codes",codes);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("page",page).addObject("codes",codes).addObject("state","0");
         } else {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/indextable").addObject("indexlist",indexlist).addObject("codes",codes);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/indextable").addObject("page",page).addObject("codes",codes).addObject("state","0");
         }
     }
 

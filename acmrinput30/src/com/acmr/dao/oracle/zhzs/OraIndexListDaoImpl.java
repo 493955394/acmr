@@ -67,6 +67,22 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     }
 
     @Override
+    public DataTable getLikeCodeByPage(String code,int page,int pagesize) {
+        int b1 = page * pagesize + 1;
+        int e1 = b1 + pagesize;
+        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where lower(code) like ?) d1) where no>="+b1+" and no<"+ e1;
+        return  AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{"%" + code + "%"});
+    }
+
+    @Override
+    public DataTable getLikeCnameByPage(String cname,int page,int pagesize) {
+        int b1 = page * pagesize + 1;
+        int e1 = b1 + pagesize;
+        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where lower(cname) like ?) d1) where no>="+b1+" and no<"+ e1;
+        return  AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{"%" + cname + "%"});
+    }
+
+    @Override
     public int addIndexlist(IndexList indexList) {
         String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
         List<Object> params = new ArrayList<Object>();

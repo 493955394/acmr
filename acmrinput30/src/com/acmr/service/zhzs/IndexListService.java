@@ -234,6 +234,38 @@ public class IndexListService {
         }
         return indexLists;
     }
+
+    /**
+     * 查询的分页
+     */
+    public  List<IndexList> found(int type,String code,int page,int pagesize){
+        List<IndexList> indexLists=new ArrayList<>();
+        List<DataTableRow> data = new ArrayList<>();
+        if(type==0){//0表示是通过code查的
+            data = IndexListDao.Fator.getInstance().getIndexdatadao().getLikeCodeByPage(code,page,pagesize).getRows();
+
+        }else if(type==1){//1表示是通过cname查的
+            data = IndexListDao.Fator.getInstance().getIndexdatadao().getLikeCnameByPage(code,page,pagesize).getRows();
+        }
+        for(int i=0;i<data.size();i++){
+            IndexList index= new IndexList();
+            index.setCode(data.get(i).getString("code"));
+            index.setCname(data.get(i).getString("cname"));
+            index.setCreateuser(data.get(i).getString("createuser"));
+            index.setIfdata(data.get(i).getString("ifdata"));
+            index.setState(data.get(i).getString("state"));
+            index.setCreatetime(data.get(i).getString("createtime"));
+            index.setPlantime( data.get(i).getString("plantime"));
+            index.setUpdatetime( data.get(i).getString("updatetime"));
+            index.setDelayday(data.get(i).getString("delayday"));
+            index.setPlanperiod(data.get(i).getString("planperiod"));
+            index.setProcode(data.get(i).getString("procode"));
+            index.setSort(data.get(i).getString("sort"));
+            index.setStartperiod(data.get(i).getString("startperiod"));
+            indexLists.add(index);
+        }
+        return indexLists;
+    }
     //新增目录和计划
     public int addCp(IndexList indexList) {
         return IndexListDao.Fator.getInstance().getIndexdatadao().addIndexlist(indexList);

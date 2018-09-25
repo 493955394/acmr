@@ -14,6 +14,8 @@ public interface IIndexListDao {
     public DataTable getByCode(String code);
     public DataTable getLikeCode(String code);
     public DataTable getLikeCname(String cname);
+    public DataTable getLikeCodeByPage(String code,int page,int pagesize);
+    public DataTable getLikeCnameByPage(String cname,int page,int pagesize);
     public int addIndexlist(IndexList indexList);
     //public int addNplan(IndexList indexList,String code);
     public int delIndexcp(String code);
