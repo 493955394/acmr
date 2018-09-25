@@ -105,16 +105,31 @@
                 <td>
                     <c:if test="${index.get('index').getIfdata().equals('1')}">
                         <c:if test="${index.get('index').getState().equals('0')}">
-                        <a href="javascript:;" class="start" name="${index.get('index').getCode()}">启用</a>
-                        <a href="${ctx}/zbdata/zsjhedit.htm?id=${index.get('index').getCode()}">编辑</a>
-                        <a href="javascript:;" class="btn-opr J_opr_del" id="${index.get('index').getCode()}">删除</a>
+                            <c:if test="${index.get('right')!='0'}">
+                                <a href="javascript:;" class="start" name="${index.get('index').getCode()}">启用</a>
+                            </c:if>
+                            <c:if test="${index.get('right')=='0'}">
+                                <label class="btn-disabled">启用</label>
+                            </c:if>
+                            <a href="${ctx}/zbdata/zsjhedit.htm?id=${index.get('index').getCode()}">编辑</a>
+                            <a href="javascript:;" class="btn-opr J_opr_del" id="${index.get('index').getCode()}">删除</a>
                         </c:if>
                         <c:if test="${index.get('index').getState().equals('1')}">
-                        <a href="javascript:;" class="stop" name="${index.get('index').getCode()}">停用</a>
-                        <label class="btn-disabled">编辑</label>
-                        <label class="btn-disabled">删除</label>
+                            <c:if test="${index.get('right')!='0'}">
+                                <a href="javascript:;" class="stop" name="${index.get('index').getCode()}">停用</a>
+                            </c:if>
+                            <c:if test="${index.get('right')=='0'}">
+                                <label class="btn-disabled">停用</label>
+                            </c:if>
+                            <label class="btn-disabled">编辑</label>
+                            <label class="btn-disabled">删除</label>
                         </c:if>
-                        <a href="/">权限管理</a>
+                        <c:if test="${index.get('right')=='2'}">
+                            <a href="/">权限管理</a>
+                        </c:if>
+                        <c:if test="${index.get('right')!='2'}">
+                            <label class="btn-disabled">权限管理</label>
+                        </c:if>
                         <a href="/">查看往期</a>
                         <a href="${ctx}/zbdata/zstask.htm?&id=${index.get('index').getCode()}">指数任务</a>
                     </c:if>
