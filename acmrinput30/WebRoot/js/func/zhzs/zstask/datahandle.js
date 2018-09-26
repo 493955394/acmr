@@ -32,7 +32,7 @@ define(function(require,exports,module) {
 */
 
     /**
-     * 数据下载
+     * 原始数据的数据下载
      */
     //$(document).on("click","#data_download",downdata)
     //$("#data_download").click(downdata)
@@ -113,8 +113,32 @@ define(function(require,exports,module) {
             data.formData = { taskcode: $(".reloaddata").val() };  //如果需要额外添加参数可以在这里添加
         });*/
 
-
     }
+    /**
+     * 计算结果的下载
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    $(document).on('click', '#result_download', function(event) {
+        event.preventDefault();
+        var taskcode=$(".reloaddata").val();
+        var url = common.rootPath+"zbdata/zscalculate.htm?m=toResultExcel&taskcode="+taskcode;
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
 
+                if (data.returncode == 300) {
+                    alert("数据为空");
+                } else {
+                    alert("下载成功!");
+                }
+            }
+        })
+        window.location.href = url;
+    })
 
 });

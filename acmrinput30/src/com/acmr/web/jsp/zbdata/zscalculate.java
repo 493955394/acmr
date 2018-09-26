@@ -1,11 +1,8 @@
 package com.acmr.web.jsp.zbdata;
 
 import acmr.excel.ExcelException;
+import acmr.excel.pojo.*;
 import acmr.excel.pojo.Constants.XLSTYPE;
-import acmr.excel.pojo.ExcelBook;
-import acmr.excel.pojo.ExcelCell;
-import acmr.excel.pojo.ExcelRow;
-import acmr.excel.pojo.ExcelSheet;
 import acmr.math.CalculateExpression;
 import acmr.math.entity.MathException;
 import acmr.util.PubInfo;
@@ -104,6 +101,119 @@ public class zscalculate extends BaseAction {
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", datatmp).addObject("regs", regstmp).addObject("taskcode", taskcode).addObject("istmp", true).addObject("mods",mods).addObject("rsdatas",datas);
 
     }
+    /**
+     * 计算结果的数据下载
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public void toResultExcel() throws IOException {
+    //HttpServletRequest req = this.getRequest();
+    //String sessionid = req.getSession().getId();
+    IndexTaskService indexTaskService = new IndexTaskService();
+    String sessionid = this.getRequest().getSession().getId();
+    OriginService originService = new OriginService();
+    String taskcode = PubInfo.getString(this.getRequest().getParameter("taskcode"));
+    String ayearmon = indexTaskService.getTime(taskcode);
+    //List<List<String>> datatmp = getOriginData(true,taskcode,ayearmon,sessionid);
+    List<String> regscode = indexTaskService.getTaskRegs(taskcode);
+    List<String> regstmp = new ArrayList<>();
+        for (int i = 0; i < regscode.size(); i++) {
+        regstmp.add(originService.getwdnode("reg", regscode.get(i)).getName());
+    }
+
+    WeightEditService weightEditService=new WeightEditService();
+    List<TaskModule> mods=weightEditService.getTMods(taskcode);
+        for (int i=0;i<mods.size();i++){
+        PubInfo.printStr(mods.get(i).getCname());
+    }
+    List<List<String>> datas = getResultList(taskcode,regscode,sessionid);//计算结果
+        JSONReturnData data = new JSONReturnData("");
+        if (regstmp == null || datas == null) {
+            data.setReturncode(300);
+            this.sendJson(data);
+            return;
+        } else {
+            data.setReturncode(200);
+        }
+        ExcelBook book = new ExcelBook();
+        ExcelSheet sheet1 = new ExcelSheet();
+        sheet1.setName("sheet1");
+        sheet1.addColumn();
+        ExcelCell cell1 = new ExcelCell();
+        ExcelRow dr1 = sheet1.addRow();
+        ExcelCell cell2 = cell1.clone();
+        cell2.setCellValue("指标");
+        dr1.set(0, cell2);
+        int m = 1;
+        for (int k = 0; k < regstmp.size(); k++) {
+            sheet1.addColumn();
+            cell2 = cell1.clone();
+            cell2.setCellValue(regstmp.get(k));
+            dr1.set(m, cell2);
+            //m++;
+            int w= m++;
+            sheet1.addColumn();
+            cell2 = cell1.clone();
+            cell2.setCellValue(regstmp.get(k));
+            dr1.set(w, cell2);
+            sheet1.MergedRegions(0,m,0,w);
+            m++;
+        }
+        dr1 = sheet1.addRow();
+        cell2 = cell1.clone();
+        cell2.setCellValue("指标");
+        dr1.set(0, cell2);
+        sheet1.MergedRegions(0,0,1,0);
+        //sheet.addMergedRegion(new CellRangeAddress(int firstRow, int lastRow, int firstCol, int lastCol)
+        // for (int a=2;a<)
+        int n = 1;
+        for (int h = 0; h < regstmp.size(); h++) {
+
+            sheet1.addColumn();
+            cell2 = cell1.clone();
+            cell2.setCellValue("本期值");
+            dr1.set(n, cell2);
+            n++;
+            sheet1.addColumn();
+            cell2 = cell1.clone();
+            cell2.setCellValue("环比");
+            dr1.set(n, cell2);
+            n++;
+        }
+        cell1.getCellstyle().getFont().setBoldweight((short) 10);
+        //System.out.println(data1);
+        for (int i = 0; i < datas.size(); i++) {
+            String arr = datas.get(i).toString().substring(1, datas.get(i).toString().length() - 1);
+            //String arr =datatmp.get(i).toString();
+            dr1 = sheet1.addRow();
+            //String a2 = arr.replaceAll("null"," ").replaceAll("0"," ");
+            String[] a3 = arr.split(",");
+            for (int j = 0; j < a3.length; j++) {
+                cell2 = cell1.clone();
+                cell2.setCellValue(a3[j]);
+                dr1.set(j, cell2);
+            }
+        }
+        book.getSheets().add(sheet1);
+        HttpServletResponse resp = this.getResponse();
+        resp.reset();
+        resp.setContentType("application/vnd.ms-excel; charset=UTF-8");
+        resp.setHeader("Pragma", "public");
+        resp.setHeader("Cache-Control", "max-age=30");
+        String fileName = "计算结果.xlsx";
+        fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
+        resp.addHeader("Content-Disposition", "attachment; filename="+fileName);
+        //Export("application/ms-excel", "订单报表.xls");
+        try {
+            book.saveExcel(resp.getOutputStream(), XLSTYPE.XLSX);
+        } catch (ExcelException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
 
     /**
     * @Description: 重新读取数据，插入数据库，并局部刷新原始数据
@@ -201,7 +311,7 @@ public class zscalculate extends BaseAction {
 
     }
     /**
-     * 数据下载
+     * 原始数据的下载
      *
      * @param
      * @return
