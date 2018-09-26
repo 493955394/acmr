@@ -388,6 +388,14 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         }
 
     }
+
+    @Override
+    public int updateTime(String plantime, String planperiod, String icode) {
+        String sql="update tb_coindex_index set plantime=to_date(?,'yyyy-mm-dd hh24:mi:ss'),planperiod=? where code=?";
+        AcmrInputDPFactor.getQuickQuery().executeSql(sql,new Object[]{plantime,planperiod,icode});
+        return 0;
+    }
+
     public static void main(String[] args) {
 
         List<DataTableRow> datas = IndexListDao.Fator.getInstance().getIndexdatadao().shareSelectList(0,"魏","admin").getRows();

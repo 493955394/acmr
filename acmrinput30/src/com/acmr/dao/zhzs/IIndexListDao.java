@@ -32,4 +32,5 @@ public interface IIndexListDao {
     public int delShare(String indexcode,String depusercode,String sort);
     public DataTable shareSelectList(int type,String keyword,String userid);
     public DataTable shareSelectListByPage(int type,String keyword,String userid,int page,int pagesize);
+    public int updateTime(String plantime,String planperiod,String icode);
 }

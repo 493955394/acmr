@@ -4,6 +4,7 @@ import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IIndexTaskDao;
+import com.acmr.dao.zhzs.IndexEditDao;
 import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.model.zhzs.IndexList;
@@ -103,7 +104,7 @@ public class CreateTaskService {
                 }
             }
             //处理最后一年
-            for (int i=nq-1;i>64;i--){
+            for (int i=65;i<=nq;i++){
                 String thisp=String.valueOf(nyear)+(char)i;
                 Boolean bool=IndexTaskDao.Fator.getInstance().getIndexdatadao().hasTask(code, thisp);
                 if (!bool&&dateBefore(index,thisp)){
@@ -137,9 +138,9 @@ public class CreateTaskService {
                         }
                     }
                 }
-                //处理最后一年
-                else if (i==nyear&&i!=syear){
-                    for (int j=nm;j>0;j--){
+                //处理中间年
+                else if (syear<i&&i<nyear){
+                    for (int j=1;j<13;j++){
                         String thisp;
                         if (j<10){
                             thisp=String.valueOf(i)+"0"+String.valueOf(j);
@@ -153,9 +154,9 @@ public class CreateTaskService {
                         }
                     }
                 }
-                //处理中间年
-                else if (syear<i&&i<nyear){
-                    for (int j=1;j<13;j++){
+                //处理最后一年
+                else if (i==nyear&&i!=syear){
+                    for (int j=1;j<=nm;j++){
                         String thisp;
                         if (j<10){
                             thisp=String.valueOf(i)+"0"+String.valueOf(j);
@@ -174,6 +175,7 @@ public class CreateTaskService {
         PubInfo.printStr("periods:"+periods.toString());
         return periods;
     }
+
 
 
     /**
@@ -289,6 +291,65 @@ public class CreateTaskService {
     }
 
     /**
+     * @Description: 更新计划的plantime，planperiod到最新
+     * @Param: [index, periods]
+     * @return: void
+     * @Author: lyh
+     * @Date: 2018/9/26
+     */
+    public void updateTime(IndexList index,List<String> periods){
+        String sort=index.getSort();
+        String delayday=index.getDelayday();
+        String lastperiod=periods.get(periods.size()-1);
+        //下一期period
+        String period;
+        Calendar cal;
+        if (sort.equals("y")){
+            period= String.valueOf(Integer.parseInt(lastperiod)+1);
+            cal=getYearCalendar(period,delayday);
+        }
+        else if (sort.equals("q")){
+            String year=lastperiod.substring(0,4);
+            String q=lastperiod.substring(4);
+            if (q.equals("D")){
+                String nyear= String.valueOf(Integer.parseInt(year)+1);
+                period=nyear+"A";
+                cal=getQCalendar(period,delayday);
+            }
+            else {
+                int sq=q.charAt(0)+1;
+                period=year+(char)sq;
+                cal=getQCalendar(period,delayday);
+
+            }
+        }
+        else {
+            String year=lastperiod.substring(0,4);
+            int mon= Integer.parseInt(lastperiod.substring(4));
+            if (mon!=12){
+                if (mon<9){
+                    period=year+"0"+String.valueOf(mon+1);
+                }
+                else {
+                    period=year+String.valueOf(mon+1);
+                }
+            }
+            else {
+                String nyear= String.valueOf(Integer.parseInt(year)+1);
+                period=nyear+"01";
+            }
+            cal=getMonCalendar(period,delayday);
+        }
+
+        Date time=cal.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String plantime=df.format(time);
+        int i= IndexListDao.Fator.getInstance().getIndexdatadao().updateTime(plantime,period,index.getCode());
+
+    }
+
+
+    /**
     * @Description: 返回月份对应的ABCD
     * @Param: [mon]
     * @return: char
@@ -327,8 +388,9 @@ public class CreateTaskService {
              //生成完之后开始做计算，从data表和module_tmp表里取数
             OriginDataService originDataService = new OriginDataService();
             originDataService.todocalculate(tcode,ayearmon);
+
             //更新计划的plantime，planperiod
-            updateTime(index);
+            updateTime(index,periods);
         }
     }
 
@@ -350,17 +412,7 @@ public class CreateTaskService {
         }
     }
 
-    /**
-    * @Description: 更新计划的plantime，planperiod到最新
-    * @Param: [index]
-    * @return: void
-    * @Author: lyh
-    * @Date: 2018/9/26
-    */
-    public void updateTime(IndexList index){
-        String sort=index.getSort();
 
-    }
 
 
 /*    public static void main(String[] args) throws ParseException {
