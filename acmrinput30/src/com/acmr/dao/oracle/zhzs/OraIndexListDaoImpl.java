@@ -111,7 +111,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
             java.util.Date now = new java.util.Date();
-            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
+            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
             String icode = data1.getCode();
             String icname = data1.getCname();
             String iprocode = data1.getProcode();
@@ -121,12 +121,12 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             String istartpeiod = data1.getStartperiod();
             String idelayday = data1.getDelayday();
             //String iplanperiod = data1.getPlanperiod();
-            //String iplantime = data1.getPlantime();
+            String iplantime = data1.getPlantime().substring(0,data1.getPlantime().length()-2);
             String createuser = data1.getCreateuser();
-            String createtime = data1.getCreatetime();
+            String createtime = data1.getCreatetime().substring(0,data1.getCreatetime().length()-2);
             java.sql.Timestamp updatetime = new java.sql.Timestamp(now.getTime());
             //Object up = new Timestamp(new Date().getTime());
-            dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,createuser,createtime,updatetime});
+            dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplantime,createuser,createtime,updatetime});
             //复制模型
             String sql2 = "select * from tb_coindex_module where indexcode=?";
             DataTable table1=dataQuery.getDataTableSql(sql2,new Object[]{cpcode});
