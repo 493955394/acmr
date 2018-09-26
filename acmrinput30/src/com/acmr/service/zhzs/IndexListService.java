@@ -3,6 +3,7 @@ package com.acmr.service.zhzs;
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
+import com.acmr.dao.zhzs.IndexEditDao;
 import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.model.security.Department;
 import com.acmr.model.security.User;
@@ -12,6 +13,7 @@ import com.acmr.model.zhzs.IndexTask;
 import com.acmr.service.security.DepartmentService;
 import com.acmr.service.security.UserService;
 import com.acmr.service.zbdata.UserDepService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.text.ParseException;
 import java.util.*;
@@ -490,27 +492,46 @@ public class IndexListService {
     public int delShare(String indexcode,String depusercode,String sort){
         return IndexListDao.Fator.getInstance().getIndexdatadao().delShare(indexcode,depusercode,sort);
     }
-
-/*
-    public static void main(String[] args) throws ParseException {
-        IndexListService indexListService=new IndexListService();
-        indexListService.getIndexListByPage("usercode01",0,10);
+    
+    
+    /** 
+    * @Description: 校验该指数下的基本信息是否完善
+    * @Param: [icode] 
+    * @return: java.lang.Boolean 
+    * @Author: lyh
+    * @Date: 2018/9/26 
+    */ 
+    public Boolean checkInfo(String icode){
+        Boolean check=false;
+        DataTableRow row=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(icode).getRows().get(0);
+        if (row.getString("plantime")!=""&&row.getString("planperiod")!=""){
+            check=true;
+        }
+        return check;
     }
-*/
+
+    /**
+    * @Description: 校验该指数下是否已有指标和地区
+    * @Param: [icode]
+    * @return: java.lang.Boolean
+    * @Author: lyh
+    * @Date: 2018/9/26
+    */
+    public Boolean checkZBandReg(String icode){
+        Boolean check=false;
+        List<DataTableRow> zbrows= IndexEditDao.Fator.getInstance().getIndexdatadao().getZBSbyIndexCode(icode).getRows();
+        if (zbrows.size()>0&&zbrows.get(0).getString("regions")!=""){
+            check=true;
+        }
+        return check;
+    }
+
+    public static void main(String[] args) {
+        IndexListService indexListService=new IndexListService();
+        PubInfo.printStr(String.valueOf(indexListService.checkZBandReg("R0015")));
+    }
 
 
-
-
-/*        Date test= (Date) indexlist.get(1).get("plantime");
-        PubInfo.printStr("123"+test.toString());
-        for (int i=0;i<indexlist.size();i++){
-            PubInfo.printStr(indexlist.get(i).get("createtime").toString());
-            if(indexlist.get(i).get("plantime")!=null){
-                PubInfo.printStr(indexlist.get(i).get("plantime").toString());
-            }
-        }*/
-/*        PubInfo.printStr(code.getRows().get(1).getRows().toString());
-        PubInfo.printStr(code.getColumns().get(0).getColumnName());*/
 
 }
 
