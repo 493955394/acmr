@@ -3,6 +3,78 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <input type="hidden" id="top" value="${top}" />
 <input type="hidden" id="bottom" value="${bottom}" />
+<c:if test="${state.equals('0')}">
+    <div class="panel-body">
+        <div class="toolbar-left">
+            <form class="form-inline J_search_form" action="${ctx}/zbdata/indexlist.htm?m=find">
+                <div class="form-group">
+                    <select id="querykey" class="form-control input-sm">
+                        <option value="cname" <c:if test="${codes.cname != '' && codes.cname!= null}">selected</c:if>>名称</option>
+                        <option value="code" <c:if test="${codes.code != '' && codes.code != null}">selected</c:if>>编码</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="<c:if test="${codes.code != '' && codes.code!= null}">${codes.code}</c:if><c:if test="${codes.cname != '' && codes.cname != null}">${codes.cname}</c:if>">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">查询</button>
+                </div>
+            </form>
+        </div>
+        <div class="toolbar-right">
+            <div class="toolbar-group" style="position: relative;">
+                <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data" type="button">新增目录</button>&nbsp
+                <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data1" type="button">新增计划</button>&nbsp
+                <button class="btn btn-default btn-sm J_AddCopy"  type="button">复制到</button>
+            </div>
+        </div>
+    </div>
+</c:if>
+<c:if test="${state.equals('1')}">
+    <div class="panel-body">
+        <div class="toolbar-left">
+            <form class="form-inline J_search_form1" action="${ctx}/zbdata/indexlist.htm?m=find">
+                <div class="form-group">
+                    <select id="querykey1" class="form-control input-sm">
+                        <option value="cname" <c:if test="${codes.cname != '' && codes.cname!= null}">selected</c:if>>计划名称</option>
+                        <option value="code" <c:if test="${codes.code != '' && codes.code != null}">selected</c:if>>分享人</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input id="queryValue1" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="<c:if test="${codes.code != '' && codes.code!= null}">${codes.code}</c:if><c:if test="${codes.cname != '' && codes.cname != null}">${codes.cname}</c:if>">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">查询</button>
+                </div>
+            </form>
+        </div>
+        <div class="toolbar-right">
+            <div class="toolbar-group" style="position: relative;">
+                <button class="btn btn-default btn-sm J_Share_AddCopy"  type="button">复制到</button>
+            </div>
+        </div>
+    </div>
+</c:if>
+<c:if test="${state.equals('2')}">
+    <div class="panel-body">
+        <div class="toolbar-left">
+            <form class="form-inline J_search_form2" action="${ctx}/zbdata/indexlist.htm?m=find">
+                <div class="form-group">
+                    <select id="querykey2" class="form-control input-sm">
+                        <option value="cname" <c:if test="${codes.cname != '' && codes.cname!= null}">selected</c:if>>计划名称</option>
+                        <option value="code" <c:if test="${codes.code != '' && codes.code != null}">selected</c:if>>被分享人</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input id="queryValue2" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="<c:if test="${codes.code != '' && codes.code!= null}">${codes.code}</c:if><c:if test="${codes.cname != '' && codes.cname != null}">${codes.cname}</c:if>">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">查询</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</c:if>
 <table class="table table-striped table-hover J_regmgr_table">
 
 

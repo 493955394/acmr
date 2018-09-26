@@ -32,178 +32,150 @@
     <div class="col-md-10 right-panel">
         <div class="panel panel-default">
             <div class="panel-heading"></div>
-            <div class="panel-body">
-                <div class="toolbar-left">
-                    <form class="form-inline J_search_form" action="${ctx}/zbdata/indexlist.htm?m=find">
-                        <div class="form-group">
-                            <select id="querykey" class="form-control input-sm">
-                                <option value="cname" <c:if test="${code != '' && code!= null}">selected</c:if>>名称</option>
-                                <option value="code" <c:if test="${cname != '' && cname != null}">selected</c:if>>编码</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="<c:if test="${code != '' && code!= null}">${code}</c:if><c:if test="${cname != '' && cname != null}">${cname}</c:if>">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-sm">查询</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="toolbar-right">
-                    <div class="toolbar-group" style="position: relative;">
-                        <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data" type="button">新增目录</button>&nbsp
-                        <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data1" type="button">新增计划</button>&nbsp
-                        <button class="btn btn-default btn-sm J_AddCopy"  type="button">复制到</button>
-                        <!-- 模态弹出窗内容 -->
-                        <!-- 新增目录 -->
-                        <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <form class="form-horizontal J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insertcate">
-                                        <input type="hidden" class="form-control" name="ifdata" value="0" >
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                            <h4 class="modal-title">新增/编辑目录</h4>
-                                        </div>
-                                        <div class="modal-body">
 
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
-                                                <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="cocode" >
-                                                </div>
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
-                                                <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="cocname" >
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
-                                                <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="cataname" value="" disabled>
-                                                    <input type="hidden" class="form-control" name="idcata" value="" >
-                                                    <ul id="treeCata" class="ztree select-tree hid-top"></ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                            <button type="submit" class="btn btn-primary">确定</button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-                        <!-- 新增计划 -->
-                        <div class="modal" id="mymodal-data1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <form class="form-horizontal J_add_plan"  action="${ctx}/zbdata/indexlist.htm?m=insertplan">
-                                        <input type="hidden" class="form-control" name="ifdata" value="1" >
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                            <h4 class="modal-title">新增计划</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
-                                                <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="plancode">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
-                                                <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="plancname">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
-                                                <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="planname" value="" disabled>
-                                                    <input type="hidden" class="form-control" name="idplan"  value="">
-                                                    <ul id="treePlan" class="ztree select-tree hid-top"></ul>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>统计周期：</label>
-                                                <div class="col-sm-5">
-                                                    <select class="form-control" name="sort" >
-                                                        <option value="">请选择</option>
-                                                        <option value="m">月度</option>
-                                                        <option value="q">季度</option>
-                                                        <option value="y">年度</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                            <button type="submit" class="btn btn-primary">确定</button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-                        <!-- 复制到 -->
-                        <div class="modal" id="mymodal-data2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <form class="form-horizontal J_add_cope" action="${ctx}/zbdata/indexlist.htm?m=copy">
-                                        <input type="hidden" class="form-control" name="copycode">
-                                        <input type="hidden" class="form-control" name="cifdata">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标名称：</label>
-                                                <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="zname"  >
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标代码：</label>
-                                                <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="plcode">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属指数：</label>
-                                                <div class="col-sm-5">
-                                                    <input type="text" class="form-control" name="indexname" value="" disabled>
-                                                    <input type="hidden" class="form-control" name="newprocode" value="" >
-                                                    <ul id="treeZs" class="ztree select-tree hid-top"></ul>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                            <button type="submit" class="btn btn-primary" >确定</button>
-                                            <%--<input type='button'  name="plancode" value='复制到' onclick="show()"/>--%>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
             <div class="J_zsjh_data_table">
                 <jsp:include page="/WEB-INF/jsp/zhzs/indextable.jsp" flush="true"/>
             </div>
         </div>
     </div>
+            <!-- 新增目录 -->
+            <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <form class="form-horizontal J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insertcate">
+                            <input type="hidden" class="form-control" name="ifdata" value="0" >
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title">新增/编辑目录</h4>
+                            </div>
+                            <div class="modal-body">
 
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="cocode" >
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="cocname" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="cataname" value="" disabled>
+                                        <input type="hidden" class="form-control" name="idcata" value="" >
+                                        <ul id="treeCata" class="ztree select-tree hid-top"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary">确定</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 新增计划 -->
+            <div class="modal" id="mymodal-data1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <form class="form-horizontal J_add_plan"  action="${ctx}/zbdata/indexlist.htm?m=insertplan">
+                            <input type="hidden" class="form-control" name="ifdata" value="1" >
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title">新增计划</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="plancode">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="plancname">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="planname" value="" disabled>
+                                        <input type="hidden" class="form-control" name="idplan"  value="">
+                                        <ul id="treePlan" class="ztree select-tree hid-top"></ul>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>统计周期：</label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control" name="sort" >
+                                            <option value="">请选择</option>
+                                            <option value="m">月度</option>
+                                            <option value="q">季度</option>
+                                            <option value="y">年度</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary">确定</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 复制到 -->
+            <div class="modal" id="mymodal-data2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <form class="form-horizontal J_add_cope" action="${ctx}/zbdata/indexlist.htm?m=copy">
+                            <input type="hidden" class="form-control" name="copycode">
+                            <input type="hidden" class="form-control" name="cifdata">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标名称：</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="zname"  >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标代码：</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="plcode">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属指数：</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="indexname" value="" disabled>
+                                        <input type="hidden" class="form-control" name="newprocode" value="" >
+                                        <ul id="treeZs" class="ztree select-tree hid-top"></ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary" >确定</button>
+                                <%--<input type='button'  name="plancode" value='复制到' onclick="show()"/>--%>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 </div>
 </body>
 <script>
