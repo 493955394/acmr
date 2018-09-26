@@ -12,10 +12,10 @@ public interface IIndexListDao {
     public String getName();
     public DataTable getByUser(String usercode);
     public DataTable getByCode(String code);
-    public DataTable getLikeCode(String code);
-    public DataTable getLikeCname(String cname);
-    public DataTable getLikeCodeByPage(String code,int page,int pagesize);
-    public DataTable getLikeCnameByPage(String cname,int page,int pagesize);
+    public DataTable getLikeCode(String code,String userid);
+    public DataTable getLikeCname(String cname,String userid);
+    public DataTable getLikeCodeByPage(String code,String userid,int page,int pagesize);
+    public DataTable getLikeCnameByPage(String cname,String userid,int page,int pagesize);
     public int addIndexlist(IndexList indexList);
     //public int addNplan(IndexList indexList,String code);
     public int delIndexcp(String code);
@@ -30,4 +30,6 @@ public interface IIndexListDao {
     public DataTable getRightListByDepUserCode(String depusercode);
     public DataTable getZSMods(String icode);
     public int delShare(String indexcode,String depusercode,String sort);
+    public DataTable shareSelectList(int type,String keyword,String userid);
+    public DataTable shareSelectListByPage(int type,String keyword,String userid,int page,int pagesize);
 }

@@ -6,6 +6,7 @@ import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexListDao;
+import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.model.zhzs.IndexList;
 
 //import java.sql.Date;
@@ -55,31 +56,31 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     }
 
     @Override
-    public DataTable getLikeCode(String code) {
-        String sql = "select * from tb_coindex_index where lower(code) like ? ";
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + code + "%"});
+    public DataTable getLikeCode(String code,String userid) {
+        String sql = "select * from tb_coindex_index where createuser =? and lower(code) like ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{userid,"%" + code + "%"});
     }
 
     @Override
-    public DataTable getLikeCname(String cname) {
-        String sql = "select * from tb_coindex_index where lower(cname) like ? ";
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + cname + "%"});
+    public DataTable getLikeCname(String cname,String userid) {
+        String sql = "select * from tb_coindex_index where createuser =? and lower(cname) like ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{userid,"%" + cname + "%"});
     }
 
     @Override
-    public DataTable getLikeCodeByPage(String code,int page,int pagesize) {
+    public DataTable getLikeCodeByPage(String code,String userid,int page,int pagesize) {
         int b1 = page * pagesize + 1;
         int e1 = b1 + pagesize;
-        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where lower(code) like ?) d1) where no>="+b1+" and no<"+ e1;
-        return  AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{"%" + code + "%"});
+        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where createuser =? and lower(code) like ?) d1) where no>="+b1+" and no<"+ e1;
+        return  AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid,"%" + code + "%"});
     }
 
     @Override
-    public DataTable getLikeCnameByPage(String cname,int page,int pagesize) {
+    public DataTable getLikeCnameByPage(String cname,String userid,int page,int pagesize) {
         int b1 = page * pagesize + 1;
         int e1 = b1 + pagesize;
-        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where lower(cname) like ?) d1) where no>="+b1+" and no<"+ e1;
-        return  AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{"%" + cname + "%"});
+        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where createuser=? and lower(cname) like ?) d1) where no>="+b1+" and no<"+ e1;
+        return  AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid,"%" + cname + "%"});
     }
 
     @Override
@@ -348,9 +349,48 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         String sql = "delete from tb_coindex_right t where t.indexcode = ? and t.depusercode =? and t.sort=?";
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql,new Object[]{indexcode,depusercode,sort});
     }
-/*
+
+    @Override
+    public DataTable shareSelectList(int type, String keyword,String userid) {
+        //type==0是code,表示关键字是被分享人；1是cname，表示计划名称
+        String sql = "select r.*,i.cname,i.sort as isort,u.cname as ucname,d.cname as dcname from tb_coindex_right r ";
+        sql +="left join tb_coindex_index i on r.indexcode = i.code ";
+        sql +="left join tb_right_user u on r.depusercode = u.userid ";
+        sql +="left join tb_right_department d on r.depusercode = d.code ";
+            if(type ==0){
+                sql +="where r.createuser = ? and (lower(u.cname) like ? or lower(d.cname) like ?)";
+                return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid,"%"+keyword+"%","%"+keyword+"%"});
+            }
+            else {
+                sql +="where r.createuser = ? and lower(i.cname) like ?";
+                return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid,"%"+keyword+"%"});
+            }
+    }
+
+    @Override
+    public DataTable shareSelectListByPage(int type, String keyword,String userid,int page,int pagesize) {
+        //type==0是code,表示关键字是被分享/分享人；1是cname，表示计划名称
+        int b1 = page * pagesize + 1;
+        int e1 = b1 + pagesize;
+       String sql = "select r.*,i.cname,i.sort as isort,u.cname as ucname,d.cname as dcname from tb_coindex_right r ";
+        sql +="left join tb_coindex_index i on r.indexcode = i.code ";
+        sql +="left join tb_right_user u on r.depusercode = u.userid ";
+        sql +="left join tb_right_department d on r.depusercode = d.code ";
+        if(type ==0){
+            sql +="where r.createuser = ? and (lower(u.cname) like ? or lower(d.cname) like ?)";
+            sql="select * from (select rownum no,d1.* from ("+sql+") d1) where no>="+b1+" and no<"+ e1;
+            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid,"%"+keyword+"%","%"+keyword+"%"});
+        }
+        else {
+            sql +="where r.createuser = ? and lower(i.cname) like ?";
+            sql="select * from (select rownum no,d1.* from ("+sql+") d1) where no>="+b1+" and no<"+ e1;
+            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid,"%"+keyword+"%"});
+        }
+
+    }
     public static void main(String[] args) {
-        OraIndexListDaoImpl oraIndexListDao=new OraIndexListDaoImpl();
-        oraIndexListDao.getIndexListByPage("usercode01",0,5);
-    }*/
+
+        List<DataTableRow> datas = IndexListDao.Fator.getInstance().getIndexdatadao().shareSelectList(0,"魏","admin").getRows();
+        System.out.println(datas.get(0).getString("ucname"));
+    }
 }

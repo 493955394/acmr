@@ -394,6 +394,48 @@ define(function (require,exports,module) {
             delIds = [];
         });
     });
+    $(document).on('submit', '.J_search_form1', function(event) {
+        event.preventDefault();
+        var self = this,
+            requestUrl = $(self).prop('action'),
+            key = $('select',self).val(),
+            val = $('input',self).val(),
+            str = "";
+        var requestData = common.formatData(key,val);
+        if(requestData.length>0){
+            requestData="&"+requestData;
+        }
+        searchField = requestData+str;
+        isMove = false;
+        $.pjax({
+            url: requestUrl+searchField,
+            container: '.J_zsjh_data_table'
+        });
+        $(document).on('pjax:success', function() {
+            delIds = [];
+        });
+    });
+    $(document).on('submit', '.J_search_form2', function(event) {
+        event.preventDefault();
+        var self = this,
+            requestUrl = $(self).prop('action'),
+            key = $('select',self).val(),
+            val = $('input',self).val(),
+            str = "";
+        var requestData = common.formatData(key,val);
+        if(requestData.length>0){
+            requestData="&"+requestData;
+        }
+        searchField = requestData+str;
+        isMove = false;
+        $.pjax({
+            url: requestUrl+searchField,
+            container: '.J_zsjh_data_table'
+        });
+        $(document).on('pjax:success', function() {
+            delIds = [];
+        });
+    });
 
     var zNodes =[
         { id:"!1", pId:0, name:"指数",isParent:true},

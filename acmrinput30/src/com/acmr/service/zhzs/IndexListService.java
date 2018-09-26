@@ -206,14 +206,14 @@ public class IndexListService {
     }
 
     //查找功能
-    public ArrayList<IndexList> found(int type,String code){
+    public ArrayList<IndexList> found(int type,String code,String userid){
         ArrayList<IndexList> indexLists=new ArrayList<>();
         List<DataTableRow> data = new ArrayList<>();
        if(type==0){//0表示是通过code查的
-            data = IndexListDao.Fator.getInstance().getIndexdatadao().getLikeCode(code).getRows();
+            data = IndexListDao.Fator.getInstance().getIndexdatadao().getLikeCode(code,userid).getRows();
 
        }else if(type==1){//1表示是通过cname查的
-           data = IndexListDao.Fator.getInstance().getIndexdatadao().getLikeCname(code).getRows();
+           data = IndexListDao.Fator.getInstance().getIndexdatadao().getLikeCname(code,userid).getRows();
        }
         for(int i=0;i<data.size();i++){
             IndexList index= new IndexList();
@@ -238,14 +238,14 @@ public class IndexListService {
     /**
      * 查询的分页
      */
-    public  List<IndexList> found(int type,String code,int page,int pagesize){
+    public  List<IndexList> found(int type,String code,String userid,int page,int pagesize){
         List<IndexList> indexLists=new ArrayList<>();
         List<DataTableRow> data = new ArrayList<>();
         if(type==0){//0表示是通过code查的
-            data = IndexListDao.Fator.getInstance().getIndexdatadao().getLikeCodeByPage(code,page,pagesize).getRows();
+            data = IndexListDao.Fator.getInstance().getIndexdatadao().getLikeCodeByPage(code,userid,page,pagesize).getRows();
 
         }else if(type==1){//1表示是通过cname查的
-            data = IndexListDao.Fator.getInstance().getIndexdatadao().getLikeCnameByPage(code,page,pagesize).getRows();
+            data = IndexListDao.Fator.getInstance().getIndexdatadao().getLikeCnameByPage(code,userid,page,pagesize).getRows();
         }
         for(int i=0;i<data.size();i++){
             IndexList index= new IndexList();
@@ -487,17 +487,69 @@ public class IndexListService {
         }
         return check;
     }
+
+    /**
+     * 计划分享的撤回
+     * @param indexcode
+     * @param depusercode
+     * @param sort
+     * @return
+     */
     public int delShare(String indexcode,String depusercode,String sort){
         return IndexListDao.Fator.getInstance().getIndexdatadao().delShare(indexcode,depusercode,sort);
     }
 
-/*
-    public static void main(String[] args) throws ParseException {
+    /**
+     * 我共享的指数的查询搜索
+     */
+    public List<Map<String,String>> shareSelect(int type,String keyword,String userid){
+       List<DataTableRow> datas = IndexListDao.Fator.getInstance().getIndexdatadao().shareSelectList(type,keyword,userid).getRows();
+        List<Map<String,String>> list=new ArrayList<>();
+        for (int i = 0; i <datas.size() ; i++) {
+            Map<String,String> arr = new HashMap<String,String>();
+            arr.put("code",datas.get(i).getString("indexcode"));
+            arr.put("cname",datas.get(i).getString("cname"));
+            arr.put("timesort",datas.get(i).getString("isort"));
+            arr.put("depusercode",datas.get(i).getString("depusercode"));
+            arr.put("sort",datas.get(i).getString("sort"));
+            arr.put("right",datas.get(i).getString("right"));
+            if(datas.get(i).getString("sort").equals("2")){
+                arr.put("depusername",datas.get(i).getString("ucname"));
+            }
+            else {
+                arr.put("depusername",datas.get(i).getString("dcname"));
+            }
+            list.add(arr);
+        }
+        return list;
+    }
+    //分页
+    public List<Map<String,String>> shareSelect(int type,String keyword,String userid,int page,int pagesize){
+        List<DataTableRow> datas = IndexListDao.Fator.getInstance().getIndexdatadao().shareSelectListByPage(type,keyword,userid,page,pagesize).getRows();
+        List<Map<String,String>> list=new ArrayList<>();
+        for (int i = 0; i <datas.size() ; i++) {
+            Map<String,String> arr = new HashMap<String,String>();
+            arr.put("code",datas.get(i).getString("indexcode"));
+            arr.put("cname",datas.get(i).getString("cname"));
+            arr.put("timesort",datas.get(i).getString("isort"));
+            arr.put("depusercode",datas.get(i).getString("depusercode"));
+            arr.put("sort",datas.get(i).getString("sort"));
+            arr.put("right",datas.get(i).getString("right"));
+            if(datas.get(i).getString("sort").equals("2")){
+                arr.put("depusername",datas.get(i).getString("ucname"));
+            }
+            else {
+                arr.put("depusername",datas.get(i).getString("dcname"));
+            }
+            list.add(arr);
+        }
+        return list;
+    }
+   /* public static void main(String[] args) throws ParseException {
         IndexListService indexListService=new IndexListService();
-        indexListService.getIndexListByPage("usercode01",0,10);
+        indexListService.shareSelect(0,"魏","admin");
     }
 */
-
 
 
 

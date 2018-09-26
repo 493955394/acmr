@@ -478,6 +478,8 @@ public class indexlist extends BaseAction {
      * @throws IOException
      */
     public ModelAndView find(){
+        User cu=UserService.getCurrentUser();
+        String usercode=cu.getUserid();
         HttpServletRequest req = this.getRequest();
         IndexListService indexListService=new IndexListService();
         ArrayList<IndexList> indexAllList= new ArrayList<IndexList>();
@@ -492,13 +494,13 @@ public class indexlist extends BaseAction {
         StringBuffer sb = new StringBuffer();
         sb.append(this.getRequest().getRequestURI());
         if (!StringUtil.isEmpty(code)) {
-            indexAllList= new IndexListService().found(0,code);
-            indexList= indexListService.found(0,code,page.getPageNum() - 1,page.getPageSize());
+            indexAllList= new IndexListService().found(0,code,usercode);
+            indexList= indexListService.found(0,code,usercode,page.getPageNum() - 1,page.getPageSize());
             sb.append("?m=find&code="+code);
         }
         if (!StringUtil.isEmpty(cname)) {
-            indexAllList= new IndexListService().found(1,cname);
-            indexList= indexListService.found(1,cname,page.getPageNum() - 1,page.getPageSize());
+            indexAllList= new IndexListService().found(1,cname,usercode);
+            indexList= indexListService.found(1,cname,usercode,page.getPageNum() - 1,page.getPageSize());
             sb.append("?m=find&cname="+cname);
         }
         page.setData(indexList);
@@ -534,5 +536,47 @@ public class indexlist extends BaseAction {
             return;
         }
     }
+
+        /**
+         * 我共享的指数查找
+         */
+        public ModelAndView shareListFind(){
+            User cu=UserService.getCurrentUser();
+            String usercode=cu.getUserid();
+            HttpServletRequest req = this.getRequest();
+            IndexListService indexListService=new IndexListService();
+            List<Map<String,String>> indexAllList= new ArrayList<Map<String,String>>();
+            List<Map<String,String>> indexList= new ArrayList<Map<String,String>>();
+            // 获取查询数据
+            String code = StringUtil.toLowerString(req.getParameter("code"));
+            String cname = StringUtil.toLowerString(req.getParameter("cname"));
+            // 判断是否pjax 请求
+            String pjax = req.getHeader("X-PJAX");
+
+            PageBean<Map<String,String>> page = new PageBean<Map<String,String>>();
+            StringBuffer sb = new StringBuffer();
+            sb.append(this.getRequest().getRequestURI());
+            if (!StringUtil.isEmpty(code)) {
+                indexAllList= new IndexListService().shareSelect(0,code,usercode);
+                indexList= indexListService.shareSelect(0,code,usercode,page.getPageNum() - 1,page.getPageSize());
+                sb.append("?m=shareListFind&code="+code);
+            }
+            if (!StringUtil.isEmpty(cname)) {
+                indexAllList= new IndexListService().shareSelect(1,cname,usercode);
+                indexList= indexListService.shareSelect(1,cname,usercode,page.getPageNum() - 1,page.getPageSize());
+                sb.append("?m=shareListFind&cname="+cname);
+            }
+            page.setData(indexList);
+            page.setTotalRecorder(indexAllList.size());
+            page.setUrl(sb.toString());
+            Map<String, String> codes = new HashMap<String, String>();
+            codes.put("code", code);
+            codes.put("cname", cname);
+            if (StringUtil.isEmpty(pjax)) {
+                return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("page",page).addObject("codes",codes).addObject("state","2");
+            } else {
+                return new ModelAndView("/WEB-INF/jsp/zhzs/indextable").addObject("page",page).addObject("codes",codes).addObject("state","2");
+            }
+        }
 }
 

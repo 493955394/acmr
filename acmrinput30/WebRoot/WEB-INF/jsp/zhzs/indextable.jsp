@@ -58,7 +58,7 @@
 <c:if test="${state.equals('2')}">
     <div class="panel-body">
         <div class="toolbar-left">
-            <form class="form-inline J_search_form2" action="${ctx}/zbdata/indexlist.htm?m=find">
+            <form class="form-inline J_search_form2" action="${ctx}/zbdata/indexlist.htm?m=shareListFind">
                 <div class="form-group">
                     <select id="querykey2" class="form-control input-sm">
                         <option value="cname" <c:if test="${codes.cname != '' && codes.cname!= null}">selected</c:if>>计划名称</option>
