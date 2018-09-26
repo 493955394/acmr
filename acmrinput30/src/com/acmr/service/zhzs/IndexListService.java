@@ -423,7 +423,7 @@ public class IndexListService {
             depusercodes.add(deps.get(j).getCode());
         }
         //先获取直接分享给用户的指数列表
-        //再获取分享给组织的计划，未完成（要过滤掉icodelist中已经有的）
+        //再获取分享给组织的计划（要过滤掉icodelist中已经有的）
         for (int n=0;n<depusercodes.size();n++){
             List<DataTableRow> rowu=IndexListDao.Fator.getInstance().getIndexdatadao().getRightListByDepUserCode(depusercodes.get(n)).getRows();
             for (int i=0;i<rowu.size();i++){
@@ -547,10 +547,69 @@ public class IndexListService {
         }
         return list;
     }
+
+    /**
+     * 我收到的指数的查询搜索
+     */
+    public List<Map<String,Object>> receiveSelect(int type,String keyword,String userid){
+        List<Map<String,Object>> list=new ArrayList<>();
+        //获取部门层级列表
+        List<Department> deps=UserDepService.getDepPath(userid);
+        List<String> depusercodes = new ArrayList<>();
+        depusercodes.add(userid);
+        for (int j=0;j<deps.size();j++){
+            depusercodes.add(deps.get(j).getCode());
+        }
+        //已经存在的icode
+        List<String> icodes=new ArrayList<>();
+        //先获取直接分享给用户的指数列表
+        //再获取分享给组织的计划（要过滤掉icodelist中已经有的）
+        for (int n=0;n<depusercodes.size();n++){
+            List<DataTableRow> row = new ArrayList<>();
+            if(n==0){
+                row = IndexListDao.Fator.getInstance().getIndexdatadao().receiveSelectList(type,keyword,depusercodes.get(n),"2").getRows();//第一个查用户，优先级最高
+            }
+            else{
+                row = IndexListDao.Fator.getInstance().getIndexdatadao().receiveSelectList(type,keyword,depusercodes.get(n),"1").getRows();
+            }
+            for (int i=0;i<row.size();i++){
+                Map <String,Object> m=new HashMap<>();
+                String indexcode=row.get(i).getString("code");
+                //判断该index是否已经存在
+                Boolean already=false;
+                for (int j=0;j<icodes.size();j++){
+                    if (icodes.get(j).equals(indexcode)){
+                        already=true;
+                        break;
+                    }
+                }
+                if (!already){
+                    m.put("indexcode",indexcode);
+                    icodes.add(indexcode);
+                    String cname=row.get(i).getString("cname");
+                    String procode=row.get(i).getString("procode");
+                    String sort=row.get(i).getString("sort");
+                    String startperiod=row.get(i).getString("startperiod");
+                    String delayday=row.get(i).getString("delayday");
+                    String planperiod=row.get(i).getString("planperiod");
+                    String plantime=row.get(i).getString("plantime");
+                    String createuser=row.get(i).getString("createuser");
+                    m.put("createuser",row.get(i).getString("ucname"));
+                    String ifdata=row.get(i).getString("ifdata");
+                    String state=row.get(i).getString("state");
+                    IndexList index=new IndexList(indexcode,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser,ifdata,state);
+                    m.put("index",index);
+                    String right=row.get(i).getString("right");
+                    m.put("right",right);
+                    list.add(m);
+                }
+            }
+        }
+        return list;
+    }
    /* public static void main(String[] args) throws ParseException {
         IndexListService indexListService=new IndexListService();
-        indexListService.shareSelect(0,"魏","admin");
-=======
+        indexListService.shareSelect(0,"魏","admin");*/
     
     
     /** 

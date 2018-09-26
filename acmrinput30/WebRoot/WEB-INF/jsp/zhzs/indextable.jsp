@@ -33,7 +33,7 @@
 <c:if test="${state.equals('1')}">
     <div class="panel-body">
         <div class="toolbar-left">
-            <form class="form-inline J_search_form1" action="${ctx}/zbdata/indexlist.htm?m=find">
+            <form class="form-inline J_search_form1" action="${ctx}/zbdata/indexlist.htm?m=receiveListFind">
                 <div class="form-group">
                     <select id="querykey1" class="form-control input-sm">
                         <option value="cname" <c:if test="${codes.cname != '' && codes.cname!= null}">selected</c:if>>计划名称</option>

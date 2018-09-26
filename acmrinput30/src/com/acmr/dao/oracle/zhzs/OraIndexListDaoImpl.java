@@ -369,7 +369,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
 
     @Override
     public DataTable shareSelectListByPage(int type, String keyword,String userid,int page,int pagesize) {
-        //type==0是code,表示关键字是被分享/分享人；1是cname，表示计划名称
+        //type==0是code,表示关键字是被分享人；1是cname，表示计划名称
         int b1 = page * pagesize + 1;
         int e1 = b1 + pagesize;
        String sql = "select r.*,i.cname,i.sort as isort,u.cname as ucname,d.cname as dcname from tb_coindex_right r ";
@@ -388,9 +388,26 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         }
 
     }
+
+    @Override
+    public DataTable receiveSelectList(int type, String keyword, String depusercode,String sort) {
+        //type==0是code,表示关键字是分享人；1是cname，表示计划名称
+        //sort=2代表用户，sort=1代表组织
+        String sql = "select r.right,i.*,u.cname as ucname from tb_coindex_right r ";
+        sql +="left join tb_coindex_index i on r.indexcode = i.code ";
+        sql +="left join tb_right_user u on r.createuser = u.userid ";
+        if(type ==0){
+            sql +="where r.depusercode=? and r.sort=? and lower(u.cname) like ? ";
+        }
+        else if(type ==1) {
+            sql +="where  r.depusercode=? and r.sort=? and lower(i.cname) like ?";
+        }
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{depusercode,sort,"%"+keyword+"%"});
+    }
+
     public static void main(String[] args) {
 
-        List<DataTableRow> datas = IndexListDao.Fator.getInstance().getIndexdatadao().shareSelectList(0,"魏","admin").getRows();
+        List<DataTableRow> datas = IndexListDao.Fator.getInstance().getIndexdatadao().receiveSelectList(1,"李","04","1").getRows();
         System.out.println(datas.get(0).getString("ucname"));
     }
 }
