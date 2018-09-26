@@ -111,7 +111,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
             java.util.Date now = new java.util.Date();
-            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
+            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
             String icode = data1.getCode();
             String icname = data1.getCname();
             String iprocode = data1.getProcode();
@@ -121,12 +121,12 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             String istartpeiod = data1.getStartperiod();
             String idelayday = data1.getDelayday();
             //String iplanperiod = data1.getPlanperiod();
-            //String iplantime = data1.getPlantime();
+            String iplantime = data1.getPlantime().substring(0,data1.getPlantime().length()-2);
             String createuser = data1.getCreateuser();
-            String createtime = data1.getCreatetime();
+            String createtime = data1.getCreatetime().substring(0,data1.getCreatetime().length()-2);
             java.sql.Timestamp updatetime = new java.sql.Timestamp(now.getTime());
             //Object up = new Timestamp(new Date().getTime());
-            dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,createuser,createtime,updatetime});
+            dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplantime,createuser,createtime,updatetime});
             //复制模型
             String sql2 = "select * from tb_coindex_module where indexcode=?";
             DataTable table1=dataQuery.getDataTableSql(sql2,new Object[]{cpcode});
@@ -394,20 +394,24 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         //type==0是code,表示关键字是分享人；1是cname，表示计划名称
         //sort=2代表用户，sort=1代表组织
         String sql = "select r.right,i.*,u.cname as ucname from tb_coindex_right r ";
-        sql +="left join tb_coindex_index i on r.indexcode = i.code ";
-        sql +="left join tb_right_user u on r.createuser = u.userid ";
-        if(type ==0){
-            sql +="where r.depusercode=? and r.sort=? and lower(u.cname) like ? ";
+        sql += "left join tb_coindex_index i on r.indexcode = i.code ";
+        sql += "left join tb_right_user u on r.createuser = u.userid ";
+        if (type == 0) {
+            sql += "where r.depusercode=? and r.sort=? and lower(u.cname) like ? ";
+        } else if (type == 1) {
+            sql += "where  r.depusercode=? and r.sort=? and lower(i.cname) like ?";
         }
-        else if(type ==1) {
-            sql +="where  r.depusercode=? and r.sort=? and lower(i.cname) like ?";
-        }
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{depusercode,sort,"%"+keyword+"%"});
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{depusercode, sort, "%" + keyword + "%"});
+    }
+    public int updateTime(String plantime, String planperiod, String icode) {
+        String sql="update tb_coindex_index set plantime=to_date(?,'yyyy-mm-dd hh24:mi:ss'),planperiod=? where code=?";
+        AcmrInputDPFactor.getQuickQuery().executeSql(sql,new Object[]{plantime,planperiod,icode});
+        return 0;
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
 
         List<DataTableRow> datas = IndexListDao.Fator.getInstance().getIndexdatadao().receiveSelectList(1,"李","04","1").getRows();
         System.out.println(datas.get(0).getString("ucname"));
-    }
+    }*/
 }
