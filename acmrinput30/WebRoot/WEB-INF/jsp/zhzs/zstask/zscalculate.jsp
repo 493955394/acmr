@@ -74,6 +74,7 @@
                     <!--Tab panes end-->
                 </div>
             </div>
+            </div>
         </div>
 </div>
 </body>
