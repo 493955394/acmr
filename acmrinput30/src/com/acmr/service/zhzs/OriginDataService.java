@@ -200,7 +200,8 @@ public class OriginDataService {
         try {
             ce.setFunctionclass(new MathService());
             result = ce.Eval(formula);
-            result = String.format("%."+dacimal+"f",Double.valueOf(result));//保留几位小数
+            if(result !="" && result !=null){
+            result = String.format("%."+dacimal+"f",Double.valueOf(result));}//保留几位小数
             System.out.println(ce.Eval(formula));
         } catch (MathException e) {
             e.printStackTrace();
