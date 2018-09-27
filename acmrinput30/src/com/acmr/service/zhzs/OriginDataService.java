@@ -153,8 +153,11 @@ public class OriginDataService {
                             String val = originDataService.getvalue(iftmp,taskcode,zbs.get(k).getCode(),reg[j],time,sessionid);
                             if((val!= null)&&(val!="")){//如果有值的话
                                 val = String.format("%."+data.get(i).getDacimal()+"f",Double.valueOf(val));//保留几位小数
+                                da.setData(val);
+                            }else{//要是没有值
+                                da.setData(String.format("%."+data.get(i).getDacimal()+"f",0.0));
                             }
-                            da.setData(val);
+
                             newadd.add(da);}
                     }
                 }
@@ -174,7 +177,13 @@ public class OriginDataService {
                         if(formula.contains(zbs.get(k).getProcode())){//要是存在这个code,就去取对应的zbcode
                             String tempval = originDataService.getvalue(iftmp,taskcode,zbs.get(k).getCode(),reg[j],time,sessionid);
                             //替换公式中的值
-                            formula = formula.replace("#"+zbs.get(k).getProcode()+"#",tempval);//换成对应的value
+                            if(tempval.equals("")||tempval.equals(null)){
+                                formula = formula.replace("#"+zbs.get(k).getProcode()+"#","0");//换成0
+                            }
+                            else{
+                                formula = formula.replace("#"+zbs.get(k).getProcode()+"#",tempval);//换成对应的value
+                            }
+
                         }
                     }
                     //全部替换完成后开始做计算
@@ -200,8 +209,6 @@ public class OriginDataService {
         try {
             ce.setFunctionclass(new MathService());
             result = ce.Eval(formula);
-            if(result !="" && result !=null){
-            result = String.format("%."+dacimal+"f",Double.valueOf(result));}//保留几位小数
             System.out.println(ce.Eval(formula));
         } catch (MathException e) {
             e.printStackTrace();

@@ -603,10 +603,11 @@ public class zscalculate extends BaseAction {
             rows.add(arr.get(i).get("name").toString());
             for (int j = 0; j <regscode.size() ; j++) {
                 String current = originDataService.getzbvalue(true,taskcode,arr.get(i).get("code").toString(),regscode.get(j),ayearmon,sessionid);
-                rows.add(current);//本期值
-                if(current=="" ||current ==null){
+
+                if(current =="" || current ==null){
                     rows.add(String.format("%."+arr.get(i).get("dotcount").toString()+"f",0.0));
                 }else{
+                    rows.add(String.format("%."+arr.get(i).get("dotcount").toString()+"f",current));//本期值
                     //查询是否有上期，有的话返回taskcode
                     String oldtaskcode = originDataService.findoldtask(taskcode);
                     if(oldtaskcode!=null){
@@ -615,6 +616,9 @@ public class zscalculate extends BaseAction {
                         if(oldmodcode !=null){
                             String time = indexTaskService.getTime(oldtaskcode);
                             String prodata = originDataService.getzbvalue(false,oldtaskcode,oldmodcode,regscode.get(j),time,"");
+                            if(prodata ==""||prodata==null){//保证数据不能为空
+                                prodata=String.format("%."+arr.get(i).get("dotcount").toString()+"f",0.0);
+                            }
                             String formula = current+"/"+prodata;
                             String value = calculateFunction(formula,arr.get(i).get("dotcount").toString());
                             rows.add(value);
