@@ -228,7 +228,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
     public DataTable getTaskListByPage(String icode,int page,int pagesize){
         int b1 = page * pagesize + 1;
         int e1 = b1 + pagesize;
-        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_task where indexcode=?) d1) where no>="+b1+" and no<"+ e1+" order by ayearmon desc";
+        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_task where indexcode=? order by ayearmon desc) d1) where no>="+b1+" and no<"+ e1+" order by ayearmon desc";
        // String sql = "select * from tb_coindex_task where indexcode= ? order by ayearmon desc";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode});
     }

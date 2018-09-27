@@ -607,7 +607,7 @@ public class zscalculate extends BaseAction {
                 if(current =="" || current ==null){
                     rows.add(String.format("%."+arr.get(i).get("dotcount").toString()+"f",0.0));
                 }else{
-                    rows.add(String.format("%."+arr.get(i).get("dotcount").toString()+"f",current));//本期值
+                    rows.add(String.format("%."+arr.get(i).get("dotcount").toString()+"f",Double.valueOf(current)));//本期值
                     //查询是否有上期，有的话返回taskcode
                     String oldtaskcode = originDataService.findoldtask(taskcode);
                     if(oldtaskcode!=null){
