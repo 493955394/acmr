@@ -364,17 +364,6 @@ public class zsjhedit extends BaseAction {
             dr1 = sheet1.addRow();
            // String a2 = arr.replaceAll("0.0"," ");
             String [] a3 = arr.split(",");
-            /*int n = i+2;
-            int w = i+1;
-
-            //if(w<data1.size() && n<=data1.size()){
-            if(w<data1.size()){
-                String arr1 = data1.get(w).toString().substring(1,data1.get(w).toString().length()-1);
-                String [] a4 = arr1.split(",");
-                if(a3[0].equals(a4[0])){
-                    sheet1.MergedRegions(w,0,n,0);
-                }
-            }*/
             for(int j=0;j<a3.length;j++){
                 /*int a = arr[j];
                 if(a == 0.0){
@@ -385,9 +374,20 @@ public class zsjhedit extends BaseAction {
                 cell2.setCellValue(a3[j]);
                 dr1.set(j, cell2);
             }
-
-
-
+        }
+        for(int t=0;t<data1.size();t++){
+            int n = t+2;
+            int w = t+1;
+            String arr =data1.get(t).toString().substring(1,data1.get(t).toString().length()-1);
+            String [] a3 = arr.split(",");
+            //if(w<data1.size() && n<=data1.size()){
+            if(w<data1.size()){
+                String arr1 = data1.get(w).toString().substring(1,data1.get(w).toString().length()-1);
+                String [] a4 = arr1.split(",");
+                if(a3[0].equals(a4[0])){
+                    sheet1.MergedRegions(w,0,n,0);
+                }
+            }
         }
         book.getSheets().add(sheet1);
         HttpServletResponse resp = this.getResponse();

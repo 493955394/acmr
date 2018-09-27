@@ -333,7 +333,6 @@ public class zscalculate extends BaseAction {
     }
     /**
      * 原始数据的下载
-     *
      * @param
      * @return
      * @author wf
@@ -349,7 +348,7 @@ public class zscalculate extends BaseAction {
         //String istmp = PubInfo.getString(req.getParameter("istmp"));//判断读取数据的data表
         //PubInfo.printStr("istmp:"+istmp);
         //String taskcode = req.getParameter("taskcode");
-        String istmp = PubInfo.getString(this.getRequest().getParameter("istmp"));//判断读取数据的data表
+        //String istmp = PubInfo.getString(this.getRequest().getParameter("istmp"));//判断读取数据的data表
         String taskcode = PubInfo.getString(this.getRequest().getParameter("taskcode"));
         //String taskcode =PubInfo.getString(req.getParameter("taskcode"));
         IndexTaskService indexTaskService = new IndexTaskService();
@@ -361,7 +360,6 @@ public class zscalculate extends BaseAction {
         ExcelBook book = new ExcelBook();
         ExcelSheet sheet1 = new ExcelSheet();
         sheet1.setName("sheet1");
-        if (istmp.equals("true")){
             List<List<String>> datatmp = getOriginData(true,taskcode,ayearmon,sessionid);
             List<String> regscode = indexTaskService.getTaskRegs(taskcode);
             List<String> regstmp = new ArrayList<>();
@@ -404,50 +402,7 @@ public class zscalculate extends BaseAction {
                     dr1.set(j, cell2);
                 }
             }
-        } else {
-            //String ayearmon = indexTaskService.getTime(taskcode);
-            List<List<String>> data1 = getOriginData(false,taskcode,ayearmon,sessionid);
-            List<String> regscode = indexTaskService.getTaskRegs(taskcode);
-            List<String> regs = new ArrayList<>();
-            for (int i = 0; i < regscode.size(); i++) {
-                regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
-            }
-            JSONReturnData data = new JSONReturnData("");
-            if (regs == null || data1 == null) {
-                data.setReturncode(300);
-                this.sendJson(data);
-                return;
-            } else {
-                data.setReturncode(200);
-            }
-            sheet1.addColumn();
-            ExcelCell cell1 = new ExcelCell();
-            ExcelRow dr1 = sheet1.addRow();
-            ExcelCell cell2 = cell1.clone();
-            cell2.setCellValue("指标");
-            dr1.set(0, cell2);
-            // for (int a=2;a<)
-            for (int k = 0; k < regs.size(); k++) {
-                int m = k + 1;
-                sheet1.addColumn();
-                cell2 = cell1.clone();
-                cell2.setCellValue(regs.get(k));
-                dr1.set(m, cell2);
-            }
-            cell1.getCellstyle().getFont().setBoldweight((short) 10);
-            for (int i = 0; i < data1.size(); i++) {
-                String arr = data1.get(i).toString().substring(1, data1.get(i).toString().length() - 1);
-                //String arr =data1.get(i).toString();
-                dr1 = sheet1.addRow();
-                String a2 = arr.replaceAll("null"," ").replaceAll("0"," ");
-                String[] a3 = a2.split(",");
-                for (int j = 0; j < a3.length; j++) {
-                    cell2 = cell1.clone();
-                    cell2.setCellValue(a3[j]);
-                    dr1.set(j, cell2);
-                }
-            }
-        }
+
         book.getSheets().add(sheet1);
         HttpServletResponse resp = this.getResponse();
         resp.reset();
@@ -481,6 +436,7 @@ public class zscalculate extends BaseAction {
         List<List<String>> datas = new ArrayList<List<String>>();
         String taskcode = PubInfo.getString(req.getParameter("taskcode"));
         String cws=PubInfo.getString(req.getParameter("cws"));//获取当前的权重
+        if(cws!=""&&cws!=null){
         cws = cws.substring(0, cws.length() - 1);//去除最后一个逗号
         PubInfo.printStr(cws);
         List<String> cw= Arrays.asList(cws.split(","));
@@ -488,7 +444,7 @@ public class zscalculate extends BaseAction {
             String code=cw.get(i).split(":")[0];
             String weight=cw.get(i).split(":")[1];
             weightEditService.tWeightUpadte(code,weight);
-        }
+        }}
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
         //通过taskcode去查值
@@ -558,13 +514,14 @@ public class zscalculate extends BaseAction {
         List<List<String>> datas = new ArrayList<List<String>>();
         String taskcode = PubInfo.getString(req.getParameter("taskcode"));
         String cws = PubInfo.getString(req.getParameter("cws"));//获取当前的权重
+        if(cws!=""&&cws!=null){
         cws = cws.substring(0, cws.length() - 1);//去除最后一个逗号
         List<String> cw = Arrays.asList(cws.split(","));
         for (int i = 0; i < cw.size(); i++) {
             String code = cw.get(i).split(":")[0];
             String weight = cw.get(i).split(":")[1];
             weightEditService.tWeightUpadte(code, weight);
-        }
+        }}
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
         //通过taskcode去查值
@@ -646,7 +603,8 @@ public class zscalculate extends BaseAction {
         try {
             ce.setFunctionclass(new MathService());
             result = ce.Eval(formula);
-            result = String.format("%."+dacimal+"f",Double.valueOf(result));//保留几位小数
+            if(result!=""&&result!=null){
+            result = String.format("%."+dacimal+"f",Double.valueOf(result));}//保留几位小数
             System.out.println(ce.Eval(formula));
         } catch (MathException e) {
             e.printStackTrace();
@@ -656,17 +614,17 @@ public class zscalculate extends BaseAction {
         return result;
     }
 
- /*   public static void main(String[] args) {
-        String formula = "0*3";
+    public static void main(String[] args) {
+        String formula = "/3";
         String result = "";
         try {
             ce.setFunctionclass(new MathService());
             result = ce.Eval(formula);
-            result = String.format("%.1f",Double.valueOf(result));//保留几位小数
+
             System.out.println(result);
         } catch (MathException e) {
             e.printStackTrace();
             System.out.println("error");
         }
-    }*/
+    }
 }
