@@ -526,9 +526,9 @@ define(function (require,exports,module) {
         var url=window.location.href
         $('#my_index_all').load(url + ' .my_index')
     }
-    console.log("rootpath:"+common.rootPath)
+   // console.log("rootpath:"+common.rootPath)
     function clickEvent(event,treeId,treeNode) {
-        console.log(treeNode.id)
+       // console.log(treeNode.id)
         var code=treeNode.id
 
         $.pjax({
