@@ -467,6 +467,7 @@ public class IndexListService {
     }
 
     public Boolean checkModule(String icode){
+        //校验模型节点下必须有指标，且权重不能为0
         List<DataTableRow> rows=IndexListDao.Fator.getInstance().getIndexdatadao().getZSMods(icode).getRows();
        // List<IndexMoudle> mods=new ArrayList<>();
         Boolean check=true;
@@ -482,11 +483,12 @@ public class IndexListService {
             String weight=rows.get(i).getString("weight");
             String dacimal=rows.get(i).getString("dacimal");
             IndexMoudle mod=new IndexMoudle(code,cname,indexcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal);
-            if (mod.ZBnums()<1){
+            if (mod.ZBnums()<1||mod.getWeight().equals("0")){
                 check=false;
             }
           //  mods.add(mod);
         }
+
         return check;
     }
 
