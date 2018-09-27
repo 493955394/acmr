@@ -144,14 +144,16 @@
     </c:if>
     <c:if test="${state.equals('1')}">
         <colgroup>
+            <col width="5%"/>
             <col width="20%"/>
             <col width="20%"/>
-            <col width="20%"/>
+            <col width="15%"/>
             <col width="20%"/>
             <col width="20%"/>
         </colgroup>
         <thead>
         <tr>
+            <th><input type="radio" style="display: none;"></th>
             <th>名称</th>
             <th>分享人</th>
             <th>权限</th>
@@ -162,6 +164,7 @@
         <tbody class="list_body_my_received">
         <c:forEach items="${page.data}" var="index">
             <tr class="my_received">
+                <th><input type="checkbox" if="${index.get('index').getIfdata()}" id="${index.get('index').getCode()}" getname="${index.get('index').getCname()}"></th>
                 <td>${index.get("index").getCname()}</td>
                 <td>${index.get("createuser")}</td>
                 <td>
