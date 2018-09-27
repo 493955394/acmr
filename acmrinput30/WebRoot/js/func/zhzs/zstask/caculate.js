@@ -73,11 +73,9 @@ define(function (require,exports,module) {
             var weight=$(this).val()
             cws +=code+":"+weight+","
         });
-      //  console.log(cws)
         $.pjax({
-            url: common.rootPath+'zbdata/zscalculate.htm?m=docalculate&taskcode='+taskcode,
-            data:{"cws":cws},
-            type: "post",
+            url: common.rootPath+'zbdata/zscalculate.htm?m=docalculate&taskcode='+taskcode+"&cws="+cws,
+            type: "get",
             container:'.calculate_result'
         })
         $(document).on('pjax:success', function() {
@@ -189,11 +187,9 @@ define(function (require,exports,module) {
             var weight=$(this).val()
             cws +=code+":"+weight+","
         });
-        //  console.log(cws)
         $.pjax({
-            url: common.rootPath+'zbdata/zscalculate.htm?m=savecalculate&taskcode='+taskcode,
-            data:{"cws":cws},
-            type: "post",
+            url: common.rootPath+'zbdata/zscalculate.htm?m=savecalculate&taskcode='+taskcode+"&cws="+cws,
+            type: "get",
             container:'.calculate_result'
         })
         $(document).on('pjax:success', function() {

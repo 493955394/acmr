@@ -455,6 +455,7 @@ public class zscalculate extends BaseAction {
         String sessionid = req.getSession().getId();
         IndexTaskService indexTaskService =new IndexTaskService();
         OriginDataService originDataService = new OriginDataService();
+        WeightEditService weightEditService=new WeightEditService();
         OriginService originService = new OriginService();
         List<List<String>> datas = new ArrayList<List<String>>();
         String taskcode = PubInfo.getString(req.getParameter("taskcode"));
@@ -465,7 +466,6 @@ public class zscalculate extends BaseAction {
         for (int i=0;i<cw.size();i++){
             String code=cw.get(i).split(":")[0];
             String weight=cw.get(i).split(":")[1];
-            WeightEditService weightEditService=new WeightEditService();
             weightEditService.tWeightUpadte(code,weight);
         }
         // 判断是否pjax 请求
@@ -484,7 +484,9 @@ public class zscalculate extends BaseAction {
         }
         if (StringUtil.isEmpty(pjax)) {
             List<List<String>> data=getOriginData(true,taskcode,ayearmon,sessionid);
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
+            datas = getResultList(taskcode,regscode,sessionid);
+            List<TaskModule> mods=weightEditService.getTMods(taskcode);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("mods",mods).addObject("iftmp",true).addObject("rsdatas",datas);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tbdataresult").addObject("rsdatas",datas).addObject("regs",regs);
         }
@@ -527,6 +529,7 @@ public class zscalculate extends BaseAction {
     public ModelAndView savecalculate() {
         HttpServletRequest req = this.getRequest();
         // 获取查询数据
+        WeightEditService weightEditService=new WeightEditService();
         String sessionid = req.getSession().getId();
         IndexTaskService indexTaskService = new IndexTaskService();
         OriginDataService originDataService = new OriginDataService();
@@ -539,7 +542,6 @@ public class zscalculate extends BaseAction {
         for (int i = 0; i < cw.size(); i++) {
             String code = cw.get(i).split(":")[0];
             String weight = cw.get(i).split(":")[1];
-            WeightEditService weightEditService = new WeightEditService();
             weightEditService.tWeightUpadte(code, weight);
         }
         // 判断是否pjax 请求
@@ -562,7 +564,8 @@ public class zscalculate extends BaseAction {
         if (StringUtil.isEmpty(pjax)) {
             datas = getResultList(taskcode,regscode,sessionid);
             List<List<String>> data=getOriginData(true,taskcode,ayearmon,sessionid);
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas);
+            List<TaskModule> mods=weightEditService.getTMods(taskcode);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas).addObject("mods",mods).addObject("istmp", false).addObject("rsdatas",datas);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tbdataresult").addObject("regs",regs).addObject("rsdatas",datas);
         }
