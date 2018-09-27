@@ -135,5 +135,13 @@ public class WeightEditService {
         return subs;
     }
 
+    public List<TaskModule> getOrTMods(String taskcode){
+        //正式表覆盖临时表
+        WeightEditDao.Fator.getInstance().getIndexdatadao().ReWeight(taskcode);
+        //再次从临时表中读书
+        List<TaskModule> mods=getTMods(taskcode);
+        return mods;
+    }
+
     public int tWeightUpadte(String modcode,String weight){return WeightEditDao.Fator.getInstance().getIndexdatadao().tWeightUpd(modcode,weight);}
 }

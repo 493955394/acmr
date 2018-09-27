@@ -10,15 +10,11 @@ import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.dao.zhzs.DataDao;
 import com.acmr.dao.zhzs.IndexTaskDao;
-import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.zhzs.*;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zhzs.*;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -248,6 +244,31 @@ public class zscalculate extends BaseAction {
 
         }
 
+    }
+
+    /**
+    * @Description: 把任务的权重设置恢复到默认值
+    * @Param: []
+    * @return: void
+    * @Author: lyh
+    * @Date: 2018/9/27
+    */
+    public ModelAndView ReWeight() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        String taskcode = req.getParameter("taskcode");
+        String right="2";
+        String pjax = req.getHeader("X-PJAX");
+        WeightEditService weightEditService=new WeightEditService();
+        List<TaskModule> mods=weightEditService.getOrTMods(taskcode);
+        if (StringUtil.isEmpty(pjax)) {
+            //PubInfo.printStr("===================================emptyredata");
+            this.getResponse().sendRedirect("/zbdata/zscalculate.htm&taskcode="+taskcode+"&right="+right);
+        } else {
+          //  PubInfo.printStr("=====================================reweight");
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tweighttable").addObject("mods",mods).addObject("right",right);
+
+        }
+        return null;
     }
     /**
      * @Description: istmp为true，表示从临时表中读数，false从data表中读数，返回rows，用于绘制原始数据表

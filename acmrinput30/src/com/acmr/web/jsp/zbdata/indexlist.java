@@ -203,10 +203,10 @@ public class indexlist extends BaseAction {
         }*/
 
         if (StringUtil.isEmpty(pjax)) {
-            PubInfo.printStr("isempty");
+          //  PubInfo.printStr("isempty");
             this.getResponse().sendRedirect("/zbdata/indexlist.htm");
         } else {
-            PubInfo.printStr("pjax");
+          //  PubInfo.printStr("pjax");
             return new ModelAndView("/WEB-INF/jsp/zhzs/indextable").addObject("page",page).addObject("state",state);
         }
         return null;
