@@ -8,4 +8,5 @@ public interface IWeightEditDao {
      public DataTable getTroos(String taskcode);
      public DataTable getSubTmods(String code);
      public int tWeightUpd (String code, String weight);
+     public int ReWeight(String tcode);
 }

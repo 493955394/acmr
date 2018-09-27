@@ -10,9 +10,9 @@
 <body>
 <div class="container-fluid" id="mainpanel">
     <c:if test="${right!='0'}">
-        <select style="float: right">
+        <select class="weight_select" style="float: right">
             <option>请选择</option>
-            <option>恢复默认值</option>
+            <option id="re_weight">恢复默认值</option>
         </select>
     </c:if>
     <table class="table table-striped table-hover">

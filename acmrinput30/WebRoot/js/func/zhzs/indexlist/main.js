@@ -644,9 +644,18 @@ define(function (require,exports,module) {
         }
     }
     $(document).ready(function(){
+
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
         fixIcon("treeDemo");
         addPath();
+
+        //页面加载成功自动点击第一个节点（指数）
+        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        var node = treeObj.getNodeByParam("id","!1");
+        treeObj.expandNode(node,true,true,true)
+        treeObj.selectNode(node)
+        treeObj.setting.callback.onClick(null, treeObj.setting.treeId, node);
+
 
         //        $.fn.zTree.init($("#你的id"), settingc, cNodes);
         $.fn.zTree.init($("#treeCata"), setting1, cNodes);
@@ -705,6 +714,8 @@ define(function (require,exports,module) {
         }
     }*/
     //console.log(CategoryNodes)
+
+
 
     module.exports={
         CategoryNodes:CategoryNodes

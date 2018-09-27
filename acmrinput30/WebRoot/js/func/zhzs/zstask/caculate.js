@@ -6,6 +6,20 @@ define(function (require,exports,module) {
 
     $("#data_reload").click(reData)
     var taskcode=$("#t_code").val();
+    $(".weight_select").change(reWeight)
+
+
+    function reWeight() {
+        if ($(".weight_select").val()=="恢复默认值"){
+            console.log("恢复")
+            $.pjax({
+                url:common.rootPath+'zbdata/zscalculate.htm?m=ReWeight&taskcode='+taskcode,
+                container:'.J_zsjs_weight',
+                timeout:5000
+            })
+
+        }
+    }
 
     function reData() {
         console.log("重新读取数据")
