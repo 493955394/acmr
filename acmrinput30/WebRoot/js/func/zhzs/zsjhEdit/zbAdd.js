@@ -173,9 +173,6 @@ define(function (require,exports,module) {
             container:'.J_zsjh_zbdata_table',
             timeout:50000
         })
-        $(document).on('pjax:success', function() {
-            console.log("pjax:success")
-        });
     }
 
     function search() {
@@ -214,7 +211,7 @@ define(function (require,exports,module) {
                                 type:'get',
                                 success:function (re) {
                                     re.push(clickcode)
-                                    console.log(re)
+                                   // console.log(re)
                                     expandTree(re)
                                 }
                             })
@@ -231,7 +228,7 @@ define(function (require,exports,module) {
         var treeObj = $.fn.zTree.init($("#treeDemo1"), setting, rootNode);
         var node=treeObj.getNodeByParam("id","")
         treeObj.expandNode(node)
-        console.log("expandtree")
+      //  console.log("expandtree")
         for(var i=0;i<path.length;i++){
             //console.log(node)
             if(node.isParent==true){
@@ -279,7 +276,7 @@ define(function (require,exports,module) {
     }
 
     function addZBpanel(content) {
-        console.log("addZbpanel")
+        //console.log("addZbpanel")
         //console.log(content)
         $(".panel_container").append("<div class='panel panel-default zb_panel_add'><div class='panel-body '><input type='hidden' class='input_code' value='" +
             content.code+"'><input type='hidden' class='input_zbcode' value='" +
