@@ -216,7 +216,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     }
     @Override
     public int checkProcode(String procode){
-        String sql = "select count(*) from tb_coindex_index where code = ?";
+        String sql = "select count(*) from tb_coindex_index where procode = ?";
         List<Object> params = new ArrayList<Object>();
         params.add(procode);
         DataTable dt = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
