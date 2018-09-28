@@ -151,9 +151,12 @@ define(function (require,exports,module) {
     $("#add_hanshu").click(function () {
         $("#hanshu").val();//获取当前选择项的值.
         var options=$("#hanshu option:selected");//获取当前选择项
-        var str = options.val();//获取当前选择项的值
-        var text = options.text();//获取当前选择项的文本
-        addExpressContent(str);
+        if(options.text()){
+            var str = options.val();//获取当前选择项的值
+            var text = options.text();//获取当前选择项的文本
+            addExpressContent(str);
+        }
+
     });
 
     /**
