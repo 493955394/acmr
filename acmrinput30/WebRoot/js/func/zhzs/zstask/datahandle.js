@@ -39,10 +39,7 @@ define(function(require,exports,module) {
     $(document).on('click', '#data_download', function(event) {
     //function downdata(){
         event.preventDefault();
-        //var istmp=$(".istmpdata").val();
         var taskcode=$(".reloaddata").val();
-        console.log(istmp)
-        console.log(taskcode)
         var url = common.rootPath+"zbdata/zscalculate.htm?m=toExcel&taskcode="+taskcode;
         //var url = common.rootPath+"zbdata/zscalculate.htm?m=toExcel";
         //var time = $("#time").val();
