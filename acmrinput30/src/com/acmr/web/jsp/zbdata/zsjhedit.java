@@ -900,6 +900,12 @@ public class zsjhedit extends BaseAction {
             this.sendJson(data); //要是code已经存在
             return;
         }
+        if(ifzs.equals("2")){//如果是总指数，默认权重是1
+            indexMoudle.setWeight("1");
+        }
+        else{
+            indexMoudle.setWeight("0");
+        }
             if(ifzs.equals("1")||ifzs.equals("2")){
                 ifzs = "1";//总指数或者次级指数
                 ifzb ="";
@@ -911,7 +917,6 @@ public class zsjhedit extends BaseAction {
             indexMoudle.setIndexcode(indexCode);
             indexMoudle.setIfzs(ifzs);
             indexMoudle.setDacimal(dacimal);
-            indexMoudle.setWeight("0");
             indexMoudle.setSortcode(sortcode);
         if(ifzb.equals("1")){
             indexMoudle.setIfzb(ifzb);
