@@ -14,6 +14,19 @@ define(function (require,exports,module) {
     var st = new Date().getTime();//时间戳
 
 
+    $("#test").click(function () {
+        console.log("test")
+        $.ajax({
+            url:common.rootPath + 'zbdata/zstask.htm?id=092702&right=2' ,
+            type: 'get',
+            timeout: 10000,
+            success:function () {
+                console.log("success")
+            }
+        })
+    })
+
+
     /**
      * 新增目录ajax提交
      */

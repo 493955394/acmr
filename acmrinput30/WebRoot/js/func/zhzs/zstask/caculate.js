@@ -111,7 +111,7 @@ define(function (require,exports,module) {
             datatype:'json',
             timeout: 10000,
             success:function (re) {
-                window.location.href=common.rootPath+"zbdata/zstask.htm?id="+re.returndata;
+                window.location.href=common.rootPath+"zbdata/zstask.htm?icode="+re.returndata;
             }
         })
     })

@@ -262,7 +262,7 @@ public class zscalculate extends BaseAction {
         List<TaskModule> mods=weightEditService.getOrTMods(taskcode);
         if (StringUtil.isEmpty(pjax)) {
             //PubInfo.printStr("===================================emptyredata");
-            this.getResponse().sendRedirect("/zbdata/zscalculate.htm&taskcode="+taskcode+"&right="+right);
+            this.getResponse().sendRedirect("/zbdata/zscalculate.htm?taskcode="+taskcode+"&right="+right);
         } else {
           //  PubInfo.printStr("=====================================reweight");
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tweighttable").addObject("mods",mods).addObject("right",right);

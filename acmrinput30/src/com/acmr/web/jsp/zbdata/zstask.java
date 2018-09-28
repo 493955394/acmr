@@ -19,7 +19,7 @@ import java.util.List;
 public class zstask extends BaseAction {
 
     public ModelAndView main() throws IOException {
-        String icode = this.getRequest().getParameter("id");
+        String icode = this.getRequest().getParameter("icode");
         String right=this.getRequest().getParameter("right");
         IndexTaskService task = new IndexTaskService();
         PageBean<IndexTask> page=new PageBean<>();
@@ -58,7 +58,7 @@ public class zstask extends BaseAction {
         page.setUrl(sb.toString());
         if (StringUtil.isEmpty(pjax)) {
             PubInfo.printStr("isempty");
-            this.getResponse().sendRedirect("/zbdata/zstask.htm&id="+icode);
+            this.getResponse().sendRedirect(this.getContextPath()+"/zbdata/zstask.htm?icode="+icode+"&right=2");
         } else {
             PubInfo.printStr("pjax");
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tasktable").addObject("page",page);
