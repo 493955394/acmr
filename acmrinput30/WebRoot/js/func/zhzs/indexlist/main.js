@@ -354,7 +354,19 @@ define(function (require,exports,module) {
                 if(data.returncode == 200){
                     window.location.reload(true);
                 }else{
-                    alert("启用失败");
+                    console.log(data)
+                    if (data.checkhasMod!=true){
+                        alert("计划没有模型节点，启动失败")
+                    } 
+                    if (data.checkInfo!=true){
+                        alert("计划基本信息缺失，启动失败")
+                    }
+                    if (data.checkZbReg!=true){
+                        alert("计划缺少指标或地区，启动失败")
+                    }
+                    if (data.checkmod!=true){
+                        alert("计划模型节点设置及权重不符合规定，启动失败")
+                    }
                 }
             }
         });

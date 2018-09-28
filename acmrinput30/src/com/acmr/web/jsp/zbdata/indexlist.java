@@ -15,6 +15,7 @@ import com.acmr.service.security.UserService;
 import com.acmr.service.zhzs.CreateTaskService;
 import com.acmr.service.zhzs.IndexListService;
 import com.acmr.web.jsp.Index;
+import com.alibaba.fastjson.JSONObject;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
@@ -419,8 +420,9 @@ public class indexlist extends BaseAction {
         //校验是否有指标、地区
         Boolean checkZbReg=indexListService.checkZBandReg(code);
       //  PubInfo.printStr("checkZbReg"+checkZbReg);
+        Boolean checkhasMod=indexListService.checkHasMod(code);
 
-        check=checkInfo&&checkmod&&checkZbReg;
+        check=checkInfo&&checkmod&&checkZbReg&&checkhasMod;
         //PubInfo.printStr(String.valueOf(check));
 
         //校验通过
@@ -440,7 +442,13 @@ public class indexlist extends BaseAction {
             this.sendJson(data);
         }
         else {
-            this.sendJson("400");
+
+            JSONObject obj=new JSONObject();
+            obj.put("checkmod",checkmod);
+            obj.put("checkInfo",checkInfo);
+            obj.put("checkZbReg",checkZbReg);
+            obj.put("checkhasMod",checkhasMod);
+            this.sendJson(obj);
         }
 
     }
