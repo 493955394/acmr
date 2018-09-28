@@ -14,18 +14,6 @@ define(function (require,exports,module) {
     var st = new Date().getTime();//时间戳
 
 
-    $("#test").click(function () {
-        console.log("test")
-        $.ajax({
-            url:common.rootPath + 'zbdata/zstask.htm?id=092702&right=2' ,
-            type: 'get',
-            timeout: 10000,
-            success:function () {
-                console.log("success")
-            }
-        })
-    })
-
 
     /**
      * 新增目录ajax提交
@@ -163,31 +151,33 @@ define(function (require,exports,module) {
             $(this).prop("checked", flag);
         });
     });
-    $('.J_AddCopy').click(function () {
-        var i=0
-        $('input:checkbox').each(function(){
 
-            if(this.checked){
-                i++;
-                var code =$(this).attr('id');
-                var ifdata = $(this).attr('if');
-                var name =$(this).attr('getname');
-                if(ifdata == 0){
-                    alert("目录无法复制！");
-                }
-                else if(ifdata == 1){
-                    $('input[name=copycode]').val(code);
-                    $('input[name=plcode]').val(code);
-                    $('input[name=cifdata]').val(ifdata);
-                    $('input[name=zname]').val(name);
-                    $('#mymodal-data2').modal('show');
-                }
-            }
-        })
-        if(i==0){
-            alert("请选择计划");
+
+
+    $(document).on('click', '.J_AddCopy',mycopy)
+
+    function mycopy() {
+      //  console.log("copy")
+        if ($('input:checkbox:checked').length==0){
+            alert("请选择指标")
         }
-    });
+        else {
+            var code =$('input:checkbox:checked').attr('id');
+            var ifdata = $('input:checkbox:checked').attr('if');
+            var name =$('input:checkbox:checked').attr('getname');
+            if(ifdata == 0){
+                alert("目录无法复制！");
+            }
+            else if(ifdata == 1){
+                $('input[name=copycode]').val(code);
+                $('input[name=plcode]').val(code);
+                $('input[name=cifdata]').val(ifdata);
+                $('input[name=zname]').val(name);
+                $('#mymodal-data2').modal('show');
+            }
+        }
+
+    }
     $(document).on('submit', '.J_add_cope', function(event) {
         event.preventDefault();
         var self = this,
@@ -227,90 +217,7 @@ define(function (require,exports,module) {
             }
         })
     });
-    /**
-    * 后台检查
-    */
-   /* function checkcoCode(cocode, checkDelegate) {
-        var flag;
-        $.ajax({
-            url: common.rootPath + 'zbdata/indexlist.htm?m=checkcoCode',
-            timeout: 5000,
-            type: 'post',
-            async: false,
-            data: 'cocode=' + cocode,
-            dataType: 'json',
-            success: function(data) {
-                if (data.returncode == 200) {
-                    checkDelegate.viewTipAjax($('input[name="cocode"]'), true);
-                    flag = true;
-                } else{
-                    checkDelegate.viewTipAjax($('input[name="cocode"]'), false, "该编码已存在");
-                    flag = false;
-                }
-            }
-        })
-        return flag;
-    }
-    $(document).on('blur', 'input[name="cocode"]', function() {
-        var self = this,
-            checkDelegate;
-        checkDelegate = new VaildNormal();
-        checkCode($('input[name="cocode"]').val(), checkDelegate);
-    });
-    function checkplCode(plancode, checkDelegate) {
-        var flag;
-        $.ajax({
-            url: common.rootPath + 'zbdata/indexlist.htm?m=checkplCode',
-            timeout: 5000,
-            type: 'post',
-            async: false,
-            data: 'plancode=' + plancode,
-            dataType: 'json',
-            success: function(data) {
-                if (data.returncode == 200) {
-                    checkDelegate.viewTipAjax($('input[name="plancode"]'), true);
-                    flag = true;
-                } else {
-                    checkDelegate.viewTipAjax($('input[name="plancode"]'), false, "该编码已存在");
-                    flag = false;
-                }
-            }
-        })
-        return flag;
-    }
-    $(document).on('blur', 'input[name="plancode"]', function() {
-        var self = this,
-            checkDelegate;
-        checkDelegate = new VaildNormal();
-        checkCode($('input[name="plancode"]').val(), checkDelegate);
-    });
-    function checkCode(plncode, checkDelegate) {
-        var flag;
-        $.ajax({
-            url: common.rootPath + 'zbdata/indexlist.htm?m=checknCode',
-            timeout: 5000,
-            type: 'post',
-            async: false,
-            data: 'plcode=' + plcode,
-            dataType: 'json',
-            success: function(data) {
-                if (data.returncode == 200) {
-                    checkDelegate.viewTipAjax($('input[name="plcode"]'), true);
-                    flag = true;
-                } else {
-                    checkDelegate.viewTipAjax($('input[name="plcode"]'), false, "该编码已存在");
-                    flag = false;
-                }
-            }
-        })
-        return flag;
-    }
-    $(document).on('blur', 'input[name="plcode"]', function() {
-        var self = this,
-            checkDelegate;
-        checkDelegate = new VaildNormal();
-        checkCode($('input[name="plcode"]').val(), checkDelegate);
-    });*/
+
     /**
      * 删除数据
      */
@@ -680,7 +587,6 @@ define(function (require,exports,module) {
         treeObj.expandNode(node,true,true,true)
         treeObj.selectNode(node)
         treeObj.setting.callback.onClick(null, treeObj.setting.treeId, node);
-
 
         //        $.fn.zTree.init($("#你的id"), settingc, cNodes);
         $.fn.zTree.init($("#treeCata"), setting1, cNodes);

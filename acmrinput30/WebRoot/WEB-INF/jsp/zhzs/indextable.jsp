@@ -25,7 +25,7 @@
             <div class="toolbar-group" style="position: relative;">
                 <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data" type="button">新增目录</button>&nbsp
                 <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data1" type="button">新增计划</button>&nbsp
-                <button class="btn btn-default btn-sm J_AddCopy"  type="button">复制到</button>
+                <button class="btn btn-default btn-sm J_AddCopy" type="button">复制到</button>
             </div>
         </div>
     </div>
@@ -50,7 +50,7 @@
         </div>
         <div class="toolbar-right">
             <div class="toolbar-group" style="position: relative;">
-                <button class="btn btn-default btn-sm J_Share_AddCopy"  type="button">复制到</button>
+                <button class="btn btn-default btn-sm J_Share_AddCopy"  type="button" >复制到</button>
             </div>
         </div>
     </div>
@@ -325,5 +325,4 @@
 </div>
 <script>
     seajs.use('${ctx}/js/func/zhzs/indexlist/main');
-
 </script>
