@@ -17,6 +17,10 @@ define(function (require,exports,module) {
     var select = [];
     var select_li = "error";//选择移除的li的下标
     var timesort = $("#index_sort option:selected").val();
+    //默认选中第一个指标
+    $(document).ready(function () {
+        $(".zb_panel")[0].click()
+    })
 
     var zNodes =[
         { id:"#1", pId:0, name:"指数",isParent:true}
