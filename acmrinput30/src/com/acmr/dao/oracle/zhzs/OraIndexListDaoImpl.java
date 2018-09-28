@@ -344,6 +344,11 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode});
     }
 
+    public DataTable getZBMods(String icode){
+        String sql="select * from tb_coindex_module where indexcode=? and ifzs=0";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode});
+    }
+
     @Override
     public int delShare(String indexcode, String depusercode,String sort) {
         String sql = "delete from tb_coindex_right t where t.indexcode = ? and t.depusercode =? and t.sort=?";

@@ -488,7 +488,13 @@ public class IndexListService {
             }
           //  mods.add(mod);
         }
-
+        //指标的权重也不能为0
+        List<DataTableRow> rows1=IndexListDao.Fator.getInstance().getIndexdatadao().getZBMods(icode).getRows();
+        for (int j=0;j<rows1.size();j++){
+            if (rows1.get(j).getString("weight").equals("0")){
+                check=false;
+            }
+        }
         return check;
     }
 

@@ -108,8 +108,8 @@ define(function (require,exports,module) {
         $(".input_weight").each(function () {
            //console.log($(this).val())
             var value=$(this).val()
-            if (value<0){
-                alert("权重不能为小于0的数")
+            if (value<=0){
+                alert("权重不能为小于等于0的数")
                 return
             }
             var pcode=$(this).attr("class").split(" ")[1]

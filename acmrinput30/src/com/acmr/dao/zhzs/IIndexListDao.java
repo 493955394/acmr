@@ -29,6 +29,7 @@ public interface IIndexListDao {
     public DataTable getRightListByCreateUser(String usercode);
     public DataTable getRightListByDepUserCode(String depusercode);
     public DataTable getZSMods(String icode);
+    public DataTable getZBMods(String icode);
     public int delShare(String indexcode,String depusercode,String sort);
     public DataTable shareSelectList(int type,String keyword,String userid);
     public DataTable shareSelectListByPage(int type,String keyword,String userid,int page,int pagesize);
