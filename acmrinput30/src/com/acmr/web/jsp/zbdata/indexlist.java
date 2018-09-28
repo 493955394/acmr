@@ -407,49 +407,59 @@ public class indexlist extends BaseAction {
         JSONReturnData data = new JSONReturnData("");
         String state = PubInfo.getString(req.getParameter("state"));
         IndexListService indexListService=new IndexListService();
+        IndexList indexList = new IndexList();
+        indexList.setCode(code);
+        indexList.setState(state);
 
-
-        //校验部分
-        Boolean check=false;
-        //校验模型
-        Boolean checkmod=indexListService.checkModule(code);
-     //   PubInfo.printStr("checkmode"+checkmod);
-        //校验是否已经通过编辑，基本信息完善
-        Boolean checkInfo=indexListService.checkInfo(code);
-       // PubInfo.printStr("checkInfo"+checkInfo);
-        //校验是否有指标、地区
-        Boolean checkZbReg=indexListService.checkZBandReg(code);
-      //  PubInfo.printStr("checkZbReg"+checkZbReg);
-        Boolean checkhasMod=indexListService.checkHasMod(code);
-
-        check=checkInfo&&checkmod&&checkZbReg&&checkhasMod;
-        //PubInfo.printStr(String.valueOf(check));
-
-        //校验通过
-        if (check){
-            IndexList indexList = new IndexList();
-            indexList.setCode(code);
-            indexList.setState(state);
-            int int1 = IndexListService.updateSwitch(indexList);
+        //停用
+        if (state.equals("0")){
+            IndexListService.updateSwitch(indexList);
             data.setReturncode(200);
-            //启用自动生成未生成的任务
-            if (state.equals("1")){
-                IndexList index=indexListService.getData(code);
-                CreateTaskService createTaskService=new CreateTaskService();
-                List<String> periods=createTaskService.getPeriods(index);
-                createTaskService.createTasks(index,periods);
-            }
             this.sendJson(data);
         }
         else {
+            //校验部分
+            Boolean check=false;
+            //校验模型
+            Boolean checkmod=indexListService.checkModule(code);
+            //   PubInfo.printStr("checkmode"+checkmod);
+            //校验是否已经通过编辑，基本信息完善
+            Boolean checkInfo=indexListService.checkInfo(code);
+            // PubInfo.printStr("checkInfo"+checkInfo);
+            //校验是否有指标、地区
+            Boolean checkZbReg=indexListService.checkZBandReg(code);
+            //  PubInfo.printStr("checkZbReg"+checkZbReg);
+            Boolean checkhasMod=indexListService.checkHasMod(code);
 
-            JSONObject obj=new JSONObject();
-            obj.put("checkmod",checkmod);
-            obj.put("checkInfo",checkInfo);
-            obj.put("checkZbReg",checkZbReg);
-            obj.put("checkhasMod",checkhasMod);
-            this.sendJson(obj);
+            check=checkInfo&&checkmod&&checkZbReg&&checkhasMod;
+            //PubInfo.printStr(String.valueOf(check));
+
+            //校验通过
+            if (check){
+                IndexListService.updateSwitch(indexList);
+                data.setReturncode(200);
+                //启用自动生成未生成的任务
+                if (state.equals("1")){
+                    IndexList index=indexListService.getData(code);
+                    CreateTaskService createTaskService=new CreateTaskService();
+                    List<String> periods=createTaskService.getPeriods(index);
+                    createTaskService.createTasks(index,periods);
+                }
+                this.sendJson(data);
+            }
+            else {
+
+                JSONObject obj=new JSONObject();
+                obj.put("checkmod",checkmod);
+                obj.put("checkInfo",checkInfo);
+                obj.put("checkZbReg",checkZbReg);
+                obj.put("checkhasMod",checkhasMod);
+                this.sendJson(obj);
+            }
+
         }
+
+
 
     }
     /*//页面后台检查
