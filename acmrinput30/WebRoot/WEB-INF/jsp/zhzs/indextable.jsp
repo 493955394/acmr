@@ -186,8 +186,15 @@
                             <c:if test="${index.get('right')=='0'}">
                                 <label class="btn-disabled">启用</label>
                             </c:if>
-                            <a href="${ctx}/zbdata/zsjhedit.htm?id=${index.get('index').getCode()}&right=${index.get('right')}">编辑</a>
-                            <a href="javascript:;" class="btn-opr J_opr_del" id="${index.get('index').getCode()}">删除</a>
+                            <c:if test="${index.get('right')!='0'}">
+                                <a href="${ctx}/zbdata/zsjhedit.htm?id=${index.get('index').getCode()}&right=${index.get('right')}">编辑</a>
+                                <a href="javascript:;" class="btn-opr J_opr_del" id="${index.get('index').getCode()}">删除</a>
+                            </c:if>
+                            <c:if test="${index.get('right')=='0'}">
+                                <label class="btn-disabled">编辑</label>
+                                <label class="btn-disabled">删除</label>
+
+                            </c:if>
                         </c:if>
                         <c:if test="${index.get('index').getState().equals('1')}">
                             <c:if test="${index.get('right')!='0'}">
