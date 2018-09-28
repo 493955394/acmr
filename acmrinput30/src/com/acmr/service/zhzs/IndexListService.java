@@ -499,6 +499,22 @@ public class IndexListService {
     }
 
     /**
+    * @Description: 校验该计划必须有模型节点
+    * @Param: [icode]
+    * @return: java.lang.Boolean
+    * @Author: lyh
+    * @Date: 2018/9/28
+    */
+    public Boolean checkHasMod(String icode){
+        Boolean check=false;
+        List<DataTableRow> zsrows=IndexListDao.Fator.getInstance().getIndexdatadao().getZSMods(icode).getRows();
+        if (zsrows.size()!=0){
+            check=true;
+        }
+        return check;
+    }
+
+    /**
      * 计划分享的撤回
      * @param indexcode
      * @param depusercode
