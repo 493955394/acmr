@@ -392,6 +392,14 @@ public class indexlist extends BaseAction {
         data.setReturndata("");
         this.sendJson(data);
     }
+
+    /**
+     * 停用启用
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
     public void switchState() throws IOException {
         HttpServletRequest req = this.getRequest();
         String code = PubInfo.getString(req.getParameter("code"));
