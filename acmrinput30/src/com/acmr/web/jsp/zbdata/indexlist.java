@@ -338,7 +338,7 @@ public class indexlist extends BaseAction {
         data1.setCname(cname);
         data1.setProcode(nprocode);
         //data1.setCreatetime(createtime);
-        int int1 = indexListService.addCopyplan(cpcode,data1);
+        indexListService.addCopyplan(cpcode,data1);
         /*if (int1 == -1) {
             data.setReturncode(501);
             data.setReturndata("fail");

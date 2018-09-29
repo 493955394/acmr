@@ -66,6 +66,8 @@ define(function (require,exports,module) {
             checkDelegate;
         checkDelegate = new VaildNormal();
         var flag = true;
+
+
         //前端检查
         if (!checkDelegate.checkNormal($("input[name='plancode']"), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
             !checkDelegate.checkNormal($("input[name='plancode']"), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
@@ -138,22 +140,26 @@ define(function (require,exports,module) {
         })
 
     });
+
     /**
-     * 复制到
-     */
-    /*
     把复选框改成单选框
      */
-    $(function(){
+    /*$(function(){
         $("input[type='checkbox']").click(function() {
             var flag = $(this).prop("checked"); //先记录下点击后应该的状态
             $("input[type='checkbox']").prop("checked", false);
             $(this).prop("checked", flag);
         });
-    });
+    });*/
+        $(document).off('click',".J_zsjh_data_table :checkbox").on('click',".J_zsjh_data_table :checkbox",function(){
+            var flag = $(this).prop("checked"); //先记录下点击后应该的状态
+            $("input[type='checkbox']").prop("checked", false);
+            $(this).prop("checked", flag);
+        });
 
-
-
+    /**
+     * 复制到
+     */
     $(document).on('click', '.J_AddCopy',mycopy)
 
     function mycopy() {
@@ -461,8 +467,9 @@ define(function (require,exports,module) {
    // console.log("rootpath:"+common.rootPath)
     function clickEvent(event,treeId,treeNode) {
        // console.log(treeNode.id)
-        var code=treeNode.id
-
+        var code=treeNode.id;
+        var name=treeNode.name;
+        $('input[name=planname]').val(name);
         $.pjax({
             url:common.rootPath+'zbdata/indexlist.htm?m=getIndexList&code='+code,
             container:'.J_zsjh_data_table',

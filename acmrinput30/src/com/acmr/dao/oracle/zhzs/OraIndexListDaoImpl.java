@@ -122,8 +122,10 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             String idelayday = data1.getDelayday();
             //String iplanperiod = data1.getPlanperiod();
             String iplantime = data1.getPlantime().substring(0,data1.getPlantime().length()-2);
-            String createuser = data1.getCreateuser();
             String createtime = data1.getCreatetime().substring(0,data1.getCreatetime().length()-2);
+            /*String iplantime = data1.getPlantime();
+            String createtime = data1.getCreatetime();*/
+            String createuser = data1.getCreateuser();
             java.sql.Timestamp updatetime = new java.sql.Timestamp(now.getTime());
             //Object up = new Timestamp(new Date().getTime());
             dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplantime,createuser,createtime,updatetime});
