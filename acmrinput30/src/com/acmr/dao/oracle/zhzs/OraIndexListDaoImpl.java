@@ -103,7 +103,13 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
     }
 
-    //复制到
+    /**
+     * 计划复制到
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
     @Override
     public int addCopyplan(String cpcode,IndexList data1) {
         DataQuery dataQuery = null;
@@ -199,7 +205,86 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
     }*/
 
+    /**
+     * 收到的指数 复制到
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    @Override
+    public int addCopyShare(String cpcode,IndexList copydata) {
+        DataQuery dataQuery = null;
+        try {
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+            java.util.Date now = new java.util.Date();
+            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
+            String icode = copydata.getCode();
+            String icname = copydata.getCname();
+            String iprocode = copydata.getProcode();
+            String iifdata = copydata.getIfdata();
+            String istate = copydata.getState();
+            String isort = copydata.getSort();
+            String istartpeiod = copydata.getStartperiod();
+            String idelayday = copydata.getDelayday();
+            //String iplanperiod = data1.getPlanperiod();
+            String iplantime = copydata.getPlantime().substring(0,copydata.getPlantime().length()-2);
+            String createtime = copydata.getCreatetime().substring(0,copydata.getCreatetime().length()-2);
+            String createuser = copydata.getCreateuser();
+            java.sql.Timestamp updatetime = new java.sql.Timestamp(now.getTime());
+            //Object up = new Timestamp(new Date().getTime());
+            dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplantime,createuser,createtime,updatetime});
+            //复制模型
+            String sql2 = "select * from tb_coindex_module where indexcode=?";
+            DataTable table1=dataQuery.getDataTableSql(sql2,new Object[]{cpcode});
+            List<DataTableRow> rows1=table1.getRows();
+            for(int i=0;i<rows1.size();i++){
+                String code= UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,6);
+                String cname=rows1.get(i).getString("cname");
+                String procode = rows1.get(i).getString("procode");
+                String ifzs = rows1.get(i).getString("ifzs");
+                String ifzb = rows1.get(i).getString("ifzb");
+                String formula = rows1.get(i).getString("formula");
+                String sortcode = rows1.get(i).getString("sortcode");
+                String weight = rows1.get(i).getString("weight");
+                String dacimal = rows1.get(i).getString("dacimal");
+                String sql3 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal) values(?,?,?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql3,new Object[]{code,cname,procode,icode,ifzs,ifzb,formula,sortcode,weight,dacimal});
+            }
+            //复制筛选条件
+            String sql4 = "select * from tb_coindex_zb where indexcode=?";
+            DataTable table2 = dataQuery.getDataTableSql(sql4,new Object[]{cpcode});
+            List<DataTableRow> row2 = table2.getRows();
+            for(int j=0;j<row2.size();j++){
+                String code = UUID.randomUUID().toString().replace("-", "").toLowerCase();
+                //String incode1 = row2.get(j).getString("indexcode");
+                String zbcode = row2.get(j).getString("zbcode");
+                String company = row2.get(j).getString("company");
+                String datasource = row2.get(j).getString("datasource");
+                String regions = row2.get(j).getString("regions");
+                String unitcode = row2.get(j).getString("unitcode");
+                String dacimal = row2.get(j).getString("dacimal");
+                String sql5 = "insert into tb_coindex_zb (code,indexcode,zbcode,company,datasource,regions,unitcode,dacimal) values(?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql5,new Object[]{code,icode,zbcode,company,datasource,regions,unitcode,dacimal});
+            }
+            dataQuery.commit();
 
+        } catch (SQLException e) {
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                e.printStackTrace();
+                return 1;
+            }
+        } finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+
+        return 0;
+
+    }
     //检查
     @Override
     public int checkCode(String code){

@@ -177,33 +177,33 @@
                 </div>
             </div>
     <!-- 收到的指数 复制到 -->
-    <div class="modal" id="mymodal-data3" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal" id="mymodal-data4" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form class="form-horizontal J_share_addcope" action="${ctx}/zbdata/indexlist.htm?m=sharecopy">
-                    <input type="hidden" class="form-control" name="copycode">
-                    <input type="hidden" class="form-control" name="cifdata">
+                <form class="form-horizontal J_share_addcope" action="${ctx}/zbdata/indexplan.htm?m=sharecopy">
+                    <input type="hidden" class="form-control" name="cosharecode">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标名称：</label>
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指数编码：</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="zname"  >
+                                <input type="text" class="form-control" name="putcode">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标代码：</label>
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指数名称：</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="plcode">
+                                <input type="text" class="form-control" name="putname"  >
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属指数：</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="indexname" value="" disabled>
-                                <input type="hidden" class="form-control" name="newprocode" value="" >
+                                <input type="text" class="form-control" name="sharename" value="" disabled>
+                                <input type="hidden" class="form-control" name="shareprocode" value="" >
                                 <ul id="treeShareZs" class="ztree select-tree hid-top"></ul>
                             </div>
                         </div>

@@ -267,13 +267,13 @@ define(function (require,exports,module) {
     function clickEvent5(event,treeId,treeNode) {
 
         if (treeNode.id != '') {
-            $('input[name=editname]').val(treeNode.name);
-            $('input[name=editprocode]').val(treeNode.id);
+            $('input[name=sharename]').val(treeNode.name);
+            $('input[name=shareprocode]').val(treeNode.id);
             if (treeNode.id=="!1"){
-                $('input[name=editprocode]').val(null);
+                $('input[name=shareprocode]').val(null);
             }
         } else {
-            $('input[name=editname]').val('');
+            $('input[name=sharename]').val('');
         }
 
     }

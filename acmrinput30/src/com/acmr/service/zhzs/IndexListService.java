@@ -285,9 +285,26 @@ public class IndexListService {
     public static int updateSwitch(IndexList indexList){
         return IndexListDao.Fator.getInstance().getIndexdatadao().updateCp(indexList);
     }
-    //复制到
+
+    /**
+     * 计划复制到
+     * @author wf
+     * @date
+     * @param data1
+     * @return
+     */
     public int addCopyplan(String cpcode,IndexList data1){
         return IndexListDao.Fator.getInstance().getIndexdatadao().addCopyplan(cpcode,data1);
+    }
+    /**
+     *
+     * @author wf
+     * @date
+     * @param copydata
+     * @return
+     */
+    public int addCopyShare(String cpcode,IndexList copydata){
+        return IndexListDao.Fator.getInstance().getIndexdatadao().addCopyShare(cpcode,copydata);
     }
     public int checkCode(String code){
         return IndexListDao.Fator.getInstance().getIndexdatadao().checkCode(code);

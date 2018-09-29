@@ -164,7 +164,7 @@
         <tbody class="list_body_my_received">
         <c:forEach items="${page.data}" var="index">
             <tr class="my_received">
-                <th><input type="checkbox" if="${index.get('index').getIfdata()}" id="${index.get('index').getCode()}" getname="${index.get('index').getCname()}"></th>
+                <th><input type="checkbox" getright="${index.get('right')}"  idcode="${index.get('index').getCode()}" coname="${index.get('index').getCname()}"></th>
                 <td>${index.get("index").getCname()}</td>
                 <td>${index.get("createuser")}</td>
                 <td>
@@ -290,13 +290,13 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" name="editcode" value="${index.getCode()}">
+                            <input type="text" class="form-control" name="editcode" value="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" name="editcname" value="${index.getCname()}">
+                            <input type="text" class="form-control" name="editcname" value="">
                         </div>
 
                     </div>

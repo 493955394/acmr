@@ -24,6 +24,7 @@ public interface IIndexListDao {
     public int checkCode(String code);
     public int checkProcode(String procode);
     public int addCopyplan(String cpcode,IndexList data1);
+    public int addCopyShare(String cpcode,IndexList copydata);
     public DataTable getAllIndexListByPage(String usercode,int page, int pagesize);
     public DataTable getSubIndexListByPage(String usercode,String code,int page,int pagesize);
     public DataTable getRightListByCreateUser(String usercode);

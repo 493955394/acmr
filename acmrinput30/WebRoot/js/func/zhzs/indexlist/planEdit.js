@@ -138,7 +138,6 @@ define(function (require,exports,module) {
         })
 
     });
-
     /**
      把复选框改成单选框
      */
@@ -215,6 +214,72 @@ define(function (require,exports,module) {
                 } else if (data.returncode == 300) {
                     alert("该编码已存在");
                     $("#mymodal-data2").modal('show');
+                } else {
+                    alert("添加失败");
+                }
+            }
+        })
+    });
+
+    /**
+     * 收到的指数 复制到
+     */
+    $(document).on('click', '.J_Share_AddCopy',sharecopy)
+
+    function sharecopy() {
+        //  console.log("copy")
+        if ($('input:checkbox:checked').length==0){
+            alert("请选择指数")
+        }
+        else {
+            var right = $('input:checkbox:checked').attr('getright');
+            var code =$('input:checkbox:checked').attr('idcode');
+            var name =$('input:checkbox:checked').attr('coname');
+            if(right == 0){
+                alert("本指数计划没有权限复制！");
+            }
+            else if(right == 1 || right == 2){
+                $('input[name=putcode]').val(code);
+                $('input[name=cosharecode]').val(code);
+                $('input[name=putname]').val(name);
+                $('#mymodal-data4').modal('show');
+            }
+        }
+
+    }
+    $(document).on('submit', '.J_share_addcope', function(event) {
+        event.preventDefault();
+        var self = this,
+            currentUrl = $(self).prop('action'),
+            checkDelegate;
+        checkDelegate = new VaildNormal();
+        var flag = true;
+        //前端检查
+        if (!checkDelegate.checkNormal($('input[name="putcode"]'), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="putcode"]'), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
+            !checkDelegate.checkNormal($('input[name="putcode"]'), [{ 'name': 'maxlength', 'msg': '编码最大长度为20', 'param': 21 }])) {
+            flag = false;
+        }
+        if (!checkDelegate.checkNormal($('input[name="putname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="putname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
+            flag = false;
+        }
+        if (flag == false) {
+            return;
+        }
+        $.ajax({
+            url: currentUrl,
+            data: $(self).serialize(),
+            type: 'post',
+            dataType: 'json',
+            timeout: 10000,
+            success: function(data) {
+                if (data.returncode == 200) {
+                    alert("保存成功！");
+                    window.location.reload(true);
+                } else if (data.returncode == 300) {
+                    alert("该编码已存在");
+                    $("#mymodal-data4").modal('show');
                 } else {
                     alert("添加失败");
                 }
