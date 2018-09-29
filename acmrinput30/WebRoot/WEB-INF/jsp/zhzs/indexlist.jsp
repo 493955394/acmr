@@ -176,10 +176,52 @@
                     </div>
                 </div>
             </div>
+    <!-- 收到的指数 复制到 -->
+    <div class="modal" id="mymodal-data3" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form class="form-horizontal J_share_addcope" action="${ctx}/zbdata/indexlist.htm?m=sharecopy">
+                    <input type="hidden" class="form-control" name="copycode">
+                    <input type="hidden" class="form-control" name="cifdata">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标名称：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="zname"  >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标代码：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="plcode">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属指数：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="indexname" value="" disabled>
+                                <input type="hidden" class="form-control" name="newprocode" value="" >
+                                <ul id="treeShareZs" class="ztree select-tree hid-top"></ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-primary" >确定</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 <script>
     seajs.use('${ctx}/js/func/zhzs/indexlist/main');
+    seajs.use('${ctx}/js/func/zhzs/indexlist/planEdit');
 </script>
 </html>
 

@@ -103,7 +103,6 @@
             <tbody class="list_body " id="my_index_all">
             <c:forEach  items="${page.data}" var="index">
                 <tr class="my_index pro-${index.getCode()}">
-                    <input type="hidden" name="addprocode" value="${index.getCode()}">
                     <th><input type="checkbox" if="${index.getIfdata()}" id="${index.getCode()}" getname="${index.getCname()}"></th>
                     <td >${index.getCode()}</td>
                     <td >${index.getCname()}</td>
@@ -326,4 +325,5 @@
 </div>
 <script>
     seajs.use('${ctx}/js/func/zhzs/indexlist/main');
+    seajs.use('${ctx}/js/func/zhzs/indexlist/planEdit');
 </script>

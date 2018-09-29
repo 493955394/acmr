@@ -134,7 +134,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             DataTable table1=dataQuery.getDataTableSql(sql2,new Object[]{cpcode});
             List<DataTableRow> rows1=table1.getRows();
             for(int i=0;i<rows1.size();i++){
-                String code= UUID.randomUUID().toString().replace("-", "").toLowerCase();
+                String code= UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,6);
                 String cname=rows1.get(i).getString("cname");
                 String procode = rows1.get(i).getString("procode");
                 String ifzs = rows1.get(i).getString("ifzs");
