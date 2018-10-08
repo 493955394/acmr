@@ -13,6 +13,7 @@ import com.acmr.model.zhzs.IndexList;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zhzs.IndexListService;
 import com.acmr.service.zhzs.IndexTaskService;
+import com.acmr.service.zhzs.PastViewService;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -26,10 +27,13 @@ import java.util.Map;
 
 public class pastviews extends BaseAction {
 
+    PastViewService pv = new PastViewService();
     public ModelAndView main(){
-        String code = this.getRequest().getParameter("id");
+        String indexcode = this.getRequest().getParameter("id");
         //获取用户权限
         String right=this.getRequest().getParameter("right");
+
+       // List<String> alltaskcode =
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews");
     }
 

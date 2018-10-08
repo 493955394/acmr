@@ -116,7 +116,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>统计周期：</label>
                                     <div class="col-sm-5">
-                                        <select class="form-control" name="sort" >
+                                        <select class="form-control" name="sort" id="sort">
                                             <option value="">请选择</option>
                                             <option value="m">月度</option>
                                             <option value="q">季度</option>
