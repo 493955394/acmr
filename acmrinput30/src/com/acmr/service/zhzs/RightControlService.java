@@ -1,6 +1,7 @@
 package com.acmr.service.zhzs;
 
 import acmr.util.DataTableRow;
+import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.RightDao;
 import com.acmr.model.security.User;
 import com.acmr.service.security.DepartmentService;
@@ -17,7 +18,7 @@ public class RightControlService {
      * 通过indexcode查询right表中是否存在这个list,有的话返回这个list
      */
     public List<Map<String,String>> getRightList(String indexcode){
-        User cu= UserService.getCurrentUser();
+      User cu= UserService.getCurrentUser();
         String usercode = cu.getUserid();//获取当前用户的code
         List<Map<String,String>> list = new ArrayList<Map<String,String>>();
         List<DataTableRow> datas = RightDao.Fator.getInstance().getIndexdatadao().getRightList(indexcode).getRows();
@@ -39,6 +40,32 @@ public class RightControlService {
                     arr.put("depusername",depusername);
                 }
             }
+            list.add(arr);
+        }
+        return list;
+    }
+
+    /**
+     * 权限管理查询结果列表展示
+     * @param keyword
+     * @return
+     */
+    public static List<Map<String,String>> getSearchList(String keyword){
+        List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+        List<DataTableRow> depdatas = RightDao.Fator.getInstance().getIndexdatadao().searchDepName(keyword).getRows();
+        for (int i = 0; i <depdatas.size() ; i++) {
+            Map<String,String> arr = new HashMap<String,String>();
+            arr.put("depusercode",depdatas.get(i).getString("code"));
+            arr.put("depusername",depdatas.get(i).getString("cname"));
+            arr.put("sort","1");
+            list.add(arr);
+        }
+        List<DataTableRow> userdatas = RightDao.Fator.getInstance().getIndexdatadao().searchUserName(keyword).getRows();
+        for (int i = 0; i <userdatas.size() ; i++) {
+            Map<String,String> arr = new HashMap<String,String>();
+            arr.put("depusercode",depdatas.get(i).getString("code"));
+            arr.put("depusername",depdatas.get(i).getString("cname"));
+            arr.put("sort","2");
             list.add(arr);
         }
         return list;

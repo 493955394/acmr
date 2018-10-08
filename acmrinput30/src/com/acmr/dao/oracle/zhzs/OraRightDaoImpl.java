@@ -22,4 +22,16 @@ public class OraRightDaoImpl implements IRightDao {
         String sql = "select * from tb_coindex_right where indexcode =?";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{indexcode});
     }
+
+    @Override
+    public DataTable searchDepName(String keyword) {
+        String sql = "select * from tb_right_department where lower(cname) like ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + keyword + "%"});
+    }
+
+    @Override
+    public DataTable searchUserName(String keyword) {
+        String sql = "select * from tb_right_user where lower(cname) like ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + keyword + "%"});
+    }
 }
