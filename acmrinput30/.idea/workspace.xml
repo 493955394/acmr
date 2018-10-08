@@ -7,12 +7,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="72f365d4-c905-43fe-af3e-9b0b4f9063b2" name="Default Changelist" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/acmr/test/Mytest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/acmr/test/Mytest.java" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/src/com/acmr/service/zhzs/PastViewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indexlist.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indexlist.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/planEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/planEdit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/pastviews.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/pastviews.java" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <ignored path="$PROJECT_DIR$/WebRoot/WEB-INF/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -84,6 +94,7 @@
         </counts>
       </usages-collector>
     </session>
+<<<<<<< Updated upstream
     <session id="-391770282">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
@@ -100,20 +111,38 @@
           <entry key="JSP" value="2666" />
           <entry key="JavaScript" value="2472" />
           <entry key="PLAIN_TEXT" value="5" />
+=======
+    <session id="-624907704">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="3" />
+          <entry key="project.open.time.19" value="1" />
+          <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.opened" value="4" />
+>>>>>>> Stashed changes
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="13" />
+<<<<<<< Updated upstream
           <entry key="java" value="190" />
           <entry key="js" value="41" />
           <entry key="jsp" value="62" />
           <entry key="xml" value="3" />
+=======
+          <entry key="java" value="84" />
+          <entry key="js" value="36" />
+          <entry key="jsp" value="24" />
+>>>>>>> Stashed changes
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="13" />
+<<<<<<< Updated upstream
           <entry key="JAVA" value="190" />
           <entry key="JSP" value="62" />
           <entry key="JavaScript" value="41" />
@@ -127,6 +156,26 @@
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.opened" value="3" />
+=======
+          <entry key="JAVA" value="84" />
+          <entry key="JSP" value="24" />
+          <entry key="JavaScript" value="36" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="3124" />
+          <entry key="js" value="860" />
+          <entry key="jsp" value="419" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="CSS" value="1" />
+          <entry key="JAVA" value="3124" />
+          <entry key="JSP" value="419" />
+          <entry key="JavaScript" value="859" />
+>>>>>>> Stashed changes
         </counts>
       </usages-collector>
     </session>
@@ -134,32 +183,25 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+<<<<<<< Updated upstream
         <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/pastviews.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="228">
               <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+=======
+        <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/indexlist.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-5880">
+              <caret line="64" column="65" lean-forward="true" selection-start-line="64" selection-start-column="65" selection-end-line="64" selection-end-column="65" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/planEdit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="384" column="35" lean-forward="true" selection-start-line="384" selection-start-column="35" selection-end-line="384" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="472">
-              <caret line="74" selection-start-line="74" selection-end-line="74" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="691">
+              <caret line="85" column="8" selection-start-line="85" selection-start-column="8" selection-end-line="85" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -167,17 +209,110 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+            <state relative-caret-position="91">
+              <caret line="25" column="29" lean-forward="true" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/pastviews.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="33" column="36" lean-forward="true" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+>>>>>>> Stashed changes
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+<<<<<<< Updated upstream
+        <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="434">
+              <caret line="384" column="35" lean-forward="true" selection-start-line="384" selection-start-column="35" selection-end-line="384" selection-end-column="35" />
+=======
+        <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/PastViewService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="191">
+              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+>>>>>>> Stashed changes
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+<<<<<<< Updated upstream
+        <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="472">
+              <caret line="74" selection-start-line="74" selection-end-line="74" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+=======
+        <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/CreateTaskService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6060">
+              <caret line="202" column="12" lean-forward="true" selection-start-line="202" selection-start-column="12" selection-end-line="202" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+>>>>>>> Stashed changes
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+<<<<<<< Updated upstream
+        <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+=======
+        <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indexlist.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="600">
+              <caret line="118" column="47" selection-start-line="118" selection-start-column="41" selection-end-line="118" selection-end-column="47" />
+>>>>>>> Stashed changes
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< Updated upstream
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/wdturn.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="380">
               <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+=======
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/zsjhedit.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="406">
+              <caret line="92" column="67" selection-start-line="92" selection-start-column="67" selection-end-line="92" selection-end-column="67" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3283#3293#0" expanded="true" />
+                <element signature="e#4443#4464#0" expanded="true" />
+                <element signature="e#4566#4582#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="151" column="30" lean-forward="true" selection-start-line="151" selection-start-column="30" selection-end-line="151" selection-end-column="30" />
+              <folding>
+                <element signature="n#c:if#0;n#jsp:root#0;n#!!top" />
+              </folding>
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
@@ -188,6 +323,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Arquillian JUnit Test Class" />
+        <option value="JavaScript File" />
         <option value="Class" />
         <option value="Jsp File" />
         <option value="JavaScript File" />
@@ -196,6 +332,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+<<<<<<< Updated upstream
       <find>synchroniz</find>
       <find>update</find>
       <find>sendRedire</find>
@@ -226,6 +363,38 @@
       <find>/indexlist</find>
       <find>J_Add</find>
       <find>新增</find>
+=======
+      <find>Timestamp</find>
+      <find>now</find>
+      <find>tb_coindex_module</find>
+      <find>tb_coindex_zb</find>
+      <find>updateCate</find>
+      <find>getCheckSingle</find>
+      <find>jsjg</find>
+      <find>#jsjg</find>
+      <find>updatetime</find>
+      <find>J_zsjh_data_table</find>
+      <find>启用</find>
+      <find>pjax</find>
+      <find>翻页</find>
+      <find>checkbox</find>
+      <find>新增目录</find>
+      <find>J_AddCopy</find>
+      <find>toolbar-group</find>
+      <find>getCode</find>
+      <find>编辑</find>
+      <find>Procode</find>
+      <find>input</find>
+      <find>treeDemo</find>
+      <find>find</find>
+      <find>getIndexList</find>
+      <find>name</find>
+      <find>getname</find>
+      <find>right</find>
+      <find>复制到</find>
+      <find>sharename</find>
+      <find>查看往期</find>
+>>>>>>> Stashed changes
     </findStrings>
     <dirStrings>
       <dir>D:\acmr\20180821\acmrinput30\acmrinput30\WebRoot\dashboard\js</dir>
@@ -234,9 +403,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+<<<<<<< Updated upstream
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zsjh/weighttable.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
   </component>
+=======
+>>>>>>> Stashed changes
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -244,6 +416,7 @@
         <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/management/role/index.jsp" />
         <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/management/role/tabList.jsp" />
         <option value="$PROJECT_DIR$/src/com/acmr/test/Test.java" />
+<<<<<<< Updated upstream
         <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/datahandle.js" />
         <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zsjh/weighttable.jsp" />
         <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/weightset.java" />
@@ -291,6 +464,27 @@
         <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" />
         <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp" />
         <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/wdturn.js" />
+=======
+        <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/datahandle.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraIndexTaskDaoImpl.java" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zsjhEdit/main.js" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/zscalculate.jsp" />
+        <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/zsjhedit.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/zscalculate.java" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/datahandle.js" />
+        <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/indexlist.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/dao/zhzs/IIndexListDao.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/service/zhzs/IndexListService.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraIndexListDaoImpl.java" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js" />
+        <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/indexplan.java" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp" />
+        <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/pastviews.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/service/zhzs/PastViewService.java" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indexlist.jsp" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/planEdit.js" />
+>>>>>>> Stashed changes
       </list>
     </option>
   </component>
@@ -314,19 +508,29 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
+<<<<<<< Updated upstream
     <option name="x" value="21" />
     <option name="y" value="3" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
+=======
+    <option name="x" value="-182" />
+    <option name="y" value="1" />
+    <option name="width" value="1513" />
+    <option name="height" value="1037" />
+>>>>>>> Stashed changes
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< Updated upstream
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="Scope" />
+=======
+>>>>>>> Stashed changes
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -350,6 +554,7 @@
               <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="acmr" type="462c0819:PsiDirectoryNode" />
+<<<<<<< Updated upstream
               <item name="dao" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -413,6 +618,8 @@
               <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="acmr" type="462c0819:PsiDirectoryNode" />
+=======
+>>>>>>> Stashed changes
               <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -421,7 +628,10 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="acmr" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
+<<<<<<< Updated upstream
               <item name="security" type="462c0819:PsiDirectoryNode" />
+=======
+>>>>>>> Stashed changes
             </path>
             <path>
               <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
@@ -429,7 +639,11 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="acmr" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
+<<<<<<< Updated upstream
               <item name="zbdata" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="metadata" type="462c0819:PsiDirectoryNode" />
+>>>>>>> Stashed changes
             </path>
             <path>
               <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
@@ -444,6 +658,7 @@
               <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="acmr" type="462c0819:PsiDirectoryNode" />
+<<<<<<< Updated upstream
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -451,6 +666,8 @@
               <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="acmr" type="462c0819:PsiDirectoryNode" />
+=======
+>>>>>>> Stashed changes
               <item name="web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -473,6 +690,7 @@
             <path>
               <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
               <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+<<<<<<< Updated upstream
               <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -525,6 +743,8 @@
             <path>
               <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
               <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+=======
+>>>>>>> Stashed changes
               <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
               <item name="func" type="462c0819:PsiDirectoryNode" />
@@ -544,6 +764,36 @@
               <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
               <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
               <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="func" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="func" type="462c0819:PsiDirectoryNode" />
+              <item name="zhzs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="func" type="462c0819:PsiDirectoryNode" />
+              <item name="zhzs" type="462c0819:PsiDirectoryNode" />
+              <item name="indexlist" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -552,14 +802,10 @@
               <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
               <item name="jsp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
-              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
-              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="jsp" type="462c0819:PsiDirectoryNode" />
+<<<<<<< Updated upstream
               <item name="metadata" type="462c0819:PsiDirectoryNode" />
+=======
+>>>>>>> Stashed changes
             </path>
             <path>
               <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
@@ -582,13 +828,23 @@
           <select />
         </subPane>
       </pane>
+<<<<<<< Updated upstream
+=======
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+>>>>>>> Stashed changes
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/git-acmr/acmr/acmrinput30/src/com/acmr/web/jsp/zbdata/indexlist.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+<<<<<<< Updated upstream
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538979065534" />
+=======
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538979235818" />
+>>>>>>> Stashed changes
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
     <property name="create.test.in.the.same.root" value="true" />
@@ -598,7 +854,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="vcs.Subversion" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -628,6 +884,7 @@
     </option>
   </component>
   <component name="RunManager" selected="Tomcat Server.Unnamed">
+<<<<<<< Updated upstream
     <configuration name="IndexListService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.acmr.service.zhzs.IndexListService" />
       <module name="acmrinput30" />
@@ -667,6 +924,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+=======
+>>>>>>> Stashed changes
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.acmr.test.Test" />
       <module name="acmrinput30" />
@@ -693,7 +952,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Unnamed" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.90" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="1.7">
+    <configuration name="zscalculate" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.acmr.web.jsp.zbdata.zscalculate" />
+      <module name="acmrinput30" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.acmr.web.jsp.zbdata.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Unnamed" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.9" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="C:\Program Files\Java\jdk1.7.0_17\jre">
       <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
       <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
       <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
@@ -769,6 +1041,7 @@
     <list>
       <item itemvalue="Tomcat Server.Unnamed" />
       <item itemvalue="Application.Test" />
+<<<<<<< Updated upstream
       <item itemvalue="Application.OraIndexListDaoImpl" />
       <item itemvalue="Application.IndexListService" />
       <item itemvalue="Application.Mytest" />
@@ -780,6 +1053,14 @@
         <item itemvalue="Application.IndexListService" />
         <item itemvalue="Application.UserDepService" />
         <item itemvalue="Application.OraIndexListDaoImpl" />
+=======
+      <item itemvalue="Application.Try" />
+      <item itemvalue="Application.zscalculate" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.zscalculate" />
+>>>>>>> Stashed changes
         <item itemvalue="Application.Test" />
       </list>
     </recent_temporary>
@@ -801,20 +1082,35 @@
       <workItem from="1534844585324" duration="4406000" />
       <workItem from="1534901990334" duration="8435000" />
       <workItem from="1534919077127" duration="72000" />
+<<<<<<< Updated upstream
       <workItem from="1537234486591" duration="33249000" />
       <workItem from="1537324295413" duration="135976000" />
       <workItem from="1538135544470" duration="13051000" />
+=======
+      <workItem from="1537445120441" duration="17000" />
+      <workItem from="1537445154802" duration="46025000" />
+      <workItem from="1537839834510" duration="107011000" />
+      <workItem from="1538962832871" duration="9667000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< Updated upstream
     <option name="totallyTimeSpent" value="221204000" />
+=======
+    <option name="totallyTimeSpent" value="180402000" />
+>>>>>>> Stashed changes
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
+<<<<<<< Updated upstream
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.41618496" visible="true" weight="0.17697228" />
+=======
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.41618496" visible="true" weight="0.14232409" />
+>>>>>>> Stashed changes
       <window_info id="Designer" order="1" />
       <window_info id="Image Layers" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -823,13 +1119,22 @@
       <window_info id="Web" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
+<<<<<<< Updated upstream
       <window_info anchor="bottom" id="Run" order="2" weight="0.49728554" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.32790446" />
+=======
+      <window_info anchor="bottom" id="Run" order="2" weight="0.412595" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.5765472" />
+>>>>>>> Stashed changes
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Application Servers" order="7" weight="0.3298731" />
+<<<<<<< Updated upstream
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.34961998" />
+=======
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.44299674" />
+>>>>>>> Stashed changes
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32899022" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" />
@@ -844,9 +1149,15 @@
       <window_info anchor="right" id="Database" order="6" sideWeight="0.45904174" weight="0.15085287" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
+<<<<<<< Updated upstream
       <window_info anchor="right" id="Structure" order="9" sideWeight="0.5007728" side_tool="true" visible="true" weight="0.15991472" />
       <window_info anchor="right" id="Preview" order="10" sideWeight="0.4992272" weight="0.32995737" />
       <window_info anchor="right" id="Coverage" order="11" side_tool="true" />
+=======
+      <window_info anchor="right" id="Structure" order="9" sideWeight="0.5007728" side_tool="true" visible="true" weight="0.092750534" />
+      <window_info anchor="right" id="Preview" order="10" sideWeight="0.4992272" weight="0.32995737" />
+      <window_info anchor="right" id="SciView" order="11" />
+>>>>>>> Stashed changes
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.41618496" visible="true" weight="0.17377399" />
@@ -921,6 +1232,7 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+<<<<<<< Updated upstream
     <entry file="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/acmrutil.jar!/acmr/util/ListHashMap.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -1290,6 +1602,391 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/security/SecurityDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="15" column="14" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/security/ISecurityDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="893">
+          <caret line="47" column="59" lean-forward="true" selection-start-line="47" selection-start-column="59" selection-end-line="47" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/oracle/security/oraSecurityDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-551">
+          <caret line="28" column="58" selection-start-line="28" selection-start-column="58" selection-end-line="28" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/management/menu/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="50" column="54" selection-start-line="50" selection-start-column="50" selection-end-line="50" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zsjhEdit/weight.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1080" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/management/person/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-720" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="121" column="26" lean-forward="true" selection-start-line="121" selection-start-column="26" selection-end-line="121" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zsjh/zsjhEdit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="266" column="63" selection-start-line="266" selection-start-column="51" selection-end-line="266" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/management/department/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="39" column="38" lean-forward="true" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/management/department/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="175" column="35" lean-forward="true" selection-start-line="175" selection-start-column="35" selection-end-line="175" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/datahandle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="68" column="17" lean-forward="true" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/AcmrInputDPFactor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+          <folding>
+            <element signature="e#425#426#0" expanded="true" />
+            <element signature="e#442#443#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/oracle/metadata/OraMetaDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="238" column="55" lean-forward="true" selection-start-line="238" selection-start-column="55" selection-end-line="238" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraWeightEditDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraIndexEditDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-900">
+          <caret line="182" column="74" lean-forward="true" selection-start-line="182" selection-start-column="74" selection-end-line="182" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraIndexTaskDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2516">
+          <caret line="357" column="26" selection-start-line="357" selection-start-column="26" selection-end-line="357" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1559" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/caculate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5429" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/tbdataresult.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="24" column="24" lean-forward="true" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/zscalculate.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="67" column="62" selection-start-line="67" selection-start-column="62" selection-end-line="67" selection-end-column="62" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/excelutil.jar!/acmr/excel/pojo/ExcelSheet.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="399" column="16" selection-start-line="399" selection-start-column="16" selection-end-line="399" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraDataDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="161" selection-start-line="161" selection-end-line="161" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/zscalculate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-54">
+          <caret line="165" column="27" lean-forward="true" selection-start-line="165" selection-start-column="27" selection-end-line="165" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#18712#18726#0" expanded="true" />
+            <element signature="e#22182#22196#0" expanded="true" />
+            <element signature="e#24290#24304#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/zstask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1140">
+          <caret line="52" column="31" lean-forward="true" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/datahandle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="802">
+          <caret line="39" column="26" lean-forward="true" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/model/zhzs/IndexList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="75" selection-start-line="75" selection-end-line="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/IndexEditService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="76" column="19" lean-forward="true" selection-start-line="76" selection-start-column="19" selection-end-line="76" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/weightset.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/zhzs/IIndexListDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="30" column="67" lean-forward="true" selection-start-line="30" selection-start-column="67" selection-end-line="30" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/IndexListService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="286" column="5" selection-start-line="286" selection-start-column="5" selection-end-line="286" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/indexplan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraIndexListDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="208" column="13" selection-start-line="208" selection-start-column="13" selection-end-line="208" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/OriginDataService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="295" lean-forward="true" selection-start-line="295" selection-end-line="295" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/acmrwebmvc.jar!/acmr/web/control/BaseAction.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#851#852#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/acmrwebmvc.jar!/acmr/web/control/WebControl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="79" selection-start-line="79" selection-end-line="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zsjhEdit/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16290">
+          <caret line="672" column="3" lean-forward="true" selection-start-line="672" selection-start-column="3" selection-end-line="672" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zbdata/RegdataService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/zsjhedit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="92" column="67" selection-start-line="92" selection-start-column="67" selection-end-line="92" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3283#3293#0" expanded="true" />
+            <element signature="e#4443#4464#0" expanded="true" />
+            <element signature="e#4566#4582#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/pastviews.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/IndexTaskService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1920">
+          <caret line="73" column="57" selection-start-line="73" selection-start-column="52" selection-end-line="73" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/metadata/MetaDataExport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1772">
+          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/CreateTaskService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6060">
+          <caret line="202" column="12" lean-forward="true" selection-start-line="202" selection-start-column="12" selection-end-line="202" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/PastViewService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/indexlist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5880">
+          <caret line="64" column="65" lean-forward="true" selection-start-line="64" selection-start-column="65" selection-end-line="64" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="835">
+          <caret line="251" selection-start-line="251" selection-end-line="251" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="151" column="30" lean-forward="true" selection-start-line="151" selection-start-column="30" selection-end-line="151" selection-end-column="30" />
+          <folding>
+            <element signature="n#c:if#0;n#jsp:root#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/pastviews.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="33" column="36" lean-forward="true" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="25" column="29" lean-forward="true" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indexlist.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="118" column="47" selection-start-line="118" selection-start-column="41" selection-end-line="118" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/planEdit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="691">
+          <caret line="85" column="8" selection-start-line="85" selection-start-column="8" selection-end-line="85" selection-end-column="8" />
+>>>>>>> Stashed changes
         </state>
       </provider>
     </entry>
@@ -1324,6 +2021,7 @@
       </state>
       <state key="GlobalLibrariesConfigurable.UI">
         <settings>
+          <last-edited>Python 3.6 interpreter library</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1352,6 +2050,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
