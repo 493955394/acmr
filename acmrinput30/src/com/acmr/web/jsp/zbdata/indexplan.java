@@ -11,7 +11,7 @@ import java.io.IOException;
 
     public class indexplan extends BaseAction {
         /**
-         * 复制到
+         * 收到的指数 复制到
          * @author wf
          * @date
          * @param
