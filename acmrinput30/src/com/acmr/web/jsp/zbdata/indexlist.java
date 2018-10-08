@@ -8,9 +8,11 @@ import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.pub.PageBean;
 import com.acmr.model.pub.TreeNode;
+import com.acmr.model.pub.ZTreeNode;
 import com.acmr.model.security.User;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexMoudle;
+import com.acmr.service.security.DepartmentService;
 import com.acmr.service.security.UserService;
 import com.acmr.service.zhzs.CreateTaskService;
 import com.acmr.service.zhzs.IndexListService;
@@ -662,5 +664,50 @@ public class indexlist extends BaseAction {
             return new ModelAndView("/WEB-INF/jsp/zhzs/indextable").addObject("page",page).addObject("codes",codes).addObject("state","1");
         }
     }
+
+    //以下是权限管理-------start
+
+    /**
+     * 组织用户树
+     * @throws IOException
+     */
+    public void depUserTree() throws IOException{
+            HttpServletRequest req=this.getRequest();
+            String pcode=req.getParameter("id");
+            List<ZTreeNode> list=getDepUserTree(pcode);
+            this.sendJson(list);
+    }
+    /**
+     * 组织和用户合起来
+     * @param pcode
+     * @return
+     */
+    public static List<ZTreeNode> getDepUserTree(String pcode){
+        //获取用户组织树
+        List<ZTreeNode> deps = new DepartmentService().getSubDepartments(pcode);
+        List<ZTreeNode> list = new ArrayList<ZTreeNode>();
+        for (int i = 0; i <deps.size() ; i++) {
+            if(deps.get(i).isIsParent()){
+                list.add(deps.get(i));//如果在组织树下已经是父节点，就直接加进list
+            }
+            else{
+               /* List<User> ifHasUsers = new UserService().getDepUsers(deps.get(i).getId());
+                if(ifHasUsers.size()>0){
+                    //如果在组织树下不是父节点，先看它下面是否有用户，有就是父节点
+                    list.add(new ZTreeNode(deps.get(i).getId(),deps.get(i).getPId(),deps.get(i).getName(),true));
+               }else {
+                    list.add(deps.get(i));//没有就是叶子结点
+                }*/
+                list.add(new ZTreeNode(deps.get(i).getId(),deps.get(i).getPId(),deps.get(i).getName(),true));
+            }
+        }
+        List<User> ifHasUsers = new UserService().getDepUsers(pcode);
+        for (int i = 0; i <ifHasUsers.size() ; i++) {
+            list.add(new ZTreeNode(ifHasUsers.get(i).getUserid(),ifHasUsers.get(i).getDepcode(),ifHasUsers.get(i).getUsername(),false));
+        }
+        return list;
+    }
+
+    //权限管理-------end
 }
 
