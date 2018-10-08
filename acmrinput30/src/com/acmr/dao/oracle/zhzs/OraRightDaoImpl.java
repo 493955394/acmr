@@ -7,6 +7,7 @@ import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IDataDao;
 import com.acmr.dao.zhzs.IRightDao;
 import com.acmr.model.zhzs.DataResult;
+import com.acmr.model.zhzs.right;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -16,4 +17,9 @@ import java.util.List;
 
 public class OraRightDaoImpl implements IRightDao {
 
+    @Override
+    public DataTable getRightList(String indexcode) {
+        String sql = "select * from tb_coindex_right where indexcode =?";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{indexcode});
+    }
 }

@@ -1,16 +1,46 @@
 package com.acmr.service.zhzs;
 
+import acmr.util.DataTableRow;
+import com.acmr.dao.zhzs.RightDao;
+import com.acmr.model.security.User;
+import com.acmr.service.security.DepartmentService;
+import com.acmr.service.security.UserService;
+import com.acmr.service.zbdata.UserDepService;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class RightControlService {
     /**
-     * 通过indexcode查询right表中是否存在这个list
+     * 通过indexcode查询right表中是否存在这个list,有的话返回这个list
      */
-    public List<Map> getRightList(){
-        List<Map> list = new ArrayList<Map>();
-
+    public List<Map<String,String>> getRightList(String indexcode){
+        User cu= UserService.getCurrentUser();
+        String usercode = cu.getUserid();//获取当前用户的code
+        List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+        List<DataTableRow> datas = RightDao.Fator.getInstance().getIndexdatadao().getRightList(indexcode).getRows();
+        for (int i = 0; i <datas.size() ; i++) {
+            Map<String,String> arr = new HashMap<String,String>();
+            //将他自己排除掉
+           if(!(datas.get(i).getString("depusercode").equals(usercode)&&datas.get(i).getString("sort").equals("2"))){
+                arr.put("indexcode",datas.get(i).getString("indexcode"));
+                arr.put("depusercode",datas.get(i).getString("depusercode"));
+                arr.put("sort",datas.get(i).getString("sort"));
+                arr.put("right",datas.get(i).getString("right"));
+                arr.put("createuser",datas.get(i).getString("createuser"));
+                if(datas.get(i).getString("sort").equals("2")){
+                    String depusername = UserDepService.getUserNameByCode(datas.get(i).getString("depusercode"));
+                    arr.put("depusername",depusername);
+                }
+                else{
+                    String depusername = DepartmentService.getDepartment(datas.get(i).getString("depusercode")).getCname();
+                    arr.put("depusername",depusername);
+                }
+            }
+            list.add(arr);
+        }
         return list;
     }
 }
