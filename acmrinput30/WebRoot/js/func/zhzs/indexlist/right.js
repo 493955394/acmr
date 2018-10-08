@@ -25,7 +25,6 @@ define(function (require,exports,module) {
         },
         callback: {
             onClick: clickEvent12,
-            onAsyncSuccess: zTreeOnAsyncSuccess
         }
     };
     function clickEvent12(event, treeid, treeNode) {
@@ -43,44 +42,5 @@ define(function (require,exports,module) {
     var treeObj = $.fn.zTree.init($("#treeRight"), setting12, rootNode);
     var treenodes = treeObj.getNodes();
     treeObj.expandNode(treenodes[0], true, true, true);
-
-    function zTreeOnAsyncSuccess(event, treeid, treeNode, msg){
-        if (initTreePara.length>0){
-            var zbs = initTreePara.split("/");
-            var nodes;
-            var treeObj = $.fn.zTree.getZTreeObj(treeid);
-
-            if (treeNode == null){	// 第一层结点
-                nodes = treeObj.getNodes();
-            } else {
-                nodes = treeNode.children;
-            }
-            var isBreak = false;
-            for (var i = 0; i < nodes.length; i++){
-                var node = nodes[i];
-                for (var j = 0; j < zbs.length; j++){
-                    if (zbs[j] == node.id){
-                        if (node.isParent){
-                            treeObj.expandNode(node, true);
-                            if(node.id== zbs[zbs.length-1]){
-                                treeObj.selectNode(node);
-                                treeNodeId = node.id;
-                                treeNodeName = node.name;
-                            }
-                        } else {
-                            treeObj.selectNode(node);
-                            treeNodeId = node.id;
-                            treeNodeName = node.name;
-                        }
-                        isBreak = true;
-                        break;
-                    }
-                }
-                if (isBreak){
-                    break;
-                }
-            }
-        }
-    }
 
  })
