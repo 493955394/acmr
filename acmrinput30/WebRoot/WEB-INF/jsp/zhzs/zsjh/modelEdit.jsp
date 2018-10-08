@@ -25,7 +25,7 @@
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 <div class="container-fluid">
     <div class="panel panel-default">
-        <span class="col-sm-offset-2 col-sm-4" style="font-size: 20px;color: #FF7F19">-------------基本信息-------------</span><br>
+        <span class="col-sm-offset-2 col-sm-3" style="text-align:center;font-size: 20px;color: #FF7F19">-------------基本信息-------------</span><br>
         <div class="panel-body">
             <form class="form-horizontal J_addZS_form" action="${ctx}/zbdata/zsjhedit.htm?m=toUpdateZS">
                 <input type="hidden" name="icode" value="${icode}" class="input-small"/>
@@ -77,7 +77,7 @@
                 </div>
                 <div id="select_zb" style="display: none">
                     <br>
-                    <span class="col-sm-offset-2 col-sm-4" style="font-size: 20px;color: #FF7F19">------------指标设置-------------</span><br><br>
+                    <span class="col-sm-offset-2 col-sm-3" style="text-align:center;font-size: 20px;color: #FF7F19">------------指标设置-------------</span><br><br>
                     <hr class="col-sm-10"/>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">所属节点：</label>

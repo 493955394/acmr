@@ -61,7 +61,7 @@
                 </div>
                 <div id="secend_zs" style="display: none">
                     <br>
-                    <span class="col-sm-offset-2 col-sm-4" style="font-size: 20px;color: #FF7F19">--------次级指数设置------------</span><br><br>
+                    <span class="col-sm-offset-2 col-sm-3" style="text-align:center;font-size: 20px;color: #FF7F19">--------次级指数设置------------</span><br><br>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">所属节点：</label>
                         <div class="col-sm-3">
@@ -75,7 +75,7 @@
                 </div>
                 <div id="select_zb" style="display: none">
                     <br>
-                    <span class="col-sm-offset-2 col-sm-4" style="font-size: 20px;color: #FF7F19">------------指标设置-------------</span><br><br>
+                    <span class="col-sm-offset-2 col-sm-3" style="text-align:center;font-size: 20px;color: #FF7F19">------------指标设置-------------</span><br><br>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">所属节点：</label>
                         <div class="col-sm-3">
