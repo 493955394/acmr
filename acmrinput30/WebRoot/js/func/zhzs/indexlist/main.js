@@ -380,7 +380,7 @@ define(function (require,exports,module) {
     })
 
     //CategoryNode为只有目录的树结构nodes
-    var CategoryNodes=[];
+   // var CategoryNodes=[];
     //console.log(zNodes)
     /*for(i=0;i<zNodes.length;i++){
         //console.log(zNodes[i])
@@ -390,12 +390,14 @@ define(function (require,exports,module) {
         }
     }*/
     //console.log(CategoryNodes)
+/*
 
 
 
     module.exports={
         CategoryNodes:CategoryNodes
     }
+*/
 
 })
 
