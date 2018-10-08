@@ -125,7 +125,7 @@
                     <div role="tabpanel" class="tab-pane" id="zssx">
                         <div id="tree_and_find" class="col-md-2 left-panel">
                             <div class="form-group">
-                                <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" >
+                                <input id="queryValue" type="text" class="form-control input-xm" placeholder="输入搜索内容" >
                                 <%--
                                                             <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="<c:if test="${code != '' && code!= null}">${code}</c:if><c:if test="${cname != '' && cname != null}">${cname}</c:if>">
                                 --%>
@@ -256,28 +256,28 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="jsfw">
-                        <div class="col-xs-3" style="padding-top:50px">
+                        <div class="col-xs-3" style="padding-top:30px">
                             <input type="hidden" id="initTreePara" value="${initTreePara}" />
                             <input type="hidden" id="procode" value="" />
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">地区树</div>
                             </div>
-                            <div class="panel-body" style="height: 500px;width: 440px;overflow:auto ">
+                            <div class="panel-body" style="height: 500px;width: 310px;overflow:auto ">
                                 <ul id="treeDemo" class="ztree ztree-margin">
                                 </ul></div>
                             <input type="hidden" name="regcode" value="" />
                             <input type="hidden" name="regname" value="" />
                         </div>
-                        <div class="col-xs-1 btn-group-vertical" role="group" style="padding-top:100px">
-                            <button class="btn btn-default btn-lg" id="sigglechoose">></button>
-                            <div class="clearfix"></div>
-                            <button class="btn btn-default btn-lg" id="chooseall">>></button>
-                            <div class="clearfix"></div>
-                            <button class="btn btn-default btn-lg" id="delsiggle"><</button>
-                            <div class="clearfix"></div>
-                            <button class="btn btn-default btn-lg" id="delall"><<</button>
+                        <div class="col-xs-1 btn-group-vertical" role="group" style="border:1px solid white;padding-top:100px">
+                            <button class="btn btn-default btn-lg" id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#FF7F19;"><span style="color: #FF7F19;">></span></button>
+                            <div class="clearfix" style="height: 30px"></div>
+                            <button class="btn btn-default btn-lg" id="chooseall" style="border-style:solid;border-width:1px;border-color:#FF7F19;background-color: #FF7F19;"><span style="color: white">>></span></button>
+                            <div class="clearfix" style="height: 30px"></div>
+                            <button class="btn btn-default btn-lg" id="delsiggle" style="border-style:solid;border-width:1px;border-color:#FF7F19;"><span style="color: #FF7F19;"><</span></button>
+                            <div class="clearfix" style="height: 30px"></div>
+                            <button class="btn btn-default btn-lg" id="delall" style="border-style:solid;border-width:1px;border-color:#FF7F19;background-color: #FF7F19;"><span style="color: white"><<</span></button>
                         </div>
-                        <div class="col-xs-3" style="padding-top:50px">
+                        <div class="col-xs-3" style="padding-top:30px">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">地区列表</div>
                             </div>
@@ -290,19 +290,20 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-5" style="padding-left: 20px;padding-right: 20px">
-                            <div class="panel panel-default">
+                        <div class="col-xs-5" style="border:#E4EDF6;padding-left: 20px;padding-right: 20px;padding-top:30px">
+                            <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
-                                <div class="panel-body">
-                                    <span>时间选择</span>
-                                    <input name="begintime"/>
-                                    ~
-                                    <input name="endtime"/>
-                                    <button id="datachecks">数据检查</button>
-                                    <button class="J_plan_excel">数据下载</button>
-                                    <div class="data_check_show">
-                                        <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/regSelect.jsp" flush="true"/>
-                                    </div>
+                            </div>
+                            <div class="panel-body">
+                                <span class="col-sm-2" style="font-size: 10px">时间选择</span>
+                                <input class="col-sm-2" name="begintime"/>
+                                <span class="col-sm-1" style="font-size: 10px">至</span>
+                                <input class="col-sm-2" name="endtime"/>
+                                <span class="col-sm-1"></span>
+                                <button id="datachecks" class="col-sm-2" style="font-size: 5px"><i class="glyphicon glyphicon-check"></i>数据检查</button>
+                                <button class="J_plan_excel col-sm-2" style="font-size: 5px"><i class="glyphicon glyphicon-save"></i>数据下载</button>
+                                <div class="data_check_show">
+                                    <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/regSelect.jsp" flush="true"/>
                                 </div>
                             </div>
                         </div>
@@ -334,8 +335,12 @@
                                     </div>
                                     <div class="toolbar-right">
                                         <div class="toolbar-group" style="position: relative;">
-                                            <button class="btn btn-default btn-sm J_Add_ZS" type="button">新增</button>&nbsp
-                                            <button class="btn btn-default btn-sm J_Add weight_set" type="button">新增权重设置</button>&nbsp
+                                            <button class="btn btn-default btn-sm J_Add_ZS" type="button"><i class="glyphicon glyphicon-plus"></i>新增</button>
+                                            &nbsp;
+                                            <button class="btn btn-default btn-sm J_Add weight_set" type="button">
+                                                <i class="glyphicon glyphicon-pencil"></i>新增权重设置
+                                            </button>
+                                            &nbsp;
                                         </div>
                                     </div>
                                 </div>
