@@ -1058,7 +1058,7 @@ public class zsjhedit extends BaseAction {
         String indexCode = req.getParameter("indexCode");
         List<IndexMoudle> zslist = new ArrayList<IndexMoudle>();
         IndexEditService indexEditService = new IndexEditService();
-        zslist = indexEditService.getZSList(indexCode);
+        zslist = indexEditService.getZSList(indexCode,code);
         IndexMoudle getdata = indexEditService.getData(code);
        /* String procodeId =getdata.getProcode() ;
         String proname = indexEditService.getData(procodeId,indexCode).getCname();*/
