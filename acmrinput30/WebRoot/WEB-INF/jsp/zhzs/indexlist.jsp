@@ -217,11 +217,54 @@
             </div>
         </div>
     </div>
+    <!--权限管理-->
+    <div class="modal" id="mymodal-right" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">权限管理</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="${ctx}/zbdata/indexlist.htm?m=rightmanager">
+                        <div class="form-group">
+                            <div class="col-sm-5  panel panel-default">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <input type="text" class="col-xs-8">
+                                        <button class="btn btn-default btn-sm col-xs-3" type="button" style="margin-left: 3px">搜索</button>
+                                    </div>
+
+                                    <ul id="treeRight" class="ztree"></ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-2" style="text-align: center">
+                                <div class="btn-group-vertical" role="group">
+                                    <button type="button" class="btn btn-default"> ></button>
+                                    <button type="button" class="btn btn-default"> <</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-5 panel panel-default">
+                                <div class="panel-body">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">确定</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 <script>
     seajs.use('${ctx}/js/func/zhzs/indexlist/main');
     seajs.use('${ctx}/js/func/zhzs/indexlist/planEdit');
+    seajs.use('${ctx}/js/func/zhzs/indexlist/right');
 </script>
 </html>
 
