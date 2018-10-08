@@ -6,13 +6,25 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72f365d4-c905-43fe-af3e-9b0b4f9063b2" name="Default Changelist" comment="" />
+    <list default="true" id="72f365d4-c905-43fe-af3e-9b0b4f9063b2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/acmr/test/Mytest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/acmr/test/Mytest.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/WebRoot/WEB-INF/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/acmrinput30$Mytest.ic" NAME="Mytest Coverage Results" MODIFIED="1537412669313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.acmr.test.*</FILTER>
+    </SUITE>
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -72,39 +84,213 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-391770282">
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="dummy" value="5" />
+          <entry key="java" value="21479" />
+          <entry key="js" value="2478" />
+          <entry key="jsp" value="2666" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="HTML" value="6" />
+          <entry key="JAVA" value="21479" />
+          <entry key="JSP" value="2666" />
+          <entry key="JavaScript" value="2472" />
+          <entry key="PLAIN_TEXT" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="class" value="13" />
+          <entry key="java" value="190" />
+          <entry key="js" value="41" />
+          <entry key="jsp" value="62" />
+          <entry key="xml" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CLASS" value="13" />
+          <entry key="JAVA" value="190" />
+          <entry key="JSP" value="62" />
+          <entry key="JavaScript" value="41" />
+          <entry key="XML" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="3" />
+          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="3" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/pastviews.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="434">
+              <caret line="384" column="35" lean-forward="true" selection-start-line="384" selection-start-column="35" selection-end-line="384" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="472">
+              <caret line="74" selection-start-line="74" selection-end-line="74" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/wdturn.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Arquillian JUnit Test Class" />
         <option value="Class" />
+        <option value="Jsp File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dataTable</find>
+      <find>synchroniz</find>
+      <find>update</find>
+      <find>sendRedire</find>
+      <find>delete</find>
+      <find>sendredirect</find>
+      <find>getIndexListByPage</find>
+      <find>post</find>
+      <find>panel_container</find>
+      <find>ready</find>
+      <find>console</find>
+      <find>.htm</find>
+      <find>turn</find>
+      <find>icode=</find>
+      <find>zstask.htm</find>
+      <find>指数任务</find>
+      <find>icode</find>
+      <find>JSONObject</find>
+      <find>启</find>
+      <find>J_AddCO</find>
+      <find>复制</find>
+      <find>J_AddCopy</find>
+      <find>indexlist</find>
+      <find>test</find>
+      <find>category_edit</find>
+      <find>index</find>
+      <find>mymodal-data2</find>
+      <find>复制到</find>
+      <find>/indexlist</find>
+      <find>J_Add</find>
+      <find>新增</find>
     </findStrings>
     <dirStrings>
       <dir>D:\acmr\20180821\acmrinput30\acmrinput30\WebRoot\dashboard\js</dir>
     </dirStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zsjh/weighttable.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/config/acmrcubedb.properties" />
-        <option value="$PROJECT_DIR$/src/config/acmrcubedbinput.properties" />
-        <option value="$PROJECT_DIR$/src/config/acmrinputdb.properties" />
-        <option value="$PROJECT_DIR$/src/com/acmr/test/TryTest.java" />
-        <option value="$PROJECT_DIR$/src/com/acmr/test/Try.java" />
-        <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/system/menu.java" />
         <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/system/person.java" />
         <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/management/role/index.jsp" />
         <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/management/role/tabList.jsp" />
         <option value="$PROJECT_DIR$/src/com/acmr/test/Test.java" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/datahandle.js" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zsjh/weighttable.jsp" />
+        <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/weightset.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/model/zhzs/TaskModule.java" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/metadata/zbmgr/main.js" />
+        <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/metadata/Zbmgr.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/model/zhzs/IndexList.java" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/metadata/unitmgr/main.js" />
+        <option value="$PROJECT_DIR$/src/com/acmr/dao/zhzs/IIndexTaskDao.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraIndexTaskDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/service/zhzs/IndexTaskService.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/service/zbdata/OriginService.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/service/security/UserDataService.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/service/zbdata/UserService.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/model/zhzs/IndexMoudle.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/service/zbdata/UserDepService.java" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zsjh/zsjhEdit.jsp" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/tasktable.jsp" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/main.js" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/zscalculate.jsp" />
+        <option value="$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraIndexEditDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/zsjhedit.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/test/Mytest.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/service/zhzs/CreateTaskService.java" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/tweighttable.jsp" />
+        <option value="$PROJECT_DIR$/src/com/acmr/dao/zhzs/IWeightEditDao.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraWeightEditDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/service/zhzs/WeightEditService.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraIndexListDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/dao/zhzs/IIndexListDao.java" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/caculate.js" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zsjhEdit/weight.js" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zsjhEdit/main.js" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zsjhEdit/zbAdd.js" />
+        <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/zscalculate.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/zstask.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/service/zhzs/IndexListService.java" />
+        <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/indexlist.java" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indexlist.jsp" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/wdturn.js" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/wdturn.js" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/check/wdturn.jsp" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/wdturn.js" />
       </list>
     </option>
   </component>
@@ -127,8 +313,9 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="341" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="21" />
+    <option name="y" value="3" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
@@ -137,8 +324,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -154,7 +342,203 @@
             <path>
               <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
               <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+              <item name="oracle" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+              <item name="oracle" type="462c0819:PsiDirectoryNode" />
+              <item name="security" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+              <item name="oracle" type="462c0819:PsiDirectoryNode" />
+              <item name="zhzs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+              <item name="zhzs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="zhzs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="security" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="zbdata" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="zhzs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="jsp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="acmr" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="jsp" type="462c0819:PsiDirectoryNode" />
+              <item name="zbdata" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
               <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="func" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="func" type="462c0819:PsiDirectoryNode" />
+              <item name="metadata" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="func" type="462c0819:PsiDirectoryNode" />
+              <item name="metadata" type="462c0819:PsiDirectoryNode" />
+              <item name="unitmgr" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="func" type="462c0819:PsiDirectoryNode" />
+              <item name="zhzs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="func" type="462c0819:PsiDirectoryNode" />
+              <item name="zhzs" type="462c0819:PsiDirectoryNode" />
+              <item name="indexlist" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="func" type="462c0819:PsiDirectoryNode" />
+              <item name="zhzs" type="462c0819:PsiDirectoryNode" />
+              <item name="zsjhEdit" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acmrinput30" type="462c0819:PsiDirectoryNode" />
+              <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="func" type="462c0819:PsiDirectoryNode" />
+              <item name="zhzs" type="462c0819:PsiDirectoryNode" />
+              <item name="zstask" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
@@ -175,7 +559,7 @@
               <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
               <item name="jsp" type="462c0819:PsiDirectoryNode" />
-              <item name="management" type="462c0819:PsiDirectoryNode" />
+              <item name="metadata" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
@@ -183,8 +567,7 @@
               <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
               <item name="jsp" type="462c0819:PsiDirectoryNode" />
-              <item name="management" type="462c0819:PsiDirectoryNode" />
-              <item name="menu" type="462c0819:PsiDirectoryNode" />
+              <item name="zhzs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="acmrinput30" type="b2602c69:ProjectViewProjectNode" />
@@ -192,27 +575,27 @@
               <item name="WebRoot" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
               <item name="jsp" type="462c0819:PsiDirectoryNode" />
-              <item name="management" type="462c0819:PsiDirectoryNode" />
-              <item name="role" type="462c0819:PsiDirectoryNode" />
+              <item name="zhzs" type="462c0819:PsiDirectoryNode" />
+              <item name="zstask" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/git-acmr/acmr/acmrinput30/src/com/acmr/web/jsp/zbdata/indexlist.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1534919028411" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538979065534" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="vcs.Subversion" />
@@ -220,6 +603,10 @@
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.acmr.test" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\git-acmr\acmr\acmrinput30\WebRoot\js\func\zhzs\zstask" />
+      <recent name="D:\git-acmr\acmr\acmrinput30\WebRoot\js\func\zhzs\indexlist" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -240,7 +627,46 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Test">
+  <component name="RunManager" selected="Tomcat Server.Unnamed">
+    <configuration name="IndexListService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.acmr.service.zhzs.IndexListService" />
+      <module name="acmrinput30" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.acmr.service.zhzs.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Mytest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.acmr.test.Mytest" />
+      <module name="acmrinput30" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.acmr.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OraIndexListDaoImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.acmr.dao.oracle.zhzs.OraIndexListDaoImpl" />
+      <module name="acmrinput30" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.acmr.dao.oracle.zhzs.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.acmr.test.Test" />
       <module name="acmrinput30" />
@@ -254,12 +680,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Try" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.acmr.test.Try" />
+    <configuration name="UserDepService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.acmr.service.zbdata.UserDepService" />
       <module name="acmrinput30" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.acmr.test.*" />
+          <option name="PATTERN" value="com.acmr.service.zbdata.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -269,7 +695,8 @@
     </configuration>
     <configuration name="Unnamed" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.90" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="1.7">
       <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
-      <option name="UPDATING_POLICY" value="restart-server" />
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
       <deployment>
         <artifact name="acmrinput30:Web exploded">
           <settings>
@@ -342,12 +769,18 @@
     <list>
       <item itemvalue="Tomcat Server.Unnamed" />
       <item itemvalue="Application.Test" />
-      <item itemvalue="Application.Try" />
+      <item itemvalue="Application.OraIndexListDaoImpl" />
+      <item itemvalue="Application.IndexListService" />
+      <item itemvalue="Application.Mytest" />
+      <item itemvalue="Application.UserDepService" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Mytest" />
+        <item itemvalue="Application.IndexListService" />
+        <item itemvalue="Application.UserDepService" />
+        <item itemvalue="Application.OraIndexListDaoImpl" />
         <item itemvalue="Application.Test" />
-        <item itemvalue="Application.Try" />
       </list>
     </recent_temporary>
   </component>
@@ -368,16 +801,20 @@
       <workItem from="1534844585324" duration="4406000" />
       <workItem from="1534901990334" duration="8435000" />
       <workItem from="1534919077127" duration="72000" />
+      <workItem from="1537234486591" duration="33249000" />
+      <workItem from="1537324295413" duration="135976000" />
+      <workItem from="1538135544470" duration="13051000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17682000" />
+    <option name="totallyTimeSpent" value="221204000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="461" y="2" width="1400" height="1000" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.41618496" visible="true" weight="0.26865673" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.41618496" visible="true" weight="0.17697228" />
       <window_info id="Designer" order="1" />
       <window_info id="Image Layers" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -385,19 +822,19 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Web" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.29826465" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4370933" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.49728554" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.32790446" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Application Servers" order="7" weight="0.3298731" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.35103926" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.34961998" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="10" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32899022" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="13" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -407,9 +844,45 @@
       <window_info anchor="right" id="Database" order="6" sideWeight="0.45904174" weight="0.15085287" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info anchor="right" id="Structure" order="9" sideWeight="0.5007728" side_tool="true" visible="true" weight="0.42313433" />
+      <window_info anchor="right" id="Structure" order="9" sideWeight="0.5007728" side_tool="true" visible="true" weight="0.15991472" />
       <window_info anchor="right" id="Preview" order="10" sideWeight="0.4992272" weight="0.32995737" />
+      <window_info anchor="right" id="Coverage" order="11" side_tool="true" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.41618496" visible="true" weight="0.17377399" />
+      <window_info id="Designer" order="1" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="UI Designer" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Web" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.67969596" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4820847" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Application Servers" order="7" weight="0.3298731" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.34961998" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32899022" />
+      <window_info anchor="bottom" id="Java Enterprise" order="11" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="13" />
+      <window_info anchor="right" id="Coverage" order="0" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Maven Projects" order="6" weight="0.32995737" />
+      <window_info anchor="right" id="Database" order="7" sideWeight="0.45904174" weight="0.15085287" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
+      <window_info anchor="right" id="Structure" order="10" sideWeight="0.5007728" side_tool="true" visible="true" weight="0.15991472" />
+      <window_info anchor="right" id="Preview" order="11" sideWeight="0.4992272" weight="0.32995737" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -417,292 +890,406 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/acmr/service/zhzs/IndexEditService.java</url>
+          <line>81</line>
+          <properties />
+          <option name="timeStamp" value="113" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/acmr/service/zhzs/IndexEditService.java</url>
+          <line>82</line>
+          <properties />
+          <option name="timeStamp" value="114" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/acmr/service/zhzs/IndexEditService.java</url>
+          <line>84</line>
+          <properties />
+          <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/acmr/service/zhzs/IndexEditService.java</url>
+          <line>85</line>
+          <properties />
+          <option name="timeStamp" value="116" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/config/acmrinputdb.properties">
+    <entry file="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/acmrutil.jar!/acmr/util/ListHashMap.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/config/acmrcubedbinput.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="51" selection-start-line="4" selection-start-column="51" selection-end-line="4" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/config/acmrcubedb.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="51" lean-forward="true" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/config/acmr.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/config/login.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/config/acmrlog.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/config/acmrkettle.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="53" lean-forward="true" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/acmrcubequery2.0.jar!/acmr/cubequery/service/cubequery/entity/CubeData.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/acmrcubequery2.0.jar!/acmr/cubequery/service/cubequery/entity/CubeQueryData.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="11" column="15" lean-forward="true" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/model/security/Department.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/test/TryTest.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/model/check/DataCheck.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="21" column="11" lean-forward="true" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/test/Try.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/log/SessionListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-709">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/acmrutil.jar!/acmr/util/PubInfo.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-285">
-          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/security/SafeService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="41" column="42" selection-start-line="41" selection-start-column="42" selection-end-line="41" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/security/RightService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/mathutil.jar!/acmr/math/CalculateExpression.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/Index.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="20" column="45" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/system/person.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6684">
-          <caret line="40" column="5" lean-forward="true" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/system/dep.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/management/role/tabList.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="58" column="12" lean-forward="true" selection-start-line="58" selection-start-column="12" selection-end-line="58" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/management/role/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/system/role.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="43" column="24" lean-forward="true" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/system/menu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/test/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/security/DepartmentService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-799">
-          <caret line="10" column="32" lean-forward="true" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/model/pub/ZTreeNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1070">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/model/security/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-912">
-          <caret line="60" column="23" lean-forward="true" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/oracle/grabdataindb/OraGrabDataDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/AcmrInputDPFactor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/acmrutil.jar!/acmr/data/DataQuickQuery.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="59" column="21" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/index/index.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/log/main.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/config/seed.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/management/department/edit.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/management/menu/main.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/lib/draggable.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/lib/mouse.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/mods/collapse.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/plugin/tips/js/tips.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/plugin/webuploader/webuploader.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/dashboard/js/lib/bootstrap.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/management/role/edit.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-57">
-          <caret line="18" column="48" lean-forward="true" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/security/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+        <state relative-caret-position="171">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/acmr/service/security/SecurityService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="148" column="68" selection-start-line="148" selection-start-column="68" selection-end-line="148" selection-end-column="68" />
+        <state relative-caret-position="76">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/security/SecurityDao.java">
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/model/security/Department.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="15" column="14" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/security/ISecurityDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="893">
-          <caret line="47" column="59" lean-forward="true" selection-start-line="47" selection-start-column="59" selection-end-line="47" selection-end-column="59" />
+        <state relative-caret-position="-326">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/oracle/security/oraSecurityDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-551">
-          <caret line="28" column="58" selection-start-line="28" selection-start-column="58" selection-end-line="28" selection-end-column="58" />
+        <state relative-caret-position="247">
+          <caret line="26" column="28" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/management/menu/index.jsp">
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/security/DepartmentService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="50" column="54" selection-start-line="50" selection-start-column="50" selection-end-line="50" selection-end-column="54" />
+        <state relative-caret-position="182">
+          <caret line="20" column="37" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/acmrutil.jar!/acmr/util/DataTableRow.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="78" selection-start-line="78" selection-end-line="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zsjh/zsjhEdit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="84" column="45" lean-forward="true" selection-start-line="84" selection-start-column="45" selection-end-line="84" selection-end-column="45" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/model/zhzs/IndexList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="22" column="16" lean-forward="true" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/taskindex.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="45" column="48" selection-start-line="45" selection-start-column="48" selection-end-line="45" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/dataTable.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="20" column="42" lean-forward="true" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/zhzs/IndexTaskDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zbdata/UserDepService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="50" column="6" lean-forward="true" selection-start-line="50" selection-start-column="6" selection-end-line="50" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/TaskTimerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-230">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="15" column="113" lean-forward="true" selection-start-line="15" selection-start-column="113" selection-end-line="15" selection-end-column="113" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/test/Mytest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="30" column="44" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/CreateTaskService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="18" column="8" lean-forward="true" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/OriginDataService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="100" selection-start-line="100" selection-end-line="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/tweighttable.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="17" column="51" lean-forward="true" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
+          <folding>
+            <element signature="n#style#0;n#select#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/zhzs/IWeightEditDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/theme/Theme.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="255" column="61" lean-forward="true" selection-start-line="255" selection-start-column="40" selection-end-line="255" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraWeightEditDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="55" column="58" lean-forward="true" selection-start-line="55" selection-start-column="58" selection-end-line="55" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/WeightEditService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="890">
+          <caret line="139" column="79" selection-start-line="139" selection-start-column="79" selection-end-line="139" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/zscalculate.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="40" column="64" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="64" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraDataDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="161" selection-start-line="161" selection-end-line="161" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/caculate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="55" column="38" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraIndexListDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="347" column="80" selection-start-line="347" selection-start-column="80" selection-end-line="347" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zsjhEdit/zbAdd.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="95" column="19" selection-start-line="95" selection-start-column="19" selection-end-line="95" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zsjhEdit/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="54" column="20" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/zscalculate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-169">
+          <caret line="264" column="69" selection-start-line="264" selection-start-column="69" selection-end-line="264" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraIndexTaskDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1881">
+          <caret line="227" column="75" lean-forward="true" selection-start-line="227" selection-start-column="75" selection-end-line="227" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/zstask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="30" column="31" lean-forward="true" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/zhzs/IIndexListDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="30" column="41" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/IndexListService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="512" column="9" selection-start-line="512" selection-start-column="9" selection-end-line="512" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/model/pub/JSONReturnData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="589">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/service/zhzs/IndexEditService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1292">
+          <caret line="84" column="47" selection-start-line="84" selection-start-column="47" selection-end-line="84" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraIndexEditDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="131" column="84" selection-start-line="131" selection-start-column="84" selection-end-line="131" selection-end-column="84" />
+          <folding>
+            <element signature="n#c:if#1;n#jsp:root#0;n#!!top" />
+            <element signature="n#c:if#2;n#jsp:root#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/planEdit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6064">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/zsjhedit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="1327" column="45" selection-start-line="1327" selection-start-column="45" selection-end-line="1327" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zsjhEdit/module.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-969" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zsjhEdit/weight.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="166" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/check/wdturn.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="54" lean-forward="true" selection-start-line="16" selection-start-column="54" selection-end-line="16" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/pastviews.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/tasktable.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="11" column="63" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/indexlist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="425" column="31" lean-forward="true" selection-start-line="425" selection-start-column="31" selection-end-line="425" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="384" column="35" lean-forward="true" selection-start-line="384" selection-start-column="35" selection-end-line="384" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indexlist.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4161">
+          <caret line="219" column="6" lean-forward="true" selection-start-line="219" selection-start-column="6" selection-end-line="219" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/wdturn.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
         </state>
       </provider>
     </entry>

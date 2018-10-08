@@ -149,7 +149,9 @@
                                 <label class="btn-disabled">编辑</label>
                                 <label class="btn-disabled">删除</label>
                             </c:if>
+
                             <a href="#" data-toggle="modal" data-target="#mymodal-right" >权限管理</a>
+
                             <a href="${ctx}/zbdata/pastviews.htm?id=${index.getCode()}">查看往期</a>
                             <a href="${ctx}/zbdata/zstask.htm?icode=${index.getCode()}">指数任务</a>
                         </c:if>
