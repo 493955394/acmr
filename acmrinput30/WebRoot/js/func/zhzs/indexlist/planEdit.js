@@ -76,6 +76,14 @@ define(function (require,exports,module) {
             !checkDelegate.checkNormal($('input[name="plancname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
             flag = false;
         }
+        var selectObj = document.getElementById("sort");
+        //var selectObj = $("#sort");
+        var activeIndex = selectObj.options[selectObj.selectedIndex].value;
+        if (activeIndex == ""){
+            alert ("请选择统计周期！");
+            selectObj.focus();
+            flag = false;
+        }
         if (flag == false) {
             return;
         }

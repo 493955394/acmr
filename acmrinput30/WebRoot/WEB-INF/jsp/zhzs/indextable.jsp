@@ -149,8 +149,12 @@
                                 <label class="btn-disabled">编辑</label>
                                 <label class="btn-disabled">删除</label>
                             </c:if>
+
                             <a href="#" data-toggle="modal" data-target="#mymodal-right" >权限管理</a>
+
                             <a href="${ctx}/zbdata/pastviews.htm?id=${index.getCode()}">查看往期</a>
+
+                            <a class="past_task" href="${ctx}/zbdata/pastviews.htm?id=${index.getCode()}">查看往期</a>
                             <a href="${ctx}/zbdata/zstask.htm?icode=${index.getCode()}">指数任务</a>
                         </c:if>
                         <c:if test="${index.getIfdata().equals('0')}">
@@ -233,7 +237,7 @@
                         <c:if test="${index.get('right')!='2'}">
                             <label class="btn-disabled">权限管理</label>
                         </c:if>
-                        <a href="${ctx}/zbdata/pastviews.htm?id=${index.getCode()}">查看往期</a>
+                        <a class="past_task" href="${ctx}/zbdata/pastviews.htm?id=${index.getCode()}">查看往期</a>
                         <a href="${ctx}/zbdata/zstask.htm?&icode=${index.get('index').getCode()}&right=${index.get('right')}">指数任务</a>
                     </c:if>
                     <c:if test="${index.get('index').getIfdata().equals('0')}">

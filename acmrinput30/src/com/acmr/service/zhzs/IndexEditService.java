@@ -247,6 +247,39 @@ public class IndexEditService {
         return indexMoudles;
     }
     /**
+     * 编辑模型节点的时候要把它自己这个节点以及下边的子节点删掉，否则会有问题
+     */
+    public ArrayList<IndexMoudle> getZSList(String icode,String code){
+        ArrayList<IndexMoudle> indexMoudles=new ArrayList<IndexMoudle>();
+        List<DataTableRow> data = new ArrayList<>();
+        data = IndexEditDao.Fator.getInstance().getIndexdatadao().getZSList(icode).getRows();
+        List<IndexMoudle> subs = getAllMods(code,icode);
+        List<String> subcodes = new ArrayList<String>();
+        subcodes.add(code);//将自己以及下边的指数子节点全都加进来
+        for (int i = 0; i <subs.size() ; i++) {
+            if(subs.get(i).getIfzs().equals("1")){
+                subcodes.add(subs.get(i).getCode());
+            }
+        }
+        for(int i=0;i<data.size();i++){
+            IndexMoudle index= new IndexMoudle();
+            if(!subcodes.contains(data.get(i).getString("code"))) {//展示不包括它自己以及它下属的模型节点列表
+                index.setCode(data.get(i).getString("code"));
+                index.setCname(data.get(i).getString("cname"));
+                index.setProcode(data.get(i).getString("procode"));
+                index.setIndexcode(data.get(i).getString("indexcode"));
+                index.setIfzs(data.get(i).getString("ifzs"));
+                index.setDacimal(data.get(i).getString("dacimal"));
+                index.setWeight(data.get(i).getString("weight"));
+                index.setSortcode(data.get(i).getString("sortcode"));
+                index.setIfzb(data.get(i).getString("ifzb"));
+                index.setFormula(data.get(i).getString("formula"));
+                indexMoudles.add(index);
+            }
+        }
+        return indexMoudles;
+    }
+    /**
      * 检查code是否已经存在
      */
     public boolean checkCode(String code){
@@ -284,4 +317,5 @@ public class IndexEditService {
         indexZb.setDacimal(data.getString("dacimal"));
         return indexZb;
     }
+
 }
