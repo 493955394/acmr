@@ -1,6 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<style>
+    .word{
+        color:black;
+        font-family: '黑体';
+    }
+
+    th{
+        text-align: center;
+        vertical-align: middle!important;
+        background-color: #EBECF1;
+    }
+
+    td{
+        text-align: center;
+        vertical-align: middle!important;
+    }
+    #i1,#i2,#i3{
+        color:#FF7F19;
+    }
+
+</style>
 <input type="hidden" id="top" value="${top}" />
 <input type="hidden" id="bottom" value="${bottom}" />
 <c:if test="${state.equals('0')}">
@@ -23,9 +44,9 @@
         </div>
         <div class="toolbar-right">
             <div class="toolbar-group" style="position: relative;">
-                <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data" type="button">新增目录</button>&nbsp
-                <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data1" type="button">新增计划</button>&nbsp
-                <button class="btn btn-default btn-sm J_AddCopy" type="button">复制到</button>
+                <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data" type="button"><i id="i1" class="glyphicon glyphicon-plus"></i>新增目录</button>&nbsp;
+                <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data1" type="button"><i id="i2" class="glyphicon glyphicon-plus"></i>新增计划</button>&nbsp;
+                <button class="btn btn-default btn-sm J_AddCopy" type="button"><i id="i3" class="glyphicon glyphicon-floppy-open"></i>复制到</button>
             </div>
         </div>
     </div>
@@ -75,28 +96,28 @@
         </div>
     </div>
 </c:if>
-<table class="table table-striped table-hover J_regmgr_table">
+<table class="table table-bordered table-hover J_regmgr_table">
 
 
     <c:if test="${state.equals('0')}">
         <colgroup>
             <col width="3%"/>
-            <col width="5%"/>
-            <col width="10%"/>
-            <col width="27%"/>
-            <col width="10%"/>
-            <col width="27%"/>
+            <col width="14%"/>
+            <col width="23%"/>
+            <col width="16%"/>
+            <col width="13%"/>
+            <col width="13%"/>
             <col width="18%"/>
         </colgroup>
         <thead>
         <tr>
             <th><input type="radio" style="display: none;"></th>
-            <th>编码</th>
-            <th>名称</th>
-            <th>类型</th>
-            <th>周期</th>
-            <th>最新数据期</th>
-            <th>操作</th>
+            <th><span class="word">编码</span></th>
+            <th><span class="word">名称</span></th>
+            <th><span class="word">类型</span></th>
+            <th><span class="word">周期</span></th>
+            <th><span class="word">最新数据期</span></th>
+            <th><span class="word">操作</span></th>
         </tr>
         </thead>
         <c:if test="${page.data.size()!=0}">

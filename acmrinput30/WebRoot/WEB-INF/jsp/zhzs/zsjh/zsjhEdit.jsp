@@ -23,6 +23,13 @@
 </head>
 <body>
 <style type="text/css">
+    #jbxx {
+        margin-left: 20%;
+    }
+
+    .glyphicon{
+        color:#FF7F19;
+    }
 </style>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 
@@ -31,12 +38,12 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h1>编辑指数计划</h1>
+                <h4>编辑指数计划</h4>
             </div>
             <div class="panel-body">
                 <div>
                         <!-- Nav tabs -->
-                        <ul class="nav nav-tabs nav-justified" role="tablist">
+                        <ul class="nav nav-pills nav-justified" role="tablist">
                             <li role="presentation" class="active"><a href="#jbxx" aria-controls="jbxx" role="tab" data-toggle="tab">基本信息</a></li>
                             <li role="presentation"><a href="#zssx" aria-controls="zssx" role="tab" data-toggle="tab">指数筛选</a></li>
                             <li role="presentation"><a href="#jsfw" aria-controls="jsfw" role="tab" data-toggle="tab">计算范围</a></li>
@@ -137,27 +144,38 @@
                                         <div class="panel_zbname panel-heading" code="">请选择指标</div>
                                         <div class="ds_choose panel-body">
                                             <div class="col-md-4">
-                                                <h5>数据来源：</h5>
                                                 <div class="form-group">
-                                                    <select id="ds_select" class="form-control input-sm zb_select">
-                                                        <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
-                                                                                        <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
-                                                    </select>
+                                                    <div class="col-md-5">
+                                                        <span style="font-size: 10px">数据来源：</span>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select id="ds_select" class="form-control input-sm zb_select">
+                                                            <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
+                                                                                            <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <h5>主体：</h5>
                                                 <div class="form-group">
-                                                    <select id="co_select" class="form-control input-sm zb_select">
-                                                        <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
-                                                                                        <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
-                                                    </select>
+                                                    <div class="col-md-5">
+                                                        <span style="font-size: 10px">主体：</span>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select id="co_select" class="form-control input-sm zb_select">
+                                                            <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
+                                                                                            <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <h5>单位：</h5>
-                                                <div class="form-group">
-                                                    <select id="unit_select" class="form-control input-sm zb_select">
+                                                <div class="col-md-5">
+                                                    <span style="font-size: 10px">单位：</span>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <select id="unit_select"
+                                                            class="form-control input-sm zb_select">
                                                         <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
                                                                                         <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
                                                     </select>
@@ -332,7 +350,7 @@
             </div>
         </div>
     </div>
-    <div style="float: right">
+        <div class="col-sm-offset-5 col-sm-7">
         <button type="button" class="btn btn-primary tosaveall">保存</button>
         <button type="reset" class="btn btn-primary resetindex">取消</button>
     </div>
