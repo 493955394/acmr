@@ -11,6 +11,8 @@ define(function (require,exports,module) {
 
     //根据tablerow和tablecol填充表格
     function getTable(){
+        $("#table-Col").val(tableCol)
+        $("#table-Row").val(tableRow)
         $(".wdturn-table").append("<tr><td>" +
             tableRow+"</td><td>" +
             tableCol+"</td><td>" +

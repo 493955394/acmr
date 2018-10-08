@@ -9,10 +9,9 @@
     <list default="true" id="72f365d4-c905-43fe-af3e-9b0b4f9063b2" name="Default Changelist" comment="">
 <<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/src/com/acmr/test/Mytest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/acmr/test/Mytest.java" afterDir="false" />
 =======
       <change afterPath="$PROJECT_DIR$/src/com/acmr/service/zhzs/PastViewService.java" afterDir="false" />
@@ -22,6 +21,8 @@
       <change beforePath="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/planEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/planEdit.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" beforeDir="false" afterPath="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/pastviews.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/pastviews.java" afterDir="false" />
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     </list>
     <ignored path="$PROJECT_DIR$/WebRoot/WEB-INF/classes/" />
@@ -100,16 +101,16 @@
         <counts>
           <entry key="dummy" value="5" />
           <entry key="java" value="21479" />
-          <entry key="js" value="2478" />
-          <entry key="jsp" value="2666" />
+          <entry key="js" value="2669" />
+          <entry key="jsp" value="2687" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="6" />
           <entry key="JAVA" value="21479" />
-          <entry key="JSP" value="2666" />
-          <entry key="JavaScript" value="2472" />
+          <entry key="JSP" value="2687" />
+          <entry key="JavaScript" value="2663" />
           <entry key="PLAIN_TEXT" value="5" />
 =======
     <session id="-624907704">
@@ -130,7 +131,7 @@
 <<<<<<< Updated upstream
           <entry key="java" value="190" />
           <entry key="js" value="41" />
-          <entry key="jsp" value="62" />
+          <entry key="jsp" value="63" />
           <entry key="xml" value="3" />
 =======
           <entry key="java" value="84" />
@@ -144,7 +145,7 @@
           <entry key="CLASS" value="13" />
 <<<<<<< Updated upstream
           <entry key="JAVA" value="190" />
-          <entry key="JSP" value="62" />
+          <entry key="JSP" value="63" />
           <entry key="JavaScript" value="41" />
           <entry key="XML" value="3" />
         </counts>
@@ -207,6 +208,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+<<<<<<< Updated upstream
         <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="91">
@@ -246,10 +248,12 @@
       </file>
       <file pinned="false" current-in-tab="false">
 <<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
         <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="472">
-              <caret line="74" selection-start-line="74" selection-end-line="74" />
+            <state relative-caret-position="149">
+              <caret line="71" column="63" selection-start-line="71" selection-start-column="63" selection-end-line="71" selection-end-column="63" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -266,6 +270,7 @@
           </provider>
         </entry>
       </file>
+<<<<<<< Updated upstream
       <file pinned="false" current-in-tab="false">
 <<<<<<< Updated upstream
         <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js">
@@ -278,10 +283,18 @@
             <state relative-caret-position="600">
               <caret line="118" column="47" selection-start-line="118" selection-start-column="41" selection-end-line="118" selection-end-column="47" />
 >>>>>>> Stashed changes
+=======
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="12" column="41" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/wdturn.js">
@@ -300,6 +313,13 @@
                 <element signature="e#4443#4464#0" expanded="true" />
                 <element signature="e#4566#4582#0" expanded="true" />
               </folding>
+=======
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/wdturn.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="13" column="46" lean-forward="true" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
@@ -307,10 +327,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state relative-caret-position="160">
               <caret line="151" column="30" lean-forward="true" selection-start-line="151" selection-start-column="30" selection-end-line="151" selection-end-column="30" />
               <folding>
                 <element signature="n#c:if#0;n#jsp:root#0;n#!!top" />
+              </folding>
+>>>>>>> Stashed changes
+=======
+            <state relative-caret-position="304">
+              <caret line="155" column="55" selection-start-line="155" selection-start-column="55" selection-end-line="155" selection-end-column="55" />
+              <folding>
+                <element signature="n#c:if#1;n#jsp:root#0;n#!!top" />
+                <element signature="n#c:if#2;n#jsp:root#0;n#!!top" />
               </folding>
 >>>>>>> Stashed changes
             </state>
@@ -456,14 +485,12 @@
         <option value="$PROJECT_DIR$/src/com/acmr/service/zhzs/IndexListService.java" />
         <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/indexlist.java" />
         <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indexlist.jsp" />
-        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp" />
         <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/wdturn.js" />
         <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/wdturn.js" />
         <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/check/wdturn.jsp" />
         <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js" />
-        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" />
-        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp" />
         <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/wdturn.js" />
+<<<<<<< Updated upstream
 =======
         <option value="$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/datahandle.java" />
         <option value="$PROJECT_DIR$/src/com/acmr/dao/oracle/zhzs/OraIndexTaskDaoImpl.java" />
@@ -484,6 +511,11 @@
         <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indexlist.jsp" />
         <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" />
         <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/planEdit.js" />
+>>>>>>> Stashed changes
+=======
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp" />
+        <option value="$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp" />
+        <option value="$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js" />
 >>>>>>> Stashed changes
       </list>
     </option>
@@ -841,9 +873,13 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538979065534" />
 =======
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538979235818" />
+>>>>>>> Stashed changes
+=======
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538979961643" />
 >>>>>>> Stashed changes
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
@@ -1085,6 +1121,7 @@
 <<<<<<< Updated upstream
       <workItem from="1537234486591" duration="33249000" />
       <workItem from="1537324295413" duration="135976000" />
+<<<<<<< Updated upstream
       <workItem from="1538135544470" duration="13051000" />
 =======
       <workItem from="1537445120441" duration="17000" />
@@ -1092,24 +1129,35 @@
       <workItem from="1537839834510" duration="107011000" />
       <workItem from="1538962832871" duration="9667000" />
 >>>>>>> Stashed changes
+=======
+      <workItem from="1538135544470" duration="13849000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <option name="totallyTimeSpent" value="221204000" />
 =======
     <option name="totallyTimeSpent" value="180402000" />
 >>>>>>> Stashed changes
+=======
+    <option name="totallyTimeSpent" value="222002000" />
+>>>>>>> Stashed changes
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.41618496" visible="true" weight="0.17697228" />
 =======
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.41618496" visible="true" weight="0.14232409" />
+>>>>>>> Stashed changes
+=======
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.41618496" visible="true" weight="0.17697228" />
 >>>>>>> Stashed changes
       <window_info id="Designer" order="1" />
       <window_info id="Image Layers" order="2" />
@@ -1120,7 +1168,11 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       <window_info anchor="bottom" id="Run" order="2" weight="0.49728554" />
+=======
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.26818675" />
+>>>>>>> Stashed changes
       <window_info anchor="bottom" id="Debug" order="3" weight="0.32790446" />
 =======
       <window_info anchor="bottom" id="Run" order="2" weight="0.412595" />
@@ -1501,17 +1553,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="131" column="84" selection-start-line="131" selection-start-column="84" selection-end-line="131" selection-end-column="84" />
-          <folding>
-            <element signature="n#c:if#1;n#jsp:root#0;n#!!top" />
-            <element signature="n#c:if#2;n#jsp:root#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/planEdit.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-6064">
@@ -1545,13 +1586,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/pastviews.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/tasktable.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
@@ -1566,13 +1600,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="384" column="35" lean-forward="true" selection-start-line="384" selection-start-column="35" selection-end-line="384" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indexlist.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4161">
@@ -1580,10 +1607,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/indextable.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="155" column="55" selection-start-line="155" selection-start-column="55" selection-end-line="155" selection-end-column="55" />
+          <folding>
+            <element signature="n#c:if#1;n#jsp:root#0;n#!!top" />
+            <element signature="n#c:if#2;n#jsp:root#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/indexlist/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="384" column="35" lean-forward="true" selection-start-line="384" selection-start-column="35" selection-end-line="384" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/acmr/web/jsp/zbdata/pastviews.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/wdturn.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="46" lean-forward="true" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/WebRoot/WEB-INF/jsp/zhzs/zstask/pastviews.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        <state relative-caret-position="149">
+          <caret line="71" column="63" selection-start-line="71" selection-start-column="63" selection-end-line="71" selection-end-column="63" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -1593,6 +1652,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/WebRoot/js/func/zhzs/zstask/pastviews.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
         <state relative-caret-position="133">
           <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
         </state>
@@ -1986,6 +2046,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="691">
           <caret line="85" column="8" selection-start-line="85" selection-start-column="8" selection-end-line="85" selection-end-column="8" />
+>>>>>>> Stashed changes
+=======
+        <state relative-caret-position="228">
+          <caret line="12" column="41" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
 >>>>>>> Stashed changes
         </state>
       </provider>

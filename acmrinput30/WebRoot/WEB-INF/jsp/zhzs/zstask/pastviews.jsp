@@ -75,9 +75,11 @@
 
                     </table>
                 </div>
+                <input type="hidden" id="table-Row" value="">
+                <input type="hidden" id="table-Col" value="">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="wd-change">确认</button>
                 </div>
 
             </div>
