@@ -2,7 +2,7 @@
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <div class="panel panel-default">
-    <div class="panel panel-body"  style="height: 300px">
+    <div class="panel panel-body left-panel" style="height: 300px">
         <table class="table table-hover">
             <thead>
             <tr id="zb_data_head">

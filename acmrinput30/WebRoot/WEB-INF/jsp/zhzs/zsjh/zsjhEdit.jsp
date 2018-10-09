@@ -138,7 +138,7 @@
                             <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/zbtree.jsp" flush="true"/>--%>
                         </div>
                         <div class="col-md-10 right-panel">
-                            <div class="col-md-9 left-panel">
+                            <div class="col-md-9">
                                 <div>
                                     <div class="panel panel-default">
                                         <div class="panel_zbname panel-heading" code="">请选择指标</div>
@@ -157,6 +157,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
+
                                                 <div class="form-group">
                                                     <div class="col-md-5">
                                                         <span style="font-size: 10px">主体：</span>
@@ -170,19 +171,23 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="col-md-5">
-                                                    <span style="font-size: 10px">单位：</span>
-                                                </div>
-                                                <div class="col-md-7">
-                                                    <select id="unit_select"
-                                                            class="form-control input-sm zb_select">
-                                                        <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
-                                                                                        <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
-                                                    </select>
+
+                                                <div class="form-group">
+                                                    <div class="col-md-5">
+                                                        <span style="font-size: 10px">单位：</span>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <select id="unit_select"
+                                                                class="form-control input-sm zb_select">
+                                                            <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
+                                                                                            <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <button type="button" class="btn btn-primary btn-sm zb_add" style="display: none;float: right">添加指标</button>
+
                                         </div>
+
                                         <div class="panel-footer"></div>
                                         <%--    <div class="co_choose panel-body">
                                                 <div class="col-md-2">
@@ -212,10 +217,14 @@
                                         <%--    <div class="data_table panel-body J_zsjc_zbdata_table">
                                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/ZBdataList.jsp" flush="true"/>
                                             </div>--%>
+                                        <button type="button" class="btn btn-default btn-sm zb_add" style="display: none;float: right"><i class="glyphicon glyphicon-plus"></i><span class="word">&nbsp;添加指标</span></button>
+                                        <%--    <button type="button" class="btn btn-default" style="display: none;float: right"><i class="glyphicon glyphicon-plus"></i><span class="word">&nbsp;添加指标</span></button>--%>
 
                                     </div>
+
                                     <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/addZB.jsp" flush="true"/>--%>
                                 </div>
+
                                 <div class="data_table panel-body J_zsjh_zbdata_table">
                                     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/ZBdataList.jsp" flush="true"/>
                                 </div>
@@ -295,13 +304,13 @@
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
                             </div>
                             <div class="panel-body">
-                                <span class="col-sm-2" style="font-size: 10px">时间选择</span>
-                                <input class="col-sm-2" name="begintime"/>
-                                <span class="col-sm-1" style="font-size: 10px">至</span>
-                                <input class="col-sm-2" name="endtime"/>
-                                <span class="col-sm-1"></span>
-                                <button id="datachecks" class="col-sm-2" style="font-size: 5px"><i class="glyphicon glyphicon-check"></i>数据检查</button>
-                                <button class="J_plan_excel col-sm-2" style="font-size: 5px"><i class="glyphicon glyphicon-save"></i>数据下载</button>
+                                <span class="col-md-2" style="font-size: 10px">时间选择</span>
+                                <input class="col-md-2" name="begintime"/>
+                                <span class="col-md-1" style="font-size: 10px">至</span>
+                                <input class="col-md-2" name="endtime"/>
+                                <span class="col-md-1"></span>
+                                <button id="datachecks" class="col-md-2" style="font-size: 10px"><i class="glyphicon glyphicon-check"></i>数据检查</button>
+                                <button class="J_plan_excel col-md-2" style="font-size: 10px"><i class="glyphicon glyphicon-save"></i>数据下载</button>
                                 <div class="data_check_show">
                                     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/regSelect.jsp" flush="true"/>
                                 </div>

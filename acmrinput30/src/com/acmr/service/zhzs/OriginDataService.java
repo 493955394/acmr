@@ -38,7 +38,7 @@ public class OriginDataService {
     public int addzsdata(boolean iftmp,DataResult dataResult){return DataDao.Fator.getInstance().getIndexdatadao().addZSData(iftmp,dataResult);}
 
     /**
-     * 查询submod
+     * 查询临时表submod
      */
     public List<TaskModule> findSubMod(String code){
         List<TaskModule> taskModules = new ArrayList<>();
@@ -61,6 +61,7 @@ public class OriginDataService {
         }
         return taskModules;
     }
+
     /**
      * 查询data_result_tmp中是否有值，返回1代表缺值
      */
