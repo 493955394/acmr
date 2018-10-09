@@ -112,6 +112,14 @@ public class OraDataDaoImpl implements IDataDao {
             String sql = "select * from tb_coindex_task_module_tmp where procode=? order by sortcode";
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code});
     }
+
+    @Override
+    public DataTable getSubMods(String code){
+        String sql = "select * from tb_coindex_task_module where procode=? order by sortcode";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code});
+    }
+
+    @Override
     public DataTable getModData(String code){
         String sql = "select * from tb_coindex_task_module_tmp where code=?";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code});

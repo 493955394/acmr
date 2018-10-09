@@ -278,11 +278,38 @@ public class IndexTaskService {
     }
 
     /**
-     * 返回总指数列表
+     * 返回临时表中总指数列表
      */
     public List<TaskModule> findRoot(String taskcode){
         List<TaskModule> taskModules = new ArrayList<>();
         List<DataTableRow> data = IndexTaskDao.Fator.getInstance().getIndexdatadao().getRootData(taskcode).getRows();
+        for (int i = 0; i <data.size() ; i++) {
+            TaskModule taskModule = new TaskModule();
+            taskModule.setCode(data.get(i).getString("code"));
+            taskModule.setCname(data.get(i).getString("cname"));
+            taskModule.setTaskcode(data.get(i).getString("taskcode"));
+            taskModule.setProcode(data.get(i).getString("procode"));
+            taskModule.setIfzs(data.get(i).getString("ifzs"));
+            taskModule.setIfzb(data.get(i).getString("ifzb"));
+            taskModule.setFormula(data.get(i).getString("formula"));
+            taskModule.setWeight(data.get(i).getString("weight"));
+            taskModule.setSortcode(data.get(i).getString("sortcode"));
+            taskModule.setDacimal(data.get(i).getString("dacimal"));
+            taskModule.setOrcode(data.get(i).getString("orcode"));
+            taskModules.add(taskModule);
+        }
+        return taskModules;
+    }
+    /**
+     * 返回总指数列表
+     * @author wf
+     * @date
+     * @param []
+     * @return
+     */
+    public List<TaskModule> findModRoot(String taskcode){
+        List<TaskModule> taskModules = new ArrayList<>();
+        List<DataTableRow> data = IndexTaskDao.Fator.getInstance().getIndexdatadao().getAllRootData(taskcode).getRows();
         for (int i = 0; i <data.size() ; i++) {
             TaskModule taskModule = new TaskModule();
             taskModule.setCode(data.get(i).getString("code"));
