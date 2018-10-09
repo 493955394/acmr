@@ -217,6 +217,48 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="mymodal-data3" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form  class="form-horizontal J_add_edit" action="${ctx}/zbdata/indexlist.htm?m=update">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">编辑目录</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="editcode" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="editcname" value="">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="editname" value="" disabled>
+                                <input type="hidden" class="form-control" name="editprocode"  value="">
+                                <ul id="treeEditc" class="ztree select-tree hid-top"></ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-primary" name="plancode" >确定</button>
+                        <%--<input type='button'  name="plancode" value='复制到' onclick="show()"/>--%>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!--权限管理-->
     <div class="modal" id="mymodal-right" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
