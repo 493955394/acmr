@@ -1,12 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<style>
+    th{
+        text-align: center;
+        vertical-align: middle!important;
+        background-color: #EBECF1;
+    }
 
+    td{
+        text-align: center;
+        vertical-align: middle!important;
+    }
+
+</style>
 <div>
     <div class="panel panel-default">
         <div class="panel panel-body">
-            <table class="table table-striped table-hover">
-                <thead>
+            <table class="table table-bordered table-hover">
+                <thead  style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
                 <tr id="mod_list_head">
                     <td>编号</td>
                     <td>名称</td>

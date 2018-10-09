@@ -16,6 +16,7 @@ import com.acmr.service.security.DepartmentService;
 import com.acmr.service.security.UserService;
 import com.acmr.service.zhzs.CreateTaskService;
 import com.acmr.service.zhzs.IndexListService;
+import com.acmr.service.zhzs.RightControlService;
 import com.acmr.web.jsp.Index;
 import com.alibaba.fastjson.JSONObject;
 import com.sun.org.apache.xpath.internal.operations.Bool;
@@ -48,7 +49,6 @@ public class indexlist extends BaseAction {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("page",page).addObject("state",state);
     }
 
@@ -666,7 +666,16 @@ public class indexlist extends BaseAction {
     }
 
     //以下是权限管理-------start
-
+    /**
+     * 模态框查询之前的共享记录，并返回前台
+     */
+    public void rightManager() throws IOException{
+        HttpServletRequest req=this.getRequest();
+        String indexcode=PubInfo.getString(req.getParameter("indexcode"));
+        RightControlService rightControlService = new RightControlService();
+        List<Map<String,String>> list = rightControlService.getRightList(indexcode);
+        this.sendJson(list);
+    }
     /**
      * 组织用户树
      * @throws IOException
