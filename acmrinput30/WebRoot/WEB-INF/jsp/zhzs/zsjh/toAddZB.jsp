@@ -121,25 +121,25 @@
                             <textarea rows="8" cols="35" id="formulatext" name="formulatext"></textarea>
                             <div class="clearfix"></div>
                             <p></p>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('1')"><span style="color: white">1</span></button>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('2')"><span style="color: white">2</span></button>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('3')"><span style="color: white">3</span></button>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('+')"><span style="color: white">+</span></button>
+                            <button type="button" style="height: 35px;width: 35px" class="btn btn-default" onclick="addExpressContent('1')"><span style="color: white">1</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('2')"><span style="color: white">2</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('3')"><span style="color: white">3</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('+')"><span style="color: white">+</span></button>
                             <div class="clearfix"></div>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('4')"><span style="color: white">4</span></button>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('5')"><span style="color: white">5</span></button>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('6')"><span style="color: white">6</span></button>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('-')"><span style="color: white">-</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('4')"><span style="color: white">4</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('5')"><span style="color: white">5</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('6')"><span style="color: white">6</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('-')"><span style="color: white"> - </span></button>
                             <div class="clearfix"></div>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('7')"><span style="color: white">7</span></button>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('8')"><span style="color: white">8</span></button>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('9')"><span style="color: white">9</span></button>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('*')"><span style="color: white">*</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('7')"><span style="color: white">7</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('8')"><span style="color: white">8</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('9')"><span style="color: white">9</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('*')"><span style="color: white">*</span></button>
                             <div class="clearfix"></div>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('()')"><span style="color: white">()</span></button>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('0')"><span style="color: white">0</span></button>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('.')"><span style="color: white">.</span></button>
-                            <button type="button" class="btn btn-default" onclick="addExpressContent('/')"><span style="color: white">/</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('()')"><span style="color: white">()</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('0')"><span style="color: white">0</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('.')"><span style="color: white">.</span></button>
+                            <button type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('/')"><span style="color: white">/</span></button>
                         </div>
                         <div class="col-sm-1">
                             <button type="button" class="btn btn-default" id="add_hanshu" style="border-color: #FF7F19;background-color: #FF7F19"><span style="color: white"><添加</span></button>
