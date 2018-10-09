@@ -127,14 +127,22 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             String istartpeiod = data1.getStartperiod();
             String idelayday = data1.getDelayday();
             //String iplanperiod = data1.getPlanperiod();
-            String iplantime = data1.getPlantime().substring(0,data1.getPlantime().length()-2);
             String createtime = data1.getCreatetime().substring(0,data1.getCreatetime().length()-2);
             /*String iplantime = data1.getPlantime();
             String createtime = data1.getCreatetime();*/
             String createuser = data1.getCreateuser();
             java.sql.Timestamp updatetime = new java.sql.Timestamp(now.getTime());
             //Object up = new Timestamp(new Date().getTime());
-            dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplantime,createuser,createtime,updatetime});
+             if(data1.getPlantime()!=null){
+                 String iplantime = data1.getPlantime().substring(0,data1.getPlantime().length()-2);
+                 dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,createuser,createtime,updatetime,iplantime});
+             }else{
+                 String iplantime = data1.getPlantime();
+                 dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,createuser,createtime,updatetime,iplantime});
+             }
+
+
+
             //复制模型
             String sql2 = "select * from tb_coindex_module where indexcode=?";
             DataTable table1=dataQuery.getDataTableSql(sql2,new Object[]{cpcode});
@@ -229,12 +237,18 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             String istartpeiod = copydata.getStartperiod();
             String idelayday = copydata.getDelayday();
             //String iplanperiod = data1.getPlanperiod();
-            String iplantime = copydata.getPlantime().substring(0,copydata.getPlantime().length()-2);
             String createtime = copydata.getCreatetime().substring(0,copydata.getCreatetime().length()-2);
             String createuser = copydata.getCreateuser();
             java.sql.Timestamp updatetime = new java.sql.Timestamp(now.getTime());
             //Object up = new Timestamp(new Date().getTime());
-            dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplantime,createuser,createtime,updatetime});
+            if(copydata.getPlantime()!=null){
+                String iplantime = copydata.getPlantime().substring(0,copydata.getPlantime().length()-2);
+                dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,createuser,createtime,updatetime,iplantime});
+            }else{
+                String iplantime = copydata.getPlantime();
+                dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,createuser,createtime,updatetime,iplantime});
+            }
+
             //复制模型
             String sql2 = "select * from tb_coindex_module where indexcode=?";
             DataTable table1=dataQuery.getDataTableSql(sql2,new Object[]{cpcode});
@@ -318,10 +332,11 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     }
     //编辑目录
     @Override
-    public int updateCategory(String code,String procode) {
-        String sql1 = "update tb_coindex_index set procode=?,updatetime=? where code=?";
+    public int updateCategory(String code,IndexList indexList) {
+        String sql1 = "update tb_coindex_index set cname=?,procode=?,updatetime=? where code=?";
         List<Object> params = new ArrayList<Object>();
-        params.add(procode);
+        params.add(indexList.getCname());
+        params.add(indexList.getProcode());
         params.add(new Timestamp(new java.util.Date().getTime()));
         params.add(code);
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
@@ -350,6 +365,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     public int updateCp(IndexList indexList) {
         String sql1 = "";
         List<Object> parms = new ArrayList<Object>();
+
         if (indexList.getCname() != null) {
             sql1 += ",cname=?";
             parms.add(indexList.getCname());

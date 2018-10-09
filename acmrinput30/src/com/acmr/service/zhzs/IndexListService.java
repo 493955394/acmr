@@ -19,7 +19,7 @@ import java.text.ParseException;
 import java.util.*;
 
 public class IndexListService {
-    String name = IndexListDao.Fator.getInstance().getIndexdatadao().getName();
+    //String name = IndexListDao.Fator.getInstance().getIndexdatadao().getName();
     //通过usercode得到计划和目录列表
 
     public ArrayList<IndexList> getSublist(String code){
@@ -279,8 +279,8 @@ public class IndexListService {
         return IndexListDao.Fator.getInstance().getIndexdatadao().delIndexcp(code);
     }
     //编辑目录
-    public static int updateCate(String code,String procode){
-        return IndexListDao.Fator.getInstance().getIndexdatadao().updateCategory(code,procode);
+    public static int updateCate(String code,IndexList indexList){
+        return IndexListDao.Fator.getInstance().getIndexdatadao().updateCategory(code,indexList);
     }
     public static int updateSwitch(IndexList indexList){
         return IndexListDao.Fator.getInstance().getIndexdatadao().updateCp(indexList);

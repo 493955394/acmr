@@ -357,17 +357,45 @@ public class indexlist extends BaseAction {
      * @param
      * @return
      */
-    public void update() throws IOException{
+    public void editCate() throws IOException{
         HttpServletRequest req = this.getRequest();
         //IndexListService indexListService = new IndexListService();
         JSONReturnData data = new JSONReturnData("");
+        IndexListService indexListService = new IndexListService();
         data.setReturncode(200);
+        String oldcode = PubInfo.getString(req.getParameter("oldcode"));
+        String oldname = PubInfo.getString(req.getParameter("oldname"));
         String code = PubInfo.getString(req.getParameter("editcode"));
+        String name = PubInfo.getString(req.getParameter("editcname"));
         String procode = PubInfo.getString(req.getParameter("editprocode"));
-        IndexList indexList = new IndexList();
-        indexList.setCode(code);
-        indexList.setProcode(procode);
-        IndexListService.updateCate(code,procode);
+        if (procode.equals("")) {
+            data.setReturncode(300);
+            this.sendJson(data);
+            return;
+        } else {
+            data.setReturncode(200);
+        }
+
+        if(oldcode.equals(code) && oldname.equals(name)){
+            IndexList indexList = indexListService.getData(oldcode);
+            //IndexList indexList = new IndexList();
+            //indexList.setCode(code);
+            indexList.setProcode(procode);
+            indexListService.updateCate(oldcode,indexList);
+        }else if(oldcode.equals(code) && !oldname.equals(name)){
+            IndexList indexList = indexListService.getData(oldcode);
+            //indexList.setCode(code);
+            indexList.setCname(name);
+            indexList.setProcode(procode);
+            indexListService.updateCate(oldcode,indexList);
+        }else{
+            IndexList indexList = indexListService.getData(oldcode);
+            indexList.setCode(code);
+            indexList.setCname(name);
+            indexList.setProcode(procode);
+            indexListService.addCp(indexList);
+        }
+
         data.setReturndata("");
         this.sendJson(data);
     }

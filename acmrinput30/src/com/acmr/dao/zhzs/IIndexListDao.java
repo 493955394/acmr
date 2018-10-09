@@ -19,7 +19,7 @@ public interface IIndexListDao {
     public int addIndexlist(IndexList indexList);
     //public int addNplan(IndexList indexList,String code);
     public int delIndexcp(String code);
-    public int updateCategory(String code,String procode);
+    public int updateCategory(String code,IndexList indexList);
     public int updateCp(IndexList indexList);
     public int checkCode(String code);
     public int checkProcode(String procode);
