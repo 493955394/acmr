@@ -70,4 +70,14 @@ public class RightControlService {
         }
         return list;
     }
+
+    /**
+     * 保存更改的权限管理，要注意createuser
+     * @param icode
+     * @param list
+     * @return
+     */
+    public int  saveRightList(String icode,List<Map<String,String>> list){
+        return RightDao.Fator.getInstance().getIndexdatadao().saveRightList(icode,list);
+    }
 }
