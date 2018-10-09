@@ -52,15 +52,15 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
     }
 
     @Override
-    public DataTable getLikeCode(String code) {
-        String sql = "select * from tb_coindex_module where lower(code) like ? ";
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + code + "%"});
+    public DataTable getLikeCode(String code,String icode) {
+        String sql = "select * from tb_coindex_module where lower(code) like ? and indexcode=? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + code + "%",icode});
     }
 
     @Override
-    public DataTable getLikeCname(String cname) {
-        String sql = "select * from tb_coindex_module where lower(cname) like ? ";
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + cname + "%"});
+    public DataTable getLikeCname(String cname ,String icode) {
+        String sql = "select * from tb_coindex_module where lower(cname) like ? and indexcode=?";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + cname + "%",icode});
     }
     @Override
     public int addZS(IndexMoudle indexMoudle){

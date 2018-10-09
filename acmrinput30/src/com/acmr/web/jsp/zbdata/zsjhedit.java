@@ -942,7 +942,7 @@ public class zsjhedit extends BaseAction {
 
     }
     /**
-     * 综合指数查找
+     * 模型规划查找
      * @return
      * @throws IOException
      */
@@ -956,10 +956,10 @@ public class zsjhedit extends BaseAction {
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
         if (!StringUtil.isEmpty(zs_code)) {
-            mods= new IndexEditService().found(0,zs_code);
+            mods= new IndexEditService().found(0,zs_code,icode);
         }
         if (!StringUtil.isEmpty(zs_cname)) {
-            mods= new IndexEditService().found(1,zs_cname);
+            mods= new IndexEditService().found(1,zs_cname,icode);
         }
         Map<String, String> codes = new HashMap<String, String>();
         codes.put("zs_code", zs_code);

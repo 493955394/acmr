@@ -567,7 +567,7 @@ define(function (require,exports,module) {
         searchField = requestData+str;
         isMove = false;
         $.pjax({
-            url: requestUrl+searchField+'&icode'+incode,
+            url: requestUrl+searchField+'&icode='+incode,
             container: '.J_zsjh_module_table'
         });
         $(document).on('pjax:success', function() {

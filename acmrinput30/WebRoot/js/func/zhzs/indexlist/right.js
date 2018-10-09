@@ -42,5 +42,20 @@ define(function (require,exports,module) {
     var treeObj = $.fn.zTree.init($("#treeRight"), setting12, rootNode);
     var treenodes = treeObj.getNodes();
     treeObj.expandNode(treenodes[0], true, true, true);
+    $(document).on('click','#rightbutton',function (event) {
+        event.preventDefault();
+        var icode = $(this).attr("name");
+        $.ajax({
+            url:common.rootPath+"zbdata/indexlist.htm?m=rightManager",
+            data:{"indexcode":icode},
+            type:'post',
+            datatype:'json',
+            timeout: 10000,
+            success:function (re) {
 
+                    $("#mymodal-right").modal("show");
+
+            }
+        })
+    })
  })

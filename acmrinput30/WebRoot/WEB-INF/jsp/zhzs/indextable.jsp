@@ -150,7 +150,7 @@
                                 <label class="btn-disabled">删除</label>
                             </c:if>
 
-                            <a href="#" data-toggle="modal" data-target="#mymodal-right" >权限管理</a>
+                            <a href="#" id="rightbutton" name="${index.getCode()}">权限管理</a>
 
                             <a href="${ctx}/zbdata/pastviews.htm?id=${index.getCode()}">查看往期</a>
 
@@ -232,7 +232,7 @@
                             <label class="btn-disabled">删除</label>
                         </c:if>
                         <c:if test="${index.get('right')=='2'}">
-                            <a href="#">权限管理</a>
+                            <a href="#" id="rightbutton" name="${index.get('index').getCode()}">权限管理</a>
                         </c:if>
                         <c:if test="${index.get('right')!='2'}">
                             <label class="btn-disabled">权限管理</label>

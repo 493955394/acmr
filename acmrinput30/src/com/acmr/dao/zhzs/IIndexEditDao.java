@@ -14,8 +14,8 @@ public interface IIndexEditDao {
     public DataTable getSubModsbyCode(String code,String icode);
     public int deleteMod(String code);
     public void setSort(String code,int sort);
-    public DataTable getLikeCode(String code);
-    public DataTable getLikeCname(String cname);
+    public DataTable getLikeCode(String code,String icode);
+    public DataTable getLikeCname(String cname,String icode);
     public int addZS(IndexMoudle indexMoudle);
     public DataTable getDataByCode(String code);
     public DataTable getZSList(String icode);

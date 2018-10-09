@@ -245,7 +245,16 @@
                                 </div>
                             </div>
                             <div class="col-sm-5 panel panel-default">
-                                <div class="panel-body">
+                                <div class="toolbar">
+                                    <div class="toolbar-left">
+                                        <span>组织/用户</span>
+                                    </div>
+                                    <div class="toolbar-right">
+                                        <span>权限</span>
+                                    </div>
+                                </div>
+                                <div class="panel-body right-list">
+
                                 </div>
                             </div>
                         </div>

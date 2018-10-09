@@ -147,14 +147,14 @@ public class IndexEditService {
     /**
      * 查找功能
      */
-    public ArrayList<IndexMoudle> found(int type,String code){
+    public ArrayList<IndexMoudle> found(int type,String code,String icode){
         ArrayList<IndexMoudle> indexMoudles=new ArrayList<IndexMoudle>();
         List<DataTableRow> data = new ArrayList<>();
         if(type==0){//0表示是通过code查的
-            data = IndexEditDao.Fator.getInstance().getIndexdatadao().getLikeCode(code).getRows();
+            data = IndexEditDao.Fator.getInstance().getIndexdatadao().getLikeCode(code,icode).getRows();
 
         }else if(type==1){//1表示是通过cname查的
-            data = IndexEditDao.Fator.getInstance().getIndexdatadao().getLikeCname(code).getRows();
+            data = IndexEditDao.Fator.getInstance().getIndexdatadao().getLikeCname(code,icode).getRows();
         }
         for(int i=0;i<data.size();i++){
             IndexMoudle index= new IndexMoudle();
