@@ -206,9 +206,9 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
             }
             dataQuery.commit();
         }
-        catch (SQLException e){
+        catch (Exception e){
+            dataQuery.rollback();
             if (dataQuery != null) {
-                dataQuery.rollback();
                 e.printStackTrace();
                 return 1;
             }
