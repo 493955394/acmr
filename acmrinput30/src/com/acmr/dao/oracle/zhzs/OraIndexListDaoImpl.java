@@ -117,7 +117,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
             java.util.Date now = new java.util.Date();
-            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
+            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,createuser,createtime,updatetime,plantime) values(?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
             String icode = data1.getCode();
             String icname = data1.getCname();
             String iprocode = data1.getProcode();
@@ -142,7 +142,6 @@ public class OraIndexListDaoImpl implements IIndexListDao {
              }
 
 
-
             //复制模型
             String sql2 = "select * from tb_coindex_module where indexcode=?";
             DataTable table1=dataQuery.getDataTableSql(sql2,new Object[]{cpcode});
@@ -157,8 +156,37 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                 String sortcode = rows1.get(i).getString("sortcode");
                 String weight = rows1.get(i).getString("weight");
                 String dacimal = rows1.get(i).getString("dacimal");
-                String sql3 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal) values(?,?,?,?,?,?,?,?,?,?)";
-                dataQuery.executeSql(sql3,new Object[]{code,cname,procode,icode,ifzs,ifzb,formula,sortcode,weight,dacimal});
+                String copycode = rows1.get(i).getString("copycode");
+                String sql3 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode) values(?,?,?,?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql3,new Object[]{code,cname,procode,icode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode});
+            }
+            //修正tb_coindex_module的procode和copycode
+            //String newcode = UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,6);
+
+            String sql9="select * from tb_coindex_module where indexcode=?";
+            DataTable table3=dataQuery.getDataTableSql(sql9,new Object[]{icode});
+            List<DataTableRow> rows3=table3.getRows();
+            for (int r=0;r<rows3.size();r++){
+                String orprocode=rows3.get(r).getString("procode");
+                String copycode=rows3.get(r).getString("copycode");
+                String code = rows3.get(r).getString("code");
+
+                if (orprocode!=""){
+                    String sql10="select * from tb_coindex_module where copycode=? and indexcode=?";
+                    String procode=dataQuery.getDataTableSql(sql10,new Object[]{orprocode,icode}).getRows().get(0).getString("code");
+                    //更新这条module的procode
+                    String sql11="update tb_coindex_module set procode=?，copycode=? where code=?";
+                    dataQuery.executeSql(sql11,new Object[]{procode,code,code});
+                }
+            }
+            //修正总指数的copycode
+            for (int m=0;m<rows3.size();m++){
+                String orprocode=rows3.get(m).getString("procode");
+                String code = rows3.get(m).getString("code");
+                if (orprocode.equals("")){
+                    String sql11="update tb_coindex_module set copycode=? where code=?";
+                    dataQuery.executeSql(sql11,new Object[]{code,code});
+                }
             }
             //复制筛选条件
             String sql4 = "select * from tb_coindex_zb where indexcode=?";
@@ -257,14 +285,43 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                 String code= UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,6);
                 String cname=rows1.get(i).getString("cname");
                 String procode = rows1.get(i).getString("procode");
+                //String indexcode = rows1.get(i).getString("indexcode");
                 String ifzs = rows1.get(i).getString("ifzs");
                 String ifzb = rows1.get(i).getString("ifzb");
                 String formula = rows1.get(i).getString("formula");
                 String sortcode = rows1.get(i).getString("sortcode");
                 String weight = rows1.get(i).getString("weight");
                 String dacimal = rows1.get(i).getString("dacimal");
-                String sql3 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal) values(?,?,?,?,?,?,?,?,?,?)";
-                dataQuery.executeSql(sql3,new Object[]{code,cname,procode,icode,ifzs,ifzb,formula,sortcode,weight,dacimal});
+                String copycode = rows1.get(i).getString("copycode");
+                String sql3 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode) values(?,?,?,?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql3,new Object[]{code,cname,procode,icode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode});
+            }
+            //修正tb_coindex_module的procode和copycode
+           // String newcode = UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,6);
+            String sql9="select * from tb_coindex_module where indexcode=?";
+            DataTable table3=dataQuery.getDataTableSql(sql9,new Object[]{icode});
+            List<DataTableRow> rows3=table3.getRows();
+            for (int r=0;r<rows3.size();r++){
+                String orprocode=rows3.get(r).getString("procode");
+                String copycode=rows3.get(r).getString("copycode");
+                String code = rows3.get(r).getString("code");
+
+                if (orprocode!=""){
+                    String sql10="select * from tb_coindex_module where copycode=? and indexcode=?";
+                    String procode=dataQuery.getDataTableSql(sql10,new Object[]{orprocode,icode}).getRows().get(0).getString("code");
+                    //更新这条module的procode
+                    String sql11="update tb_coindex_module set procode=?，copycode=? where code=?";
+                    dataQuery.executeSql(sql11,new Object[]{procode,code,code});
+                }
+            }
+            //修正总指数的copycode
+            for (int m=0;m<rows3.size();m++){
+                String orprocode=rows3.get(m).getString("procode");
+                String code = rows3.get(m).getString("code");
+                if (orprocode.equals("")){
+                    String sql11="update tb_coindex_module set copycode=? where code=?";
+                    dataQuery.executeSql(sql11,new Object[]{code,code});
+                }
             }
             //复制筛选条件
             String sql4 = "select * from tb_coindex_zb where indexcode=?";
