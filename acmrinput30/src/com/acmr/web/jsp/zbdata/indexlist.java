@@ -175,9 +175,9 @@ public class indexlist extends BaseAction {
         }
         else {
             indexlist=indexListService.getSubIndexListByPage(code,page.getPageNum()-1,page.getPageSize());
-            if (allindexlist.size()==0){
+            /*if (allindexlist.size()==0){
                 indexlist.add(indexListService.getData(code));
-            }
+            }*/
             page.setData(indexlist);
         }
         StringBuffer sb = new StringBuffer();
