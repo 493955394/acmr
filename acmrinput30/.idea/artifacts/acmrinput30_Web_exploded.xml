@@ -7,6 +7,60 @@
         <element id="directory" name="classes">
           <element id="module-output" name="acmrinput30" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="lib" />
+          <element id="library" level="module" name="acmrcubequery2.0.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="templatecenterutil.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="mathutil.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="acmrcubeinput.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="acmrlogutil.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="acmrwebmvc.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="animal-sniffer-annotations-1.14.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="checker-compat-qual-2.0.0.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="com.future.report_1.0.0.201007291116.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="commons-beanutils-1.8.3.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="commons-codec-1.9.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="commons-fileupload-1.3.1.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="commons-httpclient-3.1.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="commons-io-2.1.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="commons-io-2.4.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="commons-lang-2.6.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="commons-logging-1.2.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="commons-math-1.1.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="commons-vfs2-2.1-20150824.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="dom4j-1.6.1.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="error_prone_annotations-2.1.3.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="esapi-2.0.1.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="fastjson-1.2.4.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="guava-24.0-jre.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="iText-2.1.7.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="itext-asian-5.2.0.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="iText-rtf-2.1.7.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="iTextAsian.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="itextpdf-5.4.5.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="j2objc-annotations-1.1.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="javacsv.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="javassist-3.20.0-GA.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="javax.servlet.jsp.jstl.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="jdom-1.0.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="js-1.7R3.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="jsch-0.1.46.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="jstl-impl.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="jxl-2.6.12.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="metastore-7.0.0.0-25.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="ojdbc6.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="oracle-ojdbc6-11.2.0.3.0.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="poi-3.10.1-20140818.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="poi-excelant-3.10.1-20140818.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="poi-ooxml-3.10.1-20140818.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="poi-ooxml-schemas-3.10.1-20140818.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="scannotation-1.0.2.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="sqljdbc41.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="xmlbeans-2.6.0.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="mysql-connector-java-5.1.30.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="acmrutil.jar" module-name="acmrinput30" />
+          <element id="library" level="module" name="excelutil.jar" module-name="acmrinput30" />
+        </element>
       </element>
     </root>
   </artifact>
