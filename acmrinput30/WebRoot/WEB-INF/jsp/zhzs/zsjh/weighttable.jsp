@@ -7,10 +7,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<style>
+    .glyphicon{
+        color:#FF7F19;
+    }
+</style>
 <body>
 <div class="container-fluid" id="mainpanel">
     <h2>权重设置</h2>
-    <button type="button" class="btn btn-primary btn-sm save_weight" style="float: right">保存设置</button>
+    <button type="button" class="btn btn-default btn-sm save_weight" style="float: right"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;保存设置</button>
     <table class="table table-striped table-hover">
         <c:forEach items="${mods}" var="module">
             <c:if test="${module.getProcode()==''}">

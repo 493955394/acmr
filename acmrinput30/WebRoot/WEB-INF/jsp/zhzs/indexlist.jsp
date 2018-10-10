@@ -295,8 +295,12 @@
                             </div>
                             <div class="col-sm-2" style="text-align: center">
                                 <div class="btn-group-vertical" role="group">
-                                    <button type="button" class="btn btn-default right-add"> ></button>
-                                    <button type="button" class="btn btn-default remove-alllist"> <<</button>
+                                    <div class="clearfix" style="height: 50px"></div>
+                                    <button class="btn btn-default btn-lg  right-add" style="border-style:solid;border-width:1px;border-color:#FF7F19;"><span style="color: #FF7F19;">></span></button>
+                                    <%--<button type="button" class="btn btn-default right-add"> ></button>--%>
+                                    <div class="clearfix" style="height: 30px"></div>
+                                    <button class="btn btn-default btn-lg remove-alllist" id="delsiggle" style="border-style:solid;border-width:1px;border-color:#FF7F19;background-color: #FF7F19;"><span style="color: white"><<</span></button>
+                                    <%--<button type="button" class="btn btn-default remove-alllist"> <<</button>--%>
                                 </div>
                             </div>
                             <div class="col-sm-5 panel panel-default">
@@ -316,8 +320,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                             <button type="submit" class="btn btn-primary">确定</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                         </div>
                     </form>
                 </div>
