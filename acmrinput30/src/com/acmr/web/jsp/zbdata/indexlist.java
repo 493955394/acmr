@@ -747,7 +747,7 @@ public class indexlist extends BaseAction {
     }
 
     /**
-     * 返回查询结果
+     * 返回权限管理查询结果
      * @throws IOException
      */
     public void searchList() throws IOException{

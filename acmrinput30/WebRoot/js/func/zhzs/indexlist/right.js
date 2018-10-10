@@ -54,17 +54,27 @@ define(function (require,exports,module) {
             type: 'post',
             datatype: 'json',
             timeout: 10000,
-            success: function (re) {
+            success: function (data) {
+                $("#selectList li").remove();
+                $(".right-list li").remove();
+                for(var i in data) {
+                    var html = "";
+                    html += "<li><span data-uid='" + data[i].depusercode + "' data-sort='" + data[i].sort + "' style='float: left'>"+ data[i].depusername+ "</span>";
+                    html += "<span style='float: right'><select><option value='2'>管理</option><option value='1'>协作</option><option value='0'>只读</option></select>";
+                    html += "<i class='glyphicon glyphicon-remove'></i></span></li>";
+                    $(".right-list").append(html);
+                }
                 $("#mymodal-right").modal("show");
-
             }
         })
     })
     /*权限管理的搜索框*/
     $(document).on('click', '.right-select', function (event) {
         event.preventDefault();
-        $("#rightList li").remove();
-        var keyword = $("#right-input").val();
+        $("#selectList li").remove();
+        var keyword = $("#select-input").val();
+        if(keyword =="")
+            return;
         $.ajax({
             url: common.rootPath + "zbdata/indexlist.htm?m=searchList",
             data: {"keyword": keyword},
@@ -75,8 +85,7 @@ define(function (require,exports,module) {
                 for(var i in data) {
                     var html = "";
                     html += "<li data-uid='" + data[i].depusercode + "' data-sort='" + data[i].sort + "'>"+ data[i].depusername+ "</li>";
-                    $("#rightList").append(html);
-                    console.log(html)
+                    $("#selectList").append(html);
                 }
             }
         })

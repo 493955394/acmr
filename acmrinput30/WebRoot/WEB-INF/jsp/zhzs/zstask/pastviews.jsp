@@ -9,7 +9,7 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <html>
 <head>
-    <title>${projectTitle}-查看往期</title>
+    <title>-查看往期</title>
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
 </head>
 <body>
