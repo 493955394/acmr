@@ -2,9 +2,9 @@
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <div class="panel panel-default">
-    <div class="panel panel-body left-panel" style="height: 300px">
-        <table class="table table-hover" style="border: #9DA0A4 1px solid">
-            <thead>
+    <div class="panel panel-body left-panel" style="height: 500px">
+        <table class="table table-bordered table-hover">
+            <thead style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
             <tr id="zb_data_head">
                 <td>地区</td>
                 <c:forEach items="${sjs}" var="sj">
