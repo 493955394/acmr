@@ -21,6 +21,7 @@ import com.acmr.web.jsp.Index;
 import com.alibaba.fastjson.JSONObject;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.omg.CORBA.PUBLIC_MEMBER;
+import org.omg.CORBA.portable.ValueOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -717,6 +718,17 @@ public class indexlist extends BaseAction {
         return list;
     }
 
+    /**
+     * 返回查询结果
+     * @throws IOException
+     */
+    public void searchList() throws IOException{
+        RightControlService rightControlService = new RightControlService();
+        HttpServletRequest req=this.getRequest();
+        String keyword=PubInfo.getString(req.getParameter("keyword"));
+        List<Map<String,String>> datas = rightControlService.getSearchList(StringUtil.toLowerString(keyword));
+        this.sendJson(datas);
+    }
     //权限管理-------end
 }
 
