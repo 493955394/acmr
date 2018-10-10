@@ -60,18 +60,18 @@
     <div class="modal wdturn-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="btn-group" role="group" aria-label="..." style="padding-left: 20%">
+                <div class="btn-group" role="group" aria-label="..." style="padding-left: 6%">
                     <button type="button" class="btn btn-default top-select" id="top-reg">地区</button>
                     <button type="button" class="btn btn-default top-select" id="top-zb">指标</button>
                     <button type="button" class="btn btn-default top-select" id="top-sj">时间</button>
                 </div>
-                <div>
+                <div style="margin-bottom: 5%;">
                     <div class="btn-group-vertical" role="group" aria-label="...">
                         <button type="button" class="btn btn-default left-select" id="left-reg">地区</button>
                         <button type="button" class="btn btn-default left-select" id="left-zb">指标</button>
                         <button type="button" class="btn btn-default left-select" id="left-sj">时间</button>
                     </div>
-                    <table class="table table-striped table-hover wdturn-table" style="display: inline">
+                    <table class="table table-striped table-hover wdturn-table" style="display: inline-block;position: absolute">
 
                     </table>
                 </div>

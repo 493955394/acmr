@@ -276,10 +276,12 @@
                             <div class="col-sm-5  panel panel-default">
                                 <div class="panel-body">
                                     <div class="form-group">
-                                        <input type="text" class="col-xs-8">
-                                        <button class="btn btn-default btn-sm col-xs-3" type="button" style="margin-left: 3px">搜索</button>
+                                        <input type="text" id="right-input" class="col-xs-8">
+                                        <button class="btn btn-default btn-sm col-xs-3 right-select" type="button" style="margin-left: 3px">搜索</button>
                                     </div>
-
+                                    <div class="form-group">
+                                        <ul id="rightList"></ul>
+                                    </div>
                                     <ul id="treeRight" class="ztree"></ul>
                                 </div>
                             </div>

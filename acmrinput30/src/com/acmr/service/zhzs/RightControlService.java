@@ -50,7 +50,7 @@ public class RightControlService {
      * @param keyword
      * @return
      */
-    public static List<Map<String,String>> getSearchList(String keyword){
+    public List<Map<String,String>> getSearchList(String keyword){
         List<Map<String,String>> list = new ArrayList<Map<String,String>>();
         List<DataTableRow> depdatas = RightDao.Fator.getInstance().getIndexdatadao().searchDepName(keyword).getRows();
         for (int i = 0; i <depdatas.size() ; i++) {
@@ -63,8 +63,8 @@ public class RightControlService {
         List<DataTableRow> userdatas = RightDao.Fator.getInstance().getIndexdatadao().searchUserName(keyword).getRows();
         for (int i = 0; i <userdatas.size() ; i++) {
             Map<String,String> arr = new HashMap<String,String>();
-            arr.put("depusercode",depdatas.get(i).getString("code"));
-            arr.put("depusername",depdatas.get(i).getString("cname"));
+            arr.put("depusercode",userdatas.get(i).getString("userid"));
+            arr.put("depusername",userdatas.get(i).getString("cname"));
             arr.put("sort","2");
             list.add(arr);
         }
