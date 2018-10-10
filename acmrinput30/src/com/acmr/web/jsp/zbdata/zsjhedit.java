@@ -634,10 +634,40 @@ public class zsjhedit extends BaseAction {
         String dscode = req.getParameter("dscode");
         String cocode = req.getParameter("cocode");
         String unitcode = req.getParameter("unitcode");
+        String indexcode = req.getParameter("indexcode");
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
         ZBdataService zBdataService=new ZBdataService();
         List<String> sjs=zBdataService.getHasDataNodeO(zbcode,"sj");
+        //过滤非该计划统计周期的时间
+        IndexList index=new IndexListService().getData(indexcode);
+        String sort=index.getSort();
+        if (sort.equals("y")){
+            for (int i=0;i<sjs.size();i++){
+                if (sjs.get(i).length()!=4){
+                    sjs.remove(sjs.get(i));
+                    i--;
+                }
+            }
+        }
+        else if (sort.equals("q")){
+            for (int i=0;i<sjs.size();i++){
+                if (sjs.get(i).length()!=5){
+                    sjs.remove(sjs.get(i));
+                    i--;
+                }
+            }
+        }
+        else {
+            for (int i=0;i<sjs.size();i++){
+                if (sjs.get(i).length()!=6){
+                    sjs.remove(sjs.get(i));
+                    i--;
+                }
+            }
+        }
+
+      //  PubInfo.printStr(sjs.toString());
         List<String> regs=zBdataService.getHasDataNodeO(zbcode,"reg");
         OriginService originService=new OriginService();
         CubeWdCodes where = new CubeWdCodes();
@@ -653,7 +683,7 @@ public class zsjhedit extends BaseAction {
             double rate=originService.getRate(funit,unitcode,sj);
             rates.add(rate);
         }
-        PubInfo.printStr(rates.toString());
+       // PubInfo.printStr(rates.toString());
         List<List<String>> rows=new ArrayList<>();
         for(int i=0;i<regs.size();i++){
             List<String> row=new ArrayList<>();
@@ -677,12 +707,12 @@ public class zsjhedit extends BaseAction {
             }
 
         }
-        PubInfo.printStr(rows.toString());
+       // PubInfo.printStr(rows.toString());
         String nodata="";
         if (rows.size()==0){
             nodata="该筛选条件暂时无值";
         }
-        PubInfo.printStr(nodata);
+      //  PubInfo.printStr(nodata);
 
         if (StringUtil.isEmpty(pjax)) {
             String code=req.getParameter("indexcode");
@@ -698,7 +728,7 @@ public class zsjhedit extends BaseAction {
             ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
 
             List<Map> regoins = regshow(code);
-            PubInfo.printStr("isempty");
+           // PubInfo.printStr("isempty");
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname).addObject("indexlist",indexlist).addObject("regs",regoins);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/ZBdataList").addObject("sjs",sjs).addObject("rows",rows).addObject("nodata",nodata);
