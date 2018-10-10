@@ -28,12 +28,28 @@ import java.util.Map;
 public class pastviews extends BaseAction {
 
     PastViewService pv = new PastViewService();
+    /**
+     * 地区选择默认值
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
     public ModelAndView main(){
-        String indexcode = this.getRequest().getParameter("id");
+        String code = this.getRequest().getParameter("id");
         //获取用户权限
         String right=this.getRequest().getParameter("right");
 
-       // List<String> alltaskcode =
+        List<String> alltaskcode = pv.getAllTask(code);
+        /*if(alltaskcode != null){
+            String taskcode = alltaskcode.get(0);
+            String reg = pv.getRegions(taskcode).get(0);
+            List<String> allmod = pv.getAllMods(alltaskcode);
+
+
+        }*/
+
+
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews");
     }
 

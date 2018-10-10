@@ -152,8 +152,6 @@
 
                             <a href="#" id="rightbutton" name="${index.getCode()}">权限管理</a>
 
-                            <a href="${ctx}/zbdata/pastviews.htm?id=${index.getCode()}">查看往期</a>
-
                             <a class="past_task" href="${ctx}/zbdata/pastviews.htm?id=${index.getCode()}">查看往期</a>
                             <a href="${ctx}/zbdata/zstask.htm?icode=${index.getCode()}">指数任务</a>
                         </c:if>

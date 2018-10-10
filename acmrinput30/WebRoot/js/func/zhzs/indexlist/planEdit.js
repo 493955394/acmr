@@ -113,8 +113,10 @@ define(function (require,exports,module) {
         event.preventDefault();
         var code =$(this).attr('id');
         var name = $(this).attr('name');
+        $('input[name=oldcode]').val(code);
         $('input[name=editcode]').val(code);
         $('input[name=editcname]').val(name);
+        $('input[name=oldname]').val(name);
         $("#mymodal-data3").modal('show');
     })
 
@@ -130,18 +132,15 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function(data) {
                 if (data.returncode == 200) {
-                    common.commonTips('保存成功！');
+                    alert('保存成功！');
                     window.location.reload(true);
                 } else if (data.returncode == 300) {
-                    common.commonTips('添加失败');
+                    alert('请选择所属目录');
+                    $("#mymodal-data3").modal('show');
                 } else {
-                    common.commonTips('添加失败');
+                    alert('添加失败');
                 }
             },
-            error: function() {
-                common.commonTips('添加失败');
-
-            }
 
         })
 
