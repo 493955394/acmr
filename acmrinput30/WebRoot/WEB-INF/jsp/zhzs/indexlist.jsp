@@ -14,6 +14,12 @@
     ListHashMap<Menu> menus = (ListHashMap<Menu>) request.getSession().getAttribute("usermenu");
     User user = (User) request.getSession().getAttribute("loginuser");
 %>
+<style>
+    .fr{
+        display: inline-block;
+        float: right;
+    }
+</style>
 <html>
 <head>
     <title>${projectTitle}-指数计划</title>
@@ -271,7 +277,9 @@
                     <h4 class="modal-title">权限管理</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" action="${ctx}/zbdata/indexlist.htm?m=rightmanager">
+                    <form class="form-horizontal J_rightlist_form" action="${ctx}/zbdata/indexlist.htm?m=rightListSave">
+                        <input type="hidden" class="currentUser" value="<%=user.getUserid()%>">
+                        <input type="hidden" id="currentIcode" value="">
                         <div class="form-group">
                             <div class="col-sm-5  panel panel-default">
                                 <div class="panel-body">
@@ -287,8 +295,8 @@
                             </div>
                             <div class="col-sm-2" style="text-align: center">
                                 <div class="btn-group-vertical" role="group">
-                                    <button type="button" class="btn btn-default"> ></button>
-                                    <button type="button" class="btn btn-default"> <</button>
+                                    <button type="button" class="btn btn-default right-add"> ></button>
+                                    <button type="button" class="btn btn-default remove-alllist"> <<</button>
                                 </div>
                             </div>
                             <div class="col-sm-5 panel panel-default">
@@ -300,8 +308,9 @@
                                         <span>权限</span>
                                     </div>
                                 </div>
-                                <div class="panel-body right-list">
-
+                                <div class="panel-body">
+                                    <ul class="list-group right-list ">
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -321,6 +330,12 @@
     seajs.use('${ctx}/js/func/zhzs/indexlist/main');
     seajs.use('${ctx}/js/func/zhzs/indexlist/planEdit');
     seajs.use('${ctx}/js/func/zhzs/indexlist/right');
+    /**
+     * 权限管理删除单个按钮
+     */
+    function delRemove(obj){
+        obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
+    }
 </script>
 </html>
 

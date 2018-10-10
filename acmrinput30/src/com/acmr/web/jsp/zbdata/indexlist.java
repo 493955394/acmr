@@ -757,6 +757,42 @@ public class indexlist extends BaseAction {
         List<Map<String,String>> datas = rightControlService.getSearchList(StringUtil.toLowerString(keyword));
         this.sendJson(datas);
     }
+
+    /**
+     * 权限管理的保存按钮
+     */
+    public void rightListSave() throws IOException {
+        RightControlService rightControlService = new RightControlService();
+        HttpServletRequest req=this.getRequest();
+        String rightlists = PubInfo.getString(req.getParameter("rightlist"));
+        String icode = PubInfo.getString(req.getParameter("icode"));
+        List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+        if(rightlists != ""){
+            String[] rightlist = rightlists.split(";#");
+            for (int i = 0; i <rightlist.length ; i++) {
+                Map<String,String> arr = new HashMap<String, String>();
+               String[] temp = rightlist[i].split(",");
+               arr.put("indexcode",icode);
+               arr.put("sort",temp[0]);
+               arr.put("depusercode",temp[1]);
+               arr.put("right",temp[2]);
+               arr.put("createuser",temp[3]);
+               list.add(arr);
+            }
+        }
+        int back = rightControlService.saveRightList(icode,list);
+        JSONReturnData data = new JSONReturnData("");
+        if(back == 1){
+            data.setReturncode(200);
+            this.sendJson(data);
+            return;
+        }
+        else{
+            data.setReturncode(300);
+            this.sendJson(data);
+            return;
+        }
+    }
     //权限管理-------end
 }
 
