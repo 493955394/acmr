@@ -17,11 +17,12 @@ public class IndexMoudle {
     private String sortcode;//上下移动排序，同级别的节点从0递增，0表示第一
     private String weight;//权重
     private String dacimal;//小数点位数
+    private String copycode;//复制自身code
 
     public IndexMoudle(){
 
     }
-    public IndexMoudle(String code,String cname,String indexcode,String procode,String ifzs,String ifzb,String formula,String sortcode,String weight,String dacimal){
+    public IndexMoudle(String code,String cname,String indexcode,String procode,String ifzs,String ifzb,String formula,String sortcode,String weight,String dacimal,String copycode){
         this.code=code;
         this.cname=cname;
         this.indexcode=indexcode;
@@ -32,6 +33,7 @@ public class IndexMoudle {
         this.sortcode=sortcode;
         this.weight=weight;
         this.dacimal=dacimal;
+        this.copycode=copycode;
     }
 
 
@@ -113,6 +115,14 @@ public class IndexMoudle {
 
     public void setDacimal(String dacimal) {
         this.dacimal = dacimal;
+    }
+
+    public String getCopycode() {
+        return copycode;
+    }
+
+    public void setCopycode(String copycode) {
+        this.copycode = copycode;
     }
 
     /**
