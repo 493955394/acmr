@@ -64,7 +64,7 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
     }
     @Override
     public int addZS(IndexMoudle indexMoudle){
-        String sql1 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal) values(?,?,?,?,?,?,?,?,?,?)";
+        String sql1 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode) values(?,?,?,?,?,?,?,?,?,?,?)";
         List<Object> params = new ArrayList<Object>();
         params.add(indexMoudle.getCode());
         params.add(indexMoudle.getCname());
@@ -76,6 +76,7 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
         params.add(indexMoudle.getSortcode());
         params.add(indexMoudle.getWeight());
         params.add(indexMoudle.getDacimal());
+        params.add(indexMoudle.getCode());
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
     }
     /*

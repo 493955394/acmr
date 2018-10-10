@@ -20,6 +20,8 @@ define(function (require,exports,module) {
      */
     $(document).on('click', '#rightbutton', function (event) {
         event.preventDefault();
+        var icode = $(this).attr("name");
+        $("#currentIcode").val(icode);//打开模态框就给那个input框赋值
         /**
          * 用户组织树
          */
@@ -30,7 +32,7 @@ define(function (require,exports,module) {
         var setting12 = {
             async: {
                 enable: true,
-                url: common.rootPath + 'zbdata/indexlist.htm?m=depUserTree&st=' + st,
+                url: common.rootPath + 'zbdata/indexlist.htm?m=depUserTree&st=' + st+"&icode="+$('#currentIcode').val(),
                 contentType: 'application/json',
                 type: 'get',
                 autoParam: ["id"]
@@ -50,7 +52,6 @@ define(function (require,exports,module) {
         var treeObj = $.fn.zTree.init($("#treeRight"), setting12, rootNode);
         var treenodes = treeObj.getNodes();
         treeObj.expandNode(treenodes[0], true, true, true);
-        var icode = $(this).attr("name");
         $.ajax({
             url: common.rootPath + "zbdata/indexlist.htm?m=rightManager",
             data: {"indexcode": icode},
@@ -62,7 +63,6 @@ define(function (require,exports,module) {
                 $("#selectList li").remove();
                 $(".right-list li").remove();
                 $("#select-input").val("");
-                $("#currentIcode").val(icode);//打开模态框就给那个input框赋值
                 for(var i in data) {
                     var html = "";
                     html += "<li class='list-group-item' data-uid='" + data[i].depusercode + "' data-sort='" + data[i].sort + "' data-cuser='" + data[i].createuser + "'>"+ data[i].depusername+ "";

@@ -712,7 +712,10 @@ public class indexlist extends BaseAction {
     public void depUserTree() throws IOException{
             HttpServletRequest req=this.getRequest();
             String pcode=req.getParameter("id");
-            List<ZTreeNode> list=getDepUserTree(pcode);
+            String icode = req.getParameter("icode");
+            IndexListService indexListService =new IndexListService();
+            String createuser = indexListService.getData(icode).getCreateuser();
+            List<ZTreeNode> list=getDepUserTree(pcode,createuser);
             this.sendJson(list);
     }
     /**
@@ -720,7 +723,7 @@ public class indexlist extends BaseAction {
      * @param pcode
      * @return
      */
-    public static List<ZTreeNode> getDepUserTree(String pcode){
+    public static List<ZTreeNode> getDepUserTree(String pcode,String createuser){
         //获取用户组织树
         List<ZTreeNode> deps = new DepartmentService().getSubDepartments(pcode);
         List<ZTreeNode> list = new ArrayList<ZTreeNode>();
@@ -741,7 +744,9 @@ public class indexlist extends BaseAction {
         }
         List<User> ifHasUsers = new UserService().getDepUsers(pcode);
         for (int i = 0; i <ifHasUsers.size() ; i++) {
-            list.add(new ZTreeNode(ifHasUsers.get(i).getUserid(),ifHasUsers.get(i).getDepcode(),ifHasUsers.get(i).getUsername(),false));
+            if(!ifHasUsers.get(i).getUserid().equals(createuser)){//创建的人不能分享给自己
+                list.add(new ZTreeNode(ifHasUsers.get(i).getUserid(),ifHasUsers.get(i).getDepcode(),ifHasUsers.get(i).getUsername(),false));
+            }
         }
         return list;
     }
