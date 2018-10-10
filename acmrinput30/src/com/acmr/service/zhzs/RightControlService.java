@@ -39,8 +39,8 @@ public class RightControlService {
                     String depusername = DepartmentService.getDepartment(datas.get(i).getString("depusercode")).getCname();
                     arr.put("depusername",depusername);
                 }
-            }
-            list.add(arr);
+               list.add(arr);
+           }
         }
         return list;
     }
