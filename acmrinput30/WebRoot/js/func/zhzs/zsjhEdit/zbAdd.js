@@ -76,7 +76,35 @@ define(function (require,exports,module) {
     function zbclick(zb,isadd) {
         if(isadd==true){
             $("#zb_data_body").empty().append("<p>查询中……</p>");
-            if (isexit(zb[0])){
+            $(".zb_add").css("display","inline")
+            //console.log(zb)
+            var data={
+                "zbcode":zb[0]
+            };
+            $.ajax({
+                url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit',
+                type:'post',
+                dataType:'json',
+                data:data,
+                success:function (re) {
+                    $(".zb_select").empty()
+                    foreach(re.ds,"ds")
+                    foreach(re.co,"co")
+                    foreach(re.unit,"unit")
+                    function foreach(innerre,zname) {
+                        innerre.forEach(function (d,ind,ds){
+                            var code=Object.keys(d)[0]
+                            var name=d[code]
+                            $("#"+zname+"_select").append("<option class='" +
+                                code+ "'>" +
+                                name+"</option>")
+                        })
+                    }
+                    sendPjax();
+                }
+            })
+            return true
+            /*if (isexit(zb[0])){
                 alert("该指标已被选择！")
                 $(".zb_add").css("display","none")
                 $("#zb_data_head").empty()
@@ -112,7 +140,7 @@ define(function (require,exports,module) {
                     }
                 })
                 return true
-            }
+            }*/
         }
         else {
             $("#zb_data_body").empty().append("<p>查询中……</p>");
@@ -149,9 +177,9 @@ define(function (require,exports,module) {
     }
 
     //判断选择的指标是否已经存在
-    function isexit(code) {
+    function isexit(code,dscode,cocode,unitcode) {
         for (var i=0;i<zbs.length;i++){
-            if (zbs[i].zbcode==code){
+            if (zbs[i].zbcode==code&&zbs[i].dscode==dscode&&zbs[i].cocode==cocode&&zbs[i].unitcode==unitcode){
                 return true
             }
         }
@@ -259,20 +287,28 @@ define(function (require,exports,module) {
         ds=[$('#ds_select option:selected').attr("class"),$('#ds_select option:selected') .val()]
         co=[$('#co_select option:selected').attr("class"),$('#co_select option:selected') .val()]
         unit=[$('#unit_select option:selected').attr("class"),$('#unit_select option:selected') .val()]
-        zbs.push({
-            code:st+Math.random().toString(36).substr(2),
-            zbcode:zb[0],
-            zbname:zb[1],
-            dscode:ds[0],
-            dsname:ds[1],
-            cocode:co[0],
-            coname:co[1],
-            unitcode:unit[0],
-            unitname:unit[1]
-        })
-        //console.log(zbs)
-        addZBpanel(zbs[zbs.length-1])
-        //drawTable();
+        if (isexit(zb[0],ds[0],co[0],unit[0])) {
+            alert("该指标已被选择")
+            $(".zb_add").css("display","inline")
+            $("#zb_data_head").empty()
+            $("#zb_data_body").empty()
+        }
+        else {
+            zbs.push({
+                code:st+Math.random().toString(36).substr(2),
+                zbcode:zb[0],
+                zbname:zb[1],
+                dscode:ds[0],
+                dsname:ds[1],
+                cocode:co[0],
+                coname:co[1],
+                unitcode:unit[0],
+                unitname:unit[1]
+            })
+            //console.log(zbs)
+            addZBpanel(zbs[zbs.length-1])
+            //drawTable();
+        }
     }
 
     function addZBpanel(content) {
