@@ -35,19 +35,19 @@ public class pastviews extends BaseAction {
      * @param
      * @return
      */
-    public ModelAndView showMods(){
+    public ModelAndView main(){
         String code = this.getRequest().getParameter("id");
         //获取用户权限
         String right=this.getRequest().getParameter("right");
 
         List<String> alltaskcode = pv.getAllTask(code);
-        if(alltaskcode != null){
+        /*if(alltaskcode != null){
             String taskcode = alltaskcode.get(0);
             String reg = pv.getRegions(taskcode).get(0);
             List<String> allmod = pv.getAllMods(alltaskcode);
 
 
-        }
+        }*/
 
 
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews");
