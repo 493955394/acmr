@@ -235,7 +235,7 @@
                         <c:if test="${index.get('right')!='2'}">
                             <label class="btn-disabled">权限管理</label>
                         </c:if>
-                        <a class="past_task" href="${ctx}/zbdata/pastviews.htm?id=${index.getCode()}">查看往期</a>
+                        <a class="past_task" href="${ctx}/zbdata/pastviews.htm?id=${index.get('index').getCode()}">查看往期</a>
                         <a href="${ctx}/zbdata/zstask.htm?&icode=${index.get('index').getCode()}&right=${index.get('right')}">指数任务</a>
                     </c:if>
                     <c:if test="${index.get('index').getIfdata().equals('0')}">
