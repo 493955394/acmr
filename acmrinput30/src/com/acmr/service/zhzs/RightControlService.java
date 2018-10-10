@@ -24,8 +24,6 @@ public class RightControlService {
         List<DataTableRow> datas = RightDao.Fator.getInstance().getIndexdatadao().getRightList(indexcode).getRows();
         for (int i = 0; i <datas.size() ; i++) {
             Map<String,String> arr = new HashMap<String,String>();
-            //将他自己排除掉
-           if(!(datas.get(i).getString("depusercode").equals(usercode)&&datas.get(i).getString("sort").equals("2"))){
                 arr.put("indexcode",datas.get(i).getString("indexcode"));
                 arr.put("depusercode",datas.get(i).getString("depusercode"));
                 arr.put("sort",datas.get(i).getString("sort"));
@@ -40,7 +38,6 @@ public class RightControlService {
                     arr.put("depusername",depusername);
                 }
                list.add(arr);
-           }
         }
         return list;
     }
