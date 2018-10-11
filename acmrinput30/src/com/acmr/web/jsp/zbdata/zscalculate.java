@@ -322,8 +322,10 @@ public class zscalculate extends BaseAction {
         }
         if (StringUtil.isEmpty(pjax)) {
             PubInfo.printStr("===================================emptyredata");
+            WeightEditService weightEditService = new WeightEditService();
+            List<TaskModule> mods=weightEditService.getOrTMods(taskcode);
             List<List<String>> datas = getResultList(taskcode,regscode,sessionid);//计算结果
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas).addObject("mods",mods).addObject("taskcode",taskcode);
         } else {
             PubInfo.printStr("=====================================pjaxredata");
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
@@ -614,7 +616,7 @@ public class zscalculate extends BaseAction {
         return result;
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         String formula = "/3";
         String result = "";
         try {
@@ -626,5 +628,5 @@ public class zscalculate extends BaseAction {
             e.printStackTrace();
             System.out.println("error");
         }
-    }
+    }*/
 }
