@@ -237,9 +237,25 @@ public class IndexListService {
         return indexLists;
     }
 
+    public static List<String> getAllSubs(String procode ,String currentuser){
+        List<String> lists = new ArrayList<String>();
+        lists.add(procode);
+        List<DataTableRow> indexlist = IndexListDao.Fator.getInstance().getIndexdatadao().getSubLists(procode,currentuser).getRows();
+        for (int i = 0; i <indexlist.size() ; i++) {
+            if(indexlist.get(i).getString("ifdata").equals("0"))//如果是目录
+            {
+                lists.addAll(getAllSubs(indexlist.get(i).getString("code"),currentuser));
+            }
+                else{//如果是计划
+                lists.add(indexlist.get(i).getString("code"));
+            }
+        }
+        return lists;
+    }
+
     /**
      * 查询的分页
-     */
+     *//*
     public  List<IndexList> found(int type,String code,String userid,int page,int pagesize){
         List<IndexList> indexLists=new ArrayList<>();
         List<DataTableRow> data = new ArrayList<>();
@@ -267,7 +283,7 @@ public class IndexListService {
             indexLists.add(index);
         }
         return indexLists;
-    }
+    }*/
     //新增目录和计划
     public int addCp(IndexList indexList) {
         return IndexListDao.Fator.getInstance().getIndexdatadao().addIndexlist(indexList);
@@ -686,10 +702,12 @@ public class IndexListService {
         return check;
     }
 
-    public static void main(String[] args) {
-        IndexListService indexListService=new IndexListService();
-        PubInfo.printStr(String.valueOf(indexListService.checkZBandReg("R0015")));
-    }
+  /*  public static void main(String[] args) {
+        List<String> test = getAllSubs("D002","admin");
+        for (int i = 0; i <test.size() ; i++) {
+            PubInfo.printStr(test.get(i));
+        }
+    }*/
 
 /*        Date test= (Date) indexlist.get(1).get("plantime");
         PubInfo.printStr("123"+test.toString());

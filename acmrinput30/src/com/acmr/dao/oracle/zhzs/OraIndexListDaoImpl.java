@@ -7,12 +7,14 @@ import acmr.util.PubInfo;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexListDao;
 import com.acmr.dao.zhzs.IndexListDao;
+import com.acmr.model.zhzs.Data;
 import com.acmr.model.zhzs.IndexList;
 
 //import java.sql.Date;
 import javax.print.DocFlavor;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +119,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
             java.util.Date now = new java.util.Date();
-            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
+            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
             String icode = data1.getCode();
             String icname = data1.getCname();
             String iprocode = data1.getProcode();
@@ -128,9 +130,14 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             String idelayday = data1.getDelayday();
             String iplanperiod = data1.getPlanperiod();
             String iplantime = data1.getPlantime();
+            //String time = data1.getCreatetime();
             String createtime = data1.getCreatetime().substring(0,data1.getCreatetime().length()-2);
             String createuser = data1.getCreateuser();
-            java.sql.Timestamp updatetime = new java.sql.Timestamp(now.getTime());
+            String updatetime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
+            /*params.add(new Timestamp(new Date().getTime()));
+            params.add(taskcode);
+            dataQuery.executeSql(sqltask, params.toArray());*/
 
             //Object up = new Timestamp(new Date().getTime());
             dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplanperiod,iplantime,createuser,createtime,updatetime});
@@ -155,7 +162,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                 String sql3 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode) values(?,?,?,?,?,?,?,?,?,?,?)";
                 dataQuery.executeSql(sql3,new Object[]{code,cname,procode,icode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode});
             }
-            //修正tb_coindex_module的procode和copycode
+            //修正tb_coindex_module的procode
             //String newcode = UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,6);
 
             String sql9="select * from tb_coindex_module where indexcode=?";
@@ -170,18 +177,15 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                     String sql10="select * from tb_coindex_module where copycode=? and indexcode=?";
                     String procode=dataQuery.getDataTableSql(sql10,new Object[]{orprocode,icode}).getRows().get(0).getString("code");
                     //更新这条module的procode
-                    String sql11="update tb_coindex_module set procode=?，copycode=? where code=?";
-                    dataQuery.executeSql(sql11,new Object[]{procode,code,code});
+                    String sql11="update tb_coindex_module set procode=? where code=?";
+                    dataQuery.executeSql(sql11,new Object[]{procode,code});
                 }
             }
-            //修正总指数的copycode
+            //修正复制节点的copycode
             for (int m=0;m<rows3.size();m++){
-                String orprocode=rows3.get(m).getString("procode");
                 String code = rows3.get(m).getString("code");
-                if (orprocode.equals("")){
-                    String sql11="update tb_coindex_module set copycode=? where code=?";
-                    dataQuery.executeSql(sql11,new Object[]{code,code});
-                }
+                String sql11="update tb_coindex_module set copycode=? where code=?";
+                dataQuery.executeSql(sql11,new Object[]{code,code});
             }
             //复制筛选条件
             String sql4 = "select * from tb_coindex_zb where indexcode=?";
@@ -250,7 +254,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
             java.util.Date now = new java.util.Date();
-            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
+            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
             String icode = copydata.getCode();
             String icname = copydata.getCname();
             String iprocode = copydata.getProcode();
@@ -263,8 +267,9 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             String iplantime = copydata.getPlantime();
             String createtime = copydata.getCreatetime().substring(0,copydata.getCreatetime().length()-2);
             String createuser = copydata.getCreateuser();
-            java.sql.Timestamp updatetime = new java.sql.Timestamp(now.getTime());
+            //java.sql.Timestamp updatetime = new java.sql.Timestamp(now.getTime());
             //Object up = new Timestamp(new Date().getTime());
+            String updatetime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
 
             dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplanperiod,iplantime,createuser,createtime,updatetime});
@@ -289,32 +294,30 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                 String sql3 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode) values(?,?,?,?,?,?,?,?,?,?,?)";
                 dataQuery.executeSql(sql3,new Object[]{code,cname,procode,icode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode});
             }
-            //修正tb_coindex_module的procode和copycode
+            //修正tb_coindex_module的procode
            // String newcode = UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,6);
             String sql9="select * from tb_coindex_module where indexcode=?";
             DataTable table3=dataQuery.getDataTableSql(sql9,new Object[]{icode});
             List<DataTableRow> rows3=table3.getRows();
             for (int r=0;r<rows3.size();r++){
                 String orprocode=rows3.get(r).getString("procode");
-                String copycode=rows3.get(r).getString("copycode");
+                //String copycode=rows3.get(r).getString("copycode");
                 String code = rows3.get(r).getString("code");
 
                 if (orprocode!=""){
                     String sql10="select * from tb_coindex_module where copycode=? and indexcode=?";
                     String procode=dataQuery.getDataTableSql(sql10,new Object[]{orprocode,icode}).getRows().get(0).getString("code");
                     //更新这条module的procode
-                    String sql11="update tb_coindex_module set procode=?，copycode=? where code=?";
-                    dataQuery.executeSql(sql11,new Object[]{procode,code,code});
+                    String sql11="update tb_coindex_module set procode=? where code=?";
+                    dataQuery.executeSql(sql11,new Object[]{procode,code});
                 }
             }
-            //修正总指数的copycode
+            //修正复制节点的copycode
             for (int m=0;m<rows3.size();m++){
-                String orprocode=rows3.get(m).getString("procode");
                 String code = rows3.get(m).getString("code");
-                if (orprocode.equals("")){
-                    String sql11="update tb_coindex_module set copycode=? where code=?";
-                    dataQuery.executeSql(sql11,new Object[]{code,code});
-                }
+                String sql11="update tb_coindex_module set copycode=? where code=?";
+                dataQuery.executeSql(sql11,new Object[]{code,code});
+
             }
             //复制筛选条件
             String sql4 = "select * from tb_coindex_zb where indexcode=?";

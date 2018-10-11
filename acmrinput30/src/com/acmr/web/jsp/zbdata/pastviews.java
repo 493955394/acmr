@@ -29,7 +29,7 @@ public class pastviews extends BaseAction {
 
     PastViewService pv = new PastViewService();
     /**
-     * 地区选择默认值
+     * 地区选择最近五年默认值
      * @author wf
      * @date
      * @param
@@ -41,15 +41,34 @@ public class pastviews extends BaseAction {
         String right=this.getRequest().getParameter("right");
 
         List<String> alltaskcode = pv.getAllTask(code);
-        /*if(alltaskcode != null){
+        if(alltaskcode != null){
             String taskcode = alltaskcode.get(0);
             String reg = pv.getRegions(taskcode).get(0);
-            List<String> allmod = pv.getAllMods(alltaskcode);
+            List<Map> allmod = pv.getAllMods(alltaskcode);
+            List<List<String>> moddatas = pv.getModData(reg,alltaskcode,allmod);
+        }
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews");
+    }
 
+    /**
+     * 模型节点选择最近五年默认值
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public ModelAndView RegDatas(){
+        String code = this.getRequest().getParameter("id");
+        //获取用户权限
+        String right=this.getRequest().getParameter("right");
 
-        }*/
-
-
+        List<String> alltaskcode = pv.getAllTask(code);
+        if(alltaskcode != null){
+            String taskcode = alltaskcode.get(0);
+            List<String> regs = pv.getRegions(taskcode);
+            String mod = pv.getAllMods(alltaskcode).get(0).get("code").toString();
+            List<List<String>> regdatas = pv.getRegData(regs,alltaskcode,mod);
+        }
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews");
     }
 

@@ -1,5 +1,6 @@
 package com.acmr.web.jsp.zbdata;
 
+import acmr.cubeinput.MetaTableException;
 import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
@@ -685,23 +686,58 @@ public class indexlist extends BaseAction {
         // 获取查询数据
         String code = StringUtil.toLowerString(req.getParameter("code"));
         String cname = StringUtil.toLowerString(req.getParameter("cname"));
+        String procode = req.getParameter("id");//看是否点击了树；
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
-
+        List<String> treeList=null;
         PageBean<IndexList> page = new PageBean<IndexList>();
         StringBuffer sb = new StringBuffer();
         sb.append(this.getRequest().getRequestURI());
+        if (!StringUtil.isEmpty(procode)) {
+                treeList = indexListService.getAllSubs(procode,usercode);
+        }
         if (!StringUtil.isEmpty(code)) {
-            indexAllList= new IndexListService().found(0,code,usercode);
-            indexList= indexListService.found(0,code,usercode,page.getPageNum() - 1,page.getPageSize());
-            sb.append("?m=find&code="+code);
+            if(treeList!=null){
+                indexList = new IndexListService().found(0,code,usercode);
+                for (int i = 0; i <indexList.size() ; i++) {
+                    if(treeList.contains(indexList.get(i).getCode())){
+                        indexAllList.add(indexList.get(i));
+                    }
+                }
+            }
+            else {
+                indexAllList= new IndexListService().found(0,code,usercode);
+            }
+            //indexList= indexListService.found(0,code,usercode,page.getPageNum() - 1,page.getPageSize());
+            sb.append("?m=find&code="+code+"&id="+procode);
         }
         if (!StringUtil.isEmpty(cname)) {
-            indexAllList= new IndexListService().found(1,cname,usercode);
-            indexList= indexListService.found(1,cname,usercode,page.getPageNum() - 1,page.getPageSize());
-            sb.append("?m=find&cname="+cname);
+            if(treeList !=null){
+                indexList = new IndexListService().found(1,cname,usercode);
+                for (int i = 0; i <indexList.size() ; i++) {
+                    if(treeList.contains(indexList.get(i).getCode())){
+                        indexAllList.add(indexList.get(i));
+                    }
+                }
+            }
+            else {
+                indexAllList= new IndexListService().found(1,cname,usercode);
+            }
+           // indexList= indexListService.found(1,cname,usercode,page.getPageNum() - 1,page.getPageSize());
+            sb.append("?m=find&cname="+cname+"&id="+procode);
         }
-        page.setData(indexList);
+        //分页
+        int b=(page.getPageNum()-1)*page.getPageSize()+1;
+        int e=b+page.getPageSize();
+        List<IndexList> rlist=new ArrayList<>();
+        for (int i=0;i<indexAllList.size();i++){
+            int j=i+1;
+            if (j>=b&&j<e){
+                rlist.add(indexAllList.get(i));
+            }
+        }
+        page.setData(rlist);
+       // page.setData(indexList);
         page.setTotalRecorder(indexAllList.size());
         page.setUrl(sb.toString());
         Map<String, String> codes = new HashMap<String, String>();
