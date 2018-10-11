@@ -287,9 +287,7 @@
                                         <input type="text" id="select-input" class="col-xs-8">
                                         <button class="btn btn-default btn-sm col-xs-3 right-select" type="button" style="margin-left: 3px">搜索</button>
                                     </div>
-                                    <div class="form-group">
-                                        <ul id="selectList"></ul>
-                                    </div>
+                                        <div id="selectList" class="list-group" ></div>
                                     <ul id="treeRight" class="ztree"></ul>
                                 </div>
                             </div>

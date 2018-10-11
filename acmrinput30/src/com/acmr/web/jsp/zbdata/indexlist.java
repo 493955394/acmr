@@ -759,7 +759,10 @@ public class indexlist extends BaseAction {
         RightControlService rightControlService = new RightControlService();
         HttpServletRequest req=this.getRequest();
         String keyword=PubInfo.getString(req.getParameter("keyword"));
-        List<Map<String,String>> datas = rightControlService.getSearchList(StringUtil.toLowerString(keyword));
+        String icode=PubInfo.getString(req.getParameter("icode"));
+        IndexListService indexListService =new IndexListService();
+        String createuser = indexListService.getData(icode).getCreateuser();//搜索结果排除计划创建人
+        List<Map<String,String>> datas = rightControlService.getSearchList(StringUtil.toLowerString(keyword),createuser);
         this.sendJson(datas);
     }
 

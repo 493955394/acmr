@@ -60,7 +60,7 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function (data) {
                 //初始化
-                $("#selectList li").remove();
+                $("#selectList a").remove();
                 $(".right-list li").remove();
                 $("#select-input").val("");
                 for(var i in data) {
@@ -85,18 +85,44 @@ define(function (require,exports,module) {
             return;
         $.ajax({
             url: common.rootPath + "zbdata/indexlist.htm?m=searchList",
-            data: {"keyword": keyword},
+            data: {"keyword": keyword,"icode":$('#currentIcode').val()},
             type: 'post',
             datatype: 'json',
             timeout: 10000,
             success: function (data) {
                 for(var i in data) {
                     var html = "";
-                    html += "<li data-uid='" + data[i].depusercode + "' data-sort='" + data[i].sort + "'>"+ data[i].depusername+ "</li>";
+                    html += "<a href='#' data-uid='" + data[i].depusercode + "' data-sort='" + data[i].sort + "' data-name='" + data[i].depusername + "' class='list-group-item '>"+ data[i].depusername+ "</a>";
                     $("#selectList").append(html);
                 }
             }
         })
+    })
+    /**
+     * 权限管理搜索后添加搜索结果
+     */
+    $("#selectList").on('click',"a",function (event) {
+        event.preventDefault();
+            //去重处理
+        var thisid = $(this).attr("data-uid");
+        var thissort = $(this).attr("data-sort");
+        var thisname = $(this).attr("data-name");
+            var check = false;
+            $(".right-list li").each(function(){
+                var id = $(this).attr("data-uid");
+                var sort = $(this).attr("data-sort");
+                if(thisid==id&&thissort==sort){
+                    check = true;
+                }
+            })
+            if(check){return;}
+            //如果在右边的列表中不存在，将其添加到右边的列表中
+            var html = "";
+            var temp ="";
+            html += "<li class='list-group-item' data-uid='" + thisid + "' data-sort='" + thissort + "' data-cuser='" + currentuser + "'>"+ thisname+ "";
+            html += "<span class='fr'><select><option value='2'>管理</option><option value='1'>协作</option><option value='0'>只读</option></select>";
+            html += "<a class='glyphicon glyphicon-remove' onclick='delRemove(this)'></a></span></li>";
+            $(".right-list").append(html);
     })
 
     /**

@@ -18,8 +18,6 @@ public class RightControlService {
      * 通过indexcode查询right表中是否存在这个list,有的话返回这个list
      */
     public List<Map<String,String>> getRightList(String indexcode){
-      User cu= UserService.getCurrentUser();
-        String usercode = cu.getUserid();//获取当前用户的code
         List<Map<String,String>> list = new ArrayList<Map<String,String>>();
         List<DataTableRow> datas = RightDao.Fator.getInstance().getIndexdatadao().getRightList(indexcode).getRows();
         for (int i = 0; i <datas.size() ; i++) {
@@ -47,7 +45,7 @@ public class RightControlService {
      * @param keyword
      * @return
      */
-    public List<Map<String,String>> getSearchList(String keyword){
+    public List<Map<String,String>> getSearchList(String keyword,String createuser){
         List<Map<String,String>> list = new ArrayList<Map<String,String>>();
         List<DataTableRow> depdatas = RightDao.Fator.getInstance().getIndexdatadao().searchDepName(keyword).getRows();
         for (int i = 0; i <depdatas.size() ; i++) {
@@ -59,11 +57,13 @@ public class RightControlService {
         }
         List<DataTableRow> userdatas = RightDao.Fator.getInstance().getIndexdatadao().searchUserName(keyword).getRows();
         for (int i = 0; i <userdatas.size() ; i++) {
-            Map<String,String> arr = new HashMap<String,String>();
-            arr.put("depusercode",userdatas.get(i).getString("userid"));
-            arr.put("depusername",userdatas.get(i).getString("cname"));
-            arr.put("sort","2");
-            list.add(arr);
+            if(!userdatas.get(i).getString("userid").equals(createuser)) {//计划创建人搜不到，因为不能被添加
+                Map<String, String> arr = new HashMap<String, String>();
+                arr.put("depusercode", userdatas.get(i).getString("userid"));
+                arr.put("depusername", userdatas.get(i).getString("cname"));
+                arr.put("sort", "2");
+                list.add(arr);
+            }
         }
         return list;
     }
