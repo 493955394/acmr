@@ -64,7 +64,7 @@ define(function (require,exports,module) {
         for (var i=0;i<codes.length;i++){
             var pcode=codes[i]
             var values=[]
-            var value=$("input[class*="+pcode+"]").each(function () {
+            var value=$("input[class~="+pcode+"]").each(function () {
                 values.push($(this).val())
             })
             var sum=parseFloat("0")
@@ -178,7 +178,7 @@ define(function (require,exports,module) {
         for (var i=0;i<codes.length;i++){
             var pcode=codes[i]
             var values=[]
-            var value=$("input[class*="+pcode+"]").each(function () {
+            var value=$("input[class~="+pcode+"]").each(function () {
                 values.push($(this).val())
             })
             var sum=parseFloat("0")
