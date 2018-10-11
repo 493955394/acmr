@@ -91,7 +91,6 @@ define(function (require,exports,module) {
     /**
      * 菜单树
      */
-    var initTreePara = $("#initTreePara").val();
     var treeNodeId = $("#procode").val();
     var treeNodeName = "地区树";
     var st = new Date().getTime();//时间戳，解决ie9 ajax缓存//2015-7-2 by liaojin
@@ -104,8 +103,7 @@ define(function (require,exports,module) {
             autoParam: ["id"]
         },
         callback: {
-            onClick: clickEvent1,
-            onAsyncSuccess: zTreeOnAsyncSuccess
+            onClick: clickEvent1
         }
     };
     function clickEvent1(event, treeid, treeNode) {
@@ -123,46 +121,6 @@ define(function (require,exports,module) {
     var treeObj = $.fn.zTree.init($("#treeDemo"), setting1, rootNode);
     var treenodes = treeObj.getNodes();
     treeObj.expandNode(treenodes[0], true, true, true);
-
-    function zTreeOnAsyncSuccess(event, treeid, treeNode, msg){
-        if (initTreePara.length>0){
-            var zbs = initTreePara.split("/");
-            var nodes;
-            var treeObj = $.fn.zTree.getZTreeObj(treeid);
-
-            if (treeNode == null){	// 第一层结点
-                nodes = treeObj.getNodes();
-            } else {
-                nodes = treeNode.children;
-            }
-            var isBreak = false;
-            for (var i = 0; i < nodes.length; i++){
-                var node = nodes[i];
-                for (var j = 0; j < zbs.length; j++){
-                    if (zbs[j] == node.id){
-                        if (node.isParent){
-                            treeObj.expandNode(node, true);
-                            if(node.id== zbs[zbs.length-1]){
-                                treeObj.selectNode(node);
-                                treeNodeId = node.id;
-                                treeNodeName = node.name;
-                            }
-                        } else {
-                            treeObj.selectNode(node);
-                            treeNodeId = node.id;
-                            treeNodeName = node.name;
-                        }
-                        isBreak = true;
-                        break;
-                    }
-                }
-                if (isBreak){
-                    break;
-                }
-            }
-        }
-    }
-
     /**
      * 选中单个地区
      */
@@ -566,33 +524,6 @@ define(function (require,exports,module) {
             }
         }
     }
-    /**
-     * 模型规划搜索框
-     */
-    var delIds = [];
-    var isMove = true;
-    var searchField = "";
-    $(document).on('submit', '.J_search_form', function(event) {
-        event.preventDefault();
-        var self = this,
-            requestUrl = $(self).prop('action'),
-            key = $('select',self).val(),
-            val = $('input',self).val(),
-            str = "";
-        var requestData = common.formatData(key,val);
-        if(requestData.length>0){
-            requestData="&"+requestData;
-        }
-        searchField = requestData+str;
-        isMove = false;
-        $.pjax({
-            url: requestUrl+searchField+'&icode='+incode,
-            container: '.J_zsjh_module_table'
-        });
-        $(document).on('pjax:success', function() {
-            delIds = [];
-        });
-    });
     //基本信息页重置
     $(".resetindex").click(function () {
         $("input[type=reset]").trigger("click");
