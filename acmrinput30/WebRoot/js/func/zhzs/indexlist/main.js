@@ -243,7 +243,7 @@ define(function (require,exports,module) {
             $('input[name=cataname]').val(treeNode.name);
             $('input[name=idcata]').val(treeNode.id);
             if (treeNode.id=="!1"){
-                $('input[name=idcata]').val(null);
+                $('input[name=idcata]').val("");
             }
         } else {
             $('input[name=cataname]').val('');
@@ -256,7 +256,7 @@ define(function (require,exports,module) {
             $('input[name=planname]').val(treeNode.name);
             $('input[name=idplan]').val(treeNode.id);
             if (treeNode.id=="!1"){
-                $('input[name=idplan]').val(null);
+                $('input[name=idplan]').val("");
             }
         } else {
             $('input[name=planname]').val('');
@@ -269,7 +269,7 @@ define(function (require,exports,module) {
             $('input[name=indexname]').val(treeNode.name);
             $('input[name=newprocode]').val(treeNode.id);
             if (treeNode.id=="!1"){
-                $('input[name=newprocode]').val(null);
+                $('input[name=newprocode]').val("");
             }
         } else {
             $('input[name=indexname]').val('');
@@ -283,7 +283,7 @@ define(function (require,exports,module) {
             $('input[name=oldproname]').val(treeNode.name);
             $('input[name=editprocode]').val(treeNode.id);
             if (treeNode.id=="!1"){
-                $('input[name=editprocode]').val(null);
+                $('input[name=editprocode]').val("");
             }
         } else {
             $('input[name=editname]').val('');
@@ -296,7 +296,7 @@ define(function (require,exports,module) {
             $('input[name=sharename]').val(treeNode.name);
             $('input[name=shareprocode]').val(treeNode.id);
             if (treeNode.id=="!1"){
-                $('input[name=shareprocode]').val(null);
+                $('input[name=shareprocode]').val("");
             }
         } else {
             $('input[name=sharename]').val('');

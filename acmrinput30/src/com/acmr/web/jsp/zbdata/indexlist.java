@@ -298,6 +298,9 @@ public class indexlist extends BaseAction {
         indexList.setCreateuser(createuser);
         indexList.setCname(cname);
         if(proname.equals("")){
+            if(oldpro.equals("!1")){
+                oldpro="";
+            }
             indexList.setProcode(oldpro);
         }else{
             indexList.setProcode(procode);
