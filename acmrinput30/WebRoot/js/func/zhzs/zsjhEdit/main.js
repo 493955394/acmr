@@ -42,20 +42,16 @@ define(function (require,exports,module) {
     })
 
     var zNodes =[
-        { id:"#1", pId:0, name:"指数",isParent:true}
+        { id:"", pId:0, name:"指数",isParent:true}
     ];
-    var indexlist = editjsp.indexlist;
-    for(var i=0;i<indexlist.length;i++){
-        zNodes.push(indexlist[i])
-    }
+    var st = new Date().getTime();//时间戳
     var setting = {
-        async:{
-
-        },
-        data: {
-            simpleData: {
-                enable: true
-            }
+        async: {
+            enable: true,
+            url: common.rootPath+'zbdata/indexlist.htm?m=getCateTree&st='+st,
+            contentType: 'application/json',
+            type: 'get',
+            autoParam: ["id"]
         },
         callback:{
             onClick:clickEvent

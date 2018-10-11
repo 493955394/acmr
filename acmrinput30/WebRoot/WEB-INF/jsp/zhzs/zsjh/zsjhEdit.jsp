@@ -374,14 +374,6 @@
 </body>
 <script>
     define("editjsp",function (require,exports,module) {
-        var indexlist=[];
-        <c:forEach items="${indexlist}" var="index">
-        if (${index.getIfdata()=='0'}){
-        if(${index.getProcode()!=null})
-            indexlist.push({id:"${index.getCode()}",pId:"${index.getProcode()}",name:"${index.getCname()}",isPrent:!${index.getIfdata()},sou:!${index.getIfdata()}})
-        else indexlist.push({id:"${index.getCode()}",pId:"#1",name:"${index.getCname()}",isParent:!${index.getIfdata()},sou:!${index.getIfdata()}})
-    }
-        </c:forEach>
         var zbs=[];
         <c:forEach items="${zbs.zbchoose}" var="zb">
         zbs.push({
@@ -397,7 +389,6 @@
         })
         </c:forEach>
         module.exports={
-            indexlist:indexlist,
             zbs:zbs
         }
     })
