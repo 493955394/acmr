@@ -79,7 +79,7 @@ define(function (require,exports,module) {
     /*权限管理的搜索框*/
     $(document).on('click', '.right-select', function (event) {
         event.preventDefault();
-        $("#selectList li").remove();
+        $("#selectList a").remove();
         var keyword = $("#select-input").val();
         if(keyword =="")
             return;

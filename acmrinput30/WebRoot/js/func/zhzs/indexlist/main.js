@@ -20,13 +20,17 @@ define(function (require,exports,module) {
     var delIds = [];
     var isMove = true;
     var searchField = "";
+    var treeNodeId = "";
     $(document).on('submit', '.J_search_form', function(event) {
         event.preventDefault();
         var self = this,
             requestUrl = $(self).prop('action'),
             key = $('select',self).val(),
             val = $('input',self).val(),
-            str = "";
+            str = "&id=";
+        if(treeNodeId!=""&&treeNodeId!="!1"){
+            str += treeNodeId;
+        }
         var requestData = common.formatData(key,val);
         if(requestData.length>0){
             requestData="&"+requestData;
@@ -189,6 +193,7 @@ define(function (require,exports,module) {
     function clickEvent(event,treeId,treeNode) {
        // console.log(treeNode.id)
         var code=treeNode.id;
+        treeNodeId = treeNode.id;
         var name=treeNode.name;
         $('input[name=planname]').val(name);
         $('input[name=indexname]').val(name);
