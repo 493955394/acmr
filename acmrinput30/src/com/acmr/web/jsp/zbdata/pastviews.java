@@ -41,13 +41,14 @@ public class pastviews extends BaseAction {
         String right=this.getRequest().getParameter("right");
 
         List<String> alltaskcode = pv.getAllTask(code);
-        if(alltaskcode != null){
-            String taskcode = alltaskcode.get(0);
-            String reg = pv.getRegions(taskcode).get(0);
-            List<Map> allmod = pv.getAllMods(alltaskcode);
-            List<List<String>> moddatas = pv.getModData(reg,alltaskcode,allmod);
-        }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews");
+
+        String taskcode = alltaskcode.get(0);
+        List<String> last5 = pv.getAllTime(code).subList(0,5);
+        String reg = pv.getRegions(taskcode).get(0);
+        List<Map> allmod = pv.getAllMods(alltaskcode);
+        List<List<String>> moddatas = pv.getModData(reg,alltaskcode,allmod,last5);
+
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("moddata",moddatas).addObject("last5",last5);
     }
 
     /**
@@ -66,8 +67,9 @@ public class pastviews extends BaseAction {
         if(alltaskcode != null){
             String taskcode = alltaskcode.get(0);
             List<String> regs = pv.getRegions(taskcode);
+            List<String> last5 = pv.getAllTime(code).subList(0,5);
             String mod = pv.getAllMods(alltaskcode).get(0).get("code").toString();
-            List<List<String>> regdatas = pv.getRegData(regs,alltaskcode,mod);
+            List<List<String>> regdatas = pv.getRegData(regs,alltaskcode,mod,last5);
         }
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews");
     }
