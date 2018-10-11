@@ -295,10 +295,21 @@ define(function (require,exports,module) {
                 var reg=/^\d{6}$/;
                 var r= begintime.match(reg);
                 var s= endtime.match(reg);
+                var sub = begintime.substring(begintime.length-2);
+                if(sub == "00"||parseInt(sub)>12){
+                    alert("您的时间格式有误")
+                    return;
+                }
+                var dsub = endtime.substring(endtime.length-2);
+                if(dsub == "00"||parseInt(dsub)>12){
+                    alert("您的时间格式有误")
+                    return;
+                }
                 if(r==null||s==null){
                     alert("您的时间格式有误");
                     return;
-                }else{
+                }
+                else{
                     var eyear = endtime.slice(0,4);
                     var byear = begintime.slice(0,4);
                     var eyear1 = parseInt(endtime.slice(4,6));
@@ -549,6 +560,11 @@ define(function (require,exports,module) {
                 var reg=/^\d{6}$/;
                 var r= timetext.match(reg);
                 if(r==null){
+                    alert("您的"+"月度"+"起始数据期格式有误")
+                    return;
+                }
+                var sub = timetext.substring(timetext.length-2);
+                if(sub == "00"||parseInt(sub)>12){
                     alert("您的"+"月度"+"起始数据期格式有误")
                     return;
                 }
