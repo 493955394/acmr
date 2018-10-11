@@ -8,11 +8,28 @@ define(function (require,exports,module) {
         pjax=require('pjax'),
         modal = require('modal'),
        // listjsp= require('listjsp'),
+        dragwidth = require('dragwidth'),
         AjaxMods = require('AjaxMods');
+
 
 
     var st = new Date().getTime();//时间戳
 
+    $("#mainpanel").dragwidth();
+    autodrag();
+    $(window).resize(function(){
+        autodrag();
+    });
+    function autodrag(){
+        $(".right-panel").css('height','auto');
+        var rch = $(window).height() - $('.tops').outerHeight();
+        if($(".right-panel").height() <= rch){
+            $(".right-panel").height(rch);
+            $(".left-panel, .dragline").height(rch);
+        }else{
+            $(".left-panel, .dragline").height($(".right-panel").height());
+        }
+    }
 
     /**
      * 搜索框

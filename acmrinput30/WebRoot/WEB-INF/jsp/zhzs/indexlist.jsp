@@ -44,8 +44,8 @@
             </div>
         </div>
     </div>
-            <!-- 新增目录 -->
-            <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <!-- 新增目录 -->
+    <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <form class="form-horizontal J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insertcate">
@@ -88,8 +88,8 @@
 
                 </div>
             </div>
-            <!-- 新增计划 -->
-            <div class="modal" id="mymodal-data1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <!-- 新增计划 -->
+    <div class="modal" id="mymodal-data1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <form class="form-horizontal J_add_plan"  action="${ctx}/zbdata/indexlist.htm?m=insertplan">
@@ -140,8 +140,8 @@
 
                 </div>
             </div>
-            <!-- 复制到 -->
-            <div class="modal" id="mymodal-data2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <!-- 复制到 -->
+    <div class="modal" id="mymodal-data2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <form class="form-horizontal J_add_cope" action="${ctx}/zbdata/indexlist.htm?m=copy">
