@@ -288,7 +288,7 @@
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <input type="text" id="select-input" class="col-xs-8">
-                                        <button class="btn btn-default btn-sm col-xs-3 right-select" type="button" style="margin-left: 3px">搜索</button>
+                                        <button class="btn btn-primary btn-sm col-xs-3 right-select" type="button" style="margin-left: 3px">搜索</button>
                                     </div>
                                         <div id="selectList" class="list-group" ></div>
                                     <ul id="treeRight" class="ztree"></ul>
@@ -296,7 +296,7 @@
                             </div>
                             <div class="col-sm-2" style="text-align: center">
                                 <div class="btn-group-vertical" role="group">
-                                    <div class="clearfix" style="height: 50px"></div>
+                                    <div class="clearfix" style="height: 30px"></div>
                                     <button class="btn btn-default btn-lg  right-add" style="border-style:solid;border-width:1px;border-color:#FF7F19;"><span style="color: #FF7F19;">></span></button>
                                     <%--<button type="button" class="btn btn-default right-add"> ></button>--%>
                                     <div class="clearfix" style="height: 30px"></div>
