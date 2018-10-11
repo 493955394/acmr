@@ -335,6 +335,7 @@ define(function (require,exports,module) {
             dataType: 'json',
             success:function(data){
                 if(data.returncode == 200){
+                    alert("启用成功")
                     window.location.reload(true);
                 }else{
                     console.log(data)
