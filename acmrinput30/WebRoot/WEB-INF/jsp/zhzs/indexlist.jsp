@@ -306,11 +306,11 @@
                             </div>
                             <div class="col-sm-5 panel panel-default">
                                 <div class="toolbar">
-                                    <div class="toolbar-left">
-                                        <span>组织/用户</span>
+                                    <div class="toolbar-left col-md-offset-1 col-md-4">
+                                        <span style="text-align: center">组织/用户</span>
                                     </div>
-                                    <div class="toolbar-right">
-                                        <span>权限</span>
+                                    <div class="toolbar-right col-md-4">
+                                        <span style="text-align: center">权限</span>
                                     </div>
                                 </div>
                                 <div class="panel-body">
