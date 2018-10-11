@@ -11,6 +11,11 @@
 <head>
     <title>Title</title>
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
+    <style type="text/css">
+        .glyphicon{
+            color:#FF7F19;
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
@@ -20,17 +25,18 @@
             <div class="panel-body">
                 <div>
                     <!-- Nav tabs -->
-                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <ul class="nav nav-pills nav-justified" role="tablist">
                         <li role="presentation" class="active"><a href="#qzsz" aria-controls="qzsz" role="tab" data-toggle="tab">权重设置</a></li>
                         <li role="presentation"><a href="#yssj" aria-controls="yssj" role="tab" data-toggle="tab">原始数据</a></li>
                         <li role="presentation"><a href="#jsjg" aria-controls="jsjg" role="tab" data-toggle="tab">计算结果</a></li>
                         <li role="presentation">
                             <c:if test="${right!='0'}">
-                                <button type="button" class="btn btn-default" id="recalculate">重新计算</button>
-                                <button type="button" class="btn btn-default" id="resetpage">重置</button>
-                                <button type="button" class="btn btn-default" id="save_calculate">保存并重新计算</button>
+                                &nbsp;&nbsp;&nbsp;
+                                <button type="button" class="btn btn-default btn-sm" id="recalculate"><i class="glyphicon glyphicon-retweet"></i>重新计算</button>
+                                <button type="button" class="btn btn-default btn-sm" id="resetpage"><i class="glyphicon glyphicon-refresh"></i>重置</button>
+                                <button type="button" class="btn btn-default btn-sm" id="save_calculate"><i class="glyphicon glyphicon-floppy-saved"></i>保存并重新计算</button>
                             </c:if>
-                            <button type="button" class="btn btn-default" id="goback">关闭</button>
+                            <button type="button" class="btn btn-default btn-sm" id="goback"><i class="glyphicon glyphicon-remove"></i>关闭</button>
                         </li>
                     </ul>
                 </div>
@@ -45,14 +51,14 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="yssj">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <button type="button" class="btn btn-default" id="data_download">下载</button>
+                            <div class="col-md-offset-9">
+                                <button type="button" class="btn btn-default btn-sm" id="data_download"><i class="glyphicon glyphicon-download"></i>下载</button>
                                 <input type="hidden" class="istmpdata" value="${istmp}">
                                 <c:if test="${right!='0'}">
-                                    <span class="btn btn-default fileinput-button"><span>上传数据</span><input type="file" name="file" id="data_upload"></span>
+                                    <span class="btn btn-default btn-sm fileinput-button"><span><i class="glyphicon glyphicon-upload"></i>上传数据</span><input type="file" name="file" id="data_upload"></span>
                                     <span id="import_count" class="form-group" style="margin-right:10px;"></span>
                                     <%--<button type="button" class="btn btn-default" id="data_upload">上传数据</button>--%>
-                                    <button type="button" class="btn btn-default" id="data_reload">重新读取数据</button>
+                                    <button type="button" class="btn btn-default btn-sm" id="data_reload"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;重新读取数据</button>
                                     <input type="hidden" class="reloaddata" value="${taskcode}">
                                 </c:if>
                             </div>
@@ -64,8 +70,8 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="jsjg">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <button class="btn btn-default" id="result_download">下载数据</button>
+                            <div class="col-md-offset-10">
+                                <button class="btn btn-default btn-sm" id="result_download"><i class="glyphicon glyphicon-download"></i>下载数据</button>
                             </div>
                         <div class="calculate_result">
                             <jsp:include page="/WEB-INF/jsp/zhzs/zstask/tbdataresult.jsp" flush="true"/>
