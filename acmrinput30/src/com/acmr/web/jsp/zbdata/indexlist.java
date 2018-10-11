@@ -924,13 +924,71 @@ public class indexlist extends BaseAction {
      */
     public void searchList() throws IOException{
         RightControlService rightControlService = new RightControlService();
-        HttpServletRequest req=this.getRequest();
-        String keyword=PubInfo.getString(req.getParameter("keyword"));
-        String icode=PubInfo.getString(req.getParameter("icode"));
+        HttpServletRequest req = this.getRequest();
+        String keyword = PubInfo.getString(req.getParameter("keyword"));
+        String icode = PubInfo.getString(req.getParameter("icode"));
+        String id = PubInfo.getString(req.getParameter("id"));
+        String sort = PubInfo.getString(req.getParameter("sort"));
         IndexListService indexListService =new IndexListService();
         String createuser = indexListService.getData(icode).getCreateuser();//搜索结果排除计划创建人
-        List<Map<String,String>> datas = rightControlService.getSearchList(StringUtil.toLowerString(keyword),createuser);
+        List<Map<String,String>> datas = new ArrayList<>();
+        if (!StringUtil.isEmpty(id)) {
+            List<Map<String,String>> temp = rightControlService.getSearchList(StringUtil.toLowerString(keyword),createuser);
+            if(sort.equals("true")){ //要是树点击的是组织，就要去查
+                List<String> treeDepList = new ArrayList<>();
+                treeDepList.add(id);
+                treeDepList.addAll(getAllDepSubs(id));
+                List<String> treeUserList = getAllUserSubs(treeDepList,createuser);
+                for (int i = 0; i <temp.size() ; i++) {
+                    if(treeDepList.contains(temp.get(i).get("depusercode"))&&temp.get(i).get("sort").equals("1")){//code对上并且是组织
+                        datas.add(temp.get(i));
+                    }
+                    if(treeUserList.contains(temp.get(i).get("depusercode"))&&temp.get(i).get("sort").equals("2")){//code对上并且是用户
+                        datas.add(temp.get(i));
+                    }
+                }
+            }
+           else{
+                for (int i = 0; i <temp.size() ; i++) {
+                    if(id.equals(temp.get(i).get("depusercode"))&&temp.get(i).get("sort").equals("2")){//code对上并且是用户
+                        datas.add(temp.get(i));
+                    }
+                }
+            }
+
+        }
+        else{
+            datas = rightControlService.getSearchList(StringUtil.toLowerString(keyword),createuser);
+        }
         this.sendJson(datas);
+    }
+
+    /**
+     * 给某组织的id获取该组织下的所有组织，包括它下级的下级
+     */
+    public static List<String> getAllDepSubs(String procode){
+        List<String> lists = new ArrayList<>();
+        List<ZTreeNode> temp = new DepartmentService().getSubDepartments(procode);
+        for (int i = 0; i <temp.size() ; i++) {
+            lists.add(temp.get(i).getId());
+            if(temp.get(i).isIsParent()){
+                lists.addAll(getAllDepSubs(temp.get(i).getId()));
+            }
+        }
+        return lists;
+    }
+
+    public List<String> getAllUserSubs(List<String> procodes,String createuser){
+        List<String> lists = new ArrayList<>();
+        for (int i = 0; i <procodes.size() ; i++) {
+            List<User> ifHasUsers = new UserService().getDepUsers(procodes.get(i));
+            for (int j = 0; j <ifHasUsers.size() ; j++) {
+                if(!ifHasUsers.get(j).getUserid().equals(createuser)){
+                    lists.add(ifHasUsers.get(j).getUserid());
+                }
+            }
+        }
+        return lists;
     }
 
     /**
