@@ -283,6 +283,8 @@ public class indexlist extends BaseAction {
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
         String cname = PubInfo.getString(req.getParameter("plancname"));
         String procode = PubInfo.getString(req.getParameter("idplan"));
+        String oldpro = PubInfo.getString(req.getParameter("getoldplan"));
+        String proname = PubInfo.getString(req.getParameter("proname"));
         String sort = PubInfo.getString(req.getParameter("sort"));
         String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         //String createuser = "usercode01";
@@ -294,7 +296,12 @@ public class indexlist extends BaseAction {
         indexList.setIfdata(ifdata1);
         indexList.setCreateuser(createuser);
         indexList.setCname(cname);
-        indexList.setProcode(procode);
+        if(proname.equals("")){
+            indexList.setProcode(oldpro);
+        }else{
+            indexList.setProcode(procode);
+        }
+
         indexList.setSort(sort);
         indexList.setState(state);
         indexList.setCreatetime(createtime);
@@ -365,38 +372,48 @@ public class indexlist extends BaseAction {
         IndexListService indexListService = new IndexListService();
         data.setReturncode(200);
         String oldcode = PubInfo.getString(req.getParameter("oldcode"));
-        String oldname = PubInfo.getString(req.getParameter("oldname"));
+        //String oldname = PubInfo.getString(req.getParameter("oldname"));
+        String oldpro = PubInfo.getString(req.getParameter("oldeditpro"));
+        String oldproname = PubInfo.getString(req.getParameter("oldproname"));
         String code = PubInfo.getString(req.getParameter("editcode"));
         String name = PubInfo.getString(req.getParameter("editcname"));
         String procode = PubInfo.getString(req.getParameter("editprocode"));
-        if (procode.equals("")) {
+        /*if (procode.equals("")) {
             data.setReturncode(300);
             this.sendJson(data);
             return;
         } else {
             data.setReturncode(200);
-        }
+        }*/
 
-        if(oldcode.equals(code) && oldname.equals(name)){
+        /*if(oldcode.equals(code) && oldname.equals(name)){
             IndexList indexList = indexListService.getData(oldcode);
             //IndexList indexList = new IndexList();
             //indexList.setCode(code);
             indexList.setProcode(procode);
             indexListService.updateCate(oldcode,indexList);
-        }else if(oldcode.equals(code) && !oldname.equals(name)){
-            IndexList indexList = indexListService.getData(oldcode);
-            //indexList.setCode(code);
-            indexList.setCname(name);
-            indexList.setProcode(procode);
-            indexListService.updateCate(oldcode,indexList);
-        }else{
-            IndexList indexList = indexListService.getData(oldcode);
-            indexList.setCode(code);
-            indexList.setCname(name);
-            indexList.setProcode(procode);
-            indexListService.addCp(indexList);
+            }else if(oldcode.equals(code) && !oldname.equals(name)){
+                IndexList indexList = indexListService.getData(oldcode);
+                //indexList.setCode(code);
+                indexList.setCname(name);
+                indexList.setProcode(procode);
+                indexListService.updateCate(oldcode,indexList);
+                 }else{
+                    IndexList indexList = indexListService.getData(oldcode);
+                    indexList.setCode(code);
+                    indexList.setCname(name);
+                    indexList.setProcode(procode);
+                    indexListService.addCp(indexList);
+        }*/
+        IndexList indexList = indexListService.getData(oldcode);
+        if(oldproname.equals("")){
+            indexList.setProcode(oldpro);
+            }else{
+                indexList.setProcode(procode);
         }
-
+        indexList.setCode(code);
+        indexList.setCname(name);
+        indexListService.updateCate(oldcode,indexList);
         data.setReturndata("");
         this.sendJson(data);
     }

@@ -168,7 +168,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             List<DataTableRow> rows3=table3.getRows();
             for (int r=0;r<rows3.size();r++){
                 String orprocode=rows3.get(r).getString("procode");
-                String copycode=rows3.get(r).getString("copycode");
+                //String copycode=rows3.get(r).getString("copycode");
                 String code = rows3.get(r).getString("code");
 
                 if (orprocode!=""){
@@ -390,8 +390,9 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     //编辑目录
     @Override
     public int updateCategory(String code,IndexList indexList) {
-        String sql1 = "update tb_coindex_index set cname=?,procode=?,updatetime=? where code=?";
+        String sql1 = "update tb_coindex_index set code=?,cname=?,procode=?,updatetime=? where code=?";
         List<Object> params = new ArrayList<Object>();
+        params.add(indexList.getCode());
         params.add(indexList.getCname());
         params.add(indexList.getProcode());
         params.add(new Timestamp(new java.util.Date().getTime()));
