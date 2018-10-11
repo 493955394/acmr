@@ -286,7 +286,7 @@
                             <div class="clearfix" style="height: 30px"></div>
                             <button class="btn btn-default btn-lg" id="delall" style="border-style:solid;border-width:1px;border-color:#FF7F19;background-color: #FF7F19;"><span style="color: white"><<</span></button>
                         </div>
-                        <div class="col-xs-3" style="padding-top:30px">
+                        <div class="col-xs-2" style="padding-top:30px">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">地区列表</div>
                             </div>
@@ -299,7 +299,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-5" style="border:#E4EDF6;padding-left: 20px;padding-right: 20px;padding-top:30px">
+                        <div class="col-xs-6" style="border:#E4EDF6;padding-left: 20px;padding-right: 20px;padding-top:30px">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
                             </div>
@@ -374,14 +374,6 @@
 </body>
 <script>
     define("editjsp",function (require,exports,module) {
-        var indexlist=[];
-        <c:forEach items="${indexlist}" var="index">
-        if (${index.getIfdata()=='0'}){
-        if(${index.getProcode()!=null})
-            indexlist.push({id:"${index.getCode()}",pId:"${index.getProcode()}",name:"${index.getCname()}",isPrent:!${index.getIfdata()},sou:!${index.getIfdata()}})
-        else indexlist.push({id:"${index.getCode()}",pId:"#1",name:"${index.getCname()}",isParent:!${index.getIfdata()},sou:!${index.getIfdata()}})
-    }
-        </c:forEach>
         var zbs=[];
         <c:forEach items="${zbs.zbchoose}" var="zb">
         zbs.push({
@@ -397,7 +389,6 @@
         })
         </c:forEach>
         module.exports={
-            indexlist:indexlist,
             zbs:zbs
         }
     })

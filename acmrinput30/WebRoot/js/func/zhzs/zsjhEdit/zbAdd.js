@@ -355,7 +355,28 @@ define(function (require,exports,module) {
         var unitname=zb[8].innerHTML.split("：")[1]
         var unitcode=zb[4].defaultValue*/
         $(".panel_zbname ").attr("code",zbcode).html(zbname)
+        /*console.log($("option [class='" +
+            unitcode+"'"))
+        $("option [class='" +
+            cocode+"']").selected=true
+        $("option [class='" +
+            dscode+"']").selected=true
+        $("option [class='" +
+            unitcode+"']").selected=true*/
+        $.ajaxSettings.async=false
+        //指标回显
         zbclick([zbcode,zbname],false)
+        var cocode=$(this).children()[0].children[2].value
+        var dscode=$(this).children()[0].children[3].value
+        var unitcode=$(this).children()[0].children[4].value
+        console.log(unitcode)
+        $("#unit_select").find("option[class='" +
+            unitcode+"']").attr("selected",true);
+        $("#co_select").find("option[class='" +
+            cocode+"']").attr("selected",true);
+        $("#ds_select").find("option[class='" +
+            dscode+"']").attr("selected",true);
+
     }
 
     function zbSave(event){

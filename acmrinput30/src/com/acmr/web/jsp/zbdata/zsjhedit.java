@@ -980,23 +980,52 @@ public class zsjhedit extends BaseAction {
         HttpServletRequest req = this.getRequest();
         ArrayList<IndexMoudle> mods= new ArrayList<IndexMoudle>();
         // 获取查询数据
+        IndexListService indexListService =new IndexListService();
         String zs_code = StringUtil.toLowerString(req.getParameter("zs_code"));
         String zs_cname = StringUtil.toLowerString(req.getParameter("zs_cname"));
+        String id = req.getParameter("id");
         String icode = req.getParameter("icode");
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
+        List<String> treeList = new ArrayList<>() ;
+        if (!StringUtil.isEmpty(id)) {//获取这棵树下的子节点的所有下节点的code
+            List<IndexMoudle> temp = new IndexEditService().getAllMods(id,icode);
+            treeList.add(id);
+            for (int i = 0; i <temp.size() ; i++) {
+                treeList.add(temp.get(i).getCode());
+            }
+        }
         if (!StringUtil.isEmpty(zs_code)) {
-            mods= new IndexEditService().found(0,zs_code,icode);
+            if(treeList.size()>0){
+                List<IndexMoudle> temp = new IndexEditService().found(0,zs_code,icode);
+                for (int i = 0; i <temp.size() ; i++) {
+                    if(treeList.contains(temp.get(i).getCode())){
+                        mods.add(temp.get(i));
+                    }
+                }
+            }else{
+                mods= new IndexEditService().found(0,zs_code,icode);
+            }
         }
         if (!StringUtil.isEmpty(zs_cname)) {
-            mods= new IndexEditService().found(1,zs_cname,icode);
+            if(treeList.size()>0){
+                List<IndexMoudle> temp = new IndexEditService().found(1,zs_cname,icode);
+                for (int i = 0; i <temp.size() ; i++) {
+                    if(treeList.contains(temp.get(i).getCode())){
+                        mods.add(temp.get(i));
+                    }
+                }
+            }else{
+             mods= new IndexEditService().found(1,zs_cname,icode);
+            }
         }
         Map<String, String> codes = new HashMap<String, String>();
         codes.put("zs_code", zs_code);
         codes.put("zs_cname", zs_cname);
+
         if (StringUtil.isEmpty(pjax)) {
             JSONObject zbs=getZBS(icode);
-            IndexListService indexListService=new IndexListService();
+
             IndexList list =indexListService.getData(icode);
             String proname = null;
             String procode = list.getProcode();

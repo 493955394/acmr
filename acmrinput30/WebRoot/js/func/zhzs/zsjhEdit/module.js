@@ -186,4 +186,35 @@ define(function (require,exports,module) {
         var code = $(this).parent().prevAll()[6].innerHTML
         window.open(common.rootPath+'zbdata/zsjhedit.htm?m=toEditShow&indexCode='+indexCode+'&code='+code);
     }
+
+    /**
+     * 模型规划搜索框
+     */
+    var delIds = [];
+    var isMove = true;
+    var searchField = "";
+    $(document).on('submit', '.J_search_form', function(event) {
+        event.preventDefault();
+        var self = this,
+            requestUrl = $(self).prop('action'),
+            key = $('select',self).val(),
+            val = $('input',self).val(),
+            str = "&id=";
+        var requestData = common.formatData(key,val);
+        if(requestData.length>0){
+            requestData="&"+requestData;
+        }
+        if(choosedprocode.length>0){
+            str += choosedprocode;
+        }
+        searchField = requestData+str;
+        isMove = false;
+        $.pjax({
+            url: requestUrl+searchField+'&icode='+indexCode,
+            container: '.J_zsjh_module_table'
+        });
+        $(document).on('pjax:success', function() {
+            delIds = [];
+        });
+    });
 })

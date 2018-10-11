@@ -124,16 +124,18 @@ define(function (require,exports,module) {
 
         for (var i=0;i<codes.length;i++){
             var pcode=codes[i]
+            console.log("pcode:"+pcode)
             var values=[]
-            var value=$("input[class*="+pcode+"]").each(function () {
+            $("input[class~="+pcode+"]").each(function () {
                 values.push($(this).val())
+                console.log($(this).val())
             })
             var sum=parseFloat("0")
             for (var j=0;j<values.length;j++){
                 sum=parseFloat(sum)+parseFloat(values[j].valueOf())
             }
             sum=sum.toFixed(1)
-            //console.log(sum)
+            console.log(sum)
             if (sum!=1){
                 console.log(codes[i])
                 alert("同一级别权重和必须为1")
