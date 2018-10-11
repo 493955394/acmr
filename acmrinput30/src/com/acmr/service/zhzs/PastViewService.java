@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class PastViewService {
-    PastViewService pv = new PastViewService();
+
     /**
      * 获取所有任务code
      * @author wf
@@ -64,7 +64,7 @@ public class PastViewService {
         //List<String> alltaskcode = pv.getAllTask(icode);
         DataTable table= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskZb(taskcode);
         List<DataTableRow> list=table.getRows();
-        String regions  = list.get(5).getString("regions");
+        String regions  = list.get(0).get(5).toString();
         pastregs= Arrays.asList(regions.split(","));
         return pastregs;
     }
@@ -146,13 +146,14 @@ public class PastViewService {
      */
     public List<Map> getAllMods (List<String> alltaskcode){
         //OriginDataService od = new OriginDataService();
+        PastViewService pv = new PastViewService();
         String singlecode = alltaskcode.get(0);
         List<Map> singlemod = pv.getModelTree(singlecode);
         //拿单组节点作对比再添加
         List<Map> allmods =  new ArrayList<>();
         for(int y=0;y<singlemod.size();y++){
             Map arr = new HashMap();
-            arr.put("name",singlemod.get(y).get("code").toString());
+            arr.put("name",singlemod.get(y).get("name").toString());
             arr.put("code",singlemod.get(y).get("code").toString());
             //String modcode = singlemod.get(y).get("code").toString();
             allmods.add(arr);
@@ -162,17 +163,24 @@ public class PastViewService {
         for(int i=0;i<alltaskcode.size();i++){
             List<Map> arr = pv.getModelTree(alltaskcode.get(i));
             //List<String> mods = new ArrayList<>();
-            for(int j=0;j<arr.size();j++){
+            for(int j=0;j<arr.size();j++) {
                 String mod = arr.get(j).get("code").toString();
                 //mods.add(mod);
-                for(int k=0;k<allmods.size();k++){
-                    if(!mod.equals(allmods.get(k).get("code").toString())){
-                        Map arr1 = new HashMap();
-                        arr1.put("name",arr.get(j).get("name").toString());
-                        arr1.put("code",arr.get(j).get("code").toString());
-                        allmods.add(arr1);
+
+                for (int k = 0; k < allmods.size(); k++) {
+                    String oldmod = allmods.get(k).get("code").toString();
+                    if(!mod.equals(oldmod)){
+                        continue;
+                    }else if(mod.equals(allmods.get(k).get("code").toString())){
+                            break;
+                            }
+                    Map arr1 = new HashMap();
+                    arr1.put("name", arr.get(j).get("name").toString());
+                    arr1.put("code", arr.get(j).get("code").toString());
+                    allmods.add(arr1);
+
                     }
-                }
+
             }
 
         }
@@ -185,27 +193,28 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<List<String>> getModData(String reg,List<String> alltaskcode,List<Map> allmod){
+    public List<List<String>> getModData(String reg,List<String> alltaskcode,List<Map> allmod,List<String> last5){
+        PastViewService pv = new PastViewService();
         List<List<String>> moddatas = new ArrayList<>();
 
         for(int i=0;i<allmod.size();i++){
             String zbcode = allmod.get(i).get("code").toString();
             //List<String> zbdata = new ArrayList<>();
+            List<String> datas = new ArrayList<>();
+            String zbname = allmod.get(i).get("name").toString();
+            datas.add(zbname);
             for(int j=0;j<alltaskcode.size();j++){
-                List<String> last5 = pv.getAllTime(alltaskcode.get(j)).subList(0,4);
-                List<String> datas = new ArrayList<>();
-                String zbname = allmod.get(i).get("name").toString();
-                datas.add(zbname);
+                //List<String> last5 = pv.getAllTime(alltaskcode.get(j)).subList(0,5);
+
                 for (int k=0;k<last5.size();k++){
                     String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(alltaskcode.get(j),zbcode,reg,last5.get(k));
-                    datas.add(data);
-                    if(data == null){
-                        data = ("");
+
+                    if(data != null){
                         datas.add(data);
                     }
                 }
-                moddatas.add(datas);
             }
+            moddatas.add(datas);
         }
         return moddatas;
     }
@@ -216,14 +225,14 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<List<String>> getRegData(List<String> regs,List<String> alltaskcode,String mod){
+    public List<List<String>> getRegData(List<String> regs,List<String> alltaskcode,String mod,List<String> last5){
         OriginService originService=new OriginService();
+        PastViewService pv = new PastViewService();
         List<List<String>> regdatas = new ArrayList<>();
         for(int i=0;i<regs.size();i++){
             String regioncode = regs.get(i);
             //List<String> zbdata = new ArrayList<>();
             for(int j=0;j<alltaskcode.size();j++){
-                List<String> last5 = pv.getAllTime(alltaskcode.get(j)).subList(0,4);
                 List<String> datas = new ArrayList<>();
                 String regname = originService.getwdnode("reg",regioncode).getName();
                 datas.add(regname);
