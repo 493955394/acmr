@@ -41,7 +41,7 @@
                 <h4>编辑指数计划</h4>
             </div>
             <div class="panel-body">
-                <div>
+                <div id="top_div">
                         <!-- Nav tabs -->
                         <ul class="nav nav-pills nav-justified" role="tablist">
                             <li role="presentation" class="active"><a href="#jbxx" aria-controls="jbxx" role="tab" data-toggle="tab">基本信息</a></li>

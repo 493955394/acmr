@@ -44,8 +44,8 @@
             </div>
         </div>
     </div>
-            <!-- 新增目录 -->
-            <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <!-- 新增目录 -->
+    <div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <form class="form-horizontal J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insertcate">
@@ -80,16 +80,16 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                                 <button type="submit" class="btn btn-primary">确定</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                             </div>
                         </form>
                     </div>
 
                 </div>
             </div>
-            <!-- 新增计划 -->
-            <div class="modal" id="mymodal-data1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <!-- 新增计划 -->
+    <div class="modal" id="mymodal-data1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <form class="form-horizontal J_add_plan"  action="${ctx}/zbdata/indexlist.htm?m=insertplan">
@@ -116,6 +116,7 @@
                                     <div class="col-sm-5">
                                         <input type="text" class="form-control" name="planname" value="" disabled>
                                         <input type="hidden" class="form-control" name="idplan"  value="">
+                                        <input type="hidden" class="form-control" name="getoldplan"  value="">
                                         <ul id="treePlan" class="ztree select-tree hid-top"></ul>
                                     </div>
                                 </div>
@@ -132,16 +133,16 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                                 <button type="submit" class="btn btn-primary">确定</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                             </div>
                         </form>
                     </div>
 
                 </div>
             </div>
-            <!-- 复制到 -->
-            <div class="modal" id="mymodal-data2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <!-- 复制到 -->
+    <div class="modal" id="mymodal-data2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <form class="form-horizontal J_add_cope" action="${ctx}/zbdata/indexlist.htm?m=copy">
@@ -174,8 +175,8 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                                 <button type="submit" class="btn btn-primary" >确定</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                                 <%--<input type='button'  name="plancode" value='复制到' onclick="show()"/>--%>
                             </div>
                         </form>
@@ -216,8 +217,8 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                         <button type="submit" class="btn btn-primary" >确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     </div>
                 </form>
             </div>
@@ -229,7 +230,7 @@
             <div class="modal-content">
                 <form  class="form-horizontal J_add_edit" action="${ctx}/zbdata/indexlist.htm?m=editCate">
                     <input type="hidden" class="form-control" name="oldcode" value="">
-                    <input type="hidden" class="form-control" name="oldname" value="">
+
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <h4 class="modal-title">编辑目录</h4>
@@ -254,14 +255,16 @@
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" name="editname" value="" disabled>
                                 <input type="hidden" class="form-control" name="editprocode"  value="">
+                                <input type="hidden" class="form-control" name="oldeditpro"  value="">
+                                <input type="hidden" class="form-control" name="oldproname" value="">
                                 <ul id="treeEditc" class="ztree select-tree hid-top"></ul>
                             </div>
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                         <button type="submit" class="btn btn-primary" name="plancode" >确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                         <%--<input type='button'  name="plancode" value='复制到' onclick="show()"/>--%>
                     </div>
                 </form>
@@ -285,7 +288,7 @@
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <input type="text" id="select-input" class="col-xs-8">
-                                        <button class="btn btn-default btn-sm col-xs-3 right-select" type="button" style="margin-left: 3px">搜索</button>
+                                        <button class="btn btn-primary btn-sm col-xs-3 right-select" type="button" style="margin-left: 3px">搜索</button>
                                     </div>
                                         <div id="selectList" class="list-group" ></div>
                                     <ul id="treeRight" class="ztree"></ul>
@@ -293,7 +296,7 @@
                             </div>
                             <div class="col-sm-2" style="text-align: center">
                                 <div class="btn-group-vertical" role="group">
-                                    <div class="clearfix" style="height: 50px"></div>
+                                    <div class="clearfix" style="height: 30px"></div>
                                     <button class="btn btn-default btn-lg  right-add" style="border-style:solid;border-width:1px;border-color:#FF7F19;"><span style="color: #FF7F19;">></span></button>
                                     <%--<button type="button" class="btn btn-default right-add"> ></button>--%>
                                     <div class="clearfix" style="height: 30px"></div>
@@ -303,11 +306,11 @@
                             </div>
                             <div class="col-sm-5 panel panel-default">
                                 <div class="toolbar">
-                                    <div class="toolbar-left">
-                                        <span>组织/用户</span>
+                                    <div class="toolbar-left col-md-offset-1 col-md-4">
+                                        <span style="text-align: center">组织/用户</span>
                                     </div>
-                                    <div class="toolbar-right">
-                                        <span>权限</span>
+                                    <div class="toolbar-right col-md-4">
+                                        <span style="text-align: center">权限</span>
                                     </div>
                                 </div>
                                 <div class="panel-body">

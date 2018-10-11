@@ -11,7 +11,24 @@ define(function (require,exports,module) {
         modal = require('modal'),
         tab = require('tab'),
         zbAdd=require('js/func/zhzs/zsjhEdit/zbAdd'),
-        editjsp = require('editjsp');
+        editjsp = require('editjsp'),
+        dragwidth = require('dragwidth');
+
+    $("#zssx").dragwidth();
+    autodrag();
+    $(window).resize(function(){
+        autodrag();
+    });
+    function autodrag(){
+        $(".right-panel").css('height','auto');
+        var rch = $(window).height() - $('.top_div').outerHeight();
+        if($(".right-panel").height() <= rch){
+            $(".right-panel").height(rch);
+            $(".left-panel, .dragline").height(rch);
+        }else{
+            $(".left-panel, .dragline").height($(".right-panel").height());
+        }
+    }
 
     var incode=$("#index_code").val();
     var select = [];
@@ -19,7 +36,9 @@ define(function (require,exports,module) {
     var timesort = $("#index_sort option:selected").val();
     //默认选中第一个指标
     $(document).ready(function () {
-        $(".zb_panel")[0].click()
+        if ($(".zb_panel").length>0){
+            $(".zb_panel")[0].click()
+        }
     })
 
     var zNodes =[

@@ -67,7 +67,7 @@ define(function (require,exports,module) {
                     var html = "";
                     html += "<li class='list-group-item' data-uid='" + data[i].depusercode + "' data-sort='" + data[i].sort + "' data-cuser='" + data[i].createuser + "'>"+ data[i].depusername+ "";
                     html += "<span class='fr'><select id='J_right_"+i+"'><option value='2'>管理</option><option value='1'>协作</option><option value='0'>只读</option></select>";
-                    html += "<a class='glyphicon glyphicon-remove' onclick='delRemove(this)'></a></span></li>";
+                    html += "&nbsp;&nbsp;&nbsp;<a onclick='delRemove(this)'><i class='glyphicon glyphicon-remove' style='color: #FF7F19;'></i></a></span></li>";
                     $(".right-list").append(html);
                     $('#J_right_'+i+'').find("option[value='"+data[i].right+"']").attr("selected",true);
                 }
@@ -121,7 +121,7 @@ define(function (require,exports,module) {
             var temp ="";
             html += "<li class='list-group-item' data-uid='" + thisid + "' data-sort='" + thissort + "' data-cuser='" + currentuser + "'>"+ thisname+ "";
             html += "<span class='fr'><select><option value='2'>管理</option><option value='1'>协作</option><option value='0'>只读</option></select>";
-            html += "<a class='glyphicon glyphicon-remove' onclick='delRemove(this)'></a></span></li>";
+            html += "&nbsp;&nbsp;&nbsp;<a onclick='delRemove(this)'><i class='glyphicon glyphicon-remove' style='color: #FF7F19;'></i></a></span></li>";
             $(".right-list").append(html);
     })
 
@@ -153,7 +153,7 @@ define(function (require,exports,module) {
             }
             html += "<li class='list-group-item' data-uid='" + treeNodeId + "' data-sort='" + temp + "' data-cuser='" + currentuser + "'>"+ treeNodeName+ "";
             html += "<span class='fr'><select><option value='2'>管理</option><option value='1'>协作</option><option value='0'>只读</option></select>";
-            html += "<a class='glyphicon glyphicon-remove' onclick='delRemove(this)'></a></span></li>";
+            html += "&nbsp;&nbsp;&nbsp;<a onclick='delRemove(this)'><i class='glyphicon glyphicon-remove' style='color: #FF7F19;'></i></a></span></li>";
             $(".right-list").append(html);
         }
     })

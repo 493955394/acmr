@@ -284,6 +284,8 @@ public class indexlist extends BaseAction {
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
         String cname = PubInfo.getString(req.getParameter("plancname"));
         String procode = PubInfo.getString(req.getParameter("idplan"));
+        String oldpro = PubInfo.getString(req.getParameter("getoldplan"));
+        String proname = PubInfo.getString(req.getParameter("proname"));
         String sort = PubInfo.getString(req.getParameter("sort"));
         String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         //String createuser = "usercode01";
@@ -295,7 +297,12 @@ public class indexlist extends BaseAction {
         indexList.setIfdata(ifdata1);
         indexList.setCreateuser(createuser);
         indexList.setCname(cname);
-        indexList.setProcode(procode);
+        if(proname.equals("")){
+            indexList.setProcode(oldpro);
+        }else{
+            indexList.setProcode(procode);
+        }
+
         indexList.setSort(sort);
         indexList.setState(state);
         indexList.setCreatetime(createtime);
@@ -341,6 +348,120 @@ public class indexlist extends BaseAction {
         data1.setCode(code);
         data1.setCname(cname);
         data1.setProcode(nprocode);
+        String startpeirod = data1.getStartperiod();
+        String delayday = data1.getDelayday();
+        //生成plantime，planperiod
+        if (startpeirod.length()==4){
+            Calendar calendar=Calendar.getInstance();
+            calendar.set(Calendar.YEAR, Integer.parseInt(startpeirod)+1);
+            calendar.set(Calendar.MONTH,0);
+            calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(delayday));
+            calendar.set(Calendar.HOUR_OF_DAY,0);
+            calendar.set(Calendar.MINUTE,0);
+            calendar.set(Calendar.SECOND,0);
+            // calendar.set(Calendar.MILLISECOND,0);
+            Date time=calendar.getTime();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String plantime=df.format(time);
+            data1.setPlantime(plantime);
+            String planperiod=startpeirod;
+            data1.setPlanperiod(planperiod);
+
+        }
+        else if (startpeirod.length()==5){
+            String q=startpeirod.substring(4);
+            String year=startpeirod.substring(0,4);
+            Calendar calendar=Calendar.getInstance();
+            if (q.equals("D")){
+                calendar.set(Calendar.YEAR, Integer.parseInt(year)+1);
+                calendar.set(Calendar.MONTH,0);
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(delayday));
+                calendar.set(Calendar.HOUR_OF_DAY,0);
+                calendar.set(Calendar.MINUTE,0);
+                calendar.set(Calendar.SECOND,0);
+                Date time=calendar.getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String plantime=df.format(time);
+                data1.setPlantime(plantime);
+                String planperiod=startpeirod;
+                data1.setPlanperiod(planperiod);
+            }
+            else if (q.equals("A")){
+                calendar.set(Calendar.YEAR, Integer.parseInt(year));
+                calendar.set(Calendar.MONTH,3);
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(delayday));
+                calendar.set(Calendar.HOUR_OF_DAY,0);
+                calendar.set(Calendar.MINUTE,0);
+                calendar.set(Calendar.SECOND,0);
+                Date time=calendar.getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String plantime=df.format(time);
+                data1.setPlantime(plantime);
+                String planperiod=startpeirod;
+                data1.setPlanperiod(planperiod);
+            }
+            else if (q.equals("B")){
+                calendar.set(Calendar.YEAR, Integer.parseInt(year));
+                calendar.set(Calendar.MONTH,6);
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(delayday));
+                calendar.set(Calendar.HOUR_OF_DAY,0);
+                calendar.set(Calendar.MINUTE,0);
+                calendar.set(Calendar.SECOND,0);
+                Date time=calendar.getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String plantime=df.format(time);
+                data1.setPlantime(plantime);
+                String planperiod=startpeirod;
+                data1.setPlanperiod(planperiod);
+            }
+            else {
+                calendar.set(Calendar.YEAR, Integer.parseInt(year));
+                calendar.set(Calendar.MONTH,9);
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(delayday));
+                calendar.set(Calendar.HOUR_OF_DAY,0);
+                calendar.set(Calendar.MINUTE,0);
+                calendar.set(Calendar.SECOND,0);
+                Date time=calendar.getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String plantime=df.format(time);
+                data1.setPlantime(plantime);
+                String planperiod=startpeirod;
+                data1.setPlanperiod(planperiod);
+            }
+        }
+        else {
+            String year=startpeirod.substring(0,4);
+            String mon=startpeirod.substring(4);
+            Calendar calendar=Calendar.getInstance();
+            if (mon.equals("12")){
+                calendar.set(Calendar.YEAR, Integer.parseInt(year)+1);
+                calendar.set(Calendar.MONTH,0);
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(delayday));
+                calendar.set(Calendar.HOUR_OF_DAY,0);
+                calendar.set(Calendar.MINUTE,0);
+                calendar.set(Calendar.SECOND,0);
+                Date time=calendar.getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String plantime=df.format(time);
+                data1.setPlantime(plantime);
+                String planperiod=startpeirod;
+                data1.setPlanperiod(planperiod);
+            }
+            else {
+                calendar.set(Calendar.YEAR, Integer.parseInt(year));
+                calendar.set(Calendar.MONTH,Integer.parseInt(mon));
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(delayday));
+                calendar.set(Calendar.HOUR_OF_DAY,0);
+                calendar.set(Calendar.MINUTE,0);
+                calendar.set(Calendar.SECOND,0);
+                Date time=calendar.getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String plantime=df.format(time);
+                data1.setPlantime(plantime);
+                String planperiod=startpeirod;
+                data1.setPlanperiod(planperiod);
+            }
+        }
         //data1.setCreatetime(createtime);
         indexListService.addCopyplan(cpcode,data1);
         /*if (int1 == -1) {
@@ -366,38 +487,48 @@ public class indexlist extends BaseAction {
         IndexListService indexListService = new IndexListService();
         data.setReturncode(200);
         String oldcode = PubInfo.getString(req.getParameter("oldcode"));
-        String oldname = PubInfo.getString(req.getParameter("oldname"));
+        //String oldname = PubInfo.getString(req.getParameter("oldname"));
+        String oldpro = PubInfo.getString(req.getParameter("oldeditpro"));
+        String oldproname = PubInfo.getString(req.getParameter("oldproname"));
         String code = PubInfo.getString(req.getParameter("editcode"));
         String name = PubInfo.getString(req.getParameter("editcname"));
         String procode = PubInfo.getString(req.getParameter("editprocode"));
-        if (procode.equals("")) {
+        /*if (procode.equals("")) {
             data.setReturncode(300);
             this.sendJson(data);
             return;
         } else {
             data.setReturncode(200);
-        }
+        }*/
 
-        if(oldcode.equals(code) && oldname.equals(name)){
+        /*if(oldcode.equals(code) && oldname.equals(name)){
             IndexList indexList = indexListService.getData(oldcode);
             //IndexList indexList = new IndexList();
             //indexList.setCode(code);
             indexList.setProcode(procode);
             indexListService.updateCate(oldcode,indexList);
-        }else if(oldcode.equals(code) && !oldname.equals(name)){
-            IndexList indexList = indexListService.getData(oldcode);
-            //indexList.setCode(code);
-            indexList.setCname(name);
-            indexList.setProcode(procode);
-            indexListService.updateCate(oldcode,indexList);
-        }else{
-            IndexList indexList = indexListService.getData(oldcode);
-            indexList.setCode(code);
-            indexList.setCname(name);
-            indexList.setProcode(procode);
-            indexListService.addCp(indexList);
+            }else if(oldcode.equals(code) && !oldname.equals(name)){
+                IndexList indexList = indexListService.getData(oldcode);
+                //indexList.setCode(code);
+                indexList.setCname(name);
+                indexList.setProcode(procode);
+                indexListService.updateCate(oldcode,indexList);
+                 }else{
+                    IndexList indexList = indexListService.getData(oldcode);
+                    indexList.setCode(code);
+                    indexList.setCname(name);
+                    indexList.setProcode(procode);
+                    indexListService.addCp(indexList);
+        }*/
+        IndexList indexList = indexListService.getData(oldcode);
+        if(oldproname.equals("")){
+            indexList.setProcode(oldpro);
+            }else{
+                indexList.setProcode(procode);
         }
-
+        indexList.setCode(code);
+        indexList.setCname(name);
+        indexListService.updateCate(oldcode,indexList);
         data.setReturndata("");
         this.sendJson(data);
     }

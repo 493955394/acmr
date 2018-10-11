@@ -117,7 +117,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
             java.util.Date now = new java.util.Date();
-            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,createuser,createtime,updatetime,plantime) values(?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
+            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
             String icode = data1.getCode();
             String icname = data1.getCname();
             String iprocode = data1.getProcode();
@@ -126,20 +126,15 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             String isort = data1.getSort();
             String istartpeiod = data1.getStartperiod();
             String idelayday = data1.getDelayday();
-            //String iplanperiod = data1.getPlanperiod();
+            String iplanperiod = data1.getPlanperiod();
+            String iplantime = data1.getPlantime();
             String createtime = data1.getCreatetime().substring(0,data1.getCreatetime().length()-2);
-            /*String iplantime = data1.getPlantime();
-            String createtime = data1.getCreatetime();*/
             String createuser = data1.getCreateuser();
             java.sql.Timestamp updatetime = new java.sql.Timestamp(now.getTime());
+
             //Object up = new Timestamp(new Date().getTime());
-             if(data1.getPlantime()!=null){
-                 String iplantime = data1.getPlantime().substring(0,data1.getPlantime().length()-2);
-                 dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,createuser,createtime,updatetime,iplantime});
-             }else{
-                 String iplantime = data1.getPlantime();
-                 dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,createuser,createtime,updatetime,iplantime});
-             }
+            dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplanperiod,iplantime,createuser,createtime,updatetime});
+
 
 
             //复制模型
@@ -168,7 +163,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             List<DataTableRow> rows3=table3.getRows();
             for (int r=0;r<rows3.size();r++){
                 String orprocode=rows3.get(r).getString("procode");
-                String copycode=rows3.get(r).getString("copycode");
+                //String copycode=rows3.get(r).getString("copycode");
                 String code = rows3.get(r).getString("code");
 
                 if (orprocode!=""){
@@ -255,7 +250,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
             java.util.Date now = new java.util.Date();
-            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
+            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
             String icode = copydata.getCode();
             String icname = copydata.getCname();
             String iprocode = copydata.getProcode();
@@ -264,18 +259,16 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             String isort = copydata.getSort();
             String istartpeiod = copydata.getStartperiod();
             String idelayday = copydata.getDelayday();
-            //String iplanperiod = data1.getPlanperiod();
+            String iplanperiod = copydata.getPlanperiod();
+            String iplantime = copydata.getPlantime();
             String createtime = copydata.getCreatetime().substring(0,copydata.getCreatetime().length()-2);
             String createuser = copydata.getCreateuser();
             java.sql.Timestamp updatetime = new java.sql.Timestamp(now.getTime());
             //Object up = new Timestamp(new Date().getTime());
-            if(copydata.getPlantime()!=null){
-                String iplantime = copydata.getPlantime().substring(0,copydata.getPlantime().length()-2);
-                dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,createuser,createtime,updatetime,iplantime});
-            }else{
-                String iplantime = copydata.getPlantime();
-                dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,createuser,createtime,updatetime,iplantime});
-            }
+
+
+            dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplanperiod,iplantime,createuser,createtime,updatetime});
+
 
             //复制模型
             String sql2 = "select * from tb_coindex_module where indexcode=?";
@@ -390,8 +383,9 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     //编辑目录
     @Override
     public int updateCategory(String code,IndexList indexList) {
-        String sql1 = "update tb_coindex_index set cname=?,procode=?,updatetime=? where code=?";
+        String sql1 = "update tb_coindex_index set code=?,cname=?,procode=?,updatetime=? where code=?";
         List<Object> params = new ArrayList<Object>();
+        params.add(indexList.getCode());
         params.add(indexList.getCname());
         params.add(indexList.getProcode());
         params.add(new Timestamp(new java.util.Date().getTime()));

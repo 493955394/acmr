@@ -6,6 +6,9 @@ define(function (require,exports,module) {
         common = require('common'),
         pjax=require('pjax'),
         modal = require('modal');
+
+
+
     var ciji = $(".cjzs option:selected").val();
     var zhibiao = $(".zb_ifzs option:selected").val();
     var ifzs = $("#selectifzs option:selected").val();

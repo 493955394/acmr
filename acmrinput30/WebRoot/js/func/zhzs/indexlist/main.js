@@ -8,11 +8,28 @@ define(function (require,exports,module) {
         pjax=require('pjax'),
         modal = require('modal'),
        // listjsp= require('listjsp'),
+        dragwidth = require('dragwidth'),
         AjaxMods = require('AjaxMods');
+
 
 
     var st = new Date().getTime();//时间戳
 
+    $("#mainpanel").dragwidth();
+    autodrag();
+    $(window).resize(function(){
+        autodrag();
+    });
+    function autodrag(){
+        $(".right-panel").css('height','auto');
+        var rch = $(window).height() - $('.tops').outerHeight();
+        if($(".right-panel").height() <= rch){
+            $(".right-panel").height(rch);
+            $(".left-panel, .dragline").height(rch);
+        }else{
+            $(".left-panel, .dragline").height($(".right-panel").height());
+        }
+    }
 
     /**
      * 搜索框
@@ -196,7 +213,10 @@ define(function (require,exports,module) {
         treeNodeId = treeNode.id;
         var name=treeNode.name;
         $('input[name=planname]').val(name);
+        $('input[name=getoldplan]').val(code);
         $('input[name=indexname]').val(name);
+        $('input[name=editname]').val(name);
+        $('input[name=oldeditpro]').val(code);
         $.pjax({
             url:common.rootPath+'zbdata/indexlist.htm?m=getIndexList&code='+code,
             container:'.J_zsjh_data_table',
@@ -260,6 +280,7 @@ define(function (require,exports,module) {
 
         if (treeNode.id != '') {
             $('input[name=editname]').val(treeNode.name);
+            $('input[name=oldproname]').val(treeNode.name);
             $('input[name=editprocode]').val(treeNode.id);
             if (treeNode.id=="!1"){
                 $('input[name=editprocode]').val(null);
