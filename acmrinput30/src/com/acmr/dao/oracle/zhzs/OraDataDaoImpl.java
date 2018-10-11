@@ -19,6 +19,11 @@ import java.util.List;
 
 public class OraDataDaoImpl implements IDataDao {
     @Override
+    public String getPastData(String taskcode,String zbcode,String region,String ayearmoon){
+        String sql = "select * from tb_coindex_data where taskcode =? and zbcode=? and region=? and ayearmon=?";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,zbcode,region,ayearmoon}).getRows().get(0).getString("data");
+    }
+    @Override
     public DataTable getData(boolean iftmp,String taskcode,String zbcode,String region,String time,String sessionid){
         if(!iftmp){
             String sql = "select * from tb_coindex_data where taskcode =? and zbcode=? and region=? and ayearmon=?";

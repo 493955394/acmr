@@ -20,4 +20,5 @@ public interface IDataDao {
     public DataTable findOldTask(String icode,String ayearmon);
     public String findModCode(String taskcode,String orcode);
     public DataTable getSubMods(String code);
+    public String getPastData(String taskcode,String zbcode,String region,String ayearmoon);
 }

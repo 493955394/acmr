@@ -11,6 +11,9 @@
 <head>
     <title>-查看往期</title>
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
+    <style>
+        table tr th, table tr td { border:1px solid #cecfdf; }
+    </style>
 </head>
 <body>
 <style type="text/css">
@@ -60,26 +63,32 @@
     <div class="modal wdturn-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="btn-group" role="group" aria-label="..." style="padding-left: 6%">
-                    <button type="button" class="btn btn-default top-select" id="top-reg">地区</button>
-                    <button type="button" class="btn btn-default top-select" id="top-zb">指标</button>
-                    <button type="button" class="btn btn-default top-select" id="top-sj">时间</button>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">维度转换</h4>
+                </div>
+                <div class="col-md-offset-4" role="group" aria-label="..." >
+                    <button type="button" style="border-color: #FF7F19" class="btn btn-default top-select" id="top-reg"><span style="color: #FF7F19">地区</span></button>
+                    <button type="button" style="border-color: #FF7F19" class="btn btn-default top-select" id="top-zb"><span style="color: #FF7F19">指标</span></button>
+                    <button type="button" style="border-color: #FF7F19" class="btn btn-default top-select" id="top-sj"><span style="color: #FF7F19">时间</span></button>
                 </div>
                 <div style="margin-bottom: 5%;">
-                    <div class="btn-group-vertical" role="group" aria-label="...">
-                        <button type="button" class="btn btn-default left-select" id="left-reg">地区</button>
-                        <button type="button" class="btn btn-default left-select" id="left-zb">指标</button>
-                        <button type="button" class="btn btn-default left-select" id="left-sj">时间</button>
+                    <div class="btn-group-vertical  col-md-offset-3" role="group" aria-label="...">
+                        <button type="button" style="border-color: #FF7F19" class="btn btn-default left-select" id="left-reg"><span style="color: #FF7F19">地区</span></button>
+                        <div class="clearfix" style="height: 5px"></div>
+                        <button type="button" style="border-color: #FF7F19" class="btn btn-default left-select" id="left-zb"><span style="color: #FF7F19">指标</span></button>
+                        <div class="clearfix"  style="height: 5px"></div>
+                        <button type="button" style="border-color: #FF7F19" class="btn btn-default left-select" id="left-sj"><span style="color: #FF7F19">时间</span></button>
                     </div>
-                    <table class="table table-striped table-hover wdturn-table" style="display: inline-block;position: absolute">
+                    <table class="table table-hover wdturn-table" style="display: inline-block;position: absolute;margin-left: 16px;margin-top: 5px">
 
                     </table>
                 </div>
                 <input type="hidden" id="table-Row" value="">
                 <input type="hidden" id="table-Col" value="">
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal" id="wd-change">确认</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 </div>
 
             </div>
