@@ -91,7 +91,7 @@ define(function(require,exports,module) {
             done: function (e, data) {
                 var result = data.result;
                 if (result.returncode == 200) {
-                    $("#import_count").html("文件上传成功");
+                    alert("文件上传成功");
                 }else if(result.returncode == 300){
                     $("#import_count").html("<span style='color:red'>上传失败！"+result.returndata+"</span>");
                 } else if (result.returncode == 400) {
