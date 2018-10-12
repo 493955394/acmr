@@ -462,6 +462,7 @@ public class IndexListService {
             for (int i=0;i<rowu.size();i++){
                 HashMap<String,Object> m=new HashMap<>();
                 String indexcode=rowu.get(i).getString("indexcode");
+                String tcreateuser=rowu.get(i).getString("createuser");
                 //判断该index是否已经存在
                 Boolean already=false;
                 for (int j=0;j<icodes.size();j++){
@@ -470,7 +471,13 @@ public class IndexListService {
                         break;
                     }
                 }
-                if (!already){
+                //判断是否是用户本人创建的
+                Boolean notself=true;
+                if (tcreateuser.equals(usercode)){
+                    notself=false;
+                }
+
+                if (notself&&!already){
                     m.put("indexcode",indexcode);
                     icodes.add(indexcode);
                     DataTableRow row=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(indexcode).getRows().get(0);

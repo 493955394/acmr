@@ -156,6 +156,7 @@ public class PastViewService {
             Map<String,String> arr = new HashMap<>();
             arr.put("name",singlemod.get(y).get("name").toString());
             arr.put("code",singlemod.get(y).get("code").toString());
+            arr.put("orcode",singlemod.get(y).get("orcode".toString()));
             //String modcode = singlemod.get(y).get("code").toString();
             allmods.add(arr);
         }
@@ -165,11 +166,11 @@ public class PastViewService {
             List<Map<String,String>> arr = pv.getModelTree(alltaskcode.get(i));
             //List<String> mods = new ArrayList<>();
             for(int j=0;j<arr.size();j++) {
-                String mod = arr.get(j).get("code").toString();
+                String mod = arr.get(j).get("orcode").toString();
                 //mods.add(mod);
 
                 for (int k = 0; k < allmods.size(); k++) {
-                    String oldmod = allmods.get(k).get("code").toString();
+                    String oldmod = allmods.get(k).get("orcode").toString();
                     if(!mod.equals(oldmod)){
                         continue;
                     }else if(mod.equals(allmods.get(k).get("code").toString())){
@@ -230,7 +231,8 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<List<String>> getModData(String reg,List<String> alltaskcode,List<Map<String,String>> allmod,List<String> last5){
+
+    public List<List<String>> getModData(String reg,List<String> fivetaskcode,List<Map<String,String>> allmod,List<String> last5){
         PastViewService pv = new PastViewService();
         List<List<String>> moddatas = new ArrayList<>();
 
@@ -238,20 +240,21 @@ public class PastViewService {
             String zbcode = allmod.get(i).get("code").toString();
             //List<String> zbdata = new ArrayList<>();
             List<String> datas = new ArrayList<>();
+                //List<String> last5 = pv.getAllTime(alltaskcode.get(j)).subList(0,5);
             String zbname = allmod.get(i).get("name").toString();
             datas.add(zbname);
-            for(int j=0;j<alltaskcode.size();j++){
-                //List<String> last5 = pv.getAllTime(alltaskcode.get(j)).subList(0,5);
+            for (int k=0;k<last5.size();k++){
 
-                for (int k=0;k<last5.size();k++){
-                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(alltaskcode.get(j),zbcode,reg,last5.get(k));
-
+                    for(int j=0;j<fivetaskcode.size();j++){
+                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j),zbcode,reg,last5.get(k));
                     if(data != null){
                         datas.add(data);
                     }
-                }
+                    }
+
             }
             moddatas.add(datas);
+
         }
         return moddatas;
     }
@@ -262,19 +265,19 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<List<String>> getRegData(List<String> regs,List<String> alltaskcode,String mod,List<String> last5){
+    public List<List<String>> getRegData(List<String> regs,List<String> fivetaskcode,String mod,List<String> last5){
         OriginService originService=new OriginService();
         PastViewService pv = new PastViewService();
         List<List<String>> regdatas = new ArrayList<>();
         for(int i=0;i<regs.size();i++){
             String regioncode = regs.get(i);
             //List<String> zbdata = new ArrayList<>();
-            for(int j=0;j<alltaskcode.size();j++){
+            for(int j=0;j<fivetaskcode.size();j++){
                 List<String> datas = new ArrayList<>();
                 String regname = originService.getwdnode("reg",regioncode).getName();
                 datas.add(regname);
                 for (int k=0;k<last5.size();k++){
-                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(alltaskcode.get(j),mod,regioncode,last5.get(k));
+                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j),mod,regioncode,last5.get(k));
                     datas.add(data);
                     if(data == null){
                         data = ("");

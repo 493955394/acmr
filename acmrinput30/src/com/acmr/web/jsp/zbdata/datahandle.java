@@ -58,6 +58,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class datahandle extends BaseAction {
 
 
@@ -242,20 +245,29 @@ public class datahandle extends BaseAction {
                                         ExcelCell cell = Rows.getCells().get(m);
                                         if (cell != null) {
                                             String value = cell.getText() + "";
-                                            System.out.println(value);
-                                            /*if (StringUtil.isEmpty(value)) {
-                                                continue;
-                                            }*/
-                                            /*if (!mkey.containsValue(value)) {
-                                                mkey.put(regscode.get(i), value);
-                                            }*/
-                                            if(value.equals("  ")){
+                                            if(isNumber(value)||checkDouble(value)){
+                                                if(value.equals("  ")){
+                                                    data.setReturncode(300);
+                                                    data.setReturndata("数据不能为空");
+                                                    this.sendJson(data);
+                                                    return;
+                                                }
+                                                reganddata.add(value);
+                                            }else{
                                                 data.setReturncode(300);
-                                                data.setReturndata("数据不能为空");
+                                                data.setReturndata("数据格式不正确");
                                                 this.sendJson(data);
                                                 return;
                                             }
-                                            reganddata.add(value);
+                                            //System.out.println(value);
+                                            /*if (StringUtil.isEmpty(value)) {
+                                                continue;
+                                            }*/
+                                            //Pattern pattern = Pattern.compile("^[-//+]?//d+(//.//d*)?|//.//d+$");
+                                            /*if (!mkey.containsValue(value)) {
+                                                mkey.put(regscode.get(i), value);
+                                            }*/
+
 
                                         }
                                     }
@@ -294,6 +306,48 @@ public class datahandle extends BaseAction {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    /**
+     * 判断value是否为double
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public  boolean checkDouble(String str) {
+        Pattern p = Pattern.compile("^[0-9]*(\\.[0-9]*|[eE][+-][0-9]*)$");
+        Matcher m = p.matcher(str);
+        if (m.find()) {
+            return true;
+        }
+        return false;
+    }
+    /**
+     * 判断是否是Integer类型
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+
+
+    public boolean isNumber(String str){
+        if(str!=null&&!"".equals(str.trim())){
+            Pattern pattern = Pattern.compile("[0-9]*");
+            Matcher isNum = pattern.matcher(str);
+            Long number = 0l;
+            if(isNum.matches()){
+                number=Long.parseLong(str);
+            }else{
+                return false;
+            }
+            if(number>2147483647){
+                return false;
+            }
+        }else{
+            return false;
+        }
+        return true;
     }
     /**
      * 判断字段为必填项

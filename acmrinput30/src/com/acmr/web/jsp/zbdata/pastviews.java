@@ -40,13 +40,15 @@ public class pastviews extends BaseAction {
         //获取用户权限
         String right=this.getRequest().getParameter("right");
 
+        List<String> fivetaskcode = pv.getAllTask(code).subList(0,5);
         List<String> alltaskcode = pv.getAllTask(code);
 
-        String taskcode = alltaskcode.get(0);
+        String taskcode = fivetaskcode.get(0);
         List<String> last5 = pv.getAllTime(code).subList(0,5);
         String reg = pv.getRegions(taskcode).get(0);
+
         List<Map<String,String>> allmod = pv.getAllMods(alltaskcode);
-        List<List<String>> moddatas = pv.getModData(reg,alltaskcode,allmod,last5);
+        List<List<String>> moddatas = pv.getModData(reg,fivetaskcode,allmod,last5);
 
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("moddata",moddatas).addObject("last5",last5);
     }

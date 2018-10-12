@@ -335,10 +335,14 @@ define(function (require,exports,module) {
             dataType: 'json',
             success:function(data){
                 if(data.returncode == 200){
+                    var url=window.location.href;
                     alert("启用成功")
-                    window.location.reload(true);
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_data_table'
+                    });
                 }else{
-                    console.log(data)
+                   // console.log(data)
                     if (data.checkhasMod!=true){
                         alert("计划没有模型节点，启动失败")
                     }
@@ -369,7 +373,11 @@ define(function (require,exports,module) {
             dataType: 'json',
             success:function(data){
                 if(data.returncode == 200){
-                    window.location.reload(true);
+                    var url=window.location.href;
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_data_table'
+                    });
                 }else{
                     alert("停用失败");
                 }
