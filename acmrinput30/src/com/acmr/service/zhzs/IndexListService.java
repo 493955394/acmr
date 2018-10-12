@@ -472,12 +472,12 @@ public class IndexListService {
                     }
                 }
                 //判断是否是用户本人创建的
-                Boolean notself=false;
-                if (tcreateuser!=usercode){
-                    notself=true;
+                Boolean notself=true;
+                if (tcreateuser.equals(usercode)){
+                    notself=false;
                 }
 
-                if (!already&&notself){
+                if (notself&&!already){
                     m.put("indexcode",indexcode);
                     icodes.add(indexcode);
                     DataTableRow row=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(indexcode).getRows().get(0);
