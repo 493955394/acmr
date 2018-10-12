@@ -41,14 +41,14 @@ public class pastviews extends BaseAction {
         String right=this.getRequest().getParameter("right");
 
         List<String> fivetaskcode = pv.getAllTask(code).subList(0,5);
-        List<String> alltaskcode = pv.getAllTask(code);
+        //List<String> alltaskcode = pv.getAllTask(code);
 
         String taskcode = fivetaskcode.get(0);
         List<String> last5 = pv.getAllTime(code).subList(0,5);
         String reg = pv.getRegions(taskcode).get(0);
 
-        List<Map<String,String>> allmod = pv.getAllMods(alltaskcode);
-        List<List<String>> moddatas = pv.getModData(reg,fivetaskcode,allmod,last5);
+        List<Map<String,String>> allfivemod = pv.getFiveMods(fivetaskcode);
+        List<List<String>> moddatas = pv.getModData(reg,fivetaskcode,allfivemod,last5);
 
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("moddata",moddatas).addObject("last5",last5);
     }

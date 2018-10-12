@@ -28,6 +28,7 @@ public interface IIndexTaskDao {
     public int updateDataTmp(String taskcode,String ayearmon,String sessionid,List<String> regscode,List zbandreg);
     public DataTable getRootData(String taskcode);
     public DataTable getAllRootData(String taskcode);
+    public DataTable getOrcode(String modcode);
 
     public String getIcode(String taskcode);
 }

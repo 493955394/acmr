@@ -80,6 +80,11 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode});
     }
     @Override
+    public DataTable getOrcode(String code){
+        String sql = "select * from tb_coindex_task_module where code= ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code});
+    }
+    @Override
     public  boolean hasTask(String indexcode, String ayearmon) {
         String sql="select * from tb_coindex_task where indexcode=? and ayearmon=?";
         DataTable table= AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{indexcode,ayearmon});

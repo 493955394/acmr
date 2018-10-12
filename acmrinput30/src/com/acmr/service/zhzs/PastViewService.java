@@ -154,9 +154,9 @@ public class PastViewService {
         List<Map<String,String>> allmods =  new ArrayList<>();
         for(int y=0;y<singlemod.size();y++){
             Map<String,String> arr = new HashMap<>();
-            arr.put("name",singlemod.get(y).get("name").toString());
+            //arr.put("name",singlemod.get(y).get("name").toString());
             arr.put("code",singlemod.get(y).get("code").toString());
-            arr.put("orcode",singlemod.get(y).get("orcode".toString()));
+            //arr.put("orcode",singlemod.get(y).get("orcode".toString()));
             //String modcode = singlemod.get(y).get("code").toString();
             allmods.add(arr);
         }
@@ -168,27 +168,66 @@ public class PastViewService {
             for(int j=0;j<arr.size();j++) {
                 String mod = arr.get(j).get("orcode").toString();
                 //mods.add(mod);
-
-                for (int k = 0; k < allmods.size(); k++) {
-                    String oldmod = allmods.get(k).get("orcode").toString();
-                    if(!mod.equals(oldmod)){
-                        continue;
-                    }else if(mod.equals(allmods.get(k).get("code").toString())){
-                            break;
-                            }
+                if(!allmods.contains(mod)) {
                     Map<String,String>arr1 = new HashMap<>();
-                    arr1.put("name", arr.get(j).get("name").toString());
+                    //arr1.put("name", arr.get(j).get("name").toString());
                     arr1.put("code", arr.get(j).get("code").toString());
                     allmods.add(arr1);
-
-                    }
+                }
+                    Map<String,String>arr1 = new HashMap<>();
+                    //arr1.put("name", arr.get(j).get("name").toString());
+                    arr1.put("code", arr.get(j).get("code").toString());
+                    allmods.add(arr1);
 
             }
 
         }
         return allmods;
     }
+    /**
+     * 得到五年全部模型节点code
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public List<Map<String,String>> getFiveMods (List<String> fivetaskcode){
+        //OriginDataService od = new OriginDataService();
+        PastViewService pv = new PastViewService();
+        String singlecode = fivetaskcode.get(0);
+        List<Map<String,String>> singlemod = pv.getModelTree(singlecode);
+        //拿单组节点作对比再添加
+        List<Map<String,String>> allfivemods =  new ArrayList<>();
+        for(int y=0;y<singlemod.size();y++){
+            Map<String,String> arr = new HashMap<>();
+            //arr.put("name",singlemod.get(y).get("name").toString());
+            arr.put("code",singlemod.get(y).get("code").toString());
+            //arr.put("orcode",singlemod.get(y).get("orcode".toString()));
+            //String modcode = singlemod.get(y).get("code").toString();
+            allfivemods.add(arr);
+        }
+        //allmods.addAll(singlecode,singlemod);
+        //得到全部节点code
+        for(int i=0;i<fivetaskcode.size();i++){
+            List<Map<String,String>> arr = pv.getModelTree(fivetaskcode.get(i));
+            //List<String> mods = new ArrayList<>();
+            for(int j=0;j<arr.size();j++) {
+                String mod = arr.get(j).get("code").toString();
+                //mods.add(mod);
+                /*for (int k = 0; k < allfivemods.size(); k++) {
+                    String oldmod = allfivemods.get(k).get("code").toString();*/
+                    if(!allfivemods.contains(mod)) {
+                        Map<String,String>arr1 = new HashMap<>();
+                        //arr1.put("name", arr.get(j).get("name").toString());
+                        arr1.put("code", arr.get(j).get("code").toString());
+                        allfivemods.add(arr1);
+                    }
 
+            }
+
+        }
+        return allfivemods;
+    }
     /**
      * 获取去重的modlist,获取orcode和cname，主要是为了前端展示
      * @param
@@ -197,7 +236,7 @@ public class PastViewService {
     public List<Map<String,String>> getModsList (String icode){
         List<Map<String,String>> lists = new ArrayList<>();
         List<String> temp = new ArrayList<>();
-       List<String> alltaskcode = getAllTask(icode) ;
+        List<String> alltaskcode = getAllTask(icode) ;
         if(alltaskcode.size()>0){//先把最近一年的orcode取出来
             List<Map<String,String>> modlist = getModelTree(alltaskcode.get(0));
             for (int i = 0; i <modlist.size() ; i++) {
@@ -232,29 +271,23 @@ public class PastViewService {
      * @return
      */
 
-    public List<List<String>> getModData(String reg,List<String> fivetaskcode,List<Map<String,String>> allmod,List<String> last5){
+    public List<List<String>> getModData(String reg,List<String> fivetaskcode,List<Map<String,String>> allfivemods,List<String> last5){
         PastViewService pv = new PastViewService();
         List<List<String>> moddatas = new ArrayList<>();
 
-        for(int i=0;i<allmod.size();i++){
-            String zbcode = allmod.get(i).get("code").toString();
+        for(int i=0;i<allfivemods.size();i++){
+            String modcode = allfivemods.get(i).get("code").toString();
+            String orcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getOrcode(modcode).getRows().get(0).getString("orcode");
             //List<String> zbdata = new ArrayList<>();
             List<String> datas = new ArrayList<>();
-                //List<String> last5 = pv.getAllTime(alltaskcode.get(j)).subList(0,5);
-            String zbname = allmod.get(i).get("name").toString();
-            datas.add(zbname);
-            for (int k=0;k<last5.size();k++){
-
-                    for(int j=0;j<fivetaskcode.size();j++){
-                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j),zbcode,reg,last5.get(k));
+            for(int j=0;j<fivetaskcode.size();j++){
+                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j),modcode,reg,last5.get(j));
                     if(data != null){
+                        datas.add(modcode);
                         datas.add(data);
                     }
-                    }
-
             }
             moddatas.add(datas);
-
         }
         return moddatas;
     }
