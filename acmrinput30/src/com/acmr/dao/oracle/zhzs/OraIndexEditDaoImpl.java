@@ -138,6 +138,10 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
             sql1+=",dacimal=?";
             parms.add(indexMoudle.getDacimal());
         }
+        if(indexMoudle.getSortcode()!=null){
+            sql1+=",sortcode=?";
+            parms.add(indexMoudle.getSortcode());
+        }
         if (sql1.equals("")) {
             return 0;
         }

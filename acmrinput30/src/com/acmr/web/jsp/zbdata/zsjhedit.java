@@ -1167,6 +1167,18 @@ public class zsjhedit extends BaseAction {
             ifzb ="";
             formula="";
         }
+        String oldpcode = indexEditService.getData(code).getProcode();
+        if(!oldpcode.equals(procodeId)){//要是和原来的所属目录不一样
+            String sortcode = indexEditService.getCurrentSort(procodeId,indexCode);//去查当前的排序防止变了procode
+            indexMoudle.setSortcode(sortcode);
+            //原先的procode要重新排
+            List<IndexMoudle> subs=indexEditService.getSubMod(oldpcode,indexCode);
+            List<String> codes=new ArrayList<>();
+            for (int j=0;j<subs.size();j++){
+                codes.add(subs.get(j).getCode());
+            }
+            indexEditService.resort(codes);
+        }
         indexMoudle.setCode(code);
         indexMoudle.setCname(name);
         indexMoudle.setIndexcode(indexCode);
