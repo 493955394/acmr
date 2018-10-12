@@ -322,12 +322,13 @@ define(function (require,exports,module) {
             }
         });
     });
-    // 启用
     $(document).on('click', '.start', function(event) {
+        $(this).parent().prepend("<a href=#>启用</a>")
+        $(this).remove()
         event.preventDefault();
-        var self = this,
-            code = $(self).attr('name'),
-            state = "1";
+        var code=$(this).attr('name')
+        var state="1"
+
         $.ajax({
             url: common.rootPath + 'zbdata/indexlist.htm?m=switchState',
             data: {"code": code, "state":state},
