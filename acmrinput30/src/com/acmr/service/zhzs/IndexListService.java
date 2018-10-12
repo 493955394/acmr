@@ -506,6 +506,14 @@ public class IndexListService {
         return list;
     }
 
+    /**
+    * @Description: 检查index下的模型是否符合规定
+    * @Param: [icode]
+    * @return: java.lang.Boolean
+    * @Author: lyh
+    * @Date: 2018/10/12
+    */
+
     public Boolean checkModule(String icode){
         //校验模型节点下必须有指标，且权重不能为0
         List<DataTableRow> rows=IndexListDao.Fator.getInstance().getIndexdatadao().getZSMods(icode).getRows();
@@ -527,7 +535,15 @@ public class IndexListService {
             if (mod.ZBnums()<1||mod.getWeight().equals("0")){
                 check=false;
             }
-          //  mods.add(mod);
+            //同一级别指标和必须为1
+            String pcode=mod.getCode();
+            List<DataTableRow> submods=IndexListDao.Fator.getInstance().getIndexdatadao().getSubMods(icode,pcode).getRows();
+            float sum=0;
+            for (int k=0;k<submods.size();k++){
+                sum=sum+ Float.parseFloat(submods.get(k).getString("weight"));
+            }
+            if (sum!=1) check=false;
+
         }
         //指标的权重也不能为0
         List<DataTableRow> rows1=IndexListDao.Fator.getInstance().getIndexdatadao().getZBMods(icode).getRows();
@@ -536,6 +552,7 @@ public class IndexListService {
                 check=false;
             }
         }
+
         return check;
     }
 
