@@ -19,11 +19,11 @@ import java.util.List;
 
 public class OraDataDaoImpl implements IDataDao {
     @Override
-    public String getPastData(String taskcode,String zbcode,String region,String ayearmoon){
-        String sql = "select * from tb_coindex_data_result where taskcode =? and zbcode=? and region=? and ayearmon=?";
-        DataTable table = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,zbcode,region,ayearmoon});
+    public String getPastData(String taskcode,String modcode,String region,String ayearmoon){
+        String sql = "select * from tb_coindex_data_result where taskcode =? and modcode=? and region=? and ayearmon=?";
+        DataTable table = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,modcode,region,ayearmoon});
         if(table.getRows().size()>0){
-            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,zbcode,region,ayearmoon}).getRows().get(0).getString("data");
+            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,modcode,region,ayearmoon}).getRows().get(0).getString("data");
         }else{
             return null;
         }
