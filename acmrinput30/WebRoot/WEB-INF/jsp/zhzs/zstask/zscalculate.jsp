@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>指数任务计算</title>
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
     <style type="text/css">
         .glyphicon{
