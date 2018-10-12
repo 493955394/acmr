@@ -95,6 +95,7 @@ define(function (require,exports,module) {
         $(document).on('pjax:success', function() {
             //alert("ok");
         });
+        $('#myTabs li:eq(2) a').tab('show')
     })
     /**
      * 关闭按钮
@@ -209,6 +210,7 @@ define(function (require,exports,module) {
         $(document).on('pjax:success', function() {
             //alert("ok");
         });
+        $('#myTabs li:eq(2) a').tab('show')
     })
 
 
