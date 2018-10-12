@@ -45,7 +45,7 @@ public class pastviews extends BaseAction {
         String taskcode = alltaskcode.get(0);
         List<String> last5 = pv.getAllTime(code).subList(0,5);
         String reg = pv.getRegions(taskcode).get(0);
-        List<Map> allmod = pv.getAllMods(alltaskcode);
+        List<Map<String,String>> allmod = pv.getAllMods(alltaskcode);
         List<List<String>> moddatas = pv.getModData(reg,alltaskcode,allmod,last5);
 
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("moddata",moddatas).addObject("last5",last5);

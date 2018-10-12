@@ -4,10 +4,12 @@ package com.acmr.service.zhzs;
 
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
+import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.DataDao;
 import com.acmr.dao.zhzs.IDataDao;
 import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.dao.zhzs.IndexTaskDao;
+import com.acmr.model.range.Pinfo;
 import com.acmr.model.zhzs.TaskModule;
 import com.acmr.service.zbdata.OriginService;
 
@@ -31,7 +33,6 @@ public class PastViewService {
             String taskcode = list.get(i).getString("code");
             taskcodes.add(taskcode);
         }
-
         return taskcodes;
     }
     /**
@@ -75,7 +76,7 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<TaskModule> toSubMod(String code){
+    public  List<TaskModule> toSubMod(String code){
         List<TaskModule> taskModules = new ArrayList<>();
         List<DataTableRow> data =new ArrayList<>();
         data = DataDao.Fator.getInstance().getIndexdatadao().getSubMods(code).getRows();
@@ -103,12 +104,12 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<Map> getModelTree (String taskcode){
+    public List<Map<String,String>>  getModelTree (String taskcode){
         IndexTaskService indexTaskService = new IndexTaskService();
         List<TaskModule> zong = indexTaskService.findModRoot(taskcode);
-        List<Map> list = new ArrayList<>();
+        List<Map<String,String>> list = new ArrayList<>();
         for (int i = 0; i <zong.size(); i++) {
-            Map arr = new HashMap();
+            Map<String,String> arr = new HashMap<>();
             arr.put("name",zong.get(i).getCname());
             arr.put("code",zong.get(i).getCode());
             arr.put("orcode",zong.get(i).getOrcode());
@@ -119,11 +120,11 @@ public class PastViewService {
         return list;
     }
 
-    public  List<Map> getmodelList(String taskcode,String modcode){
-        List<Map> mode= new ArrayList<>();
+    public  List<Map<String,String>> getmodelList(String taskcode,String modcode){
+        List<Map<String,String>> mode= new ArrayList<>();
         List<TaskModule> tmp = toSubMod(modcode);
         for (int i = 0; i <tmp.size() ; i++) {
-            Map arr = new HashMap();
+            Map<String,String> arr = new HashMap<>();
             arr.put("name",tmp.get(i).getCname());
             arr.put("code",tmp.get(i).getCode());
             arr.put("orcode",tmp.get(i).getOrcode());
@@ -144,15 +145,15 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<Map> getAllMods (List<String> alltaskcode){
+    public List<Map<String,String>> getAllMods (List<String> alltaskcode){
         //OriginDataService od = new OriginDataService();
         PastViewService pv = new PastViewService();
         String singlecode = alltaskcode.get(0);
-        List<Map> singlemod = pv.getModelTree(singlecode);
+        List<Map<String,String>> singlemod = pv.getModelTree(singlecode);
         //拿单组节点作对比再添加
-        List<Map> allmods =  new ArrayList<>();
+        List<Map<String,String>> allmods =  new ArrayList<>();
         for(int y=0;y<singlemod.size();y++){
-            Map arr = new HashMap();
+            Map<String,String> arr = new HashMap<>();
             arr.put("name",singlemod.get(y).get("name").toString());
             arr.put("code",singlemod.get(y).get("code").toString());
             //String modcode = singlemod.get(y).get("code").toString();
@@ -161,7 +162,7 @@ public class PastViewService {
         //allmods.addAll(singlecode,singlemod);
         //得到全部节点code
         for(int i=0;i<alltaskcode.size();i++){
-            List<Map> arr = pv.getModelTree(alltaskcode.get(i));
+            List<Map<String,String>> arr = pv.getModelTree(alltaskcode.get(i));
             //List<String> mods = new ArrayList<>();
             for(int j=0;j<arr.size();j++) {
                 String mod = arr.get(j).get("code").toString();
@@ -174,7 +175,7 @@ public class PastViewService {
                     }else if(mod.equals(allmods.get(k).get("code").toString())){
                             break;
                             }
-                    Map arr1 = new HashMap();
+                    Map<String,String>arr1 = new HashMap<>();
                     arr1.put("name", arr.get(j).get("name").toString());
                     arr1.put("code", arr.get(j).get("code").toString());
                     allmods.add(arr1);
@@ -186,6 +187,42 @@ public class PastViewService {
         }
         return allmods;
     }
+
+    /**
+     * 获取去重的modlist,获取orcode和cname，主要是为了前端展示
+     * @param
+     * @return
+     */
+    public List<Map<String,String>> getModsList (String icode){
+        List<Map<String,String>> lists = new ArrayList<>();
+        List<String> temp = new ArrayList<>();
+       List<String> alltaskcode = getAllTask(icode) ;
+        if(alltaskcode.size()>0){//先把最近一年的orcode取出来
+            List<Map<String,String>> modlist = getModelTree(alltaskcode.get(0));
+            for (int i = 0; i <modlist.size() ; i++) {
+                Map<String,String> arr = new HashMap<>();
+                arr.put("name",modlist.get(i).get("name"));
+                arr.put("orcode",modlist.get(i).get("orcode"));
+                temp.add(modlist.get(i).get("orcode"));//加到临时的数组中，为了去重
+                lists.add(arr);
+            }
+        }
+        for (int i = 0; i <alltaskcode.size() ; i++) {//不在临时数组的orcode就给添加到后面
+            List<Map<String,String>> modlist = getModelTree(alltaskcode.get(i));
+            for (int j = 0; j <modlist.size() ; j++) {
+                if(!temp.contains(modlist.get(j).get("orcode"))){
+                    //如果不存在这个orcode就把它加进来
+                    Map<String,String> arr = new HashMap<>();
+                    arr.put("name",modlist.get(j).get("name"));
+                    arr.put("orcode",modlist.get(j).get("orcode"));
+                    temp.add(modlist.get(j).get("orcode"));//加到临时的数组中，为了去重
+                    lists.add(arr);
+                }
+            }
+        }
+        return lists;
+    }
+
     /**
      * 单地区查询所有的data
      * @author wf
@@ -193,7 +230,7 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<List<String>> getModData(String reg,List<String> alltaskcode,List<Map> allmod,List<String> last5){
+    public List<List<String>> getModData(String reg,List<String> alltaskcode,List<Map<String,String>> allmod,List<String> last5){
         PastViewService pv = new PastViewService();
         List<List<String>> moddatas = new ArrayList<>();
 
