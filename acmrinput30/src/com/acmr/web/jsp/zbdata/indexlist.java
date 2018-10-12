@@ -5,6 +5,7 @@ import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
+import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.pub.PageBean;
@@ -346,6 +347,17 @@ public class indexlist extends BaseAction {
         String cname = PubInfo.getString(req.getParameter("zname"));
         String nprocode = PubInfo.getString(req.getParameter("newprocode"));
         //String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        DataTableRow row= IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(cpcode).getRows().get(0);
+        String start = row.getString("startperiod");
+        String delay = row.getString("delayday");
+        String getplan = row.getString("planperiod");
+        if(start == null||delay == null||getplan == null){
+            data.setReturncode(400);
+            this.sendJson(data);
+            return;
+        } else {
+            data.setReturncode(200);
+        }
         IndexList data1 = indexListService.getData(cpcode);
 
         data1.setCode(code);
@@ -467,6 +479,7 @@ public class indexlist extends BaseAction {
         }
         //data1.setCreatetime(createtime);
         indexListService.addCopyplan(cpcode,data1);
+        indexListService.switchFormu(code,cpcode);
         /*if (int1 == -1) {
             data.setReturncode(501);
             data.setReturndata("fail");

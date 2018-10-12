@@ -37,4 +37,5 @@ public interface IIndexListDao {
     public DataTable shareSelectListByPage(int type,String keyword,String userid,int page,int pagesize);
     public DataTable receiveSelectList(int type,String keyword,String depusercode,String sort);
     public int updateTime(String plantime,String planperiod,String icode);
+    public int switchFormu(String ncode,String ocode);
 }

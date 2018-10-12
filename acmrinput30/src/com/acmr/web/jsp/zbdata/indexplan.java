@@ -1,7 +1,9 @@
 package com.acmr.web.jsp.zbdata;
 
+import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
+import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.service.zhzs.IndexListService;
@@ -39,6 +41,17 @@ public class indexplan extends BaseAction {
             String cname = PubInfo.getString(req.getParameter("putname"));
             String nprocode = PubInfo.getString(req.getParameter("shareprocode"));
             //String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            DataTableRow row= IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(cpcode).getRows().get(0);
+            String start = row.getString("startperiod");
+            String delay = row.getString("delayday");
+            String getplan = row.getString("planperiod");
+            if(start == null||delay == null||getplan == null){
+                data.setReturncode(400);
+                this.sendJson(data);
+                return;
+            } else {
+                data.setReturncode(200);
+            }
             IndexList copydata = indexListService.getData(cpcode);
 
             copydata.setCode(code);
@@ -160,6 +173,7 @@ public class indexplan extends BaseAction {
                 }
             }
             indexListService.addCopyShare(cpcode,copydata);
+            indexListService.switchFormu(code,cpcode);
         /*if (int1 == -1) {
             data.setReturncode(501);
             data.setReturndata("fail");

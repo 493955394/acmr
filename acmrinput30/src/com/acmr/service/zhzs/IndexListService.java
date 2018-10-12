@@ -313,6 +313,16 @@ public class IndexListService {
         return IndexListDao.Fator.getInstance().getIndexdatadao().addCopyplan(cpcode,data1);
     }
     /**
+     * 修改复制的模型公式
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public int switchFormu(String nindexcode,String oindexcode){
+        return IndexListDao.Fator.getInstance().getIndexdatadao().switchFormu(nindexcode,oindexcode);
+    }
+    /**
      *
      * @author wf
      * @date

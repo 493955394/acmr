@@ -221,6 +221,9 @@ define(function (require,exports,module) {
                 } else if (data.returncode == 300) {
                     alert("该编码已存在");
                     $("#mymodal-data2").modal('show');
+                } else if (data.returncode == 400) {
+                    alert("计划基本信息缺失，复制失败");
+
                 } else {
                     alert("添加失败");
                 }
@@ -287,6 +290,8 @@ define(function (require,exports,module) {
                 } else if (data.returncode == 300) {
                     alert("该编码已存在");
                     $("#mymodal-data4").modal('show');
+                } else if (data.returncode == 400) {
+                    alert("计划基本信息缺失，复制失败");
                 } else {
                     alert("添加失败");
                 }

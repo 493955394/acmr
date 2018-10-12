@@ -119,6 +119,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
             java.util.Date now = new java.util.Date();
+            //复制基本信息表
             String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
             String icode = data1.getCode();
             String icname = data1.getCname();
@@ -142,6 +143,22 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             //Object up = new Timestamp(new Date().getTime());
             dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplanperiod,iplantime,createuser,createtime,updatetime});
 
+            //复制筛选条件
+            String sql4 = "select * from tb_coindex_zb where indexcode=?";
+            DataTable table2 = dataQuery.getDataTableSql(sql4,new Object[]{cpcode});
+            List<DataTableRow> row2 = table2.getRows();
+            for(int j=0;j<row2.size();j++){
+                String code = UUID.randomUUID().toString().replace("-", "").toLowerCase();
+                //String incode1 = row2.get(j).getString("indexcode");
+                String zbcode = row2.get(j).getString("zbcode");
+                String company = row2.get(j).getString("company");
+                String datasource = row2.get(j).getString("datasource");
+                String regions = row2.get(j).getString("regions");
+                String unitcode = row2.get(j).getString("unitcode");
+                String dacimal = row2.get(j).getString("dacimal");
+                String sql5 = "insert into tb_coindex_zb (code,indexcode,zbcode,company,datasource,regions,unitcode,dacimal) values(?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql5,new Object[]{code,icode,zbcode,company,datasource,regions,unitcode,dacimal});
+            }
 
 
             //复制模型
@@ -181,30 +198,11 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                     dataQuery.executeSql(sql11,new Object[]{procode,code});
                 }
             }
-            //修正复制节点的copycode
-            for (int m=0;m<rows3.size();m++){
-                String code = rows3.get(m).getString("code");
-                String sql11="update tb_coindex_module set copycode=? where code=?";
-                dataQuery.executeSql(sql11,new Object[]{code,code});
-            }
-            //复制筛选条件
-            String sql4 = "select * from tb_coindex_zb where indexcode=?";
-            DataTable table2 = dataQuery.getDataTableSql(sql4,new Object[]{cpcode});
-            List<DataTableRow> row2 = table2.getRows();
-            for(int j=0;j<row2.size();j++){
-                String code = UUID.randomUUID().toString().replace("-", "").toLowerCase();
-                //String incode1 = row2.get(j).getString("indexcode");
-                String zbcode = row2.get(j).getString("zbcode");
-                String company = row2.get(j).getString("company");
-                String datasource = row2.get(j).getString("datasource");
-                String regions = row2.get(j).getString("regions");
-                String unitcode = row2.get(j).getString("unitcode");
-                String dacimal = row2.get(j).getString("dacimal");
-                String sql5 = "insert into tb_coindex_zb (code,indexcode,zbcode,company,datasource,regions,unitcode,dacimal) values(?,?,?,?,?,?,?,?)";
-                dataQuery.executeSql(sql5,new Object[]{code,icode,zbcode,company,datasource,regions,unitcode,dacimal});
-            }
-            dataQuery.commit();
 
+            //DataTableRow rows4 = rows3.get(6);
+
+
+            dataQuery.commit();
         } catch (SQLException e) {
             if (dataQuery != null) {
                 dataQuery.rollback();
@@ -219,6 +217,74 @@ public class OraIndexListDaoImpl implements IIndexListDao {
 
         return 0;
 
+    }
+    /**
+     * 修改计算公式
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    @Override
+    public int switchFormu(String ncode,String ocode) {
+        DataQuery dataQuery = null;
+        try {
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+
+            //排序所有的公式中的modulecode
+            String sql1 = "select * from tb_coindex_zb where indexcode=? order by unitcode";
+            DataTable table1 = dataQuery.getDataTableSql(sql1,new Object[]{ncode});
+            DataTable table2 = dataQuery.getDataTableSql(sql1,new Object[]{ocode});
+            List<DataTableRow> row1 = table1.getRows();
+            List<DataTableRow> row2 = table2.getRows();
+            //取出所有的计算公式
+            String sql2 = "select * from tb_coindex_module where indexcode=? order by sortcode";
+            DataTable table3 = dataQuery.getDataTableSql(sql2,new Object[]{ncode});
+            DataTable table4 = dataQuery.getDataTableSql(sql2,new Object[]{ocode});
+            List<DataTableRow> row3 = table3.getRows();
+            List<DataTableRow> row4 = table4.getRows();
+
+            for(int j=0;j<row3.size();j++){
+                String nformula = row3.get(j).getString("formula");
+                String oformula = row4.get(j).getString("formula");
+                String nmocode = row3.get(j).getString("code");
+                String omocode = row4.get(j).getString("code");
+                for(int k=0;k<row1.size();k++){
+
+                    String nforcode = row1.get(k).getString("code");
+                    String oforcode = row2.get(k).getString("code");
+
+                    if(nformula.equals(oformula)&& nformula.contains(oforcode)){
+                        nformula = nformula.replace("#"+oforcode+"#","#"+nforcode+"#");//换成新模型节点code
+                        String sql3 = "update tb_coindex_module set formula=? where copycode=? and code=?";
+                        dataQuery.executeSql(sql3,new Object[]{nformula,omocode,nmocode});
+                    }
+
+                }
+
+            }
+            //修正复制节点的copycode
+            for (int m=0;m<row3.size();m++){
+                String code = row3.get(m).getString("code");
+                String sql11="update tb_coindex_module set copycode=? where code=?";
+                dataQuery.executeSql(sql11,new Object[]{code,code});
+            }
+
+            dataQuery.commit();
+        } catch (SQLException e) {
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                e.printStackTrace();
+                return 1;
+            }
+        } finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+
+        return 0;
     }
 
         /*}
@@ -254,6 +320,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
             java.util.Date now = new java.util.Date();
+            //复制基本信息表
             String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
             String icode = copydata.getCode();
             String icname = copydata.getCname();
@@ -271,9 +338,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             //Object up = new Timestamp(new Date().getTime());
             String updatetime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
-
             dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplanperiod,iplantime,createuser,createtime,updatetime});
-
 
             //复制模型
             String sql2 = "select * from tb_coindex_module where indexcode=?";
@@ -294,6 +359,22 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                 String sql3 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode) values(?,?,?,?,?,?,?,?,?,?,?)";
                 dataQuery.executeSql(sql3,new Object[]{code,cname,procode,icode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode});
             }
+            //复制筛选条件
+            String sql4 = "select * from tb_coindex_zb where indexcode=?";
+            DataTable table2 = dataQuery.getDataTableSql(sql4,new Object[]{cpcode});
+            List<DataTableRow> row2 = table2.getRows();
+            for(int j=0;j<row2.size();j++){
+                String code = UUID.randomUUID().toString().replace("-", "").toLowerCase();
+                //String incode1 = row2.get(j).getString("indexcode");
+                String zbcode = row2.get(j).getString("zbcode");
+                String company = row2.get(j).getString("company");
+                String datasource = row2.get(j).getString("datasource");
+                String regions = row2.get(j).getString("regions");
+                String unitcode = row2.get(j).getString("unitcode");
+                String dacimal = row2.get(j).getString("dacimal");
+                String sql5 = "insert into tb_coindex_zb (code,indexcode,zbcode,company,datasource,regions,unitcode,dacimal) values(?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql5,new Object[]{code,icode,zbcode,company,datasource,regions,unitcode,dacimal});
+            }
             //修正tb_coindex_module的procode
            // String newcode = UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,6);
             String sql9="select * from tb_coindex_module where indexcode=?";
@@ -312,29 +393,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                     dataQuery.executeSql(sql11,new Object[]{procode,code});
                 }
             }
-            //修正复制节点的copycode
-            for (int m=0;m<rows3.size();m++){
-                String code = rows3.get(m).getString("code");
-                String sql11="update tb_coindex_module set copycode=? where code=?";
-                dataQuery.executeSql(sql11,new Object[]{code,code});
 
-            }
-            //复制筛选条件
-            String sql4 = "select * from tb_coindex_zb where indexcode=?";
-            DataTable table2 = dataQuery.getDataTableSql(sql4,new Object[]{cpcode});
-            List<DataTableRow> row2 = table2.getRows();
-            for(int j=0;j<row2.size();j++){
-                String code = UUID.randomUUID().toString().replace("-", "").toLowerCase();
-                //String incode1 = row2.get(j).getString("indexcode");
-                String zbcode = row2.get(j).getString("zbcode");
-                String company = row2.get(j).getString("company");
-                String datasource = row2.get(j).getString("datasource");
-                String regions = row2.get(j).getString("regions");
-                String unitcode = row2.get(j).getString("unitcode");
-                String dacimal = row2.get(j).getString("dacimal");
-                String sql5 = "insert into tb_coindex_zb (code,indexcode,zbcode,company,datasource,regions,unitcode,dacimal) values(?,?,?,?,?,?,?,?)";
-                dataQuery.executeSql(sql5,new Object[]{code,icode,zbcode,company,datasource,regions,unitcode,dacimal});
-            }
             dataQuery.commit();
 
         } catch (SQLException e) {
