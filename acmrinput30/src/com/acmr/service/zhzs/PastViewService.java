@@ -10,6 +10,7 @@ import com.acmr.dao.zhzs.IDataDao;
 import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.model.range.Pinfo;
+import com.acmr.model.zhzs.IndexTask;
 import com.acmr.model.zhzs.TaskModule;
 import com.acmr.service.zbdata.OriginService;
 
@@ -114,6 +115,7 @@ public class PastViewService {
             arr.put("code",zong.get(i).getCode());
             arr.put("orcode",zong.get(i).getOrcode());
             arr.put("dotcount",zong.get(i).getDacimal());
+            arr.put("taskcode",zong.get(i).getTaskcode());
             list.add(arr);
             list.addAll(getmodelList(taskcode,zong.get(i).getCode()));
         }
@@ -129,6 +131,7 @@ public class PastViewService {
             arr.put("code",tmp.get(i).getCode());
             arr.put("orcode",tmp.get(i).getOrcode());
             arr.put("dotcount",tmp.get(i).getDacimal());
+            arr.put("taskcode",tmp.get(i).getTaskcode());
             mode.add(arr);
             if(tmp.get(i).getIfzs().equals("1")){
                 mode.addAll(getmodelList(taskcode,tmp.get(i).getCode()));
@@ -233,16 +236,16 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<Map<String,String>> getModsList (String icode){
+    public List<Map<String,String>> getModsList (List<String> alltaskcode){
         List<Map<String,String>> lists = new ArrayList<>();
         List<String> temp = new ArrayList<>();
-        List<String> alltaskcode = getAllTask(icode) ;
         if(alltaskcode.size()>0){//先把最近一年的orcode取出来
             List<Map<String,String>> modlist = getModelTree(alltaskcode.get(0));
             for (int i = 0; i <modlist.size() ; i++) {
                 Map<String,String> arr = new HashMap<>();
                 arr.put("name",modlist.get(i).get("name"));
                 arr.put("orcode",modlist.get(i).get("orcode"));
+              //  arr.put("taskcode",modlist.get(i).get("taskcode"));
                 temp.add(modlist.get(i).get("orcode"));//加到临时的数组中，为了去重
                 lists.add(arr);
             }
@@ -255,6 +258,7 @@ public class PastViewService {
                     Map<String,String> arr = new HashMap<>();
                     arr.put("name",modlist.get(j).get("name"));
                     arr.put("orcode",modlist.get(j).get("orcode"));
+                   // arr.put("taskcode",modlist.get(i).get("taskcode"));
                     temp.add(modlist.get(j).get("orcode"));//加到临时的数组中，为了去重
                     lists.add(arr);
                 }
@@ -264,31 +268,58 @@ public class PastViewService {
     }
 
     /**
-     * 单地区查询所有的data
+     * 单地区查询所有的data，并封裝
      * @author wf
      * @date
      * @param
      * @return
      */
 
-    public List<List<String>> getModData(String reg,List<String> fivetaskcode,List<Map<String,String>> allfivemods,List<String> last5){
+    public List<List<String>> getModData(String reg,List<String> fivetaskcode){
         PastViewService pv = new PastViewService();
         List<List<String>> moddatas = new ArrayList<>();
-
-        for(int i=0;i<allfivemods.size();i++){
-            String modcode = allfivemods.get(i).get("code").toString();
+       /* for(int i=0;i<allfivemods.size();i++){
+            String modcode = allfivemods.get(i).get("code");
+            String tkcode = allfivemods.get(i).get("taskcode");
             String orcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getOrcode(modcode).getRows().get(0).getString("orcode");
             //List<String> zbdata = new ArrayList<>();
             List<String> datas = new ArrayList<>();
+            if(!datas.contains(orcode) && !datas.contains(tkcode)){
+                datas.add(tkcode);
+                datas.add(orcode);
+            }
             for(int j=0;j<fivetaskcode.size();j++){
+
                     String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j),modcode,reg,last5.get(j));
                     if(data != null){
-                        datas.add(modcode);
                         datas.add(data);
                     }
             }
             moddatas.add(datas);
+        }*/
+        /* djj寫的
+        * 注意taskcode要按時間的降序排列*/
+        List<Map<String,String>> orcodes = getModsList(fivetaskcode);//拿到這五年的去重的orcode
+        for (int i = 0; i < orcodes.size() ; i++) {
+            List<String> temp = new ArrayList<>();
+            temp.add(orcodes.get(i).get("name"));//第一個是指數/指標名字
+            for (int j = 0; j <fivetaskcode.size() ; j++) {
+                String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModCode(fivetaskcode.get(j),orcodes.get(i).get("orcode"));
+                if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
+                    temp.add("");
+                }else{
+                    String ayearmon =  new IndexTaskService().getTime(fivetaskcode.get(j));
+                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j),modcode,reg,ayearmon);
+                    if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
+                        temp.add("");
+                    }else {
+                        temp.add(data);
+                    }
+                }
+            }
+            moddatas.add(temp);
         }
+        //最後得出來的是一行一行的數據，前臺循環就行
         return moddatas;
     }
     /**
@@ -322,4 +353,39 @@ public class PastViewService {
         }
         return regdatas;
     }
+   /**
+     * 对比orcode封装显示数据
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    /*public List<List<String>> getDatas(String code,List<List<String>> moddatas){
+        PastViewService pv = new PastViewService();
+        List<List<String>> showDatas = new ArrayList<>();
+        List<Map<String,String>> orcdoelist = pv.getModsList(code);
+        for(int i=0;i<orcdoelist.size();i++){
+            String tocode = orcdoelist.get(i).get("orcode");
+            String toname = orcdoelist.get(i).get("name");
+            for(int j=0;j<moddatas.size();j++){
+                List<String> dataorcode = moddatas.get(j);
+
+                if(tocode.equals(dataorcode.get(0))){
+                    dataorcode.set(0,toname);
+                    showDatas.add(dataorcode);
+                }else{
+                    for(int k=0;k<dataorcode.size();k++){
+                        if(k == 0){
+                            dataorcode.set(0,toname);
+                        }else{
+                            dataorcode.set(k,"");
+                        }
+                        showDatas.add(dataorcode);
+                    }
+
+                }
+            }
+        }
+        return showDatas;
+    }*/
 }

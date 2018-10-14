@@ -14,23 +14,16 @@
         <tr>
             <th>指标</th>
             <c:forEach items="${last5}" var="time">
-                <th>${time.get(0)}</th>
-                <th>${time.get(1)}</th>
-                <th>${time.get(2)}</th>
-                <th>${time.get(3)}</th>
-                <th>${time.get(4)}</th>
+                <th>${time}</th>
             </c:forEach>
         </tr>
         </thead>
         <tbody class="list_body my_datas">
-        <c:forEach items="${moddata}" var="mo">
+        <c:forEach items="${showdata}" var="mo">
             <tr>
-                <td>${mo.getCname()}</td>
-                <td>${mo.getData()}</td>
-                <td>${mo.getData()}</td>
-                <td>${mo.getData()}</td>
-                <td>${mo.getData()}</td>
-                <td>${mo.getData()}</td>
+                <c:forEach items="${mo}" var="td">
+                    <td>${td}</td>
+                </c:forEach>
             </tr>
         </c:forEach>
         </tbody>

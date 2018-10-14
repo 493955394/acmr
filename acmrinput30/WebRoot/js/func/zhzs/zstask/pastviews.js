@@ -20,5 +20,25 @@ define(function (require,exports,module) {
         tableCol:tableCol
     }
 
+    $(document).on('click', '.pastview_download', function(event) {
+        event.preventDefault();
+        var regcode="001";
+        var url = common.rootPath+"zbdata/pastviews.htm?m=toModExcel&regcode="+regcode;
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+
+                if (data.returncode == 300) {
+                    alert("数据为空");
+                } else {
+                    alert("下载成功!");
+                }
+            }
+        })
+        window.location.href = url;
+    })
+
 
 })
