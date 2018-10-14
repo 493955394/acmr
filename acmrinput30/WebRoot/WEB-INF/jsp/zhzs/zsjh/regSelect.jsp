@@ -60,12 +60,14 @@
         <c:forEach items="${singledata}" var="singgle">
             <tr>
                 <c:forEach items="${singgle}" var="sing">
-                    <c:if test="${sing=='0.0'}">
+                    <c:choose>
+                    <c:when test="${sing==''||sing ==null}">
                         <td class="red"></td>
-                    </c:if>
-                    <c:if test="${sing!='0.0'}">
+                    </c:when>
+                    <c:otherwise >
                         <td>${sing}</td>
-                    </c:if>
+                    </c:otherwise>
+                    </c:choose>
                 </c:forEach>
             </tr>
         </c:forEach>

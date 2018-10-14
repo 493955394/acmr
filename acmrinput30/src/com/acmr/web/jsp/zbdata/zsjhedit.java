@@ -134,7 +134,7 @@ public class zsjhedit extends BaseAction {
     public ModelAndView getCheckData() {
         HttpServletRequest req = this.getRequest();
         String pjax = req.getHeader("X-PJAX");
-        OriginService originService=new OriginService();
+        OriginService originService = new OriginService();
         String reg = PubInfo.getString(req.getParameter("reg"));//地区
         regname = PubInfo.getString(req.getParameter("regname"));//地区名称
         String sj = PubInfo.getString(req.getParameter("sj"));//时间
@@ -144,45 +144,47 @@ public class zsjhedit extends BaseAction {
         String co = PubInfo.getString(req.getParameter("co"));//主体
         String zbunit = PubInfo.getString(req.getParameter("zbunit"));//单位
         //String code=PubInfo.getString(req.getParameter("indexcode"));
-        String [] regs = reg.split(",");
-        String [] regnames = regname.split(",");
-        String [] sjs = sj.split(",");
-        String [] zbcodes = zbcode.split(",");
-        String [] zbnames = zbname.split(",");
-        String [] dss = ds.split(",");
-        String [] cos = co.split(",");
-        String [] units = zbunit.split(",");
+        String[] regs = reg.split(",");
+        String[] regnames = regname.split(",");
+        String[] sjs = sj.split(",");
+        String[] zbcodes = zbcode.split(",");
+        String[] zbnames = zbname.split(",");
+        String[] dss = ds.split(",");
+        String[] cos = co.split(",");
+        String[] units = zbunit.split(",");
         data1 = new ArrayList();
-        String checkresult =CheckResult(regs,sjs,zbcodes,dss,cos);
-        for (int i = 0; i <sjs.length ; i++) {
-            for (int j = 0; j <zbcodes.length ; j++) {
-                List <String> datas=new ArrayList();
-                CubeWdCodes where = new CubeWdCodes();
-                String funit=originService.getwdnode("zb",zbcodes[j]).getUnitcode();
-                double rate=originService.getRate(funit,units[j],sjs[i]);
-                where.Add("zb", zbcodes[j]);
-                where.Add("ds", dss[j]);
-                where.Add("co", cos[j]);
-                where.Add("reg", Arrays.asList(regs));
-                where.Add("sj", sjs[i]);
-                ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
+        String checkresult = CheckResult(regs, sjs, zbcodes, dss, cos);
+        for (int i = 0; i < sjs.length; i++) {
+            for (int j = 0; j < zbcodes.length; j++) {
+                List<String> datas = new ArrayList<>();
+                String funit = originService.getwdnode("zb", zbcodes[j]).getUnitcode();
+                double rate = originService.getRate(funit, units[j], sjs[i]);
                 datas.add(sjs[i]);//获取时间
-                datas.add(zbnames[j]);//获取地区
-                for (int k = 0; k <result.size() ; k++) {
-                    if(result.get(k).getData().toString() != ""){
-                        double resulttemp = result.get(k).getData().getData()*rate;
-                        datas.add(resulttemp+"");
-                    }
-                    else{
+                datas.add(zbnames[j]);//获取指标
+                for (int k = 0; k < regs.length; k++) {
+                    CubeWdCodes where = new CubeWdCodes();
+                    where.Add("zb", zbcodes[j]);
+                    where.Add("ds", dss[j]);
+                    where.Add("co", cos[j]);
+                    where.Add("reg", regs[k]);
+                    where.Add("sj", sjs[i]);
+                    ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd", where);
+                    if(result.size()==0){
                         datas.add("");
+                    }else{
+                        for (int l = 0; l < result.size(); l++) {
+                            if (result.get(l).getData().toString() != "") {
+                                double resulttemp = result.get(l).getData().getData() * rate;
+                                datas.add(resulttemp + "");
+                            } else {
+                                datas.add("");
+                            }
+                        }
                     }
-
                 }
-                /*for (int k = datas.size(); k <regs.length+2 ; k++) {//补齐单元格
-                    datas.add("0.0");
-                }*/
                 data1.add(datas);
             }
+
         }
         /**
          * 检查数据是否完整
@@ -214,19 +216,26 @@ public class zsjhedit extends BaseAction {
         for (int i = 0; i <regs.length ; i++) {
             String check = "0";
             for (int j = 0; j <zbcodes.length ; j++) {
-                CubeWdCodes where = new CubeWdCodes();
-                where.Add("zb", zbcodes[j]);
-                where.Add("ds", dss[j]);
-                where.Add("co", cos[j]);
-                where.Add("reg", regs[i]);
-                where.Add("sj", Arrays.asList(sjs));
-                ArrayList<CubeQueryData> result1 = RegdataService.queryData("cuscxnd",where);
-                for (int k = 0; k <result1.size() ; k++) {
-                    String result2 = result1.get(k).getData().toString();
-                    if(result2 =="" ){
+                for (int k = 0; k <sjs.length ; k++) {
+                    CubeWdCodes where = new CubeWdCodes();
+                    where.Add("zb", zbcodes[j]);
+                    where.Add("ds", dss[j]);
+                    where.Add("co", cos[j]);
+                    where.Add("reg", regs[i]);
+                    where.Add("sj", sjs[k]);
+                    ArrayList<CubeQueryData> result1 = RegdataService.queryData("cuscxnd",where);
+                    if(result1.size()==0){
                         check ="1";
+                    }else {
+                        for (int l = 0; l <result1.size() ; l++) {
+                            String result2 = result1.get(l).getData().toString();
+                            if(result2 =="" ){
+                                check ="1";
+                            }
+                        }
                     }
                 }
+
             }
             result += check + ",";
         }
@@ -257,7 +266,7 @@ public class zsjhedit extends BaseAction {
         String regionname = originService.getwdnode("reg",singlereg).getName();
         singledata1 = new ArrayList();
         for (int i = 0; i <zbcodes.length ; i++) {
-            List <String> datas=new ArrayList();
+            List <String> datas=new ArrayList<>();
             datas.add(zbnames[i]);//获取指标名
             for (int j = 0; j <sjs.length ; j++) {
 
@@ -270,9 +279,18 @@ public class zsjhedit extends BaseAction {
                 where.Add("reg", singlereg);
                 where.Add("sj", sjs[j]);
                 ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
-                for (int k = 0; k <result.size() ; k++) {
-                    double resulttemp = result.get(k).getData().getData()*rate;
-                    datas.add(resulttemp+"") ;
+                if(result.size()==0){
+                    datas.add("");
+                }else{
+                    for (int k = 0; k <result.size() ; k++) {
+                        if (result.get(k).getData().toString() != ""){
+                            double resulttemp = result.get(k).getData().getData()*rate;
+                            datas.add(resulttemp+"") ;
+                        }
+                       else{
+                            datas.add("");
+                        }
+                    }
                 }
             }
             singledata1.add(datas);
