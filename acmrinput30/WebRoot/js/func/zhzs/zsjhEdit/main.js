@@ -403,11 +403,11 @@ define(function (require,exports,module) {
             $.pjax({
                 url: common.rootPath+'zbdata/zsjhedit.htm?m=getCheckData&indexcode='+incode,
                 type: "post",
+                async:false,
                 data: {"reg": regselect,"regname":regselectname,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit},
                 container:'.data_check_show',
                 timeout:50000
             })
-            $(document).on('pjax:success', function() {
                     mc('tabledata',0,0,0);
                     $("#data_single").hide();
                     $("#regtable").show();
@@ -429,7 +429,6 @@ define(function (require,exports,module) {
                         }
                     }
                     $("#selectreg").append(showreg);
-            });
         }
     });
 
@@ -456,14 +455,13 @@ define(function (require,exports,module) {
         $.pjax({
             url: common.rootPath+'zbdata/zsjhedit.htm?m=getCheckSingle&indexcode='+incode,
             type: "post",
+            async:false,
             data: {"reg": reg,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit,"checkdata":checkdata},
             container:'.data_check_show',
             timeout:50000
         })
-        $(document).on('pjax:success', function() {
             $("#regtable").hide();
             $("#data_single").show();
-        });
     }) ;
 
  /*   /!**
