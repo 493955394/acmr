@@ -39,7 +39,19 @@ define(function (require,exports,module) {
         })
         window.location.href = url;
     })
-
+    /**
+     * 序列变换pjax请求
+     */
+    $("#select-data").change(function(){
+        var code=$("#select-data option:selected").val();
+        console.log(code)
+        //要触发的事件
+        $.pjax({
+            url: common.rootPath+'zbdata/pastviews.htm?m= &code='+code,
+            type: "get",
+            container:'.J_pastviews_data_table'
+        })
+    });
 
 
 })
