@@ -33,10 +33,10 @@
                         <div class="form-group">
                             <span>地区选择：</span>
                             <select  class="form-control input-sm" id="select-data">
-                                <c:forEach items="${regcode}" var="regcode">
-                                    <c:forEach items="${regnames}" var="reg">
-                                        <option value="${regcode}">${reg}</option>
-                                    </c:forEach>
+                                <c:forEach items="${reginfo}" var="reg">
+
+                                        <option value="${reg.regcode}">${reg.name}</option>
+
                                 </c:forEach>
                                 <option value="1">地区展示序列</option>
                             </select>

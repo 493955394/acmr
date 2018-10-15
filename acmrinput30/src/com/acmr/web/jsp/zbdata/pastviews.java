@@ -37,6 +37,7 @@ public class pastviews extends BaseAction {
      */
     public ModelAndView main(){
         //获取用户权限
+        String icode = this.getRequest().getParameter("id");
         String right=this.getRequest().getParameter("right");
 
         OriginService os = new OriginService();
@@ -57,19 +58,20 @@ public class pastviews extends BaseAction {
         List<String> last5 = pv.getAllTime(code).subList(0,5);
         List<String> regs = pv.getRegions(taskcode);
         String reg = pv.getRegions(taskcode).get(0);
-        List<String> regnames = new ArrayList<>();
+        Map<String,String> reginfo = new HashMap<>();
         for(int i=0;i<regs.size();i++) {
             String regioncode = regs.get(i);
             String regname = os.getwdnode("reg", regioncode).getName();
-            regnames.add(regname);
+            reginfo.put("name",regname);
+            reginfo.put("regcode",regioncode);
         }
 /*
         List<Map<String,String>> allfivemod = pv.getFiveMods(fivetaskcode);
         List<List<String>> moddatas = pv.getModData(reg,fivetaskcode,allfivemod,last5);*/
         List<List<String>> showdatas = pv.getModData(reg,fivetaskcode);
 
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",last5).addObject("regnames",regnames)
-                .addObject("regcode",regs).addObject("orcode",orcodes).addObject("orname",ornames).addObject("showmod",change);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",last5).addObject("reginfo",reginfo)
+                .addObject("orcode",orcodes).addObject("orname",ornames).addObject("show",change).addObject("indexcode",icode);
    }
 
     /**
@@ -85,12 +87,12 @@ public class pastviews extends BaseAction {
         String right=this.getRequest().getParameter("right");
         String regcode = this.getRequest().getParameter("code");
         String time=this.getRequest().getParameter("time");
-
+        String change = "2";
             List<String> fivetaskcode = pv.getAllTask(code).subList(0,5);
             //List<String> alltaskcode = pv.getAllTask(code);
             List<String> last5 = pv.getAllTime(code).subList(0,5);
             List<List<String>> showdatas = pv.getModData(regcode,fivetaskcode);
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",last5);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",last5).addObject("show",change);
 
            /* if(time.contains(",")){
                 List<String> gettimes = Arrays.asList(time.split(","));
