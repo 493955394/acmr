@@ -59,6 +59,7 @@ define(function (require,exports,module) {
             success: function(data) {
                 if (data.returncode == 200) {
                     alert("保存成功");
+                    window.close();
                 }else if(data.returncode == 501){
                     alert("该编码已经存在");
                 }
@@ -175,4 +176,11 @@ define(function (require,exports,module) {
         });
         return str;
     }
+
+    $(document).on('click',".resetbutton" ,function() {//初始化一次
+        window.location.reload()
+      /*  $('#secend_zs').show();
+        $('#select_zb').hide();
+        $('.hidden_group').hide();*/
+    })
 })

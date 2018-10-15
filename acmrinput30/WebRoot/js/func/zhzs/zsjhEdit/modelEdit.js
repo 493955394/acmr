@@ -87,6 +87,7 @@ define(function (require,exports,module) {
             success: function(data) {
                 if (data.returncode == 200) {
                     alert("保存成功");
+                    window.close();
                 }
                 else if(data.returncode == 300){
                     alert("表达式有误");
@@ -143,4 +144,8 @@ define(function (require,exports,module) {
         });
         return str;
     }
+
+    $(document).on('click',".resetbutton" ,function(event) {//初始化一次
+       window.location.reload()
+    })
 })

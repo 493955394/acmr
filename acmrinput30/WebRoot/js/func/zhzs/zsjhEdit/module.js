@@ -38,6 +38,7 @@ define(function (require,exports,module) {
         choosedname = treeNode.name;
         if (treeNode.isParent == true) {
             sendPjax(treeNode.id)
+            refreshNode()
         }
         else {
             return
@@ -81,6 +82,7 @@ define(function (require,exports,module) {
                 }
                 else {
                     sendPjax(procode)
+                    $.fn.zTree.init($("#moduleTree"), setting, rootNode);
                 }
             }
         })
@@ -217,4 +219,18 @@ define(function (require,exports,module) {
             delIds = [];
         });
     });
+
+    /**
+     * 刷新当前节点
+     */
+    function refreshNode() {
+        /*根据 treeId 获取 zTree 对象*/
+        var zTree = $.fn.zTree.getZTreeObj("moduleTree"),
+            type = "refresh",
+            silent = false,
+            /*获取 zTree 当前被选中的节点数据集合*/
+            nodes = zTree.getSelectedNodes();
+        /*强行异步加载父节点的子节点。[setting.async.enable = true 时有效]*/
+        zTree.reAsyncChildNodes(nodes[0], type, silent);
+    }
 })
