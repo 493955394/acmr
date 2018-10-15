@@ -121,7 +121,8 @@ define(function (require,exports,module) {
      * 选中单个地区
      */
 
-    $("#sigglechoose").click(function () {
+    $(document).on("click","#sigglechoose",function (event) {
+        event.preventDefault();
         var regcode =  $('input[name=regcode]').val();
         var regcname =  $('input[name=regname]').val();
         select.push({code:regcode,name:regcname});
@@ -150,7 +151,8 @@ define(function (require,exports,module) {
     /**
      * 删除单个地区
      */
-    $("#delsiggle").click(function () {
+    $(document).on('click','#delsiggle',function (event) {
+        event.preventDefault();
         if(select_li !="error"){
             var code = $('ul.regul').find("li").eq(select_li).attr("id");
             for(var i=0;i<select.length;i++){
@@ -165,7 +167,8 @@ define(function (require,exports,module) {
     /**
      * 选中某地区下所有地区
      */
-    $(document).on("click","#chooseall",function () {
+    $(document).on("click","#chooseall",function (event) {
+        event.preventDefault();
         var procode =  $('input[name=regcode]').val();
         if (procode){
             $.ajax({
@@ -206,7 +209,8 @@ define(function (require,exports,module) {
     /**
      * 删除所有地区
      */
-    $("#delall").click(function (){
+    $(document).on("click","#delall",function (event) {
+        event.preventDefault();
         $('ul.regul').html("");
         select_li = "error";
         select = [];
@@ -227,7 +231,8 @@ define(function (require,exports,module) {
         checkreturn=[];
     var timesort = $("#index_sort option:selected").val();
 
-    $("#datachecks").click(function () {
+    $(document).on("click","#datachecks",function (event) {
+        event.preventDefault();
         selecttime = "";//初始化时间
        $("#data_check_show").empty();//初始化表格
         var begintime = $('input[name = begintime]').val();
@@ -399,7 +404,8 @@ define(function (require,exports,module) {
                 url: common.rootPath+'zbdata/zsjhedit.htm?m=getCheckData&indexcode='+incode,
                 type: "post",
                 data: {"reg": regselect,"regname":regselectname,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit},
-                container:'.data_check_show'
+                container:'.data_check_show',
+                timeout:50000
             })
             $(document).on('pjax:success', function() {
                     mc('tabledata',0,0,0);
@@ -415,10 +421,10 @@ define(function (require,exports,module) {
                             showreg +="";
                         }else {
                             if(checkreturn[i]=="0"){
-                                showreg += '<li class="list-group-item clickli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-ok"></i></span></li>';
+                                showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-ok clickli"></i></span></li>';
                             }
                             else {
-                                showreg += '<li class="list-group-item clickli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-remove"></i></span></li>';
+                                showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-remove clickli" data-id="'+select[i].code+'"></i></span></li>';
                             }
                         }
                     }
@@ -426,8 +432,9 @@ define(function (require,exports,module) {
             });
         }
     });
+
     $("#selectreg").on('click','.clickli', function() {
-        var reg =$(this).attr("id");
+        var reg =$(this).attr("data-id");
         var zbcode = "";//指标code
         var zbco = "";//指标主体
         var zbds = "";//指标数据来源
@@ -450,7 +457,8 @@ define(function (require,exports,module) {
             url: common.rootPath+'zbdata/zsjhedit.htm?m=getCheckSingle&indexcode='+incode,
             type: "post",
             data: {"reg": reg,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit,"checkdata":checkdata},
-            container:'.data_check_show'
+            container:'.data_check_show',
+            timeout:50000
         })
         $(document).on('pjax:success', function() {
             $("#regtable").hide();
@@ -458,9 +466,9 @@ define(function (require,exports,module) {
         });
     }) ;
 
-    /**
+ /*   /!**
      * 检查数据是否完整
-     */
+     *!/
     function checkTable(tableId){
         var tb = document.getElementById(tableId);
         if(tb.rows.length==0) return false;
@@ -469,7 +477,7 @@ define(function (require,exports,module) {
             if(tb.rows[0].cells.length!=tb.rows[i].cells.length) return false;
         }
         return true;
-    }
+    }*/
     /**
      * 数据下载
      * @author wf
