@@ -317,8 +317,13 @@ define(function (require,exports,module) {
             timeout:1000,
             success:function(data){
                 if (data.returncode == 200) {
+                    var url=window.location.href;
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_data_table'
+                    });
                     alert("删除成功！");
-                    window.location.reload(true);
+                    //window.location.reload(true);
                 } else if (data.returncode == 300) {
                     alert("目录下存在计划，删除失败");
                 } else {
