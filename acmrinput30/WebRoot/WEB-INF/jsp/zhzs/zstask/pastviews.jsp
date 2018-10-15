@@ -32,7 +32,7 @@
                     <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=regDatas">
                         <div class="form-group">
                             <span>地区选择：</span>
-                            <select  class="form-control input-sm">
+                            <select  class="form-control input-sm" id="select-data">
                                 <c:forEach items="${regcode}" var="regcode">
                                     <c:forEach items="${regnames}" var="reg">
                                         <option value="${regcode}">${reg}</option>
