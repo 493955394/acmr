@@ -47,7 +47,7 @@ define(function (require,exports,module) {
         console.log(code)
         //要触发的事件
         $.pjax({
-            url: common.rootPath+'zbdata/pastviews.htm?m= &code='+code,
+            url: common.rootPath+'zbdata/pastviews.htm?m=regDatas&code='+code,
             type: "get",
             container:'.J_pastviews_data_table'
         })

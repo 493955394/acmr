@@ -83,7 +83,7 @@ public class pastviews extends BaseAction {
 
         //获取用户权限
         String right=this.getRequest().getParameter("right");
-        String regcode = this.getRequest().getParameter("regcode");
+        String regcode = this.getRequest().getParameter("code");
         String time=this.getRequest().getParameter("time");
 
             List<String> fivetaskcode = pv.getAllTask(code).subList(0,5);
