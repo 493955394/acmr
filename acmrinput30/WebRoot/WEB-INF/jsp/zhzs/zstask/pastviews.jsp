@@ -24,14 +24,21 @@
         <div class="panel-heading">
             <h1>查看往期</h1>
         </div>
+
         <div class="panel-body">
             <div class="toolbar">
+                <c:if test="${show.equals('2')}">
                 <div class="toolbar-left">
-                    <form class="form-inline J_search_form" action="${ctx}/system/">
+                    <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=regDatas">
                         <div class="form-group">
                             <span>地区选择：</span>
                             <select  class="form-control input-sm">
-                                <option value="">地区展示序列</option>
+                                <c:forEach items="${regcode}" var="regcode">
+                                    <c:forEach items="${regnames}" var="reg">
+                                        <option value="${regcode}">${reg}</option>
+                                    </c:forEach>
+                                </c:forEach>
+                                <option value="1">地区展示序列</option>
                             </select>
                         </div>
                     </form>
@@ -40,19 +47,54 @@
                     <div class="toolbar-group" style="position: relative;">
                         <button class="btn btn-default "data-toggle="modal" data-target=".wdturn-modal" >维度转换</button>
                         <button class="btn btn-default pastview_download">数据下载</button>
-                        <form class="form-inline J_search_form" action="${ctx}/system/">
-                        <div class="form-group">
-                            <span>时间：</span>
-                            <select  class="form-control input-sm">
-                                <option value="">最近五年</option>
-                            </select>
-                        </div>
+                        <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=regDatas">
+                            <div class="form-group">
+                                <span>时间：</span>
+                                <select  class="form-control input-sm">
+                                    <option value="">最近五年</option>
+                                </select>
+                            </div>
                         </form>
 
                     </div>
                 </div>
+                </c:if>
+                <c:if test="${show.equals('1')}">
+                    <div class="toolbar-left">
+                        <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=modDatas">
+                            <div class="form-group">
+                                <span>指标选择：</span>
+                                <select  class="form-control input-sm">
+                                    <c:forEach items="${orcodes}" var="orcode">
+                                        <c:forEach items="${ornames}" var="modname">
+                                            <option value="${orcode}">${modname}</option>
+                                        </c:forEach>
+                                    </c:forEach>
+                                    <option value="2">指标展示序列</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="toolbar-right">
+                        <div class="toolbar-group" style="position: relative;">
+                            <button class="btn btn-default "data-toggle="modal" data-target=".wdturn-modal" >维度转换</button>
+                            <button class="btn btn-default pastview_download">数据下载</button>
+                            <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=modDatas">
+                                <div class="form-group">
+                                    <span>时间：</span>
+                                    <select  class="form-control input-sm">
+                                        <option value="">最近五年</option>
+                                    </select>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </c:if>
             </div>
         </div>
+
+
 
 
 

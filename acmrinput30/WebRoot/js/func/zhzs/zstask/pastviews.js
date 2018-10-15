@@ -19,7 +19,7 @@ define(function (require,exports,module) {
         tableRow:tableRow,
         tableCol:tableCol
     }
-
+    //下载
     $(document).on('click', '.pastview_download', function(event) {
         event.preventDefault();
         var regcode="001";
@@ -39,6 +39,7 @@ define(function (require,exports,module) {
         })
         window.location.href = url;
     })
+
 
 
 })

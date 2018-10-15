@@ -10,7 +10,12 @@ import acmr.util.PubInfo;
 
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
+import com.acmr.dao.zhzs.DataDao;
+import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.model.pub.JSONReturnData;
+import com.acmr.model.zhzs.IndexTask;
+import com.acmr.service.zbdata.OriginService;
+import com.acmr.service.zhzs.OriginDataService;
 import com.acmr.service.zhzs.PastViewService;
 import javax.servlet.http.HttpServletRequest;
 //import java.util.List;
@@ -24,7 +29,7 @@ public class pastviews extends BaseAction {
     PastViewService pv = new PastViewService();
     String code = this.getRequest().getParameter("id");
     /**
-     * 地区选择最近五年默认值
+     * 最近五年默认值，单地区默认展示
      * @author wf
      * @date
      * @param
@@ -34,41 +39,113 @@ public class pastviews extends BaseAction {
         //获取用户权限
         String right=this.getRequest().getParameter("right");
 
+        OriginService os = new OriginService();
         List<String> fivetaskcode = pv.getAllTask(code).subList(0,5);
-        //List<String> alltaskcode = pv.getAllTask(code);
+        List<String> alltaskcode = pv.getAllTask(code);
+        List<Map<String,String>> allmods = pv.getModsList(alltaskcode);
+        List<String> orcodes = new ArrayList<>();
+        List<String> ornames = new ArrayList<>();
+        for(int i=0;i<allmods.size();i++){
+            String code = allmods.get(i).get("orcode");
+            String orname = allmods.get(i).get("name");
+            orcodes.add(code);
+            ornames.add(orname);
+        }
+        String change = "2";
 
         String taskcode = fivetaskcode.get(0);
         List<String> last5 = pv.getAllTime(code).subList(0,5);
+        List<String> regs = pv.getRegions(taskcode);
         String reg = pv.getRegions(taskcode).get(0);
+        List<String> regnames = new ArrayList<>();
+        for(int i=0;i<regs.size();i++) {
+            String regioncode = regs.get(i);
+            String regname = os.getwdnode("reg", regioncode).getName();
+            regnames.add(regname);
+        }
 /*
         List<Map<String,String>> allfivemod = pv.getFiveMods(fivetaskcode);
         List<List<String>> moddatas = pv.getModData(reg,fivetaskcode,allfivemod,last5);*/
         List<List<String>> showdatas = pv.getModData(reg,fivetaskcode);
 
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",last5);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",last5).addObject("regnames",regnames)
+                .addObject("regcode",regs).addObject("orcode",orcodes).addObject("orname",ornames).addObject("showmod",change);
    }
 
     /**
-     * 模型节点选择最近五年默认值
+     * 模型节点选择最近五年默认值,单地区传参展示
      * @author wf
      * @date
      * @param
      * @return
      */
-    public ModelAndView RegDatas(){
+    public ModelAndView regDatas(){
 
         //获取用户权限
         String right=this.getRequest().getParameter("right");
+        String regcode = this.getRequest().getParameter("regcode");
+        String time=this.getRequest().getParameter("time");
 
-        List<String> alltaskcode = pv.getAllTask(code);
-        if(alltaskcode != null){
-            String taskcode = alltaskcode.get(0);
-            List<String> regs = pv.getRegions(taskcode);
+            List<String> fivetaskcode = pv.getAllTask(code).subList(0,5);
+            //List<String> alltaskcode = pv.getAllTask(code);
             List<String> last5 = pv.getAllTime(code).subList(0,5);
-            String mod = pv.getAllMods(alltaskcode).get(0).get("code");
-            List<List<String>> regdatas = pv.getRegData(regs,alltaskcode,mod,last5);
+            List<List<String>> showdatas = pv.getModData(regcode,fivetaskcode);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",last5);
+
+           /* if(time.contains(",")){
+                List<String> gettimes = Arrays.asList(time.split(","));
+                List<String> taskcodes = new ArrayList<>();
+                for(int i=0;i<gettimes.size();i++){
+                    String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().findTask(code,gettimes.get(i)).getRows().get(0).getString("code");
+                    taskcodes.add(taskcode);
+                }
+                List<List<String>> showdatas = pv.getModData(regcode,taskcodes);
+                return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",gettimes);
+
+            }else{
+                String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().findTask(code,time).getRows().get(0).getString("code");
+                List<String> taskcodes = new ArrayList<>();
+                taskcodes.add(taskcode);
+                List<List<String>> showdatas = pv.getModData(regcode,taskcodes);
+                return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",time);
+            }*/
         }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews");
+
+        /*
+        List<Map<String,String>> allfivemod = pv.getFiveMods(fivetaskcode);
+        List<List<String>> moddatas = pv.getModData(reg,fivetaskcode,allfivemod,last5);*/
+
+
+
+
+    /**
+     * 全部地区，单模型节点传参展示
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public ModelAndView modDatas(){
+
+        //获取用户权限
+
+        String right=this.getRequest().getParameter("right");
+        String orcode=this.getRequest().getParameter("orcode");
+        //List<String> fivemods = pv.findModByOrcode(code,orcode).subList(0,5);
+        String change = "1";
+        List<String> fivetaskcode = pv.getAllTask(code).subList(0,5);
+        List<String> alltaskcode = pv.getAllTask(code);
+        String taskcode = alltaskcode.get(0);
+        List<String> regs = pv.getRegions(taskcode);
+
+        List<String> last5 = pv.getAllTime(code).subList(0,5);
+        List<String> allMods = new ArrayList<>();
+        for(int i=0;i<fivetaskcode.size();i++){
+            String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModCode(fivetaskcode.get(i),orcode);
+            allMods.add(modcode);
+        }
+        List<List<String>> regdatas = pv.getRegData(regs,fivetaskcode,allMods,last5);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",regdatas).addObject("last5",last5).addObject("show",change);
     }
     public void toModExcel() throws IOException {
         //接参
@@ -95,7 +172,6 @@ public class pastviews extends BaseAction {
         cell2.setCellValue("指标");
         dr1.set(0, cell2);
 
-        // for (int a=2;a<)
         for (int k = 0; k < last5.size(); k++){
             int m =k+1;
             sheet1.addColumn();
@@ -104,7 +180,6 @@ public class pastviews extends BaseAction {
             dr1.set(m, cell2);
         }
         cell1.getCellstyle().getFont().setBoldweight((short) 10);
-        //System.out.println(data1);
         for(int i=0;i<datas.size();i++){
 
             List<String> arr =datas.get(i);

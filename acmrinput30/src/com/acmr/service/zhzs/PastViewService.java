@@ -266,7 +266,24 @@ public class PastViewService {
         }
         return lists;
     }
+    /**
+     * 得到所有年份的单模型节点list(用于时间的查询)
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
 
+    public List<String> findModByOrcode(String code,String orcode){
+        PastViewService pv = new PastViewService();
+        List<String> alltaskcode = pv.getAllTask(code);
+        List<String> allMods = new ArrayList<>();
+        for(int i=0;i<alltaskcode.size();i++){
+            String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModCode(alltaskcode.get(i),orcode);
+            allMods.add(modcode);
+        }
+        return allMods;
+    }
     /**
      * 单地区查询所有的data，并封裝
      * @author wf
@@ -276,7 +293,7 @@ public class PastViewService {
      */
 
     public List<List<String>> getModData(String reg,List<String> fivetaskcode){
-        PastViewService pv = new PastViewService();
+
         List<List<String>> moddatas = new ArrayList<>();
        /* for(int i=0;i<allfivemods.size();i++){
             String modcode = allfivemods.get(i).get("code");
@@ -329,29 +346,58 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<List<String>> getRegData(List<String> regs,List<String> fivetaskcode,String mod,List<String> last5){
+    public List<List<String>> getRegData(List<String> regs,List<String> fivetaskcode,List<String> allMods,List<String> last5){
         OriginService originService=new OriginService();
         PastViewService pv = new PastViewService();
         List<List<String>> regdatas = new ArrayList<>();
         for(int i=0;i<regs.size();i++){
             String regioncode = regs.get(i);
             //List<String> zbdata = new ArrayList<>();
+            List<String> datas = new ArrayList<>();
+            String regname = originService.getwdnode("reg",regioncode).getName();
+            datas.add(regname);
             for(int j=0;j<fivetaskcode.size();j++){
-                List<String> datas = new ArrayList<>();
-                String regname = originService.getwdnode("reg",regioncode).getName();
-                datas.add(regname);
-                for (int k=0;k<last5.size();k++){
-                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j),mod,regioncode,last5.get(k));
-                    datas.add(data);
-                    if(data == null){
-                        data = ("");
+                String mod = allMods.get(j);
+                String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j),mod,regioncode,last5.get(j));
+                datas.add(data);
+                if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
+                    datas.add("");
+                }else {
                         datas.add(data);
-                    }
-                }
-                regdatas.add(datas);
+                      }
             }
+            regdatas.add(datas);
         }
         return regdatas;
+    }
+    /**
+     * 封装时间列维度的data
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public List<List<String>> getTimeData(List<String> regs,List<String> fivetaskcode,List<String> allMods,List<String> last5){
+        OriginService originService=new OriginService();
+        PastViewService pv = new PastViewService();
+        List<List<String>> timedatas = new ArrayList<>();
+        for(int i=0;i<last5.size();i++){
+            String onetime = regs.get(i);
+            List<String> datas = new ArrayList<>();
+            datas.add(onetime);
+            for(int j=0;j<regs.size();j++){
+                String mod = allMods.get(j);
+                String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j),mod,regs.get(j),last5.get(j));
+                datas.add(data);
+                if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
+                    datas.add("");
+                }else {
+                    datas.add(data);
+                }
+            }
+            timedatas.add(datas);
+        }
+        return timedatas;
     }
    /**
      * 对比orcode封装显示数据
