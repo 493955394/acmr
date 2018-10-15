@@ -93,9 +93,9 @@ define(function(require,exports,module) {
                 if (result.returncode == 200) {
                     alert("文件上传成功");
                 }else if(result.returncode == 300){
-                    $("#import_count").html("<span style='color:red'>上传失败！"+result.returndata+"</span>");
+                    $("#import_count").html(alert("上传失败！"+result.returndata));
                 } else if (result.returncode == 400) {
-                    $("#import_count").html("<span style='color:red'>上传失败！" + result.returndata + "</span>");
+                    $("#import_count").html(alert("上传失败！"+result.returndata));
                 } else {
                     alert("数据不正确,上传失败");
                 }
