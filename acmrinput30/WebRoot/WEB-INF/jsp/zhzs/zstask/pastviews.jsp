@@ -31,7 +31,7 @@
                         <div class="form-group">
                             <span>地区选择：</span>
                             <select  class="form-control input-sm">
-                                <option value="">地区序列</option>
+                                <option value="">地区展示序列</option>
                             </select>
                         </div>
                     </form>
@@ -39,7 +39,7 @@
                 <div class="toolbar-right">
                     <div class="toolbar-group" style="position: relative;">
                         <button class="btn btn-default "data-toggle="modal" data-target=".wdturn-modal" >维度转换</button>
-                        <button class="btn btn-default ">数据下载</button>
+                        <button class="btn btn-default pastview_download">数据下载</button>
                         <form class="form-inline J_search_form" action="${ctx}/system/">
                         <div class="form-group">
                             <span>时间：</span>

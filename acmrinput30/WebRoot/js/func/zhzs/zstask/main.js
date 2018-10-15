@@ -56,8 +56,13 @@ define(function (require,exports,module) {
             timeout: 10000,
             success:function (re) {
                 if(re.returncode == 200){
+                    var url=window.location.href;
+                    $.pjax({
+                        url: url,
+                        container: '.task_table'
+                    });
                     alert("删除成功！")
-                    window.location.reload(true);
+                    //window.location.reload(true);
                 }else {
                     alert("删除失败！")
                 }

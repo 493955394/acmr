@@ -118,7 +118,7 @@ public class indexlist extends BaseAction {
         HttpServletRequest req = this.getRequest();
         String pjax = req.getHeader("X-PJAX");
         String code=req.getParameter("code");
-        PubInfo.printStr("code:"+code);
+        //PubInfo.printStr("code:"+code);
         IndexListService indexListService=new IndexListService();
         //PubInfo.printStr("code"+code);
         List<IndexList> allindexlist=new ArrayList<>();
@@ -209,10 +209,10 @@ public class indexlist extends BaseAction {
         }*/
 
         if (StringUtil.isEmpty(pjax)) {
-          //  PubInfo.printStr("isempty");
+            //PubInfo.printStr("isempty");
             this.getResponse().sendRedirect("/zbdata/indexlist.htm");
         } else {
-          //  PubInfo.printStr("pjax");
+           // PubInfo.printStr("pjax");
             return new ModelAndView("/WEB-INF/jsp/zhzs/indextable").addObject("page",page).addObject("state",state);
         }
         return null;
