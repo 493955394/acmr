@@ -23,6 +23,8 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h1>查看往期</h1>
+            <input type="hidden" name="indexcode" value="${indexcode}">
+
         </div>
 
         <div class="panel-body">

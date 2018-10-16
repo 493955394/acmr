@@ -41,8 +41,8 @@ public class pastviews extends BaseAction {
         String right=this.getRequest().getParameter("right");
 
         OriginService os = new OriginService();
-        List<String> fivetaskcode = pv.getAllTask(code).subList(0,5);
-        List<String> alltaskcode = pv.getAllTask(code);
+        List<String> fivetaskcode = pv.getAllTask(icode).subList(0,5);
+        List<String> alltaskcode = pv.getAllTask(icode);
         List<Map<String,String>> allmods = pv.getModsList(alltaskcode);
         List<String> orcodes = new ArrayList<>();
         List<String> ornames = new ArrayList<>();
@@ -55,19 +55,20 @@ public class pastviews extends BaseAction {
         String change = "2";
 
         String taskcode = fivetaskcode.get(0);
-        List<String> last5 = pv.getAllTime(code).subList(0,5);
+        List<String> last5 = pv.getAllTime(icode).subList(0,5);
         List<String> regs = pv.getRegions(taskcode);
         String reg = pv.getRegions(taskcode).get(0);
-        Map<String,String> reginfo = new HashMap<>();
+        List<Map<String,String>> reginfo = new ArrayList<>();
         for(int i=0;i<regs.size();i++) {
+            Map<String,String> regmap = new HashMap<>();
             String regioncode = regs.get(i);
             String regname = os.getwdnode("reg", regioncode).getName();
-            reginfo.put("name",regname);
-            reginfo.put("regcode",regioncode);
+            regmap.put("name",regname);
+            regmap.put("regcode",regioncode);
+            reginfo.add(regmap);
+
         }
-/*
-        List<Map<String,String>> allfivemod = pv.getFiveMods(fivetaskcode);
-        List<List<String>> moddatas = pv.getModData(reg,fivetaskcode,allfivemod,last5);*/
+
         List<List<String>> showdatas = pv.getModData(reg,fivetaskcode);
 
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",last5).addObject("reginfo",reginfo)
@@ -83,16 +84,32 @@ public class pastviews extends BaseAction {
      */
     public ModelAndView regDatas(){
 
+        OriginService os = new OriginService();
         //获取用户权限
         String right=this.getRequest().getParameter("right");
         String regcode = this.getRequest().getParameter("code");
         String time=this.getRequest().getParameter("time");
+        String icode = this.getRequest().getParameter("icode");
         String change = "2";
-            List<String> fivetaskcode = pv.getAllTask(code).subList(0,5);
+        List<String> fivetaskcode = pv.getAllTask(icode).subList(0,5);
+        String taskcode = fivetaskcode.get(0);
+        List<String> regs = pv.getRegions(taskcode);
+        List<Map<String,String>> reginfo = new ArrayList<>();
+        for(int i=0;i<regs.size();i++) {
+            Map<String,String> regmap = new HashMap<>();
+            String regioncode = regs.get(i);
+            String regname = os.getwdnode("reg", regioncode).getName();
+            regmap.put("name",regname);
+            regmap.put("regcode",regioncode);
+            reginfo.add(regmap);
+
+        }
+
             //List<String> alltaskcode = pv.getAllTask(code);
-            List<String> last5 = pv.getAllTime(code).subList(0,5);
+            List<String> last5 = pv.getAllTime(icode).subList(0,5);
             List<List<String>> showdatas = pv.getModData(regcode,fivetaskcode);
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",last5).addObject("show",change);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",last5).addObject("reginfo",reginfo)
+                .addObject("show",change);
 
            /* if(time.contains(",")){
                 List<String> gettimes = Arrays.asList(time.split(","));
@@ -112,13 +129,6 @@ public class pastviews extends BaseAction {
                 return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",time);
             }*/
         }
-
-        /*
-        List<Map<String,String>> allfivemod = pv.getFiveMods(fivetaskcode);
-        List<List<String>> moddatas = pv.getModData(reg,fivetaskcode,allfivemod,last5);*/
-
-
-
 
     /**
      * 全部地区，单模型节点传参展示

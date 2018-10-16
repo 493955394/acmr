@@ -43,11 +43,12 @@ define(function (require,exports,module) {
      * 序列变换pjax请求
      */
     $("#select-data").change(function(){
+        var icode = $('input[name=indexcode]').val();
         var code=$("#select-data option:selected").val();
         console.log(code)
         //要触发的事件
         $.pjax({
-            url: common.rootPath+'zbdata/pastviews.htm?m=regDatas&code='+code,
+            url: common.rootPath+'zbdata/pastviews.htm?m=regDatas&code='+code+'&icode='+icode,
             type: "get",
             container:'.J_pastviews_data_table'
         })
