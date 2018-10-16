@@ -285,7 +285,7 @@ public class PastViewService {
         return allMods;
     }
     /**
-     * 单地区查询所有的data，并封裝
+     * 单地区查询所有的data，指标data的封裝
      * @author wf
      * @date
      * @param
@@ -295,27 +295,7 @@ public class PastViewService {
     public List<List<String>> getModData(String reg,List<String> fivetaskcode){
 
         List<List<String>> moddatas = new ArrayList<>();
-       /* for(int i=0;i<allfivemods.size();i++){
-            String modcode = allfivemods.get(i).get("code");
-            String tkcode = allfivemods.get(i).get("taskcode");
-            String orcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getOrcode(modcode).getRows().get(0).getString("orcode");
-            //List<String> zbdata = new ArrayList<>();
-            List<String> datas = new ArrayList<>();
-            if(!datas.contains(orcode) && !datas.contains(tkcode)){
-                datas.add(tkcode);
-                datas.add(orcode);
-            }
-            for(int j=0;j<fivetaskcode.size();j++){
 
-                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j),modcode,reg,last5.get(j));
-                    if(data != null){
-                        datas.add(data);
-                    }
-            }
-            moddatas.add(datas);
-        }*/
-        /* djj寫的
-        * 注意taskcode要按時間的降序排列*/
         List<Map<String,String>> orcodes = getModsList(fivetaskcode);//拿到這五年的去重的orcode
         for (int i = 0; i < orcodes.size() ; i++) {
             List<String> temp = new ArrayList<>();
@@ -379,7 +359,7 @@ public class PastViewService {
      */
     public List<List<String>> getTimeData(List<String> regs,String taskcode,List<String> allMods,String time){
         OriginService originService=new OriginService();
-        PastViewService pv = new PastViewService();
+        //PastViewService pv = new PastViewService();
 
 
         List<List<String>> timedatas = new ArrayList<>();
