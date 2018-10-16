@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import javax.servlet.ServletOutputStream;
@@ -60,6 +61,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.acmr.helper.util.StringUtil.toStringWithZero;
 
 public class datahandle extends BaseAction {
 
@@ -245,7 +248,7 @@ public class datahandle extends BaseAction {
                                         ExcelCell cell = Rows.getCells().get(m);
                                         if (cell != null) {
                                             String value = cell.getText() + "";
-                                            if(isNumber(value)||checkDouble(value)){
+                                            if(isNumber(value)||checkDouble(value)||isInteger(value)){
                                                 if(value.equals("  ")){
                                                     data.setReturncode(300);
                                                     data.setReturndata("数据不能为空");
@@ -254,6 +257,7 @@ public class datahandle extends BaseAction {
                                                 }
                                                 reganddata.add(value);
                                             }else{
+
                                                 data.setReturncode(300);
                                                 data.setReturndata("数据格式不正确");
                                                 this.sendJson(data);
@@ -315,12 +319,30 @@ public class datahandle extends BaseAction {
      * @return
      */
     public  boolean checkDouble(String str) {
-        Pattern p = Pattern.compile("^[0-9]*(\\.[0-9]*|[eE][+-][0-9]*)$");
+        //Pattern p = Pattern.compile("^[-//+]?//d+(//.//d*)?|//.//d+$");
+        Pattern p = Pattern.compile("^[-//+]?//d+(//.//d*)?|//.//d+$");
         Matcher m = p.matcher(str);
         if (m.find()) {
             return true;
         }
         return false;
+    }
+    /**
+     * Double类型数据非科学计数法表示
+     *
+     * @param obj
+     * @return 返回格式化后的Double数据类型
+     */
+    public static String formatDouble(Object obj) {
+        DecimalFormat fmt = new DecimalFormat("###0.00");
+        String str = String.valueOf(obj);
+        if (obj instanceof Double) {
+            return fmt.format(obj);
+        } else if (str.matches("^[-\\+]?\\d+(\\.\\d+)?$")) {
+            return fmt.format(Double.valueOf(str));
+        } else {
+            return toStringWithZero(obj);
+        }
     }
     /**
      * 判断是否是Integer类型
@@ -330,8 +352,7 @@ public class datahandle extends BaseAction {
      * @return
      */
 
-
-    public boolean isNumber(String str){
+    /*public boolean isNumber(String str){
         if(str!=null&&!"".equals(str.trim())){
             Pattern pattern = Pattern.compile("[0-9]*");
             Matcher isNum = pattern.matcher(str);
@@ -348,34 +369,47 @@ public class datahandle extends BaseAction {
             return false;
         }
         return true;
-    }
+    }*/
     /**
-     * 判断字段为必填项
-     * @author wf
-     * @date
-     * @param
+     * 判断是否数值型
+     *
+     * @param string
      * @return
      */
-    public static boolean isMust(String code) {
-        Map<String, String> map = getMust();
-        String value = map.get(code);
-        if (value != null) {
-            return true;
+    public static boolean isNumber(String string) {
+        if (string == null || string.equals("")) {
+            return false;
         }
-        return false;
+        if (string.indexOf(".") == 0
+                || string.indexOf(".") == string.length() - 1) {
+            return false;
+        }
+        String validateStr = "0123456789.";
+        for (int i = 0; i < string.length(); i++) {
+            if (validateStr.indexOf(string.substring(i, i + 1)) == -1) {
+                return false;
+            }
+        }
+        return true;
     }
+
     /**
-     * 必须填写项
-     * @author wf
-     * @date
-     * @param
+     * 判断是否整数型
+     *
+     * @param string
      * @return
      */
-    static Map<String, String> getMust() {
-        HashMap<String, String> hashMap = new HashMap<String, String>();
-        hashMap.put("code", "zbcode");// 指标名称
-        hashMap.put("cname", "region");// 地区名称
-        return hashMap;
+    public static boolean isInteger(String string) {
+        if (string == null || string.equals("")) {
+            return false;
+        }
+        String validateStr = "0123456789";
+        for (int i = 0; i < string.length(); i++) {
+            if (validateStr.indexOf(string.substring(i, i + 1)) == -1) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
