@@ -33,6 +33,7 @@ define(function (require,exports,module) {
     //重新计算弹框
     $(document).on('click','#recalculate',function () {
         //每次重新计算先校验
+        var flag = false;
         Array.prototype.contain = function(val)
         {
             for (var i = 0; i < this.length; i++)
@@ -51,10 +52,10 @@ define(function (require,exports,module) {
             var value=$(this).val()
             if (value<=0){
                 alert("权重不能为小于等于0的数")
+                flag = true;
                 return
             }
             var pcode=$(this).attr("class").split(" ")[1]
-            console.log(pcode)
             if (!codes.contain(pcode)){
                 codes.push(pcode)
             }
@@ -76,10 +77,13 @@ define(function (require,exports,module) {
             if (sum!=1){
                 console.log(codes[i])
                 alert("同一级别权重和必须为1")
+                flag = true;
                 return;
             }
         }
-
+        if(flag){
+            return
+        }
         //检查通过，保存
         var cws="";
         $(".input_weight").each(function () {
@@ -87,6 +91,7 @@ define(function (require,exports,module) {
             var weight=$(this).val()
             cws +=code+":"+weight+","
         });
+        $('#myTabs li:eq(2) a').tab('show');
         $.pjax({
             url: common.rootPath+'zbdata/zscalculate.htm?m=docalculate&taskcode='+taskcode+"&cws="+cws,
             type: "get",
@@ -95,7 +100,6 @@ define(function (require,exports,module) {
         $(document).on('pjax:success', function() {
             //alert("ok");
         });
-        $('#myTabs li:eq(2) a').tab('show')
     })
     /**
      * 关闭按钮
@@ -148,6 +152,7 @@ define(function (require,exports,module) {
      */
     $(document).on('click','#save_calculate',function () {
         //每次重新计算先校验
+        var flag = false;
         Array.prototype.contain = function(val)
         {
             for (var i = 0; i < this.length; i++)
@@ -164,12 +169,12 @@ define(function (require,exports,module) {
         $(".input_weight").each(function () {
             //console.log($(this).val())
             var value=$(this).val()
-            if (value<0){
-                alert("权重不能为小于0的数")
+            if (value<=0){
+                alert("权重不能为小于等于0的数")
+                flag=true;
                 return
             }
             var pcode=$(this).attr("class").split(" ")[1]
-            console.log(pcode)
             if (!codes.contain(pcode)){
                 codes.push(pcode)
             }
@@ -191,10 +196,13 @@ define(function (require,exports,module) {
             if (sum!=1){
                 console.log(codes[i])
                 alert("同一级别权重和必须为1")
+                flag=true;
                 return;
             }
         }
-
+        if(flag){
+            return;
+        }
         //检查通过，保存
         var cws="";
         $(".input_weight").each(function () {
@@ -202,6 +210,7 @@ define(function (require,exports,module) {
             var weight=$(this).val()
             cws +=code+":"+weight+","
         });
+        $('#myTabs li:eq(2) a').tab('show')
         $.pjax({
             url: common.rootPath+'zbdata/zscalculate.htm?m=savecalculate&taskcode='+taskcode+"&cws="+cws,
             type: "get",
@@ -210,7 +219,6 @@ define(function (require,exports,module) {
         $(document).on('pjax:success', function() {
             //alert("ok");
         });
-        $('#myTabs li:eq(2) a').tab('show')
     })
 
 
