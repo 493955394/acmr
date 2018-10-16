@@ -242,7 +242,6 @@ public class indexlist extends BaseAction {
         String cname = PubInfo.getString(req.getParameter("cocname"));
         String procode = PubInfo.getString(req.getParameter("idcata"));
         String proname = PubInfo.getString(req.getParameter("cataname"));
-        String oldprocode = PubInfo.getString(req.getParameter("oldeditpro"));
         User user = (User) this.getSession().getAttribute("loginuser");
         String createuser = user.getUserid();
         String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
@@ -251,14 +250,6 @@ public class indexlist extends BaseAction {
         indexList.setCreateuser(createuser);
         indexList.setCode(code);
         indexList.setCname(cname);
-        if(proname.equals("")){
-            if(oldprocode.equals("!1")){
-                oldprocode="";
-            }
-            indexList.setProcode(oldprocode);
-        }else{
-            indexList.setProcode(procode);
-        }
         indexList.setProcode(procode);
         indexList.setCreatetime(createtime);
         int int1 = indexListService.addCp(indexList);
@@ -295,7 +286,6 @@ public class indexlist extends BaseAction {
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
         String cname = PubInfo.getString(req.getParameter("plancname"));
         String procode = PubInfo.getString(req.getParameter("idplan"));
-        String oldpro = PubInfo.getString(req.getParameter("getoldplan"));
         String proname = PubInfo.getString(req.getParameter("proname"));
         String sort = PubInfo.getString(req.getParameter("sort"));
         String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
@@ -308,15 +298,7 @@ public class indexlist extends BaseAction {
         indexList.setIfdata(ifdata1);
         indexList.setCreateuser(createuser);
         indexList.setCname(cname);
-        if(proname.equals("")){
-            if(oldpro.equals("!1")){
-                oldpro="";
-            }
-            indexList.setProcode(oldpro);
-        }else{
-            indexList.setProcode(procode);
-        }
-
+        indexList.setProcode(procode);
         indexList.setSort(sort);
         indexList.setState(state);
         indexList.setCreatetime(createtime);
@@ -512,10 +494,6 @@ public class indexlist extends BaseAction {
         JSONReturnData data = new JSONReturnData("");
         IndexListService indexListService = new IndexListService();
         data.setReturncode(200);
-        String oldcode = PubInfo.getString(req.getParameter("oldcode"));
-        //String oldname = PubInfo.getString(req.getParameter("oldname"));
-        String oldpro = PubInfo.getString(req.getParameter("oldeditpro"));
-        String oldproname = PubInfo.getString(req.getParameter("oldproname"));
         String code = PubInfo.getString(req.getParameter("editcode"));
         String name = PubInfo.getString(req.getParameter("editcname"));
         String procode = PubInfo.getString(req.getParameter("editprocode"));
@@ -546,15 +524,11 @@ public class indexlist extends BaseAction {
                     indexList.setProcode(procode);
                     indexListService.addCp(indexList);
         }*/
-        IndexList indexList = indexListService.getData(oldcode);
-        if(oldproname.equals("")){
-            indexList.setProcode(oldpro);
-            }else{
-                indexList.setProcode(procode);
-        }
+        IndexList indexList = indexListService.getData(code);
+        indexList.setProcode(procode);
         indexList.setCode(code);
         indexList.setCname(name);
-        indexListService.updateCate(oldcode,indexList);
+        indexListService.updateCate(code,indexList);
         data.setReturndata("");
         this.sendJson(data);
     }

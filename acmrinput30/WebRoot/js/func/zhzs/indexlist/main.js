@@ -212,13 +212,25 @@ define(function (require,exports,module) {
         var code=treeNode.id;
         treeNodeId = treeNode.id;
         var name=treeNode.name;
+        if(treeNode.isParent){//如果选中的是目录就直接给
         $('input[name=cataname]').val(name);
-        $('input[name=oldcatapro]').val(code);
+        $('input[name=idcata]').val(code);
         $('input[name=planname]').val(name);
-        $('input[name=getoldplan]').val(code);
+        $('input[name=idplan]').val(code);
         $('input[name=indexname]').val(name);
         $('input[name=editname]').val(name);
-        $('input[name=oldeditpro]').val(code);
+        $('input[name=editprocode]').val(code);}
+        else{
+       //如果选中的是指标，默认给他上级
+                var parentNode = treeNode.getParentNode();
+            $('input[name=cataname]').val(parentNode.name);
+            $('input[name=idcata]').val(parentNode.id);
+            $('input[name=planname]').val(parentNode.name);
+            $('input[name=idplan]').val(parentNode.id);
+            $('input[name=indexname]').val(parentNode.name);
+            $('input[name=editname]').val(parentNode.name);
+            $('input[name=editprocode]').val(parentNode.id);
+        }
 
         $.pjax({
             url:common.rootPath+'zbdata/indexlist.htm?m=getIndexList&code='+code,
@@ -280,17 +292,16 @@ define(function (require,exports,module) {
 
     }
     function clickEvent4(event,treeId,treeNode) {
-
         if (treeNode.id != '') {
             $('input[name=editname]').val(treeNode.name);
-            $('input[name=oldproname]').val(treeNode.name);
             $('input[name=editprocode]').val(treeNode.id);
             if (treeNode.id=="!1"){
                 $('input[name=editprocode]').val("");
             }
-        } else {
-            $('input[name=editname]').val('');
         }
+            else{ $('input[name=editname]').val(treeNode.name);
+        }
+
 
     }
     function clickEvent5(event,treeId,treeNode) {

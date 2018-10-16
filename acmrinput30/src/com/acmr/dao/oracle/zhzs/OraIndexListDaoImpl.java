@@ -445,9 +445,8 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     //编辑目录
     @Override
     public int updateCategory(String code,IndexList indexList) {
-        String sql1 = "update tb_coindex_index set code=?,cname=?,procode=?,updatetime=? where code=?";
+        String sql1 = "update tb_coindex_index set cname=?,procode=?,updatetime=? where code=?";
         List<Object> params = new ArrayList<Object>();
-        params.add(indexList.getCode());
         params.add(indexList.getCname());
         params.add(indexList.getProcode());
         params.add(new Timestamp(new java.util.Date().getTime()));

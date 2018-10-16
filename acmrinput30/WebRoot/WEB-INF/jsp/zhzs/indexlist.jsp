@@ -75,7 +75,7 @@
                                     <div class="col-sm-5">
                                         <input type="text" class="form-control" name="cataname" value="" disabled>
                                         <input type="hidden" class="form-control" name="idcata" value="" >
-                                        <input type="hidden" class="form-control" name="getoldplan"  value="">
+                                       <%-- <input type="hidden" class="form-control" name="getoldplan"  value="">--%>
                                         <ul id="treeCata" class="ztree select-tree hid-top"></ul>
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@
                                     <div class="col-sm-5">
                                         <input type="text" class="form-control" name="planname" value="" disabled>
                                         <input type="hidden" class="form-control" name="idplan"  value="">
-                                        <input type="hidden" class="form-control" name="getoldplan"  value="">
+                                        <%--<input type="hidden" class="form-control" name="getoldplan"  value="">--%>
                                         <ul id="treePlan" class="ztree select-tree hid-top"></ul>
                                     </div>
                                 </div>
@@ -230,7 +230,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form  class="form-horizontal J_add_edit" action="${ctx}/zbdata/indexlist.htm?m=editCate">
-                    <input type="hidden" class="form-control" name="oldcode" value="">
+                  <%--  <input type="hidden" class="form-control" name="oldcode" value="">--%>
 
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -256,8 +256,8 @@
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" name="editname" value="" disabled>
                                 <input type="hidden" class="form-control" name="editprocode"  value="">
-                                <input type="hidden" class="form-control" name="oldeditpro"  value="">
-                                <input type="hidden" class="form-control" name="oldproname" value="">
+                               <%-- <input type="hidden" class="form-control" name="oldeditpro"  value="">
+                                <input type="hidden" class="form-control" name="oldproname" value="">--%>
                                 <ul id="treeEditc" class="ztree select-tree hid-top"></ul>
                             </div>
                         </div>
