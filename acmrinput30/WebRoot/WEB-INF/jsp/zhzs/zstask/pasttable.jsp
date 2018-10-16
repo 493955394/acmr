@@ -8,8 +8,20 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<style>
+    th{
+        text-align: center;
+        vertical-align: middle!important;
+        background-color: #EBECF1;
+    }
+
+    td{
+        text-align: center;
+        vertical-align: middle!important;
+    }
+</style>
 <div>
-    <table class="table table-striped table-hover J_pastviews_data_table">
+    <table class="table table-hover J_pastviews_data_table">
         <thead>
         <tr>
             <th>指标</th>

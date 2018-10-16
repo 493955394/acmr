@@ -421,7 +421,7 @@ define(function (require,exports,module) {
                             showreg +="";
                         }else {
                             if(checkreturn[i]=="0"){
-                                showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-ok clickli"></i></span></li>';
+                                showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-ok clickli" data-id="'+select[i].code+'"></i></span></li>';
                             }
                             else {
                                 showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-remove clickli" data-id="'+select[i].code+'"></i></span></li>';
@@ -528,11 +528,7 @@ define(function (require,exports,module) {
             if (tb.rows[startRow].cells[col].innerHTML == tb.rows[i + 1].cells[0].innerHTML) {
                 tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[0]);
                 tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan | 0) + 1;
-                if (i == endRow - 1 && startRow != endRow) {
-                    mc(tableId, startRow, endRow, col + 1);
-                }
             } else {
-                mc(tableId, startRow, i + 0, col + 1);
                 startRow = i + 1;
             }
         }
