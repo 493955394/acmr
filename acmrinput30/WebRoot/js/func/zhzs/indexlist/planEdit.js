@@ -397,7 +397,8 @@ define(function (require,exports,module) {
                     alert("启用成功")
                     $.pjax({
                         url: url,
-                        container: '.J_zsjh_data_table'
+                        container: '.J_zsjh_data_table',
+                        timeout:5000
                     });
                 }else{
                     // console.log(data)
@@ -417,7 +418,8 @@ define(function (require,exports,module) {
                     var url=window.location.href;
                     $.pjax({
                         url: url,
-                        container: '.J_zsjh_data_table'
+                        container: '.J_zsjh_data_table',
+                        timeout:5000
                     });
 
                 }
@@ -441,7 +443,8 @@ define(function (require,exports,module) {
                     var url=window.location.href;
                     $.pjax({
                         url: url,
-                        container: '.J_zsjh_data_table'
+                        container: '.J_zsjh_data_table',
+                        timeout:5000
                     });
                 }else{
                     alert("停用失败");
