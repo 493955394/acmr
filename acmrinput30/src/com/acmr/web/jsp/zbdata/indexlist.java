@@ -71,15 +71,17 @@ public class indexlist extends BaseAction {
         ArrayList<IndexList> indexlist=indexListService.getSublist(code);
         List<TreeNode> list=new ArrayList<>();
         for (int i=0;i<indexlist.size();i++){
-            TreeNode node=new TreeNode();
-            node.setPId(indexlist.get(i).getProcode());
-            node.setId(indexlist.get(i).getCode());
-            node.setName(indexlist.get(i).getCname());
             if (indexlist.get(i).getIfdata().equals("0")){
-                node.setIsParent(true);
+                TreeNode node=new TreeNode();
+                node.setPId(indexlist.get(i).getProcode());
+                node.setId(indexlist.get(i).getCode());
+                node.setName(indexlist.get(i).getCname());
+                if (indexlist.get(i).getIfdata().equals("0")){
+                    node.setIsParent(true);
+                }
+                else node.setIsParent(false);
+                list.add(node);
             }
-            else node.setIsParent(false);
-            list.add(node);
         }
         this.sendJson(list);
 
