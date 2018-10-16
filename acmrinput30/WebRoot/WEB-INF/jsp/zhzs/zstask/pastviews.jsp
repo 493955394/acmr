@@ -13,6 +13,7 @@
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
     <style>
         table tr th, table tr td { border:1px solid #cecfdf; }
+        #i1,#i2,#i3,#i4{color:#FF7F19;}
     </style>
 </head>
 <body>
@@ -56,8 +57,8 @@
                 </div>
                 <div class="toolbar-right">
                     <div class="toolbar-group" style="position: relative;">
-                        <button class="btn btn-default "data-toggle="modal" data-target=".wdturn-modal" >维度转换</button>
-                        <button class="btn btn-default pastview_download">数据下载</button>
+                        <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i1" class="glyphicon glyphicon-retweet"></i>&nbsp;维度转换</button>&nbsp;
+                        <button class="btn btn-default btn-sm pastview_download"><i id="i2" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
                     </div>
                 </div>
                 </c:if>
@@ -89,8 +90,8 @@
                     </div>
                     <div class="toolbar-right">
                         <div class="toolbar-group" style="position: relative;">
-                            <button class="btn btn-default "data-toggle="modal" data-target=".wdturn-modal" >维度转换</button>
-                            <button class="btn btn-default pastview_download">数据下载</button>
+                            <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i3" class="glyphicon glyphicon-retweet"></i>&nbsp;维度转换</button>&nbsp;
+                            <button class="btn btn-default btn-sm pastview_download"><i id="i4" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
                         </div>
                     </div>
                 </c:if>
