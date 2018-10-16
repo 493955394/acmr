@@ -69,10 +69,18 @@ public class IndexListService {
             //PubInfo.printStr("indexcode:"+index.getCode());
             indexLists.add(index);
         }
+        //我收到的指数
+
+        if (code.equals("!2")){
+            List<Map<String,Object>> list=getReceivedList();
+            for (int i=0;i<list.size();i++){
+                indexLists.add((IndexList) list.get(i).get("index"));
+            }
+        }
 
         //我共享的指数
         if (code.equals("!3")){
-            PubInfo.printStr("我共享的");
+            //PubInfo.printStr("我共享的");
             List<IndexList> list=new ArrayList<>();
             List<DataTableRow> rightrows= IndexListDao.Fator.getInstance().getIndexdatadao().getRightListByCreateUser(usercode).getRows();
             List<String> codes=new ArrayList<>();
