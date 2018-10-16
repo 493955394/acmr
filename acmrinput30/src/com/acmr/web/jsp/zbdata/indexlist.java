@@ -87,6 +87,26 @@ public class indexlist extends BaseAction {
 
     }
 
+    public void getTree() throws IOException {
+        HttpServletRequest req=this.getRequest();
+        String code=req.getParameter("id");
+        String indexcode=PubInfo.getString(req.getParameter("indexcode"));
+        IndexListService indexListService=new IndexListService();
+        List<IndexList> indexlist=indexListService.getSubCate(code);
+        List<TreeNode> list=new ArrayList<>();
+        for (int i=0;i<indexlist.size();i++){
+            if(!indexlist.get(i).getCode().equals(indexcode)){
+                TreeNode node=new TreeNode();
+                node.setPId(indexlist.get(i).getProcode());
+                node.setId(indexlist.get(i).getCode());
+                node.setName(indexlist.get(i).getCname());
+                node.setIsParent(true);
+                list.add(node);
+            }
+        }
+        this.sendJson(list);
+    }
+
     public void getCateTree() throws IOException {
         HttpServletRequest req=this.getRequest();
         String code=req.getParameter("id");

@@ -179,18 +179,7 @@ define(function (require,exports,module) {
             onClick:clickEvent3
         }
     };
-    var setting4 = {
-        async: {
-            enable: true,
-            url: common.rootPath+'zbdata/indexlist.htm?m=getCateTree&st='+st,
-            contentType: 'application/json',
-            type: 'get',
-            autoParam: ["id"]
-        },
-        callback:{
-            onClick:clickEvent4
-        }
-    };
+
     var setting5 = {
         async: {
             enable: true,
@@ -293,19 +282,7 @@ define(function (require,exports,module) {
         }
 
     }
-    function clickEvent4(event,treeId,treeNode) {
-        if (treeNode.id != '') {
-            $('input[name=editname]').val(treeNode.name);
-            $('input[name=editprocode]').val(treeNode.id);
-            if (treeNode.id=="!1"){
-                $('input[name=editprocode]').val("");
-            }
-        }
-            else{ $('input[name=editname]').val(treeNode.name);
-        }
 
-
-    }
     function clickEvent5(event,treeId,treeNode) {
 
         if (treeNode.id != '') {
@@ -381,9 +358,6 @@ define(function (require,exports,module) {
         addPath();
         $.fn.zTree.init($("#treeZs"), setting3, cNodes);
         fixIcon("treeZs");
-        addPath();
-        $.fn.zTree.init($("#treeEditc"), setting4, cNodes);
-        fixIcon("treeEditc");
         addPath();
         $.fn.zTree.init($("#treeShareZs"), setting5, cNodes);
         fixIcon("treeShareZs");

@@ -69,7 +69,6 @@ define(function (require,exports,module) {
             }
         })
     });
-    console.log($("input[name='plancode']").attr("class"))
     /**
      * 新增计划
      */
@@ -135,6 +134,9 @@ define(function (require,exports,module) {
             }
         })
     });
+
+
+
     /**
      * 编辑数据
      */
@@ -142,10 +144,37 @@ define(function (require,exports,module) {
         event.preventDefault();
         var code =$(this).attr('id');
         var name = $(this).attr('name');
-        $('input[name=oldcode]').val(code);
         $('input[name=editcode]').val(code);
         $('input[name=editcname]').val(name);
-        $('input[name=oldname]').val(name);
+        //点进来才开始初始化树
+        var cNodes=[
+            { id:"", pId:0, name:"指数",isParent:true}
+        ]
+        function clickEvent4(event,treeId,treeNode) {
+            if (treeNode.id != '') {
+                $('input[name=editname]').val(treeNode.name);
+                $('input[name=editprocode]').val(treeNode.id);
+                if (treeNode.id=="!1"){
+                    $('input[name=editprocode]').val("");
+                }
+            }
+            else{ $('input[name=editname]').val(treeNode.name);
+            }
+        }
+        var setting4 = {
+            async: {
+                enable: true,
+                url: common.rootPath+'zbdata/indexlist.htm?m=getTree&st='+new Date().getTime()+'&indexcode='+code,
+                contentType: 'application/json',
+                type: 'get',
+                autoParam: ["id"]
+            },
+            callback:{
+                onClick:clickEvent4
+            }
+        };
+        $.fn.zTree.init($("#treeEditc"), setting4, cNodes);
+
         $("#mymodal-data3").modal('show');
     })
 
