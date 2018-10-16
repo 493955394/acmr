@@ -25,11 +25,11 @@
             <div class="panel-body">
                 <div>
                     <!-- Nav tabs -->
-                    <ul class="nav nav-pills nav-justified" role="tablist" id="myTabs">
+                    <ul class="nav nav-pills" role="tablist" id="myTabs">
                         <li role="presentation" class="active"><a href="#qzsz" aria-controls="qzsz" role="tab" data-toggle="tab">权重设置</a></li>
                         <li role="presentation"><a href="#yssj" aria-controls="yssj" role="tab" data-toggle="tab">原始数据</a></li>
                         <li role="presentation"><a href="#jsjg" aria-controls="jsjg" role="tab" data-toggle="tab">计算结果</a></li>
-                        <li role="presentation">
+                        <li role="presentation" style="float: right">
                             <c:if test="${right!='0'}">
                                 &nbsp;&nbsp;&nbsp;
                                 <button type="button" class="btn btn-default btn-sm" id="recalculate"><i class="glyphicon glyphicon-retweet"></i>重新计算</button>

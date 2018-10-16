@@ -43,7 +43,7 @@
             <div class="panel-body">
                 <div id="top_div">
                         <!-- Nav tabs -->
-                        <ul class="nav nav-pills nav-justified" role="tablist">
+                        <ul class="nav nav-pills" role="tablist">
                             <li role="presentation" class="active"><a href="#jbxx" aria-controls="jbxx" role="tab" data-toggle="tab">基本信息</a></li>
                             <li role="presentation"><a href="#zssx" aria-controls="zssx" role="tab" data-toggle="tab">指数筛选</a></li>
                             <li role="presentation"><a href="#jsfw" aria-controls="jsfw" role="tab" data-toggle="tab">计算范围</a></li>
