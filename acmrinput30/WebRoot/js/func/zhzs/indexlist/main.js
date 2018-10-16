@@ -31,6 +31,8 @@ define(function (require,exports,module) {
         }
     }
 
+
+
     /**
      * 搜索框
      */
@@ -413,7 +415,8 @@ define(function (require,exports,module) {
                     var url=window.location.href;
                     $.pjax({
                         url: url,
-                        container: '.J_zsjh_data_table'
+                        container: '.J_zsjh_data_table',
+                        timeout:5000
                     });
                     alert("撤回成功！")
                     //window.location.reload(true);
