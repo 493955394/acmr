@@ -59,8 +59,9 @@
                                     <span id="import_count" class="form-group" style="margin-right:10px;"></span>
                                     <%--<button type="button" class="btn btn-default" id="data_upload">上传数据</button>--%>
                                     <button type="button" class="btn btn-default btn-sm" id="data_reload"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;重新读取数据</button>
-                                    <input type="hidden" class="reloaddata" value="${taskcode}">
                                 </c:if>
+                                <input type="hidden" class="reloaddata" value="${taskcode}">
+
                             </div>
                             <div class="panel-body J_zsjs_data">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zstask/dataTable.jsp" flush="true"/>
