@@ -9,7 +9,7 @@
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <div>
-    <table class="table table-striped table-hover J_pastviews_data_table">
+    <table class="table table-hover J_pastviews_data_table">
         <thead>
         <tr>
             <th>指标</th>

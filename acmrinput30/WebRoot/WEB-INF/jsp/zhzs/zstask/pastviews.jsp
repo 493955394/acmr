@@ -22,7 +22,7 @@
 <div class="col-xs-12">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h1>查看往期</h1>
+            <h4>查看往期</h4>
             <input type="hidden" name="indexcode" value="${indexcode}">
 
         </div>
@@ -44,23 +44,24 @@
                             </select>
                         </div>
                     </form>
+
+                    <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=regDatas">
+                        <div class="form-group">
+                            <span>时间：</span>
+                            <select  class="form-control input-sm">
+                                <option value="">最近五年</option>
+                            </select>
+                        </div>
+                    </form>
                 </div>
                 <div class="toolbar-right">
                     <div class="toolbar-group" style="position: relative;">
                         <button class="btn btn-default "data-toggle="modal" data-target=".wdturn-modal" >维度转换</button>
                         <button class="btn btn-default pastview_download">数据下载</button>
-                        <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=regDatas">
-                            <div class="form-group">
-                                <span>时间：</span>
-                                <select  class="form-control input-sm">
-                                    <option value="">最近五年</option>
-                                </select>
-                            </div>
-                        </form>
-
                     </div>
                 </div>
                 </c:if>
+
                 <c:if test="${show.equals('1')}">
                     <div class="toolbar-left">
                         <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=modDatas">
@@ -76,29 +77,25 @@
                                 </select>
                             </div>
                         </form>
+
+                        <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=modDatas">
+                            <div class="form-group">
+                                <span>时间：</span>
+                                <select  class="form-control input-sm">
+                                    <option value="">最近五年</option>
+                                </select>
+                            </div>
+                        </form>
                     </div>
                     <div class="toolbar-right">
                         <div class="toolbar-group" style="position: relative;">
                             <button class="btn btn-default "data-toggle="modal" data-target=".wdturn-modal" >维度转换</button>
                             <button class="btn btn-default pastview_download">数据下载</button>
-                            <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=modDatas">
-                                <div class="form-group">
-                                    <span>时间：</span>
-                                    <select  class="form-control input-sm">
-                                        <option value="">最近五年</option>
-                                    </select>
-                                </div>
-                            </form>
-
                         </div>
                     </div>
                 </c:if>
             </div>
         </div>
-
-
-
-
 
         <div class="J_pastviews_data_table">
             <jsp:include page="/WEB-INF/jsp/zhzs/zstask/pasttable.jsp" flush="true"/>
