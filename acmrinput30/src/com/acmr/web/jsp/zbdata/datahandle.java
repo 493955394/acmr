@@ -248,7 +248,7 @@ public class datahandle extends BaseAction {
                                         ExcelCell cell = Rows.getCells().get(m);
                                         if (cell != null) {
                                             String value = cell.getText() + "";
-                                            if(isNumber(value)||checkDouble(value)||isInteger(value)){
+                                            if(isDouble(value)||isInteger(value)){
                                                 if(value.equals("  ")){
                                                     data.setReturncode(300);
                                                     data.setReturndata("数据不能为空");
@@ -320,37 +320,50 @@ public class datahandle extends BaseAction {
      */
     public  boolean checkDouble(String str) {
         //Pattern p = Pattern.compile("^[-//+]?//d+(//.//d*)?|//.//d+$");
-        Pattern p = Pattern.compile("^[-//+]?//d+(//.//d*)?|//.//d+$");
-        Matcher m = p.matcher(str);
+        Pattern p = Pattern.compile("^(([1-9][0-9]*)|((([1-9][0-9]*)|0)\\.[0-9][0-9]))$");
+
+        //Pattern p = Pattern.compile("^[-//+]?//d+(//.//d*)?|//.//d+$");
+        //Pattern p = Pattern.compile("^((\\\\d+\\\\.\\\\d*[1-9]\\\\d*)|(\\\\d*[1-9]\\\\d*\\\\.\\\\d+)|(\\\\d*[1-9]\\\\d*))$");
+
+        /*Matcher m = p.matcher(str);
         if (m.find()) {
             return true;
-        }
-        return false;
+        }*/
+        return p.matcher(str).matches();
+        //return false;
     }
-    /**
-     * Double类型数据非科学计数法表示
-     *
-     * @param obj
-     * @return 返回格式化后的Double数据类型
-     */
-    public static String formatDouble(Object obj) {
-        DecimalFormat fmt = new DecimalFormat("###0.00");
-        String str = String.valueOf(obj);
-        if (obj instanceof Double) {
-            return fmt.format(obj);
-        } else if (str.matches("^[-\\+]?\\d+(\\.\\d+)?$")) {
-            return fmt.format(Double.valueOf(str));
-        } else {
-            return toStringWithZero(obj);
+    public static boolean isDouble(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
         }
     }
-    /**
-     * 判断是否是Integer类型
-     * @author wf
-     * @date
-     * @param
-     * @return
-     */
+                /**
+                 * Double类型数据非科学计数法表示
+                 *
+                 * @param obj
+                 * @return 返回格式化后的Double数据类型
+                 */
+                public static String formatDouble(Object obj) {
+                    DecimalFormat fmt = new DecimalFormat("###0.00");
+                    String str = String.valueOf(obj);
+                    if (obj instanceof Double) {
+                        return fmt.format(obj);
+                    } else if (str.matches("^[-\\+]?\\d+(\\.\\d+)?$")) {
+                        return fmt.format(Double.valueOf(str));
+                    } else {
+                        return toStringWithZero(obj);
+                    }
+                }
+                /**
+                 * 判断是否是Integer类型
+                 * @author wf
+                 * @date
+                 * @param
+                 * @return
+                 */
 
     /*public boolean isNumber(String str){
         if(str!=null&&!"".equals(str.trim())){
@@ -370,13 +383,13 @@ public class datahandle extends BaseAction {
         }
         return true;
     }*/
-    /**
-     * 判断是否数值型
-     *
-     * @param string
-     * @return
-     */
-    public static boolean isNumber(String string) {
+                /**
+                 * 判断是否数值型
+                 *
+                 * @param string
+                 * @return
+                 */
+    /*public static boolean isNumber(String string) {
         if (string == null || string.equals("")) {
             return false;
         }
@@ -391,25 +404,25 @@ public class datahandle extends BaseAction {
             }
         }
         return true;
-    }
+    }*/
 
-    /**
-     * 判断是否整数型
-     *
-     * @param string
-     * @return
-     */
-    public static boolean isInteger(String string) {
-        if (string == null || string.equals("")) {
-            return false;
-        }
-        String validateStr = "0123456789";
-        for (int i = 0; i < string.length(); i++) {
-            if (validateStr.indexOf(string.substring(i, i + 1)) == -1) {
-                return false;
+                /**
+                 * 判断是否整数型
+                 *
+                 * @param string
+                 * @return
+                 */
+                public static boolean isInteger(String string) {
+                    if (string == null || string.equals("")) {
+                        return false;
+                    }
+                    String validateStr = "0123456789";
+                    for (int i = 0; i < string.length(); i++) {
+                        if (validateStr.indexOf(string.substring(i, i + 1)) == -1) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+
             }
-        }
-        return true;
-    }
-
-}
