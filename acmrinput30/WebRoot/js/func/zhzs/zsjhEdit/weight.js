@@ -102,6 +102,7 @@ define(function (require,exports,module) {
             return false;
         };
         var codes=[]
+        var flag=true;
 
         // console.log("保存")
         //检查不为负值
@@ -110,6 +111,7 @@ define(function (require,exports,module) {
             var value=$(this).val()
             if (value<=0){
                 alert("权重不能为小于等于0的数")
+                flag=false;
                 return
             }
             var pcode=$(this).attr("class").split(" ")[1]
@@ -138,28 +140,32 @@ define(function (require,exports,module) {
             console.log(sum)
             if (sum!=1){
                 console.log(codes[i])
+                flag=false
                 alert("同一级别权重和必须为1")
                 return
             }
         }
 
         //检查通过，保存
-        var cws=[]
-        $(".input_weight").each(function () {
-            var code=$(this).parent().prev().attr("code")
-            var weight=$(this).val()
-            cws.push(code+":"+weight)
-        })
-        console.log(cws)
-        $.ajax({
-            url:common.rootPath+"zbdata/weightset.htm?m=setWeights&cws="+cws,
-            type:'get',
-            data:'json',
-            success:function (re) {
-                console.log("success")
-                alert("保存成功")
-            }
-        })
+        if (flag){
+            var cws=[]
+            $(".input_weight").each(function () {
+                var code=$(this).parent().prev().attr("code")
+                var weight=$(this).val()
+                cws.push(code+":"+weight)
+            })
+            console.log(cws)
+            $.ajax({
+                url:common.rootPath+"zbdata/weightset.htm?m=setWeights&cws="+cws,
+                type:'get',
+                data:'json',
+                success:function (re) {
+                    console.log("success")
+                    alert("保存成功")
+                }
+            })
+        } 
+
 
 
     }
