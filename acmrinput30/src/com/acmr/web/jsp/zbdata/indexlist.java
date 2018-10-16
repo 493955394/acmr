@@ -241,6 +241,8 @@ public class indexlist extends BaseAction {
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
         String cname = PubInfo.getString(req.getParameter("cocname"));
         String procode = PubInfo.getString(req.getParameter("idcata"));
+        String proname = PubInfo.getString(req.getParameter("cataname"));
+        String oldprocode = PubInfo.getString(req.getParameter("oldeditpro"));
         User user = (User) this.getSession().getAttribute("loginuser");
         String createuser = user.getUserid();
         String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
@@ -249,6 +251,14 @@ public class indexlist extends BaseAction {
         indexList.setCreateuser(createuser);
         indexList.setCode(code);
         indexList.setCname(cname);
+        if(proname.equals("")){
+            if(oldprocode.equals("!1")){
+                oldprocode="";
+            }
+            indexList.setProcode(oldprocode);
+        }else{
+            indexList.setProcode(procode);
+        }
         indexList.setProcode(procode);
         indexList.setCreatetime(createtime);
         int int1 = indexListService.addCp(indexList);
