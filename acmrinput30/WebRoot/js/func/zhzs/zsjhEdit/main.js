@@ -66,7 +66,7 @@ define(function (require,exports,module) {
         }
     }
 
-    //修复图标，使没有子节点的目录也显示为目录
+   /* //修复图标，使没有子节点的目录也显示为目录
     function fixIcon(){
         var treeObj = $.fn.zTree.getZTreeObj("tree");
         //过滤出sou属性为true的节点（也可用你自己定义的其他字段来区分，这里通过sou保存的true或false来区分）
@@ -75,13 +75,13 @@ define(function (require,exports,module) {
             folderNode[j].isParent = true;
         }
         treeObj.refresh();//调用api自带的refresh函数。
-    }
+    }*/
     $(document).ready(function(){
-        $.fn.zTree.init($("#tree"), setting, zNodes);
-        fixIcon();
         $('ul.regul').find('li').each(function() {
             select.push({code:$(this).attr("id"),name:$(this).text()});
-            })
+        })
+        $.fn.zTree.init($("#tree"), setting, zNodes);
+        console.log(select)
         //修正添加的table的classname，方便和树联动
     });
     /**
