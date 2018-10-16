@@ -533,9 +533,9 @@ define(function (require,exports,module) {
             }
         }
     }
-    //基本信息页重置
+    //基本信息页取消退出该页
     $(".resetindex").click(function () {
-        $("input[type=reset]").trigger("click");
+        window.location.href= common.rootPath+"zbdata/indexlist.htm";
     })
     //右下角保存按钮
     $(document).on('click','.tosaveall',function (event) {
