@@ -148,7 +148,7 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<Map<String,String>> getAllMods (List<String> alltaskcode){
+    /*public List<Map<String,String>> getAllMods (List<String> alltaskcode){
         //OriginDataService od = new OriginDataService();
         PastViewService pv = new PastViewService();
         String singlecode = alltaskcode.get(0);
@@ -169,7 +169,7 @@ public class PastViewService {
             List<Map<String,String>> arr = pv.getModelTree(alltaskcode.get(i));
             //List<String> mods = new ArrayList<>();
             for(int j=0;j<arr.size();j++) {
-                String mod = arr.get(j).get("orcode").toString();
+                String mod = arr.get(j).get("orcode");
                 //mods.add(mod);
                 if(!allmods.contains(mod)) {
                     Map<String,String>arr1 = new HashMap<>();
@@ -186,7 +186,7 @@ public class PastViewService {
 
         }
         return allmods;
-    }
+    }*/
     /**
      * 得到五年全部模型节点code
      * @author wf
@@ -194,7 +194,7 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<Map<String,String>> getFiveMods (List<String> fivetaskcode){
+    /*public List<Map<String,String>> getFiveMods (List<String> fivetaskcode){
         //OriginDataService od = new OriginDataService();
         PastViewService pv = new PastViewService();
         String singlecode = fivetaskcode.get(0);
@@ -217,8 +217,8 @@ public class PastViewService {
             for(int j=0;j<arr.size();j++) {
                 String mod = arr.get(j).get("code").toString();
                 //mods.add(mod);
-                /*for (int k = 0; k < allfivemods.size(); k++) {
-                    String oldmod = allfivemods.get(k).get("code").toString();*/
+                *//*for (int k = 0; k < allfivemods.size(); k++) {
+                    String oldmod = allfivemods.get(k).get("code").toString();*//*
                     if(!allfivemods.contains(mod)) {
                         Map<String,String>arr1 = new HashMap<>();
                         //arr1.put("name", arr.get(j).get("name").toString());
@@ -230,7 +230,7 @@ public class PastViewService {
 
         }
         return allfivemods;
-    }
+    }*/
     /**
      * 获取去重的modlist,获取orcode和cname，主要是为了前端展示
      * @param
@@ -267,26 +267,23 @@ public class PastViewService {
         return lists;
     }
     /**
-     * 得到所有年份的单模型节点list(用于时间的查询)
+     * 单个orcode查询得到模型节点code的list
      * @author wf
      * @date
      * @param
      * @return
      */
 
-    public List<String> findModByOrcode(String code,String orcode){
-        PastViewService pv = new PastViewService();
-        List<String> alltaskcode = pv.getAllTask(code);
+    public List<String> findModByOrcode(List<String> alltaskcode,String orcode){
         List<String> allMods = new ArrayList<>();
         for(int i=0;i<alltaskcode.size();i++){
-            String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModCode(alltaskcode.get(i),orcode);
+            String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(alltaskcode.get(i),orcode);
             allMods.add(modcode);
         }
         return allMods;
     }
     /**
-     * 单地区查询所有的data，指标data的封裝
-     * @author wf
+     * 选择地区查询所有的data，指标data+时间的封裝
      * @date
      * @param
      * @return
@@ -301,7 +298,7 @@ public class PastViewService {
             List<String> temp = new ArrayList<>();
             temp.add(orcodes.get(i).get("name"));//第一個是指數/指標名字
             for (int j = 0; j <fivetaskcode.size() ; j++) {
-                String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModCode(fivetaskcode.get(j),orcodes.get(i).get("orcode"));
+                String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(fivetaskcode.get(j),orcodes.get(i).get("orcode"));
                 if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                     temp.add("");
                 }else{
@@ -320,13 +317,13 @@ public class PastViewService {
         return moddatas;
     }
     /**
-     * 单模型节点查询所有的data
+     * 选择模型节点查询所有的data，地区data+时间的封装
      * @author wf
      * @date
      * @param
      * @return
      */
-    public List<List<String>> getRegData(List<String> regs,List<String> fivetaskcode,List<String> allMods,List<String> last5){
+    public List<List<String>> getRegData(List<String> regs,List<String> fivetaskcode,List<String> modcodes,List<String> last5){
         OriginService originService=new OriginService();
         PastViewService pv = new PastViewService();
         List<List<String>> regdatas = new ArrayList<>();
@@ -337,9 +334,8 @@ public class PastViewService {
             String regname = originService.getwdnode("reg",regioncode).getName();
             datas.add(regname);
             for(int j=0;j<fivetaskcode.size();j++){
-                String mod = allMods.get(j);
+                String mod = modcodes.get(j);
                 String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j),mod,regioncode,last5.get(j));
-                datas.add(data);
                 if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
                     datas.add("");
                 }else {
@@ -357,10 +353,12 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<List<String>> getTimeData(List<String> regs,String taskcode,List<String> allMods,String time){
+    public List<List<String>> getTimeData(List<String> regs,String taskcode,String time){
         OriginService originService=new OriginService();
         //PastViewService pv = new PastViewService();
-
+        List<String> taskcodes = new ArrayList<>();
+        taskcodes.add(taskcode);
+        List<Map<String,String>> orcodes = getModsList(taskcodes);
 
         List<List<String>> timedatas = new ArrayList<>();
         for(int i=0;i<regs.size();i++){
@@ -368,14 +366,19 @@ public class PastViewService {
             List<String> datas = new ArrayList<>();
             String regname = originService.getwdnode("reg",regioncode).getName();
             datas.add(regname);
-            for(int j=0;j<allMods.size();j++){
-                String mod = allMods.get(j);
-                String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcode,mod,regs.get(i),time);
-                datas.add(data);
-                if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
+            for(int j=0;j<orcodes.size();j++){
+                String orcode = orcodes.get(j).get("orcode");
+                String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(taskcode,orcode);
+                if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                     datas.add("");
-                }else {
-                    datas.add(data);
+                }else{
+
+                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcode,modcode,regioncode,time);
+                    if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
+                        datas.add("");
+                    }else {
+                        datas.add(data);
+                    }
                 }
             }
             timedatas.add(datas);

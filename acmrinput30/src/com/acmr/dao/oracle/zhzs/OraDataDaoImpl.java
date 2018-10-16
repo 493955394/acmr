@@ -377,6 +377,14 @@ public class OraDataDaoImpl implements IDataDao {
         return table.getRows().get(0).toString();
         return null;
     }
+    @Override
+    public String findModByOrode(String taskcode, String orcode) {
+        String sql = "select code from tb_coindex_task_module where taskcode=? and orcode =?";
+        DataTable table= AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,orcode});
+        if(table.getRows().size()>0)
+            return table.getRows().get(0).toString();
+        return null;
+    }
    /*public static void main(String[] args) throws NullPointerException {
             DataTable re=DataDao.Fator.getInstance().getIndexdatadao().findOldTask("C0010","2014C");
             if(re.getRows().size()>0)

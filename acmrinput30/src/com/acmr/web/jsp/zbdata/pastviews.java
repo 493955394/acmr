@@ -52,7 +52,7 @@ public class pastviews extends BaseAction {
             orcodes.add(code);
             ornames.add(orname);
         }
-        String change = "2";
+        String change = "2";//1：数据地区+时间展示；2：数据指标+时间展示3：数据地区指标展示。
 
         String taskcode = fivetaskcode.get(0);
         List<String> alltime = pv.getAllTime(icode);
@@ -151,12 +151,11 @@ public class pastviews extends BaseAction {
         List<String> alltaskcode = pv.getAllTask(icode);
         String taskcode = alltaskcode.get(0);
         List<String> regs = pv.getRegions(taskcode);
-        List<String> allMods = new ArrayList<>();
-        for(int i=0;i<fivetaskcode.size();i++){
-            String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModCode(fivetaskcode.get(i),orcode);
-            allMods.add(modcode);
-        }
+
+        List<String> modcodes = pv.findModByOrcode(alltaskcode,orcode);//所有年份的模型节点
+
         List<Map<String,String>> allorcodes = pv.getModsList(alltaskcode);
+        //用于模型下拉框选择展示
         List<Map<String,String>> modinfo = new ArrayList<>();
         for(int i=0;i<regs.size();i++) {
             Map<String,String> modmap = new HashMap<>();
@@ -167,7 +166,7 @@ public class pastviews extends BaseAction {
             modinfo.add(modmap);
 
         }
-        List<List<String>> regdatas = pv.getRegData(regs,fivetaskcode,allMods,last5);
+        List<List<String>> regdatas = pv.getRegData(regs,fivetaskcode,modcodes,last5);
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",regdatas).addObject("last5",last5).addObject("show",change).addObject("modinfo",modinfo);
     }
     /**
