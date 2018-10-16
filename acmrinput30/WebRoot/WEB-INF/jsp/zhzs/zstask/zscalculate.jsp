@@ -32,11 +32,11 @@
                         <li role="presentation" style="float: right">
                             <c:if test="${right!='0'}">
                                 &nbsp;&nbsp;&nbsp;
-                                <button type="button" class="btn btn-default btn-sm" id="recalculate"><i class="glyphicon glyphicon-retweet"></i>重新计算</button>
-                                <button type="button" class="btn btn-default btn-sm" id="resetpage"><i class="glyphicon glyphicon-refresh"></i>重置</button>
-                                <button type="button" class="btn btn-default btn-sm" id="save_calculate"><i class="glyphicon glyphicon-floppy-saved"></i>保存并重新计算</button>
+                                <button type="button" class="btn btn-default btn-sm" id="recalculate"><i class="glyphicon glyphicon-retweet"></i>&nbsp;重新计算</button>
+                                <button type="button" class="btn btn-default btn-sm" id="resetpage"><i class="glyphicon glyphicon-refresh"></i>&nbsp;重置</button>
+                                <button type="button" class="btn btn-default btn-sm" id="save_calculate"><i class="glyphicon glyphicon-floppy-saved"></i>&nbsp;保存并重新计算</button>
                             </c:if>
-                            <button type="button" class="btn btn-default btn-sm" id="goback"><i class="glyphicon glyphicon-remove"></i>关闭</button>
+                            <button type="button" class="btn btn-default btn-sm" id="goback"><i class="glyphicon glyphicon-remove"></i>&nbsp;关闭</button>
                         </li>
                     </ul>
                 </div>
