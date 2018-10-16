@@ -577,6 +577,13 @@ define(function (require,exports,module) {
                     alert("您的"+"数据期时间间隔"+"有误");
                     return;
                 }
+                //名字只能是中文和字母
+                var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
+                var z = $('input[name="index_cname"]').val().match(namecheck);
+             if(z==null){
+            alert("您的计划名称不符合规则");
+            return;
+        }
         if (!checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'required', 'msg': '计划名称不能为空' }]) ||
             !checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'maxlength', 'msg': '计划名称最大长度为20', 'param': 21 }])) {
             flag = false;

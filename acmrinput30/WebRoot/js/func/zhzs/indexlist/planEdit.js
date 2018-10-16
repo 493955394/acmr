@@ -36,6 +36,20 @@ define(function (require,exports,module) {
         if (flag == false) {
             return;
         }
+        //code只能是数字和字母
+        var ifavalible =  /^([0-9a-zA-Z]*)$/;
+        var zs_code = $('input[name="cocode"]').val();
+        var check =zs_code.match(ifavalible);
+        if(check == null){
+            alert("非法的编码");
+            return;
+        }
+        var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
+        var z = $('input[name="cocname"]').val().match(namecheck);
+        if(z==null){
+            alert("您的名称不符合规则");
+            return;
+        }
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),
@@ -87,6 +101,21 @@ define(function (require,exports,module) {
         if (flag == false) {
             return;
         }
+        //code只能是数字和字母
+        var ifavalible =  /^([0-9a-zA-Z]*)$/;
+        var zs_code = $('input[name="plancode"]').val();
+        var check =zs_code.match(ifavalible);
+        if(check == null){
+            alert("非法的编码");
+            return;
+        }
+        //名称只能是中文和字母
+        var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
+        var z = $('input[name="plancname"]').val().match(namecheck);
+        if(z==null){
+            alert("您的名称不符合规则");
+            return;
+        }
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),
@@ -122,8 +151,26 @@ define(function (require,exports,module) {
 
     $(document).on('submit', '.J_add_edit', function(event) {
         event.preventDefault();
+
         var self = this,
-            currentUrl = $(self).attr('action');
+            currentUrl = $(self).attr('action'),
+            checkDelegate;
+        checkDelegate = new VaildNormal();
+        var flag = true;
+        //前端检查
+        if (!checkDelegate.checkNormal($('input[name="editcname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="editcname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
+            flag = false;
+        }
+        if (flag == false) {
+            return;
+        }
+        var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
+        var z = $('input[name="editcname"]').val().match(namecheck);
+        if(z==null){
+            alert("您的名称不符合规则");
+            return;
+        }
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),
