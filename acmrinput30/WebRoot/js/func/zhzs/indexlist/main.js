@@ -212,11 +212,14 @@ define(function (require,exports,module) {
         var code=treeNode.id;
         treeNodeId = treeNode.id;
         var name=treeNode.name;
+        $('input[name=cataname]').val(name);
+        $('input[name=oldcatapro]').val(code);
         $('input[name=planname]').val(name);
         $('input[name=getoldplan]').val(code);
         $('input[name=indexname]').val(name);
         $('input[name=editname]').val(name);
         $('input[name=oldeditpro]').val(code);
+
         $.pjax({
             url:common.rootPath+'zbdata/indexlist.htm?m=getIndexList&code='+code,
             container:'.J_zsjh_data_table',

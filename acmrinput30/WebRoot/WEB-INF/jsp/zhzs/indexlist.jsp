@@ -75,6 +75,7 @@
                                     <div class="col-sm-5">
                                         <input type="text" class="form-control" name="cataname" value="" disabled>
                                         <input type="hidden" class="form-control" name="idcata" value="" >
+                                        <input type="hidden" class="form-control" name="getoldplan"  value="">
                                         <ul id="treeCata" class="ztree select-tree hid-top"></ul>
                                     </div>
                                 </div>

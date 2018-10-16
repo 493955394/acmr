@@ -353,7 +353,7 @@ define(function (require,exports,module) {
                         container: '.J_zsjh_data_table'
                     });
                 }else{
-                   // console.log(data)
+                    // console.log(data)
                     if (data.checkhasMod!=true){
                         alert("计划没有模型节点，启动失败")
                     }
@@ -366,6 +366,13 @@ define(function (require,exports,module) {
                     if (data.checkmod!=true){
                         alert("计划模型节点设置及权重不符合规定，启动失败")
                     }
+
+                    var url=window.location.href;
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_data_table'
+                    });
+
                 }
             }
         });

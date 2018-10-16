@@ -377,17 +377,20 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<List<String>> getTimeData(List<String> regs,List<String> fivetaskcode,List<String> allMods,List<String> last5){
+    public List<List<String>> getTimeData(List<String> regs,String taskcode,List<String> allMods,String time){
         OriginService originService=new OriginService();
         PastViewService pv = new PastViewService();
+
+
         List<List<String>> timedatas = new ArrayList<>();
-        for(int i=0;i<last5.size();i++){
-            String onetime = regs.get(i);
+        for(int i=0;i<regs.size();i++){
+            String regioncode = regs.get(i);
             List<String> datas = new ArrayList<>();
-            datas.add(onetime);
-            for(int j=0;j<regs.size();j++){
+            String regname = originService.getwdnode("reg",regioncode).getName();
+            datas.add(regname);
+            for(int j=0;j<allMods.size();j++){
                 String mod = allMods.get(j);
-                String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j),mod,regs.get(j),last5.get(j));
+                String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcode,mod,regs.get(i),time);
                 datas.add(data);
                 if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
                     datas.add("");
