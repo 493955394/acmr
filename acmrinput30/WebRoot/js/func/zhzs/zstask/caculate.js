@@ -109,6 +109,7 @@ define(function (require,exports,module) {
             return;
         }
         var taskcode = $("#t_code").val();
+        var right = $(this).attr("data-right");
         $.ajax({
             url:common.rootPath+"zbdata/zscalculate.htm?m=goback",
             data:{"taskcode":taskcode},
@@ -116,7 +117,7 @@ define(function (require,exports,module) {
             datatype:'json',
             timeout: 10000,
             success:function (re) {
-                window.location.href=common.rootPath+"zbdata/zstask.htm?icode="+re.returndata;
+                window.location.href=common.rootPath+"zbdata/zstask.htm?icode="+re.returndata+"&right="+right;
             }
         })
     })
