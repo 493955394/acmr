@@ -48,7 +48,8 @@ define(function (require,exports,module) {
         console.log(code)
         //要触发的事件
         $.pjax({
-            url: common.rootPath+'zbdata/pastviews.htm?m=regDatas&code='+code+'&icode='+icode,
+            url: common.rootPath+'zbdata/pastviews.htm?m=regDatas&code='+code
+                +'&icode='+icode+'&tableRow='+tableRow+'&tableCol='+tableCol,
             type: "get",
             container:'.J_pastviews_data_table'
         })
