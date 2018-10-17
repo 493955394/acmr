@@ -51,11 +51,11 @@ public class pastviews extends BaseAction {
             m.put("name",regsmap.get(regcodes.get(i)));
             regs.add(m);
         }
-        String reg = pv.getRegions(taskcode).get(0);
+        String reg=regs.get(0).get("code");
         List<List<String>> showdatas = pv.getModTime(reg,fivetaskcode,icode);//得到单地区data
         Map<String,Object> info=new HashMap<>();
-        //最近5期的ayearmon
-        info.put("last5",last5);
+        //展示的时间
+        info.put("time",last5);
         //存在的地区并集,用于select
         info.put("options",regs);
         info.put("indexcode",icode);

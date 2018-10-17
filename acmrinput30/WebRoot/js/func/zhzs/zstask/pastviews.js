@@ -8,12 +8,25 @@ define(function (require,exports,module) {
 
     var tableRow="指标"; //表格行维度
     var tableCol="时间";  //表格列维度
+    var indexcode=$(".indexcode").val()
+    var time;//查询的时间
+    var code;//传给后台重新请求数据的单个维度code
 
     $(document).on('click','#wd-change',function () {
         console.log("wdchange")
         tableRow=$("#table-Row").val()
         tableCol=$("#table-Col").val()
+        //console.log(tableRow)
+        //console.log(tableCol)
+        //发送请求刷新
+        sendPjax();
+
     })
+
+    function sendPjax(){
+        var url=common.rootPath+"zbdata/pastviews.htm?m=reTable&icode="+indexcode+"&tableRow"+tableRow+"&tableCol"+tableCol+"&code"+code+"&time"+time
+
+    }
 
     module.exports={
         tableRow:tableRow,
