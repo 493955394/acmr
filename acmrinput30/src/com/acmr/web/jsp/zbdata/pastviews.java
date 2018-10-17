@@ -116,6 +116,10 @@ public class pastviews extends BaseAction {
        else if (!(tablecol.equals("sj")||tablerow.equals("sj"))){
            span="时间选择";
            //根据time得出当期task，未完成
+           if (time==null){
+               time=pastViewService.getAllTime(icode).get(0);
+           }
+           //魏风来写
            String taskcode="";
            //返回所有时间
            List<String> ayearmons=pastViewService.getAllTime(icode);
