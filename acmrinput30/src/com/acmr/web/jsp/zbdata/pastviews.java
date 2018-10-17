@@ -52,7 +52,7 @@ public class pastviews extends BaseAction {
             orcodes.add(code);
             ornames.add(orname);
         }
-        String change = "2";//1：数据地区+时间展示；2：数据指标+时间展示3：数据地区指标展示。
+        String change = "2";//1：下拉框选择模型节点（orcode）展示；2：下拉框选择单个地区展示;3：单时间展示。
 
         String taskcode = fivetaskcode.get(0);
         List<String> alltime = pv.getAllTime(icode);
@@ -73,14 +73,14 @@ public class pastviews extends BaseAction {
 
         }
 
-        List<List<String>> showdatas = pv.getModData(reg,fivetaskcode);
+        List<List<String>> showdatas = pv.getModTime(reg,fivetaskcode);//得到单地区data
 
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",last5).addObject("reginfo",reginfo)
                 .addObject("orcode",orcodes).addObject("orname",ornames).addObject("show",change).addObject("indexcode",icode);
    }
 
     /**
-     * 模型节点选择最近五年默认值,单地区传参展示
+     * （模型节点选择最近五年默认值） 单地区传参展示
      * @author wf
      * @date
      * @param
@@ -90,14 +90,14 @@ public class pastviews extends BaseAction {
 
         OriginService os = new OriginService();
         //获取用户权限
-        String right = this.getRequest().getParameter("right");
+       // String right = this.getRequest().getParameter("right");
         String regcode = this.getRequest().getParameter("code");
         String time = this.getRequest().getParameter("time");
         String icode = this.getRequest().getParameter("icode");
         String trow = this.getRequest().getParameter("tableRow");
         String tcol = this.getRequest().getParameter("tableCol");
         String change = "2";
-        //时间 默认最近五年，最后修改时间传参维度
+        //时间 默认最近五期，最后修改时间传参维度
         List<String> fivetaskcode = pv.getAllTask(icode).subList(0, 5);
         List<String> last5 = pv.getAllTime(icode).subList(0, 5);
         String taskcode = fivetaskcode.get(0);
@@ -110,25 +110,31 @@ public class pastviews extends BaseAction {
             regmap.put("name", regname);
             regmap.put("regcode", regioncode);
             reginfo.add(regmap);
-
         }
-        List<List<String>> showdatas = pv.getModData(regcode, fivetaskcode);
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata", showdatas).addObject("last5", last5).addObject("reginfo", reginfo)
-                .addObject("show", change).addObject("indexcode", icode);
-    }
+        //得到模型节点name的list
+        List<String> alltaskcode = pv.getAllTask(icode);
+        List<Map<String,String>> allorcodes = pv.getModsList(alltaskcode);
+        //用于模型下拉框选择展示
+        List<String> modnames = new ArrayList<>();
+        for(int i=0;i<allorcodes.size();i++) {
+            String orname = allorcodes.get(i).get("name");
+            modnames.add(orname);
+        }
             //List<String> alltaskcode = pv.getAllTask(code);
-        /*if(trow.equals("指标")&&tcol.equals("时间")){
+        if(trow.equals("指标")&&tcol.equals("时间")){
 
-            List<List<String>> showdatas = pv.getModData(regcode,fivetaskcode);
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",last5).addObject("reginfo",reginfo)
+            List<List<String>> showdatas = pv.getModTime(regcode,fivetaskcode);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",last5).addObject("" +
+                    "",reginfo)
                     .addObject("show",change).addObject("indexcode",icode);
         }else{
+            List<List<String>> showdatas = pv.getTimeMod(regcode, fivetaskcode,last5);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata", showdatas).addObject("last5", last5).addObject("reginfo", reginfo)
+                    .addObject("show", change).addObject("indexcode", icode).addObject("modnames",modnames);
 
         }
 
-
-        }
-*/
+    }
     /**
      * 全部地区，单模型节点传参展示
      * @author wf
@@ -139,10 +145,13 @@ public class pastviews extends BaseAction {
     public ModelAndView modDatas(){
 
         //获取用户权限
+        String time = this.getRequest().getParameter("time");
         String icode = this.getRequest().getParameter("icode");
-        String right=this.getRequest().getParameter("right");
+       // String right=this.getRequest().getParameter("right");
         String orcode=this.getRequest().getParameter("orcode");
-
+        String trow = this.getRequest().getParameter("tableRow");
+        String tcol = this.getRequest().getParameter("tableCol");
+        OriginService originService=new OriginService();
         //List<String> fivemods = pv.findModByOrcode(code,orcode).subList(0,5);
         String change = "1";
         //时间 默认最近五年，最后修改时间传参维度
@@ -151,13 +160,18 @@ public class pastviews extends BaseAction {
         List<String> alltaskcode = pv.getAllTask(icode);
         String taskcode = alltaskcode.get(0);
         List<String> regs = pv.getRegions(taskcode);
-
-        List<String> modcodes = pv.findModByOrcode(alltaskcode,orcode);//所有年份的模型节点
+        List<String> regnames = new ArrayList<>();
+        for(int m=0;m<regs.size();m++){
+            String regioncode = regs.get(m);
+            String regname = originService.getwdnode("reg",regioncode).getName();
+            regnames.add(regname);
+        }
+        //List<String> modcodes = pv.findModByOrcode(alltaskcode,orcode);//所有年份的模型节点
 
         List<Map<String,String>> allorcodes = pv.getModsList(alltaskcode);
         //用于模型下拉框选择展示
         List<Map<String,String>> modinfo = new ArrayList<>();
-        for(int i=0;i<regs.size();i++) {
+        for(int i=0;i<allorcodes.size();i++) {
             Map<String,String> modmap = new HashMap<>();
             String code = allorcodes.get(i).get("orcode");
             String orname = allorcodes.get(i).get("name");
@@ -166,8 +180,14 @@ public class pastviews extends BaseAction {
             modinfo.add(modmap);
 
         }
-        List<List<String>> regdatas = pv.getRegData(regs,fivetaskcode,modcodes,last5);
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",regdatas).addObject("last5",last5).addObject("show",change).addObject("modinfo",modinfo);
+        if(trow.equals("地区")&&tcol.equals("时间")){
+            List<List<String>> regdatas = pv.getRegTime(fivetaskcode,orcode);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",regdatas).addObject("last5",last5).addObject("show",change).addObject("modinfo",modinfo);
+        }else{
+            List<List<String>> regdatas = pv.getTimeReg(fivetaskcode,orcode,last5);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",regdatas).addObject("last5",last5).addObject("show",change).addObject("modinfo",modinfo).addObject("regnames",regnames);
+        }
+
     }
     /**
      * 全部地区，单模型节点传参展示
@@ -180,12 +200,16 @@ public class pastviews extends BaseAction {
 
         //获取用户权限
         OriginService os = new OriginService();
-        String right=this.getRequest().getParameter("right");
+        //String right=this.getRequest().getParameter("right");
+        String time = this.getRequest().getParameter("time");
+        String icode = this.getRequest().getParameter("icode");
+        String trow = this.getRequest().getParameter("tableRow");
+        String tcol = this.getRequest().getParameter("tableCol");
         String change = "3";
-        String lasttime = pv.getAllTime(code).get(0);
-        String taskcode = pv.getAllTask(code).get(0);
+        String lasttime = pv.getAllTime(icode).get(0);
+        String taskcode = pv.getAllTask(icode).get(0);
         List<String> regs = pv.getRegions(taskcode);
-        List<String> alltaskcode = pv.getAllTask(code);
+        List<String> alltaskcode = pv.getAllTask(icode);
         List<Map<String,String>> allorcodes = pv.getModsList(alltaskcode);
         List<String> allMods = new ArrayList<>();
         for(int i=0;i<allorcodes.size();i++){
@@ -205,15 +229,31 @@ public class pastviews extends BaseAction {
             String regname = os.getwdnode("reg", regioncode).getName();
             regnames.add(regname);
         }
-        List<List<String>> regdatas = pv.getTimeData(regs,taskcode,lasttime);
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",regdatas).addObject("show",change)
-                .addObject("regnames",regnames).addObject("ornames",ornames);
+        if(trow.equals("地区")&&tcol.equals("指标")){
+            List<List<String>> regdatas = pv.getRegMod(taskcode,lasttime);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",regdatas).addObject("show",change)
+                    .addObject("regnames",regnames).addObject("ornames",ornames);
+        }else{
+            List<List<String>> regdatas = pv.getModReg(taskcode,lasttime);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",regdatas).addObject("show",change)
+                    .addObject("regnames",regnames).addObject("ornames",ornames);
+        }
+
     }
-    //选择列为模型节点的数据下载
-    public void toModExcel() throws IOException {
+
+    /**
+     * 单地区选择的数据下载
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public void toRegExcel() throws IOException {
         //接参
         List<String> fivetaskcode = pv.getAllTask(code).subList(0,5);
         String regcode = PubInfo.getString(this.getRequest().getParameter("regcode"));
+        String trow = PubInfo.getString(this.getRequest().getParameter("tableRow"));
+        String tcol = PubInfo.getString(this.getRequest().getParameter("tableCol"));
         JSONReturnData data = new JSONReturnData("");
         if(regcode ==null){
             data.setReturncode(300);
@@ -222,37 +262,187 @@ public class pastviews extends BaseAction {
         } else {
             data.setReturncode(200);
         }
+        //得到指标list
+        List<String> alltaskcode = pv.getAllTask(code);
+        List<Map<String,String>> allorcodes = pv.getModsList(alltaskcode);
+        List<String> ornames = new ArrayList<>();
+        for(int i=0;i<allorcodes.size();i++){
+            String orname = allorcodes.get(i).get("name");
+            ornames.add(orname);
+        }
         List<String> last5 = pv.getAllTime(code).subList(0,5);
-        List<List<String>> datas = pv.getModData(regcode,fivetaskcode);
         ExcelBook book = new ExcelBook();
         ExcelSheet sheet1 = new ExcelSheet();
         sheet1.setName("sheet1");
         sheet1.addColumn();
         sheet1.addColumn();
         ExcelCell cell1 = new ExcelCell();
-        ExcelRow dr1 = sheet1.addRow();
-        ExcelCell cell2 = cell1.clone();
-        cell2.setCellValue("指标");
-        dr1.set(0, cell2);
+        if(trow.equals("指标")&&tcol.equals("时间")){
+            List<List<String>> datas = pv.getModTime(regcode,fivetaskcode);
+            ExcelRow dr1 = sheet1.addRow();
+            ExcelCell cell2 = cell1.clone();
+            cell2.setCellValue("指标");
+            dr1.set(0, cell2);
 
-        for (int k = 0; k < last5.size(); k++){
-            int m =k+1;
-            sheet1.addColumn();
-            cell2 = cell1.clone();
-            cell2.setCellValue(last5.get(k));
-            dr1.set(m, cell2);
-        }
-        cell1.getCellstyle().getFont().setBoldweight((short) 10);
-        for(int i=0;i<datas.size();i++){
-
-            List<String> arr =datas.get(i);
-            dr1 = sheet1.addRow();
-            for(int j=0;j<arr.size();j++){
+            for (int k = 0; k < last5.size(); k++){
+                int m =k+1;
+                sheet1.addColumn();
                 cell2 = cell1.clone();
-                cell2.setCellValue(arr.get(j));
-                dr1.set(j, cell2);
+                cell2.setCellValue(last5.get(k));
+                dr1.set(m, cell2);
+            }
+            cell1.getCellstyle().getFont().setBoldweight((short) 10);
+            for(int i=0;i<datas.size();i++){
+
+                List<String> arr =datas.get(i);
+                dr1 = sheet1.addRow();
+                for(int j=0;j<arr.size();j++){
+                    cell2 = cell1.clone();
+                    cell2.setCellValue(arr.get(j));
+                    dr1.set(j, cell2);
+                }
+            }
+        }else{
+            List<List<String>> datas = pv.getTimeMod(regcode,fivetaskcode,last5);
+            ExcelRow dr1 = sheet1.addRow();
+            ExcelCell cell2 = cell1.clone();
+            cell2.setCellValue("时间");
+            dr1.set(0, cell2);
+
+            for (int k = 0; k < ornames.size(); k++){
+                int m =k+1;
+                sheet1.addColumn();
+                cell2 = cell1.clone();
+                cell2.setCellValue(ornames.get(k));
+                dr1.set(m, cell2);
+            }
+            cell1.getCellstyle().getFont().setBoldweight((short) 10);
+            for(int i=0;i<datas.size();i++){
+
+                List<String> arr =datas.get(i);
+                dr1 = sheet1.addRow();
+                for(int j=0;j<arr.size();j++){
+                    cell2 = cell1.clone();
+                    cell2.setCellValue(arr.get(j));
+                    dr1.set(j, cell2);
+                }
             }
         }
+
+        book.getSheets().add(sheet1);
+        HttpServletResponse resp = this.getResponse();
+        resp.reset();
+        resp.setContentType("application/vnd.ms-excel; charset=UTF-8");
+        resp.setHeader("Pragma", "public");
+        resp.setHeader("Cache-Control", "max-age=30");
+        String fileName="查看往期.xlsx";
+        fileName=java.net.URLEncoder.encode(fileName, "UTF-8");
+        resp.addHeader("Content-Disposition", "attachment; filename="+fileName);
+        try {
+            book.saveExcel(resp.getOutputStream(), XLSTYPE.XLSX);
+        } catch (ExcelException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    /**
+     * 单模型节点选择的数据下载
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public void toModExcel() throws IOException {
+        //接参
+        OriginService os = new OriginService();
+        List<String> fivetaskcode = pv.getAllTask(code).subList(0,5);
+        String orcode=PubInfo.getString(this.getRequest().getParameter("orcode"));
+        //String regcode = PubInfo.getString(this.getRequest().getParameter("regcode"));
+        String trow = PubInfo.getString(this.getRequest().getParameter("tableRow"));
+        String tcol = PubInfo.getString(this.getRequest().getParameter("tableCol"));
+        JSONReturnData data = new JSONReturnData("");
+        if(orcode ==null){
+            data.setReturncode(300);
+            this.sendJson(data);
+            return;
+        } else {
+            data.setReturncode(200);
+        }
+        /*List<String> alltaskcode = pv.getAllTask(code);
+        List<Map<String,String>> allorcodes = pv.getModsList(alltaskcode);
+        List<String> ornames = new ArrayList<>();
+        for(int i=0;i<allorcodes.size();i++){
+            String orname = allorcodes.get(i).get("name");
+            ornames.add(orname);
+        }*/
+        //地区name的list
+        String taskcode = pv.getAllTask(code).get(0);
+        List<String> regs = pv.getRegions(taskcode);
+        List<String> regnames = new ArrayList<>();
+        for(int j=0;j<regs.size();j++){
+            String regioncode = regs.get(j);
+            String regname = os.getwdnode("reg", regioncode).getName();
+            regnames.add(regname);
+        }
+        List<String> last5 = pv.getAllTime(code).subList(0,5);
+        ExcelBook book = new ExcelBook();
+        ExcelSheet sheet1 = new ExcelSheet();
+        sheet1.setName("sheet1");
+        sheet1.addColumn();
+        sheet1.addColumn();
+        ExcelCell cell1 = new ExcelCell();
+        if(trow.equals("地区")&&tcol.equals("时间")){
+            List<List<String>> regdatas = pv.getRegTime(fivetaskcode,orcode);
+            ExcelRow dr1 = sheet1.addRow();
+            ExcelCell cell2 = cell1.clone();
+            cell2.setCellValue("地区");
+            dr1.set(0, cell2);
+
+            for (int k = 0; k < last5.size(); k++){
+                int m =k+1;
+                sheet1.addColumn();
+                cell2 = cell1.clone();
+                cell2.setCellValue(last5.get(k));
+                dr1.set(m, cell2);
+            }
+            cell1.getCellstyle().getFont().setBoldweight((short) 10);
+            for(int i=0;i<regdatas.size();i++){
+
+                List<String> arr =regdatas.get(i);
+                dr1 = sheet1.addRow();
+                for(int j=0;j<arr.size();j++){
+                    cell2 = cell1.clone();
+                    cell2.setCellValue(arr.get(j));
+                    dr1.set(j, cell2);
+                }
+            }
+        }else{
+            List<List<String>> regdatas = pv.getTimeReg(fivetaskcode,orcode,last5);
+            ExcelRow dr1 = sheet1.addRow();
+            ExcelCell cell2 = cell1.clone();
+            cell2.setCellValue("时间");
+            dr1.set(0, cell2);
+
+            for (int k = 0; k < regnames.size(); k++){
+                int m =k+1;
+                sheet1.addColumn();
+                cell2 = cell1.clone();
+                cell2.setCellValue(regnames.get(k));
+                dr1.set(m, cell2);
+            }
+            cell1.getCellstyle().getFont().setBoldweight((short) 10);
+            for(int i=0;i<regdatas.size();i++){
+
+                List<String> arr =regdatas.get(i);
+                dr1 = sheet1.addRow();
+                for(int j=0;j<arr.size();j++){
+                    cell2 = cell1.clone();
+                    cell2.setCellValue(arr.get(j));
+                    dr1.set(j, cell2);
+                }
+            }
+        }
+
         book.getSheets().add(sheet1);
         HttpServletResponse resp = this.getResponse();
         resp.reset();
