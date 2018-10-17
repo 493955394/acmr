@@ -473,7 +473,10 @@ public class PastViewService {
         List<String> taskcodes = new ArrayList<>();
         taskcodes.add(taskcode);
         List<Map<String,String>> orcodes = getModsList(taskcodes);
-        String ayearmon=new IndexTaskService().getTaskAyearmon(taskcode);
+        String ayearmon=null;
+        if (taskcode!=null){
+            ayearmon=new IndexTaskService().getTaskAyearmon(taskcode);
+        }
 
         List<List<String>> timedatas = new ArrayList<>();
         for(int i=0;i<regs.size();i++){
@@ -529,7 +532,10 @@ public class PastViewService {
         List<String> taskcodes = new ArrayList<>();
         taskcodes.add(taskcode);
         List<Map<String,String>> orcodes = getModsList(taskcodes);
-        String ayearmon=new IndexTaskService().getTaskAyearmon(taskcode);
+        String ayearmon=null;
+        if (taskcode!=null){
+            ayearmon=new IndexTaskService().getTaskAyearmon(taskcode);
+        }
 
 
         List<List<String>> timedatas = new ArrayList<>();
