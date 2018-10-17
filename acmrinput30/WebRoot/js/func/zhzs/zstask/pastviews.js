@@ -19,7 +19,7 @@ define(function (require,exports,module) {
         //console.log(tableRow)
         //console.log(tableCol)
         //发送请求刷新
-       // sendPjax();
+        sendPjax();
 
     })
 

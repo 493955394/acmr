@@ -39,7 +39,7 @@
     <table class="table table-hover J_pastviews_data_table">
         <thead>
         <tr>
-            <th>${info.get('col')}</th>
+            <th>${info.get('row')}</th>
             <c:forEach items="${info.get('head')}" var="head">
                 <th>${head}</th>
             </c:forEach>

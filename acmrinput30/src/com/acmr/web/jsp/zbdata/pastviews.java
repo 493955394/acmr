@@ -44,7 +44,7 @@ public class pastviews extends BaseAction {
         Map<String,Object> info=new HashMap<>();
         //展示的时间
         info.put("head",last5);
-        info.put("col","指标");
+        info.put("row","指标");
         //存在的地区并集,用于select
         info.put("options",regs);
         info.put("indexcode",icode);
@@ -83,11 +83,12 @@ public class pastviews extends BaseAction {
        info.put("indexcode",icode);
        info.put("spancode",spancode);
        String span;
+       List<String> head=new ArrayList<>();
        if (!(tablecol.equals("zb")||tablerow.equals("zb"))){
            span="指标选择";
            List<String> alltaskcode=pastViewService.getAllTask(icode);
-           List<String> taskcodes=new ArrayList<>();
-           //根据time得出taskcodes，未完成
+           List<String> taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+           //根据time得出taskcodes，未完成，先写死成5期
            //返回所有指标
            List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
            info.put("options",zbs);
@@ -95,7 +96,8 @@ public class pastviews extends BaseAction {
                showdatas=pastViewService.getRegTime(taskcodes,spancode,icode);
                info.put("row","地区");
                List<String> sjhead=pastViewService.getAllTime(icode).subList(0,5);
-               info.put("head",sjhead);
+               head=sjhead;
+               //info.put("head",sjhead);
            }
            else {
                showdatas=pastViewService.getTimeReg(taskcodes,spancode,icode);
@@ -106,7 +108,8 @@ public class pastviews extends BaseAction {
                    String reg=regs.get(i).get("name");
                    reghead.add(reg);
                }
-               info.put("head",reghead);
+               head=reghead;
+               //info.put("head",reghead);
            }
 
        }
@@ -134,7 +137,8 @@ public class pastviews extends BaseAction {
                    String zbname=zbmap.get(i).get("code");
                    zbhead.add(zbname);
                }
-               info.put("head",zbhead);
+               head=zbhead;
+               //info.put("head",zbhead);
            }
            else {
                showdatas=pastViewService.getModReg(taskcode,icode);
@@ -146,7 +150,8 @@ public class pastviews extends BaseAction {
                    String regname=regmap.get(i).get("name");
                    reghead.add(regname);
                }
-               info.put("head",reghead);
+               head=reghead;
+              // info.put("head",reghead);
 
            }
        }
@@ -162,8 +167,9 @@ public class pastviews extends BaseAction {
                showdatas=pastViewService.getModTime(spancode,taskcodes,icode);
                info.put("row","指标");
                //时间先写死最近5期，然后根据time来变
-               List<String> timehead = pv.getAllTime(icode).subList(0,5);
-               info.put("head",timehead);
+               List<String> sjhed = pv.getAllTime(icode).subList(0,5);
+               head=sjhed;
+               //info.put("head",timehead);
            }
            else {
                showdatas=pastViewService.getTimeMod(spancode,taskcodes,icode);
@@ -174,10 +180,12 @@ public class pastviews extends BaseAction {
                    String zbname=zbmap.get(i).get("code");
                    zbhead.add(zbname);
                }
-               info.put("head",zbhead);
+               head=zbhead;
+               //info.put("head",zbhead);
            }
        }
        info.put("span",span);
+       info.put("head",head);
 
 
        if (StringUtil.isEmpty(pjax)) {
