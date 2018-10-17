@@ -23,6 +23,7 @@ import com.acmr.web.jsp.Index;
 import com.alibaba.fastjson.JSONObject;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.omg.CORBA.PUBLIC_MEMBER;
+import org.omg.CORBA.Request;
 import org.omg.CORBA.portable.ValueOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
@@ -1058,5 +1059,19 @@ public class indexlist extends BaseAction {
         }
     }
     //权限管理-------end
+    
+    /** 
+    * @Description: 检查计划的模型是否有空目录 
+    * @Param: [] 
+    * @return: void 
+    * @Author: lyh
+    * @Date: 2018/10/17 
+    */ 
+    public void checkModuleCat() throws IOException {
+        HttpServletRequest req=this.getRequest();
+        String icode= req.getParameter("icode");
+        IndexListService indexListService=new IndexListService();
+        this.sendJson(indexListService.checkModuleCat(icode));
+    }
 }
 

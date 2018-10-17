@@ -45,8 +45,10 @@
     <c:if test="${module.getProcode()!=''&&module.ZBnums()!=0}">
     var classname="${module.getProcode()}"
     var thiszbnums= parseInt("${module.ZBnums()}")
+    //console.log("sortcode"+"${module.getSortcode()}")
     //同一父节点的第一个
     if (${module.getSortcode().equals("0")&&module.isLast()==false}){
+        //console.log("first:"+"${module.getCname()}")
         $(".p_"+classname).after("<td code='" +
             "${module.getCode()}"+"' procode='" +
             "${module.getProcode()}"+"' sort='" +
@@ -78,7 +80,8 @@
     }
 
     else if (${module.isLast()==true}) {
-        console.log( $(".p_"+classname).parent().nextAll())
+        //console.log("last"+"${module.getCname()}")
+        //console.log( $(".p_"+classname).parent().nextAll())
         var index=parseInt($(".p_"+classname).attr("flag"))-1
         $(".p_"+classname).parent().nextAll(":eq(" +
             index+")").append("<td code='" +
