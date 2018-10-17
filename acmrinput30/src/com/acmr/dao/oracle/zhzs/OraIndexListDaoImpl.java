@@ -256,9 +256,16 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                     String oforcode = row2.get(k).getString("code");
 
                     if(nformula.equals(oformula)&& nformula.contains(oforcode)){
-                        nformula = nformula.replace("#"+oforcode+"#","#"+nforcode+"#");//换成新模型节点code
-                        String sql3 = "update tb_coindex_module set formula=? where copycode=? and code=?";
-                        dataQuery.executeSql(sql3,new Object[]{nformula,omocode,nmocode});
+                        if(nformula.contains("#")){
+                            nformula = nformula.replace("#"+oforcode+"#","#"+nforcode+"#");//换成新模型节点code
+                            String sql3 = "update tb_coindex_module set formula=? where copycode=? and code=?";
+                            dataQuery.executeSql(sql3,new Object[]{nformula,omocode,nmocode});
+                        }else{
+                            nformula = nformula.replace(oforcode,nforcode);//换成新模型节点code
+                            String sql3 = "update tb_coindex_module set formula=? where copycode=? and code=?";
+                            dataQuery.executeSql(sql3,new Object[]{nformula,omocode,nmocode});
+                        }
+
                     }
 
                 }
