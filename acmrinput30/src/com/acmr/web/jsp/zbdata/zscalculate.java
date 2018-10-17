@@ -609,8 +609,8 @@ public class zscalculate extends BaseAction {
             result = String.format("%."+dacimal+"f",Double.valueOf(result));}//保留几位小数
             System.out.println(ce.Eval(formula));
         } catch (MathException e) {
-            e.printStackTrace();
-            System.out.println("error");
+          //  e.printStackTrace();
+         //   System.out.println("error");
             return "-";//要是上期数据是0，环比就报错
         }
         return result;

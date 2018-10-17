@@ -212,7 +212,7 @@ public class OriginDataService {
             result = ce.Eval(formula);
             System.out.println(ce.Eval(formula));
         } catch (MathException e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
             System.out.println("error");
         }
         return result;
@@ -280,7 +280,7 @@ public class OriginDataService {
                 }
             }
         } catch (MathException e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
             return false;
         }
         return true;

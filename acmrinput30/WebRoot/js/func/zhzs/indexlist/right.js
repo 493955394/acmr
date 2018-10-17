@@ -147,16 +147,6 @@ define(function (require,exports,module) {
         else {
             //去重处理
             var check = false;
-            $(".right-list li").each(function(){
-                var id = $(this).attr("data-uid");
-                var sort = $(this).attr("data-sort");
-                if(treeNodeId==id&&treeNodeSort==sort){
-                    check = true;
-                }
-            })
-            if(check){return;}
-            //如果在右边的列表中不存在，将其添加到右边的列表中
-            var html = "";
             var temp ="";
             if(treeNodeSort){
                 temp=1;
@@ -164,6 +154,18 @@ define(function (require,exports,module) {
             else{
                 temp=2;
             }
+            $(".right-list li").each(function(){
+                var id = $(this).attr("data-uid");
+                var sort = $(this).attr("data-sort");
+                if(treeNodeId==id&&temp==sort){
+                    check = true;
+                }
+            })
+            if(check){return;}
+
+            //如果在右边的列表中不存在，将其添加到右边的列表中
+            var html = "";
+
             html += "<li class='list-group-item' data-uid='" + treeNodeId + "' data-sort='" + temp + "' data-cuser='" + currentuser + "'>"+ treeNodeName+ "";
             html += "<span class='fr'><select><option value='2'>管理</option><option value='1'>协作</option><option value='0'>只读</option></select>";
             html += "&nbsp;&nbsp;&nbsp;<a onclick='delRemove(this)'><i class='glyphicon glyphicon-remove' style='color: #FF7F19;'></i></a></span></li>";
