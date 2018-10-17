@@ -19,7 +19,7 @@ define(function (require,exports,module) {
         //console.log(tableRow)
         //console.log(tableCol)
         //发送请求刷新
-        sendPjax();
+       // sendPjax();
 
     })
 
@@ -39,7 +39,7 @@ define(function (require,exports,module) {
         tableRow=tableMapping(tableRow)
         tableCol=tableMapping(tableCol)
 
-        console.log("code:"+spancode)
+        console.log("spancode:"+spancode)
         console.log("time:"+time)
         console.log("tablerow:"+tableRow)
         console.log("tablecol:"+tableCol)
