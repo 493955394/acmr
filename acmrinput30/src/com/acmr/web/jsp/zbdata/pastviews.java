@@ -11,11 +11,9 @@ import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.dao.zhzs.DataDao;
-import com.acmr.dao.zhzs.IndexTaskDao;
+import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
-import com.acmr.model.zhzs.IndexTask;
 import com.acmr.service.zbdata.OriginService;
-import com.acmr.service.zhzs.OriginDataService;
 import com.acmr.service.zhzs.PastViewService;
 import javax.servlet.http.HttpServletRequest;
 //import java.util.List;
@@ -38,19 +36,9 @@ public class pastviews extends BaseAction {
     public ModelAndView main(){
         //获取用户权限
         String icode = this.getRequest().getParameter("id");
-        OriginService os = new OriginService();
         List<String> fivetaskcode = pv.getAllTask(icode).subList(0,5);
-        String taskcode = fivetaskcode.get(0);
         List<String> last5 = pv.getAllTime(icode).subList(0,5);
-        Map<String,String> regsmap = pv.getRegList(icode);
-        List<String> regcodes=new ArrayList<>(regsmap.keySet());
-        List<Map<String,String>> regs=new ArrayList<>();
-        for (int i=0;i<regcodes.size();i++){
-            Map<String,String> m=new HashMap<>();
-            m.put("code",regcodes.get(i));
-            m.put("name",regsmap.get(regcodes.get(i)));
-            regs.add(m);
-        }
+        List<Map<String,String>> regs=pv.getRegList(icode);
         String reg=regs.get(0).get("code");
         List<List<String>> showdatas = pv.getModTime(reg,fivetaskcode,icode);//得到单地区data
         Map<String,Object> info=new HashMap<>();
@@ -59,16 +47,65 @@ public class pastviews extends BaseAction {
         //存在的地区并集,用于select
         info.put("options",regs);
         info.put("indexcode",icode);
-        //info.put("show","ModTime");
         info.put("span","地区选择");
+        info.put("spancode",null);
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("info",info);
    }
 
 
 
 
-   public void reTable(){
+   /**
+   * @Description: 根据传来的参数重新刷新数据表，以及下拉框
+   * @Param: []
+   * @return: acmr.web.entity.ModelAndView
+   * @Author: lyh
+   * @Date: 2018/10/17
+   */
+   public ModelAndView reTable() throws IOException {
 
+       HttpServletRequest req=this.getRequest();
+       //计划code
+       String icode=req.getParameter("icode");
+       //行和列
+       String tablerow=req.getParameter("tableRow");
+       String tablecol=req.getParameter("tableCol");
+       //单个维度的code
+       String spancode=req.getParameter("spancode");
+       String time=req.getParameter("time");
+       PastViewService pastViewService=new PastViewService();
+       String pjax = req.getHeader("X-PJAX");
+       Map<String,Object> info=new HashMap<>();
+       List<List<String>> showdatas = new ArrayList<>();//data
+
+       info.put("indexcode",icode);
+       //span以及options
+       String span;
+       if (!(tablecol.equals("zb")||tablerow.equals("zb"))){
+           span="指标选择";
+           List<String> alltaskcode=pastViewService.getAllTask(icode);
+           List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
+           info.put("options",zbs);
+       }
+       else if (!(tablecol.equals("sj")||tablerow.equals("sj"))){
+           span="时间选择";
+       }
+       else{
+           span="地区选择";
+
+       }
+       info.put("span",span);
+
+
+
+
+       if (StringUtil.isEmpty(pjax)) {
+            this.getResponse().sendRedirect("/zbdata/pastviews.htm?id="+icode);
+        }
+        else {
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pasttable").addObject("info",info).addObject("showdata",showdatas);
+        }
+        return null;
    }
     /**
      * （模型节点选择最近五年默认值） 单地区传参展示

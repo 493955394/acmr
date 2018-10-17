@@ -188,7 +188,7 @@ public class PastViewService {
     * @Author: lyh
     * @Date: 2018/10/17
     */
-    public Map<String,String> getRegList(String icode){
+    public List<Map<String,String>> getRegList(String icode){
         Map<String,String> regs=new HashMap<>();
         List<String> alltask=getAllTask(icode);
         OriginService originService=new OriginService();
@@ -203,7 +203,15 @@ public class PastViewService {
                 }
             }
         }
-        return regs;
+        List<String> regcodes=new ArrayList<>(regs.keySet());
+        List<Map<String,String>> re=new ArrayList<>();
+        for (int i=0;i<regcodes.size();i++){
+            Map<String,String> m=new HashMap<>();
+            m.put("code",regcodes.get(i));
+            m.put("name",regs.get(regcodes.get(i)));
+            re.add(m);
+        }
+        return re;
     }
     /**
      * 单个orcode查询得到模型节点code的list

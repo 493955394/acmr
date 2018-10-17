@@ -9,11 +9,11 @@ define(function (require,exports,module) {
     var tableRow="指标"; //表格行维度
     var tableCol="时间";  //表格列维度
     var indexcode=$(".indexcode").val()
-    var time;//查询的时间
-    var code;//传给后台重新请求数据的单个维度code
+    var time=null;//查询的时间
+    var spancode=null;//传给后台重新请求数据的单个维度code
 
     $(document).on('click','#wd-change',function () {
-        console.log("wdchange")
+        //console.log("wdchange")
         tableRow=$("#table-Row").val()
         tableCol=$("#table-Col").val()
         //console.log(tableRow)
@@ -23,9 +23,44 @@ define(function (require,exports,module) {
 
     })
 
-    function sendPjax(){
-        var url=common.rootPath+"zbdata/pastviews.htm?m=reTable&icode="+indexcode+"&tableRow"+tableRow+"&tableCol"+tableCol+"&code"+code+"&time"+time
+    $(document).on('change','.wd_selector',function () {
+        var thiscode=$('.wd_option:selected').attr("id")
+        if (thiscode=="change"){
+            //序列化
+        }
+        else {
+            spancode=thiscode
+            //重新请求数据
+            sendPjax()
+        }
+    })
 
+    function sendPjax(){
+        tableRow=tableMapping(tableRow)
+        tableCol=tableMapping(tableCol)
+
+        console.log("code:"+code)
+        console.log("time:"+time)
+        console.log("tablerow:"+tableRow)
+        console.log("tablecol:"+tableCol)
+        var url=common.rootPath+"zbdata/pastviews.htm?m=reTable&icode="+indexcode+"&tableRow="+tableRow+"&tableCol="+tableCol+"&spancode="+spancode+"&time="+time
+
+        $.ajax({
+            url:url,
+            type:'get',
+            data:'json',
+            success:function (re) {
+                console.log("success")
+            }
+        })
+
+    }
+
+    //映射tablerow，tablecol
+    function tableMapping(i){
+        if (i=="指标") return "zb"
+        else if (i=="时间") return "sj"
+        else if (i=="地区") return "reg"
     }
 
     module.exports={
@@ -55,7 +90,7 @@ define(function (require,exports,module) {
     /**
      * 序列变换pjax请求
      */
-    $("#select-data").change(function(){
+ /*   $("#select-data").change(function(){
         var icode = $('input[name=indexcode]').val();
         var code=$("#select-data option:selected").val();
         console.log(code)
@@ -66,6 +101,6 @@ define(function (require,exports,module) {
             type: "get",
             container:'.J_pastviews_data_table'
         })
-    });
+    });*/
 
 })
