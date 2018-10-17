@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<link rel="stylesheet" type="text/css" href="${ctx}/css/pastreview.css" />
+<script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/lib/dropList.js"></script>
 <html>
 <head>
     <title>-查看往期</title>
@@ -47,12 +50,7 @@
                     </form>
 
                     <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=regDatas">
-                        <div class="form-group">
-                            <span>时间：</span>
-                            <select  class="form-control input-sm">
-                                <option value="">最近五年</option>
-                            </select>
-                        </div>
+                        <div id="mySelect" style="width:300px;height:300px;margin:20px 50px 0;float:right"></div>
                     </form>
                 </div>
                 <div class="toolbar-right">
@@ -81,10 +79,7 @@
 
                         <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=modDatas">
                             <div class="form-group">
-                                <span>时间：</span>
-                                <select  class="form-control input-sm">
-                                    <option value="">最近五年</option>
-                                </select>
+                                <div id="mySelect2" style="width:300px;height:300px;margin:20px 50px 0;float:left"></div>
                             </div>
                         </form>
                     </div>
@@ -141,6 +136,29 @@
 <script type="text/javascript">
     seajs.use('${ctx}/js/func/zhzs/zstask/pastviews')
     seajs.use('${ctx}/js/func/zhzs/zstask/wdturn')
+    $(function(){
+        var json2 = {
+            wdcode:'sj',
+            wdname:'时间',
+            nodes:[
+                {code:last5,name:'最近五年'}
+            ]
+        };
+
+        var dt2 = $('#mySelect2');
+
+        //dt2.dropList(json2,{isText:true});	//实例化2(带底部输入框)、默认选中第一个item
+        //dt2.dropList(json2,{isText:true,setIndex: 2});	//实例化2(带底部输入框)、选中指定位置item
+        dt2.dropList(json2,{isText:true},function(o){		//事件处理
+            console.log(o.getItem());
+        });
+
+        //dt1.clear();//清空所有item
+
+        dt2.addItem({code:'last5',name:'最近五年'});//增加item
+
+    });
+
 </script>
 </body>
 </html>

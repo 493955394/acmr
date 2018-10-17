@@ -1,0 +1,215 @@
+@charset "utf-8";
+/* 页面默认样式 */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+fieldset, img {
+    border: 0
+}
+ol, ul {
+    list-style: none
+}
+a {
+    outline: none;
+}
+body {
+    font-size:12px;
+}
+
+/* 插件样式 */
+.wdName {
+    float:left;
+    color:#000;
+    height:24px;
+    line-height: 24px;
+    *line-height: 26px;
+}
+.dtHtml {
+    float:left;
+    width:122px;
+    position:relative;
+    font-size:12px;
+    color:#666;
+    z-index:900;
+}
+.dtHtml .dtHead {
+    padding-right:25px;
+    padding-left:15px;
+    height: 24px;
+    line-height: 24px;
+    border: 1px solid #b8b5b3;
+    cursor: pointer;
+    z-index: 998;
+    text-shadow: 0 1px 0 #fff;
+    overflow:hidden;
+    background: #fff;
+    *background: #fff url(../images/arrow.png) no-repeat right 6px;
+}
+.dtHtml .dtHead:before {
+    content:' ';
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    right: 5px;
+    width:16px;
+    height:16px;
+    background: url(../images/arrow.png) no-repeat right 1px;
+}
+.dtHtml .dtHead:hover{
+    background-color:#fff
+}
+.dtHtml .dtHead:active,
+.dtHtml .dtHead:active {
+    box-shadow:inset 0 2px 4px rgba(0,0,0,0.2);
+}
+.dtHtml .dtBody {
+    width:120px;
+    position: absolute;
+    top: 28px;
+    left: 0;
+    z-index: 999;
+    text-align:center;
+    background: #fff;
+    border: 1px solid #aaa;
+    display:none;
+    box-shadow: 0 0px 5px 0px rgba(0,0,0,0.2);
+}
+.dtHtml .dtBody:after,
+.dtHtml .dtBody::before {
+    content: ' ';
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 10px;
+    bottom: 6px;
+    width: 100%;
+    height: 15%;
+    box-shadow: 0 11px 10px rgba(0,0,0,0.15);
+}
+.dtHtml .dtBody .dtList {
+    overflow-y:auto;
+    overflow-x:hidden;
+    /* width:120px; */
+}
+.dtHtml .dtBody .dtList ul {
+    max-height:300px;
+    min-width:120px;
+    /* float:left; */
+}
+.dtHtml .dtBody ul li {
+    white-space:nowrap;
+    border-bottom: 1px solid #aaa;
+    cursor: pointer;
+    font-size: 12px;
+    color: #6D6A67;
+    background: #fff;
+    text-align:left;
+    padding:8px 15px;
+}
+.dtHtml .dtBody ul li:hover {
+    background-color: #009cff;
+    color: #fff
+}
+.dtHtml .dtDrag {
+    position:absolute;
+    right:0;
+    bottom:0;
+    background: url(../images/move.png) right bottom no-repeat;
+    width:8px;
+    height:8px;
+    z-index:5;
+    cursor:w-resize;
+}
+.dtHtml .dtFoot {
+    clear:both;
+    padding:8px 5px;
+    height:24px;
+    background: #fff;
+    border-top: 1px solid #aaa;
+    position:relative;
+}
+.dtHtml .dtFoot .dtText {
+    width:50%;
+    height:16px;
+    padding:3px;
+    float:left;
+    font-size:11px;
+    color:#888;
+    background: #fff;
+    border: 1px solid #acacac;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1) inset;
+    display: inline-block;
+    outline: none;
+    vertical-align: middle;
+    font-family:"Microsoft YaHei",Helvetica,sans-serif;
+}
+.dtHtml .dtFoot .dtText:focus{
+    color:#444;
+    border:1px solid #009cff;
+    -webkit-box-shadow:0 2px 2px rgba(0,0,0,0.1) inset,0 0 8px rgba(67,131,197,0.5);
+    -moz-box-shadow:0 2px 2px rgba(0,0,0,0.1) inset,0 0 8px rgba(67,131,197,0.5);
+    box-shadow:0 2px 2px rgba(0,0,0,0.1) inset,0 0 8px rgba(67,131,197,0.5);
+}
+.dtHtml .dtFoot .dtTextBtn {
+    width:40px;
+    height:22px;
+    line-height:22px;
+    float:right;
+    border: 1px solid #056ee1;
+    color: #fff;
+    cursor:pointer;
+    background: #009cff;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 1px 3px rgba(0,0,0,0.2);
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #3c98fc), color-stop(100%, #056ee1)), #009cff;
+    background: -webkit-linear-gradient(#3c98fc 20%, #056ee1), #009cff;
+    background: -moz-linear-gradient(#3c98fc 20%, #056ee1), #009cff;
+    background: -o-linear-gradient(#3c98fc 20%, #056ee1), #009cff;
+    background: linear-gradient(#3c98fc 20%, #056ee1), #009cff;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+    font-family:"Microsoft YaHei",Helvetica,sans-serif;
+}
+.dtHtml .dtFoot .dtTextBtn:hover {
+    background: #009cff
+}
+.dtHtml .dtFoot .dtTextBtn:active {
+    background: #009cff;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2)
+}
+.dtHtml .dtFoot .nodeErrorInfo {
+    border:1px solid #aaa;
+    height:144px;
+    width:116px;
+    background: #fff;
+    box-shadow: 0 5px 5px 0px rgba(0,0,0,0.2);
+    position:absolute;
+    top:50px;
+    left:-1px;
+    padding:2px 0 2px 4px;
+    font-size:12px;
+    z-index: 1;
+    text-align:left;
+    display:none;
+    font-family:"宋体"
+}
+.dtHtml .dtFoot .nodeErrorInfo p {
+    line-height:24px;
+}
+.dtHtml .dtFoot .nodeErrorInfo p.first {
+    color:#009cff;
+}
+.dtHtml .dtFoot .nodeErrorInfo p.nbsp {
+    padding-left:24px;
+}
+.dtHtml .dtFoot .nodeArrow {
+    position: absolute;
+    z-index: 2;
+    left: 15px;
+    top: 38px;
+    width: 16px;
+    height: 13px;
+    background:url(../images/droplist_arrow.png) no-repeat;
+    display:none;
+}
