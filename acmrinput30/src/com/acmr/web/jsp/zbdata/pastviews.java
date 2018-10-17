@@ -205,7 +205,7 @@ public class pastviews extends BaseAction {
             String regname = os.getwdnode("reg", regioncode).getName();
             regnames.add(regname);
         }
-        List<List<String>> regdatas = pv.getTimeData(regs,taskcode,allMods,lasttime);
+        List<List<String>> regdatas = pv.getTimeData(regs,taskcode,lasttime);
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",regdatas).addObject("show",change)
                 .addObject("regnames",regnames).addObject("ornames",ornames);
     }
