@@ -26,18 +26,12 @@ define(function (require,exports,module) {
 
     //点选col
     $(document).on("click",".top-select",function () {
-        var choose=$(this).html()
+        var choose=$(this).text()
         if (choose!=tableRow){
+            //console.log("choose:"+choose)
             tableCol=choose
             $(".wdturn-table").empty()
             getTable()
-           /* $(".wdturn-table").append("<tr><td>" +
-                tableRow+"</td><td>" +
-                tableCol+"</td><td>" +
-                tableCol+"</td><td>" +
-                tableCol+"</td></tr>").append("<tr><td>" +
-                tableRow+"</td><td></td><td></td><td></td></tr>").append("<tr><td>" +
-                tableRow+"</td><td></td><td></td><td></td></tr>")*/
         }
         else {
             alert("行列维度相同")
@@ -45,28 +39,22 @@ define(function (require,exports,module) {
     })
     //点选row
     $(document).on("click",".left-select",function () {
-        var choose=$(this).html()
+        var choose=$(this).text()
         if (choose!=tableCol){
             tableRow=choose
+            //console.log("choose:"+choose)
             $(".wdturn-table").empty()
             getTable()
-         /*   $(".wdturn-table").append("<tr><td>" +
-                tableRow+"</td><td>" +
-                tableCol+"</td><td>" +
-                tableCol+"</td><td>" +
-                tableCol+"</td></tr>").append("<tr><td>" +
-                tableRow+"</td><td></td><td></td><td></td></tr>").append("<tr><td>" +
-                tableRow+"</td><td></td><td></td><td></td></tr>")*/
         }
         else {
             alert("行列维度相同")
         }
     })
 
-    module.exports={
+    /*module.exports={
         tableRow:tableRow,
         tableCol:tableCol
-    }
+    }*/
 
 
 })

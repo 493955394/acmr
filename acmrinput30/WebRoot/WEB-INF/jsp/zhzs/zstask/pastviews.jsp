@@ -27,13 +27,16 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>查看往期</h4>
-            <input type="hidden" name="indexcode" value="${indexcode}">
+            <input type="hidden" class="indexcode" value="${info.get('indexcode')}">
         </div>
 
         <div class="panel-body">
             <div class="toolbar">
+                <div id="mySelect2"></div>
+                <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i1" class="glyphicon glyphicon-retweet"></i>&nbsp;维度转换</button>&nbsp;
 
-                <%--<c:if test="${show.equals('2')}">
+
+            <%--<c:if test="${show.equals('2')}">
                 <div class="toolbar-left">
                     <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=regDatas">
                         <div class="form-group">
