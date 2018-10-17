@@ -218,7 +218,7 @@ public class zscalculate extends BaseAction {
     * @Author: lyh
     * @Date: 2018/9/17
     */
-    public ModelAndView ReData() {
+    public ModelAndView ReData() throws IOException {
         HttpServletRequest req = this.getRequest();
         IndexTaskService indexTaskService = new IndexTaskService();
         OriginService originService = new OriginService();
@@ -234,15 +234,17 @@ public class zscalculate extends BaseAction {
         for (int i = 0; i < regscode.size(); i++) {
             regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
         }
-        List<List<String>> datas = getResultList(taskcode,regscode,sessionid);//计算结果
         if (StringUtil.isEmpty(pjax)) {
-            PubInfo.printStr("===================================emptyredata");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas);
+            this.getResponse().sendRedirect("/zbdata/zscalculate.htm?m=ZsCalculate&taskcode="+taskcode+"&right=2");
+            // PubInfo.printStr("===================================emptyredata");
+  /*          List<List<String>> datas = getResultList(taskcode,regscode,sessionid);//计算结果
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas);*/
         } else {
-            PubInfo.printStr("=====================================pjaxredata");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas);
+           // PubInfo.printStr("=====================================pjaxredata");
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
 
         }
+        return null;
 
     }
 
@@ -262,7 +264,7 @@ public class zscalculate extends BaseAction {
         List<TaskModule> mods=weightEditService.getOrTMods(taskcode);
         if (StringUtil.isEmpty(pjax)) {
             //PubInfo.printStr("===================================emptyredata");
-            this.getResponse().sendRedirect("/zbdata/zscalculate.htm?taskcode="+taskcode+"&right="+right);
+            this.getResponse().sendRedirect("/zbdata/zscalculate.htm?m=ZsCalculate&taskcode="+taskcode+"&right="+right);
         } else {
           //  PubInfo.printStr("=====================================reweight");
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tweighttable").addObject("mods",mods).addObject("right",right);

@@ -347,7 +347,7 @@
                                             <button class="btn btn-default btn-sm J_Add_ZS" type="button"><i class="glyphicon glyphicon-plus"></i>新增</button>
                                             &nbsp;
                                             <button class="btn btn-default btn-sm J_Add weight_set" type="button">
-                                                <i class="glyphicon glyphicon-pencil"></i>新增权重设置
+                                                <i class="glyphicon glyphicon-pencil"></i>权重设置
                                             </button>
                                             &nbsp;
                                         </div>
