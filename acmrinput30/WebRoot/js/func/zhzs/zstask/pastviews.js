@@ -39,19 +39,16 @@ define(function (require,exports,module) {
         tableRow=tableMapping(tableRow)
         tableCol=tableMapping(tableCol)
 
-        console.log("code:"+code)
+        console.log("code:"+spancode)
         console.log("time:"+time)
         console.log("tablerow:"+tableRow)
         console.log("tablecol:"+tableCol)
         var url=common.rootPath+"zbdata/pastviews.htm?m=reTable&icode="+indexcode+"&tableRow="+tableRow+"&tableCol="+tableCol+"&spancode="+spancode+"&time="+time
 
-        $.ajax({
+        $.pjax({
             url:url,
-            type:'get',
-            data:'json',
-            success:function (re) {
-                console.log("success")
-            }
+            container: '.J_pastviews_data_table',
+            timeout:5000
         })
 
     }

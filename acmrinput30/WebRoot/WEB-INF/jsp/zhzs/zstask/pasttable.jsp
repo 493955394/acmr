@@ -24,9 +24,9 @@
     <table class="table table-hover J_pastviews_data_table">
         <thead>
         <tr>
-            <th>指标</th>
-            <c:forEach items="${info.get('time')}" var="time">
-                <th>${time}</th>
+            <th>${info.get('col')}</th>
+            <c:forEach items="${info.get('head')}" var="head">
+                <th>${head}</th>
             </c:forEach>
         </tr>
         </thead>

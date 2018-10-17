@@ -43,7 +43,8 @@ public class pastviews extends BaseAction {
         List<List<String>> showdatas = pv.getModTime(reg,fivetaskcode,icode);//得到单地区data
         Map<String,Object> info=new HashMap<>();
         //展示的时间
-        info.put("time",last5);
+        info.put("head",last5);
+        info.put("col","指标");
         //存在的地区并集,用于select
         info.put("options",regs);
         info.put("indexcode",icode);
@@ -72,31 +73,110 @@ public class pastviews extends BaseAction {
        String tablecol=req.getParameter("tableCol");
        //单个维度的code
        String spancode=req.getParameter("spancode");
+       if (spancode.equals("null")) spancode=null;
        String time=req.getParameter("time");
+       if (time.equals("null")) time=null;
        PastViewService pastViewService=new PastViewService();
        String pjax = req.getHeader("X-PJAX");
        Map<String,Object> info=new HashMap<>();
        List<List<String>> showdatas = new ArrayList<>();//data
-
        info.put("indexcode",icode);
-       //span以及options
        String span;
        if (!(tablecol.equals("zb")||tablerow.equals("zb"))){
            span="指标选择";
            List<String> alltaskcode=pastViewService.getAllTask(icode);
+           List<String> taskcodes=new ArrayList<>();
+           //根据time得出taskcodes，未完成
+           //返回所有指标
            List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
            info.put("options",zbs);
+           if (tablecol.equals("reg")){
+               showdatas=pastViewService.getRegTime(taskcodes,spancode,icode);
+               info.put("col","地区");
+               List<String> sjhead=pastViewService.getAllTime(icode).subList(0,5);
+               info.put("head",sjhead);
+           }
+           else {
+               showdatas=pastViewService.getTimeReg(taskcodes,spancode,icode);
+               info.put("col","时间");
+               List<String> reghead=new ArrayList<>();
+               List<Map<String,String>> regs=pastViewService.getRegList(icode);
+               for (int i=0;i<regs.size();i++){
+                   String reg=regs.get(i).get("name");
+                   reghead.add(reg);
+               }
+               info.put("head",reghead);
+           }
+
        }
        else if (!(tablecol.equals("sj")||tablerow.equals("sj"))){
            span="时间选择";
+           //根据time得出当期task，未完成
+           String taskcode="";
+           //返回所有时间
+           List<String> ayearmons=pastViewService.getAllTime(icode);
+           List<Map<String,String>> sjs=new ArrayList<>();
+           for (int i=0;i<ayearmons.size();i++){
+               Map m=new HashMap();
+               m.put("code",ayearmons.get(i));
+               m.put("name",ayearmons.get(i));
+               sjs.add(m);
+           }
+           info.put("options",sjs);
+
+           if (tablecol.equals("reg")){
+               showdatas=pastViewService.getRegMod(taskcode,icode);
+               info.put("col","地区");
+               List<String> zbhead=new ArrayList<>();
+               List<Map<String,String>> zbmap=pastViewService.getModsList(pastViewService.getAllTask(icode));
+               for (int i=0;i<zbmap.size();i++){
+                   String zbname=zbmap.get(i).get("code");
+                   zbhead.add(zbname);
+               }
+               info.put("head",zbhead);
+           }
+           else {
+               showdatas=pastViewService.getModReg(taskcode,icode);
+               info.put("col","指标");
+               List<String> regs=new ArrayList<>();
+               List<String> reghead=new ArrayList<>();
+               List<Map<String,String>> regmap=pastViewService.getRegList(icode);
+               for (int i=0;i<regmap.size();i++){
+                   String regname=regmap.get(i).get("name");
+                   reghead.add(regname);
+               }
+               info.put("head",reghead);
+
+           }
        }
        else{
            span="地区选择";
-
+           List<String> taskcodes=new ArrayList<>();
+           //根据time来得到taskcodes，未完成，先写死最近5期
+           taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+           //返回所有地区
+           List<Map<String,String>> regs=pastViewService.getRegList(icode);
+           info.put("options",regs);
+           if (tablecol.equals("zb")){
+               showdatas=pastViewService.getModTime(spancode,taskcodes,icode);
+               info.put("col","指标");
+               //时间先写死最近5期，然后根据time来变
+               List<String> timehead = pv.getAllTime(icode).subList(0,5);
+               info.put("head",timehead);
+           }
+           else {
+               showdatas=pastViewService.getTimeMod(spancode,taskcodes,icode);
+               info.put("col","时间");
+               List<String> zbhead=new ArrayList<>();
+               List<Map<String,String>> zbmap=pastViewService.getModsList(pastViewService.getAllTask(icode));
+               for (int i=0;i<zbmap.size();i++){
+                   String zbname=zbmap.get(i).get("code");
+                   zbhead.add(zbname);
+               }
+               info.put("head",zbhead);
+           }
        }
        info.put("span",span);
-
-
 
 
        if (StringUtil.isEmpty(pjax)) {
@@ -156,7 +236,7 @@ public class pastviews extends BaseAction {
                     "",reginfo)
                     .addObject("show",change).addObject("indexcode",icode);
         }else{
-            List<List<String>> showdatas = pv.getTimeMod(regcode, fivetaskcode,last5,icode);
+            List<List<String>> showdatas = pv.getTimeMod(regcode, fivetaskcode,icode);
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata", showdatas).addObject("last5", last5).addObject("reginfo", reginfo)
                     .addObject("show", change).addObject("indexcode", icode).addObject("modnames",modnames);
 
@@ -212,7 +292,7 @@ public class pastviews extends BaseAction {
             List<List<String>> regdatas = pv.getRegTime(fivetaskcode,orcode,icode);
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",regdatas).addObject("last5",last5).addObject("show",change).addObject("modinfo",modinfo);
         }else{
-            List<List<String>> regdatas = pv.getTimeReg(fivetaskcode,orcode,last5,icode);
+            List<List<String>> regdatas = pv.getTimeReg(fivetaskcode,orcode,icode);
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",regdatas).addObject("last5",last5).addObject("show",change).addObject("modinfo",modinfo).addObject("regnames",regnames);
         }
 
@@ -258,11 +338,11 @@ public class pastviews extends BaseAction {
             regnames.add(regname);
         }
         if(trow.equals("地区")&&tcol.equals("指标")){
-            List<List<String>> regdatas = pv.getRegMod(taskcode,lasttime,icode);
+            List<List<String>> regdatas = pv.getRegMod(taskcode,icode);
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",regdatas).addObject("show",change)
                     .addObject("regnames",regnames).addObject("ornames",ornames);
         }else{
-            List<List<String>> regdatas = pv.getModReg(taskcode,lasttime,icode);
+            List<List<String>> regdatas = pv.getModReg(taskcode,icode);
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",regdatas).addObject("show",change)
                     .addObject("regnames",regnames).addObject("ornames",ornames);
         }
@@ -331,7 +411,7 @@ public class pastviews extends BaseAction {
                 }
             }
         }else{
-            List<List<String>> datas = pv.getTimeMod(regcode,fivetaskcode,last5,code);
+            List<List<String>> datas = pv.getTimeMod(regcode,fivetaskcode,code);
             ExcelRow dr1 = sheet1.addRow();
             ExcelCell cell2 = cell1.clone();
             cell2.setCellValue("时间");
@@ -445,7 +525,7 @@ public class pastviews extends BaseAction {
                 }
             }
         }else{
-            List<List<String>> regdatas = pv.getTimeReg(fivetaskcode,orcode,last5,code);
+            List<List<String>> regdatas = pv.getTimeReg(fivetaskcode,orcode,code);
             ExcelRow dr1 = sheet1.addRow();
             ExcelCell cell2 = cell1.clone();
             cell2.setCellValue("时间");

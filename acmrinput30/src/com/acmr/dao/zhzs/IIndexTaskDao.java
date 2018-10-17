@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface IIndexTaskDao {
+    public DataTable getTask(String tcode);
     public boolean hasTask(String indexcode,String ayearmon);
     public int create(String indexcode,String tcode,String ayearmon,String createtime);
     public DataTable getTaskListByPage(String icode,int page,int pagesize);
