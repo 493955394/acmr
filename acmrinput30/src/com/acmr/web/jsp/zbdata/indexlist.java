@@ -263,6 +263,9 @@ public class indexlist extends BaseAction {
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
         String cname = PubInfo.getString(req.getParameter("cocname"));
         String procode = PubInfo.getString(req.getParameter("idcata"));
+        if(procode.equals("!1")){
+            procode="";
+        }
         String proname = PubInfo.getString(req.getParameter("cataname"));
         User user = (User) this.getSession().getAttribute("loginuser");
         String createuser = user.getUserid();
@@ -308,6 +311,9 @@ public class indexlist extends BaseAction {
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
         String cname = PubInfo.getString(req.getParameter("plancname"));
         String procode = PubInfo.getString(req.getParameter("idplan"));
+        if(procode.equals("!1")){
+            procode="";
+        }
         String proname = PubInfo.getString(req.getParameter("proname"));
         String sort = PubInfo.getString(req.getParameter("sort"));
         String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
@@ -519,6 +525,9 @@ public class indexlist extends BaseAction {
         String code = PubInfo.getString(req.getParameter("editcode"));
         String name = PubInfo.getString(req.getParameter("editcname"));
         String procode = PubInfo.getString(req.getParameter("editprocode"));
+        if(procode.equals("!1")){
+            procode="";
+        }
         /*if (procode.equals("")) {
             data.setReturncode(300);
             this.sendJson(data);
