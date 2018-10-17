@@ -96,6 +96,7 @@
                 <c:forEach items="${info.get('options')}" var="option">
                     <option id="${option.get('code')}">${option.get('name')}</option>
                 </c:forEach>
+                <option>序列</option>
             </select>
             <jsp:include page="/WEB-INF/jsp/zhzs/zstask/pasttable.jsp" flush="true"/>
         </div>
