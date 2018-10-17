@@ -398,11 +398,17 @@ public class zscalculate extends BaseAction {
                 String arr = datatmp.get(i).toString().substring(1, datatmp.get(i).toString().length() - 1);
                 //String arr =datatmp.get(i).toString();
                 dr1 = sheet1.addRow();
-                String a2 = arr.replaceAll("null"," ").replaceAll("0"," ");
+                String a2 = arr.replaceAll("null"," ");
                 String[] a3 = a2.split(",");
                 for (int j = 0; j < a3.length; j++) {
                     cell2 = cell1.clone();
-                    cell2.setCellValue(a3[j]);
+                    if(a3[j].equals("0")){
+                        String value = a3[j].replace("0"," ");
+                        cell2.setCellValue(value);
+                    }else{
+                        cell2.setCellValue(a3[j]);
+                    }
+
                     dr1.set(j, cell2);
                 }
             }

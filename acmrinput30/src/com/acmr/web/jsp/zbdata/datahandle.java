@@ -217,7 +217,7 @@ public class datahandle extends BaseAction {
                             String zbname = ZBname.get(z);
                             if(!getzb.equals(zbname)){
                                 data.setReturncode(300);
-                                data.setReturndata("指标或地区有误，请比对下载进行数据修改");
+                                data.setReturndata("指标或地区有误，请重新下载再进行数据修改上传");
                                 this.sendJson(data);
                                 return;
                             }
