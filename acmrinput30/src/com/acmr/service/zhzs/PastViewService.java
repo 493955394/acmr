@@ -228,10 +228,11 @@ public class PastViewService {
      * @return
      */
 
-    public List<List<String>> getModTime(String reg,List<String> taskcodes){
+    public List<List<String>> getModTime(String reg,List<String> taskcodes,String icode){
+
+        PastViewService pv = new PastViewService();
 
         List<List<String>> regdatas = new ArrayList<>();
-
         List<Map<String,String>> orcodes = getModsList(taskcodes);//拿到這五年的去重的orcode
         for (int i = 0; i < orcodes.size() ; i++) {
             List<String> temp = new ArrayList<>();
@@ -242,12 +243,25 @@ public class PastViewService {
                     temp.add("");
                 }else{
                     String ayearmon =  new IndexTaskService().getTime(taskcodes.get(j));
-                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(j),modcode,reg,ayearmon);
-                    if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
-                        temp.add("");
-                    }else {
-                        temp.add(data);
+                    if(reg.equals("")){
+                        Map<String,String> regsmap = pv.getRegList(icode);
+                        List<String> regcodes=new ArrayList<>(regsmap.keySet());
+                        String freg = regcodes.get(0);
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(j),modcode,freg,ayearmon);
+                        if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
+                            temp.add("");
+                        }else {
+                            temp.add(data);
+                        }
+                    }else{
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(j),modcode,reg,ayearmon);
+                        if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
+                            temp.add("");
+                        }else {
+                            temp.add(data);
+                        }
                     }
+
                 }
             }
             regdatas.add(temp);
@@ -262,10 +276,10 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<List<String>> getTimeMod(String reg,List<String> taskcodes,List<String> last5){
+    public List<List<String>> getTimeMod(String reg,List<String> taskcodes,List<String> last5,String icode){
 
 
-
+        PastViewService pv = new PastViewService();
         List<Map<String,String>> orcodes = getModsList(taskcodes);//拿到這五年的去重的orcode
         List<List<String>> regdatas = new ArrayList<>();
         for (int i = 0; i <last5.size() ; i++) {
@@ -276,11 +290,23 @@ public class PastViewService {
                 if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                     temp.add("");
                 }else{
-                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(i),modcode,reg,last5.get(i));
-                    if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
-                        temp.add("");
-                    }else {
-                        temp.add(data);
+                    if(reg.equals("")){
+                        Map<String,String> regsmap = pv.getRegList(icode);
+                        List<String> regcodes=new ArrayList<>(regsmap.keySet());
+                        String freg = regcodes.get(0);
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(j),modcode,freg,last5.get(i));
+                        if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
+                            temp.add("");
+                        }else {
+                            temp.add(data);
+                        }
+                    }else{
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(j),modcode,reg,last5.get(i));
+                        if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
+                            temp.add("");
+                        }else {
+                            temp.add(data);
+                        }
                     }
                 }
             }
@@ -296,7 +322,7 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<List<String>> getRegTime(List<String> fivetaskcode,String orcode){
+    public List<List<String>> getRegTime(List<String> fivetaskcode,String orcode,String icode){
         OriginService originService=new OriginService();
         PastViewService pv = new PastViewService();
         List<List<String>> moddatas = new ArrayList<>();
@@ -309,18 +335,37 @@ public class PastViewService {
             String regname = originService.getwdnode("reg",regioncode).getName();
             datas.add(regname);
             for(int j=0;j<fivetaskcode.size();j++){
-                String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(fivetaskcode.get(i),orcode);
-                if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
-                    datas.add("");
-                }else {
-                    String ayearmon = new IndexTaskService().getTime(fivetaskcode.get(j));
-                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j), modcode, regioncode, ayearmon);
-                    if (data == null || data == "") {//要是返回null代表這一年沒有這個地區
+                if(orcode.equals("")){
+                    List<String> alltaskcode = pv.getAllTask(icode);
+                    List<Map<String,String>> allorcodes = pv.getModsList(alltaskcode);
+                    String forcode = allorcodes.get(0).get(orcode);
+                    String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(fivetaskcode.get(i),forcode);
+                    if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                         datas.add("");
-                    } else {
-                        datas.add(data);
+                    }else {
+                        String ayearmon = new IndexTaskService().getTime(fivetaskcode.get(j));
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j), modcode, regioncode, ayearmon);
+                        if (data == null || data == "") {//要是返回null代表這一年沒有這個地區
+                            datas.add("");
+                        } else {
+                            datas.add(data);
+                        }
+                    }
+                }else{
+                    String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(fivetaskcode.get(i),orcode);
+                    if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
+                        datas.add("");
+                    }else {
+                        String ayearmon = new IndexTaskService().getTime(fivetaskcode.get(j));
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j), modcode, regioncode, ayearmon);
+                        if (data == null || data == "") {//要是返回null代表這一年沒有這個地區
+                            datas.add("");
+                        } else {
+                            datas.add(data);
+                        }
                     }
                 }
+
             }
             moddatas.add(datas);
         }
@@ -333,7 +378,7 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<List<String>> getTimeReg(List<String> fivetaskcode,String orcode,List<String> last5){
+    public List<List<String>> getTimeReg(List<String> fivetaskcode,String orcode,List<String> last5,String icode){
 
         PastViewService pv = new PastViewService();
         String taskcode = fivetaskcode.get(0);
@@ -347,16 +392,34 @@ public class PastViewService {
             datas.add(last5.get(i));
             for(int j=0;j<regs.size();j++){
                 String regioncode = regs.get(j);
-                String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(fivetaskcode.get(i),orcode);
-                if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
-                    datas.add("");
-                }else {
-
-                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(i), modcode, regioncode, last5.get(i));
-                    if (data == null || data == "") {//要是返回null代表這一年沒有這個地區
+                if(orcode.equals("")){
+                    List<String> alltaskcode = pv.getAllTask(icode);
+                    List<Map<String,String>> allorcodes = pv.getModsList(alltaskcode);
+                    String forcode = allorcodes.get(0).get(orcode);
+                    String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(fivetaskcode.get(i),forcode);
+                    if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                         datas.add("");
-                    } else {
-                        datas.add(data);
+                    }else {
+                        String ayearmon = new IndexTaskService().getTime(fivetaskcode.get(j));
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j), modcode, regioncode, ayearmon);
+                        if (data == null || data == "") {//要是返回null代表這一年沒有這個地區
+                            datas.add("");
+                        } else {
+                            datas.add(data);
+                        }
+                    }
+                }else{
+                    String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(fivetaskcode.get(i),orcode);
+                    if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
+                        datas.add("");
+                    }else {
+                        String ayearmon = new IndexTaskService().getTime(fivetaskcode.get(j));
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(fivetaskcode.get(j), modcode, regioncode, ayearmon);
+                        if (data == null || data == "") {//要是返回null代表這一年沒有這個地區
+                            datas.add("");
+                        } else {
+                            datas.add(data);
+                        }
                     }
                 }
             }
@@ -371,7 +434,7 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<List<String>> getRegMod(String taskcode,String time){
+    public List<List<String>> getRegMod(String taskcode,String time,String icode){
         OriginService originService=new OriginService();
         PastViewService pv = new PastViewService();
         List<String> regs = pv.getRegions(taskcode);
@@ -392,11 +455,21 @@ public class PastViewService {
                     datas.add("");
                 }else{
 
-                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcode,modcode,regioncode,time);
-                    if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
-                        datas.add("");
-                    }else {
-                        datas.add(data);
+                    if(time.equals("")){
+                        String ftime = pv.getAllTime(icode).get(0);
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcode,modcode,regioncode,ftime);
+                        if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
+                            datas.add("");
+                        }else {
+                            datas.add(data);
+                        }
+                    }else{
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcode,modcode,regioncode,time);
+                        if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
+                            datas.add("");
+                        }else {
+                            datas.add(data);
+                        }
                     }
                 }
             }
@@ -411,7 +484,7 @@ public class PastViewService {
      * @param
      * @return
      */
-    public List<List<String>> getModReg(String taskcode,String time){
+    public List<List<String>> getModReg(String taskcode,String time,String icode){
         //OriginService originService=new OriginService();
         PastViewService pv = new PastViewService();
         List<String> regs = pv.getRegions(taskcode);
@@ -431,12 +504,23 @@ public class PastViewService {
                 if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                     datas.add("");
                 }else{
-                    String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcode,modcode,regioncode,time);
-                    if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
-                        datas.add("");
-                    }else {
-                        datas.add(data);
+                    if(time.equals("")){
+                        String ftime = pv.getAllTime(icode).get(0);
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcode,modcode,regioncode,ftime);
+                        if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
+                            datas.add("");
+                        }else {
+                            datas.add(data);
+                        }
+                    }else{
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcode,modcode,regioncode,time);
+                        if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
+                            datas.add("");
+                        }else {
+                            datas.add(data);
+                        }
                     }
+
                 }
             }
             timedatas.add(datas);
