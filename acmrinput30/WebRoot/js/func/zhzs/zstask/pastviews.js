@@ -22,8 +22,8 @@ define(function (require,exports,module) {
     //下载
     $(document).on('click', '.pastview_download', function(event) {
         event.preventDefault();
-        var regcode="001";
-        var url = common.rootPath+"zbdata/pastviews.htm?m=toModExcel&regcode="+regcode;
+        var regcode=$("#select-data option:selected").val();
+        var url = common.rootPath+"zbdata/pastviews.htm?m=toRegExcel&regcode="+regcode;
         $.ajax({
             url: url,
             type: 'get',
