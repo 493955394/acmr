@@ -5,7 +5,9 @@ import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.model.pub.JSONReturnData;
+import com.acmr.model.security.User;
 import com.acmr.model.zhzs.IndexList;
+import com.acmr.service.security.UserService;
 import com.acmr.service.zhzs.IndexListService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +26,8 @@ public class indexplan extends BaseAction {
          */
         public void sharecopy() throws IOException {
             IndexListService indexListService = new IndexListService();
+            User cu= UserService.getCurrentUser();
+            String usercode=cu.getUserid();
             HttpServletRequest req = this.getRequest();
             String cpcode = PubInfo.getString(req.getParameter("cosharecode"));//原code
             //String ifdata1 = PubInfo.getString(req.getParameter("cifdata"));
@@ -57,6 +61,7 @@ public class indexplan extends BaseAction {
             copydata.setCode(code);
             copydata.setCname(cname);
             copydata.setProcode(nprocode);
+            copydata.setCreateuser(usercode);
             //data1.setCreatetime(createtime);
             String startpeirod = copydata.getStartperiod();
             String delayday = copydata.getDelayday();

@@ -355,6 +355,8 @@ public class indexlist extends BaseAction {
         String cpcode = PubInfo.getString(req.getParameter("copycode"));
         //String ifdata1 = PubInfo.getString(req.getParameter("cifdata"));
         //int ifdata = Integer.parseInt(ifdata1);
+        User cu=UserService.getCurrentUser();
+        String usercode=cu.getUserid();
         String code = PubInfo.getString(req.getParameter("plcode"));
         JSONReturnData data = new JSONReturnData("");
         int x = indexListService.checkCode(code);
@@ -384,6 +386,7 @@ public class indexlist extends BaseAction {
         data1.setCode(code);
         data1.setCname(cname);
         data1.setProcode(nprocode);
+        data1.setCreateuser(usercode);
         String startpeirod = data1.getStartperiod();
         String delayday = data1.getDelayday();
         //生成plantime，planperiod
