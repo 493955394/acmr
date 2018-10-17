@@ -81,6 +81,7 @@ public class pastviews extends BaseAction {
        Map<String,Object> info=new HashMap<>();
        List<List<String>> showdatas = new ArrayList<>();//data
        info.put("indexcode",icode);
+       info.put("spancode",spancode);
        String span;
        if (!(tablecol.equals("zb")||tablerow.equals("zb"))){
            span="指标选择";
@@ -90,15 +91,15 @@ public class pastviews extends BaseAction {
            //返回所有指标
            List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
            info.put("options",zbs);
-           if (tablecol.equals("reg")){
+           if (tablecol.equals("sj")){
                showdatas=pastViewService.getRegTime(taskcodes,spancode,icode);
-               info.put("col","地区");
+               info.put("row","地区");
                List<String> sjhead=pastViewService.getAllTime(icode).subList(0,5);
                info.put("head",sjhead);
            }
            else {
                showdatas=pastViewService.getTimeReg(taskcodes,spancode,icode);
-               info.put("col","时间");
+               info.put("row","时间");
                List<String> reghead=new ArrayList<>();
                List<Map<String,String>> regs=pastViewService.getRegList(icode);
                for (int i=0;i<regs.size();i++){
@@ -124,9 +125,9 @@ public class pastviews extends BaseAction {
            }
            info.put("options",sjs);
 
-           if (tablecol.equals("reg")){
+           if (tablecol.equals("zb")){
                showdatas=pastViewService.getRegMod(taskcode,icode);
-               info.put("col","地区");
+               info.put("row","地区");
                List<String> zbhead=new ArrayList<>();
                List<Map<String,String>> zbmap=pastViewService.getModsList(pastViewService.getAllTask(icode));
                for (int i=0;i<zbmap.size();i++){
@@ -137,7 +138,7 @@ public class pastviews extends BaseAction {
            }
            else {
                showdatas=pastViewService.getModReg(taskcode,icode);
-               info.put("col","指标");
+               info.put("row","指标");
                List<String> regs=new ArrayList<>();
                List<String> reghead=new ArrayList<>();
                List<Map<String,String>> regmap=pastViewService.getRegList(icode);
@@ -157,16 +158,16 @@ public class pastviews extends BaseAction {
            //返回所有地区
            List<Map<String,String>> regs=pastViewService.getRegList(icode);
            info.put("options",regs);
-           if (tablecol.equals("zb")){
+           if (tablecol.equals("sj")){
                showdatas=pastViewService.getModTime(spancode,taskcodes,icode);
-               info.put("col","指标");
+               info.put("row","指标");
                //时间先写死最近5期，然后根据time来变
                List<String> timehead = pv.getAllTime(icode).subList(0,5);
                info.put("head",timehead);
            }
            else {
                showdatas=pastViewService.getTimeMod(spancode,taskcodes,icode);
-               info.put("col","时间");
+               info.put("row","时间");
                List<String> zbhead=new ArrayList<>();
                List<Map<String,String>> zbmap=pastViewService.getModsList(pastViewService.getAllTask(icode));
                for (int i=0;i<zbmap.size();i++){

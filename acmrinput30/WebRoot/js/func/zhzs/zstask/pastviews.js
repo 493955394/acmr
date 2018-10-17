@@ -36,6 +36,8 @@ define(function (require,exports,module) {
     })
 
     function sendPjax(){
+        tableRow=$("#table-Row").val()
+        tableCol=$("#table-Col").val()
         tableRow=tableMapping(tableRow)
         tableCol=tableMapping(tableCol)
 
