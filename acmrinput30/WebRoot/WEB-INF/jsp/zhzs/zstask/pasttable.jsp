@@ -25,7 +25,7 @@
         <thead>
         <tr>
             <th>指标</th>
-            <c:forEach items="${last5}" var="time">
+            <c:forEach items="${info.get('last5')}" var="time">
                 <th>${time}</th>
             </c:forEach>
         </tr>

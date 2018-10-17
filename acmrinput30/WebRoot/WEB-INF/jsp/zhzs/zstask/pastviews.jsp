@@ -32,7 +32,8 @@
 
         <div class="panel-body">
             <div class="toolbar">
-                <c:if test="${show.equals('2')}">
+
+                <%--<c:if test="${show.equals('2')}">
                 <div class="toolbar-left">
                     <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=regDatas">
                         <div class="form-group">
@@ -47,7 +48,6 @@
                             </select>
                         </div>
                     </form>
-
                 </div>
                 <div class="toolbar-right">
                     <div class="toolbar-group" style="position: relative;">
@@ -59,7 +59,6 @@
                     </div>
                 </div>
                 </c:if>
-
                 <c:if test="${show.equals('1')}">
                     <div class="toolbar-left">
                         <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=modDatas">
@@ -87,11 +86,17 @@
                             <button class="btn btn-default btn-sm pastview_download"><i id="i4" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
                         </div>
                     </div>
-                </c:if>
+                </c:if>--%>
             </div>
         </div>
 
         <div class="J_pastviews_data_table">
+            <span>${info.get("span")}</span>
+            <select class="wd_selector">
+                <c:forEach items="${info.get('options')}" var="option">
+                    <option id="${option.get('code')}">${option.get('name')}</option>
+                </c:forEach>
+            </select>
             <jsp:include page="/WEB-INF/jsp/zhzs/zstask/pasttable.jsp" flush="true"/>
         </div>
     </div>

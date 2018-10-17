@@ -38,47 +38,38 @@ public class pastviews extends BaseAction {
     public ModelAndView main(){
         //获取用户权限
         String icode = this.getRequest().getParameter("id");
-        String right=this.getRequest().getParameter("right");
-
         OriginService os = new OriginService();
         List<String> fivetaskcode = pv.getAllTask(icode).subList(0,5);
-        List<String> alltaskcode = pv.getAllTask(icode);
-        List<Map<String,String>> allmods = pv.getModsList(alltaskcode);
-        List<String> orcodes = new ArrayList<>();
-        List<String> ornames = new ArrayList<>();
-        for(int i=0;i<allmods.size();i++){
-            String code = allmods.get(i).get("orcode");
-            String orname = allmods.get(i).get("name");
-            orcodes.add(code);
-            ornames.add(orname);
-        }
-        String change = "2";//1：下拉框选择模型节点（orcode）展示；2：下拉框选择单个地区展示;3：单时间展示。
-
         String taskcode = fivetaskcode.get(0);
-        List<String> alltime = pv.getAllTime(icode);
-        /*if(alltime.size()>5){
-
-        }*/
         List<String> last5 = pv.getAllTime(icode).subList(0,5);
-        List<String> regs = pv.getRegions(taskcode);
-        String reg = pv.getRegions(taskcode).get(0);
-        List<Map<String,String>> reginfo = new ArrayList<>();
-        for(int i=0;i<regs.size();i++) {
-            Map<String,String> regmap = new HashMap<>();
-            String regioncode = regs.get(i);
-            String regname = os.getwdnode("reg", regioncode).getName();
-            regmap.put("name",regname);
-            regmap.put("regcode",regioncode);
-            reginfo.add(regmap);
-
+        Map<String,String> regsmap = pv.getRegList(icode);
+        List<String> regcodes=new ArrayList<>(regsmap.keySet());
+        List<Map<String,String>> regs=new ArrayList<>();
+        for (int i=0;i<regcodes.size();i++){
+            Map<String,String> m=new HashMap<>();
+            m.put("code",regcodes.get(i));
+            m.put("name",regsmap.get(regcodes.get(i)));
+            regs.add(m);
         }
-
+        String reg = pv.getRegions(taskcode).get(0);
         List<List<String>> showdatas = pv.getModTime(reg,fivetaskcode);//得到单地区data
-
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("last5",last5).addObject("reginfo",reginfo)
-                .addObject("orcode",orcodes).addObject("orname",ornames).addObject("show",change).addObject("indexcode",icode);
+        Map<String,Object> info=new HashMap<>();
+        //最近5期的ayearmon
+        info.put("last5",last5);
+        //存在的地区并集,用于select
+        info.put("options",regs);
+        info.put("indexcode",icode);
+        //info.put("show","ModTime");
+        info.put("span","地区选择");
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("info",info);
    }
 
+
+
+
+   public void reTable(){
+
+   }
     /**
      * （模型节点选择最近五年默认值） 单地区传参展示
      * @author wf
