@@ -108,16 +108,18 @@ define(function (require,exports,module) {
         //检查不为负值
         $(".input_weight").each(function () {
            //console.log($(this).val())
-            var value=$(this).val()
-            if (value<=0){
-                alert("权重不能为小于等于0的数")
-                flag=false;
-                return
-            }
-            var pcode=$(this).attr("class").split(" ")[1]
-            console.log(pcode)
-            if (!codes.contain(pcode)){
-                codes.push(pcode)
+            if (flag){
+                var value=$(this).val()
+                if (value<=0){
+                    alert("权重不能为小于等于0的数")
+                    flag=false;
+                    return
+                }
+                var pcode=$(this).attr("class").split(" ")[1]
+                console.log(pcode)
+                if (!codes.contain(pcode)){
+                    codes.push(pcode)
+                }
             }
         })
 
@@ -164,7 +166,7 @@ define(function (require,exports,module) {
                     alert("保存成功")
                 }
             })
-        } 
+        }
 
 
 
