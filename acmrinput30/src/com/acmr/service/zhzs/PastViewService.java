@@ -252,9 +252,8 @@ public class PastViewService {
                 }else{
                     String ayearmon =  new IndexTaskService().getTime(taskcodes.get(j));
                     if(reg.equals("")){
-                        Map<String,String> regsmap = pv.getRegList(icode);
-                        List<String> regcodes=new ArrayList<>(regsmap.keySet());
-                        String freg = regcodes.get(0);
+                        List<Map<String,String>> regs = pv.getRegList(icode);
+                        String freg = regs.get(0).get("code");
                         String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(j),modcode,freg,ayearmon);
                         if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
                             temp.add("");
@@ -299,9 +298,8 @@ public class PastViewService {
                     temp.add("");
                 }else{
                     if(reg.equals("")){
-                        Map<String,String> regsmap = pv.getRegList(icode);
-                        List<String> regcodes=new ArrayList<>(regsmap.keySet());
-                        String freg = regcodes.get(0);
+                        List<Map<String,String>> regs = pv.getRegList(icode);
+                        String freg = regs.get(0).get("code");
                         String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(j),modcode,freg,last5.get(i));
                         if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
                             temp.add("");
