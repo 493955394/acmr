@@ -157,7 +157,7 @@ public class PastViewService {
             for (int i = 0; i <modlist.size() ; i++) {
                 Map<String,String> arr = new HashMap<>();
                 arr.put("name",modlist.get(i).get("name"));
-                arr.put("orcode",modlist.get(i).get("orcode"));
+                arr.put("code",modlist.get(i).get("orcode"));
               //  arr.put("taskcode",modlist.get(i).get("taskcode"));
                 temp.add(modlist.get(i).get("orcode"));//加到临时的数组中，为了去重
                 lists.add(arr);
@@ -170,7 +170,7 @@ public class PastViewService {
                     //如果不存在这个orcode就把它加进来
                     Map<String,String> arr = new HashMap<>();
                     arr.put("name",modlist.get(j).get("name"));
-                    arr.put("orcode",modlist.get(j).get("orcode"));
+                    arr.put("code",modlist.get(j).get("orcode"));
                    // arr.put("taskcode",modlist.get(i).get("taskcode"));
                     temp.add(modlist.get(j).get("orcode"));//加到临时的数组中，为了去重
                     lists.add(arr);
@@ -246,7 +246,7 @@ public class PastViewService {
             List<String> temp = new ArrayList<>();
             temp.add(orcodes.get(i).get("name"));//第一個是指數/指標名字
             for (int j = 0; j <taskcodes.size() ; j++) {
-                String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(taskcodes.get(j),orcodes.get(i).get("orcode"));
+                String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(taskcodes.get(j),orcodes.get(i).get("code"));
                 if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                     temp.add("");
                 }else{
@@ -298,7 +298,7 @@ public class PastViewService {
             List<String> temp = new ArrayList<>();
             temp.add(times.get(i));//第一個时间
             for (int j = 0; j <orcodes.size() ; j++) {
-                String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(taskcodes.get(i),orcodes.get(j).get("orcode"));
+                String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(taskcodes.get(i),orcodes.get(j).get("code"));
                 if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                     temp.add("");
                 }else{
@@ -354,7 +354,7 @@ public class PastViewService {
                 if(orcode==null){
                     List<String> alltaskcode = pv.getAllTask(icode);
                     List<Map<String,String>> allorcodes = pv.getModsList(alltaskcode);
-                    String forcode = allorcodes.get(0).get(orcode);
+                    String forcode = allorcodes.get(0).get("code");
                     String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(taskcodes.get(i),forcode);
                     if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                         datas.add("");
@@ -422,7 +422,7 @@ public class PastViewService {
                 if(orcode==null){
                     List<String> alltaskcode = pv.getAllTask(icode);
                     List<Map<String,String>> allorcodes = pv.getModsList(alltaskcode);
-                    String forcode = allorcodes.get(0).get(orcode);
+                    String forcode = allorcodes.get(0).get("code");
                     String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(taskcodes.get(i),forcode);
                     if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                         datas.add("");
@@ -482,7 +482,7 @@ public class PastViewService {
             String regname = originService.getwdnode("reg",regioncode).getName();
             datas.add(regname);
             for(int j=0;j<orcodes.size();j++){
-                String orcode = orcodes.get(j).get("orcode");
+                String orcode = orcodes.get(j).get("code");
                 String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(taskcode,orcode);
                 if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                     datas.add("");
@@ -539,7 +539,7 @@ public class PastViewService {
             datas.add(orcodes.get(i).get("name"));
             for(int j=0;j<regs.size();j++){
                 String regioncode = regs.get(j);
-                String orcode = orcodes.get(j).get("orcode");
+                String orcode = orcodes.get(j).get("code");
                 String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(taskcode,orcode);
                 if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                     datas.add("");
