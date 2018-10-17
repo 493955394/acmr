@@ -28,7 +28,6 @@
         <div class="panel-heading">
             <h4>查看往期</h4>
             <input type="hidden" name="indexcode" value="${indexcode}">
-
         </div>
 
         <div class="panel-body">
@@ -49,14 +48,14 @@
                         </div>
                     </form>
 
-                    <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=regDatas">
-                        <div id="mySelect" style="width:300px;height:300px;margin:20px 50px 0;float:right"></div>
-                    </form>
                 </div>
                 <div class="toolbar-right">
                     <div class="toolbar-group" style="position: relative;">
                         <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i1" class="glyphicon glyphicon-retweet"></i>&nbsp;维度转换</button>&nbsp;
                         <button class="btn btn-default btn-sm pastview_download"><i id="i2" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
+                        <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=regDatas">
+                            <div id="mySelect2"></div>
+                        </form>
                     </div>
                 </div>
                 </c:if>
@@ -79,7 +78,6 @@
 
                         <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=modDatas">
                             <div class="form-group">
-                                <div id="mySelect2" style="width:300px;height:300px;margin:20px 50px 0;float:left"></div>
                             </div>
                         </form>
                     </div>
@@ -141,7 +139,7 @@
             wdcode:'sj',
             wdname:'时间',
             nodes:[
-                {code:last5,name:'最近五年'}
+                {code:200,name:'最近五年'}
             ]
         };
 
@@ -155,7 +153,6 @@
 
         //dt1.clear();//清空所有item
 
-        dt2.addItem({code:'last5',name:'最近五年'});//增加item
 
     });
 
