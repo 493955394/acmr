@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -84,7 +85,12 @@ public class pastviews extends BaseAction {
        String spancode=req.getParameter("spancode");
        if (spancode.equals("null")) spancode=null;
        String time=req.getParameter("time");
-       if (time.equals("null")) time=null;
+       List<String> times= Arrays.asList(time.split(","));
+       if (time.equals("null"))
+           time=null;
+
+
+
        PastViewService pastViewService=new PastViewService();
        String pjax = req.getHeader("X-PJAX");
        Map<String,Object> info=new HashMap<>();
@@ -93,11 +99,22 @@ public class pastviews extends BaseAction {
        info.put("spancode",spancode);
        String span;
        List<String> head=new ArrayList<>();
+       List<String> taskcodes =new ArrayList<>();
        if (!(tablecol.equals("zb")||tablerow.equals("zb"))){
            span="指标选择";
            List<String> alltaskcode=pastViewService.getAllTask(icode);
-           List<String> taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+           //List<String> taskcodes=pastViewService.getAllTask(icode).subList(0,5);
            //根据time得出taskcodes，未完成，先写死成5期
+
+           if (time != null){
+               for(int i=0;i<times.size();i++){
+                   String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(i));
+                   taskcodes.add(taskcode);
+               }
+           }else{
+                taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+           }
+
            //返回所有指标
            List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
            info.put("options",zbs);
@@ -125,22 +142,17 @@ public class pastviews extends BaseAction {
        else if (!(tablecol.equals("sj")||tablerow.equals("sj"))){
            span="时间选择";
            //根据time得出当期task，未完成
-            time="2017";
-           /*String taskcode="";
+           String taskcode="";
            //List<String> taskcode = new ArrayList<>();
            if (time==null){
                taskcode=null;
            }
-           else {
-               //魏风来写通过时间查taskcode
-               *//*for(int i=0;i<time.size();i++){
-                  String tcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,time.get(i));
-                   taskcode.add(tcode);
-               }*//*
-               taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,time);
+           else if(times.size()>1){
+               taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(0));
+           }else{
+               taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(0));
+           }
 
-           }*/
-          String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,time);
            //返回所有时间
            List<String> ayearmons=pastViewService.getAllTime(icode);
            List<Map<String,String>> sjs=new ArrayList<>();
@@ -181,9 +193,18 @@ public class pastviews extends BaseAction {
        }
        else{
            span="地区选择";
-           List<String> taskcodes=new ArrayList<>();
+           /*List<String> taskcodes=new ArrayList<>();
            //根据time来得到taskcodes，未完成，先写死最近5期
-           taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+           taskcodes=pastViewService.getAllTask(icode).subList(0,5);*/
+           if (time != null){
+               for(int i=0;i<times.size();i++){
+                   String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(i));
+                   taskcodes.add(taskcode);
+               }
+
+           }else{
+               taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+           }
            //返回所有地区
            List<Map<String,String>> regs=pastViewService.getRegList(icode);
            info.put("options",regs);
@@ -237,8 +258,10 @@ public class pastviews extends BaseAction {
 
         if (spancode.equals("null")) spancode=null;
         if (time.equals("null")) time=null;
+        List<String> times= Arrays.asList(time.split(","));
         PastViewService pastViewService=new PastViewService();
         List<List<String>> showdatas = new ArrayList<>();//data
+        List<String> taskcodes = new ArrayList<>();
         ExcelBook book = new ExcelBook();
         ExcelSheet sheet1 = new ExcelSheet();
         sheet1.setName("sheet1");
@@ -248,9 +271,15 @@ public class pastviews extends BaseAction {
         if (!(tablecol.equals("zb")||tablerow.equals("zb"))){
             /*指标*/
             List<String> alltaskcode=pastViewService.getAllTask(icode);
-            List<String> taskcodes=pastViewService.getAllTask(icode).subList(0,5);
-            //根据time得出taskcodes，未完成，先写死成5期
-            //返回所有指标
+            if (time != null){
+                for(int i=0;i<times.size();i++){
+                    String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(i));
+                    taskcodes.add(taskcode);
+                }
+
+            }else{
+                taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+            }
             List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
             if (tablecol.equals("sj")){
                 showdatas=pastViewService.getRegTime(taskcodes,spancode,icode);
@@ -317,20 +346,14 @@ public class pastviews extends BaseAction {
         }
         else if (!(tablecol.equals("sj")||tablerow.equals("sj"))){
             /*时间*/
-            //根据time得出当期task，未完成
             String taskcode="";
-            //List<String> taskcode = new ArrayList<>();
             if (time==null){
                 taskcode=null;
             }
-            else {
-                //魏风来写通过时间查taskcode
-               /*for(int i=0;i<time.size();i++){
-                  String tcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,time.get(i));
-                   taskcode.add(tcode);
-               }*/
-                taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,time);
-
+            else if(times.size()>1){
+                taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(0));
+            }else{
+                taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(0));
             }
             //返回所有时间
             List<String> ayearmons=pastViewService.getAllTime(icode);
@@ -414,9 +437,15 @@ public class pastviews extends BaseAction {
         }
         else{
             /*地区*/
-            List<String> taskcodes=new ArrayList<>();
-            //根据time来得到taskcodes，未完成，先写死最近5期
-            taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+            if (time != null){
+                for(int i=0;i<times.size();i++){
+                   String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(i));
+                    taskcodes.add(taskcode);
+                }
+
+            }else{
+                taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+            }
             //返回所有地区
             List<Map<String,String>> regs=pastViewService.getRegList(icode);
             if (tablecol.equals("sj")){
