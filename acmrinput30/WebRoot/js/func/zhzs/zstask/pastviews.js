@@ -90,6 +90,7 @@ define(function (require,exports,module) {
             tableCol = $("#table-Col").val()
             if (tableRow!="时间"&&tableCol!="时间"){
                 $("#mySelect2").css("display","none")
+                time=null
             }
             else {
                 $("#mySelect2").css("display","inline")
