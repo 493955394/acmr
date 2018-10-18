@@ -13,6 +13,9 @@ define(function (require,exports,module) {
     var time = null;//查询的时间
     var spancode = null;//传给后台重新请求数据的单个维度code
 
+
+    //维度转换
+
     $(document).on('click', '#wd-change', function () {
         //console.log("wdchange")
         tableRow = $("#table-Row").val()
@@ -45,6 +48,8 @@ define(function (require,exports,module) {
             }
         })
     })
+
+    //下拉框选择
 
     $(document).on('change','.wd_selector',function () {
         var thiscode=$('.wd_option:selected').attr("id")
@@ -80,19 +85,6 @@ define(function (require,exports,module) {
             timeout: 5000
         })
     }
-
-    $(document).on('change', '.wd_selector', function () {
-        var thiscode = $('.wd_option:selected').attr("id")
-        if (thiscode == "change") {
-            //序列化
-        }
-        else {
-            spancode = thiscode
-            //重新请求数据
-            sendPjax()
-        }
-    })
-
 
 
     //映射tablerow，tablecol
