@@ -324,6 +324,12 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
         String ayearmon=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{taskcode}).getRows().get(0).getString("ayearmon");
         return ayearmon;
     }
+    @Override
+    public String getTaskcode(String icode,String ayearmoon) {
+        String sql="select * from tb_coindex_task where code=? and ayearmoon=?";
+        String taskcode=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode,ayearmoon}).getRows().get(0).getString("code");
+        return taskcode;
+    }
 
     @Override
     public String getzbcode(String ZBcode) {

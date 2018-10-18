@@ -69,8 +69,12 @@ define(function (require,exports,module) {
     //下载
     $(document).on('click', '.pastview_download', function(event) {
         event.preventDefault();
-        var regcode=$("#select-data option:selected").val();
-        var url = common.rootPath+"zbdata/pastviews.htm?m=toRegExcel&regcode="+regcode;
+        var thiscode=$('.wd_option:selected').attr("id")
+        tableRow=$("#table-Row").val()
+        tableCol=$("#table-Col").val()
+        tableRow=tableMapping(tableRow)
+        tableCol=tableMapping(tableCol)
+        var url=common.rootPath+"zbdata/pastviews.htm?m=toExcel&icode="+indexcode+"&tableRow="+tableRow+"&tableCol="+tableCol+"&spancode="+thiscode+"&time="+time
         $.ajax({
             url: url,
             type: 'get',

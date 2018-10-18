@@ -11,8 +11,10 @@ import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.dao.zhzs.DataDao;
+import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
+import com.acmr.model.zhzs.IndexTask;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zhzs.PastViewService;
 import javax.servlet.http.HttpServletRequest;
@@ -118,11 +120,18 @@ public class pastviews extends BaseAction {
            //根据time得出当期task，未完成
 
            String taskcode="";
+           //List<String> taskcode = new ArrayList<>();
            if (time==null){
                taskcode=null;
            }
            else {
-               //魏风来写
+               //魏风来写通过时间查taskcode
+               /*for(int i=0;i<time.size();i++){
+                  String tcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,time.get(i));
+                   taskcode.add(tcode);
+               }*/
+               taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,time);
+
            }
            //返回所有时间
            List<String> ayearmons=pastViewService.getAllTime(icode);
@@ -203,6 +212,283 @@ public class pastviews extends BaseAction {
         }
         return null;
    }
+
+    /**
+     * 数据下载
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public void toExcel() throws IOException {
+        String spancode = PubInfo.getString(this.getRequest().getParameter("spancode"));
+        String tablerow = PubInfo.getString(this.getRequest().getParameter("tableRow"));
+        String tablecol = PubInfo.getString(this.getRequest().getParameter("tableCol"));
+        String time = PubInfo.getString(this.getRequest().getParameter("time"));
+        String icode = PubInfo.getString(this.getRequest().getParameter("icode"));
+
+        if (spancode.equals("null")) spancode=null;
+        if (time.equals("null")) time=null;
+        PastViewService pastViewService=new PastViewService();
+        List<List<String>> showdatas = new ArrayList<>();//data
+        ExcelBook book = new ExcelBook();
+        ExcelSheet sheet1 = new ExcelSheet();
+        sheet1.setName("sheet1");
+        sheet1.addColumn();
+        sheet1.addColumn();
+        ExcelCell cell1 = new ExcelCell();
+        if (!(tablecol.equals("zb")||tablerow.equals("zb"))){
+            /*指标*/
+            List<String> alltaskcode=pastViewService.getAllTask(icode);
+            List<String> taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+            //根据time得出taskcodes，未完成，先写死成5期
+            //返回所有指标
+            List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
+            if (tablecol.equals("sj")){
+                showdatas=pastViewService.getRegTime(taskcodes,spancode,icode);
+                List<String> sjhead=pastViewService.getAllTime(icode).subList(0,5);
+                ExcelRow dr1 = sheet1.addRow();
+                ExcelCell cell2 = cell1.clone();
+                cell2.setCellValue("地区");
+                dr1.set(0, cell2);
+
+                for (int k = 0; k < sjhead.size(); k++){
+                    int m =k+1;
+                    sheet1.addColumn();
+                    cell2 = cell1.clone();
+                    cell2.setCellValue(sjhead.get(k));
+                    dr1.set(m, cell2);
+                }
+                cell1.getCellstyle().getFont().setBoldweight((short) 10);
+                for(int i=0;i<showdatas.size();i++){
+
+                    List<String> arr =showdatas.get(i);
+                    dr1 = sheet1.addRow();
+                    for(int j=0;j<arr.size();j++){
+                        cell2 = cell1.clone();
+                        cell2.setCellValue(arr.get(j));
+                        dr1.set(j, cell2);
+                    }
+                }
+
+
+            }
+            else {
+                showdatas=pastViewService.getTimeReg(taskcodes,spancode,icode);
+                List<String> reghead=new ArrayList<>();
+                List<Map<String,String>> regs=pastViewService.getRegList(icode);
+                for (int i=0;i<regs.size();i++){
+                    String reg=regs.get(i).get("name");
+                    reghead.add(reg);
+                }
+                ExcelRow dr1 = sheet1.addRow();
+                ExcelCell cell2 = cell1.clone();
+                cell2.setCellValue("时间");
+                dr1.set(0, cell2);
+
+                for (int k = 0; k < reghead.size(); k++){
+                    int m =k+1;
+                    sheet1.addColumn();
+                    cell2 = cell1.clone();
+                    cell2.setCellValue(reghead.get(k));
+                    dr1.set(m, cell2);
+                }
+                cell1.getCellstyle().getFont().setBoldweight((short) 10);
+                for(int i=0;i<showdatas.size();i++){
+
+                    List<String> arr =showdatas.get(i);
+                    dr1 = sheet1.addRow();
+                    for(int j=0;j<arr.size();j++){
+                        cell2 = cell1.clone();
+                        cell2.setCellValue(arr.get(j));
+                        dr1.set(j, cell2);
+                    }
+                }
+            }
+
+        }
+        else if (!(tablecol.equals("sj")||tablerow.equals("sj"))){
+            /*时间*/
+            //根据time得出当期task，未完成
+            String taskcode="";
+            //List<String> taskcode = new ArrayList<>();
+            if (time==null){
+                taskcode=null;
+            }
+            else {
+                //魏风来写通过时间查taskcode
+               /*for(int i=0;i<time.size();i++){
+                  String tcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,time.get(i));
+                   taskcode.add(tcode);
+               }*/
+                taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,time);
+
+            }
+            //返回所有时间
+            List<String> ayearmons=pastViewService.getAllTime(icode);
+            /*List<Map<String,String>> sjs=new ArrayList<>();
+            for (int i=0;i<ayearmons.size();i++){
+                Map m=new HashMap();
+                m.put("code",ayearmons.get(i));
+                m.put("name",ayearmons.get(i));
+                sjs.add(m);
+            }
+            info.put("options",sjs);*/
+
+            if (tablecol.equals("zb")){
+                showdatas=pastViewService.getRegMod(taskcode,icode);
+                List<String> zbhead=new ArrayList<>();
+                List<Map<String,String>> zbmap=pastViewService.getModsList(pastViewService.getAllTask(icode));
+                for (int i=0;i<zbmap.size();i++){
+                    String zbname=zbmap.get(i).get("code");
+                    zbhead.add(zbname);
+                }
+                ExcelRow dr1 = sheet1.addRow();
+                ExcelCell cell2 = cell1.clone();
+                cell2.setCellValue("地区");
+                dr1.set(0, cell2);
+
+                for (int k = 0; k < zbhead.size(); k++){
+                    int m =k+1;
+                    sheet1.addColumn();
+                    cell2 = cell1.clone();
+                    cell2.setCellValue(zbhead.get(k));
+                    dr1.set(m, cell2);
+                }
+                cell1.getCellstyle().getFont().setBoldweight((short) 10);
+                for(int i=0;i<showdatas.size();i++){
+
+                    List<String> arr =showdatas.get(i);
+                    dr1 = sheet1.addRow();
+                    for(int j=0;j<arr.size();j++){
+                        cell2 = cell1.clone();
+                        cell2.setCellValue(arr.get(j));
+                        dr1.set(j, cell2);
+                    }
+                }
+            }
+            else {
+                showdatas=pastViewService.getModReg(taskcode,icode);
+                List<String> regs=new ArrayList<>();
+                List<String> reghead=new ArrayList<>();
+                List<Map<String,String>> regmap=pastViewService.getRegList(icode);
+                for (int i=0;i<regmap.size();i++){
+                    String regname=regmap.get(i).get("name");
+                    reghead.add(regname);
+                }
+
+                ExcelRow dr1 = sheet1.addRow();
+                ExcelCell cell2 = cell1.clone();
+                cell2.setCellValue("指标");
+                dr1.set(0, cell2);
+
+                for (int k = 0; k < reghead.size(); k++){
+                    int m =k+1;
+                    sheet1.addColumn();
+                    cell2 = cell1.clone();
+                    cell2.setCellValue(reghead.get(k));
+                    dr1.set(m, cell2);
+                }
+                cell1.getCellstyle().getFont().setBoldweight((short) 10);
+                for(int i=0;i<showdatas.size();i++){
+
+                    List<String> arr =showdatas.get(i);
+                    dr1 = sheet1.addRow();
+                    for(int j=0;j<arr.size();j++){
+                        cell2 = cell1.clone();
+                        cell2.setCellValue(arr.get(j));
+                        dr1.set(j, cell2);
+                    }
+                }
+
+
+            }
+        }
+        else{
+            /*地区*/
+            List<String> taskcodes=new ArrayList<>();
+            //根据time来得到taskcodes，未完成，先写死最近5期
+            taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+            //返回所有地区
+            List<Map<String,String>> regs=pastViewService.getRegList(icode);
+            if (tablecol.equals("sj")){
+                showdatas=pastViewService.getModTime(spancode,taskcodes,icode);
+                //时间先写死最近5期，然后根据time来变
+                List<String> sjhead = pv.getAllTime(icode).subList(0,5);
+                ExcelRow dr1 = sheet1.addRow();
+                ExcelCell cell2 = cell1.clone();
+                cell2.setCellValue("指标");
+                dr1.set(0, cell2);
+
+                for (int k = 0; k < sjhead.size(); k++){
+                    int m =k+1;
+                    sheet1.addColumn();
+                    cell2 = cell1.clone();
+                    cell2.setCellValue(sjhead.get(k));
+                    dr1.set(m, cell2);
+                }
+                cell1.getCellstyle().getFont().setBoldweight((short) 10);
+                for(int i=0;i<showdatas.size();i++){
+
+                    List<String> arr =showdatas.get(i);
+                    dr1 = sheet1.addRow();
+                    for(int j=0;j<arr.size();j++){
+                        cell2 = cell1.clone();
+                        cell2.setCellValue(arr.get(j));
+                        dr1.set(j, cell2);
+                    }
+                }
+
+            }
+            else {
+                showdatas=pastViewService.getTimeMod(spancode,taskcodes,icode);
+                List<String> zbhead=new ArrayList<>();
+                List<Map<String,String>> zbmap=pastViewService.getModsList(pastViewService.getAllTask(icode));
+                for (int i=0;i<zbmap.size();i++){
+                    String zbname=zbmap.get(i).get("code");
+                    zbhead.add(zbname);
+                }
+                ExcelRow dr1 = sheet1.addRow();
+                ExcelCell cell2 = cell1.clone();
+                cell2.setCellValue("时间");
+                dr1.set(0, cell2);
+
+                for (int k = 0; k < zbhead.size(); k++){
+                    int m =k+1;
+                    sheet1.addColumn();
+                    cell2 = cell1.clone();
+                    cell2.setCellValue(zbhead.get(k));
+                    dr1.set(m, cell2);
+                }
+                cell1.getCellstyle().getFont().setBoldweight((short) 10);
+                for(int i=0;i<showdatas.size();i++){
+
+                    List<String> arr =showdatas.get(i);
+                    dr1 = sheet1.addRow();
+                    for(int j=0;j<arr.size();j++){
+                        cell2 = cell1.clone();
+                        cell2.setCellValue(arr.get(j));
+                        dr1.set(j, cell2);
+                    }
+                }
+            }
+        }
+        book.getSheets().add(sheet1);
+        HttpServletResponse resp = this.getResponse();
+        resp.reset();
+        resp.setContentType("application/vnd.ms-excel; charset=UTF-8");
+        resp.setHeader("Pragma", "public");
+        resp.setHeader("Cache-Control", "max-age=30");
+        String fileName="查看往期.xlsx";
+        fileName=java.net.URLEncoder.encode(fileName, "UTF-8");
+        resp.addHeader("Content-Disposition", "attachment; filename="+fileName);
+        try {
+            book.saveExcel(resp.getOutputStream(), XLSTYPE.XLSX);
+        } catch (ExcelException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 单地区选择的数据下载

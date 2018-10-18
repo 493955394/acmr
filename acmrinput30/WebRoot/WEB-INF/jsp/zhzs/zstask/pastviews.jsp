@@ -34,7 +34,7 @@
             <div class="toolbar">
                 <div id="mySelect2"></div>
                 <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i1" class="glyphicon glyphicon-retweet"></i>&nbsp;维度转换</button>&nbsp;
-
+                <button class="btn btn-default btn-sm pastview_download"><i id="i2" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
 
             <%--<c:if test="${show.equals('2')}">
                 <div class="toolbar-left">
