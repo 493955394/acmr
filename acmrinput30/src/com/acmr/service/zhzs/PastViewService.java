@@ -305,7 +305,7 @@ public class PastViewService {
                     if(reg==null){
                         List<Map<String,String>> regs = pv.getRegList(icode);
                         String freg = regs.get(0).get("code");
-                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(j),modcode,freg,times.get(i));
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(i),modcode,freg,times.get(i));
                         if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
                             temp.add("");
                         }else {
