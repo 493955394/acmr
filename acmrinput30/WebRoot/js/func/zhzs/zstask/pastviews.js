@@ -56,106 +56,73 @@ define(function (require,exports,module) {
         }
     })
 
-    function sendPjax(){
-        tableRow=$("#table-Row").val()
-        tableCol=$("#table-Col").val()
-        tableRow=tableMapping(tableRow)
-        tableCol=tableMapping(tableCol)
+    function sendPjax() {
+        tableRow = $("#table-Row").val()
+        tableCol = $("#table-Col").val()
+        tableRow = tableMapping(tableRow)
+        tableCol = tableMapping(tableCol)
 
-        console.log("spancode:"+spancode)
-        console.log("time:"+time)
-        console.log("tablerow:"+tableRow)
-        console.log("tablecol:"+tableCol)
-        var url=common.rootPath+"zbdata/pastviews.htm?m=reTable&icode="+indexcode+"&tableRow="+tableRow+"&tableCol="+tableCol+"&spancode="+spancode+"&time="+time
+        console.log("spancode:" + spancode)
+        console.log("time:" + time)
+        console.log("tablerow:" + tableRow)
+        console.log("tablecol:" + tableCol)
+        var url = common.rootPath + "zbdata/pastviews.htm?m=reTable&icode=" + indexcode + "&tableRow=" + tableRow + "&tableCol=" + tableCol + "&spancode=" + spancode + "&time=" + time
 
         $.pjax({
-            url:url,
+            url: url,
             container: '.J_pastviews_data_table',
-            timeout:5000
-=======
-        $(document).on('change', '.wd_selector', function () {
-            var thiscode = $('.wd_option:selected').attr("id")
-            if (thiscode == "change") {
-                //序列化
-            }
-            else {
-                spancode = thiscode
-                //重新请求数据
-                sendPjax()
-            }
->>>>>>> f7e93f43d90c76bd5be064c432d365439098fceb
+            timeout: 5000
         })
+    }
 
-        function sendPjax() {
-            tableRow = $("#table-Row").val()
-            tableCol = $("#table-Col").val()
-            tableRow = tableMapping(tableRow)
-            tableCol = tableMapping(tableCol)
-
-            console.log("spancode:" + spancode)
-            console.log("time:" + time)
-            console.log("tablerow:" + tableRow)
-            console.log("tablecol:" + tableCol)
-            var url = common.rootPath + "zbdata/pastviews.htm?m=reTable&icode=" + indexcode + "&tableRow=" + tableRow + "&tableCol=" + tableCol + "&spancode=" + spancode + "&time=" + time
-
-            $.pjax({
-                url: url,
-                container: '.J_pastviews_data_table',
-                timeout: 5000
-            })
-
+    $(document).on('change', '.wd_selector', function () {
+        var thiscode = $('.wd_option:selected').attr("id")
+        if (thiscode == "change") {
+            //序列化
         }
-
-        //映射tablerow，tablecol
-        function tableMapping(i) {
-            if (i == "指标") return "zb"
-            else if (i == "时间") return "sj"
-            else if (i == "地区") return "reg"
+        else {
+            spancode = thiscode
+            //重新请求数据
+            sendPjax()
         }
-
-        module.exports = {
-            tableRow: tableRow,
-            tableCol: tableCol
-        }
-        //下载
-        $(document).on('click', '.pastview_download', function (event) {
-            event.preventDefault();
-            var thiscode = $('.wd_option:selected').attr("id")
-            tableRow = $("#table-Row").val()
-            tableCol = $("#table-Col").val()
-            tableRow = tableMapping(tableRow)
-            tableCol = tableMapping(tableCol)
-            var url = common.rootPath + "zbdata/pastviews.htm?m=toExcel&icode=" + indexcode + "&tableRow=" + tableRow + "&tableCol=" + tableCol + "&spancode=" + thiscode + "&time=" + time
-            $.ajax({
-                url: url,
-                type: 'get',
-                dataType: 'json',
-                success: function (data) {
-
-                    if (data.returncode == 300) {
-                        alert("数据为空");
-                    } else {
-                        alert("下载成功!");
-                    }
-                }
-            })
-            window.location.href = url;
-        })
-        /**
-         * 序列变换pjax请求
-         */
-        /*   $("#select-data").change(function(){
-               var icode = $('input[name=indexcode]').val();
-               var code=$("#select-data option:selected").val();
-               console.log(code)
-               //要触发的事件
-               $.pjax({
-                   url: common.rootPath+'zbdata/pastviews.htm?m=regDatas&code='+code
-                       +'&icode='+icode+'&tableRow='+tableRow+'&tableCol='+tableCol,
-                   type: "get",
-                   container:'.J_pastviews_data_table'
-               })
-           });*/
-
     })
+
+
+
+    //映射tablerow，tablecol
+    function tableMapping(i) {
+        if (i == "指标") return "zb"
+        else if (i == "时间") return "sj"
+        else if (i == "地区") return "reg"
+    }
+
+    module.exports = {
+        tableRow: tableRow,
+        tableCol: tableCol
+    }
+    //下载
+    $(document).on('click', '.pastview_download', function (event) {
+        event.preventDefault();
+        var thiscode = $('.wd_option:selected').attr("id")
+        tableRow = $("#table-Row").val()
+        tableCol = $("#table-Col").val()
+        tableRow = tableMapping(tableRow)
+        tableCol = tableMapping(tableCol)
+        var url = common.rootPath + "zbdata/pastviews.htm?m=toExcel&icode=" + indexcode + "&tableRow=" + tableRow + "&tableCol=" + tableCol + "&spancode=" + thiscode + "&time=" + time
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                if (data.returncode == 300) {
+                    alert("数据为空");
+                } else {
+                    alert("下载成功!");
+                }
+            }
+        })
+        window.location.href = url;
+    })
+
+
 })
