@@ -265,8 +265,9 @@ public class pastviews extends BaseAction {
         String icode = PubInfo.getString(this.getRequest().getParameter("icode"));
 
         if (spancode.equals("null")) spancode=null;
-        if (time.equals("null")) time=null;
         List<String> times= Arrays.asList(time.split(","));
+        if (time.equals("null")) time=null;
+
         PastViewService pastViewService=new PastViewService();
         List<List<String>> showdatas = new ArrayList<>();//data
         List<String> taskcodes = new ArrayList<>();
@@ -291,7 +292,12 @@ public class pastviews extends BaseAction {
             List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
             if (tablecol.equals("sj")){
                 showdatas=pastViewService.getRegTime(taskcodes,spancode,icode);
-                List<String> sjhead=times;
+                List<String> sjhead;
+                if (time==null) sjhead=pastViewService.getAllTime(icode).subList(0,5);
+                else {
+                    sjhead=times;
+                }
+
                 ExcelRow dr1 = sheet1.addRow();
                 ExcelCell cell2 = cell1.clone();
                 cell2.setCellValue("地区");
@@ -367,7 +373,7 @@ public class pastviews extends BaseAction {
                 List<String> zbhead=new ArrayList<>();
                 List<Map<String,String>> zbmap=pastViewService.getModsList(pastViewService.getAllTask(icode));
                 for (int i=0;i<zbmap.size();i++){
-                    String zbname=zbmap.get(i).get("code");
+                    String zbname=zbmap.get(i).get("name");
                     zbhead.add(zbname);
                 }
                 ExcelRow dr1 = sheet1.addRow();
@@ -447,7 +453,11 @@ public class pastviews extends BaseAction {
             if (tablecol.equals("sj")){
                 showdatas=pastViewService.getModTime(spancode,taskcodes,icode);
                 //时间先写死最近5期，然后根据time来变
-                List<String> sjhead = times;
+                List<String> sjhead;
+                if (time==null) sjhead=pastViewService.getAllTime(icode).subList(0,5);
+                else {
+                    sjhead=times;
+                }
                 ExcelRow dr1 = sheet1.addRow();
                 ExcelCell cell2 = cell1.clone();
                 cell2.setCellValue("指标");
@@ -478,7 +488,7 @@ public class pastviews extends BaseAction {
                 List<String> zbhead=new ArrayList<>();
                 List<Map<String,String>> zbmap=pastViewService.getModsList(pastViewService.getAllTask(icode));
                 for (int i=0;i<zbmap.size();i++){
-                    String zbname=zbmap.get(i).get("code");
+                    String zbname=zbmap.get(i).get("name");
                     zbhead.add(zbname);
                 }
                 ExcelRow dr1 = sheet1.addRow();
