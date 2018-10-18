@@ -37,9 +37,13 @@ define(function (require,exports,module) {
                     alert("时间格式有误");
                 } else if (data.returncode == 200){
                     console.log(data.returndata)
+                    time = data.returndata;
+                    sendPjax();
                 }
             }
         })
+    })
+
     $(document).on('change','.wd_selector',function () {
         var thiscode=$('.wd_option:selected').attr("id")
         if (thiscode=="change"){
