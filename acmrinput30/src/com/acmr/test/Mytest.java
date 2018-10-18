@@ -14,21 +14,7 @@ import com.acmr.service.security.DepartmentService;
 import com.acmr.service.security.RoleService;
 import com.acmr.service.security.UserService;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Mytest {
-    public static void main(String[] args) {
-        Calendar cal=Calendar.getInstance();
-        cal.set(Calendar.YEAR, 2013);
-        cal.set(Calendar.MONTH,12);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        cal.set(Calendar.HOUR_OF_DAY,0);
-        cal.set(Calendar.MINUTE,0);
-        cal.set(Calendar.SECOND,0);
-        Date time=cal.getTime();
-        PubInfo.printStr(String.valueOf(time));
-
-    }
 }

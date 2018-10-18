@@ -36,7 +36,7 @@
                 <input type="hidden" id="timecode" value="">
                 <button  type="button" id="timeinput" data-value="" style="display: none"/>
                 <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i1" class="glyphicon glyphicon-retweet"></i>&nbsp;维度转换</button>&nbsp;
-
+                <button class="btn btn-default btn-sm pastview_download"><i id="i2" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
 
             <%--<c:if test="${show.equals('2')}">
                 <div class="toolbar-left">
@@ -96,13 +96,7 @@
         </div>
 
         <div class="J_pastviews_data_table">
-            <span>${info.get("span")}</span>
-            <select class="wd_selector">
-                <c:forEach items="${info.get('options')}" var="option">
-                    <option id="${option.get('code')}">${option.get('name')}</option>
-                </c:forEach>
-                <option>序列</option>
-            </select>
+
             <jsp:include page="/WEB-INF/jsp/zhzs/zstask/pasttable.jsp" flush="true"/>
         </div>
     </div>

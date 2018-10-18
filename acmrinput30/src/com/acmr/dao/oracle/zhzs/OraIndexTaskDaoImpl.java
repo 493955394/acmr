@@ -84,6 +84,13 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
         String sql = "select * from tb_coindex_task_module where code= ? ";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code});
     }
+
+    @Override
+    public DataTable getTask(String tcode) {
+        String sql="select * from tb_coindex_task where code=?";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{tcode});
+    }
+
     @Override
     public  boolean hasTask(String indexcode, String ayearmon) {
         String sql="select * from tb_coindex_task where indexcode=? and ayearmon=?";
@@ -316,6 +323,12 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
         String sql="select * from tb_coindex_task where code=?";
         String ayearmon=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{taskcode}).getRows().get(0).getString("ayearmon");
         return ayearmon;
+    }
+    @Override
+    public String getTaskcode(String icode,String ayearmoon) {
+        String sql="select * from tb_coindex_task where code=? and ayearmoon=?";
+        String taskcode=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode,ayearmoon}).getRows().get(0).getString("code");
+        return taskcode;
     }
 
     @Override

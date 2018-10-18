@@ -2,6 +2,7 @@ package com.acmr.service.zhzs;
 
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
+import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.model.zhzs.*;
 import com.acmr.service.zbdata.OriginService;
@@ -76,6 +77,18 @@ public class IndexTaskService {
             indexTasks.add(task);
         }
         return indexTasks;
+    }
+
+    /**
+    * @Description: 返回任务的时间期
+    * @Param: [tcode]
+    * @return: java.lang.String
+    * @Author: lyh
+    * @Date: 2018/10/17
+    */
+    public String getTaskAyearmon(String tcode){
+        DataTableRow row=IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(tcode).getRows().get(0);
+        return row.getString("ayearmon");
     }
 
     /**
