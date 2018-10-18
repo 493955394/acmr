@@ -427,8 +427,8 @@ public class PastViewService {
                     if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                         datas.add("");
                     }else {
-                        String ayearmon = new IndexTaskService().getTime(taskcodes.get(j));
-                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(j), modcode, regioncode, ayearmon);
+                        String ayearmon = new IndexTaskService().getTime(taskcodes.get(i));
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(i), modcode, regioncode, ayearmon);
                         if (data == null || data == "") {//要是返回null代表這一年沒有這個地區
                             datas.add("");
                         } else {
@@ -440,8 +440,8 @@ public class PastViewService {
                     if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                         datas.add("");
                     }else {
-                        String ayearmon = new IndexTaskService().getTime(taskcodes.get(j));
-                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(j), modcode, regioncode, ayearmon);
+                        String ayearmon = new IndexTaskService().getTime(taskcodes.get(i));
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(i), modcode, regioncode, ayearmon);
                         if (data == null || data == "") {//要是返回null代表這一年沒有這個地區
                             datas.add("");
                         } else {
