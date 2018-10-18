@@ -85,10 +85,11 @@ public class pastviews extends BaseAction {
        String spancode=req.getParameter("spancode");
        if (spancode.equals("null")) spancode=null;
        String time=req.getParameter("time");
-       List<String> times= Arrays.asList(time.split(","));
+
        if (time.equals("null"))
            time=null;
-
+       if(!time.equals("null"));
+       List<String> times= Arrays.asList(time.split(","));
 
 
        PastViewService pastViewService=new PastViewService();
@@ -121,7 +122,8 @@ public class pastviews extends BaseAction {
            if (tablecol.equals("sj")){
                showdatas=pastViewService.getRegTime(taskcodes,spancode,icode);
                info.put("row","地区");
-               List<String> sjhead=pastViewService.getAllTime(icode).subList(0,5);
+               //List<String> sjhead=pastViewService.getAllTime(icode).subList(0,5);
+               List<String> sjhead=times;
                head=sjhead;
                //info.put("head",sjhead);
            }
@@ -144,13 +146,11 @@ public class pastviews extends BaseAction {
            //根据time得出当期task，未完成
            String taskcode="";
            //List<String> taskcode = new ArrayList<>();
-           if (time==null){
+           if (time==null&&spancode==null){
                taskcode=null;
            }
-           else if(times.size()>1){
-               taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(0));
-           }else{
-               taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(0));
+           else{
+               taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,spancode);
            }
 
            //返回所有时间
@@ -212,7 +212,7 @@ public class pastviews extends BaseAction {
                showdatas=pastViewService.getModTime(spancode,taskcodes,icode);
                info.put("row","指标");
                //时间先写死最近5期，然后根据time来变
-               List<String> sjhed = pv.getAllTime(icode).subList(0,5);
+               List<String> sjhed = times;
                head=sjhed;
                //info.put("head",timehead);
            }
@@ -258,6 +258,7 @@ public class pastviews extends BaseAction {
 
         if (spancode.equals("null")) spancode=null;
         if (time.equals("null")) time=null;
+        if(!time.equals("null"));
         List<String> times= Arrays.asList(time.split(","));
         PastViewService pastViewService=new PastViewService();
         List<List<String>> showdatas = new ArrayList<>();//data
@@ -283,7 +284,7 @@ public class pastviews extends BaseAction {
             List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
             if (tablecol.equals("sj")){
                 showdatas=pastViewService.getRegTime(taskcodes,spancode,icode);
-                List<String> sjhead=pastViewService.getAllTime(icode).subList(0,5);
+                List<String> sjhead=times;
                 ExcelRow dr1 = sheet1.addRow();
                 ExcelCell cell2 = cell1.clone();
                 cell2.setCellValue("地区");
@@ -347,25 +348,13 @@ public class pastviews extends BaseAction {
         else if (!(tablecol.equals("sj")||tablerow.equals("sj"))){
             /*时间*/
             String taskcode="";
-            if (time==null){
+            if (time==null&&spancode==null){
                 taskcode=null;
-            }
-            else if(times.size()>1){
-                taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(0));
             }else{
-                taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(0));
+                taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,spancode);
             }
             //返回所有时间
             List<String> ayearmons=pastViewService.getAllTime(icode);
-            /*List<Map<String,String>> sjs=new ArrayList<>();
-            for (int i=0;i<ayearmons.size();i++){
-                Map m=new HashMap();
-                m.put("code",ayearmons.get(i));
-                m.put("name",ayearmons.get(i));
-                sjs.add(m);
-            }
-            info.put("options",sjs);*/
-
             if (tablecol.equals("zb")){
                 showdatas=pastViewService.getRegMod(taskcode,icode);
                 List<String> zbhead=new ArrayList<>();
@@ -451,7 +440,7 @@ public class pastviews extends BaseAction {
             if (tablecol.equals("sj")){
                 showdatas=pastViewService.getModTime(spancode,taskcodes,icode);
                 //时间先写死最近5期，然后根据time来变
-                List<String> sjhead = pv.getAllTime(icode).subList(0,5);
+                List<String> sjhead = times;
                 ExcelRow dr1 = sheet1.addRow();
                 ExcelCell cell2 = cell1.clone();
                 cell2.setCellValue("指标");
