@@ -85,11 +85,10 @@ public class pastviews extends BaseAction {
        String spancode=req.getParameter("spancode");
        if (spancode.equals("null")) spancode=null;
        String time=req.getParameter("time");
-
+       List<String> times= Arrays.asList(time.split(","));
        if (time.equals("null"))
            time=null;
-       if(!time.equals("null"));
-       List<String> times= Arrays.asList(time.split(","));
+
 
 
        PastViewService pastViewService=new PastViewService();
@@ -113,7 +112,9 @@ public class pastviews extends BaseAction {
                    taskcodes.add(taskcode);
                }
            }else{
-                taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+               taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+               List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
+               spancode=zbs.get(0).get("code");
            }
 
            //返回所有指标
@@ -146,10 +147,11 @@ public class pastviews extends BaseAction {
            //根据time得出当期task，未完成
            String taskcode="";
            //List<String> taskcode = new ArrayList<>();
-           if (time==null&&spancode==null){
+           if (spancode==null){
                taskcode=null;
            }
            else{
+               spancode=pastViewService.getAllTime(icode).get(0);
                taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,spancode);
            }
 
@@ -204,6 +206,8 @@ public class pastviews extends BaseAction {
 
            }else{
                taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+               List<Map<String,String>> regs=pastViewService.getRegList(icode);
+               spancode=regs.get(0).get("code");
            }
            //返回所有地区
            List<Map<String,String>> regs=pastViewService.getRegList(icode);
@@ -258,7 +262,6 @@ public class pastviews extends BaseAction {
 
         if (spancode.equals("null")) spancode=null;
         if (time.equals("null")) time=null;
-        if(!time.equals("null"));
         List<String> times= Arrays.asList(time.split(","));
         PastViewService pastViewService=new PastViewService();
         List<List<String>> showdatas = new ArrayList<>();//data
