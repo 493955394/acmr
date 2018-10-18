@@ -355,7 +355,7 @@ public class PastViewService {
                     List<String> alltaskcode = pv.getAllTask(icode);
                     List<Map<String,String>> allorcodes = pv.getModsList(alltaskcode);
                     String forcode = allorcodes.get(0).get("code");
-                    String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(taskcodes.get(i),forcode);
+                    String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(taskcodes.get(j),forcode);
                     if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                         datas.add("");
                     }else {
