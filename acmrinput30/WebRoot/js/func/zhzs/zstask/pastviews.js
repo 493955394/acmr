@@ -58,7 +58,7 @@ define(function (require,exports,module) {
             var nRow=$(this).prev().text().substr(0,2)
             //console.log(nRow)
             $("#table-Row").val(nRow)
-            //spancode=null
+            spancode=null
             sendPjax()
         }
         else {
