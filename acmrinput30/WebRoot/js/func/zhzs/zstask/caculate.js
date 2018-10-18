@@ -95,7 +95,8 @@ define(function (require,exports,module) {
         $.pjax({
             url: common.rootPath+'zbdata/zscalculate.htm?m=docalculate&taskcode='+taskcode+"&cws="+cws,
             type: "get",
-            container:'.calculate_result'
+            container:'.calculate_result',
+            timeout: 10000
         })
         $(document).on('pjax:success', function() {
             //alert("ok");
@@ -215,7 +216,8 @@ define(function (require,exports,module) {
         $.pjax({
             url: common.rootPath+'zbdata/zscalculate.htm?m=savecalculate&taskcode='+taskcode+"&cws="+cws,
             type: "get",
-            container:'.calculate_result'
+            container:'.calculate_result',
+            timeout: 10000
         })
         $(document).on('pjax:success', function() {
             //alert("ok");
