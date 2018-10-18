@@ -48,6 +48,10 @@ define(function (require,exports,module) {
         var thiscode=$('.wd_option:selected').attr("id")
         if (thiscode=="change"){
             //序列化
+            var nRow=$(this).prev().text().substr(0,2)
+            //console.log(nRow)
+            $("#table-Row").val(nRow)
+            sendPjax()
         }
         else {
             spancode=thiscode
