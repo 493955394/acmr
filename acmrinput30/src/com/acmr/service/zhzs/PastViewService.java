@@ -545,7 +545,7 @@ public class PastViewService {
             datas.add(orcodes.get(i).get("name"));
             for(int j=0;j<regs.size();j++){
                 String regioncode = regs.get(j);
-                String orcode = orcodes.get(j).get("code");
+                String orcode = orcodes.get(i).get("code");
                 String modcode = DataDao.Fator.getInstance().getIndexdatadao().findModByOrode(taskcode,orcode);
                 if(modcode==null ||modcode ==""){//如果這一年沒有這個orcode,代表沒有這個模型節點，就不用去查了
                     datas.add("");

@@ -125,21 +125,22 @@ public class pastviews extends BaseAction {
        else if (!(tablecol.equals("sj")||tablerow.equals("sj"))){
            span="时间选择";
            //根据time得出当期task，未完成
-
-           String taskcode="";
+            time="2017";
+           /*String taskcode="";
            //List<String> taskcode = new ArrayList<>();
            if (time==null){
                taskcode=null;
            }
            else {
                //魏风来写通过时间查taskcode
-               /*for(int i=0;i<time.size();i++){
+               *//*for(int i=0;i<time.size();i++){
                   String tcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,time.get(i));
                    taskcode.add(tcode);
-               }*/
+               }*//*
                taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,time);
 
-           }
+           }*/
+          String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,time);
            //返回所有时间
            List<String> ayearmons=pastViewService.getAllTime(icode);
            List<Map<String,String>> sjs=new ArrayList<>();
