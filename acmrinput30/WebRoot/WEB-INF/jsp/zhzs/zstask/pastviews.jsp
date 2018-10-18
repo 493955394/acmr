@@ -33,6 +33,8 @@
         <div class="panel-body">
             <div class="toolbar">
                 <div id="mySelect2"></div>
+                <input type="hidden" id="timecode" value="">
+                <button  type="button" id="timeinput" data-value="" style="display: none"/>
                 <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i1" class="glyphicon glyphicon-retweet"></i>&nbsp;维度转换</button>&nbsp;
 
 
@@ -143,26 +145,25 @@
 <script type="text/javascript">
     seajs.use('${ctx}/js/func/zhzs/zstask/pastviews')
     seajs.use('${ctx}/js/func/zhzs/zstask/wdturn')
+    //查询的时间
+
     $(function(){
-        var json2 = {
-            wdcode:'sj',
-            wdname:'时间',
-            nodes:[
-                {code:200,name:'最近五年'}
-            ]
-        };
+    var json2 = {
+        wdcode:'sj',
+        wdname:'时间',
+        nodes:[
+            {code:"last5",name:'最近五年'}
+        ]
+    };
 
-        var dt2 = $('#mySelect2');
+    var dt2 = $('#mySelect2');
 
-        //dt2.dropList(json2,{isText:true});	//实例化2(带底部输入框)、默认选中第一个item
-        //dt2.dropList(json2,{isText:true,setIndex: 2});	//实例化2(带底部输入框)、选中指定位置item
-        dt2.dropList(json2,{isText:true},function(o){		//事件处理
-            console.log(o.getItem());
-        });
-
-        //dt1.clear();//清空所有item
-
-
+    //dt2.dropList(json2,{isText:true});	//实例化2(带底部输入框)、默认选中第一个item
+    //dt2.dropList(json2,{isText:true,setIndex: 2});	//实例化2(带底部输入框)、选中指定位置item
+    dt2.dropList(json2,{isText:true},function(o){		//事件处理
+        $("#timecode").val(o.getItem().code)
+      $("#timeinput").click();
+    });
     });
 
 </script>

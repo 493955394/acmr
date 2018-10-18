@@ -178,11 +178,22 @@ public class OraDataDaoImpl implements IDataDao {
     public String getDataResult(boolean iftmp,String taskcode,String modcode,String reg,String time,String sessionid){
         if(iftmp){
             String sql = "select * from tb_coindex_data_result_tmp where taskcode =? and modcode =? and region=? and ayearmon=? and sessionid=?";
-            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,modcode,reg,time,sessionid}).getRows().get(0).getString("data");
+            if(AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,modcode,reg,time,sessionid}).getRows().size()>0){
+                return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,modcode,reg,time,sessionid}).getRows().get(0).getString("data");
+            }
+            else{
+                return "";
+            }
+
         }
        else {
             String sql = "select * from tb_coindex_data_result where taskcode =? and modcode =? and region=? and ayearmon=? ";
-            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,modcode,reg,time}).getRows().get(0).getString("data");
+            if(AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,modcode,reg,time}).getRows().size()>0){
+                return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,modcode,reg,time}).getRows().get(0).getString("data");
+            }
+            else{
+                return "";
+            }
         }
     }
 

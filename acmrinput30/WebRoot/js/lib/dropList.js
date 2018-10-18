@@ -108,7 +108,7 @@
 				//时间：月正则
 				var datereg2 =/^\d{4}\d{2}\-*(\d{4}\d{2})*$/;
 				//时间：last*格式
-				var datereg3 =/^\last|lastnum|first|firstnum\d/;
+				var datereg3 =/^\last\d/;
 				//时间：季度正则 eg：2021a，2013D
 				var datereg4 =/^\d{4}\a|b|c|d|A|B|C|D$/;
 				if(value.replace(/(^\s*)|(\s*$)/g, '') != '' && value != '时间'){

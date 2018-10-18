@@ -624,7 +624,7 @@ public class zscalculate extends BaseAction {
         return result;
     }
 
-   /* public static void main(String[] args) {
+    public static void main(String[] args) {
         String formula = "/3";
         String result = "";
         try {
@@ -636,5 +636,5 @@ public class zscalculate extends BaseAction {
             e.printStackTrace();
             System.out.println("error");
         }
-    }*/
+    }
 }

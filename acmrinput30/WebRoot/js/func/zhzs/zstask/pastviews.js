@@ -9,7 +9,7 @@ define(function (require,exports,module) {
     var tableRow="指标"; //表格行维度
     var tableCol="时间";  //表格列维度
     var indexcode=$(".indexcode").val()
-    var time;//查询的时间
+    var time="";//查询的时间
     var code;//传给后台重新请求数据的单个维度code
 
     $(document).on('click','#wd-change',function () {
@@ -21,6 +21,24 @@ define(function (require,exports,module) {
         //发送请求刷新
         sendPjax();
 
+    })
+
+    $(document).on('click','#timeinput',function () {
+       var timeinput = $("#timecode").val();
+        var url = common.rootPath+"zbdata/pastviews.htm?m=timeCheck&icode="+indexcode+"&timeinput="+timeinput;
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+
+                if (data.returncode == 300) {
+                    alert("时间格式有误");
+                } else if (data.returncode == 200){
+                    console.log(data.returndata)
+                }
+            }
+        })
     })
 
     function sendPjax(){
