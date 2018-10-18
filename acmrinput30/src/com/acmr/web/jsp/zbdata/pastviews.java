@@ -201,7 +201,7 @@ public class pastviews extends BaseAction {
                List<String> zbhead=new ArrayList<>();
                List<Map<String,String>> zbmap=pastViewService.getModsList(pastViewService.getAllTask(icode));
                for (int i=0;i<zbmap.size();i++){
-                   String zbname=zbmap.get(i).get("code");
+                   String zbname=zbmap.get(i).get("name");
                    zbhead.add(zbname);
                }
                head=zbhead;
