@@ -124,7 +124,11 @@ public class pastviews extends BaseAction {
                showdatas=pastViewService.getRegTime(taskcodes,spancode,icode);
                info.put("row","地区");
                //List<String> sjhead=pastViewService.getAllTime(icode).subList(0,5);
-               List<String> sjhead=times;
+               List<String> sjhead;
+               if (time==null) sjhead=pastViewService.getAllTime(icode).subList(0,5);
+               else {
+                   sjhead=times;
+               }
                head=sjhead;
                //info.put("head",sjhead);
            }
@@ -216,8 +220,12 @@ public class pastviews extends BaseAction {
                showdatas=pastViewService.getModTime(spancode,taskcodes,icode);
                info.put("row","指标");
                //时间先写死最近5期，然后根据time来变
-               List<String> sjhed = times;
-               head=sjhed;
+               List<String> sjhead;
+               if (time==null) sjhead=pastViewService.getAllTime(icode).subList(0,5);
+               else {
+                   sjhead=times;
+               }
+               head=sjhead;
                //info.put("head",timehead);
            }
            else {
