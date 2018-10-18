@@ -312,7 +312,7 @@ public class PastViewService {
                             temp.add(data);
                         }
                     }else{
-                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(j),modcode,reg,times.get(i));
+                        String data = DataDao.Fator.getInstance().getIndexdatadao().getPastData(taskcodes.get(i),modcode,reg,times.get(i));
                         if(data==null ||data ==""){//要是返回null代表這一年沒有這個地區
                             temp.add("");
                         }else {
