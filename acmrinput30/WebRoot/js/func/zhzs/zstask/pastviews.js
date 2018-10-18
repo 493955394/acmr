@@ -20,6 +20,7 @@ define(function (require,exports,module) {
         //console.log("wdchange")
         tableRow = $("#table-Row").val()
         tableCol = $("#table-Col").val()
+        spancode=null
         //console.log(tableRow)
         //console.log(tableCol)
         //发送请求刷新

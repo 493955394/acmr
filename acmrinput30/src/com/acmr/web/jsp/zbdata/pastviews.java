@@ -98,20 +98,19 @@ public class pastviews extends BaseAction {
        info.put("spancode",spancode);
        String span;
        List<String> head=new ArrayList<>();
-       //List<String> taskcodes =new ArrayList<>();
+       List<String> taskcodes=new ArrayList<>();
+       //根据传来的time算出应该展示的taskcodes
+       if (time != null){
+           for(int i=0;i<times.size();i++){
+               String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(i));
+               taskcodes.add(taskcode);
+           }
+       }else{
+           taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+       }
        if (!(tablecol.equals("zb")||tablerow.equals("zb"))){
            span="指标选择";
            List<String> alltaskcode=pastViewService.getAllTask(icode);
-           List<String> taskcodes=new ArrayList<>();
-           if (time != null){
-               for(int i=0;i<times.size();i++){
-                   String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(i));
-                   taskcodes.add(taskcode);
-               }
-           }else{
-               taskcodes=pastViewService.getAllTask(icode).subList(0,5);
-           }
-
            //返回所有指标
            List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
            info.put("options",zbs);
@@ -143,13 +142,11 @@ public class pastviews extends BaseAction {
        }
        else if (!(tablecol.equals("sj")||tablerow.equals("sj"))){
            span="时间选择";
-           //根据time得出当期task，未完成
            String taskcode;
            if (spancode==null){
                taskcode=null;
            }
            else{
-              // spancode=pastViewService.getAllTime(icode).get(0);
                taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,spancode);
            }
 
@@ -193,22 +190,6 @@ public class pastviews extends BaseAction {
        }
        else{
            span="地区选择";
-           /*List<String> taskcodes=new ArrayList<>();
-           //根据time来得到taskcodes，未完成，先写死最近5期
-           taskcodes=pastViewService.getAllTask(icode).subList(0,5);*/
-           List<String> taskcodes=new ArrayList<>();
-           if (time != null){
-               for(int i=0;i<times.size();i++){
-                   String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(i));
-                   taskcodes.add(taskcode);
-               }
-
-           }else{
-               taskcodes=pastViewService.getAllTask(icode).subList(0,5);
-               /*List<Map<String,String>> regs=pastViewService.getRegList(icode);
-               spancode=regs.get(0).get("code");*/
-           }
-
            //返回所有地区
            List<Map<String,String>> regs=pastViewService.getRegList(icode);
            info.put("options",regs);
