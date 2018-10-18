@@ -103,8 +103,6 @@ public class pastviews extends BaseAction {
            span="指标选择";
            List<String> alltaskcode=pastViewService.getAllTask(icode);
            List<String> taskcodes=new ArrayList<>();
-           //根据time得出taskcodes，未完成，先写死成5期
-
            if (time != null){
                for(int i=0;i<times.size();i++){
                    String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(i));
@@ -112,8 +110,6 @@ public class pastviews extends BaseAction {
                }
            }else{
                taskcodes=pastViewService.getAllTask(icode).subList(0,5);
-               List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
-               spancode=zbs.get(0).get("code");
            }
 
            //返回所有指标
@@ -174,7 +170,7 @@ public class pastviews extends BaseAction {
                List<String> zbhead=new ArrayList<>();
                List<Map<String,String>> zbmap=pastViewService.getModsList(pastViewService.getAllTask(icode));
                for (int i=0;i<zbmap.size();i++){
-                   String zbname=zbmap.get(i).get("code");
+                   String zbname=zbmap.get(i).get("name");
                    zbhead.add(zbname);
                }
                head=zbhead;

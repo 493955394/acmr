@@ -397,7 +397,7 @@ public class PastViewService {
     public List<List<String>> getTimeReg(List<String> taskcodes,String orcode,String icode){
 
         PastViewService pv = new PastViewService();
-        String taskcode = taskcodes.get(0);
+        //String taskcode = taskcodes.get(0);
         List<String> regs =new ArrayList<>();
         List<Map<String,String>> regmap=getRegList(icode);
         for (int i=0;i<regmap.size();i++){
