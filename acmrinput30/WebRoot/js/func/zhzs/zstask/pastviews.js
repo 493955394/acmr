@@ -84,6 +84,17 @@ define(function (require,exports,module) {
             container: '.J_pastviews_data_table',
             timeout: 5000
         })
+
+        $(document).on('pjax:success', function() {
+            tableRow = $("#table-Row").val()
+            tableCol = $("#table-Col").val()
+            if (tableRow!="时间"&&tableCol!="时间"){
+                $("#mySelect2").css("display","none")
+            }
+            else {
+                $("#mySelect2").css("display","inline")
+            }
+        });
     }
 
 
