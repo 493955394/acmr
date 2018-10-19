@@ -47,21 +47,26 @@ public class pastviews extends BaseAction {
         //获取用户权限
         String icode = this.getRequest().getParameter("id");
         List<String> fivetaskcode = pv.getAllTask(icode);
-        if (fivetaskcode.size()>5) fivetaskcode=fivetaskcode.subList(0,5);
-        List<String> last5 = pv.getAllTime(icode);
-        if (last5.size()>5) last5=last5.subList(0,5);
-        List<Map<String,String>> regs=pv.getRegList(icode);
-        String reg=regs.get(0).get("code");
-        List<List<String>> showdatas = pv.getModTime(reg,fivetaskcode,icode);//得到单地区data
         Map<String,Object> info=new HashMap<>();
-        //展示的时间
-        info.put("head",last5);
-        info.put("row","指标");
-        //存在的地区并集,用于select
-        info.put("options",regs);
         info.put("indexcode",icode);
-        info.put("span","地区选择");
-        info.put("spancode",null);
+        List<List<String>> showdatas=new ArrayList<>();
+        if (fivetaskcode.size()==0) info.put("tasknum","0");
+        else {
+            info.put("tasknum",fivetaskcode.size());
+            if (fivetaskcode.size()>5) fivetaskcode=fivetaskcode.subList(0,5);
+            List<String> last5 = pv.getAllTime(icode);
+            if (last5.size()>5) last5=last5.subList(0,5);
+            List<Map<String,String>> regs=pv.getRegList(icode);
+            String reg=regs.get(0).get("code");
+            showdatas = pv.getModTime(reg,fivetaskcode,icode);//得到单地区data
+            //展示的时间
+            info.put("head",last5);
+            info.put("row","指标");
+            //存在的地区并集,用于select
+            info.put("options",regs);
+            info.put("span","地区选择");
+            info.put("spancode",null);
+        }
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("info",info);
    }
 
@@ -85,151 +90,153 @@ public class pastviews extends BaseAction {
        String tablecol=req.getParameter("tableCol");
        //单个维度的code
        String spancode=req.getParameter("spancode");
-       if (spancode.equals("null")) spancode=null;
        String time=req.getParameter("time");
-       List<String> times= Arrays.asList(time.split(","));
+       if (spancode.equals("null")) spancode=null;
        if (time.equals("null")) time=null;
-
-
-
+       List<String> times= Arrays.asList(time.split(","));
        PastViewService pastViewService=new PastViewService();
        String pjax = req.getHeader("X-PJAX");
        Map<String,Object> info=new HashMap<>();
        List<List<String>> showdatas = new ArrayList<>();//data
-       info.put("indexcode",icode);
-       info.put("spancode",spancode);
-       String span;
-       List<String> head=new ArrayList<>();
-       List<String> taskcodes=new ArrayList<>();
-       //根据传来的time算出应该展示的taskcodes
        List<String> alltaskcodes=pastViewService.getAllTask(icode);
-       if (time != null){
-           for(int i=0;i<times.size();i++){
-               String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(i));
-               taskcodes.add(taskcode);
+       info.put("indexcode",icode);
+       if (alltaskcodes.size()==0) info.put("tasknum","0");
+       else {
+           info.put("tasknum",alltaskcodes.size());
+           info.put("spancode",spancode);
+           String span;
+           List<String> head=new ArrayList<>();
+           List<String> taskcodes=new ArrayList<>();
+           //根据传来的time算出应该展示的taskcodes
+           if (time != null){
+               for(int i=0;i<times.size();i++){
+                   String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(i));
+                   taskcodes.add(taskcode);
+               }
+           }else{
+               taskcodes=alltaskcodes;
+               if (taskcodes.size()>5) taskcodes=taskcodes.subList(0,5);
            }
-       }else{
-           taskcodes=alltaskcodes;
-           if (taskcodes.size()>5) taskcodes=taskcodes.subList(0,5);
-       }
-       if (!(tablecol.equals("zb")||tablerow.equals("zb"))){
-           span="指标选择";
-           List<String> alltaskcode=pastViewService.getAllTask(icode);
-           //返回所有指标
-           List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
-           info.put("options",zbs);
-           if (tablecol.equals("sj")){
-               showdatas=pastViewService.getRegTime(taskcodes,spancode,icode);
-               info.put("row","地区");
-               //List<String> sjhead=pastViewService.getAllTime(icode).subList(0,5);
-               List<String> sjhead;
-               if (time==null){
-                   sjhead=pastViewService.getAllTime(icode);
-                   if (sjhead.size()>5) sjhead=sjhead.subList(0,5);
+           if (!(tablecol.equals("zb")||tablerow.equals("zb"))){
+               span="指标选择";
+               List<String> alltaskcode=pastViewService.getAllTask(icode);
+               //返回所有指标
+               List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
+               info.put("options",zbs);
+               if (tablecol.equals("sj")){
+                   showdatas=pastViewService.getRegTime(taskcodes,spancode,icode);
+                   info.put("row","地区");
+                   //List<String> sjhead=pastViewService.getAllTime(icode).subList(0,5);
+                   List<String> sjhead;
+                   if (time==null){
+                       sjhead=pastViewService.getAllTime(icode);
+                       if (sjhead.size()>5) sjhead=sjhead.subList(0,5);
+                   }
+                   else {
+                       sjhead=times;
+                   }
+                   head=sjhead;
+                   //info.put("head",sjhead);
                }
                else {
-                   sjhead=times;
+                   showdatas=pastViewService.getTimeReg(taskcodes,spancode,icode);
+                   info.put("row","时间");
+                   List<String> reghead=new ArrayList<>();
+                   List<Map<String,String>> regs=pastViewService.getRegList(icode);
+                   for (int i=0;i<regs.size();i++){
+                       String reg=regs.get(i).get("name");
+                       reghead.add(reg);
+                   }
+                   head=reghead;
+                   //info.put("head",reghead);
                }
-               head=sjhead;
-               //info.put("head",sjhead);
-           }
-           else {
-               showdatas=pastViewService.getTimeReg(taskcodes,spancode,icode);
-               info.put("row","时间");
-               List<String> reghead=new ArrayList<>();
-               List<Map<String,String>> regs=pastViewService.getRegList(icode);
-               for (int i=0;i<regs.size();i++){
-                   String reg=regs.get(i).get("name");
-                   reghead.add(reg);
-               }
-               head=reghead;
-               //info.put("head",reghead);
-           }
 
-       }
-       else if (!(tablecol.equals("sj")||tablerow.equals("sj"))){
-           span="时间选择";
-           String taskcode;
-           if (spancode==null){
-               taskcode=null;
+           }
+           else if (!(tablecol.equals("sj")||tablerow.equals("sj"))){
+               span="时间选择";
+               String taskcode;
+               if (spancode==null){
+                   taskcode=null;
+               }
+               else{
+                   taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,spancode);
+               }
+
+               //返回所有时间
+               List<String> ayearmons=pastViewService.getAllTime(icode);
+               List<Map<String,String>> sjs=new ArrayList<>();
+               for (int i=0;i<ayearmons.size();i++){
+                   Map m=new HashMap();
+                   m.put("code",ayearmons.get(i));
+                   m.put("name",ayearmons.get(i));
+                   sjs.add(m);
+               }
+               info.put("options",sjs);
+
+               if (tablecol.equals("zb")){
+                   showdatas=pastViewService.getRegMod(taskcode,icode);
+                   info.put("row","地区");
+                   List<String> zbhead=new ArrayList<>();
+                   List<Map<String,String>> zbmap=pastViewService.getModsList(pastViewService.getAllTask(icode));
+                   for (int i=0;i<zbmap.size();i++){
+                       String zbname=zbmap.get(i).get("name");
+                       zbhead.add(zbname);
+                   }
+                   head=zbhead;
+                   //info.put("head",zbhead);
+               }
+               else {
+                   showdatas=pastViewService.getModReg(taskcode,icode);
+                   info.put("row","指标");
+                   List<String> regs=new ArrayList<>();
+                   List<String> reghead=new ArrayList<>();
+                   List<Map<String,String>> regmap=pastViewService.getRegList(icode);
+                   for (int i=0;i<regmap.size();i++){
+                       String regname=regmap.get(i).get("name");
+                       reghead.add(regname);
+                   }
+                   head=reghead;
+                   // info.put("head",reghead);
+
+               }
            }
            else{
-               taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,spancode);
-           }
-
-           //返回所有时间
-           List<String> ayearmons=pastViewService.getAllTime(icode);
-           List<Map<String,String>> sjs=new ArrayList<>();
-           for (int i=0;i<ayearmons.size();i++){
-               Map m=new HashMap();
-               m.put("code",ayearmons.get(i));
-               m.put("name",ayearmons.get(i));
-               sjs.add(m);
-           }
-           info.put("options",sjs);
-
-           if (tablecol.equals("zb")){
-               showdatas=pastViewService.getRegMod(taskcode,icode);
-               info.put("row","地区");
-               List<String> zbhead=new ArrayList<>();
-               List<Map<String,String>> zbmap=pastViewService.getModsList(pastViewService.getAllTask(icode));
-               for (int i=0;i<zbmap.size();i++){
-                   String zbname=zbmap.get(i).get("name");
-                   zbhead.add(zbname);
-               }
-               head=zbhead;
-               //info.put("head",zbhead);
-           }
-           else {
-               showdatas=pastViewService.getModReg(taskcode,icode);
-               info.put("row","指标");
-               List<String> regs=new ArrayList<>();
-               List<String> reghead=new ArrayList<>();
-               List<Map<String,String>> regmap=pastViewService.getRegList(icode);
-               for (int i=0;i<regmap.size();i++){
-                   String regname=regmap.get(i).get("name");
-                   reghead.add(regname);
-               }
-               head=reghead;
-              // info.put("head",reghead);
-
-           }
-       }
-       else{
-           span="地区选择";
-           //返回所有地区
-           List<Map<String,String>> regs=pastViewService.getRegList(icode);
-           info.put("options",regs);
-           if (tablecol.equals("sj")){
-               showdatas=pastViewService.getModTime(spancode,taskcodes,icode);
-               info.put("row","指标");
-               //时间先写死最近5期，然后根据time来变
-               List<String> sjhead;
-               if (time==null){
-                   sjhead=pastViewService.getAllTime(icode);
-                   if (sjhead.size()>5) sjhead=sjhead.subList(0,5);
+               span="地区选择";
+               //返回所有地区
+               List<Map<String,String>> regs=pastViewService.getRegList(icode);
+               info.put("options",regs);
+               if (tablecol.equals("sj")){
+                   showdatas=pastViewService.getModTime(spancode,taskcodes,icode);
+                   info.put("row","指标");
+                   //时间先写死最近5期，然后根据time来变
+                   List<String> sjhead;
+                   if (time==null){
+                       sjhead=pastViewService.getAllTime(icode);
+                       if (sjhead.size()>5) sjhead=sjhead.subList(0,5);
+                   }
+                   else {
+                       sjhead=times;
+                   }
+                   head=sjhead;
+                   //info.put("head",timehead);
                }
                else {
-                   sjhead=times;
+                   showdatas=pastViewService.getTimeMod(spancode,taskcodes,icode);
+                   info.put("row","时间");
+                   List<String> zbhead=new ArrayList<>();
+                   List<Map<String,String>> zbmap=pastViewService.getModsList(pastViewService.getAllTask(icode));
+                   for (int i=0;i<zbmap.size();i++){
+                       String zbname=zbmap.get(i).get("name");
+                       zbhead.add(zbname);
+                   }
+                   head=zbhead;
+                   //info.put("head",zbhead);
                }
-               head=sjhead;
-               //info.put("head",timehead);
            }
-           else {
-               showdatas=pastViewService.getTimeMod(spancode,taskcodes,icode);
-               info.put("row","时间");
-               List<String> zbhead=new ArrayList<>();
-               List<Map<String,String>> zbmap=pastViewService.getModsList(pastViewService.getAllTask(icode));
-               for (int i=0;i<zbmap.size();i++){
-                   String zbname=zbmap.get(i).get("name");
-                   zbhead.add(zbname);
-               }
-               head=zbhead;
-               //info.put("head",zbhead);
-           }
+           info.put("span",span);
+           info.put("head",head);
        }
-       info.put("span",span);
-       info.put("head",head);
+
 
 
        if (StringUtil.isEmpty(pjax)) {

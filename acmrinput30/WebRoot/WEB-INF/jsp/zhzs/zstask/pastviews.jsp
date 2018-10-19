@@ -30,75 +30,23 @@
             <input type="hidden" class="indexcode" value="${info.get('indexcode')}">
         </div>
 
-        <div class="panel-body">
-            <div class="toolbar">
-                <div id="mySelect2"></div>
-                <input type="hidden" id="timecode" value="">
-                <button  type="button" id="timeinput" data-value="" style="display: none"/>
-                <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i1" class="glyphicon glyphicon-retweet"></i>&nbsp;维度转换</button>&nbsp;
-                <button class="btn btn-default btn-sm pastview_download"><i id="i2" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
-
-            <%--<c:if test="${show.equals('2')}">
-                <div class="toolbar-left">
-                    <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=regDatas">
-                        <div class="form-group">
-                            <span>地区选择：</span>
-                            <select  class="form-control input-sm" id="select-data">
-                                <c:forEach items="${reginfo}" var="reg">
-
-                                        <option value="${reg.regcode}">${reg.name}</option>
-
-                                </c:forEach>
-                                <option value="1">地区展示序列</option>
-                            </select>
-                        </div>
-                    </form>
+        <c:if test="${info.get('tasknum')=='0'}">
+            <span>该计划下没有往期任务！</span>
+        </c:if>
+        <c:if test="${info.get('tasknum')!='0'}">
+            <div class="panel-body">
+                <div class="toolbar">
+                    <div id="mySelect2"></div>
+                    <input type="hidden" id="timecode" value="">
+                    <button  type="button" id="timeinput" data-value="" style="display: none"/>
+                    <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i1" class="glyphicon glyphicon-retweet"></i>&nbsp;维度转换</button>&nbsp;
+                    <button class="btn btn-default btn-sm pastview_download"><i id="i2" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
                 </div>
-                <div class="toolbar-right">
-                    <div class="toolbar-group" style="position: relative;">
-                        <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i1" class="glyphicon glyphicon-retweet"></i>&nbsp;维度转换</button>&nbsp;
-                        <button class="btn btn-default btn-sm pastview_download"><i id="i2" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
-                        <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=regDatas">
-                            <div id="mySelect2"></div>
-                        </form>
-                    </div>
-                </div>
-                </c:if>
-                <c:if test="${show.equals('1')}">
-                    <div class="toolbar-left">
-                        <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=modDatas">
-                            <div class="form-group">
-                                <span>指标选择：</span>
-                                <select  class="form-control input-sm">
-                                    <c:forEach items="${orcodes}" var="orcode">
-                                        <c:forEach items="${ornames}" var="modname">
-                                            <option value="${orcode}">${modname}</option>
-                                        </c:forEach>
-                                    </c:forEach>
-                                    <option value="2">指标展示序列</option>
-                                </select>
-                            </div>
-                        </form>
-
-                        <form class="form-inline J_search_form" action="${ctx}/zbdata/pastviews.htm?m=modDatas">
-                            <div class="form-group">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="toolbar-right">
-                        <div class="toolbar-group" style="position: relative;">
-                            <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i3" class="glyphicon glyphicon-retweet"></i>&nbsp;维度转换</button>&nbsp;
-                            <button class="btn btn-default btn-sm pastview_download"><i id="i4" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
-                        </div>
-                    </div>
-                </c:if>--%>
             </div>
-        </div>
-
-        <div class="J_pastviews_data_table">
-
-            <jsp:include page="/WEB-INF/jsp/zhzs/zstask/pasttable.jsp" flush="true"/>
-        </div>
+            <div class="J_pastviews_data_table">
+                <jsp:include page="/WEB-INF/jsp/zhzs/zstask/pasttable.jsp" flush="true"/>
+            </div>
+        </c:if>
     </div>
     <div class="modal wdturn-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg" role="document">
