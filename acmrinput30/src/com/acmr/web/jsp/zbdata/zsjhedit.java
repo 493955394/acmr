@@ -1011,12 +1011,21 @@ public class zsjhedit extends BaseAction {
             indexMoudle.setSortcode(sortcode);
         if(ifzb.equals("1")){
             indexMoudle.setIfzb(ifzb);
-            indexMoudle.setFormula(formula);
+            //也要校验是否存在这个指数，因为有可能删了
+            List<String> codes =indexEditService.getModCodeList(indexCode);
+            if(codes.contains(formula)){
+                indexMoudle.setFormula(formula);
+            }
+            else {
+                data.setReturncode(400);
+                this.sendJson(data);
+                return;
+            }
         }
            else if(ifzb.equals("0")){
                 indexMoudle.setIfzb(ifzb);//是选的自定义公式，要做校验
+            formulatext = changeFormula(formulatext,indexCode,"NTC");
            if(checkFormula(formulatext,indexCode)){
-               formulatext = changeFormula(formulatext,indexCode,"NTC");
                indexMoudle.setFormula(formulatext);
            }else {
                data.setReturncode(300);
@@ -1119,7 +1128,7 @@ public class zsjhedit extends BaseAction {
         //String icode=this.getRequest().getParameter("icode");
         List<Map> zbchoose=indexEditService.getZBS(icode);
         for (int i = 0; i <zbchoose.size() ; i++) {
-            String temp = "#"+zbchoose.get(i).get("zbname").toString()+"("+zbchoose.get(i).get("dsname").toString()+","+zbchoose.get(i).get("unitname").toString()+")#";
+            String temp = "#"+zbchoose.get(i).get("code")+"#";
             str = str.replace(temp," 2.0 ");//随便给个数算
         }
         str = str.replace("random()","chance()");//不能用random这个函数名因为有个and会报错
@@ -1145,16 +1154,17 @@ public class zsjhedit extends BaseAction {
         //String icode=this.getRequest().getParameter("icode");
         List<Map> zbchoose=indexEditService.getZBS(icode);
         for (int i = 0; i <zbchoose.size() ; i++) {
-            String temp = "#"+zbchoose.get(i).get("zbname").toString()+"("+zbchoose.get(i).get("dsname").toString()+","+zbchoose.get(i).get("unitname").toString()+")#";
+            String temp = "#"+zbchoose.get(i).get("zbname")+"("+zbchoose.get(i).get("dsname")+","+zbchoose.get(i).get("unitname")+")#";
             if(type.equals("NTC")){
-                str = str.replace(temp,"#"+zbchoose.get(i).get("code").toString()+"#");//换成ZB表里的code
+                str = str.replace(temp,"#"+zbchoose.get(i).get("code")+"#");//换成ZB表里的code
             }
             else if(type.equals("CTN")){
-                str = str.replace("#"+zbchoose.get(i).get("code").toString()+"#",temp);//换成回显的格式
+                str = str.replace("#"+zbchoose.get(i).get("code")+"#",temp);//换成回显的格式
             }
         }
         return str;
     }
+
     /**
      * 纯指标替换中文
      */
@@ -1162,7 +1172,7 @@ public class zsjhedit extends BaseAction {
         IndexEditService indexEditService=new IndexEditService();
         List<Map> zbchoose=indexEditService.getZBS(icode);
         for (int i = 0; i <zbchoose.size() ; i++) {
-            String temp = zbchoose.get(i).get("zbname").toString()+"("+zbchoose.get(i).get("dsname").toString()+","+zbchoose.get(i).get("unitname").toString()+")";
+            String temp = zbchoose.get(i).get("zbname")+"("+zbchoose.get(i).get("dsname")+","+zbchoose.get(i).get("unitname")+")";
                 str = str.replace(zbchoose.get(i).get("code").toString(),temp);//换成ZB表里的code
              }
         return str;
@@ -1247,12 +1257,22 @@ public class zsjhedit extends BaseAction {
         indexMoudle.setDacimal(dacimal);
         if(ifzb.equals("1")){
             indexMoudle.setIfzb(ifzb);
+            //也要校验是否存在这个指数，因为有可能删了
+            List<String> codes =indexEditService.getModCodeList(indexCode);
+            if(codes.contains(formula)){
+                indexMoudle.setFormula(formula);
+            }
+            else {
+                data.setReturncode(400);
+                this.sendJson(data);
+                return;
+            }
             indexMoudle.setFormula(formula);
         }
         else if(ifzb.equals("0")){
             indexMoudle.setIfzb(ifzb);//是选的自定义公式，要做校验
+            formulatext = changeFormula(formulatext,indexCode,"NTC");
             if(checkFormula(formulatext,indexCode)){
-                formulatext = changeFormula(formulatext,indexCode,"NTC");
                 indexMoudle.setFormula(formulatext);
             }else {
                 data.setReturncode(300);

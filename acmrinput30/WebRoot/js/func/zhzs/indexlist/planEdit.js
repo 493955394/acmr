@@ -148,17 +148,16 @@ define(function (require,exports,module) {
         $('input[name=editcname]').val(name);
         //点进来才开始初始化树
         var cNodes=[
-            { id:"", pId:0, name:"指数",isParent:true}
+            { id:"!1", pId:0, name:"指数",isParent:true}
         ]
         function clickEvent4(event,treeId,treeNode) {
             if (treeNode.id != '') {
                 $('input[name=editname]').val(treeNode.name);
                 $('input[name=editprocode]').val(treeNode.id);
-                if (treeNode.id=="!1"){
+                if (treeNode.id == "!1") {
                     $('input[name=editprocode]').val("");
                 }
-            }
-            else{ $('input[name=editname]').val(treeNode.name);
+            }else{ $('input[name=editname]').val(treeNode.name);
             }
         }
         var setting4 = {
