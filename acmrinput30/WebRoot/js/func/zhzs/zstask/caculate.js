@@ -84,7 +84,20 @@ define(function (require,exports,module) {
         if(flag){
             return
         }
-        //检查通过，保存
+        //检查通过，检验原始数据
+        var yy = false;
+        $('#origin-data tr').each(function(i){                   // 遍历 tr
+            $(this).children('td').each(function(j){  // 遍历 tr 的各个 td
+                if($(this).text() == ""){
+                   yy=true;
+                }
+            });
+        });
+        if(yy){
+            alert("原始数据缺失")
+            $('#myTabs li:eq(1) a').tab('show');
+            return;
+        }
         var cws="";
         $(".input_weight").each(function () {
             var code=$(this).parent().prev().attr("code")
@@ -99,7 +112,7 @@ define(function (require,exports,module) {
             timeout: 10000
         })
         $(document).on('pjax:success', function() {
-            alert("保存成功");
+            alert("计算成功");
             $(this).off('pjax:success')
         });
     })
@@ -206,7 +219,20 @@ define(function (require,exports,module) {
         if(flag){
             return;
         }
-        //检查通过，保存
+        //检查通过，检验原始数据
+        var yy = false;
+        $('#origin-data tr').each(function(i){                   // 遍历 tr
+            $(this).children('td').each(function(j){  // 遍历 tr 的各个 td
+                if($(this).text() == ""){
+                    yy=true;
+                }
+            });
+        });
+        if(yy){
+            alert("原始数据缺失")
+            $('#myTabs li:eq(1) a').tab('show')
+            return;
+        }
         var cws="";
         $(".input_weight").each(function () {
             var code=$(this).parent().prev().attr("code")

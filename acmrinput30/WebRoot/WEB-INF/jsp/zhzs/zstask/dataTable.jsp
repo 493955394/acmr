@@ -16,7 +16,7 @@
 <div>
     <div class="panel panel-default">
         <div class="panel panel-body">
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover" id="origin-data">
                 <thead>
                 <tr id="mod_list_head">
                     <td>指标</td>
