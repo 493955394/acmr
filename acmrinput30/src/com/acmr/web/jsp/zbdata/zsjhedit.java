@@ -1342,6 +1342,9 @@ public class zsjhedit extends BaseAction {
         String index_code = PubInfo.getString(req.getParameter("index_code"));//code
         String index_cname = PubInfo.getString(req.getParameter("index_cname"));//code
         String index_procode = PubInfo.getString(req.getParameter("index_procode"));//所属目录
+        if(index_procode.equals("!1")){
+            index_procode="";
+        }
         String startpeirod = PubInfo.getString(req.getParameter("startpeirod"));
         String delayday = PubInfo.getString(req.getParameter("delayday"));
         //ZB表的信息
@@ -1488,9 +1491,7 @@ public class zsjhedit extends BaseAction {
 
         //基本信息表的信息
         indexList.setCode(index_code);
-        if(index_procode != null && index_procode !=""){
-            indexList.setProcode(index_procode);
-        }
+        indexList.setProcode(index_procode);
         indexList.setCname(index_cname);
         indexList.setStartperiod(startpeirod);
         indexList.setDelayday(delayday);

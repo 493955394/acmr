@@ -42,7 +42,7 @@ define(function (require,exports,module) {
     })
 
     var zNodes =[
-        { id:"", pId:0, name:"指数",isParent:true}
+        { id:"!1", pId:0, name:"指数",isParent:true}
     ];
     var st = new Date().getTime();//时间戳
     var setting = {
