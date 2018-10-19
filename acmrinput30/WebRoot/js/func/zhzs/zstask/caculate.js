@@ -99,7 +99,8 @@ define(function (require,exports,module) {
             timeout: 10000
         })
         $(document).on('pjax:success', function() {
-            //alert("ok");
+            alert("保存成功");
+            $(this).off('pjax:success')
         });
     })
     /**
@@ -220,7 +221,8 @@ define(function (require,exports,module) {
             timeout: 10000
         })
         $(document).on('pjax:success', function() {
-            //alert("ok");
+            alert("保存成功");
+            $(this).off('pjax:success')
         });
     })
 
