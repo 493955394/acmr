@@ -71,6 +71,18 @@ public class IndexEditService {
     }
 
     /**
+     * 只返回code的列表
+     */
+    public List<String> getModCodeList(String icode){
+        List<String> datas = new ArrayList<>();
+        List<DataTableRow> data = IndexEditDao.Fator.getInstance().getIndexdatadao().getZBSbyIndexCode(icode).getRows();
+        for (int i = 0; i <data.size() ; i++) {
+            datas.add(data.get(i).getString("code"));
+        }
+        return datas;
+    }
+
+    /**
      * @Description: 根据给定的模型节点code和计划code返回该节点下所有的模型节点，包括子节点的子节点
      * @Param: [code, icode]
      * @return: java.util.List<com.acmr.model.zhzs.IndexMoudle>

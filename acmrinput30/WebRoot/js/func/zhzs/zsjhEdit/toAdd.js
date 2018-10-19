@@ -66,6 +66,9 @@ define(function (require,exports,module) {
                 else if(data.returncode == 300){
                     alert("表达式有误");
                 }
+                else if(data.returncode == 400){
+                    alert("该指标已被删除");
+                }
             },
             error: function() {
                 common.commonTips('添加失败');
