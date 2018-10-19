@@ -206,8 +206,14 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function (data) {
                 if(data.returncode == 200){
+                    var url=window.location.href;
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_data_table'
+                    });
                     alert("保存成功");
                     $("#mymodal-right").modal("hide");
+
                 }
               else {
                   alert("保存失败");
