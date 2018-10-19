@@ -152,11 +152,11 @@ public class OriginDataService {
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(data.get(i).getFormula().contains(zbs.get(k).getProcode())){//要是存在这个code,就去取对应的zbcode
                             String val = originDataService.getvalue(iftmp,taskcode,zbs.get(k).getCode(),reg[j],time,sessionid);
-                            if((val!= null)&&(val!="")){//如果有值的话
+                            if(!val.equals("")){//如果有值的话
                                 val = String.format("%."+data.get(i).getDacimal()+"f",Double.valueOf(val));//保留几位小数
                                 da.setData(val);
                             }else{//要是没有值
-                                da.setData(String.format("%."+data.get(i).getDacimal()+"f",0.0));
+                                da.setData("");
                             }
 
                             newadd.add(da);}
@@ -174,12 +174,15 @@ public class OriginDataService {
                     da.setTaskcode(taskcode);
                     da.setModcode(data.get(i).getCode());
                     da.setSessionid(sessionid);
+                    boolean flag = false;
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(formula.contains(zbs.get(k).getProcode())){//要是存在这个code,就去取对应的zbcode
                             String tempval = originDataService.getvalue(iftmp,taskcode,zbs.get(k).getCode(),reg[j],time,sessionid);
                             //替换公式中的值
-                            if(tempval.equals("")||tempval.equals(null)){
-                                formula = formula.replace("#"+zbs.get(k).getProcode()+"#","0");//换成0
+                            if(tempval.equals("")){
+//                                formula = formula.replace("#"+zbs.get(k).getProcode()+"#","0");//换成0
+                                flag = true;
+                                continue;
                             }
                             else{
                                 formula = formula.replace("#"+zbs.get(k).getProcode()+"#",tempval);//换成对应的value
@@ -187,9 +190,13 @@ public class OriginDataService {
 
                         }
                     }
-                    //全部替换完成后开始做计算
-                    String val = tocalculate(formula,data.get(i).getDacimal());
-                    da.setData(val);
+                    if(flag){
+                        da.setData("");//要是替换后有一个是null就不算了
+                    }else {
+                        //全部替换完成后开始做计算
+                        String val = tocalculate(formula,data.get(i).getDacimal());
+                        da.setData(val);
+                    }
                     newadd.add(da);
                 }
             }
@@ -210,10 +217,16 @@ public class OriginDataService {
         try {
             ce.setFunctionclass(new MathService());
             result = ce.Eval(formula);
+            result = String.format("%."+dacimal+"f",Double.valueOf(result));//保留几位小数
             System.out.println(ce.Eval(formula));
         } catch (MathException e) {
           //  e.printStackTrace();
             System.out.println("error");
+            return result;
+        }
+        catch (NumberFormatException n) {
+            //  e.printStackTrace();
+            return result;
         }
         return result;
     }
@@ -245,11 +258,20 @@ public class OriginDataService {
             zsdata.setTaskcode(temp.getTaskcode());
             zsdata.setModcode(temp.getCode());
             String formula = "";
+            boolean flag = false;
             for (int i = 0; i < subs.size(); i++) {
                 String data = originDataService.getzbvalue(iftmp,taskcode, subs.get(i).getCode(), reg, time, sessionid);
+                if(data.equals("")){
+                    flag = true;
+                    continue;
+                }
                 formula += "+" + data + "*" + subs.get(i).getWeight();
             }
-            zsdata.setData(tocalculate(formula.substring(1),temp.getDacimal()));
+            if(flag){
+                zsdata.setData("");
+            }else {
+                zsdata.setData(tocalculate(formula.substring(1),temp.getDacimal()));
+            }
             originDataService.addzsdata(iftmp,zsdata);
         }
     }
@@ -314,7 +336,7 @@ public class OriginDataService {
         return list;
     }
 
-    public  List<Map> modelList(String taskcode,String modcode){
+    public  List<Map> modelList(String taskcode,String modcode){//好像用不到taskcode，先留着
         List<Map> mode= new ArrayList<>();
         List<TaskModule> tmp = findSubMod(modcode);
         for (int i = 0; i <tmp.size() ; i++) {

@@ -571,8 +571,9 @@ public class zscalculate extends BaseAction {
             for (int j = 0; j <regscode.size() ; j++) {
                 String current = originDataService.getzbvalue(true,taskcode,arr.get(i).get("code").toString(),regscode.get(j),ayearmon,sessionid);
 
-                if(current =="" || current ==null){
-                    rows.add(String.format("%."+arr.get(i).get("dotcount").toString()+"f",0.0));
+                if(current.equals("")){
+                    rows.add("");//本期值
+                    rows.add("");//环比
                 }else{
                     rows.add(String.format("%."+arr.get(i).get("dotcount").toString()+"f",Double.valueOf(current)));//本期值
                     //查询是否有上期，有的话返回taskcode
@@ -583,7 +584,7 @@ public class zscalculate extends BaseAction {
                         if(oldmodcode !=null){
                             String time = indexTaskService.getTime(oldtaskcode);
                             String prodata = originDataService.getzbvalue(false,oldtaskcode,oldmodcode,regscode.get(j),time,"");
-                            if(prodata ==""||prodata==null){//保证数据不能为空
+                            if(prodata.equals("")){//保证数据不能为空
                                 prodata=String.format("%."+arr.get(i).get("dotcount").toString()+"f",0.0);
                             }
                             String formula = current+"/"+prodata;
@@ -616,15 +617,15 @@ public class zscalculate extends BaseAction {
             if(result!=""&&result!=null){
             result = String.format("%."+dacimal+"f",Double.valueOf(result));}//保留几位小数
             System.out.println(ce.Eval(formula));
-        } catch (MathException e) {
+        } catch (MathException | NumberFormatException e) {
           //  e.printStackTrace();
          //   System.out.println("error");
-            return "-";//要是上期数据是0，环比就报错
+            return "";//要是上期数据是0，环比就报错
         }
         return result;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         String formula = "/3";
         String result = "";
         try {
@@ -636,5 +637,5 @@ public class zscalculate extends BaseAction {
             e.printStackTrace();
             System.out.println("error");
         }
-    }
+    }*/
 }
