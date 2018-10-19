@@ -9,7 +9,7 @@ define(function (require,exports,module) {
     var tableRow = "指标"; //表格行维度
     var tableCol = "时间";  //表格列维度
     var indexcode = $(".indexcode").val()
-
+    console.log(indexcode)
     var time = null;//查询的时间
     var spancode = null;//传给后台重新请求数据的单个维度code
 
@@ -84,7 +84,7 @@ define(function (require,exports,module) {
         $.pjax({
             url: url,
             container: '.J_pastviews_data_table',
-            timeout: 5000
+            timeout: 10000
         })
 
         $(document).on('pjax:success', function() {

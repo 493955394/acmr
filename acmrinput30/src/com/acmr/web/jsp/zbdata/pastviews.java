@@ -46,8 +46,10 @@ public class pastviews extends BaseAction {
     public ModelAndView main(){
         //获取用户权限
         String icode = this.getRequest().getParameter("id");
-        List<String> fivetaskcode = pv.getAllTask(icode).subList(0,5);
-        List<String> last5 = pv.getAllTime(icode).subList(0,5);
+        List<String> fivetaskcode = pv.getAllTask(icode);
+        if (fivetaskcode.size()>5) fivetaskcode=fivetaskcode.subList(0,5);
+        List<String> last5 = pv.getAllTime(icode);
+        if (last5.size()>5) last5=last5.subList(0,5);
         List<Map<String,String>> regs=pv.getRegList(icode);
         String reg=regs.get(0).get("code");
         List<List<String>> showdatas = pv.getModTime(reg,fivetaskcode,icode);//得到单地区data
@@ -100,13 +102,15 @@ public class pastviews extends BaseAction {
        List<String> head=new ArrayList<>();
        List<String> taskcodes=new ArrayList<>();
        //根据传来的time算出应该展示的taskcodes
+       List<String> alltaskcodes=pastViewService.getAllTask(icode);
        if (time != null){
            for(int i=0;i<times.size();i++){
                String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(i));
                taskcodes.add(taskcode);
            }
        }else{
-           taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+           taskcodes=alltaskcodes;
+           if (taskcodes.size()>5) taskcodes=taskcodes.subList(0,5);
        }
        if (!(tablecol.equals("zb")||tablerow.equals("zb"))){
            span="指标选择";
@@ -119,7 +123,10 @@ public class pastviews extends BaseAction {
                info.put("row","地区");
                //List<String> sjhead=pastViewService.getAllTime(icode).subList(0,5);
                List<String> sjhead;
-               if (time==null) sjhead=pastViewService.getAllTime(icode).subList(0,5);
+               if (time==null){
+                   sjhead=pastViewService.getAllTime(icode);
+                   if (sjhead.size()>5) sjhead=sjhead.subList(0,5);
+               }
                else {
                    sjhead=times;
                }
@@ -198,7 +205,10 @@ public class pastviews extends BaseAction {
                info.put("row","指标");
                //时间先写死最近5期，然后根据time来变
                List<String> sjhead;
-               if (time==null) sjhead=pastViewService.getAllTime(icode).subList(0,5);
+               if (time==null){
+                   sjhead=pastViewService.getAllTime(icode);
+                   if (sjhead.size()>5) sjhead=sjhead.subList(0,5);
+               }
                else {
                    sjhead=times;
                }
