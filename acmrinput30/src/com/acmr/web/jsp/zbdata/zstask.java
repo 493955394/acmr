@@ -9,6 +9,7 @@ import com.acmr.model.pub.PageBean;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexTask;
 import com.acmr.service.zhzs.IndexTaskService;
+import org.owasp.esapi.tags.ELEncodeFunctions;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -126,7 +127,10 @@ public class zstask extends BaseAction {
         if(result == 1){
             data.setReturncode(200);
             this.sendJson(data);
-            return;
+        }
+        else {
+            data.setReturncode(400);
+            this.sendJson(data);
         }
     }
 }
