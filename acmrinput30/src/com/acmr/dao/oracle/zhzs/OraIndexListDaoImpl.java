@@ -238,12 +238,19 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             DataTable table2 = dataQuery.getDataTableSql(sql1,new Object[]{ocode});
             List<DataTableRow> row1 = table1.getRows();
             List<DataTableRow> row2 = table2.getRows();
+            //取出所有复制前的公式中的codelist
+            List<String> zbcodelist = new ArrayList<>();
+            for(int k=0;k<row2.size();k++) {
+                String ozbcode = row1.get(k).getString("code");
+                zbcodelist.add(ozbcode);
+            }
             //取出所有的计算公式
             String sql2 = "select * from tb_coindex_module where indexcode=? order by sortcode";
             DataTable table3 = dataQuery.getDataTableSql(sql2,new Object[]{ncode});
             DataTable table4 = dataQuery.getDataTableSql(sql2,new Object[]{ocode});
             List<DataTableRow> row3 = table3.getRows();
             List<DataTableRow> row4 = table4.getRows();
+
 
             for(int j=0;j<row3.size();j++){
                 String nformula = row3.get(j).getString("formula");
@@ -255,7 +262,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                     String nforcode = row1.get(k).getString("code");
                     String oforcode = row2.get(k).getString("code");
 
-                    if(nformula.equals(oformula)&& nformula.contains(oforcode)){
+                    if(nformula.contains(oforcode)){
                         if(nformula.contains("#")){
                             nformula = nformula.replace("#"+oforcode+"#","#"+nforcode+"#");//换成新模型节点code
                             String sql3 = "update tb_coindex_module set formula=? where copycode=? and code=?";

@@ -49,6 +49,7 @@ public class indexplan extends BaseAction {
             String start = row.getString("startperiod");
             String delay = row.getString("delayday");
             String getplan = row.getString("planperiod");
+            String state="0";
             if(start == null||delay == null||getplan == null){
                 data.setReturncode(400);
                 this.sendJson(data);
@@ -61,6 +62,7 @@ public class indexplan extends BaseAction {
             copydata.setCode(code);
             copydata.setCname(cname);
             copydata.setProcode(nprocode);
+            copydata.setState(state);
             copydata.setCreateuser(usercode);
             //data1.setCreatetime(createtime);
             String startpeirod = copydata.getStartperiod();
