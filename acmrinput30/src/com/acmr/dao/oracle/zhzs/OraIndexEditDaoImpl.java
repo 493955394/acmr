@@ -241,7 +241,7 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
             //更新基本信息表
             String sql1 = "";
             List<Object> upd = new ArrayList<Object>();
-            if(indexList.getProcode()!=null&& indexList.getProcode()!=""){
+            if(indexList.getProcode()!=null){
                 sql1+=",procode=?";
                 upd.add(indexList.getProcode());
             }
