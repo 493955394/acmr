@@ -222,6 +222,7 @@ define(function (require,exports,module) {
         $(this).siblings('li').css("background","#ffffff");
         $(this).css("background","#f6f6f6");
         select_li = $(this).index();
+        $("#single_reg").val($(this).attr('id'))
     }) ;
     /**
      * 时间选择自动补上中间的时间期，以及数据检查
@@ -498,11 +499,36 @@ define(function (require,exports,module) {
         })
         window.location.href = url;
     });
+    /**
+     * 单个地区的下载
+     */
     $(document).on('click', '.J_excel_singlereg', function() {
-        var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toExcelSinglereg';
+        console.log("單地區下載")
+        var reg=$("#single_reg").val()
+        console.log(reg)
+        var zbcode = "";//指标code
+        var zbco = "";//指标主体
+        var zbds = "";//指标数据来源
+        var zbunit ="";//指标单位
+        var zbname = "";//指标名称
+        var zbs=zbAdd.zbs;//获取指标的信息
+        for (var i = 0; i <zbs.length ; i++) {
+            zbcode += zbs[i].zbcode+",";
+            zbco += zbs[i].cocode+",";
+            zbds += zbs[i].dscode+",";
+            zbname += zbs[i].zbname+",";
+            zbunit += zbs[i].unitcode+",";
+        }
+        zbcode = zbcode.substr(0, zbcode.length - 1);//去除最后一个逗号
+        zbco = zbco.substr(0, zbco.length - 1);//去除最后一个逗号
+        zbds = zbds.substr(0, zbds.length - 1);//去除最后一个逗号
+        zbname = zbname.substr(0, zbname.length - 1);//去除最后一个逗号
+        zbunit = zbunit.substr(0, zbunit.length - 1);//去除最后一个逗号
+        var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toExcelSinglereg&indexcode='+incode+'&reg='+reg+'&sj='+selecttime+'&zb='+zbcode+'&co='+zbco+'&ds='+zbds+'&zbname='+zbname+'&zbunit='+zbunit;
         $.ajax({
             url: url,
             type: 'post',
+            //data: {"reg": reg,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit},
             success: function(data) {
                 if (data.returncode == 300) {
                     alert("请选择筛选条件");

@@ -311,6 +311,8 @@
                                 <span class="col-md-1"></span>
                                 <button id="datachecks" class="col-md-2" style="font-size: 15px"><i class="glyphicon glyphicon-check"></i>数据检查</button>
                                 <button class="J_plan_excel col-md-2" style="font-size: 15px"><i class="glyphicon glyphicon-save"></i>数据下载</button>
+                                <input type="hidden" id="single_reg" value="">
+
                                 <div class="data_check_show">
                                     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/regSelect.jsp" flush="true"/>
                                 </div>

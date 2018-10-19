@@ -50,9 +50,7 @@ public class zsjhedit extends BaseAction {
      */
     private List data1;
     private  String regname;
-    private  List singledata1;
-    private  String singlereg;
-    private  String excelsj;
+
 
     private CalculateExpression ce = new CalculateExpression();
     public ModelAndView main(){
@@ -249,8 +247,8 @@ public class zsjhedit extends BaseAction {
         HttpServletRequest req = this.getRequest();
         String pjax = req.getHeader("X-PJAX");
         OriginService originService=new OriginService();
-        singlereg = PubInfo.getString(req.getParameter("reg"));//地区
-        excelsj = PubInfo.getString(req.getParameter("sj"));//时间
+        String singlereg = PubInfo.getString(req.getParameter("reg"));//地区
+        String excelsj = PubInfo.getString(req.getParameter("sj"));//时间
         String zbcode = PubInfo.getString(req.getParameter("zb"));//zbcode
         String zbname = PubInfo.getString(req.getParameter("zbname"));//zbname
         String ds = PubInfo.getString(req.getParameter("ds"));//数据来源
@@ -264,7 +262,7 @@ public class zsjhedit extends BaseAction {
         String [] cos = co.split(",");
         String [] units = zbunit.split(",");
         String regionname = originService.getwdnode("reg",singlereg).getName();
-        singledata1 = new ArrayList();
+        List singledata1 = new ArrayList();
         for (int i = 0; i <zbcodes.length ; i++) {
             List <String> datas=new ArrayList<>();
             datas.add(zbnames[i]);//获取指标名
@@ -431,7 +429,52 @@ public class zsjhedit extends BaseAction {
         //接参
         HttpServletRequest req = this.getRequest();
         OriginService originService=new OriginService();
+        String singlereg = PubInfo.getString(req.getParameter("reg"));//地区
+        String excelsj = PubInfo.getString(req.getParameter("sj"));//时间
+        String zbcode = PubInfo.getString(req.getParameter("zb"));//zbcode
+        String zbname = PubInfo.getString(req.getParameter("zbname"));//zbname
+        String ds = PubInfo.getString(req.getParameter("ds"));//数据来源
+        String co = PubInfo.getString(req.getParameter("co"));//主体
+        String zbunit = PubInfo.getString(req.getParameter("zbunit"));//单位
+        String [] sjs = excelsj.split(",");
+        String [] zbcodes = zbcode.split(",");
+        String [] zbnames = zbname.split(",");
+        String [] dss = ds.split(",");
+        String [] cos = co.split(",");
+        String [] units = zbunit.split(",");
         String name = originService.getwdnode("reg",singlereg).getName();
+        List singledata1 = new ArrayList();
+        for (int i = 0; i <zbcodes.length ; i++) {
+            List <String> datas=new ArrayList<>();
+            datas.add(zbnames[i]);//获取指标名
+            for (int j = 0; j <sjs.length ; j++) {
+
+                CubeWdCodes where = new CubeWdCodes();
+                String funit=originService.getwdnode("zb",zbcodes[i]).getUnitcode();
+                double rate=originService.getRate(funit,units[i],sjs[j]);
+                where.Add("zb", zbcodes[i]);
+                where.Add("ds", dss[i]);
+                where.Add("co", cos[i]);
+                where.Add("reg", singlereg);
+                where.Add("sj", sjs[j]);
+                ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
+                if(result.size()==0){
+                    datas.add("");
+                }else{
+                    for (int k = 0; k <result.size() ; k++) {
+                        if (result.get(k).getData().toString() != ""){
+                            double resulttemp = result.get(k).getData().getData()*rate;
+                            datas.add(resulttemp+"") ;
+                        }
+                        else{
+                            datas.add("");
+                        }
+                    }
+                }
+            }
+            singledata1.add(datas);
+        }
+
         /*req.getAttribute("excelregs");
         req.getAttribute("exceldata");*/
         /*String regname = PubInfo.getString(req.getParameter("excelregs"));//地区名称
