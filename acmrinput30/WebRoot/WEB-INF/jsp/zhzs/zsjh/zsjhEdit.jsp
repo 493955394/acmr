@@ -304,13 +304,13 @@
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
                             </div>
                             <div class="panel-body">
-                                <span class="col-md-2" style="font-size: 10px">时间选择</span>
+                                <span class="col-md-2" style="font-size: 15px">时间选择</span>
                                 <input class="col-md-2" name="begintime"/>
-                                <span class="col-md-1" style="font-size: 10px">至</span>
+                                <span class="col-md-1" style="font-size: 15px">至</span>
                                 <input class="col-md-2" name="endtime"/>
                                 <span class="col-md-1"></span>
-                                <button id="datachecks" class="col-md-2" style="font-size: 10px"><i class="glyphicon glyphicon-check"></i>数据检查</button>
-                                <button class="J_plan_excel col-md-2" style="font-size: 10px"><i class="glyphicon glyphicon-save"></i>数据下载</button>
+                                <button id="datachecks" class="col-md-2" style="font-size: 15px"><i class="glyphicon glyphicon-check"></i>数据检查</button>
+                                <button class="J_plan_excel col-md-2" style="font-size: 15px"><i class="glyphicon glyphicon-save"></i>数据下载</button>
                                 <div class="data_check_show">
                                     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/regSelect.jsp" flush="true"/>
                                 </div>

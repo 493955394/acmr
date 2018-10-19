@@ -11,6 +11,9 @@
     .red{
         background-color: red;
     }
+    .glyphicon{
+        color:#FF7F19;
+    }
 </style>
 <div style="height: 500px;width: 100%;overflow:auto;display: none " id="regtable">
     <table class="table table-bordered" id="tabledata" >
@@ -42,11 +45,12 @@
         <input type="hidden" value="${check}" id="checkreturn">
     </table>
 </div>
+<br>
 <div style="height: 500px;width:100%;overflow:auto; display: none" id="data_single">
-    <span>
+    <div class="col-md-4" style="font-size: 15px">
         检查结果：${regname}
-    </span>
-    <button class="J_excel_singlereg">本地区数据下载</button>
+    </div>
+    <button class="J_excel_singlereg col-md-offset-1 col-md-3" style="font-size: 10px"><i class="glyphicon glyphicon-save"></i>&nbsp;本地区数据下载</button>
     <table class="table table-bordered" id="tabledata_single" >
         <thead>
         <tr>
