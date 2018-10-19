@@ -282,11 +282,20 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
     }
     @Override
     public int delTask(String code){
-        StringBuffer sbf = new StringBuffer();
-        List<Object> params = new ArrayList<Object>();
-        sbf.append("delete from tb_coindex_task t where t.code = ? ");
-        params.add(code);
-        return AcmrInputDPFactor.getQuickQuery().executeSql(sbf.toString(), params.toArray());
+        int i=0;
+        try{
+            StringBuffer sbf = new StringBuffer();
+            List<Object> params = new ArrayList<Object>();
+            sbf.append("delete from tb_coindex_task t where t.code = ? ");
+            params.add(code);
+            i=AcmrInputDPFactor.getQuickQuery().executeSql(sbf.toString(), params.toArray());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+        return i;
+
     }
 
     @Override
