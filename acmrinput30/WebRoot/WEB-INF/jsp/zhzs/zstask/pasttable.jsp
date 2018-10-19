@@ -36,7 +36,7 @@
     <option class="wd_option" id="change">序列</option>
 </select>
 <div>
-    <table class="table table-hover J_pastviews_data_table">
+    <table class="table table-hover">
         <thead>
         <tr>
             <th>${info.get('row')}</th>
