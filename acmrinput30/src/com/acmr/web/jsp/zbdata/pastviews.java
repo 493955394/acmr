@@ -92,8 +92,8 @@ public class pastviews extends BaseAction {
        String spancode=req.getParameter("spancode");
        String time=req.getParameter("time");
        if (spancode.equals("null")) spancode=null;
-       if (time.equals("null")) time=null;
        List<String> times= Arrays.asList(time.split(","));
+       if (time.equals("null")) time=null;
        PastViewService pastViewService=new PastViewService();
        String pjax = req.getHeader("X-PJAX");
        Map<String,Object> info=new HashMap<>();
