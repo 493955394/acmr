@@ -83,7 +83,7 @@
                                 <div class="col-sm-5">
                                     <input type="text" class="form-control hid-bottom" name="proname" value="${proname}"
                                            readonly>
-                                    <input type="hidden" name="index_procode">
+                                    <input type="hidden" name="index_procode" value="${list.getProcode()}">
                                     <c:if test="${right!='1'&&right!='2'}">
                                         <ul id="tree" class="ztree select-tree hid-top"></ul>
                                     </c:if>
