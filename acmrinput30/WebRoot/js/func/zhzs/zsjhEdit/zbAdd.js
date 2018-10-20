@@ -339,7 +339,7 @@ define(function (require,exports,module) {
         //console.log("panelClick")
         $(".zb_panel").css("background-color","inherit")
         $(".zb_panel_add").css("background-color","inherit")
-        $(this).css("background-color","#F2F2F2")
+        $(this).css("background-color","#F4F5F9")
         var zb=$($(this).children()[0]).children()
         $(".zb_save").css("display","none")
         $(".zb_delete").css("display","none")
