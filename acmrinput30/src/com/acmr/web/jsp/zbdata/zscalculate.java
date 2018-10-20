@@ -62,7 +62,8 @@ public class zscalculate extends BaseAction {
             PubInfo.printStr(mods.get(i).getCname());
         }
         List<List<String>> datas = getResultList(taskcode,regscode,sessionid);//计算结果
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", data1).addObject("regs", regs).addObject("taskcode", taskcode).addObject("istmp", false).addObject("mods",mods).addObject("rsdatas",datas).addObject("right",right);
+        boolean flag = ifCalculate(taskcode,regscode,sessionid);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", data1).addObject("regs", regs).addObject("taskcode", taskcode).addObject("istmp", false).addObject("mods",mods).addObject("rsdatas",datas).addObject("right",right).addObject("flag",flag);
     }
 
     /**
@@ -623,6 +624,32 @@ public class zscalculate extends BaseAction {
             return "";//要是上期数据是0，环比就报错
         }
         return result;
+    }
+
+    /**
+     * 检查本期值是否都有值，要是有一个值是“”,代表这个公式没有算
+     * @param taskcode
+     * @param regscode
+     * @param sessionid
+     * @return
+     */
+    public boolean ifCalculate(String taskcode,List<String> regscode,String sessionid){
+        boolean flag = false;
+        OriginDataService originDataService = new OriginDataService();
+        IndexTaskService indexTaskService = new IndexTaskService();
+        List<Map> arr = originDataService.modelTree(taskcode);//得到模型节点列表
+        String ayearmon = indexTaskService.getTime(taskcode);//得到时间期
+        for (int i = 0; i <arr.size() ; i++) {
+            List<String> rows = new ArrayList<>() ;
+            rows.add(arr.get(i).get("name").toString());
+            for (int j = 0; j <regscode.size() ; j++) {
+                String current = originDataService.getzbvalue(true,taskcode,arr.get(i).get("code").toString(),regscode.get(j),ayearmon,sessionid);
+                if(current.equals("")){
+                   flag =true;
+                }
+            }
+        }
+        return flag;
     }
 
     /*public static void main(String[] args) {
