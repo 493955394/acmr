@@ -7,8 +7,10 @@ define(function (require,exports,module) {
     $("#data_reload").click(reData)
     var taskcode=$("#t_code").val();
     $(".weight_select").change(reWeight)
-
-
+    $(document).ready(function(){
+        if($("#result-ifcomplete").val()=="true")
+            alert("原始数据缺失")
+    })
     function reWeight() {
         if ($(".weight_select").val()=="恢复默认值"){
             console.log("恢复")

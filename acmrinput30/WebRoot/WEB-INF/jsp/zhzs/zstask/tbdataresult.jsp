@@ -10,6 +10,7 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <div>
         <div class="panel panel-body">
+            <input type="hidden" id="result-ifcomplete" value="${flag}">
     <table class="table table-bordered J_jsjg_table">
         <thead>
         <tr>

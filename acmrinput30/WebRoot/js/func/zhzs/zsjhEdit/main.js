@@ -57,10 +57,12 @@ define(function (require,exports,module) {
             onClick:clickEvent
         }
     };
+    console.log($('input[name=index_procode]').val())
     function clickEvent(event,treeId,treeNode) {
         if (treeNode.id != '') {
             $('input[name=proname]').val(treeNode.name);
             $('input[name=index_procode]').val(treeNode.id);
+            console.log($('input[name=index_procode]').val())
         } else {
             $('input[name=proname]').val('');
         }
