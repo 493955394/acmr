@@ -164,40 +164,24 @@
                                         <div class="panel_zbname panel-heading" code="">请选择指标</div>
                                         <div class="ds_choose panel-heading" style="height: 70px">
                                             <div class="col-md-4">
-
                                                 <span>数据来源：</span>
-
-
-                                                <select id="ds_select" class="form-control input-sm zb_select">
+                                                <select id="ds_select" class="input-sm zb_select">
                                                     <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
                                                                                     <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
                                                 </select>
-
-
                                             </div>
                                             <div class="col-md-4">
-
-
                                                 <span>主体：</span>
-
-
-                                                <select id="co_select" class="form-control input-sm zb_select">
+                                                <select id="co_select" class="input-sm zb_select">
                                                     <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
                                                                                     <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
                                                 </select>
-
-
                                             </div>
                                             <div class="col-md-4">
-
-
                                                 <span>单位：</span>
-
-
                                                 <select id="unit_select"
-                                                        class="form-control input-sm zb_select">
+                                                        class="input-sm zb_select">
                                                 </select>
-
 
                                             </div>
 
