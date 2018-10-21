@@ -250,7 +250,7 @@
                             <div class="panel tree-panel" >
                                 <div class="panel-heading" style="text-align:center">地区树</div>
                             </div>
-                            <div class="panel-body" style="height: 500px;width: 310px;overflow:auto;background-color: #F4F5F9">
+                            <div class="panel-body col-xs-12" style="height: 500px;overflow:auto;background-color: #F4F5F9">
                                 <ul id="treeDemo" class="ztree ztree-margin">
                                 </ul>
                             </div>
@@ -259,20 +259,20 @@
                         </div>
                         <div class="col-xs-1 btn-group-vertical" role="group"
                              style="border:1px solid white;padding-top:180px">
-                            <div id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#F39801;height: 40px">
+                            <div id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#F39801;height: 40px;width: 70px">
                                 <span style="color: #F39801;margin-left: 30px">></span>
                             </div>
                             <div class="clearfix" style="height: 30px"></div>
-                            <div id="chooseall" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 40px">
+                            <div id="chooseall" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 40px;width: 70px">
                                 <span style="color: white;margin-left: 30px">>></span>
                             </div>
                             <div class="clearfix" style="height: 25px"></div>
-                            <div id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;height: 40px">
+                            <div id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;height: 40px;width: 70px">
                                 <span style="color:#F39801;margin-left: 30px"><</span>
                             </div>
                             <div class="clearfix" style="height: 30px"></div>
                             <div id="delall"
-                                    style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 40px">
+                                    style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 40px;width: 70px">
                                 <span style="color: white;margin-left: 25px"><<</span></div>
                         </div>
                         <div class="col-xs-2" style="padding-top:30px">
@@ -288,7 +288,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-6"
+                        <div class="col-xs-6 panel panel-default"
                              style="border:#E4EDF6;padding-left: 20px;padding-right: 20px;padding-top:30px">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
@@ -299,12 +299,10 @@
                                 <span class="col-md-1" style="font-size: 15px">至</span>
                                 <input class="col-md-2" name="endtime"/>
                                 <span class="col-md-1"></span>
-                                <button id="datachecks" class="col-md-2" style="font-size: 15px"><i
-                                        class="glyphicon glyphicon-check"></i>数据检查
-                                </button>
-                                <button class="J_plan_excel col-md-2" style="font-size: 15px"><i
-                                        class="glyphicon glyphicon-save"></i>数据下载
-                                </button>
+                                <div style="float: right">
+                                    <button id="datachecks" class="btn btn-default btn-sm" style="font-size: 10px"><i class="glyphicon glyphicon-check"></i>数据检查</button>
+                                    <button class="J_plan_excel btn btn-default btn-sm" style="font-size: 10px;margin-left: 10px"><i class="glyphicon glyphicon-save"></i>数据下载</button>
+                                </div>
                                 <input type="hidden" id="single_reg" value="">
 
                                 <div class="data_check_show">
@@ -314,12 +312,12 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="mxgh">
-                        <div class="col-md-3 left-panel" id="module_tree_container" style="background-color: #F4F5F9">
+                        <div class="col-md-2 left-panel" id="module_tree_container" style="background-color: #F4F5F9">
                             <div id="module_tree">
                                 <ul id="moduleTree" class="ztree ztree-margin"></ul>
                             </div>
                         </div>
-                        <div class="col-md-9" id="module_container">
+                        <div class="col-md-10" id="module_container">
                             <div>
                                 <div>
                                     <div class="toolbar-left">
@@ -342,7 +340,7 @@
                                                        placeholder="输入搜索内容" value="">
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-sm">查询</button>
+                                                <button type="submit" class="btn btn-sm" style="background-color: #F39801;"><span style="color: white">查询</span></button>
                                             </div>
                                         </form>
                                     </div>
