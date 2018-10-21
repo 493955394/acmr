@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="yssj">
-                        <div class="panel panel-default">
+                        <div>
                             <div class="col-md-offset-9">
                                 <button type="button" class="btn btn-default btn-sm" id="data_download"><i class="glyphicon glyphicon-download"></i>下载</button>
                                 <input type="hidden" class="istmpdata" value="${istmp}">
@@ -63,7 +63,7 @@
                                 <input type="hidden" class="reloaddata" value="${taskcode}">
 
                             </div>
-                            <div class="panel-body J_zsjs_data">
+                            <div class="J_zsjs_data">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zstask/dataTable.jsp" flush="true"/>
                             </div>
                         </div>
