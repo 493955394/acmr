@@ -289,7 +289,7 @@
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <input type="text" id="select-input" class="col-xs-8">
-                                        <button class="btn btn-primary btn-sm col-xs-3 right-select" type="button" style="margin-left: 3px">搜索</button>
+                                        <div class="btn right-select" type="button" style="margin-left: 3px;background-color: #F39801;height: 29px"><span style="font-size: 10px;color: white">搜索</span></div>
                                     </div>
                                         <div id="selectList" class="list-group" ></div>
                                     <ul id="treeRight" class="ztree"></ul>

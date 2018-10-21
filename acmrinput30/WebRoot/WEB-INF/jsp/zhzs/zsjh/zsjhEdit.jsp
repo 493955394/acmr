@@ -162,7 +162,7 @@
                                 <div>
                                     <div class="panel panel-default">
                                         <div class="panel_zbname panel-heading" code="">请选择指标</div>
-                                        <div class="ds_choose panel-heading" style="height: 70px">
+                                        <div class="ds_choose panel-heading" style="height: 60px">
                                             <div class="col-md-4">
                                                 <span>数据来源：</span>
                                                 <select id="ds_select" class="input-sm zb_select">
