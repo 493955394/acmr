@@ -16,7 +16,7 @@
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
     <style>
         table tr th, table tr td { border:1px solid #cecfdf; }
-        #i1,#i2,#i3,#i4{color:#FF7F19;}
+        #i1,#i2,#i3,#i4{color:#F39801;}
     </style>
 </head>
 <body>
@@ -56,17 +56,17 @@
                     <h4 class="modal-title">维度转换</h4>
                 </div>
                 <div class="col-md-offset-4" role="group" aria-label="..." >
-                    <button type="button" style="border-color: #FF7F19" class="btn btn-default top-select" id="top-reg"><span style="color: #FF7F19">地区</span></button>
-                    <button type="button" style="border-color: #FF7F19" class="btn btn-default top-select" id="top-zb"><span style="color: #FF7F19">指标</span></button>
-                    <button type="button" style="border-color: #FF7F19" class="btn btn-default top-select" id="top-sj"><span style="color: #FF7F19">时间</span></button>
+                    <button type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-reg"><span style="color: #F39801">地区</span></button>
+                    <button type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-zb"><span style="color: #F39801">指标</span></button>
+                    <button type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-sj"><span style="color: #F39801">时间</span></button>
                 </div>
                 <div style="margin-bottom: 5%;">
                     <div class="btn-group-vertical  col-md-offset-3" role="group" aria-label="...">
-                        <button type="button" style="border-color: #FF7F19" class="btn btn-default left-select" id="left-reg"><span style="color: #FF7F19">地区</span></button>
+                        <button type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-reg"><span style="color: #F39801">地区</span></button>
                         <div class="clearfix" style="height: 5px"></div>
-                        <button type="button" style="border-color: #FF7F19" class="btn btn-default left-select" id="left-zb"><span style="color: #FF7F19">指标</span></button>
+                        <button type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-zb"><span style="color: #F39801">指标</span></button>
                         <div class="clearfix"  style="height: 5px"></div>
-                        <button type="button" style="border-color: #FF7F19" class="btn btn-default left-select" id="left-sj"><span style="color: #FF7F19">时间</span></button>
+                        <button type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-sj"><span style="color: #F39801">时间</span></button>
                     </div>
                     <table class="table table-hover wdturn-table" style="display: inline-block;position: absolute;margin-left: 16px;margin-top: 5px">
 

@@ -9,7 +9,7 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <style>
     .glyphicon{
-        color:#FF7F19;
+        color:#F39801;
     }
 </style>
 <body>

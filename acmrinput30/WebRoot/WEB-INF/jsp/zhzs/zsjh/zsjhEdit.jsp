@@ -28,7 +28,7 @@
     }
 
     .glyphicon {
-        color: #FF7F19;
+        color: #F39801;
     }
 </style>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true"/>
@@ -259,20 +259,20 @@
                         </div>
                         <div class="col-xs-1 btn-group-vertical" role="group"
                              style="border:1px solid white;padding-top:180px">
-                            <div id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#FF7F19;height: 40px">
-                                <span style="color: #FF7F19;margin-left: 30px">></span>
+                            <div id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#F39801;height: 40px">
+                                <span style="color: #F39801;margin-left: 30px">></span>
                             </div>
                             <div class="clearfix" style="height: 30px"></div>
-                            <div id="chooseall" style="border-style:solid;border-width:1px;border-color:#FF7F19;background-color: #FF7F19;height: 40px">
+                            <div id="chooseall" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 40px">
                                 <span style="color: white;margin-left: 30px">>></span>
                             </div>
                             <div class="clearfix" style="height: 25px"></div>
-                            <div id="delsiggle" style="border-style:solid;border-width:1px;border-color:#FF7F19;height: 40px">
-                                <span style="color: #FF7F19;margin-left: 30px"><</span>
+                            <div id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;height: 40px">
+                                <span style="color:#F39801;margin-left: 30px"><</span>
                             </div>
                             <div class="clearfix" style="height: 30px"></div>
                             <div id="delall"
-                                    style="border-style:solid;border-width:1px;border-color:#FF7F19;background-color: #FF7F19;height: 40px">
+                                    style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 40px">
                                 <span style="color: white;margin-left: 25px"><<</span></div>
                         </div>
                         <div class="col-xs-2" style="padding-top:30px">

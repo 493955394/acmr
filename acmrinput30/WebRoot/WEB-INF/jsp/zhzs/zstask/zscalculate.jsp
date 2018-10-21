@@ -13,7 +13,7 @@
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
     <style type="text/css">
         .glyphicon{
-            color:#FF7F19;
+            color:#F39801;
         }
     </style>
 </head>
