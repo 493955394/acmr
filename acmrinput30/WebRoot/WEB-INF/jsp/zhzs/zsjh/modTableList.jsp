@@ -15,8 +15,8 @@
 
 </style>
 <div>
-    <div class="panel panel-default">
-        <div class="panel panel-body">
+    <div>
+        <div>
             <table class="table table-bordered table-hover">
                 <thead  style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
                 <tr id="mod_list_head">
