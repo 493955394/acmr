@@ -178,6 +178,8 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
+
+
                                                 <span>单位：</span>
                                                 <select id="unit_select"
                                                         class="input-sm zb_select">
@@ -242,13 +244,13 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="jsfw">
-                        <div class="col-xs-3" style="padding-top:30px">
+                        <div class="col-xs-3" style="padding-top:30px;">
                             <input type="hidden" id="initTreePara" value="${initTreePara}"/>
                             <input type="hidden" id="procode" value=""/>
-                            <div class="panel tree-panel">
+                            <div class="panel tree-panel" >
                                 <div class="panel-heading" style="text-align:center">地区树</div>
                             </div>
-                            <div class="panel-body" style="height: 500px;width: 310px;overflow:auto ">
+                            <div class="panel-body" style="height: 500px;width: 310px;overflow:auto;background-color: #F4F5F9">
                                 <ul id="treeDemo" class="ztree ztree-margin">
                                 </ul>
                             </div>
@@ -256,22 +258,22 @@
                             <input type="hidden" name="regname" value=""/>
                         </div>
                         <div class="col-xs-1 btn-group-vertical" role="group"
-                             style="border:1px solid white;padding-top:100px">
-                            <button class="btn btn-default btn-lg" id="sigglechoose"
-                                    style="border-style:solid;border-width:1px;border-color:#FF7F19;"><span
-                                    style="color: #FF7F19;">></span></button>
+                             style="border:1px solid white;padding-top:180px">
+                            <div id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#FF7F19;height: 40px">
+                                <span style="color: #FF7F19;margin-left: 30px">></span>
+                            </div>
                             <div class="clearfix" style="height: 30px"></div>
-                            <button class="btn btn-default btn-lg" id="chooseall"
-                                    style="border-style:solid;border-width:1px;border-color:#FF7F19;background-color: #FF7F19;">
-                                <span style="color: white">>></span></button>
+                            <div id="chooseall" style="border-style:solid;border-width:1px;border-color:#FF7F19;background-color: #FF7F19;height: 40px">
+                                <span style="color: white;margin-left: 30px">>></span>
+                            </div>
+                            <div class="clearfix" style="height: 25px"></div>
+                            <div id="delsiggle" style="border-style:solid;border-width:1px;border-color:#FF7F19;height: 40px">
+                                <span style="color: #FF7F19;margin-left: 30px"><</span>
+                            </div>
                             <div class="clearfix" style="height: 30px"></div>
-                            <button class="btn btn-default btn-lg" id="delsiggle"
-                                    style="border-style:solid;border-width:1px;border-color:#FF7F19;"><span
-                                    style="color: #FF7F19;"><</span></button>
-                            <div class="clearfix" style="height: 30px"></div>
-                            <button class="btn btn-default btn-lg" id="delall"
-                                    style="border-style:solid;border-width:1px;border-color:#FF7F19;background-color: #FF7F19;">
-                                <span style="color: white"><<</span></button>
+                            <div id="delall"
+                                    style="border-style:solid;border-width:1px;border-color:#FF7F19;background-color: #FF7F19;height: 40px">
+                                <span style="color: white;margin-left: 25px"><<</span></div>
                         </div>
                         <div class="col-xs-2" style="padding-top:30px">
                             <div class="panel tree-panel">
@@ -312,14 +314,14 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="mxgh">
-                        <div class="col-md-2 left-panel" id="module_tree_container">
+                        <div class="col-md-3 left-panel" id="module_tree_container" style="background-color: #F4F5F9">
                             <div id="module_tree">
                                 <ul id="moduleTree" class="ztree ztree-margin"></ul>
                             </div>
                         </div>
-                        <div class="col-md-10 right-panel" id="module_container">
-                            <div class="panel-default panel">
-                                <div class="panel-body">
+                        <div class="col-md-9" id="module_container">
+                            <div>
+                                <div>
                                     <div class="toolbar-left">
                                         <form class="form-inline J_search_form"
                                               action="${ctx}/zbdata/zsjhedit.htm?m=searchFind">
@@ -357,7 +359,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="panel-body J_zsjh_module_table">
+                                <div class="J_zsjh_module_table">
                                     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/modTableList.jsp" flush="true"/>
                                 </div>
                             </div>
