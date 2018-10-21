@@ -75,7 +75,7 @@
                 </div>
                 <div id="select_zb" style="display: none">
                     <br>
-                    <span class="col-sm-offset-2 col-sm-3" style="text-align:center;font-size: 20px;color: #F39801">--------------------指标设置--------------------</span><br><br>
+                    <span class="col-sm-offset-2 col-sm-3" style="text-align:center;font-size: 20px;color: #F39801">-------------------指标设置----------------------</span><br><br>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">所属节点：</label>
                         <div class="col-sm-3">
@@ -105,10 +105,9 @@
                     </div>
                 </div>
                 <div class="hidden_group form-group" style="display: none">
-                    <div class="row">
                         <label class="col-sm-2 control-label">公式编辑器：</label>
                         <div class="col-sm-3">
-                            <select size="15" class="zb_index" style="width: 90%">
+                            <select size="15" class="zb_index" style="width: 100%">
                                 <c:forEach items="${zblist.zbchoose}" var="zbl">
                                     <option value="${zbl.code}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
                                 </c:forEach>
@@ -162,7 +161,6 @@
                                 <option>pow(int exponent)</option>--%>
                             </select>
                         </div>
-                    </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-6 col-sm-6">
