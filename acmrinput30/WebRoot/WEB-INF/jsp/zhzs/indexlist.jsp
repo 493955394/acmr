@@ -298,10 +298,10 @@
                             <div class="col-sm-2" style="text-align: center">
                                 <div class="btn-group-vertical" role="group">
                                     <div class="clearfix" style="height: 30px"></div>
-                                    <button class="btn btn-default btn-lg  right-add" style="border-style:solid;border-width:1px;border-color:#FF7F19;"><span style="color: #FF7F19;">></span></button>
+                                    <button class="btn btn-default btn-lg  right-add" style="border-style:solid;border-width:1px;border-color:#F39801;"><span style="color: #F39801;">></span></button>
                                     <%--<button type="button" class="btn btn-default right-add"> ></button>--%>
                                     <div class="clearfix" style="height: 30px"></div>
-                                    <button class="btn btn-default btn-lg remove-alllist" id="delsiggle" style="border-style:solid;border-width:1px;border-color:#FF7F19;background-color: #FF7F19;"><span style="color: white"><<</span></button>
+                                    <button class="btn btn-default btn-lg remove-alllist" id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;"><span style="color: white"><<</span></button>
                                     <%--<button type="button" class="btn btn-default remove-alllist"> <<</button>--%>
                                 </div>
                             </div>

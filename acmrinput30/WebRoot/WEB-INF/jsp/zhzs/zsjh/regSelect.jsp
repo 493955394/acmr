@@ -9,10 +9,10 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <style type="text/css">
     .red{
-        background-color:#ff7f19;
+        background-color:#F39801;
     }
     .glyphicon{
-        color:#FF7F19;
+        color:#F39801;
     }
 </style>
 <div style="height: 500px;width: 100%;overflow:auto;display: none " id="regtable">

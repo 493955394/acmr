@@ -18,7 +18,7 @@
         vertical-align: middle!important;
     }
     #i1,#i2,#i3{
-        color:#FF7F19;
+        color:#F39801;
     }
 
 </style>
