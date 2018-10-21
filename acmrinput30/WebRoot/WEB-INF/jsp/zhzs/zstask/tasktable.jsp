@@ -39,13 +39,13 @@
                 <input type="hidden" value="${vo.getCode()}">
                 <c:if test="${right!='0'}">
                     <td>
-                        <a class="zs_calculate">计算</a>
-                        <a class="zs_delete">删除</a>
+                        <a href="#" class="zs_calculate">计算</a>
+                        <a href="#" class="zs_delete">删除</a>
                     </td>
                 </c:if>
                 <c:if test="${right=='0'}">
                     <td>
-                        <a class="zs_read">查看</a>
+                        <a href="#" class="zs_read">查看</a>
                     </td>
                 </c:if>
             </tr>

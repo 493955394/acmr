@@ -36,11 +36,13 @@
         <c:if test="${info.get('tasknum')!='0'}">
             <div class="panel-body">
                 <div class="toolbar">
+                    <div style="float: right">
+                        <input type="hidden" id="timecode" value="">
+                        <button  type="button" id="timeinput" data-value="" style="display: none"/>
+                        <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i1" class="glyphicon glyphicon-retweet"></i>&nbsp;维度转换</button>&nbsp;
+                        <button class="btn btn-default btn-sm pastview_download"><i id="i2" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
+                    </div>
                     <div id="mySelect2"></div>
-                    <input type="hidden" id="timecode" value="">
-                    <button  type="button" id="timeinput" data-value="" style="display: none"/>
-                    <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i1" class="glyphicon glyphicon-retweet"></i>&nbsp;维度转换</button>&nbsp;
-                    <button class="btn btn-default btn-sm pastview_download"><i id="i2" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
                 </div>
             </div>
             <div class="J_pastviews_data_table">
@@ -49,24 +51,24 @@
         </c:if>
     </div>
     <div class="modal wdturn-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">维度转换</h4>
                 </div>
-                <div class="col-md-offset-4" role="group" aria-label="..." >
-                    <button type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-reg"><span style="color: #F39801">地区</span></button>
-                    <button type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-zb"><span style="color: #F39801">指标</span></button>
-                    <button type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-sj"><span style="color: #F39801">时间</span></button>
+                <div style="margin-left: 220px" role="group" aria-label="..." >
+                    <div type="button" style="border-color: #F39801;" class="btn btn-default top-select" id="top-reg"><span style="color: #F39801">地区</span></div>
+                    <div type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-zb"><span style="color: #F39801">指标</span></div>
+                    <div type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-sj"><span style="color: #F39801">时间</span></div>
                 </div>
-                <div style="margin-bottom: 5%;">
+                <div style="margin-bottom: 4%;">
                     <div class="btn-group-vertical  col-md-offset-3" role="group" aria-label="...">
-                        <button type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-reg"><span style="color: #F39801">地区</span></button>
+                        <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-reg"><span style="color: #F39801">地区</span></div>
                         <div class="clearfix" style="height: 5px"></div>
-                        <button type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-zb"><span style="color: #F39801">指标</span></button>
+                        <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-zb"><span style="color: #F39801">指标</span></div>
                         <div class="clearfix"  style="height: 5px"></div>
-                        <button type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-sj"><span style="color: #F39801">时间</span></button>
+                        <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-sj"><span style="color: #F39801">时间</span></div>
                     </div>
                     <table class="table table-hover wdturn-table" style="display: inline-block;position: absolute;margin-left: 16px;margin-top: 5px">
 
