@@ -23,10 +23,6 @@
 </head>
 <body>
 <style type="text/css">
-    #jbxx {
-        margin-left: 20%;
-    }
-
     .glyphicon {
         color: #F39801;
     }
@@ -35,10 +31,9 @@
 
 <div class="container-fluid" id="mainpanel">
 
-    <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>编辑指数计划</h4>
+               编辑指数计划
             </div>
             <div class="panel-body">
                 <div id="top_div">
@@ -373,7 +368,6 @@
             <button type="reset" class="btn btn-primary resetindex">取消</button>
         </div>
     </div>
-</div>
 </body>
 <script>
     define("editjsp", function (require, exports, module) {
