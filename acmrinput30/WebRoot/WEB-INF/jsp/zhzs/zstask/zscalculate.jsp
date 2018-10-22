@@ -21,7 +21,7 @@
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 <div class="container-fluid" id="mainpanel">
     <input type="hidden" id="t_code" value="${taskcode}">
-        <div class="panel panel-default">
+        <div>
             <div class="panel-body">
                 <div>
                     <!-- Nav tabs -->
