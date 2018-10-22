@@ -69,22 +69,48 @@ public class indexlist extends BaseAction {
         HttpServletRequest req=this.getRequest();
         String code=req.getParameter("id");
         IndexListService indexListService=new IndexListService();
-        ArrayList<IndexList> indexlist=indexListService.getSublist(code);
-        List<TreeNode> list=new ArrayList<>();
-        for (int i=0;i<indexlist.size();i++){
-            if (indexlist.get(i).getIfdata().equals("0")){
-                TreeNode node=new TreeNode();
-                node.setPId(indexlist.get(i).getProcode());
-                node.setId(indexlist.get(i).getCode());
-                node.setName(indexlist.get(i).getCname());
-                if (indexlist.get(i).getIfdata().equals("0")){
-                    node.setIsParent(true);
-                }
-                else node.setIsParent(false);
-                list.add(node);
-            }
+        if (code.equals("!0")){
+            List<TreeNode> list=new ArrayList<>();
+            TreeNode node=new TreeNode();
+            node.setPId("!0");
+            node.setId("!1");
+            node.setName("指数");
+            node.setIsParent(true);
+            list.add(node);
+            TreeNode node1=new TreeNode();
+            node1.setPId("!0");
+            node1.setId("!2");
+            node1.setName("我收到的指数");
+            node1.setIsParent(true);
+            list.add(node1);
+            TreeNode node2=new TreeNode();
+            node2.setPId("!0");
+            node2.setId("!3");
+            node2.setName("我共享的指数");
+            node2.setIsParent(true);
+            list.add(node2);
+            this.sendJson(list);
+
         }
-        this.sendJson(list);
+        else {
+            ArrayList<IndexList> indexlist=indexListService.getSublist(code);
+            List<TreeNode> list=new ArrayList<>();
+            for (int i=0;i<indexlist.size();i++){
+                if (indexlist.get(i).getIfdata().equals("0")){
+                    TreeNode node=new TreeNode();
+                    node.setPId(indexlist.get(i).getProcode());
+                    node.setId(indexlist.get(i).getCode());
+                    node.setName(indexlist.get(i).getCname());
+                    if (indexlist.get(i).getIfdata().equals("0")){
+                        node.setIsParent(true);
+                    }
+                    else node.setIsParent(false);
+                    list.add(node);
+                }
+            }
+            this.sendJson(list);
+        }
+
 
     }
 

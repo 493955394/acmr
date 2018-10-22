@@ -30,9 +30,9 @@
 
 <div class="container-fluid" id="mainpanel">
     <div class="col-md-2 left-panel">
-        <div class="panel tree-panel">
+        <%--<div class="panel tree-panel">
             <div class="panel-heading">我的指数</div>
-        </div>
+        </div>--%>
         <ul id="treeDemo" class="ztree ztree-margin"></ul>
     </div>
     <div class="col-md-10 right-panel">

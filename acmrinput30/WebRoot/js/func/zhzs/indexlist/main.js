@@ -108,9 +108,10 @@ define(function (require,exports,module) {
     });
 
     var zNodes =[
-        { id:"!1", pId:0, name:"指数",isParent:true},
-        { id:"!2", pId:0, name:"我收到的指数",isParent:true},
-        { id:"!3", pId:0, name:"我共享的指数", isParent:true}
+        { id:"!0",pId:0,name:"我的指数",isParent:true}
+        /*{ id:"!1", pId:"!0", name:"指数",isParent:true},
+        { id:"!2", pId:"!0", name:"我收到的指数",isParent:true},
+        { id:"!3", pId:"!0", name:"我共享的指数", isParent:true}*/
     ];
     var cNodes=[
         { id:"!1", pId:0, name:"指数",isParent:true}
@@ -203,7 +204,14 @@ define(function (require,exports,module) {
         var code=treeNode.id;
         treeNodeId = treeNode.id;
         var name=treeNode.name;
-        if(treeNode.isParent){//如果选中的是目录就直接给
+        $('input[name=cataname]').val(name);
+        $('input[name=idcata]').val(code);
+        $('input[name=planname]').val(name);
+        $('input[name=idplan]').val(code);
+        $('input[name=indexname]').val(name);
+        $('input[name=editname]').val(name);
+        $('input[name=editprocode]').val(code);
+        /*if(treeNode.isParent){//如果选中的是目录就直接给
         $('input[name=cataname]').val(name);
         $('input[name=idcata]').val(code);
         $('input[name=planname]').val(name);
@@ -221,7 +229,7 @@ define(function (require,exports,module) {
             $('input[name=indexname]').val(parentNode.name);
             $('input[name=editname]').val(parentNode.name);
             $('input[name=editprocode]').val(parentNode.id);
-        }
+        }*/
 
         $.pjax({
             url:common.rootPath+'zbdata/indexlist.htm?m=getIndexList&code='+code,
@@ -343,12 +351,19 @@ define(function (require,exports,module) {
         addPath();
 
         //页面加载成功自动点击第一个节点（指数）
-        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-        var node = treeObj.getNodeByParam("id","!1");
-        treeObj.expandNode(node,true,true,true)
-        treeObj.selectNode(node)
-        treeObj.setting.callback.onClick(null, treeObj.setting.treeId, node);
-
+        function clickone(){
+            $.ajaxSettings.async=false
+            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+            var node = treeObj.getNodeByParam("id","!0");
+            treeObj.expandNode(node,true,true,true)
+            treeObj.selectNode(node)
+            treeObj.setting.callback.onClick(null, treeObj.setting.treeId, node);
+            var node1 = treeObj.getNodeByParam("id","!1");
+            treeObj.expandNode(node1,true,true,true)
+            treeObj.selectNode(node1)
+            treeObj.setting.callback.onClick(null, treeObj.setting.treeId, node1);
+        }
+        clickone();
         //        $.fn.zTree.init($("#你的id"), settingc, cNodes);
         $.fn.zTree.init($("#treeCata"), setting1, cNodes);
         fixIcon("treeCata");
