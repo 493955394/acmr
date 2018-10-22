@@ -29,7 +29,7 @@ define(function (require,exports,module) {
             selectedMulti:false
         }
     };
-    var rootNode = [{"id":"","name":"指数结构",pId:"", "open":"false", "isParent":"true",icon:"../../../../css/img/mark1.png"}];
+    var rootNode = [{"id":"","name":"指数结构",pId:"", "open":"false", "isParent":"true",icon:"../../../../zhzs/css/img/mark1.png"}];
     var treeObj = $.fn.zTree.init($("#moduleTree"), setting, rootNode);
 
     function clickEvent(event, treeid, treeNode) {
