@@ -9,6 +9,7 @@
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <style>
+
     th{
         text-align: center;
         vertical-align: middle!important;
@@ -21,7 +22,7 @@
     }
 </style>
 <div>
-    <table class="table table-hover J_zsrw_table">
+    <table class="table table-bordered table-hover J_zsrw_table">
         <thead>
         <tr>
             <th>任务时间期</th>

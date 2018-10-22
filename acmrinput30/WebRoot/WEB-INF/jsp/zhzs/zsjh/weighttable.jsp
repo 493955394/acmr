@@ -11,12 +11,21 @@
     .glyphicon{
         color:#F39801;
     }
+    thead{
+        text-align: center;
+        vertical-align: middle!important;
+        background-color: #EBECF1;
+    }
+    td{
+        text-align: center;
+        vertical-align: middle!important;
+    }
 </style>
 <body>
 <div class="container-fluid" id="mainpanel">
-    <h2>权重设置</h2>
+    <h4>权重设置</h4>
     <button type="button" class="btn btn-default btn-sm save_weight" style="float: right"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;保存设置</button>
-    <table class="table table-striped table-hover">
+    <table class="table table-bordered">
         <c:forEach items="${mods}" var="module">
             <c:if test="${module.getProcode()==''}">
                 <c:if test="${module.ZBnums()!=0}">

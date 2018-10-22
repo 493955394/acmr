@@ -21,7 +21,7 @@
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 <div class="container-fluid" id="mainpanel">
     <input type="hidden" id="t_code" value="${taskcode}">
-        <div class="panel panel-default">
+        <div>
             <div class="panel-body">
                 <div>
                     <!-- Nav tabs -->
@@ -31,7 +31,6 @@
                         <li role="presentation"><a href="#jsjg" aria-controls="jsjg" role="tab" data-toggle="tab">计算结果</a></li>
                         <li role="presentation" style="float: right">
                             <c:if test="${right!='0'}">
-                                &nbsp;&nbsp;&nbsp;
                                 <button type="button" class="btn btn-default btn-sm" id="recalculate"><i class="glyphicon glyphicon-retweet"></i>&nbsp;重新计算</button>
                                 <button type="button" class="btn btn-default btn-sm" id="resetpage"><i class="glyphicon glyphicon-refresh"></i>&nbsp;重置</button>
                                 <button type="button" class="btn btn-default btn-sm" id="save_calculate"><i class="glyphicon glyphicon-floppy-saved"></i>&nbsp;保存并重新计算</button>
@@ -43,7 +42,7 @@
                 <!-- Tab panes -->
                 <div class="tab-content row" style="padding-top: 20px;">
                     <div role="tabpanel" class="tab-pane active" id="qzsz">
-                        <div class="panel panel-default">
+                        <div>
                             <div class="panel-body J_zsjs_weight">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zstask/tweighttable.jsp" flush="true"/>
                             </div>
@@ -51,12 +50,12 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="yssj">
                         <div>
-                            <div class="col-md-offset-9">
+                            <div style="float: right;margin-right: 13px";>
                                 <button type="button" class="btn btn-default btn-sm" id="data_download"><i class="glyphicon glyphicon-download"></i>下载</button>
                                 <input type="hidden" class="istmpdata" value="${istmp}">
                                 <c:if test="${right!='0'}">
                                     <span class="btn btn-default btn-sm fileinput-button"><span><i class="glyphicon glyphicon-upload"></i>上传数据</span><input type="file" name="file" id="data_upload"></span>
-                                    <span id="import_count" class="form-group" style="margin-right:10px;"></span>
+                                    <span id="import_count" class="form-group"></span>
                                     <%--<button type="button" class="btn btn-default" id="data_upload">上传数据</button>--%>
                                     <button type="button" class="btn btn-default btn-sm" id="data_reload"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;重新读取数据</button>
                                 </c:if>
@@ -70,8 +69,8 @@
 
                     </div>
                     <div role="tabpanel" class="tab-pane" id="jsjg">
-                        <div class="panel panel-default">
-                            <div style="float: right;margin-right: 15px">
+                        <div>
+                            <div style="float: right;margin-right: 13px">
                                 <button class="btn btn-default btn-sm" id="result_download"><i class="glyphicon glyphicon-download"></i>下载数据</button>
                             </div>
                         <div class="calculate_result">

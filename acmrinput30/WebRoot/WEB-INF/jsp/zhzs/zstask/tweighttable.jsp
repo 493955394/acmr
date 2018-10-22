@@ -10,12 +10,12 @@
 <body>
 <div class="container-fluid" id="mainpanel">
     <c:if test="${right!='0'}">
-        <select class="weight_select" style="float: right">
+        <select class="input-sm weight_select" style="float: right">
             <option>请选择</option>
             <option id="re_weight">恢复默认值</option>
         </select>
     </c:if>
-    <table class="table table-striped table-hover">
+    <table class="table table-bordered table-hover">
         <c:forEach items="${mods}" var="module">
             <c:if test="${module.getProcode()==''}">
                     <tbody>

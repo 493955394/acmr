@@ -22,7 +22,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
-<div class="panel panel-default">
+<div>
     <div class="modal" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
