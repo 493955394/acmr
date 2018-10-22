@@ -69,7 +69,7 @@
 
                     </div>
                     <div role="tabpanel" class="tab-pane" id="jsjg">
-                        <div class="panel panel-default">
+                        <div>
                             <div style="float: right;margin-right: 13px">
                                 <button class="btn btn-default btn-sm" id="result_download"><i class="glyphicon glyphicon-download"></i>下载数据</button>
                             </div>
