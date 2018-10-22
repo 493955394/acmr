@@ -297,12 +297,14 @@
                             </div>
                             <div class="col-sm-2" style="text-align: center">
                                 <div class="btn-group-vertical" role="group">
+                                    <div class="clearfix" style="height: 30px;margin-top: 30px"></div>
+                                    <div class="right-add" style="border-style:solid;border-width:1px;border-color:#F39801;height: 40px;width: 70px">
+                                        <span style="color: #F39801;text-align: center;font-size: 20px;margin-left: 5px">></span>
+                                    </div>
                                     <div class="clearfix" style="height: 30px"></div>
-                                    <button class="btn btn-default btn-lg  right-add" style="border-style:solid;border-width:1px;border-color:#F39801;"><span style="color: #F39801;">></span></button>
-                                    <%--<button type="button" class="btn btn-default right-add"> ></button>--%>
-                                    <div class="clearfix" style="height: 30px"></div>
-                                    <button class="btn btn-default btn-lg remove-alllist" id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;"><span style="color: white"><<</span></button>
-                                    <%--<button type="button" class="btn btn-default remove-alllist"> <<</button>--%>
+                                    <div class="remove-alllist" id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 40px;width: 70px">
+                                        <span style="color: white;text-align: center;font-size: 20px;margin-left: 5px"><<</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-5 panel panel-default">
