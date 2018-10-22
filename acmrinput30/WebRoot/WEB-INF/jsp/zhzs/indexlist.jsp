@@ -37,8 +37,6 @@
     </div>
     <div class="col-md-10 right-panel">
         <div class="panel panel-default">
-            <div class="panel-heading"></div>
-
             <div class="J_zsjh_data_table">
                 <jsp:include page="/WEB-INF/jsp/zhzs/indextable.jsp" flush="true"/>
             </div>

@@ -97,8 +97,6 @@
     </div>
 </c:if>
 <table class="table table-bordered table-hover J_regmgr_table">
-
-
     <c:if test="${state.equals('0')}">
         <colgroup>
             <col width="3%"/>

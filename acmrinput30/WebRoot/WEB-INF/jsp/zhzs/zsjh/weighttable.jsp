@@ -14,7 +14,7 @@
 </style>
 <body>
 <div class="container-fluid" id="mainpanel">
-    <h2>权重设置</h2>
+    <h4>权重设置</h4>
     <button type="button" class="btn btn-default btn-sm save_weight" style="float: right"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;保存设置</button>
     <table class="table table-striped table-hover">
         <c:forEach items="${mods}" var="module">
