@@ -240,7 +240,7 @@ public class pastviews extends BaseAction {
 
 
        if (StringUtil.isEmpty(pjax)) {
-            this.getResponse().sendRedirect("/zbdata/pastviews.htm?id="+icode);
+            this.getResponse().sendRedirect(this.getContextPath()+"/zbdata/pastviews.htm?id="+icode);
         }
         else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pasttable").addObject("info",info).addObject("showdata",showdatas);
