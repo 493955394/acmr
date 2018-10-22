@@ -305,7 +305,7 @@
                                     <%--<button type="button" class="btn btn-default remove-alllist"> <<</button>--%>
                                 </div>
                             </div>
-                            <div class="col-sm-5 panel panel-default">
+                            <div class="col-sm-5" style="border:1px solid #F00">
                                 <div class="toolbar">
                                     <div class="toolbar-left col-md-offset-1 col-md-4">
                                         <span style="text-align: center">组织/用户</span>
