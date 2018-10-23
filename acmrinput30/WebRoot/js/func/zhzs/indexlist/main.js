@@ -372,7 +372,16 @@ define(function (require,exports,module) {
     $(document).ready(function(){
 
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        expandTree(['!1'])
+        var pathval=$("#index_path").val();
+        if (pathval!=""){
+            //需要定位
+            var path=pathval.split("/")
+            path=path.slice(1,path.length)
+            expandTree(path)
+        }
+        else {
+            expandTree(['!1'])
+        }
         fixIcon("treeDemo");
         addPath();
 
