@@ -139,16 +139,16 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="zssx">
                         <div id="tree_and_find" class="col-md-2 left-panel">
-                            <div class="form-group">
-                                <input id="queryValue" type="text" class="form-control input-xm" placeholder="输入搜索内容">
-                                <%--
-                                                            <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="<c:if test="${code != '' && code!= null}">${code}</c:if><c:if test="${cname != '' && cname != null}">${cname}</c:if>">
-                                --%>
-                            </div>
-                            <div class="form-group">
-                                <button type="button" class="btn btn-primary btn-sm btn_search">搜索</button>
-                            </div>
-                            <%-- <div id="find_panel" class="panel panel-default" style="display: none;"></div>--%>
+                            <form class="form-inline J_search_form">
+
+                                <div class="form-group">
+                                    <input id="queryValue" type="text" class="form-control input-xm" placeholder="输入搜索内容">
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary btn-sm btn_search">搜索</button>
+                                </div>
+                            </form>
+
                             <ul id="treeDemo1" class="ztree ztree-margin"></ul>
                             <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/zbtree.jsp" flush="true"/>--%>
                         </div>

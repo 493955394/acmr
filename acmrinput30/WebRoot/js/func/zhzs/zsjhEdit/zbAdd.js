@@ -204,6 +204,7 @@ define(function (require,exports,module) {
     }
 
     function search() {
+        $("#find_panel").remove()
         var value=$("#queryValue").val()
         if(value!=""){
             $.ajax({
