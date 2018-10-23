@@ -304,6 +304,31 @@ define(function (require,exports,module) {
         }
 
     }
+    //根据路径展开树
+    function expandTree(path) {
+        $.ajaxSettings.async=false
+        var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        var node=treeObj.getNodeByParam("id","!0")
+        treeObj.expandNode(node)
+        //  console.log("expandtree")
+        for(var i=0;i<path.length;i++){
+            //console.log(node)
+            if(node.isParent==true){
+                var nodes=node.children;
+                //console.log(nodes)
+                for(var j=0;j<nodes.length;j++){
+                    if (nodes[j].id==path[i]){
+                        //console.log("found")
+                        treeObj.expandNode(nodes[j]);
+                        node=treeObj.getNodeByParam("id",path[i])
+                        break;
+                    }
+                }
+            }
+            treeObj.selectNode(node);
+        }
+    }
+
     //修复图标，使没有子节点的目录也显示为目录
     function fixIcon(treeid){
         var treeObj = $.fn.zTree.getZTreeObj(treeid);
@@ -347,23 +372,10 @@ define(function (require,exports,module) {
     $(document).ready(function(){
 
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        expandTree(['!1'])
         fixIcon("treeDemo");
         addPath();
 
-        //页面加载成功自动点击第一个节点（指数）
-        function clickone(){
-            $.ajaxSettings.async=false
-            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-            var node = treeObj.getNodeByParam("id","!0");
-            treeObj.expandNode(node,true,true,true)
-            treeObj.selectNode(node)
-            treeObj.setting.callback.onClick(null, treeObj.setting.treeId, node);
-            var node1 = treeObj.getNodeByParam("id","!1");
-            treeObj.expandNode(node1,true,true,true)
-            treeObj.selectNode(node1)
-            treeObj.setting.callback.onClick(null, treeObj.setting.treeId, node1);
-        }
-        clickone();
         //        $.fn.zTree.init($("#你的id"), settingc, cNodes);
         $.fn.zTree.init($("#treeCata"), setting1, cNodes);
         fixIcon("treeCata");

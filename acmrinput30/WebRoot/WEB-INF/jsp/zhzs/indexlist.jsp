@@ -30,6 +30,7 @@
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 
 <div class="container-fluid" id="mainpanel">
+    <input type="hidden" value="${path}" id="index_path">
     <div class="col-md-2 left-panel">
         <%--<div class="panel tree-panel">
             <div class="panel-heading">我的指数</div>

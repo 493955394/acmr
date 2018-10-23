@@ -41,10 +41,22 @@ public class indexlist extends BaseAction {
         ArrayList<IndexList> allindexlist= new IndexListService().getIndexList();
         IndexListService indexListService=new IndexListService();
         String state="0";
+        //检查是否有需要定位的
+        String icode=this.getRequest().getParameter("icode");
+        String path="";
+        if (icode!=null){
+            Boolean self=IndexListDao.Fator.getInstance().getIndexdatadao().hasIndex(icode,usercode);
+            if (self){
+                path=indexListService.getIndexPath(icode);
+            }
+        }
+
         PageBean<IndexList> page=new PageBean<>();
         StringBuffer sb = new StringBuffer();
         sb.append(this.getRequest().getRequestURI());
         sb.append("?m=getIndexList");
+
+
         try {
             List<IndexList> indexLists=indexListService.getIndexListByPage(usercode,page.getPageNum() - 1,page.getPageSize());
             page.setData(indexLists);
@@ -53,7 +65,7 @@ public class indexlist extends BaseAction {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("page",page).addObject("state",state);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("page",page).addObject("state",state).addObject("path",path);
     }
 
 
