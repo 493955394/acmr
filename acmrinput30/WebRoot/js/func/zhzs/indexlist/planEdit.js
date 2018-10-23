@@ -15,9 +15,13 @@ define(function (require,exports,module) {
     /**
      * 新增目录ajax提交
      */
-
+    $(document).on('click',".J_Add" ,function(event) {//初始化一次
+        $('input[name=cocode]').val("");
+        $('input[name=cocname]').val("");
+    })
     $(document).on('submit', '.J_add_catalogue', function(event) {
         event.preventDefault();
+
         var self = this,
             currentUrl = $(self).prop('action'),
             checkDelegate;
@@ -72,14 +76,26 @@ define(function (require,exports,module) {
             }
         })
     });
-    $(document).on('click',".resetcata" ,function(event) {//初始化一次
+    /*$(document).on('click',".resetcata" ,function(event) {//初始化一次
         window.location.reload()
-    })
+    })*/
+
+
+    /*$('#mymodal-data').on('hidden.bs.modal', function (){
+
+        //document.getElementById("mymodal-data").reset();
+        $('.J_add_catalogue').reset();
+    });*/
     /**
      * 新增计划
      */
+    $(document).on('click',".J_Add_Plan" ,function(event) {//初始化一次
+        $('input[name="plancode"]').val("");
+        $('input[name="plancname"]').val("");
+    })
     $(document).on('submit', '.J_add_plan', function(event) {
         event.preventDefault();
+
         var self = this,
             currentUrl = $(self).prop('action'),
             checkDelegate;
@@ -137,13 +153,14 @@ define(function (require,exports,module) {
                 } else {
                     alert("添加失败");
                 }
+
             }
         })
     });
-    $(document).on('click',".resetplan" ,function(event) {//初始化一次
+    /*$(document).on('click',".resetplan" ,function(event) {//初始化一次
         window.location.reload()
     })
-
+*/
 
     /**
      * 编辑数据
