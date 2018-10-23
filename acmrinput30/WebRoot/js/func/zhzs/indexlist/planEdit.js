@@ -263,10 +263,35 @@ define(function (require,exports,module) {
             $(this).prop("checked", flag);
         });
     });*/
-    $(document).off('click',".J_zsjh_data_table :checkbox").on('click',".J_zsjh_data_table :checkbox",function(){
+   /* $(document).off('click',".J_zsjh_data_table :radio").on('click',".J_zsjh_data_table :radio",function(){
         var flag = $(this).prop("checked"); //先记录下点击后应该的状态
-        $("input[type='checkbox']").prop("checked", false);
+        $("input[type='radio]").prop("checked", false);
         $(this).prop("checked", flag);
+    });*/
+
+
+    $(function(){
+        $('input:radio').click(function(){
+            //alert(this.checked);
+            //
+
+            var domName = $(this).attr('name');
+
+            var $radio = $(this);
+            // if this was previously checked
+
+            if ($radio.data('waschecked') == true){
+                console.log($radio.data('waschecked') == true);
+                $radio.prop('checked', false);
+//                     $("input:radio[name='radio" + domName + "']").data('waschecked',false);
+                $radio.data('waschecked', false);
+            } else {
+                console.log($radio.data('waschecked') == true);
+                $radio.prop('checked', true);
+//                     $("input:radio[name='radio" + domName + "']").data('waschecked',true);
+                $radio.data('waschecked', true);
+            }
+        });
     });
 
     /**
@@ -276,13 +301,14 @@ define(function (require,exports,module) {
 
     function mycopy() {
         //  console.log("copy")
-        if ($('input:checkbox:checked').length==0){
+        if ($('input:radio:checked').length==0){
             alert("请选择指标")
         }
         else {
-            var code =$('input:checkbox:checked').attr('id');
-            var ifdata = $('input:checkbox:checked').attr('if');
-            var name =$('input:checkbox:checked').attr('getname');
+            var code =$('input:radio:checked').attr('id');
+            var ifdata = $('input:radio:checked').attr('if');
+            var name =$('input:radio:checked').attr('getname');
+
             if(ifdata == 0){
                 alert("目录无法复制！");
             }
@@ -360,13 +386,13 @@ define(function (require,exports,module) {
 
     function sharecopy() {
         //  console.log("copy")
-        if ($('input:checkbox:checked').length==0){
+        if ($('input:radio:checked').length==0){
             alert("请选择指数")
         }
         else {
-            var right = $('input:checkbox:checked').attr('getright');
-            var code =$('input:checkbox:checked').attr('idcode');
-            var name =$('input:checkbox:checked').attr('coname');
+            var right = $('input:radio:checked').attr('getright');
+            var code =$('input:radio:checked').attr('idcode');
+            var name =$('input:radio:checked').attr('coname');
             if(right == 0){
                 alert("本指数计划没有权限复制！");
             }
