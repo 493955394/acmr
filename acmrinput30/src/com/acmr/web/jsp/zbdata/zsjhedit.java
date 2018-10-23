@@ -1080,7 +1080,14 @@ public class zsjhedit extends BaseAction {
              mods= new IndexEditService().found(1,zs_cname,icode);
             }
         }
-        Map<String, String> codes = new HashMap<String, String>();
+        if (StringUtil.isEmpty(zs_cname) && StringUtil.isEmpty(zs_code)){
+
+                List<IndexMoudle> tmp = new IndexEditService().getSubMod(id,icode);
+                for (int i = 0; i <tmp.size() ; i++) {
+                        mods.add(tmp.get(i));
+                }
+        }
+            Map<String, String> codes = new HashMap<String, String>();
         codes.put("zs_code", zs_code);
         codes.put("zs_cname", zs_cname);
 

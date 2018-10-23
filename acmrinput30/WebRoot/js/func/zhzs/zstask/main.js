@@ -76,12 +76,10 @@ define(function (require,exports,module) {
         var self = this,
             requestUrl = $(self).prop('action');
         var time = $("#time").val();
-        if(time!=""){
             $.pjax({
                 url: requestUrl+"&time="+time+"&id="+icode,
                 container: '.task_table'
             });
-        }
 
     });
 

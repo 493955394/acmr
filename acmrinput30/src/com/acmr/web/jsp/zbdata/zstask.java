@@ -94,14 +94,27 @@ public class zstask extends BaseAction {
         IndexTaskService indexTaskService =new IndexTaskService();
         String time = StringUtil.toLowerString(req.getParameter("time"));
         String icode = PubInfo.getString(req.getParameter("id"));
-        ArrayList<IndexTask> indexTask = indexTaskService.findByTime(time,icode);
+        List<IndexTask> indexTask = new ArrayList<>();
+       List<IndexTask> indexTaskList =  new ArrayList<>();
+        if(time.equals("")){
+            indexTask = indexTaskService.getAllTask(icode);
+
+        }
+        else {
+            indexTask = indexTaskService.findByTime(time,icode);
+        }
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
         PageBean<IndexTask> page=new PageBean<>();
         StringBuffer sb = new StringBuffer();
         sb.append(this.getRequest().getRequestURI());
         sb.append("?m=findTask&time="+time+"&id="+icode);
-        ArrayList<IndexTask> indexTaskList = indexTaskService.findByTime(time,icode,page.getPageNum() - 1,page.getPageSize());
+        if(time.equals("")){
+            indexTaskList = indexTaskService.getTaskByIcode(icode,page.getPageNum()-1,page.getPageSize());
+        }
+        else {
+            indexTaskList = indexTaskService.findByTime(time,icode,page.getPageNum() - 1,page.getPageSize());
+        }
         page.setData(indexTaskList);
         page.setTotalRecorder(indexTask.size());
         page.setUrl(sb.toString());

@@ -750,7 +750,7 @@ public class indexlist extends BaseAction {
      * @return
      * @throws IOException
      */
-    public ModelAndView find(){
+    public ModelAndView find() throws IOException {
         User cu=UserService.getCurrentUser();
         String usercode=cu.getUserid();
         HttpServletRequest req = this.getRequest();
@@ -800,6 +800,9 @@ public class indexlist extends BaseAction {
            // indexList= indexListService.found(1,cname,usercode,page.getPageNum() - 1,page.getPageSize());
             sb.append("?m=find&cname="+cname+"&id="+procode);
         }
+        if(StringUtil.isEmpty(cname) && StringUtil.isEmpty(code)){
+            this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/indexlist.htm?m=getIndexList&code="+procode);
+        }
         //分页
         int b=(page.getPageNum()-1)*page.getPageSize()+1;
         int e=b+page.getPageSize();
@@ -848,7 +851,7 @@ public class indexlist extends BaseAction {
         /**
          * 我共享的指数查找
          */
-        public ModelAndView shareListFind(){
+        public ModelAndView shareListFind() throws IOException {
             User cu=UserService.getCurrentUser();
             String usercode=cu.getUserid();
             HttpServletRequest req = this.getRequest();
@@ -874,6 +877,9 @@ public class indexlist extends BaseAction {
                 indexList= indexListService.shareSelect(1,cname,usercode,page.getPageNum() - 1,page.getPageSize());
                 sb.append("?m=shareListFind&cname="+cname);
             }
+            if(StringUtil.isEmpty(code) && StringUtil.isEmpty(cname)){
+                    this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/indexlist.htm?m=getIndexList&code=!3");
+            }
             page.setData(indexList);
             page.setTotalRecorder(indexAllList.size());
             page.setUrl(sb.toString());
@@ -890,7 +896,7 @@ public class indexlist extends BaseAction {
     /**
      * 我收到的指数查找
      */
-    public ModelAndView receiveListFind(){
+    public ModelAndView receiveListFind() throws IOException {
         User cu=UserService.getCurrentUser();
         String usercode=cu.getUserid();
         HttpServletRequest req = this.getRequest();
@@ -928,6 +934,9 @@ public class indexlist extends BaseAction {
         Map<String, String> codes = new HashMap<String, String>();
         codes.put("code", code);
         codes.put("cname", cname);
+        if(StringUtil.isEmpty(code) && StringUtil.isEmpty(cname)){
+            this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/indexlist.htm?m=getIndexList&code=!2");
+        }
         if (StringUtil.isEmpty(pjax)) {
             return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("page",page).addObject("codes",codes).addObject("state","1");
         } else {
