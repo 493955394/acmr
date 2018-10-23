@@ -758,8 +758,20 @@ public class indexlist extends BaseAction {
         ArrayList<IndexList> indexAllList= new ArrayList<IndexList>();
         List<IndexList> indexList= new ArrayList<IndexList>();
         // 获取查询数据
-        String code = StringUtil.toLowerString(req.getParameter("code"));
-        String cname = StringUtil.toLowerString(req.getParameter("cname"));
+        String seltype = req.getParameter("seltype");
+        String keyword =  StringUtil.toLowerString(req.getParameter("keyword"));
+        Map<String, String> codes = new HashMap<String, String>();
+        //为了回显
+        if(seltype.equals("code")){
+            codes.put("code", "1");
+            codes.put("cname", "");
+            codes.put("keyword",keyword);
+        }
+        else{
+            codes.put("code", "");
+            codes.put("cname", "1");
+            codes.put("keyword",keyword);
+        }
         String procode = req.getParameter("id");//看是否点击了树；
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
@@ -770,9 +782,14 @@ public class indexlist extends BaseAction {
         if (!StringUtil.isEmpty(procode)) {
                 treeList = indexListService.getAllSubs(procode,usercode);
         }
-        if (!StringUtil.isEmpty(code)) {
+        if (!StringUtil.isEmpty(keyword)) {
             if(treeList!=null){
-                indexList = new IndexListService().found(0,code,usercode);
+                if(seltype.equals("")){
+                    indexList = new IndexListService().found(0,keyword,usercode);//code
+                }
+               else {
+                    indexList = new IndexListService().found(1,keyword,usercode);
+                }
                 for (int i = 0; i <indexList.size() ; i++) {
                     if(treeList.contains(indexList.get(i).getCode())){
                         indexAllList.add(indexList.get(i));
@@ -780,14 +797,19 @@ public class indexlist extends BaseAction {
                 }
             }
             else {
-                indexAllList= new IndexListService().found(0,code,usercode);
+                if(seltype.equals("")){
+                    indexAllList= new IndexListService().found(0,keyword,usercode);
+                }
+               else {
+                    indexAllList= new IndexListService().found(1,keyword,usercode);
+                }
             }
             //indexList= indexListService.found(0,code,usercode,page.getPageNum() - 1,page.getPageSize());
-            sb.append("?m=find&code="+code+"&id="+procode);
+            sb.append("?m=find&seltype="+seltype+"&keyword="+keyword+"&id="+procode);
         }
-        if (!StringUtil.isEmpty(cname)) {
-            if(treeList !=null){
-                indexList = new IndexListService().found(1,cname,usercode);
+        if(StringUtil.isEmpty(keyword)){//没有默认搜所有
+            if(treeList!=null){
+                indexList = new IndexListService().getIndexList();//所有
                 for (int i = 0; i <indexList.size() ; i++) {
                     if(treeList.contains(indexList.get(i).getCode())){
                         indexAllList.add(indexList.get(i));
@@ -795,13 +817,8 @@ public class indexlist extends BaseAction {
                 }
             }
             else {
-                indexAllList= new IndexListService().found(1,cname,usercode);
+                indexAllList = new IndexListService().getIndexList();
             }
-           // indexList= indexListService.found(1,cname,usercode,page.getPageNum() - 1,page.getPageSize());
-            sb.append("?m=find&cname="+cname+"&id="+procode);
-        }
-        if(StringUtil.isEmpty(cname) && StringUtil.isEmpty(code)){
-            this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/indexlist.htm?m=getIndexList&code="+procode);
         }
         //分页
         int b=(page.getPageNum()-1)*page.getPageSize()+1;
@@ -817,9 +834,6 @@ public class indexlist extends BaseAction {
        // page.setData(indexList);
         page.setTotalRecorder(indexAllList.size());
         page.setUrl(sb.toString());
-        Map<String, String> codes = new HashMap<String, String>();
-        codes.put("code", code);
-        codes.put("cname", cname);
         if (StringUtil.isEmpty(pjax)) {
             return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("page",page).addObject("codes",codes).addObject("state","0");
         } else {
@@ -859,33 +873,38 @@ public class indexlist extends BaseAction {
             List<Map<String,String>> indexAllList= new ArrayList<Map<String,String>>();
             List<Map<String,String>> indexList= new ArrayList<Map<String,String>>();
             // 获取查询数据
-            String code = StringUtil.toLowerString(req.getParameter("code"));
-            String cname = StringUtil.toLowerString(req.getParameter("cname"));
+            String seltype = req.getParameter("seltype");
+            String keyword =  StringUtil.toLowerString(req.getParameter("keyword"));
+            Map<String, String> codes = new HashMap<String, String>();
+            //为了回显
+            if(seltype.equals("code")){
+                codes.put("code", "1");
+                codes.put("cname", "");
+                codes.put("keyword",keyword);
+            }
+            else{
+                codes.put("code", "");
+                codes.put("cname", "1");
+                codes.put("keyword",keyword);
+            }
             // 判断是否pjax 请求
             String pjax = req.getHeader("X-PJAX");
 
             PageBean<Map<String,String>> page = new PageBean<Map<String,String>>();
             StringBuffer sb = new StringBuffer();
             sb.append(this.getRequest().getRequestURI());
-            if (!StringUtil.isEmpty(code)) {
-                indexAllList= new IndexListService().shareSelect(0,code,usercode);
-                indexList= indexListService.shareSelect(0,code,usercode,page.getPageNum() - 1,page.getPageSize());
-                sb.append("?m=shareListFind&code="+code);
-            }
-            if (!StringUtil.isEmpty(cname)) {
-                indexAllList= new IndexListService().shareSelect(1,cname,usercode);
-                indexList= indexListService.shareSelect(1,cname,usercode,page.getPageNum() - 1,page.getPageSize());
-                sb.append("?m=shareListFind&cname="+cname);
-            }
-            if(StringUtil.isEmpty(code) && StringUtil.isEmpty(cname)){
-                    this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/indexlist.htm?m=getIndexList&code=!3");
-            }
+            sb.append("?m=receiveListFind&seltype="+seltype+"&keyword="+keyword);
+                if(seltype.equals("code")){
+                indexAllList= new IndexListService().shareSelect(0,keyword,usercode);//code
+                indexList= indexListService.shareSelect(0,keyword,usercode,page.getPageNum() - 1,page.getPageSize());
+                }
+                else {
+                indexAllList= new IndexListService().shareSelect(1,keyword,usercode);//cname
+                indexList= indexListService.shareSelect(1,keyword,usercode,page.getPageNum() - 1,page.getPageSize());
+                }
             page.setData(indexList);
             page.setTotalRecorder(indexAllList.size());
             page.setUrl(sb.toString());
-            Map<String, String> codes = new HashMap<String, String>();
-            codes.put("code", code);
-            codes.put("cname", cname);
             if (StringUtil.isEmpty(pjax)) {
                 return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("page",page).addObject("codes",codes).addObject("state","2");
             } else {
@@ -903,21 +922,36 @@ public class indexlist extends BaseAction {
         IndexListService indexListService=new IndexListService();
         List<Map<String,Object>> indexAllList= new ArrayList<Map<String,Object>>();
         // 获取查询数据
-        String code = StringUtil.toLowerString(req.getParameter("code"));
-        String cname = StringUtil.toLowerString(req.getParameter("cname"));
+        String seltype = req.getParameter("seltype");
+        String keyword =  StringUtil.toLowerString(req.getParameter("keyword"));
+        Map<String, String> codes = new HashMap<String, String>();
+        //为了回显
+        if(seltype.equals("code")){
+            codes.put("code", "1");
+            codes.put("cname", "");
+            codes.put("keyword",keyword);
+        }
+        else{
+            codes.put("code", "");
+            codes.put("cname", "1");
+            codes.put("keyword",keyword);
+        }
         // 判断是否pjax 请求
         String pjax = req.getHeader("X-PJAX");
 
         PageBean<Map<String,Object>> page = new PageBean<Map<String,Object>>();
         StringBuffer sb = new StringBuffer();
         sb.append(this.getRequest().getRequestURI());
-        if (!StringUtil.isEmpty(code)) {
-            indexAllList= indexListService.receiveSelect(0,code,usercode);
-            sb.append("?m=receiveListFind&code="+code);
+        sb.append("?m=receiveListFind&seltype="+seltype+"&keyword="+keyword);
+        if (!StringUtil.isEmpty(keyword)) {
+            if(seltype.equals("code")){
+            indexAllList= indexListService.receiveSelect(0,keyword,usercode);}//code
+            else {
+                indexAllList= indexListService.receiveSelect(1,keyword,usercode);//cname
+            }
         }
-        if (!StringUtil.isEmpty(cname)) {
-            indexAllList= indexListService.receiveSelect(1,cname,usercode);
-            sb.append("?m=receiveListFind&cname="+cname);
+        if(StringUtil.isEmpty(keyword)){
+            indexAllList=indexListService.getReceivedList();
         }
         int b=(page.getPageNum()-1)*page.getPageSize()+1;
         int e=b+page.getPageSize();
@@ -931,12 +965,6 @@ public class indexlist extends BaseAction {
         page.setData(rlist);
         page.setTotalRecorder(indexAllList.size());
         page.setUrl(sb.toString());
-        Map<String, String> codes = new HashMap<String, String>();
-        codes.put("code", code);
-        codes.put("cname", cname);
-        if(StringUtil.isEmpty(code) && StringUtil.isEmpty(cname)){
-            this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/indexlist.htm?m=getIndexList&code=!2");
-        }
         if (StringUtil.isEmpty(pjax)) {
             return new ModelAndView("/WEB-INF/jsp/zhzs/indexlist").addObject("page",page).addObject("codes",codes).addObject("state","1");
         } else {

@@ -50,10 +50,7 @@ define(function (require,exports,module) {
         if(treeNodeId!=""&&treeNodeId!="!1"){
             str += treeNodeId;
         }
-        var requestData = common.formatData(key,val);
-        if(requestData.length>0){
-            requestData="&"+requestData;
-        }
+        var requestData = "&seltype="+key+"&keyword="+val;
         searchField = requestData+str;
         isMove = false;
         $.pjax({
@@ -71,10 +68,7 @@ define(function (require,exports,module) {
             key = $('select',self).val(),
             val = $('input',self).val(),
             str = "";
-        var requestData = common.formatData(key,val);
-        if(requestData.length>0){
-            requestData="&"+requestData;
-        }
+        var requestData = "&seltype="+key+"&keyword="+val;
         searchField = requestData+str;
         isMove = false;
         $.pjax({
@@ -92,10 +86,7 @@ define(function (require,exports,module) {
             key = $('select',self).val(),
             val = $('input',self).val(),
             str = "";
-        var requestData = common.formatData(key,val);
-        if(requestData.length>0){
-            requestData="&"+requestData;
-        }
+        var requestData = "&seltype="+key+"&keyword="+val;
         searchField = requestData+str;
         isMove = false;
         $.pjax({

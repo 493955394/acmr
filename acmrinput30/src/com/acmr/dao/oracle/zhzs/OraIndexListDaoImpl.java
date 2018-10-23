@@ -605,12 +605,24 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         sql +="left join tb_right_user u on r.depusercode = u.userid ";
         sql +="left join tb_right_department d on r.depusercode = d.code ";
             if(type ==0){
-                sql +="where r.createuser = ? and (lower(u.cname) like ? or lower(d.cname) like ?)";
-                return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid,"%"+keyword+"%","%"+keyword+"%"});
+                if(keyword.equals("")){
+                    sql +="where r.createuser = ?";
+                    return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid});
+                }
+                else {
+                    sql +="where r.createuser = ? and (lower(u.cname) like ? or lower(d.cname) like ?)";
+                    return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid,"%"+keyword+"%","%"+keyword+"%"});
+                }
             }
             else {
-                sql +="where r.createuser = ? and lower(i.cname) like ?";
-                return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid,"%"+keyword+"%"});
+                if(keyword.equals("")){
+                sql +="where r.createuser = ?";
+                return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid});
+                }
+                else {
+                    sql +="where r.createuser = ? and lower(i.cname) like ?";
+                    return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid,"%"+keyword+"%"});
+                }
             }
     }
 
@@ -624,14 +636,28 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         sql +="left join tb_right_user u on r.depusercode = u.userid ";
         sql +="left join tb_right_department d on r.depusercode = d.code ";
         if(type ==0){
-            sql +="where r.createuser = ? and (lower(u.cname) like ? or lower(d.cname) like ?)";
-            sql="select * from (select rownum no,d1.* from ("+sql+") d1) where no>="+b1+" and no<"+ e1;
-            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid,"%"+keyword+"%","%"+keyword+"%"});
+            if(keyword.equals("")){
+                sql +="where r.createuser = ?";
+                sql="select * from (select rownum no,d1.* from ("+sql+") d1) where no>="+b1+" and no<"+ e1;
+                return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid});
+            }
+            else {
+                sql +="where r.createuser = ? and (lower(u.cname) like ? or lower(d.cname) like ?)";
+                sql="select * from (select rownum no,d1.* from ("+sql+") d1) where no>="+b1+" and no<"+ e1;
+                return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid,"%"+keyword+"%","%"+keyword+"%"});
+            }
         }
         else {
-            sql +="where r.createuser = ? and lower(i.cname) like ?";
-            sql="select * from (select rownum no,d1.* from ("+sql+") d1) where no>="+b1+" and no<"+ e1;
-            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{userid,"%"+keyword+"%"});
+            if(keyword.equals("")) {
+                sql += "where r.createuser = ?";
+                sql = "select * from (select rownum no,d1.* from (" + sql + ") d1) where no>=" + b1 + " and no<" + e1;
+                return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{userid});
+            }
+            else {
+                sql += "where r.createuser = ? and lower(i.cname) like ?";
+                sql = "select * from (select rownum no,d1.* from (" + sql + ") d1) where no>=" + b1 + " and no<" + e1;
+                return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{userid, "%" + keyword + "%"});
+            }
         }
 
     }

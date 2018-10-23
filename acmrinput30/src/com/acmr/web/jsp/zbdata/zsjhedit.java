@@ -1082,7 +1082,7 @@ public class zsjhedit extends BaseAction {
         }
         if (StringUtil.isEmpty(zs_cname) && StringUtil.isEmpty(zs_code)){
 
-                List<IndexMoudle> tmp = new IndexEditService().getSubMod(id,icode);
+                List<IndexMoudle> tmp = new IndexEditService().getAllMods(id,icode);
                 for (int i = 0; i <tmp.size() ; i++) {
                         mods.add(tmp.get(i));
                 }
