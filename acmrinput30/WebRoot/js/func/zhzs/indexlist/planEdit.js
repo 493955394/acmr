@@ -45,8 +45,8 @@ define(function (require,exports,module) {
             return;
         }
         //var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
-        var namecheck = /[^%&',;=?$\x22]+/;
-
+        //var namecheck = /[^%&',;=?$\x22]+/;
+        var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
         var z = $('input[name="cocname"]').val().match(namecheck);
         if(z==null){
             alert("名称含有不规则字符，请修改");
@@ -115,7 +115,7 @@ define(function (require,exports,module) {
             return;
         }
         //名称只能是中文和字母
-        var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
+        var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
         var z = $('input[name="plancname"]').val().match(namecheck);
         if(z==null){
             alert("您的名称不符合规则");
@@ -201,10 +201,18 @@ define(function (require,exports,module) {
         if (flag == false) {
             return;
         }
+        //code只能是数字和字母
+        var ifavalible =  /^([0-9a-zA-Z]*)$/;
+        var zs_code = $('input[name="editcode"]').val();
+        var check =zs_code.match(ifavalible);
+        if(check == null){
+            alert("非法的编码");
+            return;
+        }
         var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
         var z = $('input[name="editcname"]').val().match(namecheck);
         if(z==null){
-            alert("您的名称不符合规则");
+            alert("名称含有不规则字符，请修改");
             return;
         }
         $.ajax({
@@ -287,6 +295,20 @@ define(function (require,exports,module) {
         if (!checkDelegate.checkNormal($('input[name="zname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
             !checkDelegate.checkNormal($('input[name="zname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为50', 'param': 51 }])) {
             flag = false;
+        }
+        //code只能是数字和字母
+        var ifavalible =  /^([0-9a-zA-Z]*)$/;
+        var zs_code = $('input[name="plcode"]').val();
+        var check =zs_code.match(ifavalible);
+        if(check == null){
+            alert("非法的编码");
+            return;
+        }
+        var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
+        var z = $('input[name="zname"]').val().match(namecheck);
+        if(z==null){
+            alert("名称含有不规则字符，请修改");
+            return;
         }
         if (flag == false) {
             return;
