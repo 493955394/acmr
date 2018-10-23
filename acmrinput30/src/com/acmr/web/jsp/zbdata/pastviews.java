@@ -800,9 +800,20 @@ public class pastviews extends BaseAction {
                 }
             }
             else {//是直接的那种格式比如2012
-                String temp = getTimeFormat(times[i],sort);
-                if(alltimelist.contains(temp)&&(!timelist.contains(temp))){//时间期里有，临时的时间list里没有
-                    timelist.add(temp);
+                String bt = getTimeFormat(times[i],sort);
+                String et = getEndTimeFormat(times[i],sort);
+                List<String> templist =new ArrayList<>();
+                if(et.compareTo(bt)>=0){
+                    for (String arr : alltimelist) {
+                        if (arr.compareTo(bt) >= 0 && arr.compareTo(et)<=0) {
+                            templist.add(arr);
+                        }
+                    }
+                }
+                for(String arr : templist){
+                    if(!timelist.contains(arr)){//没有才加上
+                        timelist.add(arr);
+                    }
                 }
             }
 
@@ -839,7 +850,7 @@ public class pastviews extends BaseAction {
         }
         else {//有结束时间
             String bt = getTimeFormat(begintime,sort);
-            String et = getTimeFormat(endtime,sort);
+            String et = getEndTimeFormat(endtime,sort);
             if(et.compareTo(bt)>=0){
                 for (String i : alltimelist) {
                     if (i.compareTo(bt) >= 0 && i.compareTo(et)<=0) {
@@ -884,6 +895,39 @@ public class pastviews extends BaseAction {
         }
        return bt;
     }
+    /**
+     * 处理结束时间格式为对应的icode的时间格式
+     * @param timeinput
+     * @param sort
+     * @return
+     */
+    public String getEndTimeFormat(String timeinput,String sort){
+        String bt = "";
+        if (sort.equals("y")) {//如果是年
+            bt = timeinput.substring(0, 4);
+        }
+        else if (sort.equals("q")) {//如果是季度
+            if (timeinput.length() == 4) {//输入的是年度
+                bt = timeinput + "D";
+            } else if (timeinput.length() == 5) {//输入的是季度
+                bt = timeinput.toUpperCase();
+            }
+            else if (timeinput.length() == 6) {//输入的是月度
+                bt = timeinput.substring(0,4)+getQ(Integer.parseInt(timeinput.substring(4,6)));
+            }
+        }
+        else if(sort.equals("m")){//如果是月度
+            if (timeinput.length() == 4) {//输入的是年度
+                bt = timeinput + "12";
+            } else if (timeinput.length() == 5) {//输入的是季度
+                bt = timeinput.substring(0,4)+getEndM(timeinput.toUpperCase().substring(4,5));
+            }
+            else if (timeinput.length() == 6) {//输入的是月度
+                bt = timeinput;
+            }
+        }
+        return bt;
+    }
 
     /**
      * @Description: 返回月份对应的ABCD
@@ -905,7 +949,7 @@ public class pastviews extends BaseAction {
         }
     }
     /**
-     * @Description: 返回ABCD对应的月份
+     * @Description: 开始时间返回ABCD对应的月份
      * @Param: [mon]
      * @return: String
      */
@@ -921,6 +965,26 @@ public class pastviews extends BaseAction {
         }
         else {
             return String.valueOf("10");
+        }
+    }
+
+    /**
+     * @Description: 结束时间返回ABCD对应的月份
+     * @Param: [mon]
+     * @return: String
+     */
+    public static String getEndM(String q){
+        if (q.equals("A")){
+            return String.valueOf("03");
+        }
+        else if (q.equals("B")){
+            return String.valueOf("06");
+        }
+        else if (q.equals("C")){
+            return String.valueOf("09");
+        }
+        else {
+            return String.valueOf("12");
         }
     }
 
