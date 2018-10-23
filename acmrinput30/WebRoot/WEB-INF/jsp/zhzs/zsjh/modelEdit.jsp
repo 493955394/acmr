@@ -175,7 +175,8 @@
                 <div class="form-group">
                     <div class="col-sm-offset-6 col-sm-6">
                         <button type="submit" class="btn btn-primary ZS_Add">确认</button>
-                        <button type="reset" class="btn btn-primary resetbutton">取消</button>
+                        <button type="button" class="btn btn-primary resetbutton">重置</button>
+                        <button type="button" class="btn btn-primary" onclick="window.close();">关闭</button>
                     </div>
                 </div>
             </form>

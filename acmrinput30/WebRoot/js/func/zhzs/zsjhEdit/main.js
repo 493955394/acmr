@@ -563,7 +563,7 @@ define(function (require,exports,module) {
     }
     //基本信息页取消退出该页
     $(".resetindex").click(function () {
-        window.location.href= common.rootPath+"zbdata/indexlist.htm";
+        window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+incode;
     })
     //右下角保存按钮
     $(document).on('click','.tosaveall',function (event) {
@@ -613,7 +613,7 @@ define(function (require,exports,module) {
             return;
         }
         if (!checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'required', 'msg': '计划名称不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'maxlength', 'msg': '计划名称最大长度为20', 'param': 21 }])) {
+            !checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'maxlength', 'msg': '计划名称最大长度为50', 'param': 51 }])) {
             flag = false;
         }
         if (!checkDelegate.checkNormal($('input[name="startpeirod"]'), [{ 'name': 'required', 'msg': '起始数据期不能为空' }]) ||
@@ -660,7 +660,7 @@ define(function (require,exports,module) {
             success: function(data) {
                 if (data.returncode == 200) {
                     alert("保存成功！");
-                    window.location.href= common.rootPath+"zbdata/indexlist.htm";
+                    window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+incode;
                 }
                else {
                     alert("添加失败");

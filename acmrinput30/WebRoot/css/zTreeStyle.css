@@ -53,15 +53,15 @@ website:	http://code.google.com/p/jquerytree/
 .ztree li span.button.chk.radio_true_disable {background-position:-42px -56px}
 
 .ztree li span.button.switch {width:18px; height:18px}
-.ztree li span.button.root_open{background-position:-28px 0}
+.ztree li span.button.root_open{background-position:-28px 2px}
 .ztree li span.button.root_close{background-position:1px 0px}
-.ztree li span.button.roots_open{background-position:-28px 0}
+.ztree li span.button.roots_open{background-position:-28px 2px}
 .ztree li span.button.roots_close{background-position:1px 0}
-.ztree li span.button.center_open{background-position:-28px -0px}
+.ztree li span.button.center_open{background-position:-28px 2px}
 .ztree li span.button.center_close{background-position:1px 0}
-.ztree li span.button.bottom_open{background-position:-28px 0}
+.ztree li span.button.bottom_open{background-position:-28px 2px}
 .ztree li span.button.bottom_close{background-position:0 0}
-.ztree li span.button.noline_open{background-position:-28px 0}
+.ztree li span.button.noline_open{background-position:-28px 2px}
 .ztree li span.button.noline_close{background-position:1px 0}
 .ztree li span.button.root_docu{ background:none;}
 .ztree li span.button.roots_docu{background-position:-56px 0}
