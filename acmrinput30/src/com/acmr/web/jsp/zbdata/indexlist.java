@@ -259,7 +259,7 @@ public class indexlist extends BaseAction {
 
         if (StringUtil.isEmpty(pjax)) {
             //PubInfo.printStr("isempty");
-            this.getResponse().sendRedirect("/zbdata/indexlist.htm");
+            this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/indexlist.htm");
         } else {
            // PubInfo.printStr("pjax");
             return new ModelAndView("/WEB-INF/jsp/zhzs/indextable").addObject("page",page).addObject("state",state);
@@ -400,7 +400,6 @@ public class indexlist extends BaseAction {
         String start = row.getString("startperiod");
         String delay = row.getString("delayday");
         String getplan = row.getString("planperiod");
-        String state="0";
         if(start == null||delay == null||getplan == null){
             data.setReturncode(400);
             this.sendJson(data);
@@ -413,7 +412,6 @@ public class indexlist extends BaseAction {
         data1.setCode(code);
         data1.setCname(cname);
         data1.setProcode(nprocode);
-        data1.setState(state);
         data1.setCreateuser(usercode);
         String startpeirod = data1.getStartperiod();
         String delayday = data1.getDelayday();

@@ -240,7 +240,7 @@ public class pastviews extends BaseAction {
 
 
        if (StringUtil.isEmpty(pjax)) {
-            this.getResponse().sendRedirect("/zbdata/pastviews.htm?id="+icode);
+            this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/pastviews.htm?id="+icode);
         }
         else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pasttable").addObject("info",info).addObject("showdata",showdatas);
@@ -267,7 +267,6 @@ public class pastviews extends BaseAction {
         if (time.equals("null")) time=null;
 
         PastViewService pastViewService=new PastViewService();
-        List<String> alltaskcodes=pastViewService.getAllTask(icode);
         List<List<String>> showdatas = new ArrayList<>();//data
         List<String> taskcodes = new ArrayList<>();
         ExcelBook book = new ExcelBook();
@@ -278,7 +277,7 @@ public class pastviews extends BaseAction {
         ExcelCell cell1 = new ExcelCell();
         if (!(tablecol.equals("zb")||tablerow.equals("zb"))){
             /*指标*/
-
+            List<String> alltaskcode=pastViewService.getAllTask(icode);
             if (time != null){
                 for(int i=0;i<times.size();i++){
                     String taskcode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getTaskcode(icode,times.get(i));
@@ -286,17 +285,13 @@ public class pastviews extends BaseAction {
                 }
 
             }else{
-                taskcodes=alltaskcodes;
-                if (taskcodes.size()>5) taskcodes=taskcodes.subList(0,5);
+                taskcodes=pastViewService.getAllTask(icode).subList(0,5);
             }
-            List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcodes);
+            List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
             if (tablecol.equals("sj")){
                 showdatas=pastViewService.getRegTime(taskcodes,spancode,icode);
                 List<String> sjhead;
-                if (time==null){
-                    sjhead=pastViewService.getAllTime(icode);
-                    if (sjhead.size()>5) sjhead=sjhead.subList(0,5);
-                }
+                if (time==null) sjhead=pastViewService.getAllTime(icode).subList(0,5);
                 else {
                     sjhead=times;
                 }
@@ -449,8 +444,7 @@ public class pastviews extends BaseAction {
                 }
 
             }else{
-                taskcodes=alltaskcodes;
-                if (taskcodes.size()>5) taskcodes=taskcodes.subList(0,5);
+                taskcodes=pastViewService.getAllTask(icode).subList(0,5);
             }
             //返回所有地区
             List<Map<String,String>> regs=pastViewService.getRegList(icode);
@@ -458,10 +452,7 @@ public class pastviews extends BaseAction {
                 showdatas=pastViewService.getModTime(spancode,taskcodes,icode);
                 //时间先写死最近5期，然后根据time来变
                 List<String> sjhead;
-                if (time==null){
-                    sjhead=pastViewService.getAllTime(icode);
-                    if (sjhead.size()>5) sjhead=sjhead.subList(0,5);
-                }
+                if (time==null) sjhead=pastViewService.getAllTime(icode).subList(0,5);
                 else {
                     sjhead=times;
                 }
@@ -539,8 +530,6 @@ public class pastviews extends BaseAction {
             e.printStackTrace();
         }
     }
-
-
 
     /**
      * 单地区选择的数据下载
