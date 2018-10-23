@@ -96,7 +96,7 @@
         wdcode:'sj',
         wdname:'时间',
         nodes:[
-            {code:"last5",name:'最近五年'}
+            {code:"last5",name:'最近五期'}
         ]
     };
 
