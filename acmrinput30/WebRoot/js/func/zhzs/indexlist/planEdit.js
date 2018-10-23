@@ -148,7 +148,7 @@ define(function (require,exports,module) {
         $('input[name=editcname]').val(name);
         //点进来才开始初始化树
         var cNodes=[
-            { id:"!1", pId:0, name:"指数",isParent:true}
+            { id:"!1", pId:0, name:"指数",isParent:true,icon:"../../../../zhzs/css/img/mark1.png"}
         ]
         function clickEvent4(event,treeId,treeNode) {
             if (treeNode.id != '') {

@@ -9,6 +9,7 @@
 <%@ page import="com.acmr.model.security.User" %>
 <%@page import="com.acmr.model.security.Menu"%>
 <%@page import="acmr.util.ListHashMap"%>
+<%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     @SuppressWarnings("unchecked")

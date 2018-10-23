@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.acmr.model.security.User" %>
 <%@page import="com.acmr.model.security.Menu"%>
+<%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 <%@page import="acmr.util.ListHashMap"%><%--
   Created by IntelliJ IDEA.
   User: 涑水科技

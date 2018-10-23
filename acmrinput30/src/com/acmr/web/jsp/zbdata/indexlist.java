@@ -260,6 +260,7 @@ public class indexlist extends BaseAction {
         if (StringUtil.isEmpty(pjax)) {
             //PubInfo.printStr("isempty");
             this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/indexlist.htm");
+
         } else {
            // PubInfo.printStr("pjax");
             return new ModelAndView("/WEB-INF/jsp/zhzs/indextable").addObject("page",page).addObject("state",state);

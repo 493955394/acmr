@@ -108,13 +108,13 @@ define(function (require,exports,module) {
     });
 
     var zNodes =[
-        { id:"!0",pId:0,name:"我的指数",isParent:true}
+        { id:"!0",pId:0,name:"我的指数",isParent:true,icon:"../../../../zhzs/css/img/mark1.png"}
         /*{ id:"!1", pId:"!0", name:"指数",isParent:true},
         { id:"!2", pId:"!0", name:"我收到的指数",isParent:true},
         { id:"!3", pId:"!0", name:"我共享的指数", isParent:true}*/
     ];
     var cNodes=[
-        { id:"!1", pId:0, name:"指数",isParent:true}
+        { id:"!1", pId:0, name:"指数",isParent:true,icon:"../../../../zhzs/css/img/mark1.png"}
     ]
     /*var indexlist=listjsp.indexlist;
     for(var i=0;i<indexlist.length;i++){

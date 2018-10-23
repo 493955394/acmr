@@ -48,7 +48,7 @@ define(function (require,exports,module) {
             treeNodeSort = treeNode.isParent;
         }
 
-        var rootNode = [{"id": "", "name": "用户组织树", "open": "true", "isParent": "true"}];
+        var rootNode = [{"id": "", "name": "用户组织树", "open": "true", "isParent": "true",icon:"../../../../zhzs/css/img/mark1.png"}];
         var treeObj = $.fn.zTree.init($("#treeRight"), setting12, rootNode);
         var treenodes = treeObj.getNodes();
         treeObj.expandNode(treenodes[0], true, true, true);

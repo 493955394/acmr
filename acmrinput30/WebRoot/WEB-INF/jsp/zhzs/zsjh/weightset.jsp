@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 <%@ page import="acmr.util.PubInfo" %>
 <%@ page import="com.acmr.model.zhzs.IndexMoudle" %>
 <%@ page import="java.util.List" %><%--

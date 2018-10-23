@@ -42,7 +42,7 @@ define(function (require,exports,module) {
     })
 
     var zNodes =[
-        { id:"!1", pId:0, name:"指数",isParent:true}
+        { id:"!1", pId:0, name:"指数",isParent:true,icon:"../../../../zhzs/css/img/mark1.png"}
     ];
     var st = new Date().getTime();//时间戳
     var setting = {
@@ -115,7 +115,7 @@ define(function (require,exports,module) {
         }
 
     }
-    var rootNode = [{"id":"","name":"地区树", "open":"true", "isParent":"true"}];
+    var rootNode = [{"id":"","name":"地区树", "open":"true", "isParent":"true",icon:"../../../../zhzs/css/img/mark1.png"}];
     var treeObj = $.fn.zTree.init($("#treeDemo"), setting1, rootNode);
     var treenodes = treeObj.getNodes();
     treeObj.expandNode(treenodes[0], true, true, true);
