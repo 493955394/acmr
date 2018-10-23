@@ -81,7 +81,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">确定</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="reset" class="btn btn-default resetcata" data-dismiss="modal">取消</button>
                             </div>
                         </form>
                     </div>
@@ -134,7 +134,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">确定</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="reset" class="btn btn-default resetplan" data-dismiss="modal">取消</button>
                             </div>
                         </form>
                     </div>

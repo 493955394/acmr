@@ -401,7 +401,7 @@ public class indexlist extends BaseAction {
         String start = row.getString("startperiod");
         String delay = row.getString("delayday");
         String getplan = row.getString("planperiod");
-        if(start == null||delay == null||getplan == null){
+        if(start.equals("")||delay.equals("")||getplan.equals("")){
             data.setReturncode(400);
             this.sendJson(data);
             return;
