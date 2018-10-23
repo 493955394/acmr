@@ -776,11 +776,28 @@ public class IndexListService {
         return check;
     }
 
-  /*  public static void main(String[] args) {
-        List<String> test = getAllSubs("D002","admin");
-        for (int i = 0; i <test.size() ; i++) {
-            PubInfo.printStr(test.get(i));
+    /**
+    * @Description: 根据指标code返回该指标的path
+    * @Param: [icode]
+    * @return: java.lang.String
+    * @Author: lyh
+    * @Date: 2018/10/23
+    */
+    public String getIndexPath(String icode){
+        String path="/";
+        String pcode=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(icode).getRows().get(0).getString("procode");
+        if (pcode.equals("")){
+            path=path+"!1/"+icode;
         }
+        else {
+            path=getIndexPath(pcode)+"/"+icode;
+        }
+        return path;
+    }
+
+  /*  public static void main(String[] args) {
+        String path=getIndexPath("bupt2");
+        PubInfo.printStr(path);
     }*/
 
 /*        Date test= (Date) indexlist.get(1).get("plantime");

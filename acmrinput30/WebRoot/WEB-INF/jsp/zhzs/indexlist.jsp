@@ -30,6 +30,7 @@
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 
 <div class="container-fluid" id="mainpanel">
+    <input type="hidden" value="${path}" id="index_path">
     <div class="col-md-2 left-panel">
         <%--<div class="panel tree-panel">
             <div class="panel-heading">我的指数</div>
@@ -81,7 +82,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">确定</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="reset" class="btn btn-default resetcata" data-dismiss="modal">取消</button>
                             </div>
                         </form>
                     </div>
@@ -134,7 +135,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">确定</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="reset" class="btn btn-default resetplan" data-dismiss="modal">取消</button>
                             </div>
                         </form>
                     </div>

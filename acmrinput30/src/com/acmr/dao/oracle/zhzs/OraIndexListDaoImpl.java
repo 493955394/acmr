@@ -301,6 +301,13 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         return 0;
     }
 
+    @Override
+    public Boolean hasIndex(String icode, String usercode) {
+        String sql="select * from tb_coindex_index where code=? and createuser=?";
+        DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode,usercode});
+        return table.getRows().size()!=0;
+    }
+
         /*}
         String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
         List<Object> params = new ArrayList<Object>();

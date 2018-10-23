@@ -30,7 +30,7 @@ define(function (require,exports,module) {
             flag = false;
         }
         if (!checkDelegate.checkNormal($('input[name="cocname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="cocname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
+            !checkDelegate.checkNormal($('input[name="cocname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为50', 'param': 51 }])) {
             flag = false;
         }
         if (flag == false) {
@@ -44,10 +44,12 @@ define(function (require,exports,module) {
             alert("非法的编码");
             return;
         }
-        var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
+        //var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
+        //var namecheck = /[^%&',;=?$\x22]+/;
+        var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
         var z = $('input[name="cocname"]').val().match(namecheck);
         if(z==null){
-            alert("您的名称不符合规则");
+            alert("名称含有不规则字符，请修改");
             return;
         }
         $.ajax({
@@ -59,6 +61,7 @@ define(function (require,exports,module) {
             success: function(data) {
                 if (data.returncode == 200) {
                     alert("保存成功！");
+
                     window.location.reload(true);
                 }else if (data.returncode == 300) {
                     alert("该编码已存在");
@@ -69,6 +72,9 @@ define(function (require,exports,module) {
             }
         })
     });
+    $(document).on('click',".resetcata" ,function(event) {//初始化一次
+        window.location.reload()
+    })
     /**
      * 新增计划
      */
@@ -86,7 +92,7 @@ define(function (require,exports,module) {
             flag = false;
         }
         if (!checkDelegate.checkNormal($('input[name="plancname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="plancname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
+            !checkDelegate.checkNormal($('input[name="plancname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为50', 'param': 51 }])) {
             flag = false;
         }
         var selectObj = document.getElementById("sort");
@@ -109,7 +115,7 @@ define(function (require,exports,module) {
             return;
         }
         //名称只能是中文和字母
-        var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
+        var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
         var z = $('input[name="plancname"]').val().match(namecheck);
         if(z==null){
             alert("您的名称不符合规则");
@@ -134,7 +140,9 @@ define(function (require,exports,module) {
             }
         })
     });
-
+    $(document).on('click',".resetplan" ,function(event) {//初始化一次
+        window.location.reload()
+    })
 
 
     /**
@@ -187,16 +195,24 @@ define(function (require,exports,module) {
         var flag = true;
         //前端检查
         if (!checkDelegate.checkNormal($('input[name="editcname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="editcname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
+            !checkDelegate.checkNormal($('input[name="editcname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为50', 'param': 51 }])) {
             flag = false;
         }
         if (flag == false) {
             return;
         }
+        //code只能是数字和字母
+        var ifavalible =  /^([0-9a-zA-Z]*)$/;
+        var zs_code = $('input[name="editcode"]').val();
+        var check =zs_code.match(ifavalible);
+        if(check == null){
+            alert("非法的编码");
+            return;
+        }
         var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
         var z = $('input[name="editcname"]').val().match(namecheck);
         if(z==null){
-            alert("您的名称不符合规则");
+            alert("名称含有不规则字符，请修改");
             return;
         }
         $.ajax({
@@ -277,8 +293,22 @@ define(function (require,exports,module) {
             flag = false;
         }
         if (!checkDelegate.checkNormal($('input[name="zname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="zname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
+            !checkDelegate.checkNormal($('input[name="zname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为50', 'param': 51 }])) {
             flag = false;
+        }
+        //code只能是数字和字母
+        var ifavalible =  /^([0-9a-zA-Z]*)$/;
+        var zs_code = $('input[name="plcode"]').val();
+        var check =zs_code.match(ifavalible);
+        if(check == null){
+            alert("非法的编码");
+            return;
+        }
+        var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
+        var z = $('input[name="zname"]').val().match(namecheck);
+        if(z==null){
+            alert("名称含有不规则字符，请修改");
+            return;
         }
         if (flag == false) {
             return;
@@ -346,7 +376,7 @@ define(function (require,exports,module) {
             flag = false;
         }
         if (!checkDelegate.checkNormal($('input[name="putname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="putname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
+            !checkDelegate.checkNormal($('input[name="putname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为50', 'param': 51 }])) {
             flag = false;
         }
         if (flag == false) {

@@ -38,4 +38,5 @@ public interface IIndexListDao {
     public DataTable receiveSelectList(int type,String keyword,String depusercode,String sort);
     public int updateTime(String plantime,String planperiod,String icode);
     public int switchFormu(String ncode,String ocode);
+    public Boolean hasIndex(String icode,String usercode);
 }
