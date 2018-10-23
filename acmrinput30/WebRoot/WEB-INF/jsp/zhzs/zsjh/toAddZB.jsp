@@ -24,7 +24,7 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 <div class="container-fluid">
-    <div class="panel panel-default">
+    <div>
         <span class="col-sm-offset-2 col-sm-3" style="font-size: 20px;color: #F39801;text-align: center">-------------基本信息-------------</span><br>
         <div class="panel-body">
             <form class="form-horizontal J_addZS_form" action="${ctx}/zbdata/zsjhedit.htm?m=toSaveZS">
