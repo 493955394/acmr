@@ -10,69 +10,69 @@ public class OriginService {
 
     /**
      * @Description: 获取维度列表,返回维度的wcode:CNAME的ArrayList
-     * @Param: []
+     * @Param: [dbcode]
      * @return: void
      * @Author: lyh
      * @Date: 2018/8/23
      */
-    public  ArrayList<CubeWeidu> getwdlist() {
+    public  ArrayList<CubeWeidu> getwdlist(String dbcode) {
         CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
-        ArrayList<CubeWeidu> wdlist = cube1.getWeiduList("cuscxnd");
+        ArrayList<CubeWeidu> wdlist = cube1.getWeiduList(dbcode);
         return wdlist;
     }
     /**
      * @Description: 获取指标子节点,根据wcode去查不同的表，返回code对应节点的子节点的的ArrayList
-     * @Param: [wcode, code]
+     * @Param: [wcode, code,dbcode]
      * @return: void
      * @Author: lyh
      * @Date: 2018/8/23
      */
-    public  ArrayList<CubeNode> getwdsubnodes(String wcode,String code) {
+    public  ArrayList<CubeNode> getwdsubnodes(String wcode,String code,String dbcode) {
         CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
-        ArrayList<CubeNode> nodes = cube1.getWeiSubNodes("cuscxnd", wcode, code);
+        ArrayList<CubeNode> nodes = cube1.getWeiSubNodes(dbcode, wcode, code);
         return nodes;
     }
 
     /**
      * @Description: 获取单个的点，同样通过wcode去查不同的表，返回该点
-     * @Param: [wcode,code]
+     * @Param: [wcode,code,dbcode]
      * @return: void
      * @Author: lyh
      * @Date: 2018/8/23
      */
-    public  CubeNode getwdnode(String wcode,String code) {
+    public  CubeNode getwdnode(String wcode,String code,String dbcode) {
         CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
-        CubeNode node = cube1.getWeiNode("cuscxnd", wcode, code);
+        CubeNode node = cube1.getWeiNode(dbcode, wcode, code);
         return node;
     }
     /**
      * @Description: 返回有数的地区的编码（REGCODE，三位数）、时间、数据来源、主体
-     * @Param: [condition,wcode].wcode只能是sj或reg,ds,co，condition例子：where.Add("zb", "ffe001d3f4a67c752233a83f900af86a942359f2");
+     * @Param: [condition,wcode,dbcode].wcode只能是sj或reg,ds,co，condition例子：where.Add("zb", "ffe001d3f4a67c752233a83f900af86a942359f2");
      * @return: void
      * @Author: lyh
      * @Date: 2018/8/23
      */
-    public List<String> gethasdatawdlist(List<CubeWdValue> condition,String wcode) {
+    public List<String> gethasdatawdlist(List<CubeWdValue> condition,String wcode,String dbcode) {
         CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
         List<CubeWdValue> list1 = new ArrayList<CubeWdValue>();
         for(int i=0;i<condition.size();i++){
             list1.add(condition.get(i));
         }
         List<String> nodes=new ArrayList<String>();
-        nodes = cube1.getHasDataWdListreg("cuscxnd",list1,wcode);
+        nodes = cube1.getHasDataWdListreg(dbcode,list1,wcode);
         return nodes;
     }
 
     /**
     * @Description:  根据指定的条件，查询底库中的值
-    * @Param: [where] 传入指定的zb，ds，co，reg，sj
+    * @Param: [where,dbcode] 传入指定的zb，ds，co，reg，sj
     * @return: java.util.ArrayList<acmr.cubequery.service.cubequery.entity.CubeQueryData>
     * @Author: lyh
     * @Date: 2018/8/23
     */
-    public ArrayList<CubeQueryData> querydata(CubeWdCodes where){
+    public ArrayList<CubeQueryData> querydata(CubeWdCodes where,String dbcode){
         CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
-        ArrayList<CubeQueryData> result = cube1.getCubeData("cuscxnd", where);
+        ArrayList<CubeQueryData> result = cube1.getCubeData(dbcode, where);
         return result;
     }
     /**

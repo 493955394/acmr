@@ -90,26 +90,22 @@
     seajs.use('${ctx}/js/func/zhzs/zstask/pastviews')
     seajs.use('${ctx}/js/func/zhzs/zstask/wdturn')
     //查询的时间
-
     $(function(){
-    var json2 = {
-        wdcode:'sj',
-        wdname:'时间',
-        nodes:[
-            {code:"last5",name:'最近五期'}
-        ]
-    };
-
-    var dt2 = $('#mySelect2');
-
-    //dt2.dropList(json2,{isText:true});	//实例化2(带底部输入框)、默认选中第一个item
-    //dt2.dropList(json2,{isText:true,setIndex: 2});	//实例化2(带底部输入框)、选中指定位置item
-    dt2.dropList(json2,{isText:true},function(o){		//事件处理
-        $("#timecode").val(o.getItem().code)
-      $("#timeinput").click();
+        var json2 = {
+            wdcode:'sj',
+            wdname:'时间',
+            nodes:[
+                {code:"last5",name:'最近五期'}
+            ]
+        };
+        var dt2 = $('#mySelect2');
+        //dt2.dropList(json2,{isText:true});	//实例化2(带底部输入框)、默认选中第一个item
+        //dt2.dropList(json2,{isText:true,setIndex: 2});	//实例化2(带底部输入框)、选中指定位置item
+        dt2.dropList(json2,{isText:true},function(o){		//事件处理
+            $("#timecode").val(o.getItem().code)
+            $("#timeinput").click();
+        });
     });
-    });
-
 </script>
 </body>
 </html>

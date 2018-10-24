@@ -290,7 +290,7 @@
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
                             </div>
-                            <div class="panel-body">
+                            <div style="margin-top: 10px">
                                 <span class="col-md-2" style="font-size: 15px">时间选择</span>
                                 <input class="col-md-2" name="begintime"/>
                                 <span class="col-md-1" style="font-size: 15px">至</span>
