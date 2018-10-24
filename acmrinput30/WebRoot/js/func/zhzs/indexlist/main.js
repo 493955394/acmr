@@ -316,9 +316,12 @@ define(function (require,exports,module) {
                         node=treeObj.getNodeByParam("id",path[i])
                         break;
                     }
+
                 }
-            }
-            treeObj.selectNode(node);
+                treeObj.selectNode(node)
+                setting.callback.onClick(null, treeObj.setting.treeId, node);
+            };
+
         }
     }
 

@@ -35,11 +35,6 @@ define(function (require,exports,module) {
     var select_li = "error";//选择移除的li的下标
     var timesort = $("#index_sort option:selected").val();
     //默认选中第一个指标
-    $(document).ready(function () {
-        if ($(".zb_panel").length>0){
-            $(".zb_panel")[0].click()
-        }
-    })
 
     var zNodes =[
         { id:"!1", pId:0, name:"指数",isParent:true,icon:"../../../../zhzs/css/img/mark1.png"}
@@ -57,7 +52,6 @@ define(function (require,exports,module) {
             onClick:clickEvent
         }
     };
-    console.log($('input[name=index_procode]').val())
     function clickEvent(event,treeId,treeNode) {
         if (treeNode.id != '') {
             $('input[name=proname]').val(treeNode.name);
@@ -80,11 +74,13 @@ define(function (require,exports,module) {
         treeObj.refresh();//调用api自带的refresh函数。
     }*/
     $(document).ready(function(){
+        if ($(".zb_panel").length>0){
+            $(".zb_panel")[0].click()
+        }
         $('ul.regul').find('li').each(function() {
             select.push({code:$(this).attr("id"),name:$(this).text()});
         })
         $.fn.zTree.init($("#tree"), setting, zNodes);
-        console.log(select)
         //修正添加的table的classname，方便和树联动
     });
     /**
