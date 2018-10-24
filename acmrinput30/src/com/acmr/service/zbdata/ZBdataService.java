@@ -12,90 +12,90 @@ public class ZBdataService {
     OriginService origin=new OriginService();
     /**
     * @Description: 获取最顶层指标
-    * @Param: []
+    * @Param: [dbcode]
     * @return: java.util.ArrayList<acmr.cubequery.service.cubequery.entity.CubeNode>
     * @Author: lyh
     * @Date: 2018/8/23
     */
-    public ArrayList<CubeNode> getZB(){
-        ArrayList<CubeNode> zb=origin.getwdsubnodes("zb","");
+    public ArrayList<CubeNode> getZB(String dbcode){
+        ArrayList<CubeNode> zb=origin.getwdsubnodes("zb","",dbcode);
         return zb;
     }
     /** 
     * @Description: 获取指定code的指标的下层指标
-    * @Param: [code] 
+    * @Param: [code,dbcode]
     * @return: java.util.ArrayList<acmr.cubequery.service.cubequery.entity.CubeNode> 
     * @Author: lyh
     * @Date: 2018/8/23 
     */ 
-    public ArrayList<CubeNode> getSubZB(String code){
-        ArrayList<CubeNode> subs=origin.getwdsubnodes("zb",code);
+    public ArrayList<CubeNode> getSubZB(String code,String dbcode){
+        ArrayList<CubeNode> subs=origin.getwdsubnodes("zb",code,dbcode);
         return subs;
     }
     /**
     * @Description: 获取最顶层的数据来源
-    * @Param: []
+    * @Param: [dbcode]
     * @return: java.util.ArrayList<acmr.cubequery.service.cubequery.entity.CubeNode>
     * @Author: lyh
     * @Date: 2018/8/23
     */
-    public ArrayList<CubeNode> getDS(){
-        ArrayList<CubeNode> ds=origin.getwdsubnodes("ds","");
+    public ArrayList<CubeNode> getDS(String dbcode){
+        ArrayList<CubeNode> ds=origin.getwdsubnodes("ds","",dbcode);
         return ds;
     }
     /**
     * @Description: 获取code的指定数据来源的下层数据来源
-    * @Param: [code]
+    * @Param: [code,dbcode]
     * @return: java.util.ArrayList<acmr.cubequery.service.cubequery.entity.CubeNode>
     * @Author: lyh
     * @Date: 2018/8/23
     */
-    public ArrayList<CubeNode> getSubDS(String code){
-        ArrayList<CubeNode> subs=origin.getwdsubnodes("ds",code);
+    public ArrayList<CubeNode> getSubDS(String code,String dbcode){
+        ArrayList<CubeNode> subs=origin.getwdsubnodes("ds",code,dbcode);
         return subs;
     }
     /**
      * @Description: 获取最顶层的主体
-     * @Param: []
+     * @Param: [dbcode]
      * @return: java.util.ArrayList<acmr.cubequery.service.cubequery.entity.CubeNode>
      * @Author: lyh
      * @Date: 2018/8/23
      */
-    public ArrayList<CubeNode> getCO(){
-        ArrayList<CubeNode> co=origin.getwdsubnodes("co","");
+    public ArrayList<CubeNode> getCO(String dbcode){
+        ArrayList<CubeNode> co=origin.getwdsubnodes("co","",dbcode);
         return co;
     }
     /**
      * @Description: 获取code的指定主体的下层主体
-     * @Param: [code]
+     * @Param: [code,dbcode]
      * @return: java.util.ArrayList<acmr.cubequery.service.cubequery.entity.CubeNode>
      * @Author: lyh
      * @Date: 2018/8/23
      */
-    public ArrayList<CubeNode> getSubCO(String code){
-        ArrayList<CubeNode> subs=origin.getwdsubnodes("co",code);
+    public ArrayList<CubeNode> getSubCO(String code,String dbcode){
+        ArrayList<CubeNode> subs=origin.getwdsubnodes("co",code,dbcode);
         return subs;
     }
     /**
      * @Description: 根据指定的节点，返回该节点下的所有叶子节点,用于查数，不是底层的点查不到数
-     * @Param: [node,wdcode]wdcode指该节点的类型code，传"zb","co","ds"
+     * @Param: [node,wdcode,dbcode]wdcode指该节点的类型code，传"zb","co","ds"
      * @return: java.util.ArrayList<acmr.cubequery.service.cubequery.entity.CubeNode>
      * @Author: lyh
      * @Date: 2018/8/24
      */
-    public  ArrayList<CubeNode> getBottomChilds(CubeNode node,String wdcode){
+    public  ArrayList<CubeNode> getBottomChilds(CubeNode node,String wdcode,String dbcode){
         ArrayList<CubeNode> leafs=new ArrayList<CubeNode>();
-        hasSubNodes(leafs,node,wdcode);
+        hasSubNodes(leafs,node,wdcode,dbcode);
         return leafs;
     }
-    public void hasSubNodes(ArrayList<CubeNode> leafs,CubeNode node,String wdcode){
-        ArrayList<CubeNode> subNodes=origin.getwdsubnodes(wdcode,node.getCode());
+    public void hasSubNodes(ArrayList<CubeNode> leafs,CubeNode node,String wdcode,String dbcode){
+        ArrayList<CubeNode> subNodes=origin.getwdsubnodes(wdcode,node.getCode(),dbcode);
         if(subNodes.size()==0){
             leafs.add(node);
         }
         else {
             for(int i=0;i<subNodes.size();i++){
-                hasSubNodes(leafs,subNodes.get(i),wdcode);
+                hasSubNodes(leafs,subNodes.get(i),wdcode,dbcode);
             }
         }
 
@@ -103,15 +103,15 @@ public class ZBdataService {
 
     /**
     * @Description: 返回有数的ds和co,sj,reg
-    * @Param: [zbcode,wcode] wcode只能是"co"或者"ds","sj","reg"，zbcode必须是最底层的指标的code，不能是指标分类的code
+    * @Param: [zbcode,wcode,dbcode] wcode只能是"co"或者"ds","sj","reg"，zbcode必须是最底层的指标的code，不能是指标分类的code
     * @return: java.util.List<acmr.cubequery.service.cubequery.entity.CubeNode>
     * @Author: lyh
     * @Date: 2018/8/24
     */
-    public  List<String> getHasDataNodeO(String zbcode, String wcode){
+    public  List<String> getHasDataNodeO(String zbcode, String wcode,String dbcode){
         List<CubeWdValue> list=new ArrayList<>();
         list.add(new CubeWdValue("zb",zbcode));
-        List<String> nodes=origin.gethasdatawdlist(list,wcode);
+        List<String> nodes=origin.gethasdatawdlist(list,wcode,dbcode);
         return nodes;
     }
 
