@@ -16,8 +16,8 @@
     }
 </style>
 <div style="height: 500px;width: 100%;overflow:auto;display: none " id="regtable">
-    <table class="table table-bordered" id="tabledata" >
-        <thead>
+    <table style="margin-top: 20px" class="table table-bordered" id="tabledata" >
+        <thead style="font-size: 15px;background-color: #F5F5F5;">
         <tr>
         <th>时间</th>
         <th style="min-width: 200px">指标</th>
@@ -50,9 +50,9 @@
     <div class="col-md-4" style="font-size: 15px">
         检查结果：${regname}
     </div>
-    <button class="J_excel_singlereg col-md-offset-1 col-md-3" style="font-size: 10px"><i class="glyphicon glyphicon-save"></i>&nbsp;本地区数据下载</button>
-    <table class="table table-bordered" id="tabledata_single" >
-        <thead>
+    <button class="J_excel_singlereg btn btn-default btn-sm col-md-offset-1 col-md-3" style="font-size: 10px"><i class="glyphicon glyphicon-save"></i>&nbsp;本地区数据下载</button>
+    <table style="margin-top: 50px" class="table table-bordered" id="tabledata_single" >
+        <thead style="font-size: 15px;background-color: #F5F5F5;">
         <tr>
             <th>指标</th>
             <c:forEach items="${times}" var="time">
