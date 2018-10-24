@@ -20,8 +20,8 @@
         vertical-align: middle!important;
     }
 </style>
-<span>${info.get("span")}</span>
-<select class="wd_selector">
+<span>${info.get("span")}：</span>
+<select class="input-sm wd_selector">
     <c:forEach items="${info.get('options')}" var="option">
         <c:if test="${info.get('spancode')==option.get('code')}">
             <option class="wd_option" id="${option.get('code')}" selected="selected">${option.get('name')}</option>
