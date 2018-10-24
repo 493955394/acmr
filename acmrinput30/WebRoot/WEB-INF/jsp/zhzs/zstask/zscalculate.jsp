@@ -32,8 +32,8 @@
                         <li role="presentation"><a href="#jsjg" aria-controls="jsjg" role="tab" data-toggle="tab">计算结果</a></li>
                         <li role="presentation" style="float: right">
                             <c:if test="${right!='0'}">
-                                <button type="button" class="btn btn-default btn-sm" id="recalculate"><i class="glyphicon glyphicon-retweet"></i>&nbsp;重新计算</button>
-                                <button type="button" class="btn btn-default btn-sm" id="resetpage"><i class="glyphicon glyphicon-refresh"></i>&nbsp;重置</button>
+                                <button type="button" class="btn btn-default btn-sm" id="recalculate"><i class="recalculate"></i>&nbsp;重新计算</button>
+                                <button type="button" class="btn btn-default btn-sm" id="resetpage"><i class="refresh"></i>&nbsp;重置</button>
                                 <button type="button" class="btn btn-default btn-sm" id="save_calculate"><i class="glyphicon glyphicon-floppy-saved"></i>&nbsp;保存并重新计算</button>
                             </c:if>
                             <button type="button" class="btn btn-default btn-sm" id="goback" data-right="${right}"><i class="glyphicon glyphicon-remove"></i>&nbsp;关闭</button>

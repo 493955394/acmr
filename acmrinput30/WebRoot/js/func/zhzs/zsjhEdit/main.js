@@ -422,10 +422,10 @@ define(function (require,exports,module) {
                             showreg +="";
                         }else {
                             if(checkreturn[i]=="0"){
-                                showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-ok clickli" data-id="'+select[i].code+'"></i></span></li>';
+                                showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="data-ok clickli" data-id="'+select[i].code+'"></i></span></li>';
                             }
                             else {
-                                showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="glyphicon glyphicon-remove clickli" data-id="'+select[i].code+'"></i></span></li>';
+                                showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="data-remove clickli" data-id="'+select[i].code+'"></i></span></li>';
                             }
                         }
                     }

@@ -39,7 +39,7 @@
                     <div style="float: right">
                         <input type="hidden" id="timecode" value="">
                         <button  type="button" id="timeinput" data-value="" style="display: none"/>
-                        <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i1" class="glyphicon glyphicon-retweet"></i>&nbsp;维度转换</button>&nbsp;
+                        <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i1" class="weidu-turn"></i>&nbsp;维度转换</button>&nbsp;
                         <button class="btn btn-default btn-sm pastview_download"><i id="i2" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
                     </div>
                     <div id="mySelect2"></div>

@@ -17,7 +17,7 @@
         text-align: center;
         vertical-align: middle!important;
     }
-    #i1,#i2,#i3{
+    #i1,#i2,.i3{
         color:#F39801;
     }
 
@@ -46,7 +46,7 @@
             <div class="toolbar-group" style="position: relative;">
                 <button class="btn btn-default btn-sm J_Add" data-toggle="modal" data-target="#mymodal-data" type="button"><i id="i1" class="glyphicon glyphicon-plus"></i>新增目录</button>&nbsp;
                 <button class="btn btn-default btn-sm J_Add_Plan" data-toggle="modal" data-target="#mymodal-data1" type="button"><i id="i2" class="glyphicon glyphicon-plus"></i>新增计划</button>&nbsp;
-                <button class="btn btn-default btn-sm J_AddCopy" type="button"><i id="i3" class="glyphicon glyphicon-floppy-open"></i>复制到</button>
+                <button class="btn btn-default btn-sm J_AddCopy" type="button"><i class="i3"></i>复制到</button>
             </div>
         </div>
     </div>
@@ -71,7 +71,7 @@
         </div>
         <div class="toolbar-right">
             <div class="toolbar-group" style="position: relative;">
-                <button class="btn btn-default btn-sm J_Share_AddCopy"  type="button" ><i id="i3" class="glyphicon glyphicon-floppy-open"></i>复制到</button>
+                <button class="btn btn-default btn-sm J_Share_AddCopy"  type="button" ><i class="i3"></i>复制到</button>
             </div>
         </div>
     </div>

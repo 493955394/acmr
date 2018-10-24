@@ -297,7 +297,7 @@
                                 <input class="col-md-2" name="endtime"/>
                                 <span class="col-md-1"></span>
                                 <div style="float: right">
-                                    <button id="datachecks" class="btn btn-default btn-sm" style="font-size: 10px"><i class="glyphicon glyphicon-check"></i>数据检查</button>
+                                    <button id="datachecks" class="btn btn-default btn-sm" style="font-size: 10px"><i class="data-check"></i>数据检查</button>
                                     <button class="J_plan_excel btn btn-default btn-sm" style="font-size: 10px;margin-left: 10px"><i class="glyphicon glyphicon-save"></i>数据下载</button>
                                 </div>
                                 <input type="hidden" id="single_reg" value="">
@@ -348,7 +348,7 @@
                                             </button>
                                             &nbsp;
                                             <button class="btn btn-default btn-sm J_Add weight_set" type="button">
-                                                <i class="glyphicon glyphicon-pencil"></i>权重设置
+                                                <i class="weight-edit"></i>权重设置
                                             </button>
                                             &nbsp;
                                         </div>

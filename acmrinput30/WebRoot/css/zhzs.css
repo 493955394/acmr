@@ -1,0 +1,86 @@
+/**
+复制到
+ */
+.J_Share_AddCopy i,.J_AddCopy i{
+    display: inline-block;
+    vertical-align: bottom;
+    width: 18px;
+    height: 18px;
+    background: url(../images/zhzs.png) no-repeat;
+}
+.J_AddCopy i.i3{
+    background-position: 0 0;
+}
+/**
+数据检查
+ */
+.data-check{
+    display: inline-block;
+    vertical-align: bottom;
+    width: 19px;
+    height: 19px;
+    background: url(../images/zhzs.png) no-repeat;
+    margin-right: 2px;
+    background-position: -60px -20px;
+}
+/**
+权重设置
+ */
+.weight-edit{
+    display: inline-block;
+    vertical-align: bottom;
+    width: 18px;
+    height: 18px;
+    background: url(../images/zhzs.png) no-repeat;
+    margin-right: 2px;
+    background-position: -82px -22px;
+}
+/**
+维度转换
+ */
+.weidu-turn{
+    display: inline-block;
+    vertical-align: bottom;
+    width: 18px;
+    height: 18px;
+    background: url(../images/zhzs.png) no-repeat;
+    margin-right: 2px;
+    background-position: -82px -1px;
+}
+/**
+计算页面
+ */
+.recalculate,.refresh{
+    display: inline-block;
+    vertical-align: bottom;
+    width: 18px;
+    height: 18px;
+    background: url(../images/zhzs.png) no-repeat;
+    margin-right: 2px;
+}
+.recalculate{
+    background-position: -103px -22px;
+}
+.refresh{
+    background-position: -103px -2px;
+}
+/*
+计算范围
+ */
+.selectedli span.badge{
+background-color: #ffffff;
+}
+.selectedli span i{
+    display: inline-block;
+    vertical-align: bottom;
+    width: 18px;
+    height: 18px;
+    background: url(../images/zhzs.png) no-repeat;
+    margin-right: 2px;
+}
+.selectedli i.data-ok{
+    background-position: -22px -23px;
+}
+.selectedli i.data-remove{
+    background-position: -42px -20px;
+}
