@@ -242,7 +242,7 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="jsfw">
-                        <div class="col-xs-3" style="padding-top:30px;">
+                        <div class="col-xs-3">
                             <input type="hidden" id="initTreePara" value="${initTreePara}"/>
                             <input type="hidden" id="procode" value=""/>
                             <div class="panel tree-panel" >
@@ -272,7 +272,7 @@
                                     style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 40px;width: 70px">
                                 <span style="color: white;text-align: center;font-size: 20px;margin-left: 20px"><<</span></div>
                         </div>
-                        <div class="col-xs-2" style="padding-top:30px">
+                        <div class="col-xs-2">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">地区列表</div>
                             </div>
@@ -286,7 +286,7 @@
                         </div>
 
                         <div class="col-xs-6"
-                             style="border:#E4EDF6;padding-left: 20px;padding-right: 20px;padding-top:30px">
+                             style="border:#E4EDF6;padding-left: 20px;padding-right: 20px;">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
                             </div>
