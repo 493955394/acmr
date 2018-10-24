@@ -78,7 +78,7 @@ by wulei
 .ztree li span.button.icon01_ico_open,
 .ztree li span.button.icon01_ico_docu,
 .ztree li span.button.icon01_ico_docu,
-.ztree li span.button.icon01_ico_close{margin-right:2px; background-position:0 -20px; vertical-align:middle;}
+.ztree li span.button.icon01_ico_close{margin-right:2px; background-position:-60px 1px; vertical-align:middle;}
 .ztree li span.button.edit {margin-right:2px; background-position:-110px -48px; vertical-align:middle; }
 .ztree li span.button.remove {margin-right:2px; background-position:-110px -64px; vertical-align:middle; }
 
