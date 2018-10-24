@@ -185,6 +185,7 @@ define(function (require,exports,module) {
                 }
             }else{ $('input[name=editname]').val(treeNode.name);
             }
+            $.fn.zTree.init($("#treeEditc"), setting4, cNodes);
         }
         var setting4 = {
             async: {
