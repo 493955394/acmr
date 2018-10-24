@@ -78,7 +78,7 @@ define(function(require,exports,module) {
         })*/
         $('input[name=taskcode]').val(taskcode);
         $('#data_upload', document).fileupload({
-            url: common.rootPath + 'zbdata/datahandle.htm?m=insertTaskData&taskcode='+taskcode,
+            url: common.rootPath + 'zbdata/zstask.htm?m=insertTaskData&taskcode='+taskcode,
             //url: common.rootPath + 'zbdata/zscalculate.htm?m=updateTaskData',
             dataType: 'json',
             /*add: function (e, data) {
