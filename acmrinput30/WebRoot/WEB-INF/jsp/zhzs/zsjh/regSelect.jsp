@@ -51,7 +51,7 @@
         检查结果：${regname}
     </div>
     <button class="J_excel_singlereg btn btn-default btn-sm col-md-offset-1 col-md-3" style="font-size: 10px"><i class="glyphicon glyphicon-save"></i>&nbsp;本地区数据下载</button>
-    <table style="margin-top: 50px" class="table table-bordered" id="tabledata_single" >
+    <table style="margin-top: 40px" class="table table-bordered" id="tabledata_single" >
         <thead style="font-size: 15px;background-color: #F5F5F5;">
         <tr>
             <th>指标</th>
