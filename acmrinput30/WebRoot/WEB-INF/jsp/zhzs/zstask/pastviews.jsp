@@ -43,8 +43,6 @@
                         <button class="btn btn-default btn-sm pastview_download"><i id="i2" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
                     </div>
                     <div id="mySelect2"></div>
-                </div>
-            </div>
             <div class="J_pastviews_data_table">
                 <jsp:include page="/WEB-INF/jsp/zhzs/zstask/pasttable.jsp" flush="true"/>
             </div>
