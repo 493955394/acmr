@@ -38,7 +38,7 @@
             <div class="panel-body">
                 <div id="top_div">
                     <!-- Nav tabs -->
-                    <ul class="nav nav-pills" role="tablist">
+                    <ul class="nav nav-pills" role="tablist" id="bjjhTab">
                         <li role="presentation" class="active"><a href="#jbxx" aria-controls="jbxx" role="tab"
                                                                   data-toggle="tab">基本信息</a></li>
                         <li role="presentation"><a href="#zssx" aria-controls="zssx" role="tab"
