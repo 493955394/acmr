@@ -35,8 +35,6 @@
     </c:forEach>
     <option class="wd_option" id="change">序列</option>
 </select>
-</div>
-</div>
 <div>
     <table class="table table-hover">
         <thead>
