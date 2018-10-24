@@ -308,6 +308,12 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         return table.getRows().size()!=0;
     }
 
+    @Override
+    public String getDbcode(String icode) {
+        String sql = "select b.dbcode from tb_coindex_index a left join tb_coindex_database b on a.sort = b.sort where a.code=?";
+        DataTable table= AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode});
+            return table.getRows().get(0).toString();
+    }
         /*}
         String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
         List<Object> params = new ArrayList<Object>();

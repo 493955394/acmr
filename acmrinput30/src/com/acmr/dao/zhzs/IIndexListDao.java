@@ -39,4 +39,5 @@ public interface IIndexListDao {
     public int updateTime(String plantime,String planperiod,String icode);
     public int switchFormu(String ncode,String ocode);
     public Boolean hasIndex(String icode,String usercode);
+    public String getDbcode(String icode);
 }
