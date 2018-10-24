@@ -285,7 +285,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-6 panel panel-default"
+                        <div class="col-xs-6"
                              style="border:#E4EDF6;padding-left: 20px;padding-right: 20px;padding-top:30px">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
