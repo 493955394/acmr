@@ -385,7 +385,7 @@
     height: 570px;
     width: 4px;
     overflow: hidden;
-    background: rgb(225, 230, 246);
+    background: rgb(246, 249, 254);
     cursor: w-resize;
     min-height: 10px;
 }
