@@ -437,7 +437,7 @@ public class zsjhedit extends BaseAction {
         //接参
         HttpServletRequest req = this.getRequest();
         OriginService originService=new OriginService();
-        String icode = this.getRequest().getParameter("icode");
+        String icode = this.getRequest().getParameter("indexcode");
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         String singlereg = PubInfo.getString(req.getParameter("reg"));//地区
         String excelsj = PubInfo.getString(req.getParameter("sj"));//时间
@@ -607,7 +607,7 @@ public class zsjhedit extends BaseAction {
         String icode = this.getRequest().getParameter("icode");
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         ZBdataService zBdataService=new ZBdataService();
-        List<CubeNode> nodes=zBdataService.findZB(query);
+        List<CubeNode> nodes=zBdataService.findZB(query,dbcode);
         List<CubeNode> zbs=new ArrayList<>();
         for (int i=0;i<nodes.size();i++){
             if(zBdataService.getSubZB(nodes.get(i).getCode(),dbcode).size()==0){
@@ -627,7 +627,9 @@ public class zsjhedit extends BaseAction {
     public void getZBPath() throws IOException {
         ZBdataService zBdataService=new ZBdataService();
         String code=this.getRequest().getParameter("code");
-        List<String> path=zBdataService.getZBPath(code);
+        String icode = this.getRequest().getParameter("icode");
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+        List<String> path=zBdataService.getZBPath(code,dbcode);
         this.sendJson(path);
     }
 
@@ -821,8 +823,10 @@ public class zsjhedit extends BaseAction {
     */ 
     public void getZBpath() throws IOException {
         String code=this.getRequest().getParameter("code");
+        String icode = this.getRequest().getParameter("icode");
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         ZBdataService zBdataService=new ZBdataService();
-        List<String> path=zBdataService.getZBPath(code);
+        List<String> path=zBdataService.getZBPath(code,dbcode);
         this.sendJson(path);
     }
 

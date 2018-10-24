@@ -236,7 +236,7 @@ define(function (require,exports,module) {
                             $(".panel_zbname").html(name).attr("code",clickcode)
                             //获得路径
                             $.ajax({
-                                url:common.rootPath+'zbdata/zsjhedit.htm?m=getZBpath&code='+clickcode,
+                                url:common.rootPath+'zbdata/zsjhedit.htm?m=getZBpath&code='+clickcode+"&icode"+indexCode,
                                 type:'get',
                                 success:function (re) {
                                     re.push(clickcode)

@@ -122,9 +122,9 @@ public class ZBdataService {
     * @Author: lyh
     * @Date: 2018/9/2
     */
-    public List<CubeNode> findZB(String s){
+    public List<CubeNode> findZB(String s,String dbcode){
         CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
-        List<CubeNode> nodes = cube1.FindWeiNode("cuscxnd","zb",s);
+        List<CubeNode> nodes = cube1.FindWeiNode(dbcode,"zb",s);
         return nodes;
     }
     /**
@@ -134,9 +134,9 @@ public class ZBdataService {
     * @Author: lyh
     * @Date: 2018/9/2
     */
-    public List<String> getZBPath(String code){
+    public List<String> getZBPath(String code,String dbcode){
         CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
-        String _path=cube1.getWeiTreePath("cuscxnd","zb",code);
+        String _path=cube1.getWeiTreePath(dbcode,"zb",code);
         List<String> path= Arrays.asList(_path.split("/"));
         return path;
     }
