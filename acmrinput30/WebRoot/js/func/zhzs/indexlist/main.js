@@ -297,6 +297,7 @@ define(function (require,exports,module) {
     }
     //根据路径展开树
     function expandTree(path) {
+        console.log(path)
         $.ajaxSettings.async=false
         var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
         var node=treeObj.getNodeByParam("id","!0")
@@ -367,7 +368,7 @@ define(function (require,exports,module) {
         if (pathval!=""){
             //需要定位
             var path=pathval.split("/")
-            path=path.slice(1,path.length)
+            path=path.slice(1,path.length-1)
             expandTree(path)
         }
         else {
