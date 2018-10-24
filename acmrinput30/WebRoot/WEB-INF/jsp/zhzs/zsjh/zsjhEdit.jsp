@@ -26,6 +26,9 @@
     .glyphicon {
         color: #F39801;
     }
+    .tree-panel{
+        margin: 0.0px;
+    }
 </style>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true"/>
 
