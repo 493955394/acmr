@@ -24,8 +24,8 @@
 </style>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 <div class="col-xs-12">
-    <div class="panel panel-default">
-        <div class="panel-heading">
+    <div>
+        <div>
             <h4>查看往期</h4>
             <input type="hidden" class="indexcode" value="${info.get('indexcode')}">
         </div>
@@ -34,7 +34,7 @@
             <span>该计划下没有往期任务！</span>
         </c:if>
         <c:if test="${info.get('tasknum')!='0'}">
-            <div class="panel-body">
+            <div>
                 <div class="toolbar">
                     <div style="float: right">
                         <input type="hidden" id="timecode" value="">
