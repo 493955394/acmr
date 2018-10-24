@@ -17,6 +17,8 @@ import acmr.util.PubInfo;
 
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
+import com.acmr.dao.zhzs.IIndexListDao;
+import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.pub.TreeNode;
@@ -82,13 +84,15 @@ public class zsjhedit extends BaseAction {
      */
     public void findZbTree() throws  IOException {
         String code = this.getRequest().getParameter("id");
+        String icode = this.getRequest().getParameter("icode");
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         if (StringUtil.isEmpty(code)){
-            ArrayList<CubeNode> nodes= RegdataService.getRegSubNodes("cuscxnd");
+            ArrayList<CubeNode> nodes= RegdataService.getRegSubNodes(dbcode);
         }
-        ArrayList<CubeNode> nodes= RegdataService.getRegSubNodes("cuscxnd",code);
+        ArrayList<CubeNode> nodes= RegdataService.getRegSubNodes(dbcode,code);
         List<TreeNode> list = new ArrayList<TreeNode>();
         for (int i = 0; i <nodes.size() ; i++) {
-            ArrayList<CubeNode> childnodes= RegdataService.getRegSubNodes("cuscxnd",nodes.get(i).getCode());
+            ArrayList<CubeNode> childnodes= RegdataService.getRegSubNodes(dbcode,nodes.get(i).getCode());
             TreeNode treeNode = new TreeNode();
             treeNode.setId(nodes.get(i).getCode());
             Boolean ifd ;
@@ -113,10 +117,12 @@ public class zsjhedit extends BaseAction {
     public void getResultLeft() throws  IOException{
         HttpServletRequest req = this.getRequest();
         String procode = PubInfo.getString(req.getParameter("procode"));
+        String icode = this.getRequest().getParameter("icode");
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         if (StringUtil.isEmpty(procode)){
-            ArrayList<CubeNode> nodes= RegdataService.getRegSubNodes("cuscxnd");
+            ArrayList<CubeNode> nodes= RegdataService.getRegSubNodes(dbcode);
         }
-        ArrayList<CubeNode> nodes= RegdataService.getRegSubNodes("cuscxnd",procode);
+        ArrayList<CubeNode> nodes= RegdataService.getRegSubNodes(dbcode,procode);
         List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
         for (int i = 0; i <nodes.size() ; i++) {
             Map<String, Object> obj = new HashMap<String, Object>();
@@ -133,6 +139,8 @@ public class zsjhedit extends BaseAction {
         HttpServletRequest req = this.getRequest();
         String pjax = req.getHeader("X-PJAX");
         OriginService originService = new OriginService();
+        String code=req.getParameter("indexcode");
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(code);
         String reg = PubInfo.getString(req.getParameter("reg"));//地区
         regname = PubInfo.getString(req.getParameter("regname"));//地区名称
         String sj = PubInfo.getString(req.getParameter("sj"));//时间
@@ -151,11 +159,11 @@ public class zsjhedit extends BaseAction {
         String[] cos = co.split(",");
         String[] units = zbunit.split(",");
         data1 = new ArrayList();
-        String checkresult = CheckResult(regs, sjs, zbcodes, dss, cos);
+        String checkresult = CheckResult(regs, sjs, zbcodes, dss, cos,dbcode);
         for (int i = 0; i < sjs.length; i++) {
             for (int j = 0; j < zbcodes.length; j++) {
                 List<String> datas = new ArrayList<>();
-                String funit = originService.getwdnode("zb", zbcodes[j]).getUnitcode();
+                String funit = originService.getwdnode("zb", zbcodes[j],dbcode).getUnitcode();
                 double rate = originService.getRate(funit, units[j], sjs[i]);
                 datas.add(sjs[i]);//获取时间
                 datas.add(zbnames[j]);//获取指标
@@ -166,7 +174,7 @@ public class zsjhedit extends BaseAction {
                     where.Add("co", cos[j]);
                     where.Add("reg", regs[k]);
                     where.Add("sj", sjs[i]);
-                    ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd", where);
+                    ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode, where);
                     if(result.size()==0){
                         datas.add("");
                     }else{
@@ -188,7 +196,6 @@ public class zsjhedit extends BaseAction {
          * 检查数据是否完整
          */
         if (StringUtil.isEmpty(pjax)) {
-            String code=req.getParameter("indexcode");
             JSONObject zbs=getZBS(code);
             IndexListService indexListService=new IndexListService();
             IndexList list =indexListService.getData(code);
@@ -209,7 +216,7 @@ public class zsjhedit extends BaseAction {
     /**
      * 先按指标、地区再按时间检查
      */
-    public String CheckResult(String [] regs,String [] sjs,String [] zbcodes,String [] dss,String [] cos){
+    public String CheckResult(String [] regs,String [] sjs,String [] zbcodes,String [] dss,String [] cos,String dbcode){
         String result="";
         for (int i = 0; i <regs.length ; i++) {
             String check = "0";
@@ -221,7 +228,7 @@ public class zsjhedit extends BaseAction {
                     where.Add("co", cos[j]);
                     where.Add("reg", regs[i]);
                     where.Add("sj", sjs[k]);
-                    ArrayList<CubeQueryData> result1 = RegdataService.queryData("cuscxnd",where);
+                    ArrayList<CubeQueryData> result1 = RegdataService.queryData(dbcode,where);
                     if(result1.size()==0){
                         check ="1";
                     }else {
@@ -247,6 +254,8 @@ public class zsjhedit extends BaseAction {
         HttpServletRequest req = this.getRequest();
         String pjax = req.getHeader("X-PJAX");
         OriginService originService=new OriginService();
+        String code=req.getParameter("indexcode");
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(code);
         String singlereg = PubInfo.getString(req.getParameter("reg"));//地区
         String excelsj = PubInfo.getString(req.getParameter("sj"));//时间
         String zbcode = PubInfo.getString(req.getParameter("zb"));//zbcode
@@ -261,7 +270,7 @@ public class zsjhedit extends BaseAction {
         String [] dss = ds.split(",");
         String [] cos = co.split(",");
         String [] units = zbunit.split(",");
-        String regionname = originService.getwdnode("reg",singlereg).getName();
+        String regionname = originService.getwdnode("reg",singlereg,dbcode).getName();
         List singledata1 = new ArrayList();
         for (int i = 0; i <zbcodes.length ; i++) {
             List <String> datas=new ArrayList<>();
@@ -269,14 +278,14 @@ public class zsjhedit extends BaseAction {
             for (int j = 0; j <sjs.length ; j++) {
 
                 CubeWdCodes where = new CubeWdCodes();
-                String funit=originService.getwdnode("zb",zbcodes[i]).getUnitcode();
+                String funit=originService.getwdnode("zb",zbcodes[i],dbcode).getUnitcode();
                 double rate=originService.getRate(funit,units[i],sjs[j]);
                 where.Add("zb", zbcodes[i]);
                 where.Add("ds", dss[i]);
                 where.Add("co", cos[i]);
                 where.Add("reg", singlereg);
                 where.Add("sj", sjs[j]);
-                ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
+                ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode,where);
                 if(result.size()==0){
                     datas.add("");
                 }else{
@@ -295,7 +304,6 @@ public class zsjhedit extends BaseAction {
         }
         System.out.println(check);
         if (StringUtil.isEmpty(pjax)) {
-            String code=req.getParameter("indexcode");
             JSONObject zbs=getZBS(code);
             IndexListService indexListService=new IndexListService();
             IndexList list =indexListService.getData(code);
@@ -429,6 +437,8 @@ public class zsjhedit extends BaseAction {
         //接参
         HttpServletRequest req = this.getRequest();
         OriginService originService=new OriginService();
+        String icode = this.getRequest().getParameter("icode");
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         String singlereg = PubInfo.getString(req.getParameter("reg"));//地区
         String excelsj = PubInfo.getString(req.getParameter("sj"));//时间
         String zbcode = PubInfo.getString(req.getParameter("zb"));//zbcode
@@ -442,7 +452,7 @@ public class zsjhedit extends BaseAction {
         String [] dss = ds.split(",");
         String [] cos = co.split(",");
         String [] units = zbunit.split(",");
-        String name = originService.getwdnode("reg",singlereg).getName();
+        String name = originService.getwdnode("reg",singlereg,dbcode).getName();
         List singledata1 = new ArrayList();
         for (int i = 0; i <zbcodes.length ; i++) {
             List <String> datas=new ArrayList<>();
@@ -450,14 +460,14 @@ public class zsjhedit extends BaseAction {
             for (int j = 0; j <sjs.length ; j++) {
 
                 CubeWdCodes where = new CubeWdCodes();
-                String funit=originService.getwdnode("zb",zbcodes[i]).getUnitcode();
+                String funit=originService.getwdnode("zb",zbcodes[i],dbcode).getUnitcode();
                 double rate=originService.getRate(funit,units[i],sjs[j]);
                 where.Add("zb", zbcodes[i]);
                 where.Add("ds", dss[i]);
                 where.Add("co", cos[i]);
                 where.Add("reg", singlereg);
                 where.Add("sj", sjs[j]);
-                ArrayList<CubeQueryData> result = RegdataService.queryData("cuscxnd",where);
+                ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode,where);
                 if(result.size()==0){
                     datas.add("");
                 }else{
@@ -554,14 +564,16 @@ public class zsjhedit extends BaseAction {
      */
     public void testTreeNode() throws IOException {
         String id=this.getRequest().getParameter("id");
+        String icode = this.getRequest().getParameter("icode");
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         ZBdataService zBdataService=new ZBdataService();
         List<TreeNode> list = new ArrayList<TreeNode>();
         List<CubeNode> zbs=new ArrayList<>();
         if(id==""){
-            zbs=zBdataService.getZB();
+            zbs=zBdataService.getZB(dbcode);
         }
         else {
-            zbs=zBdataService.getSubZB(id);
+            zbs=zBdataService.getSubZB(id,dbcode);
         }
         for (int i=0;i<zbs.size();i++){
             String code=zbs.get(i).getCode();
@@ -570,7 +582,7 @@ public class zsjhedit extends BaseAction {
             treeNode.setId(code);
             treeNode.setName(name);
             treeNode.setPId(id);
-            if (zBdataService.getSubZB(code).size()>0){
+            if (zBdataService.getSubZB(code,dbcode).size()>0){
                 treeNode.setIsParent(true);
             }
             else treeNode.setIsParent(false);
@@ -591,13 +603,14 @@ public class zsjhedit extends BaseAction {
      * @Date: 2018/8/30
      */
     public void testFind() throws IOException {
-        System.out.println("=====================find");
         String query=this.getRequest().getParameter("query");
+        String icode = this.getRequest().getParameter("icode");
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         ZBdataService zBdataService=new ZBdataService();
         List<CubeNode> nodes=zBdataService.findZB(query);
         List<CubeNode> zbs=new ArrayList<>();
         for (int i=0;i<nodes.size();i++){
-            if(zBdataService.getSubZB(nodes.get(i).getCode()).size()==0){
+            if(zBdataService.getSubZB(nodes.get(i).getCode(),dbcode).size()==0){
                 zbs.add(nodes.get(i));
             }
         }
@@ -627,16 +640,18 @@ public class zsjhedit extends BaseAction {
      */
     public  void getDsCoUnit() throws IOException {
         String code=this.getRequest().getParameter("zbcode");
+        String icode = this.getRequest().getParameter("icode");
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         // String code="888cab11761ccd4f77b12477c011e6e8188350f4";
         ZBdataService zBdataService=new ZBdataService();
         OriginService originService=new OriginService();
-        List<String> dscodes=zBdataService.getHasDataNodeO(code,"ds");
+        List<String> dscodes=zBdataService.getHasDataNodeO(code,"ds",dbcode);
         List<Map> dss=new ArrayList<>();
-        PutMap(dss,dscodes,"ds");
-        List<String> cocodes=zBdataService.getHasDataNodeO(code,"co");
+        PutMap(dss,dscodes,"ds",dbcode);
+        List<String> cocodes=zBdataService.getHasDataNodeO(code,"co",dbcode);
         List<Map> cos=new ArrayList<>();
-        PutMap(cos,cocodes,"co");
-        CubeNode ZB=originService.getwdnode("zb",code);
+        PutMap(cos,cocodes,"co",dbcode);
+        CubeNode ZB=originService.getwdnode("zb",code,dbcode);
         String unitcode=ZB.getUnitcode();
         String unitname=ZB.getUnitname();
         List<CubeUnit> unitlist=originService.getUnitList(unitcode);
@@ -653,12 +668,12 @@ public class zsjhedit extends BaseAction {
         obj.put("unit",units);
         this.sendJson(obj);
     }
-    public  void PutMap(List<Map> map, List<String> codes,String wcode){
+    public  void PutMap(List<Map> map, List<String> codes,String wcode,String dbcode){
         OriginService originService=new OriginService();
 
         for(int i=0;i<codes.size();i++){
             String code=codes.get(i);
-            String name=originService.getwdnode(wcode,code).getName();
+            String name=originService.getwdnode(wcode,code,dbcode).getName();
             Map jsonObj=new HashMap <String,String>();
             jsonObj.put(code,name);
             map.add(jsonObj);
@@ -697,9 +712,10 @@ public class zsjhedit extends BaseAction {
         String unitcode = req.getParameter("unitcode");
         String indexcode = req.getParameter("indexcode");
         // 判断是否pjax 请求
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(indexcode);
         String pjax = req.getHeader("X-PJAX");
         ZBdataService zBdataService=new ZBdataService();
-        List<String> sjs=zBdataService.getHasDataNodeO(zbcode,"sj");
+        List<String> sjs=zBdataService.getHasDataNodeO(zbcode,"sj",dbcode);
         //过滤非该计划统计周期的时间
         IndexList index=new IndexListService().getData(indexcode);
         String sort=index.getSort();
@@ -729,7 +745,7 @@ public class zsjhedit extends BaseAction {
         }
 
       //  PubInfo.printStr(sjs.toString());
-        List<String> regs=zBdataService.getHasDataNodeO(zbcode,"reg");
+        List<String> regs=zBdataService.getHasDataNodeO(zbcode,"reg",dbcode);
         OriginService originService=new OriginService();
         CubeWdCodes where = new CubeWdCodes();
         /*
@@ -737,7 +753,7 @@ public class zsjhedit extends BaseAction {
         where.Add("reg",regs);
         List<CubeQueryData> datas=originService.querydata(where);*/
         //PubInfo.printStr(datas.toString());
-        String funit=originService.getwdnode("zb",zbcode).getUnitcode();
+        String funit=originService.getwdnode("zb",zbcode,dbcode).getUnitcode();
         List<Double> rates=new ArrayList<>();
         for (int i=0;i<sjs.size();i++){
             String sj=sjs.get(i);
@@ -748,8 +764,8 @@ public class zsjhedit extends BaseAction {
         List<List<String>> rows=new ArrayList<>();
         for(int i=0;i<regs.size();i++){
             List<String> row=new ArrayList<>();
-            if(originService.getwdnode("reg",regs.get(i))!=null){
-                row.add(originService.getwdnode("reg",regs.get(i)).getName());
+            if(originService.getwdnode("reg",regs.get(i),dbcode)!=null){
+                row.add(originService.getwdnode("reg",regs.get(i),dbcode).getName());
                 for(int j=0;j<sjs.size();j++){
                     where.Add("zb",zbcode);
                     where.Add("ds",dscode);
@@ -757,8 +773,8 @@ public class zsjhedit extends BaseAction {
                     where.Add("sj",sjs.get(j));
                     where.Add("reg",regs.get(i));
                     double data=0;
-                    if(originService.querydata(where).size()>0){
-                        data=originService.querydata(where).get(0).getData().getData()*rates.get(j);
+                    if(originService.querydata(where,dbcode).size()>0){
+                        data=originService.querydata(where,dbcode).get(0).getData().getData()*rates.get(j);
                     }
                     row.add(data+"");
                     where.Clear();
@@ -1307,6 +1323,7 @@ public class zsjhedit extends BaseAction {
         List<Map> regions = new ArrayList<Map>();
         RegdataService regdataService = new RegdataService();
         IndexEditService indexEditService=new IndexEditService();
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         List<Map> zbchoose=indexEditService.getZBS(icode);
         if(zbchoose.size()>0){
             String region =  zbchoose.get(0).get("regcode").toString();
@@ -1315,7 +1332,7 @@ public class zsjhedit extends BaseAction {
                 for (int i = 0; i <temp.length ; i++) {
                     Map<String, String> items = new HashMap<String, String>();
                     items.put("regcode", temp[i]);
-                    items.put("regcname", regdataService.getRegNode("cuscxnd",temp[i]).getCname());
+                    items.put("regcname", regdataService.getRegNode(dbcode,temp[i]).getCname());
                     regions.add(items);
                 }
             }

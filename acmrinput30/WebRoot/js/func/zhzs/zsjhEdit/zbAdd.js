@@ -14,7 +14,6 @@ define(function (require,exports,module) {
     $(".zb_delete").click(zbDelete)
 
     var indexCode=$("#index_code").val();
-    console.log(indexCode)
     var st = new Date().getTime();//时间戳，用于生成zb的code code=st+Math.random().toString(36).substr(2)
     var zbs=[];//[{code1,zbcode1,zbname1,dscode,dsname,cocode,coname,unitcode,unitname}]
     zbs=editjsp.zbs
@@ -27,7 +26,7 @@ define(function (require,exports,module) {
     var setting = {
         async: {
             enable: true,
-            url: common.rootPath+'zbdata/zsjhedit.htm?m=testTreeNode',
+            url: common.rootPath+'zbdata/zsjhedit.htm?m=testTreeNode&icode='+indexCode,
             contentType: 'application/json',
             type: 'get',
             autoParam: ["id"]
@@ -79,7 +78,8 @@ define(function (require,exports,module) {
             $(".zb_add").css("display","inline")
             //console.log(zb)
             var data={
-                "zbcode":zb[0]
+                "zbcode":zb[0],
+                "icode":indexCode
             };
             $.ajax({
                 url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit',
@@ -208,7 +208,7 @@ define(function (require,exports,module) {
         var value=$("#queryValue").val()
         if(value!=""){
             $.ajax({
-                url:common.rootPath+'zbdata/zsjhedit.htm?m=testFind&query='+value,
+                url:common.rootPath+'zbdata/zsjhedit.htm?m=testFind&query='+value+"&icode="+indexCode,
                 type:'get',
                 success:function (re) {
                     var zbre=[];

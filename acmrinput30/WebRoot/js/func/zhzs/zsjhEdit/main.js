@@ -92,7 +92,7 @@ define(function (require,exports,module) {
     var setting1 = {
         async: {
             enable: true,
-            url: common.rootPath+'zbdata/zsjhedit.htm?m=findZbTree&st='+st,
+            url: common.rootPath+'zbdata/zsjhedit.htm?m=findZbTree&st='+st+"&icode="+incode,
             contentType: 'application/json',
             type: 'get',
             autoParam: ["id"]
@@ -174,7 +174,7 @@ define(function (require,exports,module) {
             $.ajax({
                 url: common.rootPath+'zbdata/zsjhedit.htm?m=getResultLeft',
                 type: "post",
-                data: {"procode": procode},
+                data: {"procode": procode,"icode":incode},
                 async: false,
                 dataType: "json",
                 success: function(data) {
@@ -488,6 +488,7 @@ define(function (require,exports,module) {
         var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toExcel';
         $.ajax({
             url: url,
+            data:{"icode":incode},
             type: 'post',
             success: function(data) {
                 if (data.returncode == 300) {
@@ -503,9 +504,7 @@ define(function (require,exports,module) {
      * 单个地区的下载
      */
     $(document).on('click', '.J_excel_singlereg', function() {
-        console.log("單地區下載")
         var reg=$("#single_reg").val()
-        console.log(reg)
         var zbcode = "";//指标code
         var zbco = "";//指标主体
         var zbds = "";//指标数据来源
