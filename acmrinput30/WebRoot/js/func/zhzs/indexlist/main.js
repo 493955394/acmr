@@ -253,7 +253,7 @@ define(function (require,exports,module) {
         } else {
             $('input[name=cataname]').val('');
         }
-
+        $.fn.zTree.init($("#treeCata"), setting1, cNodes);
     }
     function clickEvent2(event,treeId,treeNode) {
 
@@ -266,6 +266,7 @@ define(function (require,exports,module) {
         } else {
             $('input[name=planname]').val('');
         }
+        $.fn.zTree.init($("#treePlan"), setting2, cNodes);
 
     }
     function clickEvent3(event,treeId,treeNode) {
@@ -279,7 +280,7 @@ define(function (require,exports,module) {
         } else {
             $('input[name=indexname]').val('');
         }
-
+        $.fn.zTree.init($("#treeZs"), setting3, cNodes);
     }
 
     function clickEvent5(event,treeId,treeNode) {
@@ -293,7 +294,7 @@ define(function (require,exports,module) {
         } else {
             $('input[name=sharename]').val('');
         }
-
+        $.fn.zTree.init($("#treeShareZs"), setting5, cNodes);
     }
     //根据路径展开树
     function expandTree(path) {

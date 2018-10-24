@@ -66,6 +66,7 @@ define(function (require,exports,module) {
         } else {
             $('input[name=proname]').val('');
         }
+        $.fn.zTree.init($("#tree"), setting, zNodes);
     }
 
    /* //修复图标，使没有子节点的目录也显示为目录
