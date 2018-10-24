@@ -198,7 +198,8 @@ public class PastViewService {
             List<String> thisregs=indexTaskService.getTaskRegs(taskcode);
             for (int j=0;j<thisregs.size();j++){
                 if (!regs.containsKey(thisregs.get(j))){
-                    String name=originService.getwdnode("reg",thisregs.get(j)).getName();
+                    String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+                    String name=originService.getwdnode("reg",thisregs.get(j),dbcode).getName();
                     regs.put(thisregs.get(j),name);
                 }
             }
@@ -348,7 +349,8 @@ public class PastViewService {
             String regioncode = regs.get(i);
             //List<String> zbdata = new ArrayList<>();
             List<String> datas = new ArrayList<>();
-            String regname = originService.getwdnode("reg",regioncode).getName();
+            String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+            String regname = originService.getwdnode("reg",regioncode,dbcode).getName();
             datas.add(regname);
             for(int j=0;j<taskcodes.size();j++){
                 if(orcode==null){
@@ -480,7 +482,8 @@ public class PastViewService {
             for (int i = 0; i < regs.size(); i++) {
                 String regioncode = regs.get(i);
                 List<String> datas = new ArrayList<>();
-                String regname = originService.getwdnode("reg", regioncode).getName();
+                String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+                String regname = originService.getwdnode("reg", regioncode,dbcode).getName();
                 datas.add(regname);
                 for (int j = 0; j < orcodes.size(); j++) {
                     String orcode = orcodes.get(j).get("code");
@@ -507,7 +510,8 @@ public class PastViewService {
             for (int i = 0; i < regs.size(); i++) {
                 String regioncode = regs.get(i);
                 List<String> datas = new ArrayList<>();
-                String regname = originService.getwdnode("reg", regioncode).getName();
+                String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+                String regname = originService.getwdnode("reg", regioncode,dbcode).getName();
                 datas.add(regname);
                 for (int j = 0; j < orcodes.size(); j++) {
 

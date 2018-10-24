@@ -9,6 +9,7 @@ import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.dao.zhzs.DataDao;
+import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
@@ -45,6 +46,8 @@ public class zscalculate extends BaseAction {
         String taskcode = req.getParameter("taskcode");
         String right=req.getParameter("right");
         //把data_tmp表中的数据覆盖了
+        String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(taskcode).getRows().get(0).getString("indexcode");
+        String dbcode= IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         String sessionid=req.getSession().getId();
         IndexTaskDao.Fator.getInstance().getIndexdatadao().copyData(taskcode,sessionid);
         DataDao.Fator.getInstance().getIndexdatadao().copyDataResult(taskcode,sessionid);
@@ -53,7 +56,7 @@ public class zscalculate extends BaseAction {
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
         List<String> regs = new ArrayList<>();
         for (int i = 0; i < regscode.size(); i++) {
-            regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
+            regs.add(originService.getwdnode("reg", regscode.get(i),dbcode).getName());
         }
 
         WeightEditService weightEditService=new WeightEditService();
@@ -84,8 +87,10 @@ public class zscalculate extends BaseAction {
         List<List<String>> datatmp = getOriginData(true,taskcode,ayearmon,sessionid);
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
         List<String> regstmp = new ArrayList<>();
+        String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(taskcode).getRows().get(0).getString("indexcode");
+        String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         for (int i = 0; i < regscode.size(); i++) {
-            regstmp.add(originService.getwdnode("reg", regscode.get(i)).getName());
+            regstmp.add(originService.getwdnode("reg", regscode.get(i),dbcode).getName());
         }
 
         WeightEditService weightEditService=new WeightEditService();
@@ -115,8 +120,10 @@ public class zscalculate extends BaseAction {
     //List<List<String>> datatmp = getOriginData(true,taskcode,ayearmon,sessionid);
     List<String> regscode = indexTaskService.getTaskRegs(taskcode);
     List<String> regstmp = new ArrayList<>();
+    String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(taskcode).getRows().get(0).getString("indexcode");
+    String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         for (int i = 0; i < regscode.size(); i++) {
-        regstmp.add(originService.getwdnode("reg", regscode.get(i)).getName());
+        regstmp.add(originService.getwdnode("reg", regscode.get(i),dbcode).getName());
     }
 
     WeightEditService weightEditService=new WeightEditService();
@@ -231,8 +238,10 @@ public class zscalculate extends BaseAction {
         String pjax = req.getHeader("X-PJAX");
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
         List<String> regs = new ArrayList<>();
+        String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(taskcode).getRows().get(0).getString("indexcode");
+        String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         for (int i = 0; i < regscode.size(); i++) {
-            regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
+            regs.add(originService.getwdnode("reg", regscode.get(i),dbcode).getName());
         }
         if (StringUtil.isEmpty(pjax)) {
 
@@ -288,10 +297,11 @@ public class zscalculate extends BaseAction {
         IndexTaskService indexTaskService = new IndexTaskService();
         List<String> ZBcodes = indexTaskService.getZBcodes(taskcode);
         List<String> regs = indexTaskService.getTaskRegs(taskcode);
+        String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(taskcode).getRows().get(0).getString("indexcode");
         for (int i = 0; i < ZBcodes.size(); i++) {
             List<String> row = new ArrayList<>();
             String ZBcode = ZBcodes.get(i);
-            row.add(indexTaskService.getzbname(ZBcode));
+            row.add(indexTaskService.getzbname(ZBcode,icode));
             for (int j = 0; j < regs.size(); j++) {
                 String data = indexTaskService.getData(istmp,taskcode, regs.get(j), ZBcodes.get(i), ayearmon,sessionid);
                 row.add(data);
@@ -323,8 +333,10 @@ public class zscalculate extends BaseAction {
         String pjax = req.getHeader("X-PJAX");
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
         List<String> regs = new ArrayList<>();
+        String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(taskcode).getRows().get(0).getString("indexcode");
+        String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         for (int i = 0; i < regscode.size(); i++) {
-            regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
+            regs.add(originService.getwdnode("reg", regscode.get(i),dbcode).getName());
         }
         if (StringUtil.isEmpty(pjax)) {
             PubInfo.printStr("===================================emptyredata");
@@ -367,12 +379,14 @@ public class zscalculate extends BaseAction {
         // ExcelBook book = new ExcelBook();
         ExcelBook book = new ExcelBook();
         ExcelSheet sheet1 = new ExcelSheet();
+        String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(taskcode).getRows().get(0).getString("indexcode");
+        String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         sheet1.setName("sheet1");
             List<List<String>> datatmp = getOriginData(true,taskcode,ayearmon,sessionid);
             List<String> regscode = indexTaskService.getTaskRegs(taskcode);
             List<String> regstmp = new ArrayList<>();
             for (int i = 0; i < regscode.size(); i++) {
-                regstmp.add(originService.getwdnode("reg", regscode.get(i)).getName());
+                regstmp.add(originService.getwdnode("reg", regscode.get(i),dbcode).getName());
             }
             JSONReturnData data = new JSONReturnData("");
             if (regstmp == null || datatmp == null) {
@@ -466,9 +480,11 @@ public class zscalculate extends BaseAction {
         //从临时数据表读取数据做计算
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
         List<String> regs = new ArrayList<>();
+        String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(taskcode).getRows().get(0).getString("indexcode");
+        String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         boolean back = originDataService.recalculate(taskcode,ayearmon,sessionid);
         for (int i = 0; i < regscode.size(); i++) {
-            regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
+            regs.add(originService.getwdnode("reg", regscode.get(i),dbcode).getName());
         }
         if(back){
                 datas = getResultList(taskcode,regscode,sessionid);
@@ -545,8 +561,10 @@ public class zscalculate extends BaseAction {
        //存完之后临时表覆盖原始表
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
         List<String> regs = new ArrayList<>();
+        String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(taskcode).getRows().get(0).getString("indexcode");
+        String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         for (int i = 0; i < regscode.size(); i++) {
-            regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
+            regs.add(originService.getwdnode("reg", regscode.get(i),dbcode).getName());
         }
         if(back){
             if(originDataService.savecalculateresult(taskcode,sessionid) == 0){

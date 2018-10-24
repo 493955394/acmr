@@ -2,6 +2,8 @@ package com.acmr.model.zhzs;
 
 import acmr.cubequery.service.cubequery.entity.CubeWdCodes;
 import acmr.util.PubInfo;
+import com.acmr.dao.zhzs.IndexListDao;
+import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zbdata.ZBdataService;
 
@@ -136,11 +138,13 @@ public class TaskZb {
         List<Double> data=new ArrayList<>();
         OriginService originService=new OriginService();
         List<String> regs= Arrays.asList(this.regions.split(","));
-        String funit=originService.getwdnode("zb",this.zbcode).getUnitcode();
+        String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(this.code).getRows().get(0).getString("indexcode");
+        String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+        String funit=originService.getwdnode("zb",this.zbcode,dbcode).getUnitcode();
         double rate=originService.getRate(funit,this.unitcode,time);
         //查这个时间是否有值
         ZBdataService zBdataService=new ZBdataService();
-        List<String> sjs=zBdataService.getHasDataNodeO(zbcode,"sj");
+        List<String> sjs=zBdataService.getHasDataNodeO(zbcode,"sj",dbcode);
         Boolean hassj=false;
         for (int s=0;s<sjs.size();s++){
             if (sjs.get(s).equals(time)){
@@ -150,7 +154,7 @@ public class TaskZb {
         if (hassj){
             for (int i=0;i<regs.size();i++){
                 //检查这个地区是否有值
-                List<String> hasregs=zBdataService.getHasDataNodeO(zbcode,"reg");
+                List<String> hasregs=zBdataService.getHasDataNodeO(zbcode,"reg",dbcode);
                 Boolean hasreg=false;
                 for (int r=0;r<hasregs.size();r++){
                     if (hasregs.get(r).equals(regs.get(i))){
@@ -164,7 +168,7 @@ public class TaskZb {
                     where.Add("ds",this.datasource);
                     where.Add("co",this.company);
                     where.Add("sj",time);
-                    double d=originService.querydata(where).get(0).getData().getData()*rate;
+                    double d=originService.querydata(where,dbcode).get(0).getData().getData()*rate;
                    // PubInfo.printStr("sj:"+time+"reg"+regs.get(i)+"d"+String.valueOf(d));
                     data.add(d);
                 }
