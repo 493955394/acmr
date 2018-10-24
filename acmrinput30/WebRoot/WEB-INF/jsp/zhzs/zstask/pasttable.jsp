@@ -20,7 +20,7 @@
         vertical-align: middle!important;
     }
 </style>
-<span>${info.get("span")}：</span>
+<span style="margin-left: 10px">${info.get("span")}：</span>
 <select class="input-sm wd_selector">
     <c:forEach items="${info.get('options')}" var="option">
         <c:if test="${info.get('spancode')==option.get('code')}">
@@ -36,7 +36,7 @@
     <option class="wd_option" id="change">序列</option>
 </select>
 <div>
-    <table class="table table-hover">
+    <table style="margin-top: 10px" class="table table-hover">
         <thead>
         <tr>
             <th>${info.get('row')}</th>
