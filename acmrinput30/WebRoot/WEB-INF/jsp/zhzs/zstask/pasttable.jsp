@@ -14,7 +14,6 @@
         vertical-align: middle!important;
         background-color: #EBECF1;
     }
-
     td{
         text-align: center;
         vertical-align: middle!important;
@@ -35,8 +34,6 @@
     </c:forEach>
     <option class="wd_option" id="change">序列</option>
 </select>
-</div>
-</div>
 <div>
     <table style="margin-top: 10px" class="table table-hover">
         <thead>
