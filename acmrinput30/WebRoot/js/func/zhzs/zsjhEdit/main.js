@@ -66,6 +66,7 @@ define(function (require,exports,module) {
         } else {
             $('input[name=proname]').val('');
         }
+        $.fn.zTree.init($("#tree"), setting, zNodes);
     }
 
    /* //修复图标，使没有子节点的目录也显示为目录
@@ -113,6 +114,7 @@ define(function (require,exports,module) {
         else {
             $('input[name=regname]').val("");
         }
+
 
     }
     var rootNode = [{"id":"","name":"地区树", "open":"true", "isParent":"true",icon:"../../../../zhzs/css/img/mark1.png"}];
@@ -577,6 +579,7 @@ define(function (require,exports,module) {
                 var r= timetext.match(reg);
                 if(r==null){
                     alert("您的"+"年度"+"起始数据期格式有误")
+                    $('#bjjhTab li:eq(0) a').tab('show');
                     return;
                 }
             }else if(timesort == "q"){
@@ -584,6 +587,7 @@ define(function (require,exports,module) {
                 var r= timetext.match(reg);
                 if(r==null){
                     alert("您的季度起始数据期格式有误")
+                    $('#bjjhTab li:eq(0) a').tab('show');
                     return;
                 }
             }else if(timesort == "m"){
@@ -591,11 +595,13 @@ define(function (require,exports,module) {
                 var r= timetext.match(reg);
                 if(r==null){
                     alert("您的"+"月度"+"起始数据期格式有误")
+                    $('#bjjhTab li:eq(0) a').tab('show');
                     return;
                 }
                 var sub = timetext.substring(timetext.length-2);
                 if(sub == "00"||parseInt(sub)>12){
                     alert("您的"+"月度"+"起始数据期格式有误")
+                    $('#bjjhTab li:eq(0) a').tab('show');
                     return;
                 }
             }
@@ -603,13 +609,15 @@ define(function (require,exports,module) {
                 var r=$('input[name="delayday"]').val().match(regDelayDays);
                 if(r==null){
                     alert("您的"+"数据期时间间隔"+"有误");
+                    $('#bjjhTab li:eq(0) a').tab('show');
                     return;
                 }
                 //名字只能是中文和字母
-                var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
+                var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
                 var z = $('input[name="index_cname"]').val().match(namecheck);
              if(z==null){
-            alert("您的计划名称不符合规则");
+            alert("名称含有不规则字符，请修改");
+            $('#bjjhTab li:eq(0) a').tab('show');
             return;
         }
         if (!checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'required', 'msg': '计划名称不能为空' }]) ||
@@ -625,6 +633,8 @@ define(function (require,exports,module) {
             flag = false;
         }
         if (flag == false) {
+            alert("信息不全！")
+            $('#bjjhTab li:eq(0) a').tab('show');
             return;
         }
         var zbcode = "";//指标code
@@ -634,6 +644,11 @@ define(function (require,exports,module) {
         var sxcode = "";//指标名称
         var regselect ="";//地区信息
         var zbs=zbAdd.zbs;//获取指标的信息
+        if(zbs.length==0){
+            alert("信息不全")
+            $('#bjjhTab li:eq(1) a').tab('show');
+            return;
+        }
         for (var i = 0; i <zbs.length ; i++) {
             zbcode += zbs[i].zbcode+",";
             zbco += zbs[i].cocode+",";
@@ -646,10 +661,16 @@ define(function (require,exports,module) {
         zbds = zbds.substr(0, zbds.length - 1);//去除最后一个逗号
         sxcode = sxcode.substr(0, sxcode.length - 1);//去除最后一个逗号
         zbunit = zbunit.substr(0, zbunit.length - 1);//去除最后一个逗号
+        if(select.length==0){
+            alert("信息不全！")
+            $('#bjjhTab li:eq(2) a').tab('show');
+            return;
+        }
         for (var i = 0; i <select.length ; i++) {
             regselect += select[i].code+",";
         }
         regselect = regselect.substr(0, regselect.length - 1);//去除最后一个逗号
+
         $("#indexForm").serialize();
         $.ajax({
             url: common.rootPath+'zbdata/zsjhedit.htm?m=toSaveAll',

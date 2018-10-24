@@ -71,7 +71,7 @@
         </div>
         <div class="toolbar-right">
             <div class="toolbar-group" style="position: relative;">
-                <button class="btn btn-default btn-sm J_Share_AddCopy"  type="button" >复制到</button>
+                <button class="btn btn-default btn-sm J_Share_AddCopy"  type="button" ><i id="i3" class="glyphicon glyphicon-floppy-open"></i>复制到</button>
             </div>
         </div>
     </div>

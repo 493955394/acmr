@@ -113,63 +113,61 @@
                     </div>
                 </div>
                 <div class="hidden_group form-group" style="display: none">
-                    <div class="row">
-                        <label class="col-sm-2 control-label">公式编辑器：</label>
-                        <div class="col-sm-3">
-                            <select size="15" class="zb_index" style="width: 90%">
-                                <c:forEach items="${zblist.zbchoose}" var="zbl">
-                                    <option value="${zbl.code}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div class="col-sm-1">
-                            <button type="button" class="btn btn-default" id="add_zb" style="border-color: #F39801;background-color: #F39801"><span style="color: white">添加></span></button>
-                        </div>
-                        <div class="col-sm-3">
-                            <textarea rows="8" cols="35" id="formulatext" name="formulatext"><c:if test="${data.getIfzb() == '0'}">${data.getFormula()}</c:if></textarea>
-                            <div class="clearfix"></div>
-                            <p></p>
-                            <div type="button" style="height: 35px;width: 35px" class="btn btn-default" onclick="addExpressContent('1')"><span style="color: white">1</span></div>
-                            <div type="button" style="height: 35px;width: 35px"  style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('2')"><span style="color: white">2</span></div>
-                            <div type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('3')"><span style="color: white">3</span></div>
-                            <div type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('+')"><span style="color: white">+</span></div>
-                            <div class="clearfix"></div>
-                            <div type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('4')"><span style="color: white">4</span></div>
-                            <div type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('5')"><span style="color: white">5</span></div>
-                            <div type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('6')"><span style="color: white">6</span></div>
-                            <div type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('-')"><span style="color: white"> - </span></div>
-                            <div class="clearfix"></div>
-                            <div type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('7')"><span style="color: white">7</span></div>
-                            <div type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('8')"><span style="color: white">8</span></div>
-                            <div type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('9')"><span style="color: white">9</span></div>
-                            <div type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('*')"><span style="color: white">*</span></div>
-                            <div class="clearfix"></div>
-                            <div type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('()')"><span style="color: white">()</span></div>
-                            <div type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('0')"><span style="color: white">0</span></div>
-                            <div type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('.')"><span style="color: white">.</span></div>
-                            <div type="button" style="height: 35px;width: 35px"  class="btn btn-default" onclick="addExpressContent('/')"><span style="color: white">/</span></div>
-                        </div>
-                        <div class="col-sm-1">
-                            <button type="button" class="btn btn-default" id="add_hanshu" style="border-color: #F39801;background-color: #F39801"><span style="color: white"><添加</span></button>
-                        </div>
-                        <div class="col-sm-2">
-                            <select size="15" id="hanshu">
-                                <option value="abs()">Math.abs</option>
-                                <option value="max()">Math.max</option>
-                                <option value="min()">Math.min</option>
-                                <option value="pow()">Math.pow(x,y)</option>
-                                <option value="exp()">Math.exp</option>
-                                <option value="log10()">Math.log10</option>
-                                <option value="log()">Math.log</option>
-                                <option value="random()">Math.random</option>
-                             <%--   <option>add(BigInteger val)</option>
-                                <option>subtract(BigInteger val)</option>
-                                <option>multiply(BigInteger val)</option>
-                                <option>divide(BigInteger val)</option>
-                                <option>compareTo(BigInteger val)</option>
-                                <option>pow(int exponent)</option>--%>
-                            </select>
-                        </div>
+                    <label class="col-sm-2 control-label">公式编辑器：</label>
+                    <div class="col-sm-3">
+                        <select size="15" class="zb_index" style="width: 100%">
+                            <c:forEach items="${zblist.zbchoose}" var="zbl">
+                                <option value="${zbl.code}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-default" id="add_zb" style="border-color: #F39801;background-color: #F39801"><span style="color: white">添加></span></button>
+                    </div>
+                    <div class="col-sm-2">
+                        <textarea rows="8" cols="23" id="formulatext" name="formulatext"></textarea>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px" class="btn btn-default cal" onclick="addExpressContent('1')"><span style="color: white;">1</span></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px" class="btn btn-default" onclick="addExpressContent('2')"><span style="color: white">2</span></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('3')"><span style="color: white">3</span></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('+')"><span style="color: white">+</span></div>
+                        <div style="margin-top: 10px" class="clearfix"></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px"  class="btn btn-default" onclick="addExpressContent('4')"><span style="color: white">4</span></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('5')"><span style="color: white">5</span></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('6')"><span style="color: white">6</span></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('-')"><span style="color: white"> - </span></div>
+                        <div style="margin-top: 10px" class="clearfix"></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px"  class="btn btn-default" onclick="addExpressContent('7')"><span style="color: white">7</span></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('8')"><span style="color: white">8</span></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('9')"><span style="color: white">9</span></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('*')"><span style="color: white">*</span></div>
+                        <div style="margin-top: 10px" class="clearfix"></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px"  class="btn btn-default" onclick="addExpressContent('()')"><span style="color: white">()</span></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('0')"><span style="color: white">0</span></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('.')"><span style="color: white">.</span></div>
+                        <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('/')"><span style="color: white">/</span></div>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-default" id="add_hanshu" style="border-color: #F39801;background-color: #F39801"><span style="color: white"><添加</span></button>
+                    </div>
+                    <div class="col-sm-2">
+                        <select size="15" id="hanshu">
+                            <option value="abs()">Math.abs</option>
+                            <option value="max()">Math.max</option>
+                            <option value="min()">Math.min</option>
+                            <option value="pow()">Math.pow(x,y)</option>
+                            <option value="exp()">Math.exp</option>
+                            <option value="log10()">Math.log10</option>
+                            <option value="log()">Math.log</option>
+                            <option value="random()">Math.random</option>
+                            <%-- <option>add(BigInteger val)</option>
+                             <option>subtract(BigInteger val)</option>
+                             <option>multiply(BigInteger val)</option>
+                             <option>divide(BigInteger val)</option>
+                             <option>compareTo(BigInteger val)</option>
+                             <option>pow(int exponent)</option>--%>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">

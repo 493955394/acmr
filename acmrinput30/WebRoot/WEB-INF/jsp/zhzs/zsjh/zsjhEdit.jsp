@@ -26,6 +26,9 @@
     .glyphicon {
         color: #F39801;
     }
+    .tree-panel{
+        margin: 0.0px;
+    }
 </style>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true"/>
 
@@ -38,7 +41,7 @@
             <div class="panel-body">
                 <div id="top_div">
                     <!-- Nav tabs -->
-                    <ul class="nav nav-pills" role="tablist">
+                    <ul class="nav nav-pills" role="tablist" id="bjjhTab">
                         <li role="presentation" class="active"><a href="#jbxx" aria-controls="jbxx" role="tab"
                                                                   data-toggle="tab">基本信息</a></li>
                         <li role="presentation"><a href="#zssx" aria-controls="zssx" role="tab"
@@ -282,7 +285,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-6 panel panel-default"
+                        <div class="col-xs-6"
                              style="border:#E4EDF6;padding-left: 20px;padding-right: 20px;padding-top:30px">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
