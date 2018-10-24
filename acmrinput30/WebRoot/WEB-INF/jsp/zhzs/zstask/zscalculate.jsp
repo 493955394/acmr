@@ -33,7 +33,7 @@
                         <li role="presentation" style="float: right">
                             <c:if test="${right!='0'}">
                                 <button type="button" class="btn btn-default btn-sm" id="recalculate"><i class="recalculate"></i>&nbsp;重新计算</button>
-                                <button type="button" class="btn btn-default btn-sm" id="resetpage"><i class="refresh"></i>&nbsp;重置</button>
+                                <button type="button" class="btn btn-default btn-sm" id="resetpage"><i class="glyphicon glyphicon-refresh"></i>&nbsp;重置</button>
                                 <button type="button" class="btn btn-default btn-sm" id="save_calculate"><i class="glyphicon glyphicon-floppy-saved"></i>&nbsp;保存并重新计算</button>
                             </c:if>
                             <button type="button" class="btn btn-default btn-sm" id="goback" data-right="${right}"><i class="glyphicon glyphicon-remove"></i>&nbsp;关闭</button>
@@ -58,7 +58,7 @@
                                     <span class="btn btn-default btn-sm fileinput-button"><span><i class="glyphicon glyphicon-upload"></i>上传数据</span><input type="file" name="file" id="data_upload"></span>
                                     <span id="import_count" class="form-group"></span>
                                     <%--<button type="button" class="btn btn-default" id="data_upload">上传数据</button>--%>
-                                    <button type="button" class="btn btn-default btn-sm" id="data_reload"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;重新读取数据</button>
+                                    <button type="button" class="btn btn-default btn-sm" id="data_reload"><i class="refresh"></i>&nbsp;重新读取数据</button>
                                 </c:if>
                                 <input type="hidden" class="reloaddata" value="${taskcode}">
 
