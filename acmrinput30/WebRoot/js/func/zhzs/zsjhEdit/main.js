@@ -616,7 +616,7 @@ define(function (require,exports,module) {
                 var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
                 var z = $('input[name="index_cname"]').val().match(namecheck);
              if(z==null){
-            alert("您的计划名称不符合规则");
+            alert("名称含有不规则字符，请修改");
             $('#bjjhTab li:eq(0) a').tab('show');
             return;
         }
