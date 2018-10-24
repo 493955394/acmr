@@ -5,6 +5,7 @@ import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IndexEditDao;
+import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.model.zhzs.IndexZb;
@@ -39,6 +40,7 @@ public class IndexEditService {
     public  List<Map> getZBS(String icode){
         OriginService originService=new OriginService();
         List<Map> zbchoose=new ArrayList<>();
+        String dbcode= IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         List<DataTableRow> data = IndexEditDao.Fator.getInstance().getIndexdatadao().getZBSbyIndexCode(icode).getRows();
         PubInfo.printStr("======================data");
         for(int i=0;i<data.size();i++){
@@ -49,9 +51,9 @@ public class IndexEditService {
             attr.put("dscode",data.get(i).getString("datasource"));
             attr.put("cocode",data.get(i).getString("company"));
             attr.put("unitcode",data.get(i).getString("unitcode"));
-            attr.put("zbname",originService.getwdnode("zb",data.get(i).getString("zbcode")).getName());
-            attr.put("dsname",originService.getwdnode("ds",data.get(i).getString("datasource")).getName());
-            attr.put("coname",originService.getwdnode("co",data.get(i).getString("company")).getName());
+            attr.put("zbname",originService.getwdnode("zb",data.get(i).getString("zbcode"),dbcode).getName());
+            attr.put("dsname",originService.getwdnode("ds",data.get(i).getString("datasource"),dbcode).getName());
+            attr.put("coname",originService.getwdnode("co",data.get(i).getString("company"),dbcode).getName());
             String unitname="";
             List<CubeUnit> units=originService.getUnitList(data.get(i).getString("unitcode"));
             String unitcode=data.get(i).getString("unitcode");

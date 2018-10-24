@@ -3,6 +3,8 @@ package com.acmr.web.jsp.zbdata;
 import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
+import com.acmr.dao.zhzs.IndexListDao;
+import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.pub.PageBean;
@@ -186,8 +188,10 @@ public class zstask extends BaseAction {
         List<String> regscode = indexTaskService.getTaskRegs(taskcode);
 
         List<String> regs = new ArrayList<>();
+        String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(taskcode).getRows().get(0).getString("indexcode");
+        String dbcode= IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         for (int i = 0; i < regscode.size(); i++) {
-            regs.add(originService.getwdnode("reg", regscode.get(i)).getName());
+            regs.add(originService.getwdnode("reg", regscode.get(i),dbcode).getName());
         }
         List<String> ZBcodes = indexTaskService.getZBcodes(taskcode);
         String ayearmon = indexTaskService.getTime(taskcode);
@@ -243,7 +247,7 @@ public class zstask extends BaseAction {
                             //String ceshi = sheet.getRows().get(2).getCells().get(0).getText() + "";
                             //String [] getregname = getreg.split(",");
                             String ZBcode = ZBcodes.get(z);
-                            ZBname.add(indexTaskService.getzbname(ZBcode));
+                            ZBname.add(indexTaskService.getzbname(ZBcode,icode));
                             String zbname = ZBname.get(z);
                             if(!getzb.equals(zbname)){
                                 data.setReturncode(300);

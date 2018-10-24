@@ -220,15 +220,16 @@ public class IndexTaskService {
 
     /**
     * @Description: 获取指标的名称
-    * @Param: [code]
+    * @Param: [code,icode]
     * @return: java.lang.String
     * @Author: lyh
     * @Date: 2018/9/14
     */
-    public String getzbname(String ZBcode){
+    public String getzbname(String ZBcode,String icode){
         String zbcode=IndexTaskDao.Fator.getInstance().getIndexdatadao().getzbcode(ZBcode);
         OriginService originService=new OriginService();
-        String zbname=originService.getwdnode("zb",zbcode).getName();
+        String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+        String zbname=originService.getwdnode("zb",zbcode,dbcode).getName();
         return zbname;
     }
     /*
