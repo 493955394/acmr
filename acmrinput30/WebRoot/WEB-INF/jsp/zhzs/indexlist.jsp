@@ -188,7 +188,7 @@
     <div class="modal" id="mymodal-data4" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form class="form-horizontal J_share_addcope" action="${ctx}/zbdata/indexplan.htm?m=sharecopy">
+                <form class="form-horizontal J_share_addcope" action="${ctx}/zbdata/indexlist.htm?m=sharecopy">
                     <input type="hidden" class="form-control" name="cosharecode">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
