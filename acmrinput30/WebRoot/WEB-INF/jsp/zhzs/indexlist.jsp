@@ -308,7 +308,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-5">
-                                <div class="toolbar" style="border: 1px solid #dddddd;border-radius:5px;height: 40px;margin-bottom: -1px;">
+                                <div class="toolbar" style="border: 1px solid #dddddd;border-radius:3px;height: 40px;margin-bottom: -1px;">
                                     <div class="toolbar-left">
                                         <span style="margin-left: 16px;line-height: 40px;font-weight: bold">组织/用户</span>
                                     </div>
