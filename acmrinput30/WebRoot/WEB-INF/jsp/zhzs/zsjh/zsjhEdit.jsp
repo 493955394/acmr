@@ -56,8 +56,8 @@
                     </ul>
                 </div>
                 <!-- Tab panes -->
-                <div class="col-xs-12 tab-content row" style="padding-top: 20px;">
-                    <div role="tabpanel" class="tab-pane active" id="jbxx">
+                <div class="col-xs-12 tab-content row" style="padding-top: 10px;">
+                    <div role="tabpanel" class="tab-pane active" id="jbxx" style="height: 80%;overflow: auto">
                         <form class="form-horizontal" id="indexForm" action="" method="post">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
@@ -142,7 +142,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="zssx">
-                        <div id="tree_and_find" class="col-md-2 left-panel1" style="height: 100%">
+                        <div id="tree_and_find" class="col-md-2 left-panel" style="height: 100%">
                             <form class="form-inline J_search_form">
 
                                 <div class="form-group" style="width: 60%;">
@@ -260,7 +260,7 @@
                             <input type="hidden" name="regcode" value=""/>
                             <input type="hidden" name="regname" value=""/>
                         </div>
-                        <div class="col-xs-1 btn-group-vertical" role="group" style="border:1px solid white;padding-top:180px">
+                        <div class="col-xs-1 btn-group-vertical" role="group" style="border:1px solid white;padding-top:50px">
                             <div id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#F39801;height: 40px;width: 70px">
                                 <span style="color: #F39801;text-align: center;font-size: 25px;margin-left: 25px">></span>
                             </div>
@@ -281,7 +281,7 @@
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">地区列表</div>
                             </div>
-                            <div style="height: 500px;width:100%;overflow:auto ">
+                            <div style="height: 60%;width:100%;overflow:auto ">
                                 <ul class="list-group regul" id="selectreg">
                                     <c:forEach items="${regs}" var="reg">
                                         <li class="list-group-item selectedli" id="${reg.regcode}">${reg.regcname}</li>
