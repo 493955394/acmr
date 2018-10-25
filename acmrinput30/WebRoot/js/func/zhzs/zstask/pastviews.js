@@ -36,14 +36,17 @@ define(function (require,exports,module) {
             type: 'get',
             dataType: 'json',
             success: function (data) {
-
+                console.log(data.returncode)
                 if (data.returncode == 300) {
                     alert("时间格式有误");
                 } else if (data.returncode == 200) {
-                    console.log(data.returndata)
                     if(!(data.returndata ==""||data.returndata==null)){
                         time = data.returndata;
                         sendPjax();
+                    }
+                    else {
+                        $(".pastviewtable tbody").html("");
+                        $(".pastviewtable tbody").append(" <tr><td colspan='"+$('.tbgs').val()+1+"'>没有查询到数据</td></tr>");
                     }
                 }
             }
