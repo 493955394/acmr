@@ -56,7 +56,10 @@ define(function (require,exports,module) {
     function clickEvent(event, treeid, treeNode) {
 
         if(treeNode.isParent==false){
+
             zb=[treeNode.id,treeNode.name]
+            $(".panel_zbname").html(treeNode.name).attr("code",treeNode.id)
+
             if (zbclick(zb,true)){
 
                 $(".zb_panel").css("background-color","inherit")
@@ -64,7 +67,6 @@ define(function (require,exports,module) {
                 $(".zb_add").css("display","inline")
                 $(".zb_delete").css("display","none")
                 $(".zb_save").css("display","none")
-                $(".panel_zbname").html(treeNode.name).attr("code",treeNode.id)
             }
         }
         else {
@@ -104,47 +106,10 @@ define(function (require,exports,module) {
                 }
             })
             return true
-            /*if (isexit(zb[0])){
-                alert("该指标已被选择！")
-                $(".zb_add").css("display","none")
-                $("#zb_data_head").empty()
-                $("#zb_data_body").empty()
-                return false
-            }
-            else {
-                $(".zb_add").css("display","inline")
-                //console.log(zb)
-                var data={
-                    "zbcode":zb[0]
-                };
-                $.ajax({
-                    url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit',
-                    type:'post',
-                    dataType:'json',
-                    data:data,
-                    success:function (re) {
-                        $(".zb_select").empty()
-                        foreach(re.ds,"ds")
-                        foreach(re.co,"co")
-                        foreach(re.unit,"unit")
-                        function foreach(innerre,zname) {
-                            innerre.forEach(function (d,ind,ds){
-                                var code=Object.keys(d)[0]
-                                var name=d[code]
-                                $("#"+zname+"_select").append("<option class='" +
-                                    code+ "'>" +
-                                    name+"</option>")
-                            })
-                        }
-                        sendPjax();
-                    }
-                })
-                return true
-            }*/
         }
         else {
             $("#zb_data_body").empty().append("<p>查询中……</p>");
-            $(".zb_add").css("display","none")
+            //$(".zb_add").css("display","none")
             //console.log(zb)
             var data={
                     "zbcode":zb[0]
@@ -283,7 +248,7 @@ define(function (require,exports,module) {
     }
 
     function addZb() {
-        $(".zb_add").css("display","none")
+        //$(".zb_add").css("display","none")
         //console.log("addZB")
         ds=[$('#ds_select option:selected').attr("class"),$('#ds_select option:selected') .val()]
         co=[$('#co_select option:selected').attr("class"),$('#co_select option:selected') .val()]
