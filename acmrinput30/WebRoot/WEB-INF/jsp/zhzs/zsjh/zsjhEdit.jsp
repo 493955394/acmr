@@ -253,7 +253,7 @@
                             <div class="panel tree-panel" >
                                 <div class="panel-heading" style="text-align:center">地区树</div>
                             </div>
-                            <div class="panel-body col-xs-12" style="height: 500px;overflow:auto;background-color: #F4F5F9">
+                            <div class="panel-body col-xs-12" style="height: 60%;overflow:auto;background-color: #F4F5F9">
                                 <ul id="treeDemo" class="ztree ztree-margin">
                                 </ul>
                             </div>
