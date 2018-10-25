@@ -134,11 +134,12 @@ public class TaskZb {
     * @Author: lyh
     * @Date: 2018/9/12
     */
-    public List<Double> getData(String time){
+    public List<Double> getData(String time,String icode){
         List<Double> data=new ArrayList<>();
         OriginService originService=new OriginService();
         List<String> regs= Arrays.asList(this.regions.split(","));
-        String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(this.code).getRows().get(0).getString("indexcode");
+        //String taskcode=this.taskcode;
+        //String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(taskcode).getRows().get(0).getString("indexcode");
         String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         String funit=originService.getwdnode("zb",this.zbcode,dbcode).getUnitcode();
         double rate=originService.getRate(funit,this.unitcode,time);

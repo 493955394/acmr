@@ -6,6 +6,7 @@ import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IIndexTaskDao;
+import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.model.zhzs.TaskModule;
 import com.acmr.model.zhzs.TaskZb;
 import javafx.concurrent.Task;
@@ -201,7 +202,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                 String zbcode1=taskZb.getCode();
 
                 List<String> regs= Arrays.asList(taskZb.getRegions().split(","));
-                List<Double> datas=taskZb.getData(ayearmon1);
+                List<Double> datas=taskZb.getData(ayearmon1,indexcode);
                 for (int n=0;n<regs.size();n++){
                     String region=regs.get(n);
                     if (datas.get(n)!=null){
@@ -381,7 +382,9 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                 String zbcode1=taskZb.getCode();
                 //对每个地区，时间 取值并按序存入tmp表
                 List<String> regs= Arrays.asList(taskZb.getRegions().split(","));
-                List<Double> datas=taskZb.getData(ayearmon1);
+                String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(tcode).getRows().get(0).getString("indexcode");
+
+                List<Double> datas=taskZb.getData(ayearmon1,icode);
                 for (int n=0;n<regs.size();n++){
                     String region=regs.get(n);
                     if (datas.get(n)!=null){
