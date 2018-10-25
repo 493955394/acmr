@@ -164,6 +164,7 @@
                                             <div class="col-md-4">
                                                 <span>数据来源：</span>
                                                 <select id="ds_select" class="input-sm zb_select">
+                                                    <option>请选择</option>
                                                     <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
                                                                                     <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
                                                 </select>
@@ -171,7 +172,9 @@
                                             <div class="col-md-4">
                                                 <span>主体：</span>
                                                 <select id="co_select" class="input-sm zb_select">
-                                                    <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
+                                                    <option>请选择</option>
+
+                                                <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
                                                                                     <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
                                                 </select>
                                             </div>
@@ -181,6 +184,8 @@
                                                 <span>单位：</span>
                                                 <select id="unit_select"
                                                         class="input-sm zb_select">
+                                                    <option>请选择</option>
+
                                                 </select>
 
                                             </div>
