@@ -56,7 +56,7 @@ define(function (require,exports,module) {
         if (treeNode.id != '') {
             $('input[name=proname]').val(treeNode.name);
             $('input[name=index_procode]').val(treeNode.id);
-            console.log($('input[name=index_procode]').val())
+            //console.log($('input[name=index_procode]').val())
         } else {
             $('input[name=proname]').val('');
         }

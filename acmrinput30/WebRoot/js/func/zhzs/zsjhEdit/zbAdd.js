@@ -150,7 +150,7 @@ define(function (require,exports,module) {
                     "zbcode":zb[0]
             };
             $.ajax({
-                url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit',
+                url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit&icode='+indexCode,
                 type:'post',
                 dataType:'json',
                 data:data,
