@@ -185,7 +185,6 @@
                                                 <select id="unit_select"
                                                         class="input-sm zb_select">
                                                     <option>请选择</option>
-
                                                 </select>
 
                                             </div>
