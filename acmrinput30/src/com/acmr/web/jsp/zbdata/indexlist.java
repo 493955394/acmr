@@ -780,6 +780,7 @@ public class indexlist extends BaseAction {
         if (!StringUtil.isEmpty(procode)) {
                 treeList = indexListService.getAllSubs(procode,usercode);
         }
+        sb.append("?m=find&seltype="+seltype+"&keyword="+keyword+"&id="+procode);
         if (!StringUtil.isEmpty(keyword)) {
             if(treeList!=null){
                 if(seltype.equals("")){
@@ -803,7 +804,6 @@ public class indexlist extends BaseAction {
                 }
             }
             //indexList= indexListService.found(0,code,usercode,page.getPageNum() - 1,page.getPageSize());
-            sb.append("?m=find&seltype="+seltype+"&keyword="+keyword+"&id="+procode);
         }
         if(StringUtil.isEmpty(keyword)){//没有默认搜所有
             if(treeList!=null){
