@@ -679,7 +679,7 @@ define(function (require,exports,module) {
                     window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+incode;
                 }
                else {
-                    alert("添加失败");
+                    alert("保存失败");
                 }
             }
         })

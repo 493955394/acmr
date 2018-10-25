@@ -783,7 +783,7 @@ public class indexlist extends BaseAction {
         sb.append("?m=find&seltype="+seltype+"&keyword="+keyword+"&id="+procode);
         if (!StringUtil.isEmpty(keyword)) {
             if(treeList!=null){
-                if(seltype.equals("")){
+                if(seltype.equals("code")){
                     indexList = new IndexListService().found(0,keyword,usercode);//code
                 }
                else {
@@ -796,7 +796,7 @@ public class indexlist extends BaseAction {
                 }
             }
             else {
-                if(seltype.equals("")){
+                if(seltype.equals("code")){
                     indexAllList= new IndexListService().found(0,keyword,usercode);
                 }
                else {
