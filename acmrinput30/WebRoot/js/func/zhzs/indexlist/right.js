@@ -18,6 +18,21 @@ define(function (require,exports,module) {
     /**
      * 权限管理模态框弹出
      */
+    /**
+     * 防止回车模态框自动提交
+     */
+    $(document).keydown(function(event){
+        if (event.keyCode == 13) {
+            $('.J_rightlist_form').each(function() {
+                event.preventDefault();
+            });
+        }
+    });
+    $("#select-input").keydown(function(e){
+        if(e.keyCode==13){
+            $(".right-select").click();
+        }
+    });
     $(document).on('click', '#rightbutton', function (event) {
         event.preventDefault();
         var icode = $(this).attr("name");
@@ -79,6 +94,7 @@ define(function (require,exports,module) {
     /*权限管理的搜索框*/
     $(document).on('click', '.right-select', function (event) {
         event.preventDefault();
+        event.stopPropagation();
         $("#selectList a").remove();
         var keyword = $("#select-input").val();
         if(keyword =="")
@@ -94,19 +110,19 @@ define(function (require,exports,module) {
                     var html = "";
                     html += "<a href='#' data-uid='" + data[i].depusercode + "' data-sort='" + data[i].sort + "' data-name='" + data[i].depusername + "' class='list-group-item '>"+ data[i].depusername+ "</a>";
                     $("#selectList").append(html);
-                    if($("#selectList").text()!=""){
-                        $(document).bind('click', function(e) {
-                            var e = e || window.event; //浏览器兼容性
-                            var elem = e.target || e.srcElement;
-                            while (elem) { //循环判断至跟节点，防止点击的是div子元素
-                                if (elem.id && elem.id == 'selectList') {
-                                    return;
-                                }
-                                elem = elem.parentNode;
+                }
+                if($("#selectList").text()!=""){
+                    $(document).bind('click', function(e) {
+                        var e = e || window.event; //浏览器兼容性
+                        var elem = e.target || e.srcElement;
+                        while (elem) { //循环判断至跟节点，防止点击的是div子元素
+                            if (elem.id && elem.id == 'selectList') {
+                                return;
                             }
-                            $("#selectList a").remove(); //点击的不是div或其子元素
-                        });
-                    }
+                            elem = elem.parentNode;
+                        }
+                        $("#selectList a").remove(); //点击的不是div或其子元素
+                    });
                 }
             }
         })
