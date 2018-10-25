@@ -82,7 +82,7 @@ public class zsjhedit extends BaseAction {
      * @throws IOException
      * @author chenyf
      */
-    public void findZbTree() throws  IOException {
+    public void findRegTree() throws  IOException {
         String code = this.getRequest().getParameter("id");
         String icode = this.getRequest().getParameter("icode");
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
@@ -562,7 +562,7 @@ public class zsjhedit extends BaseAction {
      * @Author: lyh
      * @Date: 2018/8/30
      */
-    public void testTreeNode() throws IOException {
+    public void findTreeNode() throws IOException {
         String id=this.getRequest().getParameter("id");
         String icode = this.getRequest().getParameter("icode");
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
@@ -596,13 +596,13 @@ public class zsjhedit extends BaseAction {
     }
 
     /**
-     * @Description: 返回搜索
+     * @Description: 返回指标搜索
      * @Param: []
      * @return: void
      * @Author: lyh
      * @Date: 2018/8/30
      */
-    public void testFind() throws IOException {
+    public void ZbFind() throws IOException {
         String query=this.getRequest().getParameter("query");
         String icode = this.getRequest().getParameter("icode");
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
@@ -617,13 +617,13 @@ public class zsjhedit extends BaseAction {
         this.sendJson(zbs);
 
     }
-    /**
+  /*  *//**
      * @Description: 返回指标的path
      * @Param: []
      * @return: void
      * @Author: lyh
      * @Date: 2018/9/2
-     */
+     *//*
     public void getZBPath() throws IOException {
         ZBdataService zBdataService=new ZBdataService();
         String code=this.getRequest().getParameter("code");
@@ -631,7 +631,7 @@ public class zsjhedit extends BaseAction {
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         List<String> path=zBdataService.getZBPath(code,dbcode);
         this.sendJson(path);
-    }
+    }*/
 
     /**
      * @Description: 返回有数的ds，co，以及指标对应的unit
@@ -705,7 +705,7 @@ public class zsjhedit extends BaseAction {
      * @Date: 2018/8/31
      */
 
-    public ModelAndView getDataTest(){
+    public ModelAndView getData(){
         HttpServletRequest req = this.getRequest();
         // 获取查询数据
         String zbcode = req.getParameter("zbcode");
@@ -1225,7 +1225,7 @@ public class zsjhedit extends BaseAction {
         return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modelEdit").addObject("icode",indexCode).addObject("zslist",zslist).addObject("zblist",zblist).addObject("data",getdata);
     }
     /**
-     * 新增模型节点保存方法
+     * 编辑模型节点保存方法
      */
     public void toUpdateZS() throws IOException{
         IndexMoudle indexMoudle = new IndexMoudle();

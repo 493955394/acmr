@@ -26,7 +26,7 @@ define(function (require,exports,module) {
     var setting = {
         async: {
             enable: true,
-            url: common.rootPath+'zbdata/zsjhedit.htm?m=testTreeNode&icode='+indexCode,
+            url: common.rootPath+'zbdata/zsjhedit.htm?m=findTreeNode&icode='+indexCode,
             contentType: 'application/json',
             type: 'get',
             autoParam: ["id"]
@@ -162,7 +162,7 @@ define(function (require,exports,module) {
         //console.log(unitcode)
 
         $.pjax({
-            url:common.rootPath+'zbdata/zsjhedit.htm?m=getDataTest&zbcode='+zbcode+'&cocode='+cocode+'&dscode='+dscode+'&unitcode='+unitcode+'&indexcode='+indexCode+"&st="+st,
+            url:common.rootPath+'zbdata/zsjhedit.htm?m=getData&zbcode='+zbcode+'&cocode='+cocode+'&dscode='+dscode+'&unitcode='+unitcode+'&indexcode='+indexCode+"&st="+st,
             container:'.J_zsjh_zbdata_table',
             timeout:50000
         })
@@ -173,7 +173,7 @@ define(function (require,exports,module) {
         var value=$("#queryValue").val()
         if(value!=""){
             $.ajax({
-                url:common.rootPath+'zbdata/zsjhedit.htm?m=testFind&query='+value+"&icode="+indexCode,
+                url:common.rootPath+'zbdata/zsjhedit.htm?m=ZbFind&query='+value+"&icode="+indexCode,
                 type:'get',
                 success:function (re) {
                     var zbre=[];

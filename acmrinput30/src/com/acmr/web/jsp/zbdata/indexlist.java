@@ -42,7 +42,7 @@ public class indexlist extends BaseAction {
         //检查是否有需要定位的
         String icode=this.getRequest().getParameter("icode");
         String path="";
-        if (icode!=null){
+        if (icode!=null&&!path.equals("")){
             Boolean self=IndexListDao.Fator.getInstance().getIndexdatadao().hasIndex(icode,usercode);
             if (self){
                 path=indexListService.getIndexPath(icode);

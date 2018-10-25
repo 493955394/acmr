@@ -92,7 +92,7 @@ define(function (require,exports,module) {
     var setting1 = {
         async: {
             enable: true,
-            url: common.rootPath+'zbdata/zsjhedit.htm?m=findZbTree&st='+st+"&icode="+incode,
+            url: common.rootPath+'zbdata/zsjhedit.htm?m=findRegTree&st='+st+"&icode="+incode,
             contentType: 'application/json',
             type: 'get',
             autoParam: ["id"]
