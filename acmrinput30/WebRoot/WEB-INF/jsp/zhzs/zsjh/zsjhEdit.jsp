@@ -23,9 +23,12 @@
 </head>
 <body>
 <style type="text/css">
-    .glyphicon {
-        color: #F39801;
+   span.glyphicon{
+        color: red;
     }
+    /*.glyphicon {
+        color: #F39801;
+    }*/
     .tree-panel{
         margin: 0.0px;
     }
@@ -57,14 +60,14 @@
                     <div role="tabpanel" class="tab-pane active" id="jbxx">
                         <form class="form-horizontal" id="indexForm" action="" method="post">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">编码：</label>
+                                <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                                 <div class="col-sm-5">
                                     <input name="index_code" id="index_code" class="form-control"
                                            value="${list.getCode()}" readonly>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label ">计划名称：</label>
+                                <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>计划名称：</label>
                                 <div class="col-sm-5">
                                     <c:if test="${right!='1'}">
                                         <input id="index_cname" name="index_cname" class="form-control"
@@ -77,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">所属目录：</label>
+                                <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                 <div class="col-sm-5">
                                     <input type="text" class="form-control hid-bottom" name="proname" value="${proname}"
                                            readonly>
@@ -89,7 +92,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">统计周期：</label>
+                                <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>统计周期：</label>
                                 <div class="col-sm-5">
                                     <select class="form-control" name="index_sort" id="index_sort" disabled>
                                         <c:if test="${list.getSort() == 'm'}">
@@ -105,7 +108,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label talign-center fz13">起始数据期：</label>
+                                <label class="col-sm-2 control-label talign-center fz13"><span class="glyphicon glyphicon-asterisk required_ico"></span>起始数据期：</label>
                                 <div class="col-sm-5">
                                     <c:if test="${right!='1'}">
                                         <input id="startpeirod" name="startpeirod" class="form-control" type="text"
@@ -121,7 +124,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label ">数据期满后：</label>
+                                <label class="col-sm-2 control-label "><span class="glyphicon glyphicon-asterisk required_ico"></span>数据期满后：</label>
                                 <div class="col-sm-5">
                                     <c:if test="${right!='1'}">
                                         <input id="delayday" name="delayday" value="${list.getDelayday()}"
@@ -132,10 +135,8 @@
                                                class="form-control" readonly/>
                                     </c:if>
                                 </div>
-                                <div>
-                                    <label class="control-label ">自然日</label>
-                                </div>
-                                <div class="clearfix"></div>
+                                <label class="control-label">自然日</label>
+                                <span class="normalday"></span>
                             </div>
                             <input type="reset" style="display:none;"/>
                         </form>

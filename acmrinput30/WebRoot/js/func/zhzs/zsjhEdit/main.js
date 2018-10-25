@@ -107,9 +107,6 @@ define(function (require,exports,module) {
         if (treeNode.id != '') {
             $('input[name=regname]').val(treeNode.name);
             $('input[name=regcode]').val(treeNode.id);}
-        else {
-            $('input[name=regname]').val("");
-        }
 
 
     }
@@ -623,9 +620,9 @@ define(function (require,exports,module) {
             !checkDelegate.checkNormal($('input[name="startpeirod"]'), [{ 'name': 'ch', 'msg': '起始数据期不能包含汉字' }])) {
             flag = false;
         }
-        if (!checkDelegate.checkNormal($('input[name="delayday"]'), [{ 'name': 'required', 'msg': '该项不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="delayday"]'), [{ 'name': 'ch', 'msg': '不能包含汉字' }])) {
+        if ($('input[name="delayday"]').val()=="") {
             flag = false;
+            $('.normalday').append('<label class="control-label tips-error">该项不能为空</label>');
         }
         if (flag == false) {
             alert("信息不全！")
