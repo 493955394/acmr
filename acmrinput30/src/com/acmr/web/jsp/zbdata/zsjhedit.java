@@ -1369,6 +1369,9 @@ public class zsjhedit extends BaseAction {
         String [] sxcodes = sxcode.split(",");
         JSONReturnData data = new JSONReturnData("");
         //前三个标签页的数据都能取到，分别存到zb和index表里
+        if(index_procode.equals("!1")){
+            index_procode="";
+        }
         ArrayList<IndexZb> zbs = new ArrayList<IndexZb>();
         if(sxcode != ""){
             for (int i = 0; i <sxcodes.length ; i++) {

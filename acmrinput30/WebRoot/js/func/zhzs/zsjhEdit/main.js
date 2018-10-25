@@ -53,12 +53,12 @@ define(function (require,exports,module) {
         }
     };
     function clickEvent(event,treeId,treeNode) {
-        if (treeNode.id != '') {
+        if (treeNode.id != '!1') {
             $('input[name=proname]').val(treeNode.name);
             $('input[name=index_procode]').val(treeNode.id);
             //console.log($('input[name=index_procode]').val())
         } else {
-            $('input[name=proname]').val('');
+            $('input[name=proname]').val('指数');
         }
         $.fn.zTree.init($("#tree"), setting, zNodes);
     }
@@ -76,6 +76,9 @@ define(function (require,exports,module) {
     $(document).ready(function(){
         if ($(".zb_panel").length>0){
             $(".zb_panel")[0].click()
+        }
+        if($('input[name=index_procode]').val()==""){
+            $('input[name=proname]').val("指数");
         }
         $('ul.regul').find('li').each(function() {
             select.push({code:$(this).attr("id"),name:$(this).text()});
