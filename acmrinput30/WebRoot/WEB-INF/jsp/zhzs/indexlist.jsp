@@ -73,8 +73,11 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                     <div class="col-sm-5">
+                                        <input type="hidden" class="form-control" name="showcname" value="" >
+                                        <input type="hidden" class="form-control" name="showccode" value="" >
                                         <input type="text" class="form-control" name="cataname" value="" disabled>
                                         <input type="hidden" class="form-control" name="idcata" value="" >
+
                                        <%-- <input type="hidden" class="form-control" name="getoldplan"  value="">--%>
                                         <ul id="treeCata" class="ztree select-tree hid-top"></ul>
                                     </div>
@@ -115,6 +118,8 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                     <div class="col-sm-5">
+                                        <input type="hidden" class="form-control" name="showpname" value="" >
+                                        <input type="hidden" class="form-control" name="showpcode" value="" >
                                         <input type="text" class="form-control" name="planname" value="" disabled>
                                         <input type="hidden" class="form-control" name="idplan"  value="">
                                         <%--<input type="hidden" class="form-control" name="getoldplan"  value="">--%>

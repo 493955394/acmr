@@ -15,10 +15,7 @@ define(function (require,exports,module) {
     /**
      * 新增目录ajax提交
      */
-    $(document).on('click',".J_Add" ,function(event) {//初始化一次
-        $('input[name=cocode]').val("");
-        $('input[name=cocname]').val("");
-    })
+
     $(document).on('submit', '.J_add_catalogue', function(event) {
         event.preventDefault();
 
@@ -86,13 +83,7 @@ define(function (require,exports,module) {
         //document.getElementById("mymodal-data").reset();
         $('.J_add_catalogue').reset();
     });*/
-    /**
-     * 新增计划
-     */
-    $(document).on('click',".J_Add_Plan" ,function(event) {//初始化一次
-        $('input[name="plancode"]').val("");
-        $('input[name="plancname"]').val("");
-    })
+
     $(document).on('submit', '.J_add_plan', function(event) {
         event.preventDefault();
 
@@ -272,7 +263,7 @@ define(function (require,exports,module) {
     });*/
 
 
-    $(function(){
+    /*$(function(){
         $('input:radio').click(function(){
             //alert(this.checked);
             //
@@ -285,15 +276,27 @@ define(function (require,exports,module) {
             if ($radio.data('waschecked') == true){
                 console.log($radio.data('waschecked') == true);
                 $radio.prop('checked', false);
-//                     $("input:radio[name='radio" + domName + "']").data('waschecked',false);
-                $radio.data('waschecked', false);
+                $("input:radio[name='radio" + domName + "']").data('waschecked',false);
+                //$radio.data('waschecked', false);
             } else {
                 console.log($radio.data('waschecked') == true);
                 $radio.prop('checked', true);
-//                     $("input:radio[name='radio" + domName + "']").data('waschecked',true);
-                $radio.data('waschecked', true);
+                $("input:radio[name='radio" + domName + "']").data('waschecked',true);
+                //$radio.data('waschecked', true);
             }
         });
+    });*/
+    $(document).on('click','input[name="radiotype"]',function() {
+
+        var name = $(this).attr("name");
+        $(":radio[name="+ name +"]:not(:checked)").attr("tag",0);
+        if( $(this).attr("tag") == 1 ) {
+            $(this).attr("checked",false);
+            $(this).attr("tag",0);
+        }else {
+            $(this).attr("tag",1);
+        }
+
     });
 
     /**

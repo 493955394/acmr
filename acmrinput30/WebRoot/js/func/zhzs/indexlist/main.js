@@ -195,13 +195,18 @@ define(function (require,exports,module) {
         var code=treeNode.id;
         treeNodeId = treeNode.id;
         var name=treeNode.name;
-        $('input[name=cataname]').val(name);
+        /*$('input[name=cataname]').val(name);
         $('input[name=idcata]').val(code);
         $('input[name=planname]').val(name);
-        $('input[name=idplan]').val(code);
+        $('input[name=idplan]').val(code);*/
         $('input[name=indexname]').val(name);
         $('input[name=editname]').val(name);
         $('input[name=editprocode]').val(code);
+
+        $('input[name=showcname]').val(name);
+        $('input[name=showccode]').val(code);
+        $('input[name=showpname]').val(name);
+        $('input[name=showpcode]').val(code);
         /*if(treeNode.isParent){//如果选中的是目录就直接给
         $('input[name=cataname]').val(name);
         $('input[name=idcata]').val(code);
@@ -242,6 +247,31 @@ define(function (require,exports,module) {
 
 
     }
+
+    /**
+     * 目录初始化
+     */
+    $(document).on('click',".J_Add" ,function(event) {//初始化一次
+        $('input[name=cocode]').val("");
+        $('input[name=cocname]').val("");
+        var name = $('input[name=showcname]').val();
+        var code = $('input[name=showccode]').val();
+        $('input[name=cataname]').val(name);
+        $('input[name=idcata]').val(code);
+        $.fn.zTree.init($("#treeCata"), setting1, cNodes);
+    })
+    /**
+     * 计划初始化
+     */
+    $(document).on('click',".J_Add_Plan" ,function(event) {//初始化一次
+        $('input[name="plancode"]').val("");
+        $('input[name="plancname"]').val("");
+        var name = $('input[name=showpname]').val();
+        var code = $('input[name=showpcode]').val();
+        $('input[name=planname]').val(name);
+        $('input[name=idplan]').val(code);
+        $.fn.zTree.init($("#treePlan"), setting2, cNodes);
+    })
     function clickEvent1(event,treeId,treeNode) {
 
         if (treeNode.id != '') {
