@@ -307,16 +307,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-5 panel panel-default">
-                                <div class="toolbar">
-                                    <div class="toolbar-left col-md-offset-1 col-md-4">
-                                        <span style="text-align: center">组织/用户</span>
+                            <div class="col-sm-5">
+                                <div class="toolbar" style="border: 1px solid #dddddd;border-radius:5px;height: 40px;margin-bottom: -1px;">
+                                    <div class="toolbar-left">
+                                        <span style="margin-left: 16px;line-height: 40px">组织/用户</span>
                                     </div>
-                                    <div class="toolbar-right col-md-4">
-                                        <span style="text-align: center">权限</span>
+                                    <div class="toolbar-right">
+                                        <span style="margin-right: 70px;line-height: 40px">权限</span>
                                     </div>
                                 </div>
-                                <div class="panel-body">
+                                <div>
                                     <ul class="list-group right-list ">
                                     </ul>
                                 </div>
