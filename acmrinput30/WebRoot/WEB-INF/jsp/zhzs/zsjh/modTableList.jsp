@@ -30,6 +30,11 @@
                 </tr>
                 </thead>
                 <tbody id="mod_list_body">
+                <c:if test="${fn:length(mods)==0}">
+                    <tr>
+                        <td colspan="7">没有查询到数据</td>
+                    </tr>
+                </c:if>
                 <c:forEach items="${mods}" var="module" varStatus="stat">
                     <tr>
                         <td>${module.getCode()}</td>

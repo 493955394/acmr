@@ -37,7 +37,8 @@
 </select>
 </div>
 <div>
-    <table style="margin-top: 10px" class="table table-hover">
+    <input type="hidden" class="tbgs" value="${fn:length(info.get('head'))}">
+    <table style="margin-top: 10px" class="table table-hover pastviewtable">
         <thead>
         <tr>
             <th>${info.get('row')}</th>

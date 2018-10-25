@@ -84,3 +84,34 @@ background-color: #ffffff;
 .selectedli i.data-remove{
     background-position: -42px -20px;
 }
+/**
+树的样式
+ */
+#treeRight{
+    max-height: 40%;
+    overflow: auto;
+}
+#tree{
+    max-height: 40%;
+    overflow: auto;
+}
+#treeEditc{
+    max-height: 40%;
+    overflow: auto;
+}
+#treeShareZs{
+    max-height: 40%;
+    overflow: auto;
+}
+#treeZs{
+    max-height: 40%;
+    overflow: auto;
+}
+#treePlan{
+    max-height: 40%;
+    overflow: auto;
+}
+#treeCata{
+    max-height: 40%;
+    overflow: auto;
+}
