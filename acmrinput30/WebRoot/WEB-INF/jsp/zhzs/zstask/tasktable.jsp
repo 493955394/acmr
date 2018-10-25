@@ -32,6 +32,11 @@
         </tr>
         </thead>
         <tbody class="list_body my_received">
+        <c:if test="${page.totalRecorder==0 or page.totalPage<page.pageNum}">
+            <tr>
+                <td colspan="4">没有查询到数据</td>
+            </tr>
+        </c:if>
         <c:forEach items="${page.data}" var="vo">
             <tr>
                 <td>${vo.getAyearmon()}</td>

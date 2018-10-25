@@ -118,6 +118,13 @@
             <th><span class="word">操作</span></th>
         </tr>
         </thead>
+        <c:if test="${page.totalRecorder==0 or page.totalPage<page.pageNum}">
+            <tbody class="list_body ">
+            <tr>
+                <td colspan="7">没有查询到数据</td>
+            </tr>
+            </tbody>
+        </c:if>
         <c:if test="${page.data.size()!=0}">
             <tbody class="list_body " id="my_index_all">
             <c:forEach  items="${page.data}" var="index">
@@ -183,6 +190,11 @@
         </tr>
         </thead>
         <tbody class="list_body_my_received">
+        <c:if test="${page.totalRecorder==0 or page.totalPage<page.pageNum}">
+            <tr>
+                <td colspan="6">没有查询到数据</td>
+            </tr>
+        </c:if>
         <c:forEach items="${page.data}" var="index">
             <tr class="my_received">
                 <th><input type="radio" name="radiotype" getright="${index.get('right')}"  idcode="${index.get('index').getCode()}" coname="${index.get('index').getCname()}"></th>
@@ -264,6 +276,11 @@
         </tr>
         </thead>
         <tbody class="list_body my_shared">
+        <c:if test="${page.totalRecorder==0 or page.totalPage<page.pageNum}">
+            <tr>
+                <td colspan="5">没有查询到数据</td>
+            </tr>
+        </c:if>
         <c:forEach  items="${page.data}" var="index">
             <tr class="my_shared">
                 <td>${index.get("cname")}</td>
