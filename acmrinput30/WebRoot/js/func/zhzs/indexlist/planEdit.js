@@ -194,7 +194,9 @@ define(function (require,exports,module) {
 
         $("#mymodal-data3").modal('show');
     })
-
+    /**
+     * 编辑目录
+     */
     $(document).on('submit', '.J_add_edit', function(event) {
         event.preventDefault();
 
@@ -219,7 +221,7 @@ define(function (require,exports,module) {
             alert("非法的编码");
             return;
         }
-        var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
+        var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
         var z = $('input[name="editcname"]').val().match(namecheck);
         if(z==null){
             alert("名称含有不规则字符，请修改");
