@@ -37,7 +37,7 @@
 
 <div class="container-fluid" id="mainpanel">
 
-        <div class="panel panel-default">
+        <div class="panel panel-default" style="height: 70%;overflow: hidden;">
             <div class="panel-heading">
                编辑指数计划
             </div>
@@ -142,7 +142,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="zssx">
-                        <div id="tree_and_find" class="col-md-2 left-panel">
+                        <div id="tree_and_find" class="col-md-2 left-panel1" style="height: 100%">
                             <form class="form-inline J_search_form">
 
                                 <div class="form-group" style="width: 60%;">
@@ -208,7 +208,7 @@
                                 </div>
                             </div>
                             <div class="col-md-3 right-panel">
-                                <div class="panel_container">
+                                <div class="panel_container" style="height: 50%;width: 100%;overflow:auto;">
                                     <c:forEach items="${zbs.zbchoose}" var="zb">
                                         <div class="panel panel-default zb_panel">
                                             <div class="panel-body">
