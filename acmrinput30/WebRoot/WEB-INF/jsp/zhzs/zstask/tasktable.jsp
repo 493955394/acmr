@@ -8,19 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
-<style>
-
-    th{
-        text-align: center;
-        vertical-align: middle!important;
-        background-color: #EBECF1;
-    }
-
-    td{
-        text-align: center;
-        vertical-align: middle!important;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="${ctx}/css/zhzs/zstask/tasktable.css" />
 <div>
     <table class="table table-bordered table-hover J_zsrw_table">
         <thead>

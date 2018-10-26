@@ -14,14 +14,9 @@
 <head>
     <title>-查看往期</title>
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
-    <style>
-        table tr th, table tr td { border:1px solid #cecfdf; }
-        #i1,#i2,#i3,#i4{color:#F39801;}
-    </style>
+    <link rel="stylesheet" type="text/css" href="${ctx}/css/zhzs/zstask/pastviews.css" />
 </head>
 <body>
-<style type="text/css">
-</style>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 <div class="col-xs-12">
     <div>
@@ -36,9 +31,9 @@
         <c:if test="${info.get('tasknum')!='0'}">
             <div>
                 <div class="toolbar">
-                    <div style="float: right">
+                    <div id="div1">
                         <input type="hidden" id="timecode" value="">
-                        <button  type="button" id="timeinput" data-value="" style="display: none"/>
+                        <button  type="button" id="timeinput" data-value=""/>
                         <button class="btn btn-default btn-sm"data-toggle="modal" data-target=".wdturn-modal" ><i id="i1" class="weidu-turn"></i>&nbsp;维度转换</button>&nbsp;
                         <button class="btn btn-default btn-sm pastview_download"><i id="i2" class="glyphicon glyphicon-download-alt"></i>&nbsp;数据下载</button>
                     </div>
@@ -57,20 +52,20 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">维度转换</h4>
                 </div>
-                <div style="margin-left: 220px" role="group" aria-label="..." >
-                    <div type="button" style="border-color: #F39801;" class="btn btn-default top-select" id="top-reg"><span style="color: #F39801">地区</span></div>
-                    <div type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-zb"><span style="color: #F39801">指标</span></div>
-                    <div type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-sj"><span style="color: #F39801">时间</span></div>
+                <div id="div2" role="group" aria-label="..." >
+                    <div type="button" class="btn btn-default top-select" id="top-reg"><span class="span1">地区</span></div>
+                    <div type="button" class="btn btn-default top-select" id="top-zb"><span class="span1">指标</span></div>
+                    <div type="button" class="btn btn-default top-select" id="top-sj"><span class="span1">时间</span></div>
                 </div>
-                <div style="margin-bottom: 4%;">
+                <div id="div3">
                     <div class="btn-group-vertical  col-md-offset-3" role="group" aria-label="...">
-                        <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-reg"><span style="color: #F39801">地区</span></div>
-                        <div class="clearfix" style="height: 5px"></div>
-                        <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-zb"><span style="color: #F39801">指标</span></div>
-                        <div class="clearfix"  style="height: 5px"></div>
-                        <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-sj"><span style="color: #F39801">时间</span></div>
+                        <div type="button" class="btn btn-default left-select" id="left-reg"><span class="span1">地区</span></div>
+                        <div class="clearfix"></div>
+                        <div type="button" class="btn btn-default left-select" id="left-zb"><span  class="span1">指标</span></div>
+                        <div class="clearfix"></div>
+                        <div type="button" class="btn btn-default left-select" id="left-sj"><span  class="span1">时间</span></div>
                     </div>
-                    <table class="table table-hover wdturn-table" style="display: inline-block;position: absolute;margin-left: 16px;margin-top: 5px">
+                    <table class="table table-hover wdturn-table">
 
                     </table>
                 </div>
