@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<div style="height: 25%;width: 100%;overflow:auto;">
+<div style="height: 30%;width: 100%;overflow:auto;">
     <table class="table table-bordered table-hover" style="width: 100%">
         <thead style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
         <tr id="zb_data_head">
