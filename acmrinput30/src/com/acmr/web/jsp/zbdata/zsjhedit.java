@@ -844,6 +844,7 @@ public class zsjhedit extends BaseAction {
         IndexEditService indexEditService=new IndexEditService();
         List<IndexMoudle> mods=indexEditService.getSubMod(code,icode);
         List<TreeNode> list = new ArrayList<TreeNode>();
+
         for (int i=0;i<mods.size();i++){
             TreeNode node=new TreeNode();
             node.setPId(mods.get(i).getProcode());
@@ -873,6 +874,13 @@ public class zsjhedit extends BaseAction {
         String code=req.getParameter("code");
         IndexEditService indexEditService=new IndexEditService();
         List<IndexMoudle> mods=indexEditService.getSubMod(code,icode);
+        if(!code.equals("")){
+            IndexMoudle self = indexEditService.getData(code);
+            //如果是指标直接返回它自己
+            if(self.getIfzs().equals("0")){
+                mods.add(self);
+            }
+        }
         for (int i = 0; i <mods.size() ; i++) {
             if (mods.get(i).getIfzb().equals("0")){
                 String formula = mods.get(i).getFormula();

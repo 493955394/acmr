@@ -33,16 +33,17 @@ define(function (require,exports,module) {
     var treeObj = $.fn.zTree.init($("#moduleTree"), setting, rootNode);
 
     function clickEvent(event, treeid, treeNode) {
-        //console.log("clickevent")
         choosedprocode = treeNode.id;
         choosedname = treeNode.name;
-        if (treeNode.isParent == true) {
+        // if (treeNode.isParent == true) {
             sendPjax(treeNode.id)
             refreshNode()
-        }
+       /* }
         else {
+            $("#mod_list_body").empty();
+            $("#mod_list_body").append("<tr><td colspan='7'>没有查询到数据</td></tr>");
             return
-        }
+        }*/
 
     }
 
