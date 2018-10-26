@@ -32,6 +32,7 @@
     .tree-panel{
         margin: 0.0px;
     }
+
 </style>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true"/>
 
@@ -375,6 +376,9 @@
             <button type="reset" class="btn btn-primary resetindex">取消</button>
         </div>
     </div>
+<div class="ict-footer">
+    Copyright © 2018 中国信息通信研究院 版权所有
+</div>
 </body>
 <script>
     define("editjsp", function (require, exports, module) {
