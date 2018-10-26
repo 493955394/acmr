@@ -38,7 +38,7 @@
 
 <div class="container-fluid" id="mainpanel">
 
-        <div class="panel panel-default" style="height: 70%;overflow: hidden;">
+        <div class="panel panel-default dragpannel" style="height: 70%;overflow: auto;">
             <div class="panel-heading">
                编辑指数计划
             </div>
@@ -370,7 +370,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-offset-5 col-sm-7">
+        <div class="col-sm-offset-5 col-sm-7 savediv">
             <button type="button" class="btn btn-primary tosaveall">保存</button>
             <button type="reset" class="btn btn-primary resetindex">取消</button>
         </div>

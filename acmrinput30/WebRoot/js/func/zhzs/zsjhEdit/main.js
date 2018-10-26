@@ -21,7 +21,7 @@ define(function (require,exports,module) {
     });
     function autodrag(){
         $(".right-panel").css('height','auto');
-        var rch = $(window).height() - $('.top_div').outerHeight();
+        var rch = $(".dragpannel").outerHeight() - $('.top_div').outerHeight()- $('.savediv').outerHeight()- $('.ict-footer').outerHeight()-38;
         if($(".right-panel").height() <= rch){
             $(".right-panel").height(rch);
             $(".left-panel, .dragline").height(rch);

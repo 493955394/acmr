@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<div style="height: 40%;width: 100%;overflow:auto;">
+<div style="height: 74%;width: 100%;overflow:auto;">
     <table class="table-content-tbody table-bordered" style="width: 100%">
         <thead style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
         <tr id="zb_data_head" class="ict-table-header">
@@ -11,7 +11,6 @@
             <c:forEach items="${sjs}" var="sj">
                 <td style=" font-weight: bold;font-family: 'Microsoft YaHei'">${sj}</td>
             </c:forEach>
-
         </tr>
         </thead>
         <p>${nodata}</p>
