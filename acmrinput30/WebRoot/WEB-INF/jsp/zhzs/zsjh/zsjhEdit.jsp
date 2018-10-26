@@ -44,7 +44,7 @@
             <div class="panel-body">
                 <div id="top_div">
                     <!-- Nav tabs -->
-                    <ul class="nav nav-pills" role="tablist" id="bjjhTab">
+                    <ul class="nav nav-tabs" role="tablist" id="bjjhTab">
                         <li role="presentation" class="active"><a href="#jbxx" aria-controls="jbxx" role="tab"
                                                                   data-toggle="tab">基本信息</a></li>
                         <li role="presentation"><a href="#zssx" aria-controls="zssx" role="tab"
@@ -247,7 +247,7 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="jsfw">
-                        <div class="col-xs-3">
+                        <div class="col-xs-2">
                             <input type="hidden" id="initTreePara" value="${initTreePara}"/>
                             <input type="hidden" id="procode" value=""/>
                             <div class="panel tree-panel" >
@@ -261,21 +261,21 @@
                             <input type="hidden" name="regname" value=""/>
                         </div>
                         <div class="col-xs-1 btn-group-vertical" role="group" style="border:1px solid white;padding-top:50px">
-                            <div id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#F39801;height: 40px;width: 70px">
-                                <span style="color: #F39801;text-align: center;font-size: 25px;margin-left: 25px">></span>
+                            <div id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px">
+                                <span style="color: #F39801;text-align: center;font-size: 15px;margin-left: 20px">></span>
                             </div>
                             <div class="clearfix" style="height: 30px"></div>
-                            <div id="chooseall" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 40px;width: 70px">
-                                <span style="color: white;text-align: center;font-size: 20px;margin-left: 20px">>></span>
+                            <div id="chooseall" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 30px;width: 50px">
+                                <span style="color: white;text-align: center;font-size: 15px;margin-left: 15px">>></span>
                             </div>
                             <div class="clearfix" style="height: 25px"></div>
-                            <div id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;height: 40px;width: 70px">
-                                <span style="color:#F39801;text-align: center;font-size: 25px;margin-left: 25px"><</span>
+                            <div id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px">
+                                <span style="color:#F39801;text-align: center;font-size: 15px;margin-left: 20px"><</span>
                             </div>
                             <div class="clearfix" style="height: 30px"></div>
                             <div id="delall"
-                                    style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 40px;width: 70px">
-                                <span style="color: white;text-align: center;font-size: 20px;margin-left: 20px"><<</span></div>
+                                    style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 30px;width: 50px">
+                                <span style="color: white;text-align: center;font-size: 15px;margin-left: 15px"><<</span></div>
                         </div>
                         <div class="col-xs-2">
                             <div class="panel tree-panel">
@@ -290,7 +290,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-6"
+                        <div class="col-xs-7"
                              style="border:#E4EDF6;padding-left: 20px;padding-right: 20px;">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>

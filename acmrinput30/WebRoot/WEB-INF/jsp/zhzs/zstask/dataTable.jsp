@@ -1,17 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
-<style>
-    thead{
-        text-align: center;
-        vertical-align: middle!important;
-        background-color: #EBECF1;
-    }
-    td{
-        text-align: center;
-        vertical-align: middle!important;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="${ctx}/css/zhzs/zstask/dataTable.css" />
 
 <div>
     <div>
