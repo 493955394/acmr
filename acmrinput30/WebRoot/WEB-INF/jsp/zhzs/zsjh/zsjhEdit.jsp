@@ -193,7 +193,7 @@
                                         </div>
 
                                         <button type="button" class="btn btn-default btn-sm zb_add"
-                                                style="display: none;float: right"><i
+                                                style="display: none;float: right;margin-top: 10px;margin-bottom: 10px"><i
                                                 class="glyphicon glyphicon-plus"></i><span
                                                 class="word">&nbsp;添加指标</span></button>
                                         <%--    <button type="button" class="btn btn-default" style="display: none;float: right"><i class="glyphicon glyphicon-plus"></i><span class="word">&nbsp;添加指标</span></button>--%>
