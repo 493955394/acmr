@@ -8,9 +8,18 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
-<link rel="stylesheet" type="text/css" href="${ctx}/css/zhzs/zstask/pasttable.css" />
-
-<div id="div11">
+<style>
+    th{
+        text-align: center;
+        vertical-align: middle!important;
+        background-color: #EBECF1;
+    }
+    td{
+        text-align: center;
+        vertical-align: middle!important;
+    }
+</style>
+<div  style="margin-top: 5px">
 <span>${info.get("span")}：</span>
 <select class="input-sm wd_selector">
     <c:forEach items="${info.get('options')}" var="option">
@@ -29,7 +38,7 @@
 </div>
 <div>
     <input type="hidden" class="tbgs" value="${fn:length(info.get('head'))}">
-    <table class="table table-hover pastviewtable">
+    <table style="margin-top: 10px" class="table table-hover pastviewtable">
         <thead>
         <tr>
             <th>${info.get('row')}</th>
