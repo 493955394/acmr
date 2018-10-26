@@ -122,7 +122,6 @@
                                                readonly/>
                                     </c:if>
                                 </div>
-                                <div class="clearfix"></div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label "><span class="glyphicon glyphicon-asterisk required_ico"></span>数据期满后：</label>
