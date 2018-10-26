@@ -303,7 +303,7 @@
                                 <span class="col-md-1"></span>
                                 <div style="float: right">
                                     <button id="datachecks" class="btn btn-default btn-sm" style="font-size: 10px"><i class="data-check"></i>数据检查</button>
-                                    <button class="J_plan_excel btn btn-default btn-sm" style="font-size: 10px;margin-left: 10px"><i class="glyphicon glyphicon-save"></i>数据下载</button>
+                                    <button id="down_data" class="J_plan_excel btn btn-default btn-sm" style="font-size: 10px;margin-left: 10px;display:none"><i class="glyphicon glyphicon-save"></i>数据下载</button>
                                 </div>
                                 <input type="hidden" id="single_reg" value="">
 

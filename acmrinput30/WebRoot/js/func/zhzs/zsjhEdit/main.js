@@ -234,6 +234,7 @@ define(function (require,exports,module) {
 
     $(document).on("click","#datachecks",function (event) {
         event.preventDefault();
+
         selecttime = "";//初始化时间
        $("#data_check_show").empty();//初始化表格
         var begintime = $('input[name = begintime]').val();
@@ -365,7 +366,7 @@ define(function (require,exports,module) {
                     }
                 }
             }
-
+            $("#down_data").attr("style","float: right;font-size: 10px;margin-left: 10px;display:block;");
             var zbcode = "";//指标code
             var zbco = "";//指标主体
             var zbds = "";//指标数据来源
