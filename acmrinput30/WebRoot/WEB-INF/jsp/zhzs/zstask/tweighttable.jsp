@@ -10,7 +10,7 @@
 <body>
 <div class="container-fluid" id="mainpanel">
     <c:if test="${right!='0'}">
-        <select class="input-sm weight_select" id="select1">
+        <select class="input-sm weight_select" style="float: right">
             <option>请选择</option>
             <option id="re_weight">恢复默认值</option>
         </select>
