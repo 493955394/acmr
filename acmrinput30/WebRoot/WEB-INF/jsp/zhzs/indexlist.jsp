@@ -290,8 +290,8 @@
                         <input type="hidden" class="currentUser" value="<%=user.getUserid()%>">
                         <input type="hidden" id="currentIcode" value="">
                         <div class="form-group">
-                            <div class="col-sm-5  panel panel-default">
-                                <div class="panel-body">
+                            <div class="col-sm-5  panel panel-default" style="padding: 0 0">
+                                <div class="panel-body" style="padding: 15px 0 15px 15px">
                                     <div class="form-group">
                                         <input type="text" id="select-input" class="col-xs-8">
                                         <button class="btn right-select" type="button" style="margin-left: 3px;background-color: #F39801;height: 29px"><span style="font-size: 10px;color: white">搜索</span></button>
