@@ -286,29 +286,29 @@
                     <h4 class="modal-title">权限管理</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal J_rightlist_form" action="${ctx}/zbdata/indexlist.htm?m=rightListSave">
-                        <input type="hidden" class="currentUser" value="<%=user.getUserid()%>">
-                        <input type="hidden" id="currentIcode" value="">
+                    <form class="form-horizontal J_rightlist_form" action="/zhzs/zbdata/indexlist.htm?m=rightListSave">
+                        <input type="hidden" class="currentUser" value="admin">
+                        <input type="hidden" id="currentIcode" value="lqj1">
                         <div class="form-group">
-                            <div class="col-sm-5  panel panel-default" style="padding: 0 0;height: 342px" >
+                            <div class="col-sm-5  panel panel-default" style="padding: 0 0;height: 342px">
                                 <div class="panel-body" style="padding: 15px 0 15px 15px;height: 700px">
                                     <div class="form-group">
                                         <input type="text" id="select-input" class="col-xs-8">
                                         <button class="btn right-select" type="button" style="margin-left: 3px;background-color: #F39801;height: 29px"><span style="font-size: 10px;color: white">搜索</span></button>
                                     </div>
-                                        <div id="selectList" class="list-group" ></div>
-                                    <ul id="treeRight" class="ztree"></ul>
+                                    <div id="selectList" class="list-group"></div>
+                                    <ul id="treeRight" class="ztree"><li id="treeRight_1" class="level0" tabindex="0" hidefocus="true" treenode=""><span id="treeRight_1_switch" title="" class="button level0 switch root_open" treenode_switch=""></span><a id="treeRight_1_a" class="level0" treenode_a="" onclick="" target="_blank" style="" title="用户组织树"><span id="treeRight_1_ico" title="" treenode_ico="" class="button ico_open" style="background:url(../../../../zhzs/css/img/mark1.png) 0 0 no-repeat;"></span><span id="treeRight_1_span" class="node_name">用户组织树</span></a><ul id="treeRight_1_ul" class="level0 " style="overflow: hidden;"><li id="treeRight_2" class="level1" tabindex="0" hidefocus="true" treenode=""><span id="treeRight_2_switch" title="" class="button level1 switch center_close" treenode_switch=""></span><a id="treeRight_2_a" class="level1" treenode_a="" onclick="" target="_blank" style="" title="中国信息通信研究院"><span id="treeRight_2_ico" title="" treenode_ico="" class="button ico_close" style=""></span><span id="treeRight_2_span" class="node_name">中国信息通信研究院</span></a></li><li id="treeRight_3" class="level1" tabindex="0" hidefocus="true" treenode=""><span id="treeRight_3_switch" title="" class="button level1 switch center_close" treenode_switch=""></span><a id="treeRight_3_a" class="level1" treenode_a="" onclick="" target="_blank" style="" title="test10"><span id="treeRight_3_ico" title="" treenode_ico="" class="button ico_close" style=""></span><span id="treeRight_3_span" class="node_name">test10</span></a></li><li id="treeRight_4" class="level1" tabindex="0" hidefocus="true" treenode=""><span id="treeRight_4_switch" title="" class="button level1 switch bottom_close" treenode_switch=""></span><a id="treeRight_4_a" class="level1" treenode_a="" onclick="" target="_blank" style="" title="test102"><span id="treeRight_4_ico" title="" treenode_ico="" class="button ico_close" style=""></span><span id="treeRight_4_span" class="node_name">test102</span></a></li></ul></li></ul>
                                 </div>
                             </div>
                             <div class="col-sm-2" style="text-align: center">
                                 <div class="btn-group-vertical" role="group">
                                     <div class="clearfix" style="height: 30px;margin-top: 30px"></div>
                                     <div class="right-add" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px">
-                                        <span style="color: #F39801;text-align: center;font-size: 20px;margin-left: 5px">></span>
+                                        <span style="color: #F39801;text-align: center;font-size: 20px;margin-left: 5px">&gt;</span>
                                     </div>
                                     <div class="clearfix" style="height: 30px"></div>
                                     <div class="remove-alllist" id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 30px;width: 50px">
-                                        <span style="color: #ffffff;text-align: center;font-size: 20px;margin-left: 5px"><<</span>
+                                        <span style="color: #ffffff;text-align: center;font-size: 20px;margin-left: 5px">&lt;&lt;</span>
                                     </div>
                                 </div>
                             </div>
