@@ -84,6 +84,9 @@
             </div>
         </div>
 </div>
+<div class="ict-footer">
+    Copyright © 2018 中国信息通信研究院 版权所有
+</div>
 </body>
 <script>
     seajs.use('${ctx}/js/func/zhzs/zstask/caculate');

@@ -23,7 +23,9 @@
 <div class="panel-body J_weight_table">
     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/weighttable.jsp" flush="true"/>
 </div>
-
+<div class="ict-footer">
+    Copyright © 2018 中国信息通信研究院 版权所有
+</div>
 </body>
 
 <script>
