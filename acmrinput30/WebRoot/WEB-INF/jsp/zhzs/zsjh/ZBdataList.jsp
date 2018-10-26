@@ -3,11 +3,11 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<div style="height: 30%;width: 100%;overflow:auto;">
-    <table class="table table-bordered table-hover" style="width: 100%">
+<div style="height: 28%;width: 100%;overflow:auto;">
+    <table class="table-content-tbody table-bordered" style="width: 100%">
         <thead style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
-        <tr id="zb_data_head">
-            <td style=" font-weight: bold;font-family: 'Microsoft YaHei'">地区</td>
+        <tr id="zb_data_head" class="ict-table-header">
+            <td class="ict-th" style="font-weight: bold;font-family: 'Microsoft YaHei'">地区</td>
             <c:forEach items="${sjs}" var="sj">
                 <td style=" font-weight: bold;font-family: 'Microsoft YaHei'">${sj}</td>
             </c:forEach>

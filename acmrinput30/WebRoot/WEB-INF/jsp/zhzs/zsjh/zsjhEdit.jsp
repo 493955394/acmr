@@ -321,7 +321,7 @@
                             </div>
                         </div>
                         <div class="col-md-10" id="module_container">
-                            <div>
+                            <div class="panel panel-body" style="height: 70%;border-color: #ebdddf">
                                 <div>
                                     <div class="toolbar-left">
                                         <form class="form-inline J_search_form"

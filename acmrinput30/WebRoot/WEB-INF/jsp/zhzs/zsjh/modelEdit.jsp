@@ -122,7 +122,7 @@
                         </select>
                     </div>
                     <div class="col-sm-1">
-                        <button type="button" class="btn btn-default" id="add_zb" style="border-color: #F39801;background-color: #F39801"><span style="color: white">添加></span></button>
+                        <div type="button" id="add_zb" style="border-color: #F39801;background-color: #F39801;height: 30px;width: 50px"><span style="color: white">添加></span></div>
                     </div>
                     <div class="col-sm-2">
                         <textarea rows="8" cols="23" id="formulatext" name="formulatext"></textarea>
@@ -149,7 +149,7 @@
                         <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('/')"><span style="color: white">/</span></div>
                     </div>
                     <div class="col-sm-1">
-                        <button type="button" class="btn btn-default" id="add_hanshu" style="border-color: #F39801;background-color: #F39801"><span style="color: white"><添加</span></button>
+                        <div type="button" id="add_hanshu" style="border-color: #F39801;background-color: #F39801;height: 30px;width: 50px"><span style="color: white"><添加</span></div>
                     </div>
                     <div class="col-sm-2">
                         <select size="15" id="hanshu">
@@ -180,6 +180,9 @@
             </form>
         </div>
     </div>
+</div>
+<div class="ict-footer">
+    Copyright © 2018 中国信息通信研究院 版权所有
 </div>
 <script type="text/javascript">
     /**
