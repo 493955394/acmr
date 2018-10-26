@@ -290,8 +290,8 @@
                         <input type="hidden" class="currentUser" value="<%=user.getUserid()%>">
                         <input type="hidden" id="currentIcode" value="">
                         <div class="form-group">
-                            <div class="col-sm-5  panel panel-default" style="padding: 0 0">
-                                <div class="panel-body" style="padding: 15px 0 15px 15px">
+                            <div class="col-sm-5  panel panel-default" style="padding: 0 0;height: 342px" >
+                                <div class="panel-body" style="padding: 15px 0 15px 15px;height: 700px">
                                     <div class="form-group">
                                         <input type="text" id="select-input" class="col-xs-8">
                                         <button class="btn right-select" type="button" style="margin-left: 3px;background-color: #F39801;height: 29px"><span style="font-size: 10px;color: white">搜索</span></button>
@@ -308,20 +308,20 @@
                                     </div>
                                     <div class="clearfix" style="height: 30px"></div>
                                     <div class="remove-alllist" id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 30px;width: 50px">
-                                        <span style="color: white;text-align: center;font-size: 20px;margin-left: 5px"><<</span>
+                                        <span style="color: #ffffff;text-align: center;font-size: 20px;margin-left: 5px"><<</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-5">
                                 <div class="toolbar" style="border: 1px solid #dddddd;border-radius:3px;height: 40px;margin-bottom: -1px;">
-                                    <div class="toolbar-left">
+                                    <div class="toolbar-left" style="margin-bottom: -1px;">
                                         <span style="margin-left: 16px;line-height: 40px;font-weight: bold">组织/用户</span>
                                     </div>
                                     <div class="toolbar-right">
-                                        <span style="margin-right: 70px;line-height: 40px;font-weight: bold">权限</span>
+                                        <span style="margin-right: 90px;line-height: 40px;font-weight: bold">权限</span>
                                     </div>
                                 </div>
-                                <div>
+                                <div style="border: solid 1px #cecfdf;height: 300px;overflow:auto;">
                                     <ul class="list-group right-list ">
                                     </ul>
                                 </div>
