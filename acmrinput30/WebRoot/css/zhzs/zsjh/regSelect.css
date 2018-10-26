@@ -1,0 +1,52 @@
+.red {
+    background-color: #F39801;
+}
+
+.glyphicon {
+    color: #F39801;
+}
+
+#regtable {
+    height: 50%;
+    width: 100%;
+    overflow: auto;
+    display: none
+}
+
+#tabledata {
+    margin-top: 20px
+}
+
+#th_zhibiao {
+    min-width: 200px
+}
+
+thead {
+    font-size: 15px;
+    background-color: #F5F5F5;
+}
+
+#data_single {
+    height: 500px;
+    width: 100%;
+    overflow: auto;
+    display: none;
+}
+
+#jianchajieguo {
+    font-size: 15px
+}
+
+.bdsjxz {
+    font-size: 10px
+}
+
+.tabledata_single {
+    margin-top: 40px;
+    height: 500px;
+    width: 100%;
+    overflow: auto;
+}
+
+
+
