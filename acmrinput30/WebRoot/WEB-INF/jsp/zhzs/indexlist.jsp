@@ -318,7 +318,7 @@
                                         <span style="margin-left: 16px;line-height: 40px;font-weight: bold">组织/用户</span>
                                     </div>
                                     <div class="toolbar-right">
-                                        <span style="margin-right: 70px;line-height: 40px;font-weight: bold">权限</span>
+                                        <span style="margin-right: 90px;line-height: 40px;font-weight: bold">权限</span>
                                     </div>
                                 </div>
                                 <div>
