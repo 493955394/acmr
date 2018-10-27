@@ -487,6 +487,9 @@ define(function (require,exports,module) {
             }
         });
     });
+    /**
+     * 启用
+     */
     $(document).on('click', '.start', function(event) {
         $(this).parent().prepend("<a href=#>启用</a>")
         $(this).remove()
