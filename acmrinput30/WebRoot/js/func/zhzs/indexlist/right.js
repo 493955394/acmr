@@ -149,7 +149,11 @@ define(function (require,exports,module) {
             var html = "";
             var temp ="";
             html += "<li class='list-group-item' data-uid='" + thisid + "' data-sort='" + thissort + "' data-cuser='" + currentuser + "'>"+ thisname+ "";
+
             html += "<span class='fr'><select class='input-sm' style='padding-right: 40px'><option value='2'>管理</option><option value='1'>协作</option><option value='0'>只读</option></select>";
+
+            html += "<span class='fr'><select class='input-sm' style='padding-right: 40px;'><option value='2'>管理</option><option value='1'>协作</option><option value='0'>只读</option></select>";
+
             html += "&nbsp;&nbsp;&nbsp;<a onclick='delRemove(this)'><i class='glyphicon glyphicon-remove' style='color: #F39801;'></i></a></span></li>";
             $(".right-list").append(html);
     })
