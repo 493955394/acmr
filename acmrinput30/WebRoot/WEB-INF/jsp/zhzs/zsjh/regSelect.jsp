@@ -14,6 +14,9 @@
     .glyphicon{
         color:#F39801;
     }
+    td{
+        white-space: nowrap;
+    }
 </style>
 <div style="height: 50%;width: 100%;overflow:auto;display: none " id="regtable">
     <table style="margin-top: 20px" class="table table-bordered" id="tabledata" >
