@@ -208,7 +208,7 @@
                                 </div>
                             </div>
                             <div class="col-md-3 right-panel">
-                                <div class="panel_container" style="height: 50%;width: 100%;overflow:auto;">
+                                <div class="panel_container" style="height: 90%;width: 100%;overflow:auto;">
                                     <c:forEach items="${zbs.zbchoose}" var="zb">
                                         <div class="panel panel-default zb_panel">
                                             <div class="panel-body">
