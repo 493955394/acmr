@@ -129,3 +129,8 @@ background-color: #ffffff;
     color: #e3e3e3;
     text-align: center;
 }
+.fixed-footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
