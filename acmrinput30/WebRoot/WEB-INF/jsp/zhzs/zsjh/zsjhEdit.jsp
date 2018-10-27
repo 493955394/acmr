@@ -375,6 +375,7 @@
             <button type="reset" class="btn btn-primary resetindex">取消</button>
         </div>
     </div>
+<div class="teset" style="padding-bottom: 10px"></div>
 <div class="ict-footer">
     Copyright © 2018 中国信息通信研究院 版权所有
 </div>
