@@ -354,7 +354,8 @@ define(function (require,exports,module) {
             alert("非法的编码");
             return;
         }
-        var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
+        var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
+        //var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
         var z = $('input[name="zname"]').val().match(namecheck);
         if(z==null){
             alert("名称含有不规则字符，请修改");
@@ -428,6 +429,13 @@ define(function (require,exports,module) {
         if (!checkDelegate.checkNormal($('input[name="putname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
             !checkDelegate.checkNormal($('input[name="putname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为50', 'param': 51 }])) {
             flag = false;
+        }
+        var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
+        //var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
+        var z = $('input[name="putname"]').val().match(namecheck);
+        if(z==null){
+            alert("名称含有不规则字符，请修改");
+            return;
         }
         if (flag == false) {
             return;
