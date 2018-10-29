@@ -67,5 +67,6 @@
 <script>
     seajs.use('${ctx}/js/func/zhzs/zstask/main');
     seajs.use('${ctx}/js/func/zhzs/zstask/datahandle');
+    seajs.use('${ctx}/js/func/zhzs/zstask/caculate');
 </script>
 </html>

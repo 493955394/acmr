@@ -261,21 +261,21 @@
                             <input type="hidden" name="regname" value=""/>
                         </div>
                         <div class="col-xs-1 col-lg-1 col-md-1 col-sm-1 btn-group-vertical" role="group" style="border:1px solid white;padding-top:50px">
-                            <div id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px;" class="col-md-offset-2 col-md-4">
+                            <div id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px;" class="col-md-offset-3 col-md-4">
                                 <span style="color: #F39801;text-align: center;font-size: 15px;">></span>
                             </div>
 
                             <div class="clearfix" style="height: 30px;margin-top: 20px"></div>
-                            <div id="chooseall" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 30px;width: 50px;" class="col-md-offset-2 col-md-4">
+                            <div id="chooseall" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 30px;width: 50px;" class="col-md-offset-3 col-md-4">
                                 <span style="color: white;text-align: center;font-size: 15px;">>></span>
                             </div>
                             <div class="clearfix" style="height: 30px;margin-top: 20px"></div>
-                            <div id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px;" class="col-md-offset-2 col-md-4">
+                            <div id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px;" class="col-md-offset-3 col-md-4">
                                 <span style="color:#F39801;text-align: center;font-size: 15px;"><</span>
                             </div>
                             <div class="clearfix" style="height: 30px;margin-top: 20px"></div>
                             <div id="delall"
-                                    style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 30px;width: 50px;"  class="col-md-offset-2 col-md-4">
+                                    style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 30px;width: 50px;"  class="col-md-offset-3 col-md-4">
                                 <span style="color: white;text-align: center;font-size: 15px;"><<</span></div>
                         </div>
                         <div class="col-xs-2">
