@@ -193,7 +193,7 @@
                                         </div>
 
                                         <button type="button" class="btn btn-default btn-sm zb_add"
-                                                style="display: none;float: right;margin-top: 10px;margin-bottom: 10px"><i
+                                                style="display: none;float: right;margin-top: 10px;margin-bottom: 0"><i
                                                 class="glyphicon glyphicon-plus"></i><span
                                                 class="word">&nbsp;添加指标</span></button>
                                         <%--    <button type="button" class="btn btn-default" style="display: none;float: right"><i class="glyphicon glyphicon-plus"></i><span class="word">&nbsp;添加指标</span></button>--%>
@@ -208,7 +208,7 @@
                                 </div>
                             </div>
                             <div class="col-md-3 right-panel">
-                                <div class="panel_container" style="height: 90%;width: 100%;overflow:auto;">
+                                <div class="panel_container" style="border: 1px solid #dddddd;height: 100%;width: 100%;overflow:auto;">
                                     <c:forEach items="${zbs.zbchoose}" var="zb">
                                         <div class="panel panel-default zb_panel">
                                             <div class="panel-body">
@@ -261,27 +261,27 @@
                             <input type="hidden" name="regname" value=""/>
                         </div>
                         <div class="col-xs-1 btn-group-vertical" role="group" style="border:1px solid white;padding-top:50px">
-                            <div id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px">
+                            <div id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px;margin-left: 13px">
                                 <span style="color: #F39801;text-align: center;font-size: 15px;margin-left: 20px">></span>
                             </div>
                             <div class="clearfix" style="height: 30px"></div>
-                            <div id="chooseall" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 30px;width: 50px">
+                            <div id="chooseall" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 30px;width: 50px;margin-left: 13px">
                                 <span style="color: white;text-align: center;font-size: 15px;margin-left: 15px">>></span>
                             </div>
                             <div class="clearfix" style="height: 25px"></div>
-                            <div id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px">
+                            <div id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px;margin-left: 13px">
                                 <span style="color:#F39801;text-align: center;font-size: 15px;margin-left: 20px"><</span>
                             </div>
                             <div class="clearfix" style="height: 30px"></div>
                             <div id="delall"
-                                    style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 30px;width: 50px">
+                                    style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 30px;width: 50px;margin-left: 13px">
                                 <span style="color: white;text-align: center;font-size: 15px;margin-left: 15px"><<</span></div>
                         </div>
                         <div class="col-xs-2">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">地区列表</div>
                             </div>
-                            <div style="height: 60%;width:100%;overflow:auto ">
+                            <div style="height: 60%;width:100%;overflow:auto;border: 1px solid #dddddd">
                                 <ul class="list-group regul" id="selectreg">
                                     <c:forEach items="${regs}" var="reg">
                                         <li class="list-group-item selectedli" id="${reg.regcode}">${reg.regcname}</li>

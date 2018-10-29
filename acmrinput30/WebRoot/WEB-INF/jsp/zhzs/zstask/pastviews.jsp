@@ -25,8 +25,10 @@
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 <div class="col-xs-12">
     <div>
-        <div>
-            <h4>查看往期</h4>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                查看往期
+            </div>
             <input type="hidden" class="indexcode" value="${info.get('indexcode')}">
         </div>
 
