@@ -44,7 +44,7 @@
                 <div class="tab-content row" style="padding-top: 20px;">
                     <div role="tabpanel" class="tab-pane active" id="qzsz">
                         <div>
-                            <div class="panel-body J_zsjs_weight">
+                            <div class="panel-body J_zsjs_weight" style="padding-top: 0px">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zstask/tweighttable.jsp" flush="true"/>
                             </div>
                         </div>
