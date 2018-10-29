@@ -403,7 +403,8 @@
     })
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/main');
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/zbAdd');
-    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/module')
+    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/module');
+    seajs.use('${ctx}/js/func/zhzs/zstask/caculate');
 </script>
 
 </html>
