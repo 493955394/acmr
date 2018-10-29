@@ -377,7 +377,7 @@
         </div>
     </div>
 <div class="teset" style="padding-bottom: 10px"></div>
-<div class="ict-footer">
+<div class="ict-footer footer">
     Copyright © 2018 中国信息通信研究院 版权所有
 </div>
 </body>
