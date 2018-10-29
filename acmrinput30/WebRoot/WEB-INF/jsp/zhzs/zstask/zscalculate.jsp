@@ -51,7 +51,7 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="yssj">
                         <div>
-                            <div style="float: right;margin-right: 13px";>
+                            <div style="float: right;margin-right: 15px;margin-bottom: 15px;">
                                 <button type="button" class="btn btn-default btn-sm" id="data_download"><i class="glyphicon glyphicon-download"></i>下载</button>
                                 <input type="hidden" class="istmpdata" value="${istmp}">
                                 <c:if test="${right!='0'}">
@@ -71,7 +71,7 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="jsjg">
                         <div>
-                            <div style="float: right;margin-right: 13px">
+                            <div style="float: right;margin-right: 13px;margin-bottom: 15px">
                                 <button class="btn btn-default btn-sm" id="result_download"><i class="glyphicon glyphicon-download"></i>下载数据</button>
                             </div>
                         <div class="calculate_result">
