@@ -53,7 +53,7 @@
             <div class="panel-heading">
                编辑指数计划
             </div>
-            <div class="panel-body" style="height: 75%">
+            <div class="panel-body panel-height" style="height: 75%">
                 <div id="top_div">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">
@@ -153,7 +153,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="zssx">
-                        <div id="tree_and_find" class="col-md-2" style="height: 60%">
+                        <div id="tree_and_find" class="col-md-2">
                             <form class="form-inline J_search_form">
 
                                 <div class="form-group" style="width: 60%;">
@@ -164,7 +164,7 @@
                                 </div>
                             </form>
 
-                            <ul id="treeDemo1" class="ztree ztree-margin"></ul>
+                            <ul id="treeDemo1" class="ztree ztree-margin left-panel"></ul>
                             <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/zbtree.jsp" flush="true"/>--%>
                         </div>
                         <div class="col-md-10 right-panel">

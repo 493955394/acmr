@@ -23,13 +23,15 @@
 <div class="panel-body J_weight_table">
     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/weighttable.jsp" flush="true"/>
 </div>
-<div class="ict-footer">
+<div class="teset" style="padding-bottom: 10px"></div>
+<div class="ict-footer footer">
     Copyright © 2018 中国信息通信研究院 版权所有
 </div>
 </body>
 
 <script>
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/weight');
+    seajs.use('${ctx}/js/func/zhzs/zstask/caculate');
 </script>
 
 </html>
