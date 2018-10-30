@@ -20,29 +20,40 @@
 <head>
     <title>${projectTitle}-编辑指数计划</title>
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true"/>
-</head>
-<body>
-<style type="text/css">
-   span.glyphicon{
-        color: red;
-    }
-    /*.glyphicon {
-        color: #F39801;
-    }*/
-    .tree-panel{
-        margin: 0.0px;
-    }
+    <style type="text/css">
+        span.glyphicon{
+            color: red;
+        }
+        /*.glyphicon {
+            color: #F39801;
+        }*/
+        .tree-panel{
+            margin: 0px;
+        }
 
-</style>
+        #module_tree_container{
+            height: 100%;
+        }
+    </style>
+</head>
+<body style="height: 100%;max-height: 100%;overflow: hidden;padding: 0;margin: 0;border: 0;">
+
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true"/>
 
-<div class="container-fluid" id="mainpanel">
+<div class="container-fluid" id="mainpanel" style="position: absolute;
+    left: 0;
+    top: 150px;
+    bottom: 50px;
+    width: 100%;
+    font-size: 1em;
+    z-index: 4;
+    overflow: auto;">
 
-        <div class="panel panel-default dragpannel" style="height: 70%;overflow: auto;">
+        <div class="panel panel-default dragpannel" style="overflow: auto;">
             <div class="panel-heading">
                编辑指数计划
             </div>
-            <div class="panel-body">
+            <div class="panel-body" style="height: 75%">
                 <div id="top_div">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">
@@ -142,7 +153,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="zssx">
-                        <div id="tree_and_find" class="col-md-2 left-panel" style="height: 100%">
+                        <div id="tree_and_find" class="col-md-2" style="height: 60%">
                             <form class="form-inline J_search_form">
 
                                 <div class="form-group" style="width: 60%;">
@@ -163,7 +174,7 @@
                                         <div class="panel_zbname panel-heading" code="">请选择指标</div>
                                         <div class="ds_choose panel-heading" style="height: 60px">
                                             <div class="col-md-4">
-                                                <span style="font-size: 14px">数据来源：</span>
+                                                <span style="font-size: 14px;">数据来源：</span>
                                                 <select id="ds_select" class="input-sm zb_select">
                                                     <option>请选择</option>
                                                     <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
@@ -292,7 +303,7 @@
                         </div>
 
                         <div class="col-xs-7"
-                             style="border:#E4EDF6;padding-left: 20px;padding-right: 20px;">
+                             style="border:#E4EDF6;padding-left: 20px;">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
                             </div>
@@ -315,13 +326,13 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="mxgh">
-                        <div class="col-md-2 left-panel" id="module_tree_container" style="background-color: #F4F5F9">
+                        <div class="col-md-2" id="module_tree_container" style="background-color: #F4F5F9;height: 75%">
                             <div id="module_tree">
                                 <ul id="moduleTree" class="ztree ztree-margin"></ul>
                             </div>
                         </div>
                         <div class="col-md-10" id="module_container">
-                            <div class="panel panel-body" style="height: 70%;border-color: #dddddd">
+                            <div class="panel panel-body" style="height: 75%;border-color: #dddddd">
                                 <div>
                                     <div class="toolbar-left">
                                         <form class="form-inline J_search_form"
@@ -343,7 +354,7 @@
                                                        placeholder="输入搜索内容" value="">
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-sm" style="background-color: #dddddd;"><span style="color: white">查询</span></button>
+                                                <button type="submit" class="btn btn-sm" style="background-color: #ff7f19;"><span style="color: white">查询</span></button>
                                             </div>
                                         </form>
                                     </div>
@@ -406,6 +417,4 @@
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/module');
     seajs.use('${ctx}/js/func/zhzs/zstask/caculate');
 </script>
-
 </html>
-
