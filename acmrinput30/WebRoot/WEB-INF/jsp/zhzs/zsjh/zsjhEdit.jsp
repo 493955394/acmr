@@ -53,7 +53,7 @@
             <div class="panel-heading">
                编辑指数计划
             </div>
-            <div class="panel-body panel-height" style="height: 75%">
+            <div class="panel-body panel-height" style="height: 75%;padding-top: 15px;padding-left: 0;padding-right: 0;padding-bottom: 15px">
                 <div id="top_div">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">
@@ -68,7 +68,7 @@
                     </ul>
                 </div>
                 <!-- Tab panes -->
-                <div class="col-xs-12 tab-content row" style="padding-top: 10px;">
+                <div class="col-xs-12 tab-content row" style="padding-top: 10px;padding-right: 0">
                     <div role="tabpanel" class="tab-pane active" id="jbxx" style="height: 80%;overflow: auto">
                         <form class="form-horizontal" id="indexForm" action="" method="post">
                             <div class="form-group">
