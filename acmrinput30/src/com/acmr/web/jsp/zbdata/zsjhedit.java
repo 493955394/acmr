@@ -1122,6 +1122,16 @@ public class zsjhedit extends BaseAction {
         codes.put("zs_code", zs_code);
         codes.put("zs_cname", zs_cname);
 
+        for (int i = 0; i <mods.size() ; i++) {
+            if (mods.get(i).getIfzb().equals("0")){
+                String formula = mods.get(i).getFormula();
+                mods.get(i).setFormula(changeFormula(formula,icode,"CTN"));
+            }else  if (mods.get(i).getIfzb().equals("1")){
+                String formula = mods.get(i).getFormula();
+                mods.get(i).setFormula(formulaShow(formula,icode));
+            }
+        }
+
         if (StringUtil.isEmpty(pjax)) {
             JSONObject zbs=getZBS(icode);
 

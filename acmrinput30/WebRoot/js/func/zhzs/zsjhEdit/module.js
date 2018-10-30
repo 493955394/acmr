@@ -29,9 +29,10 @@ define(function (require,exports,module) {
             selectedMulti:false
         }
     };
-    var rootNode = [{"id":"","name":"指数结构",pId:"", "open":"false", "isParent":"true",icon:"../../../../zhzs/css/img/mark1.png"}];
+    var rootNode = [{"id":"","name":"指数结构",pId:"", "open":"true", "isParent":"true",icon:"../../../../zhzs/css/img/mark1.png"}];
     var treeObj = $.fn.zTree.init($("#moduleTree"), setting, rootNode);
-
+    var treenodes = treeObj.getNodes();
+    treeObj.expandNode(treenodes[0], true, true, true);
     function clickEvent(event, treeid, treeNode) {
         choosedprocode = treeNode.id;
         choosedname = treeNode.name;

@@ -125,7 +125,7 @@
                         <div type="button" id="add_zb" style="border-color: #F39801;background-color: #F39801;height: 30px;width: 50px"><span style="color: white">添加></span></div>
                     </div>
                     <div class="col-sm-2">
-                        <textarea rows="8" cols="23" id="formulatext" name="formulatext"></textarea>
+                        <textarea rows="8" cols="23" id="formulatext" name="formulatext"><c:if test="${data.getIfzb()==0}">${data.getFormula()}</c:if></textarea>
                         <div class="clearfix"></div>
                         <p></p>
                         <div type="button" style="height: 35px;width: 35px;border-radius: 8px" class="btn btn-default cal" onclick="addExpressContent('1')"><span style="color: white;">1</span></div>
