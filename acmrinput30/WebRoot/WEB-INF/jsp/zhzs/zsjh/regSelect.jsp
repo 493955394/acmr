@@ -18,7 +18,7 @@
         white-space: nowrap;
     }
 </style>
-<div style="height: 50%;width: 100%;overflow:auto;display: none " id="regtable">
+<div style="height: 45%;width: 100%;overflow:auto;display: none " id="regtable">
     <table style="margin-top: 20px" class="table table-bordered" id="tabledata" >
         <thead style="font-size: 15px;background-color: #F5F5F5;">
         <tr>
@@ -49,7 +49,7 @@
     </table>
 </div>
 <br>
-<div style="height: 500px;width:100%;overflow:auto; display: none" id="data_single">
+<div style="height: 45%;width:100%;overflow:auto; display: none" id="data_single">
     <div class="col-md-4" style="font-size: 15px">
         检查结果：${regname}
     </div>
