@@ -145,24 +145,22 @@
                     <td>
                         <c:if test="${index.getIfdata().equals('1')}">
                             <c:if test="${index.getState().equals('0')}">
-                                <a href="javascript:;" class="start" name="${index.getCode()}">启用</a>
-                                <a href="${ctx}/zbdata/zsjhedit.htm?id=${index.getCode()}">编辑</a>
-                                <a href="javascript:;" class="btn-opr J_opr_del" id="${index.getCode()}">删除</a>
+                                <a href="javascript:;" class="start" name="${index.getCode()}">启用</a><a class="btn-margin" href="${ctx}/zbdata/zsjhedit.htm?id=${index.getCode()}">编辑</a>
+                                <a href="javascript:;" class="btn-margin J_opr_del" id="${index.getCode()}">删除</a>
                             </c:if>
                             <c:if test="${index.getState().equals('1')}">
-                                <a href="javascript:;" class="stop" name="${index.getCode()}">停用</a>
-                                <label class="btn-disabled">编辑</label>
-                                <label class="btn-disabled">删除</label>
+                                <a style="float: left" href="javascript:;" class="stop" name="${index.getCode()}">停用</a><span class="btn-disabled btn-margin">编辑</span>
+                                <span class="btn-disabled btn-margin">删除</span>
                             </c:if>
 
-                            <a href="#" id="rightbutton" name="${index.getCode()}">权限管理</a>
+                            <a href="#" class="btn-margin" id="rightbutton" name="${index.getCode()}">权限管理</a>
 
-                            <a class="past_task" href="${ctx}/zbdata/pastviews.htm?id=${index.getCode()}" target="_blank">查看往期</a>
-                            <a href="${ctx}/zbdata/zstask.htm?icode=${index.getCode()}">指数任务</a>
+                            <a class="past_task btn-margin" href="${ctx}/zbdata/pastviews.htm?id=${index.getCode()}" target="_blank">查看往期</a>
+                            <a class="btn-margin" href="${ctx}/zbdata/zstask.htm?icode=${index.getCode()}">指数任务</a>
                         </c:if>
                         <c:if test="${index.getIfdata().equals('0')}">
-                            <a class="category_edit" href="javascript:;" name="${index.getCname()}" id="${index.getCode()}">编辑</a>
-                            <a href="javascript:;" class="btn-opr J_opr_del" id="${index.getCode()}">删除</a>
+                            <a class="category_edit btn-margin" href="javascript:;" name="${index.getCname()}" id="${index.getCode()}">编辑</a>
+                            <a href="javascript:;" class="btn-margin J_opr_del" id="${index.getCode()}">删除</a>
                         </c:if>
                     </td>
                 </tr>

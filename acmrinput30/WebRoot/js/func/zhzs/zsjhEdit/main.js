@@ -31,6 +31,16 @@ define(function (require,exports,module) {
         console.log($('.left-panel').height())
     }
 
+    //切换tabs
+    $(function(){
+        $("#bjjhTab a").click(function(e){
+            e.preventDefault();
+            $(this).tab("show");
+            var rch = $(".tab-content").height();
+            console.log(rch);
+        });
+    });
+
     var incode=$("#index_code").val();
     var select = [];
     var select_li = "error";//选择移除的li的下标

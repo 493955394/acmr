@@ -57,14 +57,10 @@
                 <div id="top_div">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">
-                        <li role="presentation" class="active"><a href="#jbxx" aria-controls="jbxx" role="tab"
-                                                                  data-toggle="tab">基本信息</a></li>
-                        <li role="presentation"><a href="#zssx" aria-controls="zssx" role="tab"
-                                                   data-toggle="tab">指数筛选</a></li>
-                        <li role="presentation"><a href="#jsfw" aria-controls="jsfw" role="tab"
-                                                   data-toggle="tab">计算范围</a></li>
-                        <li role="presentation"><a href="#mxgh" aria-controls="mxgh" role="tab"
-                                                   data-toggle="tab">模型规划</a></li>
+                        <li  class="active"><a href="#jbxx" aria-controls="jbxx" role="tab">基本信息</a></li>
+                        <li ><a href="#zssx" aria-controls="zssx" role="tab">指标筛选</a></li>
+                        <li ><a href="#jsfw" aria-controls="jsfw" role="tab">计算范围</a></li>
+                        <li ><a href="#mxgh" aria-controls="mxgh" role="tab">模型规划</a></li>
                     </ul>
                 </div>
                 <!-- Tab panes -->
@@ -413,7 +409,8 @@
         module.exports = {
             zbs: zbs
         }
-    })
+    });
+
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/main');
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/zbAdd');
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/module');

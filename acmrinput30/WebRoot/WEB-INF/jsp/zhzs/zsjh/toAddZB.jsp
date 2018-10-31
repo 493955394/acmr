@@ -194,7 +194,7 @@
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/toAdd');
     seajs.use('${ctx}/js/func/zhzs/zstask/caculate');
 </script>
-<div class="teset" style="padding-bottom: 10px;padding-top: 5px"></div>
+<div class="teset" style="padding-bottom: 10px;padding-top: 20px"></div>
 <div class="ict-footer footer">
     Copyright © 2018 中国信息通信研究院 版权所有
 </div>
