@@ -308,11 +308,11 @@
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
                             </div>
                             <div style="margin-top: 10px">
-                                <span class="col-md-2" style="font-size: 15px">时间选择</span>
-                                <input class="col-md-2" name="begintime"/>
-                                <span class="col-md-1" style="font-size: 15px">至</span>
-                                <input class="col-md-2" name="endtime"/>
-                                <span class="col-md-1"></span>
+                                <span style="font-size: 15px">时间选择</span>
+                                <input  name="begintime"/>
+                                <span style="font-size: 15px">至</span>
+                                <input  name="endtime"/>
+                                <span ></span>
                                 <div style="float: right">
                                     <button id="datachecks" class="btn btn-default btn-sm" style="font-size: 10px"><i class="data-check"></i>数据检查</button>
                                     <button id="down_data" class="J_plan_excel btn btn-default btn-sm" style="font-size: 10px;margin-left: 10px;display:none"><i class="glyphicon glyphicon-save"></i>数据下载</button>
@@ -326,13 +326,13 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="mxgh">
-                        <div class="col-md-2" id="module_tree_container" style="background-color: #F4F5F9;height: 75%">
+                        <div class="col-md-2" id="module_tree_container" style="background-color: #F4F5F9;height: 80%;overflow: auto">
                             <div id="module_tree">
                                 <ul id="moduleTree" class="ztree ztree-margin"></ul>
                             </div>
                         </div>
                         <div class="col-md-10" id="module_container">
-                            <div class="panel panel-body" style="height: 75%;border-color: #dddddd">
+                            <div class="panel panel-body" style="height: 80%;border-color: #dddddd">
                                 <div>
                                     <div class="toolbar-left">
                                         <form class="form-inline J_search_form"
@@ -371,7 +371,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="J_zsjh_module_table">
+                                <div class="J_zsjh_module_table"  style="width: 100%;height: 70%;overflow: auto">
                                     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/modTableList.jsp" flush="true"/>
                                 </div>
                             </div>

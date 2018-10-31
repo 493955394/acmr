@@ -49,12 +49,13 @@
     </table>
 </div>
 <br>
-<div style="height: 45%;width:100%;overflow:auto; display: none" id="data_single">
-    <div class="col-md-4" style="font-size: 15px">
+<div style="display: none" id="data_single">
+    <div style="font-size: 15px">
         检查结果：${regname}
+        <button class="J_excel_singlereg btn btn-default btn-sm" style="float:right;font-size: 10px"><i class="glyphicon glyphicon-save"></i>&nbsp;本地区数据下载</button>
     </div>
-    <button class="J_excel_singlereg btn btn-default btn-sm col-md-offset-1 col-md-3" style="font-size: 10px"><i class="glyphicon glyphicon-save"></i>&nbsp;本地区数据下载</button>
-    <table style="margin-top: 40px;height: 500px;width:100%;overflow:auto;" class="table table-bordered" id="tabledata_single" >
+    <div style="margin-top: 10px;height: 30%;width:100%;overflow:auto;">
+    <table class="table table-bordered" id="tabledata_single" >
         <thead style="font-size: 15px;background-color: #F5F5F5;">
         <tr>
             <th>指标</th>
@@ -80,4 +81,5 @@
         </c:forEach>
         </tbody>
     </table>
+    </div>
 </div>
