@@ -15,10 +15,8 @@ define(function (require,exports,module) {
      * 点击选择按钮之后隐藏和显示的内容
      */
     $(document).ready(function(){
-        var obj, index, id,userdefine;
-        obj = document.getElementById('selectifzs');
-        index = obj.selectedIndex;
-        id = obj.options[index].value;
+        var id,userdefine;
+        id = $('#selectifzs').attr("data-value");
         if(id == 1){
             $('#secend_zs').show();
         }
@@ -80,7 +78,7 @@ define(function (require,exports,module) {
         }
         $.ajax({
             url: currentUrl,
-            data: $(self).serialize(),
+            data: $.param({'inputifzs':$('#selectifzs').attr("data-value")})+'&'+$(self).serialize(),
             type: 'post',
             dataType: 'json',
             timeout: 10000,

@@ -35,7 +35,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="${codes.keyword}">
+                    <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="${codes.keyword}" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-sm">查询</button>
@@ -62,7 +62,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input id="queryValue1" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="${codes.keyword}">
+                    <input id="queryValue1" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="${codes.keyword}" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-sm">查询</button>
@@ -87,7 +87,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input id="queryValue2" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="${codes.keyword}">
+                    <input id="queryValue2" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="${codes.keyword}" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-sm">查询</button>

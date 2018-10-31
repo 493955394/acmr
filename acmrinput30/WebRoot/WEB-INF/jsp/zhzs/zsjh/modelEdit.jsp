@@ -46,19 +46,17 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">节点类别：</label>
                     <div class="col-sm-3">
-                        <select class="form-control" name="ifzs" autocomplete="off" id="selectifzs" readonly="">
                             <c:choose>
                                 <c:when test="${(data.getProcode() == '' || data.getProcode()== null)&&data.getIfzs()=='1'}">
-                                    <option value="2" selected>总指数</option>
+                                    <input class="form-control" name="ifzs" id="selectifzs" readonly="" data-value="2" value="总指数">
                                 </c:when>
                                 <c:when test="${data.getIfzs()=='0'}">
-                                    <option value="0" selected>指标</option>
+                                    <input class="form-control" name="ifzs" id="selectifzs" readonly="" data-value="0" value="指标">
                                 </c:when>
                                 <c:otherwise>
-                                    <option value="1" selected>次级指数</option>
+                                    <input class="form-control" name="ifzs" id="selectifzs" readonly="" data-value="1" value="次级指数">
                                 </c:otherwise>
                             </c:choose>
-                        </select>
                     </div>
                 </div>
                 <div id="secend_zs" style="display: none">

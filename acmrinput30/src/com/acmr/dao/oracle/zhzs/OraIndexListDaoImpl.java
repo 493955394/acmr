@@ -47,7 +47,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
 
     @Override
     public DataTable getByUser(String usercode) {
-        String sql = "select * from tb_coindex_index where createuser= ? ";
+        String sql = "select * from tb_coindex_index where createuser= ? order by code ";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{usercode});
     }
 

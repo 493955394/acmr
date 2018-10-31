@@ -153,7 +153,7 @@
                             <form class="form-inline J_search_form">
 
                                 <div class="form-group" style="width: 60%;">
-                                    <input id="queryValue" type="text" class="form-control input-xm" placeholder="搜索内容" style="width: 100%;">
+                                    <input id="queryValue" type="text" class="form-control input-xm" placeholder="搜索内容" style="width: 100%;" autocomplete="off">
                                 </div>
                                 <div class="form-group">
                                     <button type="button" class="btn btn-primary btn-sm btn_search">搜索</button>
