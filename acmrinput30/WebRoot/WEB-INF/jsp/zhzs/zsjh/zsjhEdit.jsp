@@ -157,7 +157,7 @@
                             <form class="form-inline J_search_form">
 
                                 <div class="form-group" style="width: 60%;">
-                                    <input id="queryValue" type="text" class="form-control input-xm" placeholder="搜索内容" style="width: 100%;">
+                                    <input id="queryValue" type="text" class="form-control input-xm" placeholder="搜索内容" style="width: 100%;" autocomplete="off">
                                 </div>
                                 <div class="form-group">
                                     <button type="button" class="btn btn-primary btn-sm btn_search">搜索</button>
@@ -307,15 +307,17 @@
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
                             </div>
-                            <div style="margin-top: 10px">
-                                <span style="font-size: 15px">时间选择</span>
-                                <input  name="begintime"/>
-                                <span style="font-size: 15px">至</span>
-                                <input  name="endtime"/>
+                            <div>
+                                <div style="border:solid 1px #E4EDF6">
+                                <span style="font-size: 15px;margin-top: 10px;margin-bottom: 10px">时间选择</span>
+                                <input  name="begintime" style="margin-top: 10px;"/>
+                                <span style="font-size: 15px;margin-top: 10px">至</span>
+                                <input  name="endtime" style="margin-top: 10px"/>
                                 <span ></span>
-                                <div style="float: right">
+                                <div style="float: right;margin-top: 10px">
                                     <button id="datachecks" class="btn btn-default btn-sm" style="font-size: 10px"><i class="data-check"></i>数据检查</button>
                                     <button id="down_data" class="J_plan_excel btn btn-default btn-sm" style="font-size: 10px;margin-left: 10px;display:none"><i class="glyphicon glyphicon-save"></i>数据下载</button>
+                                </div>
                                 </div>
                                 <input type="hidden" id="single_reg" value="">
 

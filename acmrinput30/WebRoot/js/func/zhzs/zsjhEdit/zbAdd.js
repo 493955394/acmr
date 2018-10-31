@@ -90,6 +90,7 @@ define(function (require,exports,module) {
                 data:data,
                 success:function (re) {
                     $(".zb_select").empty()
+                    $(".zb_select").append("<option>请选择</option>")
                     foreach(re.ds,"ds")
                     foreach(re.co,"co")
                     foreach(re.unit,"unit")
@@ -121,6 +122,7 @@ define(function (require,exports,module) {
                 data:data,
                 success:function (re) {
                     $(".zb_select").empty()
+                    $("zb_select").append("请选择")
                     foreach(re.ds,"ds")
                     foreach(re.co,"co")
                     foreach(re.unit,"unit")
@@ -201,7 +203,7 @@ define(function (require,exports,module) {
                             $(".panel_zbname").html(name).attr("code",clickcode)
                             //获得路径
                             $.ajax({
-                                url:common.rootPath+'zbdata/zsjhedit.htm?m=getZBpath&code='+clickcode+"&icode"+indexCode,
+                                url:common.rootPath+'zbdata/zsjhedit.htm?m=getZBpath&code='+clickcode+"&icode="+indexCode,
                                 type:'get',
                                 success:function (re) {
                                     re.push(clickcode)

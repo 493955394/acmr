@@ -48,13 +48,12 @@
         <input type="hidden" value="${check}" id="checkreturn">
     </table>
 </div>
-<br>
 <div style="display: none" id="data_single">
-    <div style="font-size: 15px">
+    <div style="font-size: 15px;margin-top: 5px">
         检查结果：${regname}
-        <button class="J_excel_singlereg btn btn-default btn-sm" style="float:right;font-size: 10px"><i class="glyphicon glyphicon-save"></i>&nbsp;本地区数据下载</button>
+        <button class="J_excel_singlereg btn btn-default btn-sm" style="float:right;font-size: 10px;margin-bottom: 5px"><i class="glyphicon glyphicon-save"></i>&nbsp;本地区数据下载</button>
     </div>
-    <div style="margin-top: 10px;height: 30%;width:100%;overflow:auto;">
+    <div style="height: 30%;width:100%;overflow:auto;">
     <table class="table table-bordered" id="tabledata_single" >
         <thead style="font-size: 15px;background-color: #F5F5F5;">
         <tr>
