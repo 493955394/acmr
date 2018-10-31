@@ -32,7 +32,9 @@ define(function (require,exports,module) {
     var rootNode = [{"id":"","name":"指数结构",pId:"", "open":"true", "isParent":"true",icon:"../../../../zhzs/css/img/mark1.png"}];
     var treeObj = $.fn.zTree.init($("#moduleTree"), setting, rootNode);
     var treenodes = treeObj.getNodes();
+    var node = treeObj.getNodeByParam("id", "")
     treeObj.expandNode(treenodes[0], true, true, true);
+    treeObj.selectNode(node)
     function clickEvent(event, treeid, treeNode) {
         choosedprocode = treeNode.id;
         choosedname = treeNode.name;
