@@ -19,7 +19,7 @@
 						<div class="toolbar-left">
 							<form class="form-inline J_search_form" action="${ctx}/system/role.htm?m=find">
 								<div class="form-group">
-									<input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容">
+									<input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" autocomplete="off">
 								</div>
 								<div class="form-group">
 									<button type="submit" class="btn btn-primary btn-sm">查询</button>
