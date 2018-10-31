@@ -1254,7 +1254,7 @@ public class zsjhedit extends BaseAction {
         String indexCode = PubInfo.getString(req.getParameter("icode"));
         String code = PubInfo.getString(req.getParameter("ZS_code"));
         String name = PubInfo.getString(req.getParameter("ZS_cname"));
-        String ifzs = PubInfo.getString(req.getParameter("ifzs"));
+        String ifzs = PubInfo.getString(req.getParameter("inputifzs"));
         String formula = PubInfo.getString(req.getParameter("formula"));//判断是不是自定义，是指标还是公式
         String formulatext = PubInfo.getString(req.getParameter("formulatext"));
         String ifzb = "";
