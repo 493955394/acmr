@@ -306,11 +306,11 @@
                             <div>
                                 <div style="border:solid 1px #E4EDF6">
                                 <span style="font-size: 15px;margin-top: 10px;margin-bottom: 10px">时间选择</span>
-                                <input  name="begintime" style="margin-top: 10px;"/>
-                                <span style="font-size: 15px;margin-top: 10px">至</span>
-                                <input  name="endtime" style="margin-top: 10px"/>
+                                <input  name="begintime" style="margin-top: 10px;margin-bottom: 10px"/>
+                                <span style="font-size: 15px;margin-top: 10px;margin-bottom: 10px">至</span>
+                                <input  name="endtime" style="margin-top: 10px;margin-bottom: 10px"/>
                                 <span ></span>
-                                <div style="float: right;margin-top: 10px">
+                                <div style="float: right;margin-top: 10px;margin-bottom: 10px">
                                     <button id="datachecks" class="btn btn-default btn-sm" style="font-size: 10px"><i class="data-check"></i>数据检查</button>
                                     <button id="down_data" class="J_plan_excel btn btn-default btn-sm" style="font-size: 10px;margin-left: 10px;display:none"><i class="glyphicon glyphicon-save"></i>数据下载</button>
                                 </div>
