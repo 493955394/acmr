@@ -34,6 +34,9 @@
 
         <c:if test="${info.get('tasknum')=='0'}">
             <span>该计划下没有往期任务！</span>
+            <div class="ict-footer footer fixed-footer">
+                Copyright © 2018 中国信息通信研究院 版权所有
+            </div>
         </c:if>
         <c:if test="${info.get('tasknum')!='0'}">
             <div>
@@ -89,9 +92,8 @@
 </div>
 <div class="common-tips"></div>
 <div class="teset" style="padding-bottom: 10px"></div>
-<div class="ict-footer footer">
-    Copyright © 2018 中国信息通信研究院 版权所有
-</div>
+</body>
+</html>
 <script type="text/javascript">
     seajs.use('${ctx}/js/func/zhzs/zstask/pastviews');
     seajs.use('${ctx}/js/func/zhzs/zstask/wdturn');
@@ -115,13 +117,13 @@
 
     function footerPosition(){
         $(".footer").removeClass("fixed-footer");
-        var contentHeight = document.body.scrollHeight,//网页正文全文高度
+        var contentHeight = $("body").height(),//网页正文全文高度
 
             winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
+        console.log(contentHeight+","+winHeight)
         if(!(contentHeight > winHeight)){
             //当网页正文高度小于可视窗口高度时，为footer添加类fixed-footer
             $(".footer").addClass("fixed-footer");
-            $(".content").height(winHeight);
         } else {
             $(".footer").removeClass("fixed-footer");
         }
@@ -129,5 +131,3 @@
     footerPosition();
     $(window).resize(footerPosition);
 </script>
-</body>
-</html>
