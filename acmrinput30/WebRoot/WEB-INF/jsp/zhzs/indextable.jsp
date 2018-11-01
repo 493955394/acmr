@@ -129,7 +129,7 @@
             <tbody class="list_body " id="my_index_all">
             <c:forEach  items="${page.data}" var="index">
                 <tr class="my_index pro-${index.getCode()}">
-                    <th><input type="radio" name="radiotype" if="${index.getIfdata()}" id="${index.getCode()}" getname="${index.getCname()}"></th>
+                    <th><input type="radio" name="radiotype" if="${index.getIfdata()}" id="${index.getCode()}" getname="${index.getCname()}" getprocode="${index.getProcode()}"></th>
                     <td >${index.getCode()}</td>
                     <td >${index.getCname()}</td>
                     <td>
@@ -195,7 +195,7 @@
         </c:if>
         <c:forEach items="${page.data}" var="index">
             <tr class="my_received">
-                <th><input type="radio" name="radiotype" getright="${index.get('right')}"  idcode="${index.get('index').getCode()}" coname="${index.get('index').getCname()}"></th>
+                <th><input type="radio" name="radiotype" getright="${index.get('right')}"  idcode="${index.get('index').getCode()}" coname="${index.get('index').getCname()}" coprocode="${index.get('index').getProcode()}"></th>
                 <td>${index.get("index").getCname()}</td>
                 <td>${index.get("createuser")}</td>
                 <td>
