@@ -83,29 +83,32 @@ define(function (require,exports,module) {
                 "zbcode":zb[0],
                 "icode":indexCode
             };
-            $.ajax({
-                url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit',
-                type:'post',
-                dataType:'json',
-                data:data,
-                success:function (re) {
-                    $(".zb_select").empty()
-                    $(".zb_select").append("<option>请选择</option>")
-                    foreach(re.ds,"ds")
-                    foreach(re.co,"co")
-                    foreach(re.unit,"unit")
-                    function foreach(innerre,zname) {
-                        innerre.forEach(function (d,ind,ds){
-                            var code=Object.keys(d)[0]
-                            var name=d[code]
-                            $("#"+zname+"_select").append("<option class='" +
-                                code+ "'>" +
-                                name+"</option>")
-                        })
+            setTimeout(function () {
+                $.ajax({
+                    url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit',
+                    type:'post',
+                    dataType:'json',
+                    data:data,
+                    success:function (re) {
+                        $(".zb_select").empty()
+                        $(".zb_select").append("<option>请选择</option>")
+                        foreach(re.ds,"ds")
+                        foreach(re.co,"co")
+                        foreach(re.unit,"unit")
+                        function foreach(innerre,zname) {
+                            innerre.forEach(function (d,ind,ds){
+                                var code=Object.keys(d)[0]
+                                var name=d[code]
+                                $("#"+zname+"_select").append("<option class='" +
+                                    code+ "'>" +
+                                    name+"</option>")
+                            })
+                        }
+                        sendPjax();
                     }
-                    sendPjax();
-                }
-            })
+                })
+            },500)
+
             return true
         }
         else {
@@ -115,29 +118,31 @@ define(function (require,exports,module) {
             var data={
                     "zbcode":zb[0]
             };
-            $.ajax({
-                url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit&icode='+indexCode,
-                type:'post',
-                dataType:'json',
-                data:data,
-                success:function (re) {
-                    $(".zb_select").empty()
-                    $("zb_select").append("请选择")
-                    foreach(re.ds,"ds")
-                    foreach(re.co,"co")
-                    foreach(re.unit,"unit")
-                    function foreach(innerre,zname) {
-                        innerre.forEach(function (d,ind,ds){
-                            var code=Object.keys(d)[0]
-                            var name=d[code]
-                            $("#"+zname+"_select").append("<option class='" +
-                                code+ "'>" +
-                                name+"</option>")
-                        })
+            setTimeout(function () {
+                $.ajax({
+                    url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit&icode='+indexCode,
+                    type:'post',
+                    dataType:'json',
+                    data:data,
+                    success:function (re) {
+                        $(".zb_select").empty()
+                        $("zb_select").append("请选择")
+                        foreach(re.ds,"ds")
+                        foreach(re.co,"co")
+                        foreach(re.unit,"unit")
+                        function foreach(innerre,zname) {
+                            innerre.forEach(function (d,ind,ds){
+                                var code=Object.keys(d)[0]
+                                var name=d[code]
+                                $("#"+zname+"_select").append("<option class='" +
+                                    code+ "'>" +
+                                    name+"</option>")
+                            })
+                        }
+                        sendPjax();
                     }
-                    sendPjax();
-                }
-            })
+                })
+            },500)
 
         }
 
