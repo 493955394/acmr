@@ -10,7 +10,6 @@ define(function (require,exports,module) {
         AjaxMods = require('AjaxMods');
 
     var currentuser = $(".currentUser").val();
-
     var treeNodeId = "";
     var treeNodeName = "";
     var treeNodeSort = "";
