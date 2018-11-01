@@ -200,6 +200,8 @@ define(function (require,exports,module) {
         $('input[name=planname]').val(name);
         $('input[name=idplan]').val(code);*/
         $('input[name=indexname]').val(name);
+        //$('input[name=newprocode]').val(code);
+        $('input[name=sharename]').val(name);
         $('input[name=editname]').val(name);
         $('input[name=editprocode]').val(code);
 

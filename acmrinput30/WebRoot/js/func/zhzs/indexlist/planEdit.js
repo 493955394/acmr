@@ -315,7 +315,7 @@ define(function (require,exports,module) {
             var code =$('input:radio:checked').attr('id');
             var ifdata = $('input:radio:checked').attr('if');
             var name =$('input:radio:checked').attr('getname');
-
+            var procode =$('input:radio:checked').attr('getprocode');
             if(ifdata == 0){
                 alert("目录无法复制！");
             }
@@ -324,6 +324,7 @@ define(function (require,exports,module) {
                 $('input[name=plcode]').val(code);
                 $('input[name=cifdata]').val(ifdata);
                 $('input[name=zname]').val(name);
+                $('input[name=newprocode]').val(procode);
                 $('#mymodal-data2').modal('show');
             }
         }
@@ -401,6 +402,7 @@ define(function (require,exports,module) {
             var right = $('input:radio:checked').attr('getright');
             var code =$('input:radio:checked').attr('idcode');
             var name =$('input:radio:checked').attr('coname');
+            var procode =$('input:radio:checked').attr('coprocode');
             if(right == 0){
                 alert("本指数计划没有权限复制！");
             }
@@ -408,6 +410,7 @@ define(function (require,exports,module) {
                 $('input[name=putcode]').val(code);
                 $('input[name=cosharecode]').val(code);
                 $('input[name=putname]').val(name);
+                $('input[name=shareprocode]').val(procode);
                 $('#mymodal-data4').modal('show');
             }
         }
