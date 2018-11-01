@@ -269,7 +269,7 @@
                         </div>
                         <div class="col-xs-1 col-lg-1 col-md-1 col-sm-1 btn-group-vertical" role="group" style="border:1px solid white;padding-top:50px">
                             <div id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px;" class="col-md-offset-3 col-md-4">
-                                <span style="color: #F39801;text-align: center;font-size: 15px;">></span>
+                                <span style="color: #F39801;text-align: center;font-size: 15px;margin-left: 4px">></span>
                             </div>
 
                             <div class="clearfix" style="height: 30px;margin-top: 20px"></div>
@@ -278,7 +278,7 @@
                             </div>
                             <div class="clearfix" style="height: 30px;margin-top: 20px"></div>
                             <div id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px;" class="col-md-offset-3 col-md-4">
-                                <span style="color:#F39801;text-align: center;font-size: 15px;"><</span>
+                                <span style="color:#F39801;text-align: center;font-size: 15px;margin-left: 4px"><</span>
                             </div>
                             <div class="clearfix" style="height: 30px;margin-top: 20px"></div>
                             <div id="delall"
