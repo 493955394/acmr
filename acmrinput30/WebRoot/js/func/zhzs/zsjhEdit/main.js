@@ -27,6 +27,7 @@ define(function (require,exports,module) {
     $("#module_tree_container").height(rch);
 
     $("#module_container").height(rch);
+    $("#module_tree_container_body").height(rch);
     $(".J_zsjh_module_table").height(rch*0.7);
     $("#dqs").height(rch*0.8);
     $("#dqlb").height(rch*0.8);

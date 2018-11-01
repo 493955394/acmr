@@ -322,7 +322,7 @@
                             </div>
                         </div>
                         <div class="col-md-10" id="module_container">
-                            <div class="panel panel-body" style="border-color: #dddddd">
+                            <div class="panel panel-body" id="module_tree_container_body" style="border-color: #dddddd">
                                 <div>
                                     <div class="toolbar-left" style="margin-bottom: 0px">
                                         <form class="form-inline J_search_form"
