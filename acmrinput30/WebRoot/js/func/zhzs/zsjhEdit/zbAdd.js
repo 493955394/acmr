@@ -91,7 +91,7 @@ define(function (require,exports,module) {
                     data:data,
                     success:function (re) {
                         $(".zb_select").empty()
-                        $(".zb_select").append("<option>请选择</option>")
+                        //$(".zb_select").append("<option>请选择</option>")
                         foreach(re.ds,"ds")
                         foreach(re.co,"co")
                         foreach(re.unit,"unit")
@@ -103,6 +103,10 @@ define(function (require,exports,module) {
                                     code+ "'>" +
                                     name+"</option>")
                             })
+                            if (innerre.length==0){
+                                $(".zb_select").append("<option>请选择</option>")
+
+                            }
                         }
                         sendPjax();
                     }

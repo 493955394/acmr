@@ -156,7 +156,7 @@
                             <a href="#" class="btn-margin" id="rightbutton" name="${index.getCode()}">权限管理</a>
 
                             <a class="past_task btn-margin" href="${ctx}/zbdata/pastviews.htm?id=${index.getCode()}" target="_blank">查看往期</a>
-                            <a class="btn-margin" href="${ctx}/zbdata/zstask.htm?icode=${index.getCode()}">指数任务</a>
+                            <a class="btn-margin" href="${ctx}/zbdata/zstask.htm?icode=${index.getCode()}" target="_blank">指数任务</a>
                         </c:if>
                         <c:if test="${index.getIfdata().equals('0')}">
                             <a class="category_edit btn-margin" href="javascript:;" name="${index.getCname()}" id="${index.getCode()}">编辑</a>
@@ -245,7 +245,7 @@
                         </c:if>
                         <a class="past_task" href="${ctx}/zbdata/pastviews.htm?id=${index.get('index').getCode()}" target="_blank">查看往期</a>
 
-                        <a href="${ctx}/zbdata/zstask.htm?&icode=${index.get('index').getCode()}&right=${index.get('right')}">指数任务</a>
+                        <a href="${ctx}/zbdata/zstask.htm?&icode=${index.get('index').getCode()}&right=${index.get('right')}" target="_blank">指数任务</a>
                     </c:if>
                     <c:if test="${index.get('index').getIfdata().equals('0')}">
                         <a class="category_edit" href="javascript:;" name="${index.get('index').getCname()}" id="${index.getCode()}&right=${index.get('right')}">编辑</a>
