@@ -286,9 +286,9 @@
                     <h4 class="modal-title">权限管理</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal J_rightlist_form" action="/zhzs/zbdata/indexlist.htm?m=rightListSave">
-                        <input type="hidden" class="currentUser" value="admin">
-                        <input type="hidden" id="currentIcode" value="lqj1">
+                    <form class="form-horizontal J_rightlist_form" action="${ctx}/zbdata/indexlist.htm?m=rightListSave">
+                        <input type="hidden" class="currentUser" value="<%=user.getUserid()%>">
+                        <input type="hidden" id="currentIcode" value="">
                         <div class="form-group">
                             <div class="col-sm-5  panel panel-default" style="padding: 0 0;height: 342px">
                                 <div class="panel-body" style="padding: 15px 0 15px 15px;height: 700px">
