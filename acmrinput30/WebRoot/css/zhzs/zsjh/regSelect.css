@@ -27,7 +27,6 @@ thead {
 }
 
 #data_single {
-    height: 500px;
     width: 100%;
     overflow: auto;
     display: none;

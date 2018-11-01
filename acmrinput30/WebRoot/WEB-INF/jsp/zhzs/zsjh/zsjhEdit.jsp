@@ -40,32 +40,24 @@
 
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true"/>
 
-<div class="container-fluid" id="mainpanel" style="position: absolute;
-    left: 0;
-    top: 150px;
-    bottom: 50px;
-    width: 100%;
-    font-size: 1em;
-    z-index: 4;
-    overflow: auto;">
-
-        <div class="panel panel-default dragpannel" style="overflow: auto;">
-            <div class="panel-heading">
+<div class="container-fluid">
+        <div class="panel panel-default reset-panel" style="padding-bottom: 10px;">
+            <div class="panel-heading" id="ict-header">
                编辑指数计划
             </div>
-            <div class="panel-body panel-height" style="height: 85%;padding-top: 15px;padding-left: 0;padding-right: 0;padding-bottom: 15px">
+            <div class="panel-body panel-height" style="padding-left: 0;padding-right: 0;">
                 <div id="top_div">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">
-                        <li  class="active"><a href="#jbxx" aria-controls="jbxx" role="tab">基本信息</a></li>
-                        <li ><a href="#zssx" aria-controls="zssx" role="tab">指标筛选</a></li>
-                        <li ><a href="#jsfw" aria-controls="jsfw" role="tab">计算范围</a></li>
-                        <li ><a href="#mxgh" aria-controls="mxgh" role="tab">模型规划</a></li>
+                        <li  class="active"><a href="#jbxx" aria-controls="jbxx" role="tab" data-toggle="tab">基本信息</a></li>
+                        <li ><a href="#zssx" aria-controls="zssx" role="tab" data-toggle="tab">指标筛选</a></li>
+                        <li ><a href="#jsfw" aria-controls="jsfw" role="tab" data-toggle="tab">计算范围</a></li>
+                        <li ><a href="#mxgh" aria-controls="mxgh" role="tab" data-toggle="tab">模型规划</a></li>
                     </ul>
                 </div>
                 <!-- Tab panes -->
-                <div class="col-xs-12 tab-content row" style="padding-top: 10px;padding-right: 0">
-                    <div role="tabpanel" class="tab-pane active" id="jbxx" style="height: 80%;overflow: auto">
+                <div class="col-xs-12 tab-content row" style="padding-top: 10px;padding-right: 0;overflow: auto;">
+                    <div role="tabpanel" class="tab-pane active" id="jbxx">
                         <form class="form-horizontal" id="indexForm" action="" method="post">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
@@ -260,7 +252,7 @@
                             <div class="panel tree-panel" >
                                 <div class="panel-heading" style="text-align:center">地区树</div>
                             </div>
-                            <div class="panel-body col-xs-12" style="height: 60%;overflow:auto;background-color: #F4F5F9">
+                            <div class="panel-body col-xs-12" id="dqs" style="overflow:auto;background-color: #F4F5F9">
                                 <ul id="treeDemo" class="ztree ztree-margin">
                                 </ul>
                             </div>
@@ -289,7 +281,7 @@
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">地区列表</div>
                             </div>
-                            <div style="height: 60%;width:100%;overflow:auto;border: 1px solid #dddddd">
+                            <div id="dqlb" style="width:100%;overflow:auto;border: 1px solid #dddddd">
                                 <ul class="list-group regul" id="selectreg">
                                     <c:forEach items="${regs}" var="reg">
                                         <li class="list-group-item selectedli" id="${reg.regcode}">${reg.regcname}</li>
@@ -299,12 +291,12 @@
                         </div>
 
                         <div class="col-xs-7"
-                             style="border:#E4EDF6;padding-left: 20px;">
+                             style="border:#dddddd;padding-left: 20px;">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
                             </div>
                             <div>
-                                <div style="border:solid 1px #E4EDF6">
+                                <div style="border:solid 1px #dddddd">
                                 <span style="font-size: 15px;margin-top: 10px;margin-bottom: 10px">时间选择</span>
                                 <input  name="begintime" style="margin-top: 10px;margin-bottom: 10px"/>
                                 <span style="font-size: 15px;margin-top: 10px;margin-bottom: 10px">至</span>
@@ -324,15 +316,15 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="mxgh">
-                        <div class="col-md-2" id="module_tree_container" style="background-color: #F4F5F9;height: 80%;overflow: auto">
+                        <div class="col-md-2" id="module_tree_container" style="background-color: #F4F5F9;overflow: auto;">
                             <div id="module_tree">
                                 <ul id="moduleTree" class="ztree ztree-margin"></ul>
                             </div>
                         </div>
                         <div class="col-md-10" id="module_container">
-                            <div class="panel panel-body" style="height: 80%;border-color: #dddddd">
+                            <div class="panel panel-body" style="border-color: #dddddd">
                                 <div>
-                                    <div class="toolbar-left">
+                                    <div class="toolbar-left" style="margin-bottom: 0px">
                                         <form class="form-inline J_search_form"
                                               action="${ctx}/zbdata/zsjhedit.htm?m=searchFind">
                                             <div class="form-group">
@@ -369,7 +361,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="J_zsjh_module_table"  style="width: 100%;height: 70%;overflow: auto">
+                                <div class="J_zsjh_module_table"  style="width: 100%;overflow: auto">
                                     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/modTableList.jsp" flush="true"/>
                                 </div>
                             </div>
@@ -380,12 +372,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-offset-5 col-sm-7 savediv">
+        <div class="col-sm-offset-5 col-sm-7 savediv" style="padding: 10px 0;">
             <button type="button" class="btn btn-primary tosaveall">保存</button>
             <button type="reset" class="btn btn-primary resetindex">取消</button>
         </div>
     </div>
-<div class="teset" style="padding-bottom: 10px"></div>
+<%--<div class="teset" style="padding-bottom: 10px"></div>--%>
 <div class="ict-footer footer">
     Copyright © 2018 中国信息通信研究院 版权所有
 </div>

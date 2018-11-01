@@ -18,8 +18,8 @@
         white-space: nowrap;
     }
 </style>
-<div style="height: 45%;width: 100%;overflow:auto;display: none " id="regtable">
-    <table style="margin-top: 20px" class="table table-bordered" id="tabledata" >
+<div style="height:55%;width: 100%;overflow:auto;display: none " id="regtable">
+    <table style="margin-top: 10px" class="table table-bordered" id="tabledata" >
         <thead style="font-size: 15px;background-color: #F5F5F5;">
         <tr>
         <th>时间</th>
@@ -53,7 +53,7 @@
         检查结果：${regname}
         <button class="J_excel_singlereg btn btn-default btn-sm" style="float:right;font-size: 10px;margin-bottom: 5px"><i class="glyphicon glyphicon-save"></i>&nbsp;本地区数据下载</button>
     </div>
-    <div style="height: 30%;width:100%;overflow:auto;">
+    <div style="width:100%;overflow:auto;">
     <table class="table table-bordered" id="tabledata_single" >
         <thead style="font-size: 15px;background-color: #F5F5F5;">
         <tr>

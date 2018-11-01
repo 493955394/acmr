@@ -93,8 +93,8 @@
     Copyright © 2018 中国信息通信研究院 版权所有
 </div>
 <script type="text/javascript">
-    seajs.use('${ctx}/js/func/zhzs/zstask/pastviews')
-    seajs.use('${ctx}/js/func/zhzs/zstask/wdturn')
+    seajs.use('${ctx}/js/func/zhzs/zstask/pastviews');
+    seajs.use('${ctx}/js/func/zhzs/zstask/wdturn');
     //查询的时间
     $(function(){
         var json2 = {

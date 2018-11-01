@@ -102,10 +102,10 @@
             <col width="3%"/>
             <col width="14%"/>
             <col width="23%"/>
-            <col width="16%"/>
+            <col width="10%"/>
             <col width="13%"/>
             <col width="13%"/>
-            <col width="18%"/>
+            <col width="24%"/>
         </colgroup>
         <thead>
         <tr>

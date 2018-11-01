@@ -11,35 +11,28 @@ define(function (require,exports,module) {
         modal = require('modal'),
         tab = require('tab'),
         zbAdd=require('js/func/zhzs/zsjhEdit/zbAdd'),
-        editjsp = require('editjsp'),
-        dragwidth = require('dragwidth');
+        editjsp = require('editjsp');
 
-    $("#zssx").dragwidth();
-    autodrag();
+    autoHeight()
     $(window).resize(function(){
-        autodrag();
+        autoHeight()
     });
-    function autodrag(){
-        $(".right-panel").css('height','auto');
-        var rch = $(".panel-height").height()-$("#top_div").height();
-        if($(".tab-content").height() >= rch){
-            $(".right-panel").height(rch);
-            $(".left-panel, .dragline").height(rch);
-        }else{
-            $(".left-panel, .dragline,.right-panel").height($(".tab-content").height()-56);
-        }
-        console.log($('.left-panel').height())
+
+    function autoHeight() {
+        var rch = $(window).height()-$("#tops").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 70;
+        $(".tab-content").height(rch);
     }
 
-    //切换tabs
-    $(function(){
-        $("#bjjhTab a").click(function(e){
-            e.preventDefault();
-            $(this).tab("show");
-            var rch = $(".tab-content").height();
-            console.log(rch);
-        });
-    });
+    var rch = $(window).height()-$("#tops").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 70;
+    $("#module_tree_container").height(rch);
+
+    $("#module_container").height(rch);
+    $(".J_zsjh_module_table").height(rch*0.7);
+    $("#dqs").height(rch*0.8);
+    $("#dqlb").height(rch*0.8);
+    $("#data_single").height(rch*0.8);
+    $("#regtable").height(rch*0.8);
+
 
     var incode=$("#index_code").val();
     var select = [];
