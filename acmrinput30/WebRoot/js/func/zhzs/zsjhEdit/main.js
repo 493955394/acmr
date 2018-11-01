@@ -21,6 +21,7 @@ define(function (require,exports,module) {
     function autoHeight() {
         var rch = $(window).height()-$("#tops").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 70;
         $(".tab-content").height(rch);
+        $('#zssx #tree_and_find, #zssx .zssx-right').height(rch - 10);
     }
 
     var rch = $(window).height()-$("#tops").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 70;
@@ -68,16 +69,16 @@ define(function (require,exports,module) {
         $.fn.zTree.init($("#tree"), setting, zNodes);
     }
 
-   /* //修复图标，使没有子节点的目录也显示为目录
-    function fixIcon(){
-        var treeObj = $.fn.zTree.getZTreeObj("tree");
-        //过滤出sou属性为true的节点（也可用你自己定义的其他字段来区分，这里通过sou保存的true或false来区分）
-        var folderNode = treeObj.getNodesByFilter(function (node) { return node.sou});
-        for(var j=0 ; j<folderNode.length; j++){//遍历目录节点，设置isParent属性为true;
-            folderNode[j].isParent = true;
-        }
-        treeObj.refresh();//调用api自带的refresh函数。
-    }*/
+    /* //修复图标，使没有子节点的目录也显示为目录
+     function fixIcon(){
+         var treeObj = $.fn.zTree.getZTreeObj("tree");
+         //过滤出sou属性为true的节点（也可用你自己定义的其他字段来区分，这里通过sou保存的true或false来区分）
+         var folderNode = treeObj.getNodesByFilter(function (node) { return node.sou});
+         for(var j=0 ; j<folderNode.length; j++){//遍历目录节点，设置isParent属性为true;
+             folderNode[j].isParent = true;
+         }
+         treeObj.refresh();//调用api自带的refresh函数。
+     }*/
     $(document).ready(function(){
         if ($(".zb_panel").length>0){
             $(".zb_panel")[0].click()
@@ -241,7 +242,7 @@ define(function (require,exports,module) {
         event.preventDefault();
 
         selecttime = "";//初始化时间
-       $("#data_check_show").empty();//初始化表格
+        $("#data_check_show").empty();//初始化表格
         var begintime = $('input[name = begintime]').val();
         var endtime = $('input[name = endtime]').val();
         if(!begintime){
@@ -296,13 +297,13 @@ define(function (require,exports,module) {
                                 }
                             }
                             else if(i == byear){
-                                    for (var j = 68; j >=byear1 ; j--) {
-                                        selecttime += i+String.fromCharCode(j)+",";
-                                    }
+                                for (var j = 68; j >=byear1 ; j--) {
+                                    selecttime += i+String.fromCharCode(j)+",";
                                 }
                             }
                         }
                     }
+                }
             }else if(timesort == "m"){//如果是月度的话
                 var reg=/^\d{6}$/;
                 var r= begintime.match(reg);
@@ -415,27 +416,27 @@ define(function (require,exports,module) {
                 container:'.data_check_show',
                 timeout:50000
             })
-                    mc('tabledata',0,0,0);
-                    $("#data_single").hide();
-                    $("#regtable").show();
-                    $('ul.regul').html("");
-                    select_li = "error";
-                    var showreg ="";
-                    checkdata = $('input[id=checkreturn]').val();
-                    checkreturn = checkdata.split(",");
-                    for(var i=0;i<select.length;i++){
-                        if(select[i].name=="" && select[i].code==""){
-                            showreg +="";
-                        }else {
-                            if(checkreturn[i]=="0"){
-                                showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="data-ok clickli" data-id="'+select[i].code+'"></i></span></li>';
-                            }
-                            else {
-                                showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="data-remove clickli" data-id="'+select[i].code+'"></i></span></li>';
-                            }
-                        }
+            mc('tabledata',0,0,0);
+            $("#data_single").hide();
+            $("#regtable").show();
+            $('ul.regul').html("");
+            select_li = "error";
+            var showreg ="";
+            checkdata = $('input[id=checkreturn]').val();
+            checkreturn = checkdata.split(",");
+            for(var i=0;i<select.length;i++){
+                if(select[i].name=="" && select[i].code==""){
+                    showreg +="";
+                }else {
+                    if(checkreturn[i]=="0"){
+                        showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="data-ok clickli" data-id="'+select[i].code+'"></i></span></li>';
                     }
-                    $("#selectreg").append(showreg);
+                    else {
+                        showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="data-remove clickli" data-id="'+select[i].code+'"></i></span></li>';
+                    }
+                }
+            }
+            $("#selectreg").append(showreg);
         }
     });
 
@@ -467,22 +468,22 @@ define(function (require,exports,module) {
             container:'.data_check_show',
             timeout:50000
         })
-            $("#regtable").hide();
-            $("#data_single").show();
+        $("#regtable").hide();
+        $("#data_single").show();
     }) ;
 
- /*   /!**
-     * 检查数据是否完整
-     *!/
-    function checkTable(tableId){
-        var tb = document.getElementById(tableId);
-        if(tb.rows.length==0) return false;
-        if(tb.rows[0].cells.length==0) return false;
-        for(var i=0;i<tb.rows.length;i++){
-            if(tb.rows[0].cells.length!=tb.rows[i].cells.length) return false;
-        }
-        return true;
-    }*/
+    /*   /!**
+        * 检查数据是否完整
+        *!/
+       function checkTable(tableId){
+           var tb = document.getElementById(tableId);
+           if(tb.rows.length==0) return false;
+           if(tb.rows[0].cells.length==0) return false;
+           for(var i=0;i<tb.rows.length;i++){
+               if(tb.rows[0].cells.length!=tb.rows[i].cells.length) return false;
+           }
+           return true;
+       }*/
     /**
      * 数据下载
      * @author wf
@@ -571,7 +572,7 @@ define(function (require,exports,module) {
     //右下角保存按钮
     $(document).on('click','.tosaveall',function (event) {
         event.preventDefault();
-       var checkDelegate = new VaildNormal();
+        var checkDelegate = new VaildNormal();
         var flag = true;
         //前端检查
 
@@ -686,7 +687,7 @@ define(function (require,exports,module) {
                     alert("保存成功！");
                     window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+incode;
                 }
-               else {
+                else {
                     alert("保存失败");
                 }
             }

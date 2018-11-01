@@ -94,6 +94,7 @@
 <div class="teset" style="padding-bottom: 10px"></div>
 </body>
 </html>
+
 <script type="text/javascript">
     seajs.use('${ctx}/js/func/zhzs/zstask/pastviews');
     seajs.use('${ctx}/js/func/zhzs/zstask/wdturn');
@@ -117,7 +118,7 @@
 
     function footerPosition(){
         $(".footer").removeClass("fixed-footer");
-        var contentHeight = $("body").height(),//网页正文全文高度
+        var contentHeight =document.body.scrollHeight,//网页正文全文高度
 
             winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
         console.log(contentHeight+","+winHeight)
