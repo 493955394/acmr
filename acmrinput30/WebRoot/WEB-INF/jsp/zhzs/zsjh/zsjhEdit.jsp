@@ -53,7 +53,7 @@
             <div class="panel-heading">
                编辑指数计划
             </div>
-            <div class="panel-body panel-height" style="height: 75%;padding-top: 15px;padding-left: 0;padding-right: 0;padding-bottom: 15px">
+            <div class="panel-body panel-height" style="height: 85%;padding-top: 15px;padding-left: 0;padding-right: 0;padding-bottom: 15px">
                 <div id="top_div">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">
