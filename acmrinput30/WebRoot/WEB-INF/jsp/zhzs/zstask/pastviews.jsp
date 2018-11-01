@@ -89,9 +89,7 @@
 </div>
 <div class="common-tips"></div>
 <div class="teset" style="padding-bottom: 10px"></div>
-<div class="ict-footer footer">
-    Copyright © 2018 中国信息通信研究院 版权所有
-</div>
+
 <script type="text/javascript">
     seajs.use('${ctx}/js/func/zhzs/zstask/pastviews');
     seajs.use('${ctx}/js/func/zhzs/zstask/wdturn');
