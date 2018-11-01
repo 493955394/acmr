@@ -304,11 +304,11 @@
                                 <div class="btn-group-vertical" role="group">
                                     <div class="clearfix" style="height: 30px;margin-top: 30px"></div>
                                     <div class="right-add" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px">
-                                        <span style="color: #F39801;text-align: center;font-size: 20px;margin-left: 5px">&gt;</span>
+                                        <span style="color: #F39801;text-align: center;font-size: 15px;">&gt;</span>
                                     </div>
                                     <div class="clearfix" style="height: 30px"></div>
                                     <div class="remove-alllist" id="delsiggle" style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 30px;width: 50px">
-                                        <span style="color: #ffffff;text-align: center;font-size: 20px;margin-left: 5px">&lt;&lt;</span>
+                                        <span style="color: #ffffff;text-align: center;font-size: 15px;">&lt;&lt;</span>
                                     </div>
                                 </div>
                             </div>
