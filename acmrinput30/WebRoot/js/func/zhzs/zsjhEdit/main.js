@@ -13,7 +13,7 @@ define(function (require,exports,module) {
         zbAdd=require('js/func/zhzs/zsjhEdit/zbAdd'),
         editjsp = require('editjsp');
 
-    autoHeight()
+    autoHeight();
     $(window).resize(function(){
         autoHeight()
     });
