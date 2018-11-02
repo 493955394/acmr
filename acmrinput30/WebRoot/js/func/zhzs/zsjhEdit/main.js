@@ -80,9 +80,6 @@ define(function (require,exports,module) {
          treeObj.refresh();//调用api自带的refresh函数。
      }*/
     $(document).ready(function(){
-        if ($(".zb_panel").length>0){
-            $(".zb_panel")[0].click()
-        }
         if($('input[name=index_procode]').val()==""){
             $('input[name=proname]').val("指数");
         }
@@ -92,6 +89,14 @@ define(function (require,exports,module) {
         $.fn.zTree.init($("#tree"), setting, zNodes);
         //修正添加的table的classname，方便和树联动
     });
+    //点击指标筛选，激活第一个已选指标
+    $(document).on('click','a[href="#zssx"]',function (event) {
+        event.preventDefault()
+        console.log("zssx")
+        if ($(".zb_panel").length>0){
+            $(".zb_panel")[0].click()
+        }
+    })
     /**
      * 菜单树
      */
