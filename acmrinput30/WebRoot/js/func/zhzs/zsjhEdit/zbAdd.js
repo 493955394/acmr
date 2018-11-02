@@ -267,8 +267,8 @@ define(function (require,exports,module) {
         if (isexit(zb[0],ds[0],co[0],unit[0])) {
             alert("该指标已被选择")
             $(".zb_add").css("display","inline")
-            $("#zb_data_head").empty()
-            $("#zb_data_body").empty()
+           // $("#zb_data_head").empty()
+           // $("#zb_data_body").empty()
         }
         else {
             zbs.push({
