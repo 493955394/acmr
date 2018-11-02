@@ -70,11 +70,12 @@ define(function (require,exports,module) {
             }
         }
         else {
-            $(".zb_add").css("display","none")
+            //$(".zb_add").css("display","none")
         }
     }
 
     function zbclick(zb,isadd) {
+
         if(isadd==true){
             $("#zb_data_body").empty().append("<p>查询中……</p>");
             $(".zb_add").css("display","inline")
@@ -260,7 +261,6 @@ define(function (require,exports,module) {
 
     function addZb() {
         //$(".zb_add").css("display","none")
-        //console.log("addZB")
         ds=[$('#ds_select option:selected').attr("class"),$('#ds_select option:selected') .val()]
         co=[$('#co_select option:selected').attr("class"),$('#co_select option:selected') .val()]
         unit=[$('#unit_select option:selected').attr("class"),$('#unit_select option:selected') .val()]
@@ -317,20 +317,23 @@ define(function (require,exports,module) {
         $(".zb_panel").css("background-color","inherit")
         $(".zb_panel_add").css("background-color","inherit")
         $(this).css("background-color","#F4F5F9")
-        var zb=$($(this).children()[0]).children()
+        var _zb=$($(this).children()[0]).children()
         $(".zb_save").css("display","none")
         $(".zb_delete").css("display","none")
-        zb[9].style.cssText="float: left; display: block;"
-        zb[10].style.cssText="float: right; display: block;"
+        _zb[9].style.cssText="float: left; display: block;"
+        _zb[10].style.cssText="float: right; display: block;"
 
-        var zbname=zb[5].innerHTML
-        var zbcode=zb[1].defaultValue
-/*        var coname=zb[6].innerHTML.split("：")[1]
-        var cocode=zb[2].defaultValue
-        var dsname=zb[7].innerHTML.split("：")[1]
-        var dscode=zb[3].defaultValue
-        var unitname=zb[8].innerHTML.split("：")[1]
-        var unitcode=zb[4].defaultValue*/
+        var zbname=_zb[5].innerHTML
+        var zbcode=_zb[1].defaultValue
+        $(".zb_add").css("display","inline")
+        //console.log(zb)
+
+        /*        var coname=zb[6].innerHTML.split("：")[1]
+                var cocode=zb[2].defaultValue
+                var dsname=zb[7].innerHTML.split("：")[1]
+                var dscode=zb[3].defaultValue
+                var unitname=zb[8].innerHTML.split("：")[1]
+                var unitcode=zb[4].defaultValue*/
         $(".panel_zbname ").attr("code",zbcode).html(zbname)
         /*console.log($("option [class='" +
             unitcode+"'"))
@@ -340,19 +343,22 @@ define(function (require,exports,module) {
             dscode+"']").selected=true
         $("option [class='" +
             unitcode+"']").selected=true*/
-        $.ajaxSettings.async=false
+        //$.ajaxSettings.async=false
         //指标回显
         zbclick([zbcode,zbname],false)
         var cocode=$(this).children()[0].children[2].value
         var dscode=$(this).children()[0].children[3].value
         var unitcode=$(this).children()[0].children[4].value
-        console.log(unitcode)
+        //console.log(unitcode)
         $("#unit_select").find("option[class='" +
             unitcode+"']").attr("selected",true);
         $("#co_select").find("option[class='" +
             cocode+"']").attr("selected",true);
         $("#ds_select").find("option[class='" +
             dscode+"']").attr("selected",true);
+
+        zb=[zbcode,zbname]
+
 
     }
 
@@ -381,7 +387,7 @@ define(function (require,exports,module) {
             type:'get',
             data:'json',
             success:function (re) {
-                console.log(re)
+                //console.log(re)
                 if (re==false){
                     //console.log("不被占用")
                     isUsed=false

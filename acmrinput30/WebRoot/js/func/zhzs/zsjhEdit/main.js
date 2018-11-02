@@ -108,7 +108,7 @@ define(function (require,exports,module) {
     //点击指标筛选，激活第一个已选指标
     $(document).on('click','a[href="#zssx"]',function (event) {
         event.preventDefault()
-        console.log("zssx")
+        //console.log("zssx")
         if ($(".zb_panel").length>0){
             $(".zb_panel")[0].click()
         }
