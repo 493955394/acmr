@@ -62,8 +62,8 @@ define(function (require,exports,module) {
             success: function(data) {
                 if (data.returncode == 200) {
                     alert("保存成功！");
-
-                    window.location.reload(true);
+                    window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+zs_code;
+                   // window.location.reload(true);
                 }else if (data.returncode == 300) {
                     alert("该编码已存在");
                     $("#mymodal-data").modal('show');
@@ -138,7 +138,8 @@ define(function (require,exports,module) {
             success: function(data) {
                 if (data.returncode == 200) {
                     alert("保存成功！");
-                    window.location.reload(true);
+                    window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+zs_code;
+                    //window.location.reload(true);
                 } else if (data.returncode == 300) {
                     alert("该编码已存在");
                     $("#mymodal-data1").modal('show');
