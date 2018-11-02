@@ -80,7 +80,7 @@ define(function (require,exports,module) {
                 for(var i in data) {
                     var html = "";
                     html += "<li class='list-group-item' data-uid='" + data[i].depusercode + "' data-sort='" + data[i].sort + "' data-cuser='" + data[i].createuser + "'>"+ data[i].depusername+ "";
-                    html += "<span class='fr'><select class='input-sm' style='padding-right: 40px' id='J_right_"+i+"'><option value='2'>管理</option><option value='1'>协作</option><option value='0'>只读</option></select>";
+                    html += "<span class='fr' style='vertical-align: middle;margin-top: -5px;'><select class='input-sm' style='padding-right: 40px;vertical-align: middle' id='J_right_"+i+"'><option value='2'>管理</option><option value='1'>协作</option><option value='0'>只读</option></select>";
                     html += "&nbsp;&nbsp;&nbsp;<a onclick='delRemove(this)'><i class='glyphicon glyphicon-remove' style='color: #F39801;'></i></a></span></li>";
                     $(".right-list").append(html);
                     $('#J_right_'+i+'').find("option[value='"+data[i].right+"']").attr("selected",true);
@@ -149,7 +149,7 @@ define(function (require,exports,module) {
             var temp ="";
             html += "<li class='list-group-item' data-uid='" + thisid + "' data-sort='" + thissort + "' data-cuser='" + currentuser + "'>"+ thisname+ "";
 
-            html += "<span class='fr'><select class='input-sm' style='padding-right: 40px;'><option value='2'>管理</option><option value='1'>协作</option><option value='0'>只读</option></select>";
+            html += "<span class='fr'  style='vertical-align: middle;margin-top: -5px;'><select class='input-sm' style='padding-right: 40px;vertical-align: middle'><option value='2'>管理</option><option value='1'>协作</option><option value='0'>只读</option></select>";
 
             html += "&nbsp;&nbsp;&nbsp;<a onclick='delRemove(this)'><i class='glyphicon glyphicon-remove' style='color: #F39801;'></i></a></span></li>";
             $(".right-list").append(html);
@@ -184,7 +184,7 @@ define(function (require,exports,module) {
             var html = "";
 
             html += "<li class='list-group-item' data-uid='" + treeNodeId + "' data-sort='" + temp + "' data-cuser='" + currentuser + "'>"+ treeNodeName+ "";
-            html += "<span class='fr'><select class='input-sm' style='padding-right: 40px'><option value='2'>管理</option><option value='1'>协作</option><option value='0'>只读</option></select>";
+            html += "<span class='fr' style='vertical-align: middle;margin-top: -5px;'><select class='input-sm' style='padding-right: 40px;vertical-align: middle'><option value='2'>管理</option><option value='1'>协作</option><option value='0'>只读</option></select>";
             html += "&nbsp;&nbsp;&nbsp;<a onclick='delRemove(this)'><i class='glyphicon glyphicon-remove' style='color: #F39801;'></i></a></span></li>";
             $(".right-list").append(html);
         }

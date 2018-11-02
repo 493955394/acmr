@@ -141,7 +141,7 @@
                     </form>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="zssx">
-                    <div id="tree_and_find" class="col-md-2  left-panel" style="overflow: auto">
+                    <div id="tree_and_find" class="col-md-2  left-panel" style="overflow: auto;min-height: inherit">
                         <form class="form-inline J_search_form">
 
                             <div class="form-group" style="width: 60%;">
@@ -207,7 +207,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 right-panel">
-                            <div class="panel_container" style="border: 1px solid #dddddd;height:100%;width: 100%;overflow:auto;">
+                            <div class="panel_container" style="border: 1px solid #dddddd;width: 100%;overflow:auto;">
                                 <c:forEach items="${zbs.zbchoose}" var="zb">
                                     <div class="panel panel-default zb_panel">
                                         <div class="panel-body">

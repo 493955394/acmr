@@ -39,7 +39,8 @@ define(function (require,exports,module) {
     function autoHeight() {
         var rch = $(window).height()-$("#tops").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 70;
         $(".tab-content").height(rch);
-        $('#zssx #tree_and_find, #zssx .zssx-right').height(rch - 10);
+        //$('.panel_container').height(300);
+        $('#zssx #tree_and_find, #zssx .zssx-right,.panel_container').height(rch - 10);
     }
 
     var rch = $(window).height()-$("#tops").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 70;
