@@ -99,10 +99,10 @@ define(function (require,exports,module) {
     });
 
     var zNodes =[
-        { id:"!0",pId:0,name:"我的指数",isParent:true,icon:"../../../../zhzs/css/img/mark1.png"}
-        /*{ id:"!1", pId:"!0", name:"指数",isParent:true},
-        { id:"!2", pId:"!0", name:"我收到的指数",isParent:true},
-        { id:"!3", pId:"!0", name:"我共享的指数", isParent:true}*/
+        // { id:"!0",pId:0,name:"我的指数",isParent:true,icon:"../../../../zhzs/css/img/mark1.png"}
+        { id:"!1", pId:0, name:"指数",isParent:true},
+        { id:"!2", pId:0, name:"我收到的指数",isParent:true},
+        { id:"!3", pId:0, name:"我共享的指数", isParent:true}
     ];
     var cNodes=[
         { id:"!1", pId:0, name:"指数",isParent:true,icon:"../../../../zhzs/css/img/mark1.png"}
@@ -333,10 +333,10 @@ define(function (require,exports,module) {
         console.log(path)
         $.ajaxSettings.async=false
         var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        var node=treeObj.getNodeByParam("id","!0")
+        var node=treeObj.getNodeByParam("id","!1")
         treeObj.expandNode(node)
         //  console.log("expandtree")
-        for(var i=0;i<path.length;i++){
+        for(var i=1;i<path.length;i++){
             //console.log(node)
             if(node.isParent==true){
                 var nodes=node.children;
