@@ -330,14 +330,16 @@ define(function (require,exports,module) {
     }
     //根据路径展开树
     function expandTree(path) {
-        console.log(path)
+        //console.log(path)
         $.ajaxSettings.async=false
         var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
         var node=treeObj.getNodeByParam("id","!1")
         treeObj.expandNode(node)
+        treeObj.selectNode(node)
+        setting.callback.onClick(null, treeObj.setting.treeId, node);
         //  console.log("expandtree")
-        for(var i=1;i<path.length;i++){
-            //console.log(node)
+        for(var i=0;i<path.length;i++){
+            console.log(node)
             if(node.isParent==true){
                 var nodes=node.children;
                 //console.log(nodes)
@@ -348,11 +350,12 @@ define(function (require,exports,module) {
                         node=treeObj.getNodeByParam("id",path[i])
                         break;
                     }
-
                 }
-                treeObj.selectNode(node)
-                setting.callback.onClick(null, treeObj.setting.treeId, node);
-            };
+
+            }
+            treeObj.selectNode(node)
+            setting.callback.onClick(null, treeObj.setting.treeId, node);
+
 
         }
     }

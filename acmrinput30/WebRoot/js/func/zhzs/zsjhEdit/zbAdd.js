@@ -21,6 +21,8 @@ define(function (require,exports,module) {
     var ds=[];//[dsdcode,dsname]
     var co=[];//[cocode,coname]
     var unit=[];//[unitcode,unitname
+    //默认展开第一级树
+
 
 
     var setting = {
@@ -234,7 +236,11 @@ define(function (require,exports,module) {
         var treeObj = $.fn.zTree.init($("#treeDemo1"), setting, rootNode);
         var node=treeObj.getNodeByParam("id","")
         treeObj.expandNode(node)
-      //  console.log("expandtree")
+        treeObj.selectNode(node)
+        setting.callback.onClick(null,treeObj.setting.treeId,node)
+        //setting.callback.onClick(null, treeObj.setting.treeId, node);
+
+        //  console.log("expandtree")
         for(var i=0;i<path.length;i++){
             //console.log(node)
             if(node.isParent==true){
@@ -250,6 +256,8 @@ define(function (require,exports,module) {
                 }
             }
             treeObj.selectNode(node);
+            setting.callback.onClick(null, treeObj.setting.treeId, node);
+
         }
     }
 
@@ -418,6 +426,7 @@ define(function (require,exports,module) {
         $(".zb_save").click(zbSave)
         $(".zb_delete").click(zbDelete)
     }
+    expandTree([])
 
     module.exports={
         zbs:zbs
