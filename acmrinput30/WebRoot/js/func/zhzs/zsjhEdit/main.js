@@ -11,7 +11,27 @@ define(function (require,exports,module) {
         modal = require('modal'),
         tab = require('tab'),
         zbAdd=require('js/func/zhzs/zsjhEdit/zbAdd'),
-        editjsp = require('editjsp');
+        editjsp = require('editjsp'),
+        dragwidth = require('dragwidth');
+
+
+
+    $("#zssx").dragwidth();
+    autodrag();
+    $(window).resize(function(){
+        autodrag();
+    });
+    function autodrag(){
+       // $(".right-panel").css('height','auto');
+        var rch = $(".panel-height").height()-$("#top_div").height();
+        if($(".tab-content").height() >= rch){
+           // $(".right-panel").height(rch);
+            $(".left-panel, .dragline").height(rch);
+        }else{
+           // $(".left-panel, .dragline,.right-panel").height($(".tab-content").height()-56);
+        }
+        console.log($('.left-panel').height())
+    }
 
     autoHeight();
     $(window).resize(function(){
