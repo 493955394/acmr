@@ -141,7 +141,7 @@
                     </form>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="zssx">
-                    <div id="tree_and_find" class="col-md-2" style="overflow: auto">
+                    <div id="tree_and_find" class="col-md-2  left-panel" style="overflow: auto">
                         <form class="form-inline J_search_form">
 
                             <div class="form-group" style="width: 60%;">
@@ -152,7 +152,7 @@
                             </div>
                         </form>
 
-                        <ul id="treeDemo1" class="ztree ztree-margin left-panel"></ul>
+                        <ul id="treeDemo1" class="ztree ztree-margin"></ul>
                         <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/zbtree.jsp" flush="true"/>--%>
                     </div>
                     <div class="col-md-10 zssx-right" style="overflow: auto;border: 1px solid #dddddd">

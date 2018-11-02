@@ -11,7 +11,27 @@ define(function (require,exports,module) {
         modal = require('modal'),
         tab = require('tab'),
         zbAdd=require('js/func/zhzs/zsjhEdit/zbAdd'),
-        editjsp = require('editjsp');
+        editjsp = require('editjsp'),
+        dragwidth = require('dragwidth');
+
+
+
+    $("#zssx").dragwidth();
+    autodrag();
+    $(window).resize(function(){
+        autodrag();
+    });
+    function autodrag(){
+       // $(".right-panel").css('height','auto');
+        var rch = $(".panel-height").height()-$("#top_div").height();
+        if($(".tab-content").height() >= rch){
+           // $(".right-panel").height(rch);
+            $(".left-panel, .dragline").height(rch);
+        }else{
+           // $(".left-panel, .dragline,.right-panel").height($(".tab-content").height()-56);
+        }
+        console.log($('.left-panel').height())
+    }
 
     autoHeight();
     $(window).resize(function(){
@@ -80,9 +100,6 @@ define(function (require,exports,module) {
          treeObj.refresh();//调用api自带的refresh函数。
      }*/
     $(document).ready(function(){
-        if ($(".zb_panel").length>0){
-            $(".zb_panel")[0].click()
-        }
         if($('input[name=index_procode]').val()==""){
             $('input[name=proname]').val("指数");
         }
@@ -92,6 +109,14 @@ define(function (require,exports,module) {
         $.fn.zTree.init($("#tree"), setting, zNodes);
         //修正添加的table的classname，方便和树联动
     });
+    //点击指标筛选，激活第一个已选指标
+    $(document).on('click','a[href="#zssx"]',function (event) {
+        event.preventDefault()
+        console.log("zssx")
+        if ($(".zb_panel").length>0){
+            $(".zb_panel")[0].click()
+        }
+    })
     /**
      * 菜单树
      */

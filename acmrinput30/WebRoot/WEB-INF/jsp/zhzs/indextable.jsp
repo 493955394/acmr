@@ -4,7 +4,6 @@
 <style>
     .word{
         color:black;
-        font-family: '黑体';
     }
 
     th{
@@ -17,6 +16,7 @@
         text-align: center;
         vertical-align: middle!important;
     }
+
     #i1,#i2,.i3{
         color:#F39801;
     }
@@ -121,7 +121,7 @@
         <c:if test="${page.totalRecorder==0 or page.totalPage<page.pageNum}">
             <tbody class="list_body ">
             <tr>
-                <td colspan="7">没有查询到数据</td>
+                <td style="text-align: center;vertical-align: middle!important;" colspan="7">没有查询到数据</td>
             </tr>
             </tbody>
         </c:if>
@@ -130,26 +130,27 @@
             <c:forEach  items="${page.data}" var="index">
                 <tr class="my_index pro-${index.getCode()}">
                     <th><input type="radio" name="radiotype" if="${index.getIfdata()}" id="${index.getCode()}" getname="${index.getCname()}" getprocode="${index.getProcode()}"></th>
-                    <td >${index.getCode()}</td>
-                    <td >${index.getCname()}</td>
-                    <td>
+                    <td style="text-align: center;vertical-align: middle!important;">${index.getCode()}</td>
+                    <td  style="text-align: center;vertical-align: middle!important;">${index.getCname()}</td>
+                    <td  style="text-align: center;vertical-align: middle!important;">
                         <c:if test="${index.getIfdata() == 0}">目录</c:if>
                         <c:if test="${index.getIfdata() == 1}">计划</c:if>
                     </td>
-                    <td>
+                    <td  style="text-align: center;vertical-align: middle!important;">
                         <c:if test="${index.getSort() == 'y'}">年度</c:if>
                         <c:if test="${index.getSort() == 'q'}">季度</c:if>
                         <c:if test="${index.getSort() == 'm'}">月度</c:if>
                     </td>
-                    <td>${index.getPlanperiod()}</td>
-                    <td>
+                    <td  style="text-align: center;vertical-align: middle!important;">${index.getPlanperiod()}</td>
+                    <td  style="text-align: left;vertical-align: middle!important;">
                         <c:if test="${index.getIfdata().equals('1')}">
                             <c:if test="${index.getState().equals('0')}">
-                                <a href="javascript:;" class="start btn-margin" name="${index.getCode()}">启用</a><a class="btn-margin" href="${ctx}/zbdata/zsjhedit.htm?id=${index.getCode()}">编辑</a>
+                                <a href="javascript:;" class="start btn-margin" name="${index.getCode()}">启用 </a>
+                                <a class="btn-margin" href="${ctx}/zbdata/zsjhedit.htm?id=${index.getCode()}">编辑</a>
                                 <a href="javascript:;" class="btn-margin J_opr_del" id="${index.getCode()}">删除</a>
                             </c:if>
                             <c:if test="${index.getState().equals('1')}">
-                                <a href="javascript:;" class="stop btn-margin" name="${index.getCode()}">停用</a><span class="btn-disabled btn-margin">编辑</span>
+                                <a href="javascript:;" class="stop btn-margin" name="${index.getCode()}">停用 </a><span class="btn-disabled btn-margin">编辑</span>
                                 <span class="btn-disabled btn-margin">删除</span>
                             </c:if>
 
@@ -190,25 +191,25 @@
         <tbody class="list_body_my_received">
         <c:if test="${page.totalRecorder==0 or page.totalPage<page.pageNum}">
             <tr>
-                <td colspan="6">没有查询到数据</td>
+                <td  style="text-align: center;vertical-align: middle!important;" colspan="6">没有查询到数据</td>
             </tr>
         </c:if>
         <c:forEach items="${page.data}" var="index">
             <tr class="my_received">
                 <th><input type="radio" name="radiotype" getright="${index.get('right')}"  idcode="${index.get('index').getCode()}" coname="${index.get('index').getCname()}" coprocode="${index.get('index').getProcode()}"></th>
-                <td>${index.get("index").getCname()}</td>
-                <td>${index.get("createuser")}</td>
-                <td>
+                <td style="text-align: center;vertical-align: middle!important;">${index.get("index").getCname()}</td>
+                <td style="text-align: center;vertical-align: middle!important;">${index.get("createuser")}</td>
+                <td style="text-align: center;vertical-align: middle!important;">
                     <c:if test="${index.get('right')== '0'}">查看</c:if>
                     <c:if test="${index.get('right') == '1'}">协作</c:if>
                     <c:if test="${index.get('right') == '2'}">管理</c:if>
                 </td>
-                <td>
+                <td style="text-align: center;vertical-align: middle!important;">
                     <c:if test="${index.get('index').getSort() == 'y'}">年度</c:if>
                     <c:if test="${index.get('index').getSort() == 'q'}">季度</c:if>
                     <c:if test="${index.get('index').getSort() == 'm'}">月度</c:if>
                 </td>
-                <td>
+                <td  style="text-align: left;vertical-align: middle!important;">
                     <c:if test="${index.get('index').getIfdata().equals('1')}">
                         <c:if test="${index.get('index').getState().equals('0')}">
                             <c:if test="${index.get('right')!='0'}">
@@ -281,19 +282,19 @@
         </c:if>
         <c:forEach  items="${page.data}" var="index">
             <tr class="my_shared">
-                <td>${index.get("cname")}</td>
-                <td>${index.get("depusername")}</td>
-                <td>
+                <td style="text-align: center;vertical-align: middle!important;">${index.get("cname")}</td>
+                <td style="text-align: center;vertical-align: middle!important;">${index.get("depusername")}</td>
+                <td style="text-align: center;vertical-align: middle!important;">
                     <c:if test="${index.get('right') == '0'}">查看</c:if>
                     <c:if test="${index.get('right') == '1'}">协作</c:if>
                     <c:if test="${index.get('right') == '2'}">管理</c:if>
                 </td>
-                <td>
+                <td style="text-align: center;vertical-align: middle!important;">
                     <c:if test="${index.get('timesort') == 'y'}">年度</c:if>
                     <c:if test="${index.get('timesort') == 'q'}">季度</c:if>
                     <c:if test="${index.get('timesort') == 'm'}">月度</c:if>
                 </td>
-                <td>
+                <td style="text-align: center;vertical-align: middle!important;">
                     <input type="hidden" value="${index.get("sort")}">
                     <input type="hidden" value="${index.get("code")}">
                     <input type="hidden" value="${index.get("depusercode")}">
