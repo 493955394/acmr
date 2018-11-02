@@ -23,8 +23,10 @@ define(function (require,exports,module) {
     });
     function autodrag(){
        // $(".right-panel").css('height','auto');
-        var rch = $(".panel-height").height()-$("#top_div").height();
-        $(".left-panel, .dragline").height(rch);
+       // var rch = $(".panel-height").height()-$("#top_div").height();
+        var rch = $(window).height()-$("#tops").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 80;
+
+        $(".dragline").height(rch);
 
        // console.log($('.left-panel').height())
     }
