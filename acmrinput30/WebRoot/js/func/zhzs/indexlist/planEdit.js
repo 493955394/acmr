@@ -310,7 +310,7 @@ define(function (require,exports,module) {
     function mycopy() {
         //  console.log("copy")
         if ($('input:radio:checked').length==0){
-            alert("请选择指标")
+            alert("请选择指数")
         }
         else {
             var code =$('input:radio:checked').attr('id');
