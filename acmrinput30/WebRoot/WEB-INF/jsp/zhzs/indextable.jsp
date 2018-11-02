@@ -150,7 +150,7 @@
                                 <a href="javascript:;" class="btn-margin J_opr_del" id="${index.getCode()}">删除</a>
                             </c:if>
                             <c:if test="${index.getState().equals('1')}">
-                                <a href="javascript:;" class="stop btn-margin" name="${index.getCode()}">停用</a><span class="btn-disabled btn-margin">编辑</span>
+                                <a href="javascript:;" class="stop btn-margin" name="${index.getCode()}">停用 </a><span class="btn-disabled btn-margin">编辑</span>
                                 <span class="btn-disabled btn-margin">删除</span>
                             </c:if>
 
