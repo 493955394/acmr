@@ -103,7 +103,7 @@
             <col width="14%"/>
             <col width="15%"/>
             <col width="10%"/>
-            <col />
+            <col width="13%"/>
             <col />
             <col />
         </colgroup>
