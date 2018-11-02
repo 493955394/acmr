@@ -790,7 +790,7 @@ public class IndexListService {
             pcode=IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(icode).getRows().get(0).getString("procode");
         }
         if (pcode.equals("")){
-            path=path+"!1/"+icode;
+            path=path+icode;
         }
         else {
             path=getIndexPath(pcode)+"/"+icode;

@@ -23,14 +23,12 @@ define(function (require,exports,module) {
     });
     function autodrag(){
        // $(".right-panel").css('height','auto');
-        var rch = $(".panel-height").height()-$("#top_div").height();
-        if($(".tab-content").height() >= rch){
-           // $(".right-panel").height(rch);
-            $(".left-panel, .dragline").height(rch);
-        }else{
-           // $(".left-panel, .dragline,.right-panel").height($(".tab-content").height()-56);
-        }
-        console.log($('.left-panel').height())
+       // var rch = $(".panel-height").height()-$("#top_div").height();
+        var rch = $(window).height()-$("#tops").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 80;
+
+        $(".dragline").height(rch);
+
+       // console.log($('.left-panel').height())
     }
 
     autoHeight();
@@ -41,7 +39,8 @@ define(function (require,exports,module) {
     function autoHeight() {
         var rch = $(window).height()-$("#tops").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 70;
         $(".tab-content").height(rch);
-        $('#zssx #tree_and_find, #zssx .zssx-right').height(rch - 10);
+        //$('.panel_container').height(300);
+        $('#zssx #tree_and_find, #zssx .zssx-right,.panel_container').height(rch - 10);
     }
 
     var rch = $(window).height()-$("#tops").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 70;
@@ -112,7 +111,7 @@ define(function (require,exports,module) {
     //点击指标筛选，激活第一个已选指标
     $(document).on('click','a[href="#zssx"]',function (event) {
         event.preventDefault()
-        console.log("zssx")
+        //console.log("zssx")
         if ($(".zb_panel").length>0){
             $(".zb_panel")[0].click()
         }

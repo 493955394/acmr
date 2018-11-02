@@ -70,12 +70,12 @@
                 <div style="margin-bottom: 4%;">
                     <div class="btn-group-vertical  col-md-offset-3" role="group" aria-label="...">
                         <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-reg"><span style="color: #F39801">地区</span></div>
-                        <div class="clearfix" style="height: 5px"></div>
+                        <div class="clearfix" style="height: 3px"></div>
                         <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-zb"><span style="color: #F39801">指标</span></div>
-                        <div class="clearfix"  style="height: 5px"></div>
+                        <div class="clearfix"  style="height: 3px"></div>
                         <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-sj"><span style="color: #F39801">时间</span></div>
                     </div>
-                    <table class="table table-hover wdturn-table" style="display: inline-block;position: absolute;margin-left: 16px;margin-top: 5px">
+                    <table  class="table table-hover wdturn-table" style="display: inline-block;position: absolute;margin-left: 10px;margin-top: 5px">
 
                     </table>
                 </div>

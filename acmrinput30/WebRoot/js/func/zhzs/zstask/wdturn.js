@@ -13,10 +13,10 @@ define(function (require,exports,module) {
     function getTable(){
         $("#table-Col").val(tableCol)
         $("#table-Row").val(tableRow)
-        $(".wdturn-table").append("<tr><td>" +
-            tableRow+"</td><td>" +
-            tableCol+"</td><td>" +
-            tableCol+"</td><td>" +
+        $(".wdturn-table").append("<tr><td style='width: 70px'>" +
+            tableRow+"</td><td style='width: 70px'>" +
+            tableCol+"</td><td style='width: 70px'>" +
+            tableCol+"</td><td style='width: 70px'>" +
             tableCol+"</td></tr>").append("<tr><td>" +
             tableRow+"</td><td></td><td></td><td></td></tr>").append("<tr><td>" +
             tableRow+"</td><td></td><td></td><td></td></tr>")
