@@ -26,7 +26,7 @@ define(function (require,exports,module) {
         var rch = $(".panel-height").height()-$("#top_div").height();
         $(".left-panel, .dragline").height(rch);
 
-        console.log($('.left-panel').height())
+       // console.log($('.left-panel').height())
     }
 
     autoHeight();
