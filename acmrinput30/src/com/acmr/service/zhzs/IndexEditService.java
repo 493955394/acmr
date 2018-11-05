@@ -14,10 +14,7 @@ import com.acmr.web.jsp.Index;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.apache.xmlbeans.impl.xb.xsdschema.LocalSimpleType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class IndexEditService {
 /*    public static void main(String[] args) {
@@ -330,6 +327,32 @@ public class IndexEditService {
         indexZb.setRegions(data.getString("regions"));
         indexZb.setDacimal(data.getString("dacimal"));
         return indexZb;
+    }
+
+    /**
+    * @Description: 对时间list排序，由大到小
+    * @Param: [sjs]
+    * @return: java.util.List<java.lang.String>
+    * @Author: lyh
+    * @Date: 2018/11/5
+    */
+
+    public List<String> sjSort(List<String> sjs){
+        Collections.sort(sjs, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+               // int a= Integer.parseInt(o1);
+               // int b= Integer.parseInt(o2);
+                if (o1.compareTo(o2)>0){
+                    return -1;
+                }
+                if (o1.compareTo(o2)==0){
+                    return 0;
+                }
+                else return 1;
+            }
+        });
+        return sjs;
     }
 
 }

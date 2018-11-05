@@ -757,6 +757,8 @@ public class zsjhedit extends BaseAction {
         //PubInfo.printStr(datas.toString());
         String funit=originService.getwdnode("zb",zbcode,dbcode).getUnitcode();
         List<Double> rates=new ArrayList<>();
+        //sjs排序
+        sjs=new IndexEditService().sjSort(sjs);
         for (int i=0;i<sjs.size();i++){
             String sj=sjs.get(i);
             double rate=originService.getRate(funit,unitcode,sj);
