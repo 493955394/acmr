@@ -52,7 +52,7 @@
                             <input type="hidden" class="form-control" name="ifdata" value="0" >
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h4 class="modal-title">新增/编辑目录</h4>
+                                <h4 class="modal-title">新增目录</h4>
                             </div>
                             <div class="modal-body">
 
@@ -156,22 +156,23 @@
                             <input type="hidden" class="form-control" name="cifdata">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title">复制指数</h4>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标名称：</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" name="zname"  >
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指标代码：</label>
+                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                                     <div class="col-sm-5">
                                         <input type="text" class="form-control" name="plcode">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属指数：</label>
+                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="zname"  >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>所属目录：</label>
                                     <div class="col-sm-5">
                                         <input type="text" class="form-control" name="indexname" value="" disabled>
                                         <input type="hidden" class="form-control" name="newprocode" value="" >

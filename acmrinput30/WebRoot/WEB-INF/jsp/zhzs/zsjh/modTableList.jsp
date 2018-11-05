@@ -48,19 +48,19 @@
                         <td>${module.getDacimal()}</td>
                         <input type="hidden" name="thisprocode" value="${module.getProcode()}">
                         <td>
-                            <a href="#" class="mod_edit">编辑</a>
-                            <a href="#" class="mod_delete">删除</a>
+                            <a href="#" class="mod_edit btn-margin">编辑</a>
+                            <a href="#" class="mod_delete btn-margin">删除</a>
                             <c:if test="${stat.first}">
-                                <label  class="btn-disabled mod_up_noclick" >上移</label>
+                                <label  class="btn-disabled btn-margin mod_up_noclick" >上移</label>
                             </c:if>
                             <c:if test="${!stat.first}">
-                                <a href="#" class="mod_up">上移</a>
+                                <a href="#" class="mod_up btn-margin">上移</a>
                             </c:if>
                             <c:if test="${stat.last}">
-                                <label  class="btn-disabled mod_down_noclick" >下移</label>
+                                <label  class="btn-disabled btn-margin mod_down_noclick" >下移</label>
                             </c:if>
                             <c:if test="${!stat.last}">
-                                <a href="#" class="mod_down">下移</a>
+                                <a href="#" class="mod_down btn-margin">下移</a>
                             </c:if>
                         </td>
                     </tr>

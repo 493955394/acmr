@@ -52,6 +52,9 @@ define(function(require, exports, module) {
 							|| e.srcElement;
 					var min = 100;
 					var maxT = oBox.clientWidth - oLine.offsetWidth - 4*min;
+					if (options.maxwidth) {
+						maxT=options.maxwidth
+					}
 					//oLine.style.margin = 0;
 
 					iT < min && (iT = min);
