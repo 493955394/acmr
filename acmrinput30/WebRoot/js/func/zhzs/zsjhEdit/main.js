@@ -17,7 +17,7 @@ define(function (require,exports,module) {
 
 
     $("#zssx").dragwidth({
-        maxwidth:355
+        maxwidth:500
     });
     autodrag();
     $(window).resize(function(){
