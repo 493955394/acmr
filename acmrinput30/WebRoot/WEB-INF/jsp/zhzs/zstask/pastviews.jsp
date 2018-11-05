@@ -62,7 +62,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">维度转换</h4>
                 </div>
-                <div style="margin-left: 220px" role="group" aria-label="..." >
+                <div style="margin-left: 220px;margin-top: 5px" role="group" aria-label="..." >
                     <div type="button" style="border-color: #F39801;" class="btn btn-default top-select" id="top-reg"><span style="color: #F39801">地区</span></div>
                     <div type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-zb"><span style="color: #F39801">指标</span></div>
                     <div type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-sj"><span style="color: #F39801">时间</span></div>
@@ -75,7 +75,7 @@
                         <div class="clearfix"  style="height: 3px"></div>
                         <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-sj"><span style="color: #F39801">时间</span></div>
                     </div>
-                    <table  class="table table-hover wdturn-table" style="display: inline-block;position: absolute;margin-left: 10px;margin-top: 5px">
+                    <table  class="table table-hover wdturn-table" style="display: inline-block;position: absolute;margin-left: 3px;margin-top: 3px">
 
                     </table>
                 </div>

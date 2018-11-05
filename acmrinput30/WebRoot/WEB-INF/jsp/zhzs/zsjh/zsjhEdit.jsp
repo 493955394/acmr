@@ -161,7 +161,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel_zbname panel-heading" code="">请选择指标</div>
                                     <div class="ds_choose panel-heading" style="height: 60px">
-                                        <div class="col-md-4">
+                                        <div class="col-md-5">
                                             <span style="font-size: 14px;">数据来源：</span>
                                             <select id="ds_select" class="input-sm zb_select">
                                                 <option>请选择</option>
@@ -178,9 +178,7 @@
                                                                                     <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
                                             </select>
                                         </div>
-                                        <div class="col-md-4">
-
-
+                                        <div class="col-md-3">
                                             <span style="font-size: 14px">单位：</span>
                                             <select id="unit_select"
                                                     class="input-sm zb_select">
@@ -351,7 +349,7 @@
                                 <div class="toolbar-right">
                                     <div class="toolbar-group" style="position: relative;">
                                         <button class="btn btn-default btn-sm J_Add_ZS" type="button"><i
-                                                class="glyphicon glyphicon-plus"></i>新增
+                                                class="glyphicon glyphicon-plus"></i>新增节点
                                         </button>
                                         &nbsp;
                                         <button class="btn btn-default btn-sm J_Add weight_set" type="button">
