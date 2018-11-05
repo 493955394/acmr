@@ -525,18 +525,25 @@ define(function (require,exports,module) {
                     });
                 }else{
                     // console.log(data)
+                    var info=""
                     if (data.checkhasMod!=true){
-                        alert("计划没有模型节点，启动失败")
+                        info=info+"计划没有模型节点，"
+                       // alert("计划没有模型节点，启动失败")
                     }
                     if (data.checkInfo!=true){
-                        alert("计划基本信息缺失，启动失败")
+                        info=info+"计划基本信息缺失，"
+                        //alert("计划基本信息缺失，启动失败")
                     }
                     if (data.checkZbReg!=true){
-                        alert("计划缺少指标或地区，启动失败")
+                        info=info+"计划基本信息缺失，"
+                        //alert("计划缺少指标或地区，启动失败")
                     }
                     if (data.checkmod!=true){
-                        alert("计划模型节点设置及权重不符合规定，启动失败")
+                        info=info+"计划模型节点设置及权重不符合规定，"
+                       // alert("计划模型节点设置及权重不符合规定，启动失败")
                     }
+                    info=info+"启用失败！"
+                    alert(info)
 
                     var url=window.location.href;
                     $.pjax({
