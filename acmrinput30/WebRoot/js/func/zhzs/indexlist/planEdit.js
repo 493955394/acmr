@@ -240,7 +240,7 @@ define(function (require,exports,module) {
                     alert('保存成功！');
                     window.location.reload(true);
                 } else if (data.returncode == 300) {
-                    alert('请选择所属目录');
+                    alert(data.returndata);
                     $("#mymodal-data3").modal('show');
                 } else {
                     alert('添加失败');
