@@ -713,11 +713,13 @@ public class zsjhedit extends BaseAction {
         String cocode = req.getParameter("cocode");
         String unitcode = req.getParameter("unitcode");
         String indexcode = req.getParameter("indexcode");
+        String sjselect=req.getParameter("sjselect");
+        List<String> sjs= Arrays.asList(sjselect.split(","));
         // 判断是否pjax 请求
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(indexcode);
         String pjax = req.getHeader("X-PJAX");
         ZBdataService zBdataService=new ZBdataService();
-        List<String> sjs=zBdataService.getHasDataNodeO(zbcode,"sj",dbcode);
+    /*    List<String> sjs=zBdataService.getHasDataNodeO(zbcode,"sj",dbcode);
         //过滤非该计划统计周期的时间
         IndexList index=new IndexListService().getData(indexcode);
         String sort=index.getSort();
@@ -744,17 +746,14 @@ public class zsjhedit extends BaseAction {
                     i--;
                 }
             }
-        }
+        }*/
 
-      //  PubInfo.printStr(sjs.toString());
+
+
         List<String> regs=zBdataService.getHasDataNodeO(zbcode,"reg",dbcode);
         OriginService originService=new OriginService();
         CubeWdCodes where = new CubeWdCodes();
-        /*
-        where.Add("sj",sjs);
-        where.Add("reg",regs);
-        List<CubeQueryData> datas=originService.querydata(where);*/
-        //PubInfo.printStr(datas.toString());
+
         String funit=originService.getwdnode("zb",zbcode,dbcode).getUnitcode();
         List<Double> rates=new ArrayList<>();
         //sjs排序
@@ -766,7 +765,10 @@ public class zsjhedit extends BaseAction {
         }
        // PubInfo.printStr(rates.toString());
         List<List<String>> rows=new ArrayList<>();
-        for(int i=0;i<regs.size();i++){
+        //默认只加载前10条
+        int size=10;
+        if (regs.size()<10) size=regs.size();
+        for(int i=0;i<size;i++){
             List<String> row=new ArrayList<>();
             if(originService.getwdnode("reg",regs.get(i),dbcode)!=null){
                 row.add(originService.getwdnode("reg",regs.get(i),dbcode).getName());
@@ -776,17 +778,16 @@ public class zsjhedit extends BaseAction {
                     where.Add("co",cocode);
                     where.Add("sj",sjs.get(j));
                     where.Add("reg",regs.get(i));
-                    double data=0;
                     if(originService.querydata(where,dbcode).size()>0){
-                        data=originService.querydata(where,dbcode).get(0).getData().getData()*rates.get(j);
+                        double data=originService.querydata(where,dbcode).get(0).getData().getData()*rates.get(j);
+                        row.add(data+"");
                     }
-                    row.add(data+"");
+                    else rows.add(null);
                     where.Clear();
                 }
 
                 rows.add(row);
             }
-
         }
        // PubInfo.printStr(rows.toString());
         String nodata="";
