@@ -123,14 +123,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label "><span class="glyphicon glyphicon-asterisk required_ico"></span>数据期满后：</label>
+                            <label class="col-sm-2 control-label "><span class="glyphicon glyphicon-asterisk required_ico"></span>更新周期：</label>
                             <div class="col-sm-5">
                                 <c:if test="${right!='1'}">
-                                    <input id="delayday" name="delayday" value="${list.getDelayday()}"
+                                    <input id="delayday" name="delayday" value="<c:if test="${list.getDelayday()==''}">30</c:if><c:if test="${list.getDelayday()!=''}">${list.getDelayday()}</c:if>"
                                            class="form-control"/>
                                 </c:if>
                                 <c:if test="${right=='1'}">
-                                    <input id="delayday" name="delayday" value="${list.getDelayday()}"
+                                    <input id="delayday" name="delayday" value="<c:if test="${list.getDelayday()==''}">30</c:if><c:if test="${list.getDelayday()!=''}">${list.getDelayday()}</c:if>"
                                            class="form-control" readonly/>
                                 </c:if>
                             </div>
