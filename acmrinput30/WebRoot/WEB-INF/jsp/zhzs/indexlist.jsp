@@ -100,7 +100,7 @@
                             <input type="hidden" class="form-control" name="ifdata" value="1" >
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h4 class="modal-title">新增计划</h4>
+                                <h4 class="modal-title">新增指数计划</h4>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
@@ -127,13 +127,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>统计周期：</label>
+                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指数时间类型：</label>
                                     <div class="col-sm-5">
                                         <select class="form-control" name="sort" id="sort">
-                                            <option value="">请选择</option>
-                                            <option value="m">月度</option>
-                                            <option value="q">季度</option>
                                             <option value="y">年度</option>
+                                            <option value="q">季度</option>
+                                            <option value="m">月度</option>
                                         </select>
                                     </div>
                                 </div>
