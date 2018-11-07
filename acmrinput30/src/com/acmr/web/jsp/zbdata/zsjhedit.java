@@ -1372,7 +1372,17 @@ public class zsjhedit extends BaseAction {
         IndexEditService indexEditService = new IndexEditService();
         //index表中的信息
         String index_code = PubInfo.getString(req.getParameter("index_code"));//code
-        String index_cname = PubInfo.getString(req.getParameter("index_cname"));//code
+        String index_cname = PubInfo.getString(req.getParameter("index_cname"));//cname
+        JSONReturnData data = new JSONReturnData("");
+        //先对名字做校验，要是已经存在就返回301
+        String usercode = new IndexListService().getData(index_code).getCreateuser();
+        int x = new IndexListService().checkCname(1,usercode,index_cname);
+        if (x == 0 ) {
+            data.setReturncode(301);
+            this.sendJson(data);
+            return;
+        }
+
         String index_procode = PubInfo.getString(req.getParameter("index_procode"));//所属目录
         String startpeirod = PubInfo.getString(req.getParameter("startpeirod"));
         String delayday = PubInfo.getString(req.getParameter("delayday"));
@@ -1388,7 +1398,7 @@ public class zsjhedit extends BaseAction {
         String [] cos = co.split(",");
         String [] units = zbunit.split(",");
         String [] sxcodes = sxcode.split(",");
-        JSONReturnData data = new JSONReturnData("");
+
         //前三个标签页的数据都能取到，分别存到zb和index表里
         if(index_procode.equals("!1")){
             index_procode="";

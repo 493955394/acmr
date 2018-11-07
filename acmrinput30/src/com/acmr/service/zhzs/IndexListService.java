@@ -349,8 +349,8 @@ public class IndexListService {
      * @param cname
      * @return
      */
-    public int checkCname(String usercode,String cname){
-        return IndexListDao.Fator.getInstance().getIndexdatadao().checkCname(usercode,cname);
+    public int checkCname(int ifdata,String usercode,String cname){
+        return IndexListDao.Fator.getInstance().getIndexdatadao().checkCname(ifdata,usercode,cname);
     }
     public int checkProcode(String procode){
         return IndexListDao.Fator.getInstance().getIndexdatadao().checkProcode(procode);

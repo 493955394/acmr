@@ -263,24 +263,26 @@ public class indexlist extends BaseAction {
         IndexListService indexListService = new IndexListService();
         HttpServletRequest req = this.getRequest();
         String code = PubInfo.getString(req.getParameter("cocode"));
+        String cname = PubInfo.getString(req.getParameter("cocname"));
+        User user = (User) this.getSession().getAttribute("loginuser");
+        String createuser = user.getUserid();
         JSONReturnData data = new JSONReturnData("");
         int x = indexListService.checkCode(code);
-        if (x == 0) {
+        int y = indexListService.checkCname(0,createuser,cname);//目录的名称也不能重复
+        if (x == 0||y==0) {
             data.setReturncode(300);
+            data.setReturndata("该名称已存在");
             this.sendJson(data);
             return;
         } else {
             data.setReturncode(200);
         }
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
-        String cname = PubInfo.getString(req.getParameter("cocname"));
         String procode = PubInfo.getString(req.getParameter("idcata"));
         if(procode.equals("!1")){
             procode="";
         }
         String proname = PubInfo.getString(req.getParameter("cataname"));
-        User user = (User) this.getSession().getAttribute("loginuser");
-        String createuser = user.getUserid();
         String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         IndexList indexList = new IndexList();
         indexList.setIfdata(ifdata1);
@@ -316,9 +318,10 @@ public class indexlist extends BaseAction {
         String createuser = user.getUserid();
         JSONReturnData data = new JSONReturnData("");
         int x = indexListService.checkCode(code);
-        int y = indexListService.checkCname(createuser,cname);
+        int y = indexListService.checkCname(1,createuser,cname);
         if (x == 0 || y==0) {
             data.setReturncode(300);
+            data.setReturndata("该名称已存在");
             this.sendJson(data);
             return;
         } else {
@@ -541,6 +544,14 @@ public class indexlist extends BaseAction {
         data.setReturncode(200);
         String code = PubInfo.getString(req.getParameter("editcode"));
         String name = PubInfo.getString(req.getParameter("editcname"));
+        String createuser = indexListService.getData(code).getCreateuser();
+        int y = indexListService.checkCname(0,createuser,name);//目录的名称也不能重复
+        if (y==0) {
+            data.setReturncode(300);
+            data.setReturndata("该名称已存在");
+            this.sendJson(data);
+            return;
+        }
         String procode = PubInfo.getString(req.getParameter("editprocode"));
         if(procode.equals("!1")){
             procode="";

@@ -316,9 +316,10 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     }
 
     @Override
-    public int checkCname(String usercode, String cname) {
-        String sql = "select count(*) from tb_coindex_index where ifdata=1 and cname =? and createuser=?";
+    public int checkCname(int ifdata,String usercode, String cname) {
+        String sql = "select count(*) from tb_coindex_index where ifdata=? and cname =? and createuser=?";
         List<Object> params = new ArrayList<Object>();
+        params.add(ifdata);
         params.add(cname);
         params.add(usercode);
         DataTable dt = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());

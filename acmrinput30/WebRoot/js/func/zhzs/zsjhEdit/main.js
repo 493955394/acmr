@@ -713,6 +713,9 @@ define(function (require,exports,module) {
                     alert("保存成功！");
                     window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+incode;
                 }
+                if (data.returncode == 301) {
+                    alert("该计划名称已经存在！");
+                }
                 else {
                     alert("保存失败");
                 }
