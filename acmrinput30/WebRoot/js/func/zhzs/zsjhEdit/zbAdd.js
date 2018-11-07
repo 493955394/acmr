@@ -44,6 +44,8 @@ define(function (require,exports,module) {
     var rootNode = [{"id":"","name":"指标分组树",pId:"", "open":"false", "isParent":"true",icon:"../../../../zhzs/css/img/mark1.png"}];
     var treeObj = $.fn.zTree.init($("#treeDemo1"), setting, rootNode);
 
+    var pagenum=1;
+    var pagesize=10;//默认显示10条数据预览
     
 /*    function zTreeOnAsyncSuccess(event, treeid, treeNode, msg) {
         var treeObj = $.fn.zTree.getZTreeObj(treeid);
@@ -79,7 +81,7 @@ define(function (require,exports,module) {
     function zbclick(zb,isadd) {
 
         if(isadd==true){
-            $("#zb_data_body").empty().append("<p>查询中……</p>");
+            $("#zb_data_body").empty().append("<p id='zb_query_start'>查询中……</p>");
             $(".zb_add").css("display","inline")
             //console.log(zb)
             var data={
@@ -119,7 +121,7 @@ define(function (require,exports,module) {
             return true
         }
         else {
-            $("#zb_data_body").empty().append("<p>查询中……</p>");
+            $("#zb_data_body").empty().append("<p id='zb_query_start'>查询中……</p>");
             //$(".zb_add").css("display","none")
             //console.log(zb)
             var data={
@@ -177,15 +179,70 @@ define(function (require,exports,module) {
         var sjselect="2018,2017,2016,2015,2014,2013"
 
         $.pjax({
-            url:common.rootPath+'zbdata/zsjhedit.htm?m=getData&zbcode='+zbcode+'&cocode='+cocode+'&dscode='+dscode+'&unitcode='+unitcode+'&indexcode='+indexCode+"&sjselect="+sjselect+"&st="+st,
+            url:common.rootPath+'zbdata/zsjhedit.htm?m=getData&zbcode='+zbcode+'&cocode='+cocode+'&dscode='+dscode+'&unitcode='+unitcode+'&indexcode='+indexCode+"&pagesize="+pagesize+"&sjselect="+sjselect+"&st="+st,
             container:'.J_zsjh_zbdata_table',
             timeout:50000
         })
     }
 
+
+    //表格下拉加载数据
     $("#zb_data_table").scroll(function () {
-        console.log("scroll")
+        var nScrollHight = 0; //滚动距离总长(注意不是滚动条的长度)
+        var nScrollTop = 0;   //滚动到的当前位置
+        var nDivHight = $("#zb_data_table").height();//overflow所在的div
+        nScrollHight = $(this)[0].scrollHeight;
+        nScrollTop = $(this)[0].scrollTop;
+        if(nScrollTop + nDivHight >= nScrollHight){
+            //到底部后进入此方法
+            if ($("#zb_query_ing").length==0&&$("#zb_query_over").length==0&&$("#zb_query_start").length==0){
+                $("#zb_data_table").append("<p id='zb_query_ing'>"+"查询中……"+"</p>")
+            }
+            else if ($("#zb_query_over").length==0) {
+                setTimeout(function () {
+                    var zbcode=$(".panel_zbname").attr("code")
+                    //console.log(zbcode)
+                    var cocode=$('#co_select option:selected').attr("class")
+                    //console.log(cocode)
+                    var dscode=$('#ds_select option:selected').attr("class")
+                    //console.log(dscode)
+                    var unitcode=$('#unit_select option:selected').attr("class")
+                    //console.log(unitcode)
+                    var sjselect="2018,2017,2016,2015,2014,2013"
+                    $.ajax({
+                        url:common.rootPath+'zbdata/zsjhedit.htm?m=getDataWithPage&zbcode='+zbcode+'&cocode='+cocode+'&dscode='+dscode+'&unitcode='+unitcode+'&indexcode='+indexCode+"&pagesize="+pagesize+"&pagenum="+pagenum+"&sjselect="+sjselect+"&st="+st,
+                        type:'get',
+                        success:function (re) {
+                            $("#zb_query_ing").remove()
+                            pagenum++
+                            if (typeof re=="string"){
+                                if ($("#zb_query_over").length==0){
+                                    $("#zb_data_table").append("<p id='zb_query_over'>"+re+"</p>")
+                                }
+                            }
+                            else {
+                                //console.log(re)
+                                re.forEach(function (d) {
+                                    //console.log(d)
+                                    var row="<tr>";
+                                    d.forEach(function (r) {
+                                        row=row+"<td>"+r+"</td>"
+                                    })
+                                    row=row+"</tr>"
+                                    $("#zb_data_body").append(row)
+                                })
+
+                            }
+                        }
+                    })
+                },500)
+            }
+
+
+        }
+
     })
+
 
 
     function search() {
