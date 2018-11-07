@@ -314,6 +314,22 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         DataTable table= AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode});
             return table.getRows().get(0).toString();
     }
+
+    @Override
+    public int checkCname(String usercode, String cname) {
+        String sql = "select count(*) from tb_coindex_index where ifdata=1 and cname =? and createuser=?";
+        List<Object> params = new ArrayList<Object>();
+        params.add(cname);
+        params.add(usercode);
+        DataTable dt = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
+        List<DataTableRow> rows = dt.getRows();
+        int getint = rows.get(0).getint(0);
+        if (getint > 0) {
+            return 0;
+        }else {
+            return 1;
+        }
+    }
         /*}
         String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
         List<Object> params = new ArrayList<Object>();

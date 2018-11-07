@@ -141,9 +141,10 @@ define(function (require,exports,module) {
                     window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+zs_code;
                     //window.location.reload(true);
                 } else if (data.returncode == 300) {
-                    alert("该编码已存在");
+                    alert("该名称已存在");
                     $("#mymodal-data1").modal('show');
-                } else {
+                }
+                else {
                     alert("添加失败");
                 }
 

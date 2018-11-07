@@ -40,4 +40,5 @@ public interface IIndexListDao {
     public int switchFormu(String ncode,String ocode);
     public Boolean hasIndex(String icode,String usercode);
     public String getDbcode(String icode);
+    public int checkCname(String usercode,String cname);
 }

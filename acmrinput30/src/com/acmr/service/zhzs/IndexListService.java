@@ -343,6 +343,15 @@ public class IndexListService {
     public int checkCode(String code){
         return IndexListDao.Fator.getInstance().getIndexdatadao().checkCode(code);
     }
+
+    /**
+     * 新增计划时针对单个用户，计划名称不能重复
+     * @param cname
+     * @return
+     */
+    public int checkCname(String usercode,String cname){
+        return IndexListDao.Fator.getInstance().getIndexdatadao().checkCname(usercode,cname);
+    }
     public int checkProcode(String procode){
         return IndexListDao.Fator.getInstance().getIndexdatadao().checkProcode(procode);
     }

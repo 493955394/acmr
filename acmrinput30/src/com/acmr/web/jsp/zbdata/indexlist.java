@@ -311,9 +311,13 @@ public class indexlist extends BaseAction {
         IndexListService indexListService = new IndexListService();
         HttpServletRequest req = this.getRequest();
         String code = PubInfo.getString(req.getParameter("plancode"));
+        String cname = PubInfo.getString(req.getParameter("plancname"));
+        User user = (User) this.getSession().getAttribute("loginuser");
+        String createuser = user.getUserid();
         JSONReturnData data = new JSONReturnData("");
         int x = indexListService.checkCode(code);
-        if (x == 0) {
+        int y = indexListService.checkCname(createuser,cname);
+        if (x == 0 || y==0) {
             data.setReturncode(300);
             this.sendJson(data);
             return;
@@ -321,7 +325,7 @@ public class indexlist extends BaseAction {
             data.setReturncode(200);
         }
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
-        String cname = PubInfo.getString(req.getParameter("plancname"));
+
         String procode = PubInfo.getString(req.getParameter("idplan"));
         if(procode.equals("!1")){
             procode="";
@@ -330,8 +334,6 @@ public class indexlist extends BaseAction {
         String sort = PubInfo.getString(req.getParameter("sort"));
         String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         //String createuser = "usercode01";
-        User user = (User) this.getSession().getAttribute("loginuser");
-        String createuser = user.getUserid();
         String state = "0";
         IndexList indexList = new IndexList();
         indexList.setCode(code);
