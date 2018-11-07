@@ -174,13 +174,19 @@ define(function (require,exports,module) {
         //console.log(dscode)
         var unitcode=$('#unit_select option:selected').attr("class")
         //console.log(unitcode)
+        var sjselect="2018,2017,2016,2015,2014,2013"
 
         $.pjax({
-            url:common.rootPath+'zbdata/zsjhedit.htm?m=getData&zbcode='+zbcode+'&cocode='+cocode+'&dscode='+dscode+'&unitcode='+unitcode+'&indexcode='+indexCode+"&st="+st,
+            url:common.rootPath+'zbdata/zsjhedit.htm?m=getData&zbcode='+zbcode+'&cocode='+cocode+'&dscode='+dscode+'&unitcode='+unitcode+'&indexcode='+indexCode+"&sjselect="+sjselect+"&st="+st,
             container:'.J_zsjh_zbdata_table',
             timeout:50000
         })
     }
+
+    $("#zb_data_table").scroll(function () {
+        console.log("scroll")
+    })
+
 
     function search() {
         $("#find_panel").remove()
@@ -427,6 +433,8 @@ define(function (require,exports,module) {
         $(".zb_delete").click(zbDelete)
     }
     expandTree([])
+
+
 
     module.exports={
         zbs:zbs
