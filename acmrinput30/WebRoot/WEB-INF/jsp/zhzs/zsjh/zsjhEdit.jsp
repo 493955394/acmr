@@ -208,9 +208,7 @@
                             </div>
 
                             <div id="mySelectTime"></div>
-                            <div class="data_table J_zsjh_zbdata_table" id="zb_data_table">
-
-
+                            <div class="data_table J_zsjh_zbdata_table" style="height: 72%;width: 100%;overflow:auto;"  id="zb_data_table">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/ZBdataList.jsp" flush="true"/>
                             </div>
                         </div>
