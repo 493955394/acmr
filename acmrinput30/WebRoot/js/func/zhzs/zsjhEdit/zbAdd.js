@@ -45,7 +45,7 @@ define(function (require,exports,module) {
     var treeObj = $.fn.zTree.init($("#treeDemo1"), setting, rootNode);
 
     var pagenum=1;
-    var pagesize=10;//默认显示10条数据预览
+    var pagesize=50;//默认显示10条数据预览
     var sjselect="2018,2017,2016,2015,2014,2013"
 
 /*    function zTreeOnAsyncSuccess(event, treeid, treeNode, msg) {
@@ -82,6 +82,10 @@ define(function (require,exports,module) {
     function zbclick(zb,isadd) {
 
         if(isadd==true){
+            pagenum=1
+
+            $("#zb_query_ing").remove()
+            $("#zb_query_over").remove()
             $("#zb_data_body").empty().append("<p id='zb_query_start'>查询中……</p>");
             $(".zb_add").css("display","inline")
             //console.log(zb)
@@ -122,6 +126,9 @@ define(function (require,exports,module) {
             return true
         }
         else {
+            pagenum=1
+            $("#zb_query_ing").remove()
+            $("#zb_query_over").remove()
             $("#zb_data_body").empty().append("<p id='zb_query_start'>查询中……</p>");
             //$(".zb_add").css("display","none")
             //console.log(zb)
@@ -199,45 +206,42 @@ define(function (require,exports,module) {
             if ($("#zb_query_ing").length==0&&$("#zb_query_over").length==0&&$("#zb_query_start").length==0){
                 $("#zb_data_table").append("<p id='zb_query_ing'>"+"查询中……"+"</p>")
             }
-            else if ($("#zb_query_over").length==0) {
-                setTimeout(function () {
-                    var zbcode=$(".panel_zbname").attr("code")
-                    //console.log(zbcode)
-                    var cocode=$('#co_select option:selected').attr("class")
-                    //console.log(cocode)
-                    var dscode=$('#ds_select option:selected').attr("class")
-                    //console.log(dscode)
-                    var unitcode=$('#unit_select option:selected').attr("class")
-                    //console.log(unitcode)
-                    $.ajax({
-                        url:common.rootPath+'zbdata/zsjhedit.htm?m=getDataWithPage&zbcode='+zbcode+'&cocode='+cocode+'&dscode='+dscode+'&unitcode='+unitcode+'&indexcode='+indexCode+"&pagesize="+pagesize+"&pagenum="+pagenum+"&sjselect="+sjselect+"&st="+st,
-                        type:'get',
-                        success:function (re) {
-                            $("#zb_query_ing").remove()
-                            pagenum++
-                            if (typeof re=="string"){
-                                if ($("#zb_query_over").length==0){
-                                    $("#zb_data_table").append("<p id='zb_query_over'>"+re+"</p>")
-                                }
-                            }
-                            else {
-                                //console.log(re)
-                                re.forEach(function (d) {
-                                    //console.log(d)
-                                    var row="<tr>";
-                                    d.forEach(function (r) {
-                                        row=row+"<td>"+r+"</td>"
-                                    })
-                                    row=row+"</tr>"
-                                    $("#zb_data_body").append(row)
-                                })
-
+            setTimeout(function () {
+                var zbcode=$(".panel_zbname").attr("code")
+                //console.log(zbcode)
+                var cocode=$('#co_select option:selected').attr("class")
+                //console.log(cocode)
+                var dscode=$('#ds_select option:selected').attr("class")
+                //console.log(dscode)
+                var unitcode=$('#unit_select option:selected').attr("class")
+                //console.log(unitcode)
+                $.ajax({
+                    url:common.rootPath+'zbdata/zsjhedit.htm?m=getDataWithPage&zbcode='+zbcode+'&cocode='+cocode+'&dscode='+dscode+'&unitcode='+unitcode+'&indexcode='+indexCode+"&pagesize="+pagesize+"&pagenum="+pagenum+"&sjselect="+sjselect+"&st="+st,
+                    type:'get',
+                    success:function (re) {
+                        $("#zb_query_ing").remove()
+                        pagenum++
+                        if (typeof re=="string"){
+                            if ($("#zb_query_over").length==0){
+                                $("#zb_data_table").append("<p id='zb_query_over'>"+""+"</p>")
                             }
                         }
-                    })
-                },500)
-            }
+                        else {
+                            //console.log(re)
+                            re.forEach(function (d) {
+                                //console.log(d)
+                                var row="<tr>";
+                                d.forEach(function (r) {
+                                    row=row+"<td>"+r+"</td>"
+                                })
+                                row=row+"</tr>"
+                                $("#zb_data_body").append(row)
+                            })
 
+                        }
+                    }
+                })
+            },500)
 
         }
 
