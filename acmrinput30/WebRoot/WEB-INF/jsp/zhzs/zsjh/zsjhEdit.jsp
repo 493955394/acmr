@@ -18,6 +18,7 @@
 %>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="${ctx}/css/pastreview.css" />
     <title>${projectTitle}-编辑指数计划</title>
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true"/>
     <style type="text/css">
@@ -35,6 +36,9 @@
             height: 100%;
         }
     </style>
+
+    <script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="${ctx}/js/lib/dropList.js"></script>
 </head>
 <body style="height: 100%;max-height: 100%;overflow: hidden;padding: 0;margin: 0;border: 0;">
 
@@ -43,7 +47,10 @@
 <div class="container-fluid">
     <div class="panel panel-default reset-panel" style="padding-bottom: 10px;">
         <div class="panel-heading" id="ict-header">
-            编辑指数计划
+            [${list.getCname()}]指数计划编辑,类型：
+            <c:if test="${list.getSort() == 'm'}">月度</c:if>
+            <c:if test="${list.getSort() == 'y'}">年度</c:if>
+            <c:if test="${list.getSort() == 'q'}">季度</c:if>
         </div>
         <div class="panel-body panel-height" style="padding-left: 0;padding-right: 0;">
             <div id="top_div">
@@ -92,7 +99,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>统计周期：</label>
+                            <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指数时间类型：</label>
                             <div class="col-sm-5">
                                 <select class="form-control" name="index_sort" id="index_sort" disabled>
                                     <c:if test="${list.getSort() == 'm'}">
@@ -199,7 +206,7 @@
 
                                 <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/addZB.jsp" flush="true"/>--%>
                             </div>
-
+                            <div id="mySelectTime"></div>
                             <div class="data_table J_zsjh_zbdata_table" id="zb_data_table">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/ZBdataList.jsp" flush="true"/>
                             </div>
@@ -399,6 +406,23 @@
         module.exports = {
             zbs: zbs
         }
+    });
+    //查询的时间
+    $(function(){
+        var json2 = {
+            wdcode:'sj',
+            wdname:'时间',
+            nodes:[
+                {code:"last5",name:'最近五期'}
+            ]
+        };
+        var dt2 = $('#mySelectTime');
+        //dt2.dropList(json2,{isText:true});	//实例化2(带底部输入框)、默认选中第一个item
+        //dt2.dropList(json2,{isText:true,setIndex: 2});	//实例化2(带底部输入框)、选中指定位置item
+        dt2.dropList(json2,{isText:true},function(o){		//事件处理
+            $("#timecode").val(o.getItem().code)
+            $("#timeinput").click();
+        });
     });
 
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/main');
