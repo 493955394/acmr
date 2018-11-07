@@ -24,6 +24,7 @@ import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.pub.TreeNode;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexMoudle;
+import com.acmr.model.zhzs.IndexTask;
 import com.acmr.model.zhzs.IndexZb;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zbdata.RegdataService;
@@ -714,42 +715,12 @@ public class zsjhedit extends BaseAction {
         String unitcode = req.getParameter("unitcode");
         String indexcode = req.getParameter("indexcode");
         String sjselect=req.getParameter("sjselect");
+        int pagesize= Integer.parseInt(req.getParameter("pagesize"));
         List<String> sjs= Arrays.asList(sjselect.split(","));
         // 判断是否pjax 请求
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(indexcode);
         String pjax = req.getHeader("X-PJAX");
         ZBdataService zBdataService=new ZBdataService();
-    /*    List<String> sjs=zBdataService.getHasDataNodeO(zbcode,"sj",dbcode);
-        //过滤非该计划统计周期的时间
-        IndexList index=new IndexListService().getData(indexcode);
-        String sort=index.getSort();
-        if (sort.equals("y")){
-            for (int i=0;i<sjs.size();i++){
-                if (sjs.get(i).length()!=4){
-                    sjs.remove(sjs.get(i));
-                    i--;
-                }
-            }
-        }
-        else if (sort.equals("q")){
-            for (int i=0;i<sjs.size();i++){
-                if (sjs.get(i).length()!=5){
-                    sjs.remove(sjs.get(i));
-                    i--;
-                }
-            }
-        }
-        else {
-            for (int i=0;i<sjs.size();i++){
-                if (sjs.get(i).length()!=6){
-                    sjs.remove(sjs.get(i));
-                    i--;
-                }
-            }
-        }*/
-
-
-
         List<String> regs=zBdataService.getHasDataNodeO(zbcode,"reg",dbcode);
         OriginService originService=new OriginService();
         CubeWdCodes where = new CubeWdCodes();
@@ -765,10 +736,9 @@ public class zsjhedit extends BaseAction {
         }
        // PubInfo.printStr(rates.toString());
         List<List<String>> rows=new ArrayList<>();
-        //默认只加载前10条
-        int size=10;
-        if (regs.size()<10) size=regs.size();
-        for(int i=0;i<size;i++){
+        //默认只加载pagesize条
+        if (regs.size()<pagesize) pagesize=regs.size();
+        for(int i=0;i<pagesize;i++){
             List<String> row=new ArrayList<>();
             if(originService.getwdnode("reg",regs.get(i),dbcode)!=null){
                 row.add(originService.getwdnode("reg",regs.get(i),dbcode).getName());
@@ -782,7 +752,7 @@ public class zsjhedit extends BaseAction {
                         double data=originService.querydata(where,dbcode).get(0).getData().getData()*rates.get(j);
                         row.add(data+"");
                     }
-                    else rows.add(null);
+                    else row.add("");
                     where.Clear();
                 }
 
@@ -814,6 +784,77 @@ public class zsjhedit extends BaseAction {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname).addObject("indexlist",indexlist).addObject("regs",regoins);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/ZBdataList").addObject("sjs",sjs).addObject("rows",rows).addObject("nodata",nodata);
+        }
+    }
+
+    /**
+    * @Description: 根据条件返回数据预览（带页码）
+    * @Param: []
+    * @return: void
+    * @Author: lyh
+    * @Date: 2018/11/7
+    */
+    public void getDataWithPage() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        // 获取查询数据
+        String zbcode = req.getParameter("zbcode");
+        String dscode = req.getParameter("dscode");
+        String cocode = req.getParameter("cocode");
+        String unitcode = req.getParameter("unitcode");
+        String indexcode = req.getParameter("indexcode");
+        String sjselect=req.getParameter("sjselect");
+        int pagesize= Integer.parseInt(req.getParameter("pagesize"));
+        int pagenum= Integer.parseInt(req.getParameter("pagenum"));
+        List<String> sjs= Arrays.asList(sjselect.split(","));
+        // 判断是否pjax 请求
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(indexcode);
+        String pjax = req.getHeader("X-PJAX");
+        ZBdataService zBdataService=new ZBdataService();
+        List<String> regs=zBdataService.getHasDataNodeO(zbcode,"reg",dbcode);
+        OriginService originService=new OriginService();
+        CubeWdCodes where = new CubeWdCodes();
+
+        String funit=originService.getwdnode("zb",zbcode,dbcode).getUnitcode();
+        List<Double> rates=new ArrayList<>();
+        //sjs排序
+        sjs=new IndexEditService().sjSort(sjs);
+        for (int i=0;i<sjs.size();i++){
+            String sj=sjs.get(i);
+            double rate=originService.getRate(funit,unitcode,sj);
+            rates.add(rate);
+        }
+        // PubInfo.printStr(rates.toString());
+        List<List<String>> rows=new ArrayList<>();
+        int begin=pagenum*pagesize;
+        int end=begin+pagesize;
+        String nodata="";
+        if (begin>regs.size()){
+            nodata="全部数据已加载完毕";
+            this.sendJson(nodata);
+        }
+        else {
+            if (end>regs.size()) end=regs.size();
+            for(int i=begin;i<end;i++){
+                List<String> row=new ArrayList<>();
+                if(originService.getwdnode("reg",regs.get(i),dbcode)!=null){
+                    row.add(originService.getwdnode("reg",regs.get(i),dbcode).getName());
+                    for(int j=0;j<sjs.size();j++){
+                        where.Add("zb",zbcode);
+                        where.Add("ds",dscode);
+                        where.Add("co",cocode);
+                        where.Add("sj",sjs.get(j));
+                        where.Add("reg",regs.get(i));
+                        if(originService.querydata(where,dbcode).size()>0){
+                            double data=originService.querydata(where,dbcode).get(0).getData().getData()*rates.get(j);
+                            row.add(data+"");
+                        }
+                        else row.add("");
+                        where.Clear();
+                    }
+                    rows.add(row);
+                }
+            }
+            this.sendJson(rows);
         }
     }
     

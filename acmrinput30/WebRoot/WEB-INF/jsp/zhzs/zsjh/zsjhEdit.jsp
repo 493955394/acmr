@@ -206,8 +206,11 @@
 
                                 <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/addZB.jsp" flush="true"/>--%>
                             </div>
+
                             <div id="mySelectTime"></div>
                             <div class="data_table J_zsjh_zbdata_table" id="zb_data_table">
+
+
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/ZBdataList.jsp" flush="true"/>
                             </div>
                         </div>
