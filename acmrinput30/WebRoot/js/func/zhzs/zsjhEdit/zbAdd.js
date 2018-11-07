@@ -46,7 +46,8 @@ define(function (require,exports,module) {
 
     var pagenum=1;
     var pagesize=10;//默认显示10条数据预览
-    
+    var sjselect="2018,2017,2016,2015,2014,2013"
+
 /*    function zTreeOnAsyncSuccess(event, treeid, treeNode, msg) {
         var treeObj = $.fn.zTree.getZTreeObj(treeid);
         var nodes=treeObj.getNodes();
@@ -176,7 +177,7 @@ define(function (require,exports,module) {
         //console.log(dscode)
         var unitcode=$('#unit_select option:selected').attr("class")
         //console.log(unitcode)
-        var sjselect="2018,2017,2016,2015,2014,2013"
+
 
         $.pjax({
             url:common.rootPath+'zbdata/zsjhedit.htm?m=getData&zbcode='+zbcode+'&cocode='+cocode+'&dscode='+dscode+'&unitcode='+unitcode+'&indexcode='+indexCode+"&pagesize="+pagesize+"&sjselect="+sjselect+"&st="+st,
@@ -208,7 +209,6 @@ define(function (require,exports,module) {
                     //console.log(dscode)
                     var unitcode=$('#unit_select option:selected').attr("class")
                     //console.log(unitcode)
-                    var sjselect="2018,2017,2016,2015,2014,2013"
                     $.ajax({
                         url:common.rootPath+'zbdata/zsjhedit.htm?m=getDataWithPage&zbcode='+zbcode+'&cocode='+cocode+'&dscode='+dscode+'&unitcode='+unitcode+'&indexcode='+indexCode+"&pagesize="+pagesize+"&pagenum="+pagenum+"&sjselect="+sjselect+"&st="+st,
                         type:'get',
