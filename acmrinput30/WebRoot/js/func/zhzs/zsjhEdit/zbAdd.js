@@ -45,9 +45,30 @@ define(function (require,exports,module) {
     var treeObj = $.fn.zTree.init($("#treeDemo1"), setting, rootNode);
 
     var pagenum=1;
-    var pagesize=50;//默认显示10条数据预览
-    var sjselect="2018,2017,2016,2015,2014,2013"
+    var pagesize=10;//默认显示10条数据预览
+    var sort = $("#index_sort").val();//是年度，季度还是月度；
+    var sjselect=getLast5(sort);//默认是最近五期
 
+    $(document).on('click', '#zbtimeinput', function () {
+        var timeinput = $("#timecode").val();
+        var url = common.rootPath + "zbdata/zsjhedit.htm?m=timeCheck&sort=" + sort + "&timeinput=" + timeinput;
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                if (data.returncode == 300) {
+                    alert("时间格式有误");
+                } else if (data.returncode == 200) {
+                    if(!(data.returndata ==""||data.returndata==null)){
+                        sjselect = data.returndata;
+                        console.log(sjselect)
+                        sendPjax();
+                    }
+                }
+            }
+        })
+    })
 /*    function zTreeOnAsyncSuccess(event, treeid, treeNode, msg) {
         var treeObj = $.fn.zTree.getZTreeObj(treeid);
         var nodes=treeObj.getNodes();
@@ -56,7 +77,80 @@ define(function (require,exports,module) {
         console.log(nodes)
         console.log(children)
     }*/
+      function getLast5(sort) {
+          var now = new Date();
+          var list = [];
+          if(sort=="y") { //如果是年度
+              for (var i = 0; i <5 ; i++) {
+                  list.push((now.getFullYear()-i).toString());
+              }
+          }else  if(sort=="q") { //如果是季度
+              var tmp = [];
+              for (var i = 0; i <5/4+2 ; i++) {//除去第一年，先补全再看num来截取个数
+                  var yd = (now.getFullYear()-i).toString();
+                  for (var j = 68; j >=65 ; j--) {
+                      tmp.push(yd+String.fromCharCode(j));
+                  }
+              }
+              var nowtime = now.getFullYear()+getQ(now.getMonth()+1);//获得的月份比当前少一，所以需要+1
+              list.push(tmp.slice(indexOf(tmp,nowtime),indexOf(tmp,nowtime)+5));//截取集合
+          }
+          if(sort=="m") { //如果是月度
+              var tmp =[];
+              for (var i = 0; i <5/12+2 ; i++) {//除去第一年，先补全再看num来截取个数
+                  var yd = (now.getFullYear()-i).toString();
+                  for (var j = 12; j >=1 ; j--) {
+                      if(j>=10){
+                          tmp.push(yd+j);
+                      }
+                      else {
+                          tmp.push(yd+"0"+j);
+                      }
+                  }
+              }
+              var nowtime;
+              var nowmonth = now.getMonth()+1;
+              if(nowmonth>=10){
+                  nowtime = now.getFullYear()+nowmonth.toString();
+              }
+              else {
+                  nowtime = now.getFullYear()+"0"+nowmonth;//低于10月份的需要特殊处理，补一个零
+              }
+              list.push(tmp.slice(indexOf(tmp,nowtime),indexOf(tmp,nowtime)+5));//截取集合
+          }
+          return list.join(',');
+    }
+        function getQ(month) {
+              var Q ="";
+            if(month<4){
+                Q ="A"
+            }
+            else if(month>=4&&month<7){Q="B"}
+            else if(month>=7&&month<10){Q="C"}
+            else {
+                Q="D"
+            }
+            return Q;
+        }
+    function indexOf(arr, item) {
 
+        if(Array.prototype.indexOf)
+        {
+            return arr.indexOf(item);
+        }
+        else
+        {
+            for(var i=0;i<arr.length;i++)
+            {
+                if(arr[i]==item)
+                {
+                    return i;
+                }
+            }
+        }
+        return -1;
+
+    }
 
     function clickEvent(event, treeid, treeNode) {
 
