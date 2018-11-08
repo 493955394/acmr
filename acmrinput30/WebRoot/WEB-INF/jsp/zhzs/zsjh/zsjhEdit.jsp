@@ -287,7 +287,7 @@
                     </div>
                     <div class="col-xs-2">
                         <div class="panel tree-panel">
-                            <div class="panel-heading" style="text-align:center">地区列表</div>
+                            <div class="panel-heading regs-title" style="text-align:center">地区列表</div>
                         </div>
                         <div id="dqlb" style="width:100%;overflow:auto;border: 1px solid #dddddd">
                             <ul class="list-group regul" id="selectreg">

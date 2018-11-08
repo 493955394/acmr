@@ -169,6 +169,7 @@ define(function (require,exports,module) {
         }
         //每触发一次先初始化
         $('ul.regul').html("");
+        $(".regs-title i").remove();
         var showreg ="";
         select_li = "error";
         for(var i=0;i<select.length;i++){
@@ -185,6 +186,7 @@ define(function (require,exports,module) {
      */
     $(document).on('click','#delsiggle',function (event) {
         event.preventDefault();
+        $(".regs-title i").remove();
         if(select_li !="error"){
             var code = $('ul.regul').find("li").eq(select_li).attr("id");
             for(var i=0;i<select.length;i++){
@@ -193,6 +195,19 @@ define(function (require,exports,module) {
                 }
             }
             $('ul.regul').find("li").eq(select_li).remove();
+            //地区列表中的数字也要对应变，如果有的话
+            var regflag=0;
+            var total=0 ;
+            $(".regul li i").each(function(){
+                var arr = $(this).attr("data-check");
+                if(arr==0){
+                    regflag++;
+                }
+                total++;
+            });
+            if(total>0){
+                $(".regs-title").append("<i style='float: right;color: red'>"+regflag+"/"+total+"</i>")
+            }
             select_li = "error";
         }
     });
@@ -224,6 +239,7 @@ define(function (require,exports,module) {
                     }
                     //每触发一次先初始化
                     $('ul.regul').html("");
+                    $(".regs-title i").remove();
                     select_li = "error";
                     var showreg ="";
                     for(var i=0;i<select.length;i++){
@@ -243,6 +259,7 @@ define(function (require,exports,module) {
      */
     $(document).on("click","#delall",function (event) {
         event.preventDefault();
+        $(".regs-title i").remove();
         $('ul.regul').html("");
         select_li = "error";
         select = [];
@@ -449,20 +466,22 @@ define(function (require,exports,module) {
             select_li = "error";
             var showreg ="";
             checkdata = $('input[id=checkreturn]').val();
+            var checknum =(checkdata.match(/0/g)||[]).length;
             checkreturn = checkdata.split(",");
             for(var i=0;i<select.length;i++){
                 if(select[i].name=="" && select[i].code==""){
                     showreg +="";
                 }else {
                     if(checkreturn[i]=="0"){
-                        showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="data-ok clickli" data-id="'+select[i].code+'"></i></span></li>';
+                        showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="data-ok clickli" data-id="'+select[i].code+'" data-check="0"></i></span></li>';
                     }
                     else {
-                        showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="data-remove clickli" data-id="'+select[i].code+'"></i></span></li>';
+                        showreg += '<li class="list-group-item selectedli"  id="'+select[i].code+'">'+select[i].name+'<span  class="badge"><i class="data-remove clickli" data-id="'+select[i].code+'" data-check="1"></i></span></li>';
                     }
                 }
             }
             $("#selectreg").append(showreg);
+            $(".regs-title").append("<i style='float: right;color: red'>"+checknum+"/"+checkreturn.length+"</i>")
         }
     });
 
