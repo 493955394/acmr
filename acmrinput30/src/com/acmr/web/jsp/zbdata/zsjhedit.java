@@ -34,6 +34,7 @@ import com.acmr.service.zhzs.IndexListService;
 import com.acmr.service.zhzs.MathService;
 import com.alibaba.fastjson.JSONObject;
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.apache.commons.lang.StringUtils;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -1594,4 +1595,390 @@ public class zsjhedit extends BaseAction {
 
     }
 
+    /**
+     * 以下是指标筛选的时间搜索功能的时间校验和补全
+     */
+    //===============================start
+    public void timeCheck() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        String time = req.getParameter("timeinput");//得到时间搜索框中的时间
+        String sort = req.getParameter("sort"); //看是年度的还是月度的还是季度的
+        JSONReturnData data = new JSONReturnData("");
+        List<String> timelist = new ArrayList<>();
+        IndexListService ls = new IndexListService();
+        String[] times = time.split(",");
+        for (int i = 0; i <times.length ; i++) {
+            if(times[i].equals("")){continue;}
+            else  if(checkLast(times[i])){//如果存在last这个字母
+                try{
+                    int num = Integer.parseInt(times[i].substring(times[i].indexOf("t")+1));
+                    List<String> temp = getLastTimes(sort,num);
+                    for(String arr : temp){
+                        if(!timelist.contains(arr)){//没有才加上
+                            timelist.add(arr);
+                        }
+                    }
+                    //处理last这种格式的
+                }catch (NumberFormatException e){
+                    data.setReturncode(300);
+                    break;
+                }
+            }
+            else if(checkstart(times[i])){//要是存在横杠
+                String begintime = times[i].substring(0,times[i].indexOf("-"));
+                String endtime = times[i].substring(times[i].indexOf("-")+1);
+                List<String> tmp = getTime1(begintime,endtime,sort);
+                if(tmp.size()<=0){//起止时间没有或者格式不对
+                    data.setReturncode(300);
+                    break;
+                }
+                else{
+                    for(String arr : tmp){
+                        if(!timelist.contains(arr)){//没有才加上
+                            timelist.add(arr);
+                        }
+                    }
+                }
+            }
+            else {//是直接的那种格式比如2012
+                List<String> templist =new ArrayList<>();
+                String bt = getTimeFormat(times[i],sort);
+                String et = getEndTimeFormat(times[i],sort);
+                int num = 0;
+                if(sort.equals("y")) { //如果是年度
+                    num = Integer.parseInt(et)-Integer.parseInt(bt)+1;
+                }
+                if(sort.equals("q")) { //如果是季度
+                    num = (Integer.parseInt(et.substring(0,4))-Integer.parseInt(bt.substring(0,4)))*4+getQnum(et.substring(4,5),bt.substring(4,5));
+                }
+                if(sort.equals("m")) { //如果是月度
+                    int mothnum = Integer.parseInt(et.substring(4,6))-Integer.parseInt(bt.substring(4,6))+1;//月份差
+                    num = (Integer.parseInt(et.substring(0,4))-Integer.parseInt(bt.substring(0,4)))*12+mothnum;
+                }
+                if(num<1){
+                    data.setReturncode(300);
+                    break;
+                }
+                else {
+                    templist = getNomalTimes(sort,et,num);
+                }
+                if(templist.size()<=0){//起止时间没有或者格式不对
+                    data.setReturncode(300);
+                    break;
+                }
+                else{
+                for(String arr : templist){
+                    if(!timelist.contains(arr)){//没有才加上
+                        timelist.add(arr);
+                    }
+                } }
+            }
+
+        }
+        if(data.getReturncode()==300){
+            this.sendJson(data);
+            return;
+        }
+        //要是能算出来，代表可以排序
+        Collections.sort(timelist,Collections.reverseOrder());
+        String result = StringUtils.join(timelist.toArray(), ",");
+        data.setReturncode(200);
+        data.setReturndata(result);
+        this.sendJson(data);
+    }
+
+    /**
+     * 按期数补齐,没有结束时间
+     * @param sort
+     * @param num
+     * @return
+     */
+    public static List<String> getLastTimes(String sort,int num){
+        List<String> list = new ArrayList<>();
+        Calendar now = Calendar.getInstance();
+        if(sort.equals("y")) { //如果是年度
+            for (int i = 0; i <num ; i++) {
+                list.add(String.valueOf(now.get(Calendar.YEAR)-i));
+            }
+        }else  if(sort.equals("q")) { //如果是季度
+            List<String> tmp = new ArrayList<>();
+            for (int i = 0; i <num/4+2 ; i++) {//除去第一年，先补全再看num来截取个数
+                String yd = String.valueOf(now.get(Calendar.YEAR)-i);
+                for (int j = 68; j >=65 ; j--) {
+                    tmp.add(yd+(char)Integer.parseInt(String.valueOf(j)));
+                }
+            }
+            String nowtime = now.get(Calendar.YEAR)+getQ(now.get(Calendar.MONTH)+1);//获得的月份比当前少一，所以需要+1
+            list.addAll(tmp.subList(tmp.indexOf(nowtime),tmp.indexOf(nowtime)+num));//截取集合
+        }
+        if(sort.equals("m")) { //如果是月度
+            List<String> tmp = new ArrayList<>();
+            for (int i = 0; i <num/12+2 ; i++) {//除去第一年，先补全再看num来截取个数
+                String yd = String.valueOf(now.get(Calendar.YEAR)-i);
+                for (int j = 12; j >=1 ; j--) {
+                    if(j>=10){
+                        tmp.add(yd+j);
+                    }
+                    else {
+                        tmp.add(yd+"0"+j);
+                    }
+                }
+            }
+            String nowtime;
+            int nowmonth = now.get(Calendar.MONTH)+1;
+            if(nowmonth>=10){
+                nowtime = now.get(Calendar.YEAR)+String.valueOf(nowmonth);
+            }
+             else {
+                nowtime = now.get(Calendar.YEAR)+"0"+nowmonth;//低于10月份的需要特殊处理，补一个零
+            }
+            list.addAll(tmp.subList(tmp.indexOf(nowtime),tmp.indexOf(nowtime)+num));//截取集合
+        }
+            return list;
+    }
+
+    /**
+     * 有结束时间的补齐
+     * @param sort
+     * @param
+     * @return
+     */
+    public static List<String> getNomalTimes(String sort,String endtime,int num){
+        List<String> list = new ArrayList<>();
+        if(sort.equals("y")) { //如果是年度
+            for (int i = 0; i <num ; i++) {
+                list.add(String.valueOf(Integer.parseInt(endtime)-i));
+            }
+        }else  if(sort.equals("q")) { //如果是季度
+            List<String> tmp = new ArrayList<>();
+            for (int i = 0; i <num/4+2 ; i++) {//除去第一年，先补全再看num来截取个数
+                String yd = String.valueOf(Integer.parseInt(endtime.substring(0,4))-i);
+                for (int j = 68; j >=65 ; j--) {
+                    tmp.add(yd+(char)Integer.parseInt(String.valueOf(j)));
+                }
+            }
+            list.addAll(tmp.subList(tmp.indexOf(endtime),tmp.indexOf(endtime)+num));//截取集合
+        }
+        if(sort.equals("m")) { //如果是月度
+            List<String> tmp = new ArrayList<>();
+            for (int i = 0; i <num/12+2 ; i++) {//除去第一年，先补全再看num来截取个数
+                String yd = String.valueOf(Integer.parseInt(endtime.substring(0,4))-i);
+                for (int j = 12; j >=1 ; j--) {
+                    if(j>=10){
+                        tmp.add(yd+j);
+                    }
+                    else {
+                        tmp.add(yd+"0"+j);
+                    }
+                }
+            }
+            list.addAll(tmp.subList(tmp.indexOf(endtime),tmp.indexOf(endtime)+num));//截取集合
+        }
+        return list;
+    }
+    /**
+     * 处理从某一时间-某一时间的格式
+     * @param begintime
+     * @param endtime
+     * @param sort
+     * @param
+     * @return
+     */
+    public List<String> getTime1(String begintime, String endtime,String sort) {
+        List<String> list = new ArrayList<>();
+        Calendar now = Calendar.getInstance();
+        int num = 0;//换算成期数
+        if(endtime.equals("")) {//没有结束时间
+            String bt = getTimeFormat(begintime,sort);
+            if(sort.equals("y")) { //如果是年度
+                num = now.get(Calendar.YEAR)-Integer.parseInt(bt)+1;
+            }
+            if(sort.equals("q")) { //如果是季度
+                String month = getQ(now.get(Calendar.MONTH)+1);//当前的月份换算成A,B,C,D
+                num = (now.get(Calendar.YEAR)-Integer.parseInt(bt.substring(0,4)))*4+getQnum(month,bt.substring(4,5));
+            }
+            if(sort.equals("m")) { //如果是月度
+                int mothnum = now.get(Calendar.MONTH)+1-Integer.parseInt(bt.substring(4,6))+1;//月份差
+                num = (now.get(Calendar.YEAR)-Integer.parseInt(bt.substring(0,4)))*12+mothnum;
+            }
+            if(num<1){
+                return list;//要是期数小于1，返回空
+            }
+            else {
+                list = getLastTimes(sort,num);
+            }
+        }
+        else {//有结束时间
+            String bt = getTimeFormat(begintime,sort);
+            String et = getEndTimeFormat(endtime,sort);
+            String nowtime = getEndTimeFormat(now.get(Calendar.YEAR)+getQ(now.get(Calendar.MONTH)+1),sort);
+            if(nowtime.compareTo(et)<0){//要是结束时间大于当前时间，结束时间等于当前时间
+                et = nowtime;
+            }
+            if(et.compareTo(bt)<0){//要是开始时间大于结束时间，返回空
+                return list;
+            }else {
+                if(sort.equals("y")) { //如果是年度
+                    num = Integer.parseInt(et)-Integer.parseInt(bt)+1;
+                }
+                if(sort.equals("q")) { //如果是季度
+                    num = (Integer.parseInt(et.substring(0,4))-Integer.parseInt(bt.substring(0,4)))*4+getQnum(et.substring(4,5),bt.substring(4,5));
+                }
+                if(sort.equals("m")) { //如果是月度
+                    int mothnum = Integer.parseInt(et.substring(4,6))-Integer.parseInt(bt.substring(4,6))+1;//月份差
+                    num = (Integer.parseInt(et.substring(0,4))-Integer.parseInt(bt.substring(0,4)))*12+mothnum;
+                }
+                if(num<1){
+                    return list;//要是期数小于1，返回空
+                }
+                else {
+                    list = getNomalTimes(sort,et,num);
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 处理时间格式为对应的icode的时间格式
+     * @param timeinput
+     * @param sort
+     * @return
+     */
+    public String getTimeFormat(String timeinput,String sort){
+        String bt = "";
+        if (sort.equals("y")) {//如果是年
+            bt = timeinput.substring(0, 4);
+        }
+        else if (sort.equals("q")) {//如果是季度
+            if (timeinput.length() == 4) {//输入的是年度
+                bt = timeinput + "A";
+            } else if (timeinput.length() == 5) {//输入的是季度
+                bt = timeinput.toUpperCase();
+            }
+            else if (timeinput.length() == 6) {//输入的是月度
+                bt = timeinput.substring(0,4)+getQ(Integer.parseInt(timeinput.substring(4,6)));
+            }
+        }
+        else if(sort.equals("m")){//如果是月度
+            if (timeinput.length() == 4) {//输入的是年度
+                bt = timeinput + "01";
+            } else if (timeinput.length() == 5) {//输入的是季度
+                bt = timeinput.substring(0,4)+getM(timeinput.toUpperCase().substring(4,5));
+            }
+            else if (timeinput.length() == 6) {//输入的是月度
+                bt = timeinput;
+            }
+        }
+        return bt;
+    }
+    /**
+     * 处理结束时间格式为对应的时间格式
+     * @param timeinput
+     * @param sort
+     * @return
+     */
+    public String getEndTimeFormat(String timeinput,String sort){
+        String bt = "";
+        if (sort.equals("y")) {//如果是年
+            bt = timeinput.substring(0, 4);
+        }
+        else if (sort.equals("q")) {//如果是季度
+            if (timeinput.length() == 4) {//输入的是年度
+                bt = timeinput + "D";
+            } else if (timeinput.length() == 5) {//输入的是季度
+                bt = timeinput.toUpperCase();
+            }
+            else if (timeinput.length() == 6) {//输入的是月度
+                bt = timeinput.substring(0,4)+getQ(Integer.parseInt(timeinput.substring(4,6)));
+            }
+        }
+        else if(sort.equals("m")){//如果是月度
+            if (timeinput.length() == 4) {//输入的是年度
+                bt = timeinput + "12";
+            } else if (timeinput.length() == 5) {//输入的是季度
+                bt = timeinput.substring(0,4)+getEndM(timeinput.toUpperCase().substring(4,5));
+            }
+            else if (timeinput.length() == 6) {//输入的是月度
+                bt = timeinput;
+            }
+        }
+        return bt;
+    }
+    public static int getQnum(String nowQ,String inputQ){
+        int i = 0;
+        char a = nowQ.charAt(0);
+        char b = inputQ.charAt(0);
+        i = (int)a-(int)b+1;
+        return i;
+    }
+
+    /**
+     * @Description: 返回月份对应的ABCD
+     * @Param: [mon]
+     * @return: String
+     */
+    public static String getQ(int mon){
+        if (mon<4){
+            return String.valueOf('A');
+        }
+        else if (4<=mon&&mon<7){
+            return String.valueOf('B');
+        }
+        else if (7<=mon&&mon<10){
+            return String.valueOf('C');
+        }
+        else {
+            return String.valueOf('D');
+        }
+    }
+    /**
+     * @Description: 开始时间返回ABCD对应的月份
+     * @Param: [mon]
+     * @return: String
+     */
+    public static String getM(String q){
+        if (q.equals("A")){
+            return String.valueOf("01");
+        }
+        else if (q.equals("B")){
+            return String.valueOf("04");
+        }
+        else if (q.equals("C")){
+            return String.valueOf("07");
+        }
+        else {
+            return String.valueOf("10");
+        }
+    }
+
+    /**
+     * @Description: 结束时间返回ABCD对应的月份
+     * @Param: [mon]
+     * @return: String
+     */
+    public static String getEndM(String q){
+        if (q.equals("A")){
+            return String.valueOf("03");
+        }
+        else if (q.equals("B")){
+            return String.valueOf("06");
+        }
+        else if (q.equals("C")){
+            return String.valueOf("09");
+        }
+        else {
+            return String.valueOf("12");
+        }
+    }
+
+    public static boolean checkLast(String str) {
+
+        return   str.indexOf("last") >= 0;
+    }
+    public static boolean checkstart(String str) {
+
+        return   str.indexOf("-") >= 0;
+    }
+    //===============================end
 }
