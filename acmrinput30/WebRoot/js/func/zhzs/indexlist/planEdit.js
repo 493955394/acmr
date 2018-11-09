@@ -509,53 +509,58 @@ define(function (require,exports,module) {
         event.preventDefault();
         var code=$(this).attr('name')
         var state="1"
+        $(".start_ing").css("display","block")
+        setTimeout(function () {
+            $.ajax({
+                url: common.rootPath + 'zbdata/indexlist.htm?m=switchState',
+                data: {"code": code, "state":state},
+                type: 'post',
+                dataType: 'json',
+                success:function(data){
+                    $(".start_ing").css("display","none")
+                    if(data.returncode == 200){
+                        var url=window.location.href;
+                        alert("启用成功")
+                        $.pjax({
+                            url: url,
+                            container: '.J_zsjh_data_table',
+                            timeout:5000
+                        });
+                    }else{
+                        // console.log(data)
 
-        $.ajax({
-            url: common.rootPath + 'zbdata/indexlist.htm?m=switchState',
-            data: {"code": code, "state":state},
-            type: 'post',
-            dataType: 'json',
-            success:function(data){
-                if(data.returncode == 200){
-                    var url=window.location.href;
-                    alert("启用成功")
-                    $.pjax({
-                        url: url,
-                        container: '.J_zsjh_data_table',
-                        timeout:5000
-                    });
-                }else{
-                    // console.log(data)
-                    var info=""
-                    if (data.checkhasMod!=true){
-                        info=info+"计划没有模型节点，"
-                       // alert("计划没有模型节点，启动失败")
-                    }
-                    if (data.checkInfo!=true){
-                        info=info+"计划基本信息缺失，"
-                        //alert("计划基本信息缺失，启动失败")
-                    }
-                    if (data.checkZbReg!=true){
-                        info=info+"计划基本信息缺失，"
-                        //alert("计划缺少指标或地区，启动失败")
-                    }
-                    if (data.checkmod!=true){
-                        info=info+"计划模型节点设置及权重不符合规定，"
-                       // alert("计划模型节点设置及权重不符合规定，启动失败")
-                    }
-                    info=info+"启用失败！"
-                    alert(info)
+                        var info=""
+                        if (data.checkhasMod!=true){
+                            info=info+"计划没有模型节点，"
+                            // alert("计划没有模型节点，启动失败")
+                        }
+                        if (data.checkInfo!=true){
+                            info=info+"计划基本信息缺失，"
+                            //alert("计划基本信息缺失，启动失败")
+                        }
+                        if (data.checkZbReg!=true){
+                            info=info+"计划基本信息缺失，"
+                            //alert("计划缺少指标或地区，启动失败")
+                        }
+                        if (data.checkmod!=true){
+                            info=info+"计划模型节点设置及权重不符合规定，"
+                            // alert("计划模型节点设置及权重不符合规定，启动失败")
+                        }
+                        info=info+"启用失败！"
+                        alert(info)
 
-                    var url=window.location.href;
-                    $.pjax({
-                        url: url,
-                        container: '.J_zsjh_data_table',
-                        timeout:5000
-                    });
+                        var url=window.location.href;
+                        $.pjax({
+                            url: url,
+                            container: '.J_zsjh_data_table',
+                            timeout:5000
+                        });
 
+                    }
                 }
-            }
-        });
+            });
+        },50)
+
 
     });
     // 停用

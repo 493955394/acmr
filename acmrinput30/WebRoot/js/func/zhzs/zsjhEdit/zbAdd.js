@@ -78,6 +78,7 @@ define(function (require,exports,module) {
         console.log(children)
     }*/
       function getLast5(sort) {
+          $(".dtHead").text("最近五期")
           var now = new Date();
           var list = [];
           if(sort=="y") { //如果是年度
@@ -174,7 +175,7 @@ define(function (require,exports,module) {
     }
 
     function zbclick(zb,isadd) {
-
+        sjselect=getLast5(sort)
         if(isadd==true){
             pagenum=1
 
@@ -295,81 +296,92 @@ define(function (require,exports,module) {
     //设置表格动态变化
     function setTable(){
         var headHeight=$(".table_head").height()
-        $(".table_body").css("margin-top",headHeight)
+        //$(".table_body").css("margin-top",headHeight)
         var bodyWidth=$(".table_body").width()
         $(".table_head").width(bodyWidth)
+        $(".table_head_cont").width($("#zb_data_table").width())
+        $(".table_head_cont").height(headHeight);
         $(".ict-th").each(function (ind) {
             var thisId=$(this).attr("id")
             var tarCla=thisId.split("_")[1]
             var thisWidth=$("."+tarCla).width()
-            console.log(thisWidth)
+            //console.log(thisWidth)
             $(this).width(thisWidth)
         })
     }
+
     $(".J_zsjh_zbdata_table").on('pjax:success', function() {
         //加载表格后设置表格
         setTable()
+        //重新绑定scroll事件,下拉加载数据+表头随x变
+        $(".table_body_cont",document).on('scroll',function () {
+            //表头scroll
+            var left = $(this).scrollLeft();
+            if(left > 0){
+                $('.table_head_cont table').css({'left': -left});
+            }else{
+                $('.table_head_cont table').css({'left': 0});
+            }
+
+            //加载数据
+            var nScrollHight = 0; //滚动距离总长(注意不是滚动条的长度)
+            var nScrollTop = 0;   //滚动到的当前位置
+            var nDivHight = $(".table_body_cont").height();//overflow所在的div
+            nScrollHight = $(this)[0].scrollHeight;
+            nScrollTop = $(this)[0].scrollTop;
+            if(nScrollTop + nDivHight >= nScrollHight){
+                //到底部后进入此方法
+                if ($("#zb_query_ing").length==0&&$("#zb_query_over").length==0&&$("#zb_query_start").length==0){
+                    $("#zb_data_table").append("<p id='zb_query_ing' style='padding-left: 40%; color: orange;'>"+"查询中……"+"</p>")
+                }
+                setTimeout(function () {
+                    var zbcode=$(".panel_zbname").attr("code")
+                    //console.log(zbcode)
+                    var cocode=$('#co_select option:selected').attr("class")
+                    //console.log(cocode)
+                    var dscode=$('#ds_select option:selected').attr("class")
+                    //console.log(dscode)
+                    var unitcode=$('#unit_select option:selected').attr("class")
+                    //console.log(unitcode)
+                    $.ajax({
+                        url:common.rootPath+'zbdata/zsjhedit.htm?m=getDataWithPage&zbcode='+zbcode+'&cocode='+cocode+'&dscode='+dscode+'&unitcode='+unitcode+'&indexcode='+indexCode+"&pagesize="+pagesize+"&pagenum="+pagenum+"&sjselect="+sjselect+"&st="+st,
+                        type:'get',
+                        success:function (re) {
+                            $("#zb_query_ing").remove()
+                            pagenum++
+                            if (typeof re=="string"){
+                                if ($("#zb_query_over").length==0){
+                                    $("#zb_data_table").append("<p id='zb_query_over' style='padding-left: 40%;'>"+""+"</p>")
+                                }
+                            }
+                            else {
+                                //console.log(re)
+                                re.forEach(function (d) {
+                                    //console.log(d)
+                                    var row="<tr>";
+                                    d.forEach(function (r) {
+                                        row=row+"<td>"+r+"</td>"
+                                    })
+                                    row=row+"</tr>"
+                                    $("#zb_data_body").append(row)
+                                })
+
+                            }
+                            //重新设置表格
+                            setTable()
+                        }
+                    })
+                },500)
+
+            }
+        })
+
     });
     //窗口变化重新设置表格
     window.onresize = function(){
         setTable()
     }
 
-
-    //表格下拉加载数据
-    $("#zb_data_table").scroll(function () {
-        var nScrollHight = 0; //滚动距离总长(注意不是滚动条的长度)
-        var nScrollTop = 0;   //滚动到的当前位置
-        var nDivHight = $("#zb_data_table").height();//overflow所在的div
-        nScrollHight = $(this)[0].scrollHeight;
-        nScrollTop = $(this)[0].scrollTop;
-        if(nScrollTop + nDivHight >= nScrollHight){
-            //到底部后进入此方法
-            if ($("#zb_query_ing").length==0&&$("#zb_query_over").length==0&&$("#zb_query_start").length==0){
-                $("#zb_data_table").append("<p id='zb_query_ing' style='padding-left: 40%; color: orange;'>"+"查询中……"+"</p>")
-            }
-            setTimeout(function () {
-                var zbcode=$(".panel_zbname").attr("code")
-                //console.log(zbcode)
-                var cocode=$('#co_select option:selected').attr("class")
-                //console.log(cocode)
-                var dscode=$('#ds_select option:selected').attr("class")
-                //console.log(dscode)
-                var unitcode=$('#unit_select option:selected').attr("class")
-                //console.log(unitcode)
-                $.ajax({
-                    url:common.rootPath+'zbdata/zsjhedit.htm?m=getDataWithPage&zbcode='+zbcode+'&cocode='+cocode+'&dscode='+dscode+'&unitcode='+unitcode+'&indexcode='+indexCode+"&pagesize="+pagesize+"&pagenum="+pagenum+"&sjselect="+sjselect+"&st="+st,
-                    type:'get',
-                    success:function (re) {
-                        $("#zb_query_ing").remove()
-                        pagenum++
-                        if (typeof re=="string"){
-                            if ($("#zb_query_over").length==0){
-                                $("#zb_data_table").append("<p id='zb_query_over' style='padding-left: 40%;'>"+""+"</p>")
-                            }
-                        }
-                        else {
-                            //console.log(re)
-                            re.forEach(function (d) {
-                                //console.log(d)
-                                var row="<tr>";
-                                d.forEach(function (r) {
-                                    row=row+"<td>"+r+"</td>"
-                                })
-                                row=row+"</tr>"
-                                $("#zb_data_body").append(row)
-                            })
-
-                        }
-                        //重新设置表格
-                        setTable()
-                    }
-                })
-            },500)
-
-        }
-
-    })
 
 
 
