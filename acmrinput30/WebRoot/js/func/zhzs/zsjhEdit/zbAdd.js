@@ -287,6 +287,25 @@ define(function (require,exports,module) {
         })
     }
 
+    //设置表格动态变化
+    function setTable(){
+        var headHeight=$(".table_head").height()
+        $(".table_body").css("margin-top",headHeight)
+        var bodyWidth=$(".table_body").width()
+        $(".table_head").width(bodyWidth)
+        $(".ict-th").each(function (ind) {
+            var thisId=$(this).attr("id")
+            var tarCla=thisId.split("_")[1]
+            var thisWidth=$("."+tarCla).width()
+            console.log(thisWidth)
+            $(this).width(thisWidth)
+        })
+    }
+    $(".J_zsjh_zbdata_table").on('pjax:success', function() {
+        //加载表格后设置表格
+        setTable()
+    });
+
 
     //表格下拉加载数据
     $("#zb_data_table").scroll(function () {
@@ -333,6 +352,8 @@ define(function (require,exports,module) {
                             })
 
                         }
+                        //重新设置表格
+                        setTable()
                     }
                 })
             },500)
