@@ -26,4 +26,6 @@ public interface IIndexEditDao {
     public boolean checkModule(String code);
     public int toSaveAll(String indexcode, ArrayList<IndexZb> indexZb, IndexList indexList);
     public DataTable getZBData(String code);
+    public boolean saveCheckCname(String icode,String cname,String ifzs);
+    public boolean updCheckCname(String icode,String cname,String ifzs,String code);
 }

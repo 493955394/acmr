@@ -481,6 +481,7 @@ define(function (require,exports,module) {
                 }
             }
             $("#selectreg").append(showreg);
+            $(".regs-title i").remove();//先把之前的移除
             $(".regs-title").append("<i style='float: right;color: red'>"+checknum+"/"+checkreturn.length+"</i>")
         }
     });

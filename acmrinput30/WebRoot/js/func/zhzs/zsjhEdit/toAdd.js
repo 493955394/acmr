@@ -63,6 +63,9 @@ define(function (require,exports,module) {
                 }else if(data.returncode == 501){
                     alert("该编码已经存在");
                 }
+                else if(data.returncode == 301){
+                    alert("该名称已经存在");
+                }
                 else if(data.returncode == 300){
                     alert("表达式有误");
                 }

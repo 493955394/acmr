@@ -280,4 +280,37 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
         String sql = "select * from tb_coindex_zb where code = ? ";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code});
     }
+
+    @Override
+    public boolean saveCheckCname(String icode, String cname, String ifzs) {
+        String sql = "select count(*) from tb_coindex_module where indexcode =? and cname=? and ifzs=?";
+        List<Object> params = new ArrayList<Object>();
+        params.add(icode);
+        params.add(cname);
+        params.add(ifzs);
+        DataTable dt = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
+        List<DataTableRow> rows = dt.getRows();
+        int getint = rows.get(0).getint(0);
+        if (getint > 0) {
+            return true;//说明有这个名字
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updCheckCname(String icode, String cname, String ifzs, String code) {
+        String sql = "select count(*) from tb_coindex_module where indexcode =? and cname=? and ifzs=? and code!=?";
+        List<Object> params = new ArrayList<Object>();
+        params.add(icode);
+        params.add(cname);
+        params.add(ifzs);
+        params.add(code);
+        DataTable dt = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, params.toArray());
+        List<DataTableRow> rows = dt.getRows();
+        int getint = rows.get(0).getint(0);
+        if (getint > 0) {
+            return true;//说明有这个名字
+        }
+        return false;
+    }
 }

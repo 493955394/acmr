@@ -355,4 +355,18 @@ public class IndexEditService {
         return sjs;
     }
 
+    /**
+     * 重名检查
+     * @param icode
+     * @param cname
+     * @param ifzs
+     * @return
+     */
+    public boolean checkCname(String icode,String cname,String ifzs){
+        return IndexEditDao.Fator.getInstance().getIndexdatadao().saveCheckCname(icode,cname,ifzs);
+    }
+    public boolean checkCname(String icode,String cname,String ifzs,String code){
+        return IndexEditDao.Fator.getInstance().getIndexdatadao().updCheckCname(icode,cname,ifzs,code);
+    }
+
 }

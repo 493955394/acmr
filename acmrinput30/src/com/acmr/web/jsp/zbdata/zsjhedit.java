@@ -1064,6 +1064,7 @@ public class zsjhedit extends BaseAction {
             this.sendJson(data); //要是code已经存在
             return;
         }
+
         if(ifzs.equals("2")){//如果是总指数，默认权重是1
             indexMoudle.setWeight("1");
         }
@@ -1075,6 +1076,11 @@ public class zsjhedit extends BaseAction {
                 ifzb ="";
                 formula="";
             }
+        if(indexEditService.checkCname(indexCode,name,ifzs)){
+            data.setReturncode(301);
+            this.sendJson(data); //要是cname已经存在
+            return;
+        }
             indexMoudle.setCode(code);
             indexMoudle.setCname(name);
             indexMoudle.setProcode(procodeId);
@@ -1320,6 +1326,11 @@ public class zsjhedit extends BaseAction {
             ifzs = "1";//总指数或者次级指数
             ifzb ="";
             formula="";
+        }
+        if(indexEditService.checkCname(indexCode,name,ifzs,code)){//名称不重复校验
+            data.setReturncode(301);
+            this.sendJson(data); //要是cname已经存在
+            return;
         }
         String oldpcode = indexEditService.getData(code).getProcode();
         if(!oldpcode.equals(procodeId)){//要是和原来的所属目录不一样
