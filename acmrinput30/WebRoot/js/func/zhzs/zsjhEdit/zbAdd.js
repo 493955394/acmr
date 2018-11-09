@@ -305,6 +305,10 @@ define(function (require,exports,module) {
         //加载表格后设置表格
         setTable()
     });
+    //窗口变化重新设置表格
+    window.onresize = function(){
+        setTable()
+    }
 
 
     //表格下拉加载数据
@@ -361,6 +365,7 @@ define(function (require,exports,module) {
         }
 
     })
+
 
 
 
