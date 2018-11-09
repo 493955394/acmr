@@ -297,7 +297,7 @@
                                         <button class="btn right-select" type="button" style="margin-left: 3px;background-color: #F39801;height: 29px"><span style="font-size: 10px;color: white">搜索</span></button>
                                     </div>
                                     <div id="selectList" class="list-group" style="position: absolute;z-index: 999;width: 80%"></div>
-                                    <ul id="treeRight" class="ztree">
+                                    <ul id="treeRight" class="ztree"/>
                                 </div>
                             </div>
                             <div class="col-sm-2" style="text-align: center">
@@ -335,6 +335,11 @@
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="start_ing" style="display:none;position: fixed; width: 100%;height: 100%;z-index: 2;background-color: gray;filter:alpha(opacity=60);;opacity: 0.4;">
+        <div style="background-color: white;position: fixed;top: 50%;left: 50%;border-radius: 10%">
+            <p style="color: orangered;font-size: 30px;padding: 10% 0;">启用中……</p>
         </div>
     </div>
 </div>
