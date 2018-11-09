@@ -13,8 +13,8 @@
     </tr>
     </thead>
 </table>
+
 <table class="table table-bordered table-hover table_body" style="width: 100%">
-    <p>${nodata}</p>
     <tbody id="zb_data_body">
     <c:forEach items="${rows}" var="row">
         <tr>
@@ -24,5 +24,8 @@
         </tr>
     </c:forEach>
     </tbody>
+
 </table>
+<p class="table_nodata" style="color: orangered">${nodata}</p>
+
 
