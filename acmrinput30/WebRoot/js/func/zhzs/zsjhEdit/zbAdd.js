@@ -78,6 +78,7 @@ define(function (require,exports,module) {
         console.log(children)
     }*/
       function getLast5(sort) {
+          $(".dtHead").text("最近五期")
           var now = new Date();
           var list = [];
           if(sort=="y") { //如果是年度
