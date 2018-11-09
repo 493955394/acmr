@@ -181,6 +181,7 @@ define(function (require,exports,module) {
             $("#zb_query_ing").remove()
             $("#zb_query_over").remove()
             $(".table_nodata").remove()
+            $("#zb_data_head").empty()
             $("#zb_data_body").empty().append("<p id='zb_query_start' style='padding-left: 40%;color:orange;'>查询中……</p>");
             $(".zb_add").css("display","inline")
             //console.log(zb)
@@ -225,6 +226,8 @@ define(function (require,exports,module) {
             $("#zb_query_ing").remove()
             $("#zb_query_over").remove()
             $(".table_nodata").remove()
+            $("#zb_data_head").empty()
+
             $("#zb_data_body").empty().append("<p id='zb_query_start' style='padding-left: 40%; color: orange;'>查询中……</p>");
             //$(".zb_add").css("display","none")
             //console.log(zb)
