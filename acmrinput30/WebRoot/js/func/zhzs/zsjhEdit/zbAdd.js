@@ -174,7 +174,7 @@ define(function (require,exports,module) {
     }
 
     function zbclick(zb,isadd) {
-
+        sjselect=getLast5(sort)
         if(isadd==true){
             pagenum=1
 
