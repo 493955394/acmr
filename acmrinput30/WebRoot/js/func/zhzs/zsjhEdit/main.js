@@ -736,8 +736,8 @@ define(function (require,exports,module) {
                 if (data.returncode == 301) {
                     alert("该计划名称已经存在！");
                 }
-                else {
-                    alert("保存失败");
+                if (data.returncode == 501) {
+                    alert("保存失败！");
                 }
             }
         })

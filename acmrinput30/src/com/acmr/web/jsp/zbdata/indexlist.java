@@ -269,12 +269,19 @@ public class indexlist extends BaseAction {
         JSONReturnData data = new JSONReturnData("");
         int x = indexListService.checkCode(code);
         int y = indexListService.checkCname(0,createuser,cname);//目录的名称也不能重复
-        if (x == 0||y==0) {
+        if (x == 0) {
             data.setReturncode(300);
+            data.setReturndata("该编码已存在");
+            this.sendJson(data);
+            return;
+        }
+        else if(y == 0){
+            data.setReturncode(301);
             data.setReturndata("该名称已存在");
             this.sendJson(data);
             return;
-        } else {
+        }
+        else {
             data.setReturncode(200);
         }
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
@@ -319,12 +326,17 @@ public class indexlist extends BaseAction {
         JSONReturnData data = new JSONReturnData("");
         int x = indexListService.checkCode(code);
         int y = indexListService.checkCname(1,createuser,cname);
-        if (x == 0 || y==0) {
+        if (x == 0) {
             data.setReturncode(300);
+            data.setReturndata("该编码已存在");
+            this.sendJson(data);
+            return;
+        } else if(y == 0){
+            data.setReturncode(301);
             data.setReturndata("该名称已存在");
             this.sendJson(data);
             return;
-        } else {
+        }else {
             data.setReturncode(200);
         }
         String ifdata1 = PubInfo.getString(req.getParameter("ifdata"));
@@ -374,16 +386,24 @@ public class indexlist extends BaseAction {
         User cu=UserService.getCurrentUser();
         String usercode=cu.getUserid();
         String code = PubInfo.getString(req.getParameter("plcode"));
+        String cname = PubInfo.getString(req.getParameter("zname"));
         JSONReturnData data = new JSONReturnData("");
         int x = indexListService.checkCode(code);
+        int y = indexListService.checkCname(1,usercode,cname);//0是目录，1是计划
         if (x == 0) {
             data.setReturncode(300);
+            data.setReturndata("该编码已存在");
             this.sendJson(data);
             return;
-        } else {
+        } else if(y == 0){
+            data.setReturncode(301);
+            data.setReturndata("该名称已存在");
+            this.sendJson(data);
+            return;
+        }
+         else {
             data.setReturncode(200);
         }
-        String cname = PubInfo.getString(req.getParameter("zname"));
         String nprocode = PubInfo.getString(req.getParameter("newprocode"));
         //String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         DataTableRow row= IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(cpcode).getRows().get(0);
@@ -545,7 +565,7 @@ public class indexlist extends BaseAction {
         String code = PubInfo.getString(req.getParameter("editcode"));
         String name = PubInfo.getString(req.getParameter("editcname"));
         String createuser = indexListService.getData(code).getCreateuser();
-        int y = indexListService.checkCname(0,createuser,name);//目录的名称也不能重复
+        int y = indexListService.checkCname(0,createuser,name,code);//目录的名称也不能重复
         if (y==0) {
             data.setReturncode(300);
             data.setReturndata("该名称已存在");
@@ -1153,16 +1173,24 @@ public class indexlist extends BaseAction {
         //String ifdata1 = PubInfo.getString(req.getParameter("cifdata"));
         //int ifdata = Integer.parseInt(ifdata1);
         String code = PubInfo.getString(req.getParameter("putcode"));
+        String cname = PubInfo.getString(req.getParameter("putname"));
         JSONReturnData data = new JSONReturnData("");
         int x = indexListService.checkCode(code);
+        int y = indexListService.checkCname(1,usercode,cname);//0是目录，1是计划
         if (x == 0) {
             data.setReturncode(300);
+            data.setReturndata("该编码已存在");
             this.sendJson(data);
             return;
-        } else {
+        } else if(y == 0){
+            data.setReturncode(301);
+            data.setReturndata("该名称已存在");
+            this.sendJson(data);
+            return;
+        }
+        else {
             data.setReturncode(200);
         }
-        String cname = PubInfo.getString(req.getParameter("putname"));
         String nprocode = PubInfo.getString(req.getParameter("shareprocode"));
         //String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         DataTableRow row= IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(cpcode).getRows().get(0);

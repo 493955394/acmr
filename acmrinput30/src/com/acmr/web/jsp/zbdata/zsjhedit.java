@@ -1429,7 +1429,7 @@ public class zsjhedit extends BaseAction {
         JSONReturnData data = new JSONReturnData("");
         //先对名字做校验，要是已经存在就返回301
         String usercode = new IndexListService().getData(index_code).getCreateuser();
-        int x = new IndexListService().checkCname(1,usercode,index_cname);
+        int x = new IndexListService().checkCname(1,usercode,index_cname,index_code);
         if (x == 0 ) {
             data.setReturncode(301);
             this.sendJson(data);

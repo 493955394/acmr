@@ -350,7 +350,10 @@ public class IndexListService {
      * @return
      */
     public int checkCname(int ifdata,String usercode,String cname){
-        return IndexListDao.Fator.getInstance().getIndexdatadao().checkCname(ifdata,usercode,cname);
+        return IndexListDao.Fator.getInstance().getIndexdatadao().saveCheckCname(ifdata,usercode,cname);
+    }
+    public int checkCname(int ifdata,String usercode,String cname,String icode){
+        return IndexListDao.Fator.getInstance().getIndexdatadao().updCheckCname(ifdata,usercode,cname,icode);
     }
     public int checkProcode(String procode){
         return IndexListDao.Fator.getInstance().getIndexdatadao().checkProcode(procode);

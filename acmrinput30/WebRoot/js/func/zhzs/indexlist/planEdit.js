@@ -64,8 +64,8 @@ define(function (require,exports,module) {
                     alert("保存成功！");
                     window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+zs_code;
                    // window.location.reload(true);
-                }else if (data.returncode == 300) {
-                    alert("该编码已存在");
+                }else if (data.returncode == 300||data.returncode == 301) {
+                    alert(data.returndata);
                     $("#mymodal-data").modal('show');
                 } else {
                     alert("添加失败");
@@ -140,8 +140,8 @@ define(function (require,exports,module) {
                     alert("保存成功！");
                     window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+zs_code;
                     //window.location.reload(true);
-                } else if (data.returncode == 300) {
-                    alert("该名称已存在");
+                } else if (data.returncode == 300||data.returncode == 301) {
+                    alert(data.returndata);
                     $("#mymodal-data1").modal('show');
                 }
                 else {
@@ -239,7 +239,7 @@ define(function (require,exports,module) {
                 if (data.returncode == 200) {
                     alert('保存成功！');
                     window.location.reload(true);
-                } else if (data.returncode == 300) {
+                } else if (data.returncode == 300||data.returncode == 301) {
                     alert(data.returndata);
                     $("#mymodal-data3").modal('show');
                 } else {
@@ -377,8 +377,8 @@ define(function (require,exports,module) {
                 if (data.returncode == 200) {
                     alert("保存成功！");
                     window.location.reload(true);
-                } else if (data.returncode == 300) {
-                    alert("该编码已存在");
+                } else if (data.returncode == 300||data.returncode == 301) {
+                    alert(data.returndata);
                     $("#mymodal-data2").modal('show');
                 } else if (data.returncode == 400) {
                     alert("计划基本信息缺失，复制失败");
@@ -455,8 +455,8 @@ define(function (require,exports,module) {
                 if (data.returncode == 200) {
                     alert("保存成功！");
                     window.location.reload(true);
-                } else if (data.returncode == 300) {
-                    alert("该编码已存在");
+                } else if (data.returncode == 300||data.returncode == 301) {
+                    alert(data.returndata);
                     $("#mymodal-data4").modal('show');
                 } else if (data.returncode == 400) {
                     alert("计划基本信息缺失，复制失败");
