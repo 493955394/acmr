@@ -178,7 +178,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <span style="font-size: 14px">主体：</span>
-                                            <select id="co_select" class="input-sm zb_select">
+                                            <select id="co_select" class="input-sm zb_select" style="max-width: 100px;overflow: scroll">
                                                 <option>请选择</option>
 
                                                 <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
