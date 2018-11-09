@@ -120,7 +120,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             dataQuery.beginTranse();
             java.util.Date now = new java.util.Date();
             //复制基本信息表
-            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
+            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime,remark) values(?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
             String icode = data1.getCode();
             String icname = data1.getCname();
             String iprocode = data1.getProcode();
@@ -135,13 +135,14 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             String createtime = data1.getCreatetime().substring(0,data1.getCreatetime().length()-2);
             String createuser = data1.getCreateuser();
             String updatetime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            String remark = data1.getRemark();
 
             /*params.add(new Timestamp(new Date().getTime()));
             params.add(taskcode);
             dataQuery.executeSql(sqltask, params.toArray());*/
 
             //Object up = new Timestamp(new Date().getTime());
-            dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplanperiod,iplantime,createuser,createtime,updatetime});
+            dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplanperiod,iplantime,createuser,createtime,updatetime,remark});
 
             //复制筛选条件
             String sql4 = "select * from tb_coindex_zb where indexcode=?";
@@ -383,7 +384,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             dataQuery.beginTranse();
             java.util.Date now = new java.util.Date();
             //复制基本信息表
-            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
+            String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime,remark) values(?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
             String icode = copydata.getCode();
             String icname = copydata.getCname();
             String iprocode = copydata.getProcode();
@@ -399,8 +400,9 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             //java.sql.Timestamp updatetime = new java.sql.Timestamp(now.getTime());
             //Object up = new Timestamp(new Date().getTime());
             String updatetime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            String remark = copydata.getRemark();
 
-            dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplanperiod,iplantime,createuser,createtime,updatetime});
+            dataQuery.executeSql(sql1,new Object[]{icode,icname,iprocode,iifdata,istate,isort,istartpeiod,idelayday,iplanperiod,iplantime,createuser,createtime,updatetime,remark});
 
             //复制模型
             String sql2 = "select * from tb_coindex_module where indexcode=?";

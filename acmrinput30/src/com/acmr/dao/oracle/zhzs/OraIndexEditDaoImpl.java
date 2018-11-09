@@ -255,6 +255,8 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
                 upd.add(indexList.getPlantime());
                 sql1+=",planperiod=?";
                 upd.add(indexList.getPlanperiod());
+                sql1+=",remark=?";
+                upd.add(indexList.getRemark());
             if (sql1.equals("")) {
                 return 0;
             }

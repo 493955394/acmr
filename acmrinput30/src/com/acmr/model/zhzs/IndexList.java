@@ -33,6 +33,7 @@ public class IndexList {
     /** 创建时间 */
     private String updatetime;
     /** 更新时间 */
+    private String remark;
 
     public IndexList(){
 
@@ -153,6 +154,13 @@ public class IndexList {
 
     public void setUpdatetime(String updatetime) {
         this.updatetime = updatetime;
+    }
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }
 

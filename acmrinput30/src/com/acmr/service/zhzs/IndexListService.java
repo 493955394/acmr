@@ -211,6 +211,7 @@ public class IndexListService {
         index.setPlanperiod(data.get(0).getString("planperiod"));
         index.setProcode(data.get(0).getString("procode"));
         index.setSort(data.get(0).getString("sort"));
+        index.setRemark(data.get(0).getString("remark"));
         index.setStartperiod(data.get(0).getString("startperiod"));}
         return index;
     }

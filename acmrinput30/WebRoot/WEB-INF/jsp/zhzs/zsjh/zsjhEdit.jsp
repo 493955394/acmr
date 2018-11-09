@@ -144,6 +144,18 @@
                             <label class="control-label">自然日</label>
                             <span class="normalday"></span>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注：</label>
+                            <div class="col-sm-5">
+                                <c:if test="${right!='1'}">
+                                    <textarea class="form-control " name="remark">${list.getRemark()}</textarea>
+                                </c:if>
+                                <c:if test="${right=='1'}">
+                                    <textarea class="form-control" name="remark" readonly>${list.getRemark()}</textarea>
+                                </c:if>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
                         <input type="reset" style="display:none;"/>
                     </form>
                 </div>
