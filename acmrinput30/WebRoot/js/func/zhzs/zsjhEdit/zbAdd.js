@@ -180,7 +180,7 @@ define(function (require,exports,module) {
 
             $("#zb_query_ing").remove()
             $("#zb_query_over").remove()
-            $("#zb_data_body").empty().append("<p id='zb_query_start'>查询中……</p>");
+            $("#zb_data_body").empty().append("<p id='zb_query_start' style='padding-left: 40%;'>查询中……</p>");
             $(".zb_add").css("display","inline")
             //console.log(zb)
             var data={
@@ -223,7 +223,7 @@ define(function (require,exports,module) {
             pagenum=1
             $("#zb_query_ing").remove()
             $("#zb_query_over").remove()
-            $("#zb_data_body").empty().append("<p id='zb_query_start'>查询中……</p>");
+            $("#zb_data_body").empty().append("<p id='zb_query_start' style='padding-left: 40%;'>查询中……</p>");
             //$(".zb_add").css("display","none")
             //console.log(zb)
             var data={
@@ -321,7 +321,7 @@ define(function (require,exports,module) {
         if(nScrollTop + nDivHight >= nScrollHight){
             //到底部后进入此方法
             if ($("#zb_query_ing").length==0&&$("#zb_query_over").length==0&&$("#zb_query_start").length==0){
-                $("#zb_data_table").append("<p id='zb_query_ing'>"+"查询中……"+"</p>")
+                $("#zb_data_table").append("<p id='zb_query_ing' style='padding-left: 40%;'>"+"查询中……"+"</p>")
             }
             setTimeout(function () {
                 var zbcode=$(".panel_zbname").attr("code")
@@ -340,7 +340,7 @@ define(function (require,exports,module) {
                         pagenum++
                         if (typeof re=="string"){
                             if ($("#zb_query_over").length==0){
-                                $("#zb_data_table").append("<p id='zb_query_over'>"+""+"</p>")
+                                $("#zb_data_table").append("<p id='zb_query_over' style='padding-left: 40%;'>"+""+"</p>")
                             }
                         }
                         else {
