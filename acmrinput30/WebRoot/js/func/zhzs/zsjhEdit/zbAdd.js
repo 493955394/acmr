@@ -383,6 +383,7 @@ define(function (require,exports,module) {
     };
 
 
+    //扩写div.resize
     (function($, h, c) {
         var a = $([]),
             e = $.resize = $.extend($.resize, {}),
