@@ -378,9 +378,9 @@ define(function (require,exports,module) {
 
     });
     //窗口变化重新设置表格
-    window.onresize = function(){
+    /*window.onresize = function(){
         setTable()
-    };
+    };*/
 
 
     //扩写div.resize
