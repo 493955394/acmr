@@ -1,9 +1,6 @@
 package com.acmr.web.jsp.zbdata;
 
-import acmr.cubequery.service.cubequery.entity.CubeNode;
-import acmr.cubequery.service.cubequery.entity.CubeQueryData;
-import acmr.cubequery.service.cubequery.entity.CubeUnit;
-import acmr.cubequery.service.cubequery.entity.CubeWdCodes;
+import acmr.cubequery.service.cubequery.entity.*;
 
 import acmr.excel.ExcelException;
 import acmr.excel.pojo.Constants.XLSTYPE;
@@ -1616,20 +1613,46 @@ public class zsjhedit extends BaseAction {
         HttpServletRequest req = this.getRequest();
         String time = req.getParameter("timeinput");//得到时间搜索框中的时间
         String sort = req.getParameter("sort"); //看是年度的还是月度的还是季度的
+        String icode = req.getParameter("icode"); //看是年度的还是月度的还是季度的
+        String zbcode =  req.getParameter("zbcode"); //用于查最新一期数据的时间
+        String cocode =  req.getParameter("cocode"); //用于查最新一期数据的时间
+        String dscode =  req.getParameter("dscode"); //用于查最新一期数据的时间
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         JSONReturnData data = new JSONReturnData("");
         List<String> timelist = new ArrayList<>();
         IndexListService ls = new IndexListService();
+
         String[] times = time.split(",");
         for (int i = 0; i <times.length ; i++) {
             if(times[i].equals("")){continue;}
             else  if(checkLast(times[i])){//如果存在last这个字母
                 try{
                     int num = Integer.parseInt(times[i].substring(times[i].indexOf("t")+1));
-                    List<String> temp = getLastTimes(sort,num);
-                    for(String arr : temp){
-                        if(!timelist.contains(arr)){//没有才加上
-                            timelist.add(arr);
+                    //找到最新一期的时间
+                    OriginService os = new OriginService();
+                    List<CubeWdValue> list1 = new ArrayList<CubeWdValue>();
+                    if(!StringUtil.isEmpty(zbcode)){//要是有传指标
+                        list1.add(new CubeWdValue("zb",
+                                zbcode));
+                        if(!StringUtil.isEmpty(cocode)){
+                            list1.add(new CubeWdValue("co",
+                                    cocode));
                         }
+                        if(!StringUtil.isEmpty(cocode)){
+                            list1.add(new CubeWdValue("ds",
+                                    dscode));
+                        }
+                        List<String> ets = os.gethasdatawdlist(list1,"sj",dbcode);
+                        if(ets.size()>0){
+                            String et = ets.get(0);
+                            List<String> temp = getNomalTimes(sort,et,num);
+                            for(String arr : temp){
+                                if(!timelist.contains(arr)){//没有才加上
+                                    timelist.add(arr);
+                                }
+                            }
+                        }
+
                     }
                     //处理last这种格式的
                 }catch (NumberFormatException e){

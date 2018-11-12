@@ -219,7 +219,7 @@
                                 <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/addZB.jsp" flush="true"/>--%>
                             </div>
                             <input  type="hidden" id="zbtimeinput"/>
-                            <input type="hidden" id="timecode" value="">
+                            <input type="hidden" id="timecode" value="last5">
                             <div id="mySelectTime"></div>
 
                             <div class="data_table J_zsjh_zbdata_table" style="height: 72%;width: 100%;"  id="zb_data_table">
