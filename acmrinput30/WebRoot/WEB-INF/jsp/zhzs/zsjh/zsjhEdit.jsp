@@ -180,7 +180,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel_zbname panel-heading" code="">请选择指标</div>
                                     <div class="ds_choose panel-heading" style="height: 60px">
-                                        <div class="col-md-5">
+                                        <div class="col-md-5 col-sm-5">
                                             <span style="font-size: 14px;">数据来源：</span>
                                             <select id="ds_select" class="input-sm zb_select" style="max-width: 150px;overflow: scroll;width: 100%">
                                                 <option>请选择</option>
@@ -188,7 +188,7 @@
                                                                                 <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
                                             </select>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 col-sm-4">
                                             <span style="font-size: 14px">主体：</span>
                                             <select id="co_select" class="input-sm zb_select" style="max-width: 150px;overflow: scroll;width: 100%">
                                                 <option>请选择</option>
@@ -197,7 +197,7 @@
                                                                                     <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
                                             </select>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 col-sm-3">
                                             <span style="font-size: 14px">单位：</span>
                                             <select id="unit_select" class="input-sm zb_select" style="max-width: 150px;overflow: scroll;width: 100%">
                                                 <option>请选择</option>
