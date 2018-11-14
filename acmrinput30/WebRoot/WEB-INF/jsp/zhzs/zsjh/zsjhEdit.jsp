@@ -18,9 +18,9 @@
 %>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="${ctx}/css/pastreview.css" />
     <title>${projectTitle}-编辑指数计划</title>
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/css/pastreview.css" />
     <style type="text/css">
         span.glyphicon{
             color: red;
@@ -35,7 +35,9 @@
         #module_tree_container{
             height: 100%;
         }
-
+        #btn-fullscreen{
+            cursor: pointer;
+        }
         .fullscreen{
             position: fixed !important;
 
@@ -203,7 +205,7 @@
                         <div class="col-md-9">
                             <div>
                                 <div class="panel panel-default">
-                                    <span id="btn-fullscreen">全屏</span>
+                                    <span id="btn-fullscreen" style="float: right;padding:10px">全屏</span>
                                     <div class="panel_zbname panel-heading" code="">请选择指标</div>
                                     <div class="ds_choose panel-heading" style="height: 60px">
                                         <div class="col-md-5 col-sm-5">
@@ -232,9 +234,11 @@
                                         </div>
 
                                     </div>
-
+                                    <input  type="hidden" id="zbtimeinput"/>
+                                    <input type="hidden" id="timecode" value="last5">
+                                    <div id="mySelectTime" style="margin-top: 10px;margin-bottom: 10px;float: left"></div>
                                     <button type="button" class="btn btn-default btn-sm zb_add"
-                                            style="display: none;float: right;margin-top: 10px;margin-bottom: 0"><i
+                                            style="display: none;float: right;margin-top: 10px;margin-bottom: 10px"><i
                                             class="glyphicon glyphicon-plus"></i><span
                                             class="word">&nbsp;添加指标</span></button>
                                     <%--    <button type="button" class="btn btn-default" style="display: none;float: right"><i class="glyphicon glyphicon-plus"></i><span class="word">&nbsp;添加指标</span></button>--%>
@@ -243,9 +247,6 @@
 
                                 <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/addZB.jsp" flush="true"/>--%>
                             </div>
-                            <input  type="hidden" id="zbtimeinput"/>
-                            <input type="hidden" id="timecode" value="last5">
-                            <div id="mySelectTime"></div>
 
                             <div class="data_table J_zsjh_zbdata_table" style="height: 72%;width: 100%;"  id="zb_data_table">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/ZBdataList.jsp" flush="true"/>
