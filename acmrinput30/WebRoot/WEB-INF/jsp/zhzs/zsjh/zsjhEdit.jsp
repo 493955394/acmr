@@ -35,6 +35,31 @@
         #module_tree_container{
             height: 100%;
         }
+
+        .fullscreen{
+            position: fixed !important;
+
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            padding-bottom: 0;
+        }
+
+        .rightfull{
+            height: 100% !important;
+        }
+
+        .leftfull{
+            height: 100% !important;
+
+        }
+
+        .savedivfull{
+            display:none;
+
+        }
     </style>
 
     <script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
@@ -178,6 +203,7 @@
                         <div class="col-md-9">
                             <div>
                                 <div class="panel panel-default">
+                                    <span id="btn-fullscreen">全屏</span>
                                     <div class="panel_zbname panel-heading" code="">请选择指标</div>
                                     <div class="ds_choose panel-heading" style="height: 60px">
                                         <div class="col-md-5 col-sm-5">

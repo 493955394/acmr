@@ -45,6 +45,30 @@ define(function (require,exports,module) {
         $('#zssx #tree_and_find, #zssx .zssx-right,.panel_container').height(rch - 10);
     }
 
+    $('#btn-fullscreen').click(function(e){
+        var $tab_pane = $(this).closest('.tab-pane');
+        console.log($tab_pane);
+        $tab_pane.toggleClass('fullscreen');
+
+        var $zssx_right=$(this).closest('.zssx-right');
+        $zssx_right.toggleClass('rightfull');
+        var $right_panel=$('.right-panel');
+        $right_panel.toggleClass('rightfull');
+        var $panel_container=$('.panel_container');
+        $panel_container.toggleClass('rightfull');
+
+        var $left_panel=$('#tree_and_find');
+        $left_panel.toggleClass('leftfull');
+        var $dragline=$('.dragline');
+        $dragline.toggleClass('leftfull');
+
+
+
+        $("#savediv").toggleClass('savedivfull');
+
+        $(".ict-footer").toggleClass('savedivfull');
+    });
+
     var rch = $(window).height()-$("#tops").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 70;
     $("#module_tree_container").height(rch);
 

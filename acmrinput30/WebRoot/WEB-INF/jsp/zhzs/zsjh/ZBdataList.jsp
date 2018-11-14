@@ -15,8 +15,8 @@
     </table>
 
 </div>
-<div class="table_body_cont" style="overflow: auto;width: 100%;height: 85%;">
-    <table class="table table-bordered table-hover table_body" style="width: 100%">
+<div class="table_body_cont" style="overflow: auto;width: 100%;height: 75%;">
+    <table class="table table-bordered table-hover table_body" style="width: 100%;height: 100%;">
         <tbody id="zb_data_body">
         <c:forEach items="${rows}" var="row">
             <tr>
