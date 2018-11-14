@@ -35,30 +35,6 @@
         #module_tree_container{
             height: 100%;
         }
-        .fullscreen{
-            position: fixed !important;
-
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            padding-bottom: 0;
-        }
-
-        .rightfull{
-            height: 100% !important;
-        }
-
-        .leftfull{
-            height: 100% !important;
-
-        }
-
-        .savedivfull{
-            display:none;
-
-        }
     </style>
 
     <script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
@@ -87,7 +63,7 @@
                 </ul>
             </div>
             <!-- Tab panes -->
-            <div id="tab-content" class="col-xs-12 tab-content row" style="padding-top: 10px;padding-right: 0;overflow: auto;">
+            <div class="col-xs-12 tab-content row" style="padding-top: 10px;padding-right: 0;overflow: auto;">
                 <div role="tabpanel" class="tab-pane active" id="jbxx">
                     <form class="form-horizontal" id="indexForm" action="" method="post">
                         <div class="form-group">
@@ -183,37 +159,30 @@
                         <input type="reset" style="display:none;"/>
                     </form>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="zssx" style="overflow: hidden; height:100%">
-                    <div class="row">
-                        <div id="tree_and_find" class="col-sm-2  left-panel" style="overflow: auto;min-height: inherit">
-                            <form class="form-inline J_search_form">
+                <div role="tabpanel" class="tab-pane" id="zssx">
+                    <div id="tree_and_find" class="col-md-2  left-panel" style="overflow: auto;min-height: inherit">
+                        <form class="form-inline J_search_form">
 
-                                <div class="form-group" style="width: 60%;">
-                                    <input id="queryValue" type="text" class="form-control input-xm" placeholder="搜索内容" style="width: 100%;" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-primary btn-sm btn_search">搜索</button>
-                                </div>
-                            </form>
+                            <div class="form-group" style="width: 60%;">
+                                <input id="queryValue" type="text" class="form-control input-xm" placeholder="搜索内容" style="width: 100%;" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary btn-sm btn_search">搜索</button>
+                            </div>
+                        </form>
 
-                            <ul id="treeDemo1" class="ztree ztree-margin"></ul>
-                            <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/zbtree.jsp" flush="true"/>--%>
-                        </div>
-                        <div class="col-sm-8 zssx-center" style="overflow: auto;border: 1px solid #dddddd">
-
+                        <ul id="treeDemo1" class="ztree ztree-margin"></ul>
+                        <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/zbtree.jsp" flush="true"/>--%>
+                    </div>
+                    <div class="col-md-10 zssx-right" style="overflow: auto;border: 1px solid #dddddd">
+                        <div class="col-md-9">
                             <div>
                                 <div class="panel panel-default">
-                                    <span id="btn-fullscreen">全屏</span>
-                                    <div class="panel_zbname panel-heading" code="">请选择指标 </div>
+                                    <div class="panel_zbname panel-heading" code="">请选择指标</div>
                                     <div class="ds_choose panel-heading" style="height: 60px">
-<<<<<<< HEAD
-
-                                        <div class="col-md-5">
-=======
                                         <div class="col-md-5 col-sm-5">
->>>>>>> 089757fa69d0840a24f2e809ce904799690ae4ce
                                             <span style="font-size: 14px;">数据来源：</span>
-                                            <select id="ds_select" class="input-sm zb_select">
+                                            <select id="ds_select" class="input-sm zb_select" style="max-width: 150px;overflow: scroll;width: 100%">
                                                 <option>请选择</option>
                                                 <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
                                                                                 <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
@@ -221,7 +190,7 @@
                                         </div>
                                         <div class="col-md-4 col-sm-4">
                                             <span style="font-size: 14px">主体：</span>
-                                            <select id="co_select" class="input-sm zb_select" style="max-width: 100px;overflow: scroll">
+                                            <select id="co_select" class="input-sm zb_select" style="max-width: 150px;overflow: scroll;width: 100%">
                                                 <option>请选择</option>
 
                                                 <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
@@ -230,15 +199,13 @@
                                         </div>
                                         <div class="col-md-3 col-sm-3">
                                             <span style="font-size: 14px">单位：</span>
-                                            <select id="unit_select"
-                                                    class="input-sm zb_select">
+                                            <select id="unit_select" class="input-sm zb_select" style="max-width: 150px;overflow: scroll;width: 100%">
                                                 <option>请选择</option>
                                             </select>
 
                                         </div>
 
                                     </div>
-                                    <%--js在哪呢--%>
 
                                     <button type="button" class="btn btn-default btn-sm zb_add"
                                             style="display: none;float: right;margin-top: 10px;margin-bottom: 0"><i
@@ -251,16 +218,14 @@
                                 <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/addZB.jsp" flush="true"/>--%>
                             </div>
                             <input  type="hidden" id="zbtimeinput"/>
-                            <input type="hidden" id="timecode" value="">
+                            <input type="hidden" id="timecode" value="last5">
                             <div id="mySelectTime"></div>
 
                             <div class="data_table J_zsjh_zbdata_table" style="height: 72%;width: 100%;"  id="zb_data_table">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/ZBdataList.jsp" flush="true"/>
                             </div>
-
-
                         </div>
-                        <div class="col-sm-2 zssx-right">
+                        <div class="col-md-3 right-panel">
                             <div class="panel_container" style="border: 1px solid #dddddd;width: 100%;overflow:auto;">
                                 <c:forEach items="${zbs.zbchoose}" var="zb">
                                     <div class="panel panel-default zb_panel">
@@ -426,7 +391,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-offset-5 col-sm-7 savediv" id="savediv" style="padding: 10px 0;">
+    <div class="col-sm-offset-5 col-sm-7 savediv" style="padding: 10px 0;">
         <button type="button" class="btn btn-primary tosaveall">保存</button>
         <button type="reset" class="btn btn-primary resetindex">取消</button>
     </div>
@@ -456,13 +421,6 @@
             zbs: zbs
         }
     });
-
-
-
-
-    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/main');
-    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/zbAdd');
-    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/module');
     //查询的时间
     $(function(){
         var json2 = {
@@ -494,34 +452,8 @@
     }
     footerPosition();
     $(window).resize(footerPosition);
-
-    $('#btn-fullscreen').click(function(e){
-        var $tab_pane = $(this).closest('.tab-pane');
-        console.log($tab_pane);
-        $tab_pane.toggleClass('fullscreen');
-
-        var $zssx_right=$(this).closest('.zssx-right');
-        $zssx_right.toggleClass('rightfull');
-
-        var $left_panel=$(this).closest('.left-panel');
-        $left_panel.toggleClass('leftfull');
-
-
-
-        $("#savediv").toggleClass('savedivfull');
-
-        $(".ict-footer").toggleClass('savedivfull');
-        autoHeight();
-    });
-
-
-    function autoHeight() {
-
-        var rch = $(window).height()- $("#tab-content").offset().top - $('.ict-footer').height();
-
-        $("#tab-content").height(rch);
-    };
-    autoHeight();
-    $(window).resize(autoHeight);
+    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/main');
+    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/zbAdd');
+    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/module');
 </script>
 </html>
