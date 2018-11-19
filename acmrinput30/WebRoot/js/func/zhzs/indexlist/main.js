@@ -22,7 +22,7 @@ define(function (require,exports,module) {
     });
     function autodrag(){
         $(".right-panel").css('height','auto');
-        var rch = $(window).height() - $('.tops').outerHeight();
+        var rch = $(window).height() - $('#mainpanel').offset().top - $('.ict-footer').height();
         if($(".right-panel").height() <= rch){
             $(".right-panel").height(rch);
             $(".left-panel, .dragline").height(rch);
@@ -100,12 +100,12 @@ define(function (require,exports,module) {
 
     var zNodes =[
         // { id:"!0",pId:0,name:"我的指数",isParent:true,icon:"../../../../zhzs/css/img/mark1.png"}
-        { id:"!1", pId:0, name:"我的指数",isParent:true,icon:"../../../../zhzs/css/img/mark1.png"},
-        { id:"!2", pId:0, name:"我收到的指数",isParent:true,icon:"../../../../zhzs/css/img/mark1.png"},
-        { id:"!3", pId:0, name:"我共享的指数", isParent:true,icon:"../../../../zhzs/css/img/mark1.png"}
+        { id:"!1", pId:0, name:"我的指数",isParent:true,icon:"../css/img/mark1.png"},
+        { id:"!2", pId:0, name:"我收到的指数",isParent:true,icon:"../css/img/mark1.png"},
+        { id:"!3", pId:0, name:"我共享的指数", isParent:true,icon:"../css/img/mark1.png"}
     ];
     var cNodes=[
-        { id:"!1", pId:0, name:"我的指数",isParent:true,icon:"../../../../zhzs/css/img/mark1.png"}
+        { id:"!1", pId:0, name:"我的指数",isParent:true,icon:"../css/img/mark1.png"}
     ]
     /*var indexlist=listjsp.indexlist;
     for(var i=0;i<indexlist.length;i++){

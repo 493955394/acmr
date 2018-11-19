@@ -26,7 +26,7 @@ define(function (require,exports,module) {
     function autodrag(){
        // $(".right-panel").css('height','auto');
        // var rch = $(".panel-height").height()-$("#top_div").height();
-        var rch = $(window).height()-$("#tops").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 80;
+        var rch = $(window).height()-$(".ict-header").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 80;
 
         $(".dragline").height(rch);
 
@@ -39,7 +39,7 @@ define(function (require,exports,module) {
     });
 
     function autoHeight() {
-        var rch = $(window).height()-$("#tops").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 70;
+        var rch = $(window).height()-$(".ict-header").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 70;
         $(".tab-content").height(rch);
         //$('.panel_container').height(300);
         $('#zssx #tree_and_find, #zssx .zssx-right,.panel_container').height(rch - 10);
@@ -69,7 +69,7 @@ define(function (require,exports,module) {
         $(".ict-footer").toggleClass('savedivfull');
     });
 
-    var rch = $(window).height()-$("#tops").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 70;
+    var rch = $(window).height()-$(".ict-header").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 70;
     $("#module_tree_container").height(rch);
 
     $("#module_container").height(rch);
@@ -88,7 +88,7 @@ define(function (require,exports,module) {
     //默认选中第一个指标
 
     var zNodes =[
-        { id:"!1", pId:0, name:"指数",isParent:true,icon:"../../../../zhzs/css/img/mark1.png"}
+        { id:"!1", pId:0, name:"指数",isParent:true,icon:"../css/img/mark1.png"}
     ];
     var st = new Date().getTime();//时间戳
     var setting = {
@@ -169,7 +169,7 @@ define(function (require,exports,module) {
 
 
     }
-    var rootNode = [{"id":"","name":"地区树", "open":"true", "isParent":"true",icon:"../../../../zhzs/css/img/mark1.png"}];
+    var rootNode = [{"id":"","name":"地区树", "open":"true", "isParent":"true",icon:"../css/img/mark1.png"}];
     var treeObj = $.fn.zTree.init($("#treeDemo"), setting1, rootNode);
     var treenodes = treeObj.getNodes();
     treeObj.expandNode(treenodes[0], true, true, true);

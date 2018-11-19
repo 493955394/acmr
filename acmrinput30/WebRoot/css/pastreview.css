@@ -1,5 +1,13 @@
 @charset "utf-8";
 /* 页面默认样式 */
+html,
+body { height: 100%; }
+#container { min-width: 1270px; min-height: 100%; box-sizing: border-box; padding: 183px 0 50px; position: relative; }
+#container .ict-header { top: 0; left: 0; right: 0; position: absolute; }
+#container .ict-page { min-height: 280px; }
+#container .ict-footer { bottom: 0; left: 0; width: 100%; position: absolute; }
+#container.nopadding { padding: 0; }
+.ict-footer { padding: 0 15px; line-height: 50px; background: #313131; font-size: 14px; color: #e3e3e3; text-align: center; }
 .nodeErrorInfo p{
     margin: 0;
     padding: 0;

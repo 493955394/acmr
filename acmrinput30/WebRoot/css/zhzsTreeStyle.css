@@ -25,10 +25,10 @@ website:	http://code.google.com/p/jquerytree/
 .ztree li a input.rename {height:14px; width:80px; padding:0; margin:0;
 	font-size:12px; border:1px #7EC4CC solid; *border:0px}
 .ztree li span {line-height:16px; margin-right:2px}
-.ztree li span.button {line-height:0; margin:0; width:16px; height:16px; display: inline-block; vertical-align:middle;
+.ztree li span.button {line-height:0; margin:0; width:22px; height:22px; display: inline-block;vertical-align:text-top; /*vertical-align:middle;*/
 	border:0 none; cursor: pointer;outline:none;
 	background-color:transparent; background-repeat:no-repeat; background-attachment: scroll;
-	background-image:url("./img/zTreeStandard.png"); *background-image:url("./img/zTreeStandard.gif")}
+	background-image:url("./img/tree_theme.png"); *background-image:url("./img/zTreeStandard.gif")}
 
 .ztree li span.button.chk {width:13px; height:13px; margin:0 3px 0 0; cursor: auto}
 .ztree li span.button.chk.checkbox_false_full {background-position:0 0}
@@ -53,16 +53,16 @@ website:	http://code.google.com/p/jquerytree/
 .ztree li span.button.chk.radio_true_disable {background-position:-42px -56px}
 
 .ztree li span.button.switch {width:18px; height:18px}
-.ztree li span.button.root_open{background-position:-92px -54px}
-.ztree li span.button.root_close{background-position:-74px -54px}
-.ztree li span.button.roots_open{background-position:-92px 0}
-.ztree li span.button.roots_close{background-position:-74px 0}
-.ztree li span.button.center_open{background-position:-92px -18px}
-.ztree li span.button.center_close{background-position:-74px -18px}
-.ztree li span.button.bottom_open{background-position:-92px -36px}
-.ztree li span.button.bottom_close{background-position:-74px -36px}
-.ztree li span.button.noline_open{background-position:-92px -72px}
-.ztree li span.button.noline_close{background-position:-74px -72px}
+.ztree li span.button.root_open{background-position:-28px 2px}
+.ztree li span.button.root_close{background-position:1px 0px}
+.ztree li span.button.roots_open{background-position:-28px 2px}
+.ztree li span.button.roots_close{background-position:1px 0}
+.ztree li span.button.center_open{background-position:-28px 2px}
+.ztree li span.button.center_close{background-position:1px 0}
+.ztree li span.button.bottom_open{background-position:-28px 2px}
+.ztree li span.button.bottom_close{background-position:0 0}
+.ztree li span.button.noline_open{background-position:-28px 2px}
+.ztree li span.button.noline_close{background-position:1px 0}
 .ztree li span.button.root_docu{ background:none;}
 .ztree li span.button.roots_docu{background-position:-56px 0}
 .ztree li span.button.center_docu{background-position:-56px -18px}
@@ -72,13 +72,13 @@ website:	http://code.google.com/p/jquerytree/
 diy ico_css
 by wulei
 */
-.ztree li span.button.ico_open{margin-right:2px; background-position:-110px -16px; vertical-align:middle; }
-.ztree li span.button.ico_close,.ztree li span.button.icon03_ico_docu{margin-right:2px; background-position:-110px 0; vertical-align:middle;}
+.ztree li span.button.ico_open{margin-right:2px; background-position:-60px 1px; vertical-align:middle; }
+.ztree li span.button.ico_close,.ztree li span.button.icon03_ico_docu{margin-right:2px; background-position:-60px 1px; vertical-align:middle;}
 .ztree li span.button.ico_docu,
 .ztree li span.button.icon01_ico_open,
 .ztree li span.button.icon01_ico_docu,
 .ztree li span.button.icon01_ico_docu,
-.ztree li span.button.icon01_ico_close{margin-right:2px; background-position:-110px -32px; vertical-align:middle;}
+.ztree li span.button.icon01_ico_close{margin-right:2px; background-position:-60px 1px; vertical-align:middle;}
 .ztree li span.button.edit {margin-right:2px; background-position:-110px -48px; vertical-align:middle; }
 .ztree li span.button.remove {margin-right:2px; background-position:-110px -64px; vertical-align:middle; }
 
@@ -113,5 +113,5 @@ div#rMenu ul li{
 	background-color: #DFDFDF;
 }
 /*
-* End
+* End 
 */
