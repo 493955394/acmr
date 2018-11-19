@@ -184,7 +184,7 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="zssx">
                         <div id="tree_and_find" class="col-md-2  left-panel" style="overflow: auto;min-height: inherit">
-                            <form class="form-inline J_search_form">
+                            <form class="form-inline J_search_form" onkeydown="if(event.keyCode==13){return false;}">
 
                                 <div class="form-group" style="width: 60%;">
                                     <input id="queryValue" type="text" class="form-control input-xm" placeholder="搜索内容" style="width: 100%;" autocomplete="off">
