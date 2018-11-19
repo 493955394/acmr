@@ -667,6 +667,7 @@ public class zsjhedit extends BaseAction {
         obj.put("ds",dss);
         obj.put("co",cos);
         obj.put("unit",units);
+        obj.put("unitcode",unitcode);
         this.sendJson(obj);
     }
     public  void PutMap(List<Map> map, List<String> codes,String wcode,String dbcode){

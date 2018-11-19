@@ -147,6 +147,7 @@ define(function (require,exports,module) {
                     dataType:'json',
                     data:data,
                     success:function (re) {
+                        console.log(re.unitcode)
                         $(".zb_select").empty()
                         //$(".zb_select").append("<option>请选择</option>")
                         foreach(re.ds,"ds")
@@ -161,10 +162,12 @@ define(function (require,exports,module) {
                                     name+"</option>")
                             })
                             if (innerre.length==0){
-                                $(".zb_select").append("<option>请选择</option>")
+                                $("#"+zname+"_select").append("<option>请选择</option>")
 
                             }
                         }
+                        $("#unit_select option[class=" +re.unitcode+"]").attr("selected",true)
+                        //console.log( $("#unit_select option[class=" +re.unitocde+"]"))
                         sendPjax();
                     }
                 })
