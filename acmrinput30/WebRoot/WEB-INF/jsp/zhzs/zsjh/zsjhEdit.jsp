@@ -202,15 +202,15 @@
                         <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/zbtree.jsp" flush="true"/>--%>
                     </div>
                     <div class="col-md-10 zssx-right" style="overflow: auto;border: 1px solid #dddddd">
-                        <div class="col-md-9">
+                        <div class="col-md-9 col-sm-9">
                             <div>
                                 <div class="panel panel-default">
                                     <span id="btn-fullscreen" style="float: right;padding:10px">全屏</span>
                                     <div class="panel_zbname panel-heading" code="">请选择指标</div>
                                     <div class="ds_choose panel-heading" style="height: 60px">
-                                        <div class="col-md-5 col-sm-5">
+                                        <div class="col-md-4 col-sm-4">
                                             <span style="font-size: 14px;">数据来源：</span>
-                                            <select id="ds_select" class="input-sm zb_select" style="max-width: 150px;overflow: scroll;width: 100%">
+                                            <select id="ds_select" class="input-sm zb_select" style="max-width: 150px;overflow: scroll;width: 40%">
                                                 <option>请选择</option>
                                                 <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
                                                                                 <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
@@ -218,16 +218,16 @@
                                         </div>
                                         <div class="col-md-4 col-sm-4">
                                             <span style="font-size: 14px">主体：</span>
-                                            <select id="co_select" class="input-sm zb_select" style="max-width: 150px;overflow: scroll;width: 100%">
+                                            <select id="co_select" class="input-sm zb_select" style="max-width: 150px;overflow: scroll;width: 60%">
                                                 <option>请选择</option>
 
                                                 <%--                                <option value="code" <c:if test="${code != '' && code!= null}">selected</c:if>>地区代码</option>
                                                                                     <option value="cname" <c:if test="${cname != '' && cname != null}">selected</c:if>>地区名称</option>--%>
                                             </select>
                                         </div>
-                                        <div class="col-md-3 col-sm-3">
+                                        <div class="col-md-4 col-sm-4">
                                             <span style="font-size: 14px">单位：</span>
-                                            <select id="unit_select" class="input-sm zb_select" style="max-width: 150px;overflow: scroll;width: 100%">
+                                            <select id="unit_select" class="input-sm zb_select" style="max-width: 150px;overflow: scroll;width: 60%">
                                                 <option>请选择</option>
                                             </select>
 
@@ -252,7 +252,7 @@
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/ZBdataList.jsp" flush="true"/>
                             </div>
                         </div>
-                        <div class="col-md-3 right-panel">
+                        <div class="col-md-3 col-sm-3 right-panel">
                             <div class="panel_container" style="border: 1px solid #dddddd;width: 100%;overflow:auto;">
                                 <c:forEach items="${zbs.zbchoose}" var="zb">
                                     <div class="panel panel-default zb_panel">
