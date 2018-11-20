@@ -659,7 +659,7 @@ define(function (require,exports,module) {
             $('.normalday').append('<label class="control-label tips-error">该项不能为空</label>');
         }
         if (flag == false) {
-            alert("信息不全！")
+            alert("基本信息不全！")
             $('#bjjhTab li:eq(0) a').tab('show');
             return;
         }
@@ -718,11 +718,6 @@ define(function (require,exports,module) {
         var sxcode = "";//指标名称
         var regselect ="";//地区信息
         var zbs=zbAdd.zbs;//获取指标的信息
-        if(zbs.length==0){
-            alert("信息不全")
-            $('#bjjhTab li:eq(1) a').tab('show');
-            return;
-        }
         for (var i = 0; i <zbs.length ; i++) {
             zbcode += zbs[i].zbcode+",";
             zbco += zbs[i].cocode+",";
@@ -735,9 +730,20 @@ define(function (require,exports,module) {
         zbds = zbds.substr(0, zbds.length - 1);//去除最后一个逗号
         sxcode = sxcode.substr(0, sxcode.length - 1);//去除最后一个逗号
         zbunit = zbunit.substr(0, zbunit.length - 1);//去除最后一个逗号
+        if(zbs.length==0){
+            alert("指标未选择")
+            $('#bjjhTab li:eq(1) a').tab('show');
+        }
         if(select.length==0){
-            alert("信息不全！")
-            $('#bjjhTab li:eq(2) a').tab('show');
+            alert("地区未选择")
+            if(zbs.length==0){
+                $('#bjjhTab li:eq(1) a').tab('show');
+            }
+            else {
+                $('#bjjhTab li:eq(2) a').tab('show');
+            }
+        }
+        if(zbs.length==0 || select.length==0){
             return;
         }
         for (var i = 0; i <select.length ; i++) {
