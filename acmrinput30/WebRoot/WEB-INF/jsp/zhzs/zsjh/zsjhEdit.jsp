@@ -75,7 +75,8 @@
                 <c:if test="${list.getSort() == 'y'}">年度</c:if>
                 <c:if test="${list.getSort() == 'q'}">季度</c:if>
             </div>
-            <div class="panel-body panel-height" style="padding-left: 0;padding-right: 0;">
+            <div class="panel-body panel-height" id="edit_container" style="padding-left: 0;padding-right: 0;">
+                <span id="btn-fullscreen" style="float: right;padding:10px">全屏</span>
                 <div id="top_div">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">
@@ -201,7 +202,6 @@
                             <div class="col-md-9 col-sm-9">
                                 <div>
                                     <div class="panel panel-default">
-                                        <span id="btn-fullscreen" style="float: right;padding:10px">全屏</span>
                                         <div class="panel_zbname panel-heading" code="">请选择指标</div>
                                         <div class="ds_choose panel-heading" style="height: 60px">
                                             <div class="col-md-4 col-sm-4">
