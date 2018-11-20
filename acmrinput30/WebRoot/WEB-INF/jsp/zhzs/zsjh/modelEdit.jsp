@@ -151,14 +151,14 @@
                     </div>
                     <div class="col-sm-2">
                         <select size="15" id="hanshu">
-                            <option value="abs()">Math.abs</option>
-                            <option value="max()">Math.max</option>
-                            <option value="min()">Math.min</option>
-                            <option value="pow()">Math.pow(x,y)</option>
-                            <option value="exp()">Math.exp</option>
-                            <option value="log10()">Math.log10</option>
-                            <option value="log()">Math.log</option>
-                            <option value="random()">Math.random</option>
+                            <option value="abs()" title="求绝对值">Math.abs</option>
+                            <option value="max()" title="求两数中最大">Math.max</option>
+                            <option value="min()" title="求两数中最小">Math.min</option>
+                            <option value="pow()" title="x的y次方">Math.pow(x,y)</option>
+                            <option value="exp()" title="求e的任意次方">Math.exp</option>
+                            <option value="log10()" title="以10为底的对数">Math.log10</option>
+                            <option value="log()" title="自然对数">Math.log</option>
+                            <option value="random()" title="返回0，1之间的一个随机数">Math.random</option>
                             <%-- <option>add(BigInteger val)</option>
                              <option>subtract(BigInteger val)</option>
                              <option>multiply(BigInteger val)</option>
