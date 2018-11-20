@@ -41,6 +41,17 @@ public class weightset extends BaseAction {
                 //PubInfo.printStr("find1");
                 mods.add(re.get(j));
                 List<IndexMoudle> allsub=indexEditService.getAllMods(re.get(j).getCode(),icode);
+                //要显示注解，所以要替换公式
+                for (int i = 0; i <allsub.size() ; i++) {
+                    if(allsub.get(i).getIfzs().equals("0")){//如果是指数的话
+                        if(allsub.get(i).getIfzb().equals("0")){//自定义公式
+                            allsub.get(i).setFormula(new zsjhedit().changeFormula(allsub.get(i).getFormula(),icode,"CTN"));
+                        }
+                        else {//直接选的指标当公式
+                            allsub.get(i).setFormula(new zsjhedit().formulaShow(allsub.get(i).getFormula(),icode));
+                        }
+                    }
+                }
                 mods.addAll(allsub);
             }
         }

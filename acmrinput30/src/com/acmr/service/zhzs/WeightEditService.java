@@ -1,12 +1,16 @@
 package com.acmr.service.zhzs;
 
+import acmr.cubequery.service.cubequery.entity.CubeUnit;
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IWeightEditDao;
+import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.model.zhzs.TaskModule;
+import com.acmr.model.zhzs.TaskZb;
+import com.acmr.service.zbdata.OriginService;
 import com.sun.org.apache.regexp.internal.RE;
 import org.omg.PortableServer.LIFESPAN_POLICY_ID;
 
@@ -84,6 +88,9 @@ public class WeightEditService {
             String code=rows.get(j).getString("code");
             List<TaskModule> allsubs=getAllSubTMods(code,taskcode);
             for (int m=0;m<allsubs.size();m++){
+               /* if(allsubs.get(m).getIfzs().equals("0")){
+                    allsubs.get(m).setFormula(zbExplain(allsubs.get(m).getFormula(),taskcode,allsubs.get(m).getIfzb()));//公式详情换成回显的样子
+                }*/
                 mods.add(allsubs.get(m));
             }
         }
@@ -144,4 +151,40 @@ public class WeightEditService {
     }
 
     public int tWeightUpadte(String modcode,String weight){return WeightEditDao.Fator.getInstance().getIndexdatadao().tWeightUpd(modcode,weight);}
+
+    /**
+     * 用于回显的权重设置的指标解释
+     */
+    public String zbExplain(String formula,String taskcode,String ifzb){
+        String rs = "";
+        IndexTaskService indexTaskService = new IndexTaskService();
+        OriginService originService=new OriginService();
+        List<TaskZb> zbs = indexTaskService.findtaskzb(taskcode);//得到所有的模型节点
+        String icode = indexTaskService.findIcode(taskcode);//得到icode 用于查询该计划的sort
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+        for (int i = 0; i <zbs.size() ; i++) {
+            if (formula.contains(zbs.get(i).getProcode())) {//要是存在这个code,就去取对应的zbcode
+                String zbname = originService.getwdnode("zb", zbs.get(i).getZbcode(), dbcode).getName();//指标名
+                String dsname = originService.getwdnode("ds", zbs.get(i).getDatasource(), dbcode).getName();//数据来源名
+                String unitname = "";
+                List<CubeUnit> units = originService.getUnitList(zbs.get(i).getUnitcode());
+                String unitcode = zbs.get(i).getUnitcode();
+                for (int j = 0; j < units.size(); j++) {
+                    String thiscode = units.get(j).getCode();
+                    if (thiscode.equals(unitcode)) {
+                        unitname = units.get(j).getName();
+                    }
+                }
+                if(ifzb.equals("0")){//自己编辑的公式
+                    String temp = "#"+zbname+"("+dsname+","+unitname+")#";
+                    formula = formula.replace("#"+zbs.get(i).getProcode()+"#",temp);
+                }
+                else if(ifzb.equals("1")){//直接选的指标
+                    String temp = zbname+"("+dsname+","+unitname+")";
+                    formula = formula.replace(zbs.get(i).getProcode(),temp);
+                }
+            }
+        }
+        return rs;
+    }
 }

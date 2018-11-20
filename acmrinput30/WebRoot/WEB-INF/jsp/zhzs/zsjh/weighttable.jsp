@@ -35,7 +35,6 @@
         <button type="button" class="btn btn-default btn-sm save_weight" style="float: right;margin-bottom: 15px"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;保存设置
         </button>
     </div>
-
     <table class="table table-bordered">
         <c:forEach items="${mods}" var="module">
             <c:if test="${module.getProcode()==''}">
@@ -55,7 +54,6 @@
 </body>
 <script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
 <script>
-    console.log("weightset")
     $(".root_zs").each(function () {
         var rnums = $(this).attr("rowspan")
         for (var i = rnums - 1; i > 0; i--) {
