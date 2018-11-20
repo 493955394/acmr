@@ -46,11 +46,11 @@ define(function (require,exports,module) {
     }
 
     $('#btn-fullscreen').click(function(e){
-        var $tab_pane = $(this).closest('.tab-pane');
+        var $tab_pane = $("#edit_container");
         console.log($tab_pane);
         $tab_pane.toggleClass('fullscreen');
 
-        var $zssx_right=$(this).closest('.zssx-right');
+        var $zssx_right=$('.zssx-right');
         $zssx_right.toggleClass('rightfull');
         var $right_panel=$('.right-panel');
         $right_panel.toggleClass('rightfull');
@@ -61,7 +61,6 @@ define(function (require,exports,module) {
         $left_panel.toggleClass('leftfull');
         var $dragline=$('.dragline');
         $dragline.toggleClass('leftfull');
-
 
 
         $("#savediv").toggleClass('savedivfull');
