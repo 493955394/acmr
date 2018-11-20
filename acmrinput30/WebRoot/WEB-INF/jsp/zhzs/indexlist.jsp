@@ -54,19 +54,13 @@
                     <div class="modal-content">
                         <form class="form-horizontal J_add_catalogue"  action="${ctx}/zbdata/indexlist.htm?m=insertcate">
                             <input type="hidden" class="form-control" name="ifdata" value="0" >
+                            <input type="hidden" class="form-control" name="cocode" value="" >
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                 <h4 class="modal-title">新增目录</h4>
                             </div>
                             <div class="modal-body">
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" name="cocode" >
-                                    </div>
-
-                                </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
                                     <div class="col-sm-5">
@@ -102,17 +96,13 @@
                     <div class="modal-content">
                         <form class="form-horizontal J_add_plan"  action="${ctx}/zbdata/indexlist.htm?m=insertplan">
                             <input type="hidden" class="form-control" name="ifdata" value="1" >
+                            <input type="hidden" class="form-control" name="plcode" value="" >
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                 <h4 class="modal-title">新增指数计划</h4>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" name="plancode">
-                                    </div>
-                                </div>
+
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
                                     <div class="col-sm-5">
@@ -155,19 +145,15 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <form class="form-horizontal J_add_cope" action="${ctx}/zbdata/indexlist.htm?m=copy">
+                            <!-- 选择计划的code -->
                             <input type="hidden" class="form-control" name="copycode">
                             <input type="hidden" class="form-control" name="cifdata">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                 <h4 class="modal-title">复制指数</h4>
                             </div>
+                            <input type="hidden" class="form-control" name="conewcode">
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" name="plcode">
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
                                     <div class="col-sm-5">
@@ -199,16 +185,12 @@
                     <div class="modal-content">
                         <form class="form-horizontal J_share_addcope" action="${ctx}/zbdata/indexlist.htm?m=sharecopy">
                             <input type="hidden" class="form-control" name="cosharecode">
+                            <input type="hidden" class="form-control" name="newsharecode">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指数编码：</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" name="putcode">
-                                    </div>
-                                </div>
+
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指数名称：</label>
                                     <div class="col-sm-5">
@@ -246,12 +228,8 @@
                                 <h4 class="modal-title">编辑目录</h4>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" name="editcode" value="" readonly>
-                                    </div>
-                                </div>
+                                <!-- 选择的code -->
+                                        <input type="hidden" class="form-control" name="editcode" value="" readonly>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
                                     <div class="col-sm-5">

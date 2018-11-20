@@ -31,6 +31,8 @@ import java.text.ParseException;
 import java.util.*;
 
 public class indexlist extends BaseAction {
+    private HttpServletRequest req;
+
     public ModelAndView main() throws IOException {
 
         User cu=UserService.getCurrentUser();
@@ -319,7 +321,7 @@ public class indexlist extends BaseAction {
     public void insertplan() throws IOException {
         IndexListService indexListService = new IndexListService();
         HttpServletRequest req = this.getRequest();
-        String code = PubInfo.getString(req.getParameter("plancode"));
+        String code = PubInfo.getString(req.getParameter("plcode"));
         String cname = PubInfo.getString(req.getParameter("plancname"));
         User user = (User) this.getSession().getAttribute("loginuser");
         String createuser = user.getUserid();
@@ -385,7 +387,7 @@ public class indexlist extends BaseAction {
         //int ifdata = Integer.parseInt(ifdata1);
         User cu=UserService.getCurrentUser();
         String usercode=cu.getUserid();
-        String code = PubInfo.getString(req.getParameter("plcode"));
+        String code = PubInfo.getString(req.getParameter("conewcode"));
         String cname = PubInfo.getString(req.getParameter("zname"));
         JSONReturnData data = new JSONReturnData("");
         int x = indexListService.checkCode(code);
@@ -417,11 +419,12 @@ public class indexlist extends BaseAction {
         } else {
             data.setReturncode(200);
         }
+        String state = "0";
         IndexList data1 = indexListService.getData(cpcode);
-
         data1.setCode(code);
         data1.setCname(cname);
         data1.setProcode(nprocode);
+        data1.setState(state);
         data1.setCreateuser(usercode);
         String startpeirod = data1.getStartperiod();
         String delayday = data1.getDelayday();
@@ -1172,7 +1175,7 @@ public class indexlist extends BaseAction {
         String cpcode = PubInfo.getString(req.getParameter("cosharecode"));//原code
         //String ifdata1 = PubInfo.getString(req.getParameter("cifdata"));
         //int ifdata = Integer.parseInt(ifdata1);
-        String code = PubInfo.getString(req.getParameter("putcode"));
+        String code = PubInfo.getString(req.getParameter("newsharecode"));
         String cname = PubInfo.getString(req.getParameter("putname"));
         JSONReturnData data = new JSONReturnData("");
         int x = indexListService.checkCode(code);
@@ -1204,8 +1207,9 @@ public class indexlist extends BaseAction {
         } else {
             data.setReturncode(200);
         }
+        String state = "0";
         IndexList copydata = indexListService.getData(cpcode);
-
+        copydata.setState(state);
         copydata.setCode(code);
         copydata.setCname(cname);
         copydata.setProcode(nprocode);

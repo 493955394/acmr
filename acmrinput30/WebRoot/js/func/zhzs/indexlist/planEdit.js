@@ -16,6 +16,19 @@ define(function (require,exports,module) {
      * 新增目录ajax提交
      */
 
+    /*function get_cuuid(){
+        var s = [];
+        var hexDigits = "0123456789abcdef";
+        for (var i = 0; i < 36; i++) {
+            s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        }
+        s[14] = "4";
+        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+        s[8] = s[13] = s[18] = s[23] = "-";
+
+        var uuid = s.join("");
+        zs_code= uuid;
+    }*/
     $(document).on('submit', '.J_add_catalogue', function(event) {
         event.preventDefault();
 
@@ -25,11 +38,11 @@ define(function (require,exports,module) {
         checkDelegate = new VaildNormal();
         var flag = true;
         //前端检查
-        if (!checkDelegate.checkNormal($('input[name="cocode"]'), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
+        /*if (!checkDelegate.checkNormal($('input[name="cocode"]'), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
             !checkDelegate.checkNormal($('input[name="cocode"]'), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
             !checkDelegate.checkNormal($('input[name="cocode"]'), [{ 'name': 'maxlength', 'msg': '编码最大长度为20', 'param': 21 }])) {
             flag = false;
-        }
+        }*/
         if (!checkDelegate.checkNormal($('input[name="cocname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
             !checkDelegate.checkNormal($('input[name="cocname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为50', 'param': 51 }])) {
             flag = false;
@@ -38,21 +51,39 @@ define(function (require,exports,module) {
             return;
         }
         //code只能是数字和字母
-        var ifavalible =  /^([0-9a-zA-Z]*)$/;
+        /*var ifavalible =  /^([0-9a-zA-Z]*)$/;
         var zs_code = $('input[name="cocode"]').val();
         var check =zs_code.match(ifavalible);
         if(check == null){
             alert("非法的编码");
             return;
-        }
+        }*/
         //var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
         //var namecheck = /[^%&',;=?$\x22]+/;
+
         var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
         var z = $('input[name="cocname"]').val().match(namecheck);
         if(z==null){
             alert("名称含有不规则字符，请修改");
             return;
         }
+        var zs_code="";
+        function get_uuid(){
+            var s = [];
+            var hexDigits = "0123456789abcdef";
+            for (var i = 0; i < 36; i++) {
+                s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+            }
+            s[14] = "4";
+            s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+            s[8] = s[13] = s[18] = s[23] = "-";
+
+            var uuid = s.join("");
+            zs_code= uuid;
+        }
+        get_uuid();
+        $('input[name="cocode"]').val(zs_code);
+        console.log(zs_code)
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),
@@ -62,6 +93,7 @@ define(function (require,exports,module) {
             success: function(data) {
                 if (data.returncode == 200) {
                     alert("保存成功！");
+                    console.log(zs_code)
                     window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+zs_code;
                    // window.location.reload(true);
                 }else if (data.returncode == 300||data.returncode == 301) {
@@ -93,11 +125,6 @@ define(function (require,exports,module) {
         checkDelegate = new VaildNormal();
         var flag = true;
         //前端检查
-        if (!checkDelegate.checkNormal($("input[name='plancode']"), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
-            !checkDelegate.checkNormal($("input[name='plancode']"), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
-            !checkDelegate.checkNormal($("input[name='plancode']"), [{ 'name': 'maxlength', 'msg': '编码最大长度为20', 'param': 21 }])) {
-            flag = false;
-        }
         if (!checkDelegate.checkNormal($('input[name="plancname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
             !checkDelegate.checkNormal($('input[name="plancname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为50', 'param': 51 }])) {
             flag = false;
@@ -114,13 +141,7 @@ define(function (require,exports,module) {
             return;
         }
         //code只能是数字和字母
-        var ifavalible =  /^([0-9a-zA-Z]*)$/;
-        var zs_code = $('input[name="plancode"]').val();
-        var check =zs_code.match(ifavalible);
-        if(check == null){
-            alert("非法的编码");
-            return;
-        }
+
         //名称只能是中文和字母
         var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
         var z = $('input[name="plancname"]').val().match(namecheck);
@@ -129,6 +150,23 @@ define(function (require,exports,module) {
             alert("名称含有不规则字符，请修改");
             return;
         }
+        var zs_code="";
+        function get_uuid(){
+            var s = [];
+            var hexDigits = "0123456789abcdef";
+            for (var i = 0; i < 36; i++) {
+                s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+            }
+            s[14] = "4";
+            s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+            s[8] = s[13] = s[18] = s[23] = "-";
+
+            var uuid = s.join("");
+            zs_code= uuid;
+        }
+        get_uuid();
+        $('input[name="plcode"]').val(zs_code);
+
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),
@@ -138,6 +176,7 @@ define(function (require,exports,module) {
             success: function(data) {
                 if (data.returncode == 200) {
                     alert("保存成功！");
+                    console.log(zs_code)
                     window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+zs_code;
                     //window.location.reload(true);
                 } else if (data.returncode == 300||data.returncode == 301) {
@@ -216,13 +255,10 @@ define(function (require,exports,module) {
             return;
         }
         //code只能是数字和字母
-        var ifavalible =  /^([0-9a-zA-Z]*)$/;
+
         var zs_code = $('input[name="editcode"]').val();
-        var check =zs_code.match(ifavalible);
-        if(check == null){
-            alert("非法的编码");
-            return;
-        }
+
+
         var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
         var z = $('input[name="editcname"]').val().match(namecheck);
         if(z==null){
@@ -238,7 +274,7 @@ define(function (require,exports,module) {
             success: function(data) {
                 if (data.returncode == 200) {
                     alert('保存成功！');
-                    window.location.reload(true);
+                    window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+zs_code;
                 } else if (data.returncode == 300||data.returncode == 301) {
                     alert(data.returndata);
                     $("#mymodal-data3").modal('show');
@@ -323,7 +359,6 @@ define(function (require,exports,module) {
             }
             else if(ifdata == 1){
                 $('input[name=copycode]').val(code);
-                $('input[name=plcode]').val(code);
                 $('input[name=cifdata]').val(ifdata);
                 $('input[name=zname]').val(name);
                 $('input[name=newprocode]').val(procode);
@@ -340,22 +375,9 @@ define(function (require,exports,module) {
         checkDelegate = new VaildNormal();
         var flag = true;
         //前端检查
-        if (!checkDelegate.checkNormal($('input[name="plcode"]'), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="plcode"]'), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
-            !checkDelegate.checkNormal($('input[name="plcode"]'), [{ 'name': 'maxlength', 'msg': '编码最大长度为20', 'param': 21 }])) {
-            flag = false;
-        }
         if (!checkDelegate.checkNormal($('input[name="zname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
             !checkDelegate.checkNormal($('input[name="zname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为50', 'param': 51 }])) {
             flag = false;
-        }
-        //code只能是数字和字母
-        var ifavalible =  /^([0-9a-zA-Z]*)$/;
-        var zs_code = $('input[name="plcode"]').val();
-        var check =zs_code.match(ifavalible);
-        if(check == null){
-            alert("非法的编码");
-            return;
         }
         var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
         //var namecheck = /^([a-zA-Z\u4e00-\u9fa5]*)$/;
@@ -367,6 +389,22 @@ define(function (require,exports,module) {
         if (flag == false) {
             return;
         }
+        var zs_code="";
+        function get_uuid(){
+            var s = [];
+            var hexDigits = "0123456789abcdef";
+            for (var i = 0; i < 36; i++) {
+                s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+            }
+            s[14] = "4";
+            s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+            s[8] = s[13] = s[18] = s[23] = "-";
+
+            var uuid = s.join("");
+            zs_code= uuid;
+        }
+        get_uuid();
+        $('input[name="conewcode"]').val(zs_code);
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),
@@ -376,7 +414,7 @@ define(function (require,exports,module) {
             success: function(data) {
                 if (data.returncode == 200) {
                     alert("保存成功！");
-                    window.location.reload(true);
+                    window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+zs_code;
                 } else if (data.returncode == 300||data.returncode == 301) {
                     alert(data.returndata);
                     $("#mymodal-data2").modal('show');
@@ -409,7 +447,6 @@ define(function (require,exports,module) {
                 alert("本指数计划没有权限复制！");
             }
             else if(right == 1 || right == 2){
-                $('input[name=putcode]').val(code);
                 $('input[name=cosharecode]').val(code);
                 $('input[name=putname]').val(name);
                 $('input[name=shareprocode]').val(procode);
@@ -426,11 +463,6 @@ define(function (require,exports,module) {
         checkDelegate = new VaildNormal();
         var flag = true;
         //前端检查
-        if (!checkDelegate.checkNormal($('input[name="putcode"]'), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="putcode"]'), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
-            !checkDelegate.checkNormal($('input[name="putcode"]'), [{ 'name': 'maxlength', 'msg': '编码最大长度为20', 'param': 21 }])) {
-            flag = false;
-        }
         if (!checkDelegate.checkNormal($('input[name="putname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
             !checkDelegate.checkNormal($('input[name="putname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为50', 'param': 51 }])) {
             flag = false;
@@ -445,6 +477,23 @@ define(function (require,exports,module) {
         if (flag == false) {
             return;
         }
+        var zs_code="";
+        function get_uuid(){
+            var s = [];
+            var hexDigits = "0123456789abcdef";
+            for (var i = 0; i < 36; i++) {
+                s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+            }
+            s[14] = "4";
+            s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+            s[8] = s[13] = s[18] = s[23] = "-";
+
+            var uuid = s.join("");
+            zs_code= uuid;
+        }
+        get_uuid();
+
+        $('input[name="newsharecode"]').val(zs_code);
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),
@@ -454,7 +503,7 @@ define(function (require,exports,module) {
             success: function(data) {
                 if (data.returncode == 200) {
                     alert("保存成功！");
-                    window.location.reload(true);
+                    window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+zs_code;
                 } else if (data.returncode == 300||data.returncode == 301) {
                     alert(data.returndata);
                     $("#mymodal-data4").modal('show');
