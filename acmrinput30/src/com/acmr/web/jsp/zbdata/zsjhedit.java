@@ -720,7 +720,7 @@ public class zsjhedit extends BaseAction {
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(indexcode);
         String pjax = req.getHeader("X-PJAX");
         ZBdataService zBdataService=new ZBdataService();
-        List<String> regs=zBdataService.getHasDataNodeO(zbcode,"reg",dbcode);
+        List<String> regs=zBdataService.getHasDataReg(zbcode,dscode,cocode,"reg",dbcode);
         OriginService originService=new OriginService();
         CubeWdCodes where = new CubeWdCodes();
 
