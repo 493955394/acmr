@@ -115,6 +115,16 @@ public class ZBdataService {
         return nodes;
     }
 
+    public  List<String> getHasDataReg(String zbcode,String dscode,String cocode, String wcode,String dbcode){
+        List<CubeWdValue> list=new ArrayList<>();
+        list.add(new CubeWdValue("zb",zbcode));
+        list.add(new CubeWdValue("ds",dscode));
+        list.add(new CubeWdValue("co",cocode));
+        List<String> nodes=origin.gethasdatawdlist(list,wcode,dbcode);
+        return nodes;
+    }
+
+
     /**
     * @Description: 根据传入的s模糊查找指标
     * @Param: [s]
