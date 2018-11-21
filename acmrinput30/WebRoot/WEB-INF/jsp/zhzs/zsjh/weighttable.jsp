@@ -30,8 +30,8 @@
             权重设置
         </div>
     </div>
-    <div>
-        <span style="color: #fa7811;font-size:15px">注：同级别权重和必须为1且权重不能小于或等于0</span>
+    <div style="height: 30px;">
+        <span style="color: #fa7811;font-size:15px;line-height: 30px;">注：同级别权重和必须为1且权重不能小于或等于0</span>
         <button type="button" class="btn btn-default btn-sm save_weight" style="float: right;margin-bottom: 15px"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;保存设置
         </button>
     </div>
