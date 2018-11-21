@@ -18,7 +18,7 @@
         white-space: nowrap;
     }
 </style>
-<div style="height:55%;width: 100%;overflow:auto;display: none " id="regtable">
+<div style="height:71%;width: 100%;overflow:auto;display: none " id="regtable">
     <table style="margin-top: 10px" class="table table-bordered" id="tabledata" >
         <thead style="font-size: 15px;background-color: #F5F5F5;">
         <tr>

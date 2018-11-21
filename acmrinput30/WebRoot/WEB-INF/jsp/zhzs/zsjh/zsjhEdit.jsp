@@ -53,6 +53,9 @@
         .leftfull{
             height: 100% !important;
         }
+        .container_full{
+            height: 90% !important;
+        }
         .savedivfull{
             display:none;
         }
@@ -88,7 +91,7 @@
                 </div>
                 <!-- Tab panes -->
                 <div class="col-xs-12 tab-content row" style="padding-top: 10px;padding-right: 0;overflow: auto;">
-                    <div role="tabpanel" class="tab-pane active" id="jbxx">
+                    <div role="tabpanel" class="edit_tab tab-pane active" id="jbxx">
                         <form class="form-horizontal" id="indexForm" action="" method="post">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
@@ -183,7 +186,7 @@
                             <input type="reset" style="display:none;"/>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="zssx">
+                    <div role="tabpanel" class="edit_tab tab-pane" id="zssx">
                         <div id="tree_and_find" class="col-md-2  left-panel" style="overflow: auto;min-height: inherit">
                             <form class="form-inline J_search_form" onkeydown="if(event.keyCode==13){return false;}">
 
@@ -287,8 +290,8 @@
                             </div>
                         </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="jsfw">
-                        <div class="col-xs-2">
+                    <div role="tabpanel" class="edit_tab tab-pane" id="jsfw">
+                        <div class="jsfw_col col-xs-2">
                             <input type="hidden" id="initTreePara" value="${initTreePara}"/>
                             <input type="hidden" id="procode" value=""/>
                             <div class="panel tree-panel" >
@@ -301,7 +304,7 @@
                             <input type="hidden" name="regcode" value=""/>
                             <input type="hidden" name="regname" value=""/>
                         </div>
-                        <div class="col-xs-1 col-lg-1 col-md-1 col-sm-1 btn-group-vertical" role="group" style="border:1px solid white;padding-top:50px">
+                        <div class="jsfw_col col-xs-1 col-lg-1 col-md-1 col-sm-1 btn-group-vertical" role="group" style="border:1px solid white;padding-top:50px">
                             <div id="sigglechoose" style="border-style:solid;border-width:1px;border-color:#F39801;height: 30px;width: 50px;" class="col-md-offset-3 col-md-4">
                                 <span style="color: #F39801;text-align: center;font-size: 15px;margin-left: 4px">></span>
                             </div>
@@ -319,7 +322,7 @@
                                  style="border-style:solid;border-width:1px;border-color:#F39801;background-color: #F39801;height: 30px;width: 50px;"  class="col-md-offset-3 col-md-4">
                                 <span style="color: white;text-align: center;font-size: 15px;"><<</span></div>
                         </div>
-                        <div class="col-xs-2">
+                        <div class="jsfw_col col-xs-2">
                             <div class="panel tree-panel">
                                 <div class="panel-heading regs-title" style="text-align:center">地区列表</div>
                             </div>
@@ -331,13 +334,12 @@
                                 </ul>
                             </div>
                         </div>
-
-                        <div class="col-xs-7"
+                        <div class="jsfw_col col-xs-7"
                              style="border:#dddddd;padding-left: 20px;">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
                             </div>
-                            <div>
+                            <div id="data_check_container">
                                 <div style="border:solid 1px #dddddd">
                                     <span style="font-size: 15px;margin-top: 10px;margin-bottom: 10px">时间选择</span>
                                     <input  name="begintime" style="margin-top: 10px;margin-bottom: 10px"/>
@@ -357,13 +359,13 @@
                             </div>
                         </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="mxgh">
-                        <div class="col-md-2" id="module_tree_container" style="background-color: #F4F5F9;overflow: auto;">
+                    <div role="tabpanel" class="edit_tab tab-pane" id="mxgh">
+                        <div class="module_tab_container col-md-2" id="module_tree_container" style="background-color: #F4F5F9;overflow: auto;">
                             <div id="module_tree">
                                 <ul id="moduleTree" class="ztree ztree-margin"></ul>
                             </div>
                         </div>
-                        <div class="col-md-10" id="module_container">
+                        <div class="module_tab_container col-md-10" id="module_container">
                             <div class="panel panel-body" id="module_tree_container_body" style="border-color: #dddddd">
                                 <div>
                                     <div class="toolbar-left" style="margin-bottom: 0px">

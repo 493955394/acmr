@@ -45,26 +45,54 @@ define(function (require,exports,module) {
         $('#zssx #tree_and_find, #zssx .zssx-right,.panel_container').height(rch - 10);
     }
 
+    //全屏
     $('#btn-fullscreen').click(function(e){
-        var $tab_pane = $("#edit_container");
-        console.log($tab_pane);
-        $tab_pane.toggleClass('fullscreen');
+        var $all_pane = $("#edit_container");
+        $all_pane.toggleClass('fullscreen');
 
+        var $tab_pane = $(".tab-content");
+        $tab_pane.toggleClass('leftfull');
+
+        var $edit_tabs=$(".edit_tab")
+        $edit_tabs.each(function () {
+            $(this).toggleClass('leftfull')
+        })
+
+        //zssx
         var $zssx_right=$('.zssx-right');
         $zssx_right.toggleClass('rightfull');
         var $right_panel=$('.right-panel');
         $right_panel.toggleClass('rightfull');
         var $panel_container=$('.panel_container');
         $panel_container.toggleClass('rightfull');
-
         var $left_panel=$('#tree_and_find');
         $left_panel.toggleClass('leftfull');
         var $dragline=$('.dragline');
         $dragline.toggleClass('leftfull');
 
+        //jsfw
+        var $jsfw_col=$(".jsfw_col")
+        $jsfw_col.each(function () {
+            $(this).toggleClass('container_full')
+        })
+        var $dqs=$("#dqs")
+        $dqs.toggleClass('leftfull')
+        var $dqlb=$("#dqlb")
+        $dqlb.toggleClass('leftfull')
+        var $data_check_container=$("#data_check_container")
+        $data_check_container.toggleClass('leftfull')
 
-        $("#savediv").toggleClass('savedivfull');
+        //mxgh
+        var $module_tab_container=$(".module_tab_container")
+        $module_tab_container.each(function () {
+            $(this).toggleClass('container_full')
+        })
+        var $module_tree_container_body=$("#module_tree_container_body")
+        $module_tree_container_body.toggleClass('rightfull')
 
+
+        //save and footer
+        $(".savediv").toggleClass('savedivfull');
         $(".ict-footer").toggleClass('savedivfull');
     });
 
