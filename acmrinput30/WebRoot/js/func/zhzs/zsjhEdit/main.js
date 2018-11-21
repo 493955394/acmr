@@ -94,6 +94,7 @@ define(function (require,exports,module) {
         //save and footer
         $(".savediv").toggleClass('savedivfull');
         $(".ict-footer").toggleClass('savedivfull');
+        $(".btn-fullscreen").toggleClass('min-fullscreen')
     });
 
     var rch = $(window).height()-$(".ict-header").outerHeight(true) - $('.savediv').height() - $('.ict-footer').height() - $('#top_div').height() - $('#ict-header').outerHeight() - 70;

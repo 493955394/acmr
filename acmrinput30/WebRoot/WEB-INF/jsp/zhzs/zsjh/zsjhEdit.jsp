@@ -79,7 +79,7 @@
                 <c:if test="${list.getSort() == 'q'}">季度</c:if>
             </div>
             <div class="panel-body panel-height" id="edit_container" style="padding-left: 0;padding-right: 0;">
-                <span id="btn-fullscreen" style="float: right;padding:10px">全屏</span>
+                <span id="btn-fullscreen" class="btn-fullscreen" style="float: right;padding:10px"></span>
                 <div id="top_div">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">

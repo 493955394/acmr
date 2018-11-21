@@ -84,6 +84,22 @@ background-color: #ffffff;
 .selectedli i.data-remove{
     background-position: -42px -20px;
 }
+.btn-fullscreen{
+    display: inline-block;
+    vertical-align: bottom;
+    width: 22px;
+    height: 22px;
+    background: url(../images/max.png) no-repeat;
+    margin-right: 2px;
+}
+.min-fullscreen{
+    display: inline-block;
+    vertical-align: bottom;
+    width: 22px;
+    height: 22px;
+    background: url(../images/min.png) no-repeat;
+    margin-right: 2px;
+}
 /**
 树的样式
  */
