@@ -22,7 +22,10 @@
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 <div class="container-fluid" id="mainpanel">
     <input type="hidden" id="t_code" value="${taskcode}">
-        <div>
+        <div  class="col-xs-12" >
+            <div class="panel panel-default">
+            <div class="panel-heading">${indexinfo.name}计划任务：${indexinfo.sort}</div>
+            </div>
             <div class="panel-body">
                 <div>
                     <!-- Nav tabs -->

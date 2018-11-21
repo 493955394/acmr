@@ -16,6 +16,7 @@ import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.zhzs.*;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zhzs.*;
+import com.sun.javafx.collections.MappingChange;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,7 +66,12 @@ public class zscalculate extends BaseAction {
             PubInfo.printStr(mods.get(i).getCname());
         }
         List<List<String>> datas = getResultList(taskcode,regscode,sessionid);//计算结果
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", data1).addObject("regs", regs).addObject("taskcode", taskcode).addObject("istmp", false).addObject("mods",mods).addObject("rsdatas",datas).addObject("right",right);
+        boolean flag = ifCalculate(taskcode,regscode,sessionid);
+        //计划信息
+        Map<String,String> indexinfo= new HashMap<>();
+        indexinfo.put("name",new IndexListService().getData(icode).getCname());
+        indexinfo.put("sort",indexTaskService.getTime(taskcode));
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", data1).addObject("regs", regs).addObject("taskcode", taskcode).addObject("istmp", false).addObject("mods",mods).addObject("rsdatas",datas).addObject("right",right).addObject("indexinfo",indexinfo).addObject("flag",flag);
     }
 
     /**
@@ -99,7 +105,11 @@ public class zscalculate extends BaseAction {
             PubInfo.printStr(mods.get(i).getCname());
         }
         List<List<String>> datas = getResultList(taskcode,regscode,sessionid);//计算结果
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", datatmp).addObject("regs", regstmp).addObject("taskcode", taskcode).addObject("istmp", true).addObject("mods",mods).addObject("rsdatas",datas);
+        //计划信息
+        Map<String,String> indexinfo= new HashMap<>();
+        indexinfo.put("name",new IndexListService().getData(icode).getCname());
+        indexinfo.put("sort",indexTaskService.getTime(taskcode));
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("data", datatmp).addObject("regs", regstmp).addObject("taskcode", taskcode).addObject("istmp", true).addObject("mods",mods).addObject("rsdatas",datas).addObject("indexinfo",indexinfo);
 
     }
     /**
@@ -244,7 +254,6 @@ public class zscalculate extends BaseAction {
             regs.add(originService.getwdnode("reg", regscode.get(i),dbcode).getName());
         }
         if (StringUtil.isEmpty(pjax)) {
-
             this.getResponse().sendRedirect(this.getContextPath()+"/zbdata/zscalculate.htm?m=ZsCalculate&taskcode="+taskcode+"&right=2");
 
             // PubInfo.printStr("===================================emptyredata");
@@ -343,7 +352,10 @@ public class zscalculate extends BaseAction {
             WeightEditService weightEditService = new WeightEditService();
             List<TaskModule> mods=weightEditService.getOrTMods(taskcode);
             List<List<String>> datas = getResultList(taskcode,regscode,sessionid);//计算结果
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas).addObject("mods",mods).addObject("taskcode",taskcode);
+            Map<String,String> indexinfo= new HashMap<>();
+            indexinfo.put("name",new IndexListService().getData(icode).getCname());
+            indexinfo.put("sort",indexTaskService.getTime(taskcode));
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas).addObject("mods",mods).addObject("taskcode",taskcode).addObject("indexinfo",indexinfo);
         } else {
             PubInfo.printStr("=====================================pjaxredata");
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/dataTable").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode);
@@ -575,7 +587,10 @@ public class zscalculate extends BaseAction {
             datas = getResultList(taskcode,regscode,sessionid);
             List<List<String>> data=getOriginData(true,taskcode,ayearmon,sessionid);
             List<TaskModule> mods=weightEditService.getTMods(taskcode);
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas).addObject("mods",mods).addObject("istmp", false).addObject("rsdatas",datas);
+            Map<String,String> indexinfo= new HashMap<>();
+            indexinfo.put("name",new IndexListService().getData(icode).getCname());
+            indexinfo.put("sort",indexTaskService.getTime(taskcode));
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/zscalculate").addObject("regs", regs).addObject("data",data).addObject("taskcode",taskcode).addObject("rsdatas",datas).addObject("mods",mods).addObject("istmp", false).addObject("rsdatas",datas).addObject("indexinfo",indexinfo);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/tbdataresult").addObject("regs",regs).addObject("rsdatas",datas);
         }
@@ -645,6 +660,31 @@ public class zscalculate extends BaseAction {
             return "";//要是上期数据是0，环比就报错
         }
         return result;
+    }
+    /**
+     * 检查本期值是否都有值，要是有一个值是“”,代表这个公式没有算
+     * @param taskcode
+     * @param regscode
+     * @param sessionid
+     * @return
+     */
+    public boolean ifCalculate(String taskcode,List<String> regscode,String sessionid){
+        boolean flag = false;
+        OriginDataService originDataService = new OriginDataService();
+        IndexTaskService indexTaskService = new IndexTaskService();
+        List<Map> arr = originDataService.modelTree(taskcode);//得到模型节点列表
+        String ayearmon = indexTaskService.getTime(taskcode);//得到时间期
+        for (int i = 0; i <arr.size() ; i++) {
+            List<String> rows = new ArrayList<>() ;
+            rows.add(arr.get(i).get("name").toString());
+            for (int j = 0; j <regscode.size() ; j++) {
+                String current = originDataService.getzbvalue(true,taskcode,arr.get(i).get("code").toString(),regscode.get(j),ayearmon,sessionid);
+                if(current.equals("")){
+                    flag =true;
+                }
+            }
+        }
+        return flag;
     }
 
     /*public static void main(String[] args) {

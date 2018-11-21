@@ -8,8 +8,6 @@ define(function (require,exports,module) {
     var taskcode=$("#t_code").val();
     //$(".weight_select").change(reWeight)
     $(document).ready(function(){
-        if($("#result-ifcomplete").val()=="true")
-            alert("原始数据缺失")
         //footer位置设置
             function footerPosition(){
                 $(".footer").removeClass("fixed-footer");
@@ -26,11 +24,12 @@ define(function (require,exports,module) {
             }
             footerPosition();
             $(window).resize(footerPosition);
+        if($("#result-ifcomplete").val()=="true")
+            alert("原始数据缺失");
     })
     $(document).on('click','.weight_select',function (event) {
    // function reWeight() {
 
-            console.log("恢复")
             $.pjax({
                 url:common.rootPath+'zbdata/zscalculate.htm?m=ReWeight&taskcode='+taskcode,
                 container:'.J_zsjs_weight',
