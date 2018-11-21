@@ -789,6 +789,8 @@ define(function (require,exports,module) {
             success: function(data) {
                 if (data.returncode == 200) {
                     alert("保存成功！");
+                    var index = $("#bjjhTab li.active").index();
+                    if(index == 3)//如果是模型规划的tab页才回首页
                     window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+incode;
                 }
                 if (data.returncode == 301) {
