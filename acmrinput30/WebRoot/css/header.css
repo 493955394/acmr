@@ -552,3 +552,220 @@ a:focus {
 .theme34 .themeicon1{
 	background-position: 0 -1700px; 
 }
+
+
+
+
+/* 头部开始 */
+.head {
+	font-size: 14.4px;
+	height: 98px;
+}
+.head > .container-fluid {
+	padding: 0 15px;
+}
+.head .logo {
+	float: left;
+	margin-top: 18px;
+	height: 42px;
+}
+.head .logo img {
+	display: block;
+	height: 100%;
+}
+.head li {
+	list-style: none;
+}
+.head .search-box {
+	margin-left: 300px;
+	margin-right: 520px;
+	text-align: center;
+	padding-top: 24px;
+}
+.head .search-box .inner {
+	text-align: left;
+	display: inline-block;
+}
+.head .search-box .search-logo {
+	background: url(../images/sousu.png) center center no-repeat;
+	background-size: auto 100%;
+	float: left;
+	width: 82px;
+	height: 30px;
+	margin-top: 5px;
+}
+.head .search-box .input-box {
+	float: left;
+	margin-left: 9px;
+	width: 280px;
+	height: 38px;
+	border-radius: 26px;
+	background: #E4E4E4;
+}
+.head .search-box .input-box input {
+	border: none;
+	background: transparent;
+	width: 170px;
+	margin-left: 30px;
+	height: 100%;
+}
+.head .search-box .input-box input:focus {
+	outline: none;
+}
+.head .search-box .input-box button {
+	float: right;
+	border: none;
+	width: 60px;
+	height: 100%;
+	background: url(../images/search.png) center center no-repeat;
+	background-size: 20px;
+	cursor: pointer;
+}
+.head .header-func {
+	margin-top: 35px;
+	float: right;
+	text-align: right;
+	font-size: 15px;
+}
+.head .header-func span {
+	color: #000151;
+}
+.head .header-func a {
+	color: #333333;
+	margin-left: 16px;
+}
+/* 头部结束 */
+/* 导航条开始 */
+.header-nav {
+	line-height: 42px;
+	font-size: 14.4px;
+	border-bottom: 1px solid #e3e3e3;
+}
+.header-nav a:hover,
+.header-nav a:active,
+.header-nav a:focus {
+	text-decoration: none;
+}
+.header-nav li {
+	list-style: none;
+}
+.header-nav > .container-fluid {
+	padding: 0 15px;
+}
+.header-nav .header-navbar {
+	margin-bottom: 0;
+}
+.header-nav .header-navbar > li {
+	margin-left: 30px;
+	float: left;
+	position: relative;
+}
+.header-nav .header-navbar > li:first-child {
+	margin-left: 0;
+}
+.header-nav .header-navbar > li > a {
+	display: block;
+	height: 42px;
+	font-size: 17px;
+	padding: 0 10px;
+	line-height: 42px;
+	color: #333333;
+}
+.header-nav .header-navbar > li > a.active {
+	background: #FF9500;
+	color: #ffffff;
+}
+.header-nav .header-navbar > li > a.active:hover {
+	color: #ffffff;
+	text-decoration: none;
+}
+.header-nav .header-navbar > li > a:hover {
+	color: #FF9500;
+	text-decoration: none;
+}
+.header-nav .header-navbar > li:hover .header-subnav {
+	display: block;
+}
+.header-nav .header-navbar .header-subnav {
+	top: 100%;
+	left: 0;
+	min-width: 95px;
+	position: absolute;
+	z-index: 100000;
+	box-shadow: 0 15px 35px 0 rgba(24, 44, 79, 0.15);
+	background: #ffffff;
+	padding: 5px 20px;
+	font-size: 15px;
+	display: none;
+}
+.header-nav .header-navbar .header-subnav a {
+	display: block;
+	white-space: nowrap;
+	line-height: 36px;
+	color: #333333;
+}
+.header-nav .header-navbar .header-subnav a.active {
+	background: #FF9500;
+	color: #ffffff;
+}
+.header-nav .header-navbar .header-subnav a:hover {
+	color: #FF9500;
+	text-decoration: none;
+}
+.nav-caret {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	margin-left: 8px;
+	vertical-align: middle;
+	border-top: 6px dashed;
+	border-top: 6px solid\9;
+	border-right: 6px solid transparent;
+	border-left: 6px solid transparent;
+}
+.pull-right {
+	float: right;
+}
+/* 导航条结束 */
+/* 面包屑导航 */
+.breadcrumbm {
+	padding: 0 15px;
+	margin-bottom: 10px;
+	font-size: 16px;
+}
+.breadcrumbm a {
+	color: #333333;
+}
+.breadcrumbm .sep {
+	width: 35px;
+	height: 12px;
+	background: url(../images/right.png) center center no-repeat;
+	display: inline-block;
+}
+.breadcrumbm .active {
+	color: #FF9500;
+}
+.breadcrumbm .more {
+	float: right;
+	font-size: 16px;
+	color: #FF9500;
+}
+.breadcrumbm .icon_home {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	background: url(../images/icon_home_blue.png) center center no-repeat;
+	vertical-align: -1px;
+	margin-right: 2px;
+}
+/* 面包屑导航结束 */
+/* 底部开始 */
+.ict-footer {
+	padding: 0 15px;
+	line-height: 50px;
+	background: #313131;
+	font-size: 14px;
+	color: #e3e3e3;
+	text-align: center;
+}
+/* 底部结束 */

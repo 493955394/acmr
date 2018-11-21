@@ -14,35 +14,51 @@
 	User user = (User) request.getSession().getAttribute("loginuser");
 %>
 
-<div id="tops">
-	<div class="tops">
-		<div class="header">
-			<h1>中国信通院</h1>
-             <img style="display:none;"
-              src="${passport}/online.aspx" />
-			<div class="top-search">
-				<input type="text" value="如：全球 电话用户数 2016" maxlength="60"
-					class="search-text" id="keyword" /> <input type="button"
-					class="search-btn" />
-			</div>
 
-			<div class="top-right">
-				<ul>
-					<li>欢迎！<%=user.getUsername()%></li>
-					<li>|</li>
-					<li><a href="${ctx}/login.htm?m=logout">退出</a></li>
-				</ul>
-			</div>
+<link rel="stylesheet" type="text/css" href="${ctx}/css/header.css" />
+<style>
+	.header-nav{
+		background: #5992F8;
+		border: none;
+	}
+	.header-nav .header-navbar > li > a{
+		color: #ffffff;
+	}
+</style>
+<div class="head">
+	<div class="container-fluid clearfix">
+		<a class="logo">
+			<img src="${ctx}/images/logo_new.png" />
+		</a>
+		<div class="header-func">
+
+			<span>欢迎！</span>
+
 		</div>
-		<div class="navbox">
-			<div class="container-fluid clearfix">
-				<ul class="navbar-nav" style="float:right;">
-					<!-- 
-					 <li><a href="<%=WebConfig.factor.getInstance().getPropertie("login.properties", "puburl")%>/index.htm">首页</a></li>
-					 -->
-					<%=MenuService.getUserMenu(menus)%> 
-				</ul>
+		<div class="search-box">
+			<div class="inner">
+				<form action="${ctx}/search.htm" method="post">
+					<span class="search-logo"></span>
+					<div class="input-box">
+						<input type="text" class="search-input" name="s" placeholder="如：全球 电话用户数 2016" maxlength="60" />
+						<button type="submit"></button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
+</div>
+<div class="header-nav">
+	<div class="container-fluid">
+		<ul class="header-navbar clearfix">
+
+			<li><a href="${ctx }/index.htm">首页</a></li>
+
+		</ul>
+	</div>
+</div>
+<div style="height: 10px"></div>
+<div class="breadcrumbm">
+	<span class="icon_home"></span>
+	<a href="${ctx }/index.htm">首页</a><span class="sep"></span>
 </div>
