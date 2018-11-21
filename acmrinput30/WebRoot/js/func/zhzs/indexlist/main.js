@@ -44,13 +44,12 @@ define(function (require,exports,module) {
         event.preventDefault();
         var self = this,
             requestUrl = $(self).prop('action'),
-            key = $('select',self).val(),
             val = $('input',self).val(),
             str = "&id=";
         if(treeNodeId!=""&&treeNodeId!="!1"){
             str += treeNodeId;
         }
-        var requestData = "&seltype="+key+"&keyword="+val;
+        var requestData = "&seltype=cname&keyword="+val;
         searchField = requestData+str;
         isMove = false;
         $.pjax({

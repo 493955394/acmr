@@ -93,7 +93,7 @@
                 <div class="col-xs-12 tab-content row" style="padding-top: 10px;padding-right: 0;overflow: auto;">
                     <div role="tabpanel" class="edit_tab tab-pane active" id="jbxx">
                         <form class="form-horizontal" id="indexForm" action="" method="post">
-                            <div class="form-group">
+                            <div class="form-group" style="display: none">
                                 <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                                 <div class="col-sm-5">
                                     <input name="index_code" id="index_code" class="form-control"

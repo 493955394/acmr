@@ -29,10 +29,9 @@
         <div class="toolbar-left">
             <form class="form-inline J_search_form" action="${ctx}/zbdata/indexlist.htm?m=find">
                 <div class="form-group">
-                    <select id="querykey" class="form-control input-sm">
-                        <option value="cname" <c:if test="${codes.cname != '' && codes.cname!= null}">selected</c:if>>名称</option>
-                        <option value="code" <c:if test="${codes.code != '' && codes.code != null}">selected</c:if>>编码</option>
-                    </select>
+                    <span id="querykey" class="form-control input-sm">
+                        名称
+                    </span>
                 </div>
                 <div class="form-group">
                     <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="${codes.keyword}" autocomplete="off">
@@ -100,7 +99,6 @@
     <c:if test="${state.equals('0')}">
         <colgroup>
             <col width="3%"/>
-            <col width="14%"/>
             <col width="15%"/>
             <col width="10%"/>
             <col width="13%"/>
@@ -110,7 +108,6 @@
         <thead>
         <tr>
             <th><input type="radio" name="radiotype" style="display: none;"></th>
-            <th><span class="word">编码</span></th>
             <th><span class="word">名称</span></th>
             <th><span class="word">类型</span></th>
             <th><span class="word">周期</span></th>
@@ -121,7 +118,7 @@
         <c:if test="${page.totalRecorder==0 or page.totalPage<page.pageNum}">
             <tbody class="list_body ">
             <tr>
-                <td style="text-align: center;vertical-align: middle!important;" colspan="7">没有查询到数据</td>
+                <td style="text-align: center;vertical-align: middle!important;" colspan="6">没有查询到数据</td>
             </tr>
             </tbody>
         </c:if>
@@ -130,7 +127,7 @@
             <c:forEach  items="${page.data}" var="index">
                 <tr class="my_index pro-${index.getCode()}">
                     <th><input type="radio" name="radiotype" if="${index.getIfdata()}" id="${index.getCode()}" getname="${index.getCname()}" getprocode="${index.getProcode()}"></th>
-                    <td style="text-align: center;vertical-align: middle!important;">${index.getCode()}</td>
+                    <td style="display: none">${index.getCode()}</td>
                     <td  style="text-align: center;vertical-align: middle!important;">${index.getCname()}</td>
                     <td  style="text-align: center;vertical-align: middle!important;">
                         <c:if test="${index.getIfdata() == 0}">目录</c:if>
