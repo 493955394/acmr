@@ -16,17 +16,18 @@
 
 </div>
 <div class="table_body_cont" style="overflow: auto;width: 100%;height: 75%;">
-    <table class="table table-bordered table-hover table_body" style="width: 100%;">
-        <tbody id="zb_data_body">
-        <c:forEach items="${rows}" var="row">
-            <tr>
-                <c:forEach items="${row}" var="data" varStatus="i">
-                    <td style="min-width: 60px" class="column${i.count}">${data}</td>
-                </c:forEach>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+        <table class="table table-bordered table-hover table_body" style="width: 100%;height: 100%;">
+            <tbody id="zb_data_body">
+            <c:forEach items="${rows}" var="row">
+                <tr>
+                    <c:forEach items="${row}" var="data" varStatus="i">
+                        <td style="min-width: 60px;height: 39px;" class="column${i.count}">${data}</td>
+                    </c:forEach>
+                </tr>
+            </c:forEach>
+            <tr></tr>
+            </tbody>
+        </table>
     <p class="table_nodata" style="color: orangered">${nodata}</p>
 </div>
 
