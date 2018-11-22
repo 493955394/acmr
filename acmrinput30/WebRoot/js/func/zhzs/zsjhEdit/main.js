@@ -89,8 +89,8 @@ define(function (require,exports,module) {
         })
         var $module_tree_container_body=$("#module_tree_container_body")
         $module_tree_container_body.toggleClass('rightfull')
-        var $module_table=$("#J_zsjh_module_table")
-        $module_table.toggleClass(".container_full")
+        var $module_table=$(".J_zsjh_module_table")
+        $module_table.toggleClass("container_full")
 
 
         //save and footer
