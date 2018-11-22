@@ -81,6 +81,8 @@ define(function (require,exports,module) {
         $dqlb.toggleClass('leftfull')
         var $data_check_container=$("#data_check_container")
         $data_check_container.toggleClass('leftfull')
+        var $regtable=$("#regtable")
+        $regtable.toggleClass("container_full")
 
         //mxgh
         var $module_tab_container=$(".module_tab_container")
