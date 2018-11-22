@@ -15,6 +15,8 @@ import com.acmr.service.security.UserService;
 import com.acmr.service.zbdata.UserDepService;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
+import java.math.BigDecimal;
+import java.nio.DoubleBuffer;
 import java.text.ParseException;
 import java.util.*;
 
@@ -597,15 +599,18 @@ public class IndexListService {
             IndexMoudle mod=new IndexMoudle(code,cname,indexcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode);
             if (mod.ZBnums()<1||mod.getWeight().equals("0")){
                 check=false;
+                break;
             }
             //同一级别指标和必须为1
             String pcode=mod.getCode();
             List<DataTableRow> submods=IndexListDao.Fator.getInstance().getIndexdatadao().getSubMods(icode,pcode).getRows();
-            float sum=0;
+            //double sum=0;
+            BigDecimal sum= BigDecimal.valueOf(0);
             for (int k=0;k<submods.size();k++){
-                sum=sum+ Float.parseFloat(submods.get(k).getString("weight"));
+                sum=sum.add(BigDecimal.valueOf(Double.parseDouble(submods.get(k).getString("weight"))));
             }
-            if (sum!=1) check=false;
+            if (sum.compareTo( new BigDecimal(1))!=0) check=false;
+            break;
 
         }
         //指标的权重也不能为0
@@ -613,6 +618,7 @@ public class IndexListService {
         for (int j=0;j<rows1.size();j++){
             if (rows1.get(j).getString("weight").equals("0")){
                 check=false;
+                break;
             }
         }
 
