@@ -304,7 +304,7 @@ define(function (require,exports,module) {
                             pagenum++
                             if (typeof re=="string"){
                                 if ($("#zb_query_over").length==0){
-                                    $("#zb_data_table").append("<p id='zb_query_over' style='padding-left: 40%;'>"+""+"</p>")
+                                    $("#zb_data_table").append("<p id='zb_query_over' style='padding-left: 40%;color:orange'>"+"全部数据加载完毕"+"</p>")
                                 }
                             }
                             else {
