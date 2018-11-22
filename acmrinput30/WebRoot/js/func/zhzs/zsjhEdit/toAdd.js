@@ -13,6 +13,19 @@ define(function (require,exports,module) {
     var zhibiao = $(".zb_ifzs option:selected").val();
     var ifzs = $("#selectifzs option:selected").val();
 
+    function get_uuid(){
+        var s = [];
+        var hexDigits = "0123456789abcdef";
+        for (var i = 0; i < 36; i++) {
+            s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        }
+        s[14] = "4";
+        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+        s[8] = s[13] = s[18] = s[23] = "-";
+
+        var uuid = s.join("");
+        $('input[name="ZS_code"]').val(uuid);
+    }
     /**
      * 新增模型节点
      */
@@ -24,11 +37,11 @@ define(function (require,exports,module) {
         checkDelegate = new VaildNormal();
         var flag = true;
         //前端检查
-        if (!checkDelegate.checkNormal($('input[name="ZS_code"]'), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
+       /* if (!checkDelegate.checkNormal($('input[name="ZS_code"]'), [{ 'name': 'required', 'msg': '编码不能为空' }]) ||
             !checkDelegate.checkNormal($('input[name="ZS_code"]'), [{ 'name': 'ch', 'msg': '编码不能包含汉字' }]) ||
             !checkDelegate.checkNormal($('input[name="ZS_code"]'), [{ 'name': 'maxlength', 'msg': '编码最大长度为20', 'param': 21 }])) {
             flag = false;
-        }
+        }*/
         if (!checkDelegate.checkNormal($('input[name="ZS_cname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
             !checkDelegate.checkNormal($('input[name="ZS_cname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为100', 'param': 101 }])) {
             flag = false;
@@ -36,13 +49,8 @@ define(function (require,exports,module) {
         if (flag == false) {
             return;
         }
-        var ifavalible =  /^([0-9a-zA-Z]*)$/;
-        var zs_code = $('input[name="ZS_code"]').val();
-        var check =zs_code.match(ifavalible);
-        if(check == null){
-            alert("非法的编码");
-            return;
-        }
+
+
         var formulas = $(".formula option:selected").val();
         var formulatexts = $("#formulatext").val();
         var ifzscheck = $("#selectifzs option:selected").val();
@@ -50,6 +58,7 @@ define(function (require,exports,module) {
             alert("请筛选对应指标！");
             return;
         }
+        get_uuid();//获取编码
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),

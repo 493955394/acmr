@@ -30,7 +30,7 @@
             <form class="form-horizontal J_addZS_form" action="${ctx}/zbdata/zsjhedit.htm?m=toSaveZS">
                 <input type="hidden" name="procodeId" value="${datas.procodeId}" class="input-small"/>
                 <input type="hidden" name="icode" value="${datas.indexCode}"/>
-                <div class="form-group">
+                <div class="form-group" style="display: none">
                     <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                     <div class="col-sm-3">
                         <input type="text" class="form-control" name="ZS_code">

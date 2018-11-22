@@ -217,10 +217,9 @@ define(function (require,exports,module) {
         event.preventDefault();
         var self = this,
             requestUrl = $(self).prop('action'),
-            key = $('select',self).val(),
             val = $('input',self).val(),
             str = "&id=";
-        var requestData = common.formatData(key,val);
+        var requestData = "zs_cname="+val;
         if(requestData.length>0){
             requestData="&"+requestData;
         }

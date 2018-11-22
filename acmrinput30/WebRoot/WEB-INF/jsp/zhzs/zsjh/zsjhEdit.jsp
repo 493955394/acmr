@@ -371,19 +371,14 @@
                             <div class="panel panel-body" id="module_tree_container_body" style="border-color: #dddddd">
                                 <div>
                                     <div class="toolbar-left" style="margin-bottom: 0px">
-                                        <form class="form-inline J_search_form"
-                                              action="${ctx}/zbdata/zsjhedit.htm?m=searchFind">
+                                        <form class="form-inline J_search_form" action="${ctx}/zbdata/zsjhedit.htm?m=searchFind">
                                             <div class="form-group">
-                                                <select id="querykey" class="form-control input-sm">
-                                                    <option value="zs_cname"
-                                                            <c:if test="${zs_code != '' && zs_code!= null}">selected</c:if>>
-                                                        名称
-                                                    </option>
-                                                    <option value="zs_code"
-                                                            <c:if test="${zs_cname != '' && zs_cname != null}">selected</c:if>>
-                                                        编码
-                                                    </option>
-                                                </select>
+                                                    <div class="form-group">
+                                                            <span id="querykey" class="form-control input-sm">
+                                                                名称
+                                                            </span>
+                                                    </div>
+
                                             </div>
                                             <div class="form-group">
                                                 <input id="moduleQuery" type="text" class="form-control input-sm"

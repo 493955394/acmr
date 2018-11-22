@@ -20,7 +20,6 @@
             <table class="table table-bordered table-hover">
                 <thead  style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
                 <tr id="mod_list_head">
-                    <td>编号</td>
                     <td>名称</td>
                     <td>类型</td>
                     <td>权重</td>
@@ -32,12 +31,12 @@
                 <tbody id="mod_list_body">
                 <c:if test="${fn:length(mods)==0}">
                     <tr>
-                        <td colspan="7">没有查询到数据</td>
+                        <td colspan="6">没有查询到数据</td>
                     </tr>
                 </c:if>
                 <c:forEach items="${mods}" var="module" varStatus="stat">
                     <tr>
-                        <td>${module.getCode()}</td>
+                        <td style="display: none">${module.getCode()}</td>
                         <td>${module.getCname()}</td>
                         <td>
                             <c:if test="${module.getIfzs()==1}" >指数</c:if>
