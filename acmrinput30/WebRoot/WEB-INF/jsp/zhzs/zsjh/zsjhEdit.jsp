@@ -79,7 +79,10 @@
                 <c:if test="${list.getSort() == 'q'}">季度</c:if>
             </div>
             <div class="panel-body panel-height" id="edit_container" style="padding-left: 0;padding-right: 0;">
-                <span id="btn-fullscreen" class="btn-fullscreen" style="float: right;padding:10px"></span>
+                <span id="btn-fullscreen" class="btn-fullscreen" style="float: right;padding:10px;margin-left:10px;"></span>
+                <button type="reset" class="btn btn-primary resetindex btn-xs" style="float: right;margin-left:10px;">返回</button>
+                <button type="button" class="btn btn-primary tosaveall btn-xs" style="float: right;margin-left:10px; ">保存</button>
+
                 <div id="top_div">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">
@@ -416,8 +419,7 @@
             </div>
         </div>
         <div class="col-sm-12 savediv" style="text-align:center;padding: 10px 0;">
-            <button type="button" class="btn btn-primary tosaveall">保存</button>
-            <button type="reset" class="btn btn-primary resetindex">返回</button>
+
         </div>
     </div>
 </div>
