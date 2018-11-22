@@ -605,11 +605,11 @@ public class IndexListService {
             String pcode=mod.getCode();
             List<DataTableRow> submods=IndexListDao.Fator.getInstance().getIndexdatadao().getSubMods(icode,pcode).getRows();
             //double sum=0;
-            BigDecimal sum= BigDecimal.valueOf(0);
+            BigDecimal sum= new BigDecimal("0");
             for (int k=0;k<submods.size();k++){
-                sum=sum.add(BigDecimal.valueOf(Double.parseDouble(submods.get(k).getString("weight"))));
+                sum=sum.add(new BigDecimal(submods.get(k).getString("weight")));
             }
-            if (sum.compareTo( new BigDecimal(1))!=0) check=false;
+            if (sum.compareTo( new BigDecimal("1"))!=0) check=false;
             break;
 
         }
