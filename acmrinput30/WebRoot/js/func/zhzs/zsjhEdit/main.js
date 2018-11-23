@@ -519,6 +519,7 @@ define(function (require,exports,module) {
             })
             mc('tabledata',0,0,0);
             $(".data_single").hide();
+            $(".regtable").show();
             var headHeight=$(".regs-data-check1").height()
             //$(".table_body").css("margin-top",headHeight)
             var bodyWidth=$(".regs-data-check1").width()
@@ -538,7 +539,6 @@ define(function (require,exports,module) {
                     $('.tb-head table').css({'left': 0});
                 }
             });
-            $(".regtable").show();
             $('ul.regul').html("");
             select_li = "error";
             var showreg ="";
