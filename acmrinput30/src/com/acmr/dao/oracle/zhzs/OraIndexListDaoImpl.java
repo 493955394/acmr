@@ -87,7 +87,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
 
     @Override
     public int addIndexlist(IndexList indexList) {
-        String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?)";
+        String sql1 = "insert into tb_coindex_index (code,cname,procode,ifdata,state,sort,startperiod,delayday,planperiod,plantime,createuser,createtime,updatetime) values(?,?,?,?,?,?,?,?,?,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),to_date(?,'yyyy-mm-dd hh24:mi:ss'))";
         List<Object> params = new ArrayList<Object>();
         params.add(indexList.getCode());
         params.add(indexList.getCname());
@@ -101,7 +101,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         params.add(indexList.getPlantime());
         params.add(indexList.getCreateuser());
         params.add(indexList.getCreatetime());
-        params.add(new Timestamp(new java.util.Date().getTime()));
+        params.add(indexList.getUpdatetime());
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
     }
 

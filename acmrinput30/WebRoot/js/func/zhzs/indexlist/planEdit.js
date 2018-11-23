@@ -418,9 +418,6 @@ define(function (require,exports,module) {
                 } else if (data.returncode == 300||data.returncode == 301) {
                     alert(data.returndata);
                     $("#mymodal-data2").modal('show');
-                } else if (data.returncode == 400) {
-                    alert("计划基本信息缺失，复制失败");
-
                 } else {
                     alert("添加失败");
                 }
