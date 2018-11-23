@@ -17,68 +17,117 @@
     td{
         white-space: nowrap;
     }
+    .tb-head table{
+        width: 100%;
+        position: absolute;
+    }
+    .tb-body{
+        width: 100%;
+        height: 71%;
+        overflow: auto;
+
+    }
+    .tb-head1 table{
+        width: 100%;
+        position: absolute;
+    }
+    .tb-body1{
+        width: 100%;
+        overflow: auto;
+    }
 </style>
-<div style="height:71%;width: 100%;overflow:auto;display: none " id="regtable">
-    <table style="margin-top: 10px" class="table table-bordered" id="tabledata" >
-        <thead style="font-size: 15px;background-color: #F5F5F5;">
+<div style="display: none" class="regtable">
+    <div style="padding-top: 10px;"></div>
+    <div class="tb-head" style="position: absolute; overflow: hidden;">
+    <table class="table table-bordered regs-data-check">
+        <thead  style="font-size: 15px;background-color: #F5F5F5;">
         <tr>
-        <th>时间</th>
-        <th style="min-width: 200px">指标</th>
-        <c:forEach items="${regs}" var="reg">
-            <th>${reg}</th>
+        <th class="table-th" id="regcolumn1">时间</th>
+        <th class="table-th" id="regcolumn2">指标</th>
+        <c:forEach items="${regs}" var="reg" varStatus="i">
+            <th class="table-th" id="regcolumn${i.count+2}">${reg}</th>
         </c:forEach>
         </tr>
     </thead>
-        <tbody>
-        <c:forEach items="${data}" var="list">
-            <tr>
-                <c:forEach items="${list}" var="list1">
-                    <c:choose>
-                        <c:when test="${list1== null || list1==''}">
-                            <td class="red"></td>
-                        </c:when>
-                        <c:otherwise>
-                            <td>${list1}</td>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </tr>
-        </c:forEach>
-        </tbody>
         <input type="hidden" value="${check}" id="checkreturn">
     </table>
+    </div>
+    <div class="tb-body">
+        <table  class="table table-bordered" id="tabledata">
+            <thead  style="font-size: 15px;background-color: #F5F5F5;">
+            <tr class="regs-data-check1">
+                <th class="regcolumn1">时间</th>
+                <th class="regcolumn2">指标</th>
+                <c:forEach items="${regs}" var="reg" varStatus="i">
+                    <th class="regcolumn${i.count+2}">${reg}</th>
+                </c:forEach>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${data}" var="list">
+                <tr>
+                    <c:forEach items="${list}" var="list1" varStatus="i">
+                        <c:choose>
+                            <c:when test="${list1== null || list1==''}">
+                                <td class="red"></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td>${list1}</td>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </div>
-<div style="display: none" id="data_single">
+
+<div style="display: none" class="data_single">
     <div style="font-size: 15px;margin-top: 5px">
         检查结果：${regname}
         <button class="J_excel_singlereg btn btn-default btn-sm" style="float:right;font-size: 10px;margin-bottom: 5px"><i class="glyphicon glyphicon-save"></i>&nbsp;本地区数据下载</button>
     </div>
-    <div style="width:100%;overflow:auto;">
-    <table class="table table-bordered" id="tabledata_single" >
-        <thead style="font-size: 15px;background-color: #F5F5F5;">
-        <tr>
-            <th>指标</th>
-            <c:forEach items="${times}" var="time">
-                <th>${time}</th>
-            </c:forEach>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${singledata}" var="singgle">
-            <tr>
-                <c:forEach items="${singgle}" var="sing">
-                    <c:choose>
-                    <c:when test="${sing==''||sing ==null}">
-                        <td class="red"></td>
-                    </c:when>
-                    <c:otherwise >
-                        <td>${sing}</td>
-                    </c:otherwise>
-                    </c:choose>
+    <div style="width:100%;">
+        <div class="tb-head1" style="position: absolute; overflow: hidden;margin-top:14px">
+            <table class="table table-bordered regs-data-check2" >
+                <thead style="font-size: 15px;background-color: #F5F5F5;">
+                <tr>
+                    <th class="table-th1" id="s-regcolumn1">指标</th>
+                    <c:forEach items="${times}" var="time" varStatus="i">
+                        <th class="table-th1" id="s-regcolumn${i.count+1}">${time}</th>
+                    </c:forEach>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    <div class="tb-body1">
+        <table class="table table-bordered" id="tabledata_single" >
+            <thead style="font-size: 15px;background-color: #F5F5F5;">
+            <tr class="regs-data-check3">
+                <th class="s-regcolumn1">指标</th>
+                <c:forEach items="${times}" var="time" varStatus="i">
+                    <th class="s-regcolumn${i.count+1}">${time}</th>
                 </c:forEach>
             </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <c:forEach items="${singledata}" var="singgle">
+                <tr>
+                    <c:forEach items="${singgle}" var="sing">
+                        <c:choose>
+                            <c:when test="${sing==''||sing ==null}">
+                                <td class="red"></td>
+                            </c:when>
+                            <c:otherwise >
+                                <td>${sing}</td>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
     </div>
 </div>

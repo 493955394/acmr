@@ -81,8 +81,10 @@ define(function (require,exports,module) {
         $dqlb.toggleClass('leftfull')
         var $data_check_container=$("#data_check_container")
         $data_check_container.toggleClass('leftfull')
-        var $regtable=$("#regtable")
+        var $regtable=$(".regtable")
         $regtable.toggleClass("container_full")
+        $('.tb-head').width($('.tb-body').width()-17);
+        $('.tb-head1').width($('.tb-body1').width()-17);
 
         //mxgh
         var $module_tab_container=$(".module_tab_container")
@@ -109,8 +111,8 @@ define(function (require,exports,module) {
     $(".J_zsjh_module_table").height(rch*0.7);
     $("#dqs").height(rch*0.8);
     $("#dqlb").height(rch*0.8);
-    $("#data_single").height(rch*0.8);
-    $("#regtable").height(rch*0.8);
+    $(".data_single").height(rch*0.8);
+    $(".regtable").height(rch*0.8);
 
 
     var incode=$("#index_code").val();
@@ -516,8 +518,27 @@ define(function (require,exports,module) {
                 timeout:50000
             })
             mc('tabledata',0,0,0);
-            $("#data_single").hide();
-            $("#regtable").show();
+            $(".data_single").hide();
+            var headHeight=$(".regs-data-check1").height()
+            //$(".table_body").css("margin-top",headHeight)
+            var bodyWidth=$(".regs-data-check1").width()
+            $(".regs-data-check").width(bodyWidth)
+            $('.tb-head').height(headHeight);
+            $('.tb-head').width($('.tb-body').width()-17);
+            $(".table-th").each(function () {
+                var thisId=$(this).attr("id")
+                var thisWidth=$("."+thisId).width()
+                $(this).width(thisWidth)
+            })
+            $('.tb-body').on('scroll', function(){
+                var left = $(this).scrollLeft();
+                if(left > 0){
+                    $('.tb-head table').css({'left': -left});
+                }else{
+                    $('.tb-head table').css({'left': 0});
+                }
+            });
+            $(".regtable").show();
             $('ul.regul').html("");
             select_li = "error";
             var showreg ="";
@@ -570,8 +591,26 @@ define(function (require,exports,module) {
             container:'.data_check_show',
             timeout:50000
         })
-        $("#regtable").hide();
-        $("#data_single").show();
+        $(".regtable").hide();
+        $(".data_single").show();
+        var headHeight=$(".regs-data-check3").height()
+        var bodyWidth=$(".regs-data-check3").width()
+        $(".regs-data-check2").width(bodyWidth)
+        $('.tb-head1').height(headHeight);
+        $('.tb-head1').width($('.tb-body1').width()-17);
+        $(".table-th1").each(function () {
+            var thisId=$(this).attr("id")
+            var thisWidth=$("."+thisId).width()
+            $(this).width(thisWidth)
+        })
+        $('.tb-body1').on('scroll', function(){
+            var left = $(this).scrollLeft();
+            if(left > 0){
+                $('.tb-head1 table').css({'left': -left});
+            }else{
+                $('.tb-head1 table').css({'left': 0});
+            }
+        });
     }) ;
 
     /*   /!**
