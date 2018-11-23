@@ -206,7 +206,7 @@ define(function (require,exports,module) {
         $('input[name=editcname]').val(name);
         //点进来才开始初始化树
         var cNodes=[
-            { id:"!1", pId:0, name:"指数",isParent:true,icon:"../../../../zhzs/css/img/mark1.png"}
+            { id:"!1", pId:0, name:"指数",isParent:true,icon:"../css/img/mark1.png"}
         ]
         function clickEvent4(event,treeId,treeNode) {
             if (treeNode.id != '') {
@@ -540,6 +540,9 @@ define(function (require,exports,module) {
                         container: '.J_zsjh_data_table'
                     });
                     alert("删除成功！");
+                 /*   var code = url.match(/&code=(\S*)/)[1];
+                    window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+code;*/
+                    refreshNode(id)
                     //window.location.reload(true);
                 } else if (data.returncode == 300) {
                     alert("目录下存在计划，删除失败");
@@ -549,6 +552,22 @@ define(function (require,exports,module) {
             }
         });
     });
+
+    /**
+     * 刷新当前删除节点的父节点
+     */
+    function refreshNode(id) {
+        /*根据 treeId 获取 zTree 对象*/
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+            type = "refresh",
+            silent = false,
+            /*获取 zTree 当前被删除的节点数据集合*/
+            thisNodes = zTree.getNodeByParam('id',id),
+            pNodes = thisNodes.getParentNode();
+            zTree.selectNode(pNodes);//选中父节点
+        /*强行异步加载父节点的子节点。[setting.async.enable = true 时有效]*/
+        zTree.reAsyncChildNodes(pNodes, type, silent);
+    }
     /**
      * 启用
      */

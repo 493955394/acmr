@@ -158,7 +158,7 @@ public class zsjhedit extends BaseAction {
         String[] cos = co.split(",");
         String[] units = zbunit.split(",");
         data1 = new ArrayList();
-        String checkresult = CheckResult(regs, sjs, zbcodes, dss, cos,dbcode);
+//        String checkresult = CheckResult(regs, sjs, zbcodes, dss, cos,dbcode);
         for (int i = 0; i < sjs.length; i++) {
             for (int j = 0; j < zbcodes.length; j++) {
                 List<String> datas = new ArrayList<>();
@@ -208,14 +208,14 @@ public class zsjhedit extends BaseAction {
             List<Map> region = regshow(code);
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("list",list).addObject("zbs",zbs).addObject("indexlist",indexlist).addObject("proname",proname).addObject("regs",region);
         } else {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/regSelect").addObject("regs",regnames).addObject("data",data1).addObject("check",checkresult);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/regSelect").addObject("regs",regnames).addObject("data",data1);
         }
     }
 
     /**
      * 先按指标、地区再按时间检查
      */
-    public String CheckResult(String [] regs,String [] sjs,String [] zbcodes,String [] dss,String [] cos,String dbcode){
+   /* public String CheckResult(String [] regs,String [] sjs,String [] zbcodes,String [] dss,String [] cos,String dbcode){
         String result="";
         for (int i = 0; i <regs.length ; i++) {
             String check = "0";
@@ -245,7 +245,7 @@ public class zsjhedit extends BaseAction {
         }
         result = result.substring(0,result.length()-1);
         return result;
-    }
+    }*/
     /**
      * 查单个地区的情况
      */
@@ -301,7 +301,6 @@ public class zsjhedit extends BaseAction {
             }
             singledata1.add(datas);
         }
-        System.out.println(check);
         if (StringUtil.isEmpty(pjax)) {
             JSONObject zbs=getZBS(code);
             IndexListService indexListService=new IndexListService();
