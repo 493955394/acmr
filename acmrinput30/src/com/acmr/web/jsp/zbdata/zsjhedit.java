@@ -262,7 +262,6 @@ public class zsjhedit extends BaseAction {
         String ds = PubInfo.getString(req.getParameter("ds"));//数据来源
         String co = PubInfo.getString(req.getParameter("co"));//主体
         String zbunit = PubInfo.getString(req.getParameter("zbunit"));//单位
-        String check = PubInfo.getString(req.getParameter("checkdata"));
         String [] sjs = excelsj.split(",");
         String [] zbcodes = zbcode.split(",");
         String [] zbnames = zbname.split(",");
@@ -315,7 +314,7 @@ public class zsjhedit extends BaseAction {
             List<Map> region = regshow(code);
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("list",list).addObject("zbs",zbs).addObject("indexlist",indexlist).addObject("proname",proname).addObject("regs",region);
         } else {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/regSelect").addObject("regname",regionname).addObject("singledata",singledata1).addObject("times",sjs).addObject("check",check);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/regSelect").addObject("regname",regionname).addObject("singledata",singledata1).addObject("times",sjs);
         }
     }
     /**

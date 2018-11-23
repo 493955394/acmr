@@ -335,7 +335,7 @@ define(function (require,exports,module) {
      * 时间选择自动补上中间的时间期，以及数据检查
      */
     var selecttime = "",//时间
-        checkdata="",
+        checknum = 0,
         checkreturn=[];
     var timesort = $("#index_sort option:selected").val();
 
@@ -542,9 +542,21 @@ define(function (require,exports,module) {
             $('ul.regul').html("");
             select_li = "error";
             var showreg ="";
-            checkdata = $('input[id=checkreturn]').val();
-            var checknum =(checkdata.match(/0/g)||[]).length;
-            checkreturn = checkdata.split(",");
+           /* checkdata = $('input[id=checkreturn]').val();*/
+            checkreturn=[];
+            checknum=0;
+            for (var i = 2; i <$("#tabledata th").length ; i++) {
+                var checkRed = false;
+                $("#tabledata tr").each(function()
+                {
+                    if($(this).find("td").eq(i).hasClass("red"))//要是有红这个class,表示数据不全
+                        checkRed=true
+                })
+                if (checkRed){//数据不全
+                    checkreturn.push(1);
+                }else { checknum++;
+                checkreturn.push(0);}
+            }
             for(var i=0;i<select.length;i++){
                 if(select[i].name=="" && select[i].code==""){
                     showreg +="";
@@ -587,7 +599,7 @@ define(function (require,exports,module) {
             url: common.rootPath+'zbdata/zsjhedit.htm?m=getCheckSingle&indexcode='+incode,
             type: "post",
             async:false,
-            data: {"reg": reg,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit,"checkdata":checkdata},
+            data: {"reg": reg,"sj":selecttime,"zb":zbcode,"co":zbco,"ds":zbds,"zbname":zbname,"zbunit":zbunit},
             container:'.data_check_show',
             timeout:50000
         })
