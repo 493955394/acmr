@@ -188,31 +188,30 @@ define(function (require,exports,module) {
             var data={
                     "zbcode":zb[0]
             };
-            setTimeout(function () {
-                $.ajax({
-                    url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit&icode='+indexCode,
-                    type:'post',
-                    dataType:'json',
-                    data:data,
-                    success:function (re) {
-                        $(".zb_select").empty()
-                        $("zb_select").append("请选择")
-                        foreach(re.ds,"ds")
-                        foreach(re.co,"co")
-                        foreach(re.unit,"unit")
-                        function foreach(innerre,zname) {
-                            innerre.forEach(function (d,ind,ds){
-                                var code=Object.keys(d)[0]
-                                var name=d[code]
-                                $("#"+zname+"_select").append("<option class='" +
-                                    code+ "'>" +
-                                    name+"</option>")
-                            })
-                        }
-                        sendPjax();
+            $.ajax({
+                url:common.rootPath+'zbdata/zsjhedit.htm?m=getDsCoUnit&icode='+indexCode,
+                type:'post',
+                dataType:'json',
+                data:data,
+                success:function (re) {
+                    $(".zb_select").empty()
+                    $("zb_select").append("请选择")
+                    foreach(re.ds,"ds")
+                    foreach(re.co,"co")
+                    foreach(re.unit,"unit")
+                    function foreach(innerre,zname) {
+                        innerre.forEach(function (d,ind,ds){
+                            var code=Object.keys(d)[0]
+                            var name=d[code]
+                            $("#"+zname+"_select").append("<option class='" +
+                                code+ "'>" +
+                                name+"</option>")
+                        })
                     }
-                })
-            },500)
+                    //sendPjax();
+                }
+            })
+
 
         }
 
@@ -591,6 +590,7 @@ define(function (require,exports,module) {
             unitcode+"']").selected=true*/
         //$.ajaxSettings.async=false
         //指标回显
+        $.ajaxSettings.async=false
         zbclick([zbcode,zbname],false)
         var cocode=$(this).children()[0].children[2].value
         var dscode=$(this).children()[0].children[3].value
@@ -604,6 +604,7 @@ define(function (require,exports,module) {
             dscode+"']").attr("selected",true);
 
         zb=[zbcode,zbname]
+        sendPjax();
 
 
     }
