@@ -550,7 +550,7 @@ define(function (require,exports,module) {
             content.dsname+"</h6>" +
             "<h6>计量单位：" +
             content.unitname+"</h6>" +
-            "<button type='button' class='btn btn-primary btn-sm zb_save' style='float: left;display: none;'>保存</button>" +
+            "<button type='button' class='btn btn-primary btn-sm zb_save' style='float: left;display: none;'>更新</button>" +
             "<button type='button' class='btn btn-primary btn-sm zb_delete' style='float: right;display: none;'>删除</button>" +
             "</div> </div>")
 
@@ -640,7 +640,7 @@ define(function (require,exports,module) {
                     isUsed=false
                 }
                 else {
-                    alert("该指标被模型节点引用，不能删除！")
+                    alert("该指标被模型节点引用！")
                 }
             }
         })

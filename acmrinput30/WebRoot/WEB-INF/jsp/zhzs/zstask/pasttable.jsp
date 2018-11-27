@@ -22,18 +22,19 @@
 <div  style="margin-top: 5px">
 <span>${info.get("span")}：</span>
 <select class="input-sm wd_selector">
+    <option class="wd_option" id="change">序列</option>
     <c:forEach items="${info.get('options')}" var="option">
         <c:if test="${info.get('spancode')==option.get('code')}">
             <option class="wd_option" id="${option.get('code')}" selected="selected">${option.get('name')}</option>
         </c:if>
         <c:if test="${info.get('spancode')!=option.get('code')&&info.get('spancode')!=null}">
-            <option class="wd_option" id="${option.get('code')}">${option.get('name')}</option>
+            <option class="wd_option" id="${option.get('code')}" selected="selected">${option.get('name')}</option>
         </c:if>
         <c:if test="${info.get('spancode')==null}">
-            <option class="wd_option" id="${option.get('code')}">${option.get('name')}</option>
+            <option class="wd_option" id="${option.get('code')}" selected="selected">${option.get('name')}</option>
         </c:if>
     </c:forEach>
-    <option class="wd_option" id="change">序列</option>
+
 </select>
 </div>
 <div>
