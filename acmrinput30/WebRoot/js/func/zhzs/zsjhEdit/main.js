@@ -79,11 +79,19 @@ define(function (require,exports,module) {
         $dqs.toggleClass('leftfull')
         var $dqlb=$("#dqlb")
         $dqlb.toggleClass('leftfull')
+
         var $data_check_container=$("#data_check_container")
         $data_check_container.toggleClass('leftfull')
+
+        $(".add-or-del").toggleClass("add-padding")
+
+
         var $regtable=$(".regtable")
         $regtable.toggleClass("container_full")
-        $(".add-or-del").toggleClass("add-padding")
+        var $reg_tb_body=$("#reg_tb_body")
+        $reg_tb_body.toggleClass("container_full")
+
+
 
         //mxgh
         var $module_tab_container=$(".module_tab_container")

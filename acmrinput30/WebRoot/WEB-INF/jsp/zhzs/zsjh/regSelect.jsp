@@ -52,7 +52,7 @@
         <input type="hidden" value="${check}" id="checkreturn">
     </table>
     </div>
-    <div class="tb-body">
+    <div class="tb-body" id="reg_tb_body">
         <table  class="table table-bordered" id="tabledata">
             <thead  style="font-size: 15px;background-color: #F5F5F5;">
             <tr class="regs-data-check1">
