@@ -8,9 +8,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
-<div>
-        <div>
-            <input type="hidden" id="result-ifcomplete" value="${flag}">
+<input type="hidden" id="result-ifcomplete" value="${flag}">
+<div style="max-height:55%;width: 100%;overflow: auto">
     <table class="table table-bordered J_jsjg_table">
         <thead>
         <tr>
@@ -37,5 +36,4 @@
             </tr>
         </c:forEach>
         </table>
-        </div>
 </div>

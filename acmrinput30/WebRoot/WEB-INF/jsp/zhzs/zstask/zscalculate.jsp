@@ -66,6 +66,7 @@
                                 <input type="hidden" class="reloaddata" value="${taskcode}">
 
                             </div>
+                            <div class="clearfix"></div>
                             <div class="J_zsjs_data">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zstask/dataTable.jsp" flush="true"/>
                             </div>

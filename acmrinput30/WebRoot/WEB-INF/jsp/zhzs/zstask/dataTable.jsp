@@ -8,15 +8,14 @@
         background-color: #EBECF1;
     }
     td{
+        white-space: nowrap;
         text-align: center;
         vertical-align: middle!important;
     }
 </style>
 
-<div>
-    <div>
-        <div>
-            <table class="table table-bordered table-hover" id="origin-data">
+        <div style="width: 100%;overflow: auto">
+            <table class="table table-bordered" id="origin-data">
                 <thead>
                 <tr id="mod_list_head">
                     <td>指标</td>
@@ -36,5 +35,3 @@
                 </tbody>
             </table>
         </div>
-    </div>
-</div>

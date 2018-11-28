@@ -33,6 +33,11 @@ import java.util.*;
 public class indexlist extends BaseAction {
     private HttpServletRequest req;
 
+    @Override
+    public boolean servletLoad() throws IOException {
+        return super.servletLoad();
+    }
+
     public ModelAndView main() throws IOException {
 
         User cu=UserService.getCurrentUser();
