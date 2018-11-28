@@ -2016,4 +2016,27 @@ public class zsjhedit extends BaseAction {
         return   str.indexOf("-") >= 0;
     }
     //===============================end
+
+    /**
+     * 新增的地区加搜索框
+     */
+    public void regFind() throws IOException {
+        String query=this.getRequest().getParameter("query");
+        String icode = this.getRequest().getParameter("icode");
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+        RegdataService re=new RegdataService();
+        List<CubeNode> nodes=re.findReg(query,dbcode);
+        this.sendJson(nodes);
+    }
+    /**
+     * 返回reg的path
+     */
+    public void getRegpath() throws IOException {
+        String code=this.getRequest().getParameter("code");
+        String icode = this.getRequest().getParameter("icode");
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+        RegdataService re=new RegdataService();
+        List<String> path=re.getRegPath(code,dbcode);
+        this.sendJson(path);
+    }
 }

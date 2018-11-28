@@ -198,7 +198,8 @@ define(function (require,exports,module) {
         treeNodeName = treeNode.name;
         if (treeNode.id != '') {
             $('input[name=regname]').val(treeNode.name);
-            $('input[name=regcode]').val(treeNode.id);}
+            $('input[name=regcode]').val(treeNode.id);
+        }
 
 
     }
@@ -857,4 +858,77 @@ define(function (require,exports,module) {
         })
 
     })
+    
+    /*
+    * 地区树新增搜索
+    * 
+    */
+    $(".reg_search").click(regsearch)
+   function regsearch(){
+       var value=$("#regQueryData").val()
+       if(value!=""){
+           $("#reg_find").remove();
+           $.ajax({
+               url:common.rootPath+'zbdata/zsjhedit.htm?m=regFind&query='+value+"&icode="+incode,
+               type:'get',
+               success:function (re) {
+                   var regre=[];
+                   for(var i=0;i<re.length;i++){
+                       regre.push({name:re[i].cname,code:re[i].code})
+                   }
+                   $("#treeDemo").css("display","none")
+                   $("#dqs").append("<div id='reg_find' class='panel panel-default'><div class='panel-heading'><button type='button' class='btn btn-primary btn-sm clear_find'>清除搜索结果</button></div>")
+                   for(var j=0;j<regre.length;j++){
+                       $("#reg_find").append("<div class='panel-body result_panel'><a class='regname_choose' href='#' id='" +
+                           regre[j].code+"'>" +
+                           regre[j].name+"</a></div></div>")
+                   }
+                   $(".clear_find").click(clearFindResult)
+                 $(".regname_choose").click(function () {
+                       var clickcode= $(this).attr("id")
+                       var name=$(this).html();
+                       clearFindResult()
+                     //获得路径
+                     $.ajax({
+                         url:common.rootPath+'zbdata/zsjhedit.htm?m=getRegpath&code='+clickcode+"&icode="+incode,
+                         type:'get',
+                         success:function (re) {
+                             re.push(clickcode)
+                             expandRegTree(re)
+                             $('input[name=regname]').val(name);
+                             $('input[name=regcode]').val(clickcode);
+                         }
+                     })
+                   })
+               }
+           })
+       }
+   }
+    function clearFindResult() {
+        $("#reg_find").remove();
+        $("#treeDemo").css("display","block");
+    }
+    function expandRegTree(path) {
+        $.ajaxSettings.async = false
+        var treeObj = $.fn.zTree.init($("#treeDemo"), setting1, rootNode);
+        var node = treeObj.getNodeByParam("id", "")
+        treeObj.expandNode(node)
+        treeObj.selectNode(node)
+        setting.callback.onClick(null, treeObj.setting.treeId, node)
+
+        for (var i = 0; i < path.length; i++) {
+            if (node.isParent == true) {
+                var nodes = node.children;
+                for (var j = 0; j < nodes.length; j++) {
+                    if (nodes[j].id == path[i]) {
+                        treeObj.expandNode(nodes[j]);
+                        node = treeObj.getNodeByParam("id", path[i])
+                        break;
+                    }
+                }
+            }
+            treeObj.selectNode(node);
+            setting.callback.onClick(null, treeObj.setting.treeId, node);
+        }
+    }
 });

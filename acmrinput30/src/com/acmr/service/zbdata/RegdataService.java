@@ -48,5 +48,18 @@ public class RegdataService {
         ArrayList<CubeNode> nodes = cube1.getWeiSubNodes(dbcode, "reg", "");
         return nodes;
     }
+    //获取地区的树
+    public List<CubeNode> findReg(String s,String dbcode){
+        CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
+        List<CubeNode> nodes = cube1.FindWeiNode(dbcode,"reg",s);
+        return nodes;
+    }
+    //返回地区树的path
+    public List<String> getRegPath(String code,String dbcode){
+        CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
+        String _path=cube1.getWeiTreePath(dbcode,"reg",code);
+        List<String> path= Arrays.asList(_path.split("/"));
+        return path;
+    }
 
 }

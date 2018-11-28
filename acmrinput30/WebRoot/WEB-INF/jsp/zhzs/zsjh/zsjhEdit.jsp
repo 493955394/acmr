@@ -307,6 +307,15 @@
                                 <div class="panel-heading" style="text-align:center">地区树</div>
                             </div>
                             <div class="panel-body col-xs-12" id="dqs" style="overflow:auto;background-color: #F4F5F9">
+                                <form class="form-inline R_search_form" onkeydown="if(event.keyCode==13){return false;}">
+
+                                    <div class="form-group" style="width: 60%;">
+                                        <input id="regQueryData" type="text" class="form-control input-xm" placeholder="搜索内容" style="width: 100%;" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary btn-sm reg_search">搜索</button>
+                                    </div>
+                                </form>
                                 <ul id="treeDemo" class="ztree ztree-margin">
                                 </ul>
                             </div>
