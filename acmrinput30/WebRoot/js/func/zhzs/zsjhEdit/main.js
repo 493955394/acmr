@@ -83,8 +83,7 @@ define(function (require,exports,module) {
         $data_check_container.toggleClass('leftfull')
         var $regtable=$(".regtable")
         $regtable.toggleClass("container_full")
-        $('.tb-head').width($('.tb-body').width()-17);
-        $('.tb-head1').width($('.tb-body1').width()-17);
+        $(".add-or-del").toggleClass("add-padding")
 
         //mxgh
         var $module_tab_container=$(".module_tab_container")

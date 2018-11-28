@@ -415,6 +415,13 @@ define(function (require,exports,module) {
         setTable()
     })
 
+    /**
+     * 数据检查的
+     */
+    $(".data_check_show").resize(function () {
+        $('.tb-head').width($('.tb-body').width()-17);
+        $('.tb-head1').width($('.tb-body1').width()-17);
+    })
 
 
 

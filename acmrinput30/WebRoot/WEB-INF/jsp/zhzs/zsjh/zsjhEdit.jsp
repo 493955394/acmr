@@ -59,6 +59,12 @@
         .savedivfull{
             display:none;
         }
+        .add-or-del{
+            border:1px solid white;padding-top: 50px;
+        }
+        .add-padding{
+            padding-top: 200px;
+        }
     </style>
 
     <script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
@@ -307,7 +313,7 @@
                             <input type="hidden" name="regcode" value=""/>
                             <input type="hidden" name="regname" value=""/>
                         </div>
-                        <div class="jsfw_col col-xs-1 col-lg-1 col-md-1 col-sm-1 btn-group-vertical" role="group" style="border:1px solid white;padding-top:50px">
+                        <div class="jsfw_col col-xs-1 col-md-1 col-sm-1 btn-group-vertical add-or-del" role="group" >
                             <div id="sigglechoose" class="col-md-offset-3 col-md-4">
                                 <span>></span>
                             </div>
@@ -354,7 +360,7 @@
                                     </div>
                                 </div>
                                 <input type="hidden" id="single_reg" value="">
-
+                                <div class="clearfix"></div>
                                 <div class="data_check_show">
                                     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/regSelect.jsp" flush="true"/>
                                 </div>
