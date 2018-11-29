@@ -821,7 +821,7 @@ define(function (require,exports,module) {
         zbds = zbds.substr(0, zbds.length - 1);//去除最后一个逗号
         sxcode = sxcode.substr(0, sxcode.length - 1);//去除最后一个逗号
         zbunit = zbunit.substr(0, zbunit.length - 1);//去除最后一个逗号
-        if(zbs.length==0){
+       /* if(zbs.length==0){
             alert("指标未选择")
             $('#bjjhTab li:eq(1) a').tab('show');
         }
@@ -836,7 +836,7 @@ define(function (require,exports,module) {
         }
         if(zbs.length==0 || select.length==0){
             return;
-        }
+        }*/
         for (var i = 0; i <select.length ; i++) {
             regselect += select[i].code+",";
         }
