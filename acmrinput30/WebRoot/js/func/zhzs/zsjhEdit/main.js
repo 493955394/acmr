@@ -894,7 +894,7 @@ define(function (require,exports,module) {
                    $(".clear_find").click(clearFindResult)
                  $(".regname_choose").click(function () {
                        var clickcode= $(this).attr("id")
-                       var name=$(this).html();
+                       var regname=$(this).html();
                        clearFindResult()
                      //获得路径
                      $.ajax({
@@ -903,7 +903,7 @@ define(function (require,exports,module) {
                          success:function (re) {
                              re.push(clickcode)
                              expandRegTree(re)
-                             $('input[name=regname]').val(name);
+                             $('input[name=regname]').val(regname);
                              $('input[name=regcode]').val(clickcode);
                          }
                      })
@@ -922,7 +922,7 @@ define(function (require,exports,module) {
         var node = treeObj.getNodeByParam("id", "")
         treeObj.expandNode(node)
         treeObj.selectNode(node)
-        setting.callback.onClick(null, treeObj.setting.treeId, node)
+        setting1.callback.onClick(null, treeObj.setting.treeId, node)
 
         for (var i = 0; i < path.length; i++) {
             if (node.isParent == true) {
@@ -936,7 +936,7 @@ define(function (require,exports,module) {
                 }
             }
             treeObj.selectNode(node);
-            setting.callback.onClick(null, treeObj.setting.treeId, node);
+            setting1.callback.onClick(null, treeObj.setting.treeId, node);
         }
     }
 });
