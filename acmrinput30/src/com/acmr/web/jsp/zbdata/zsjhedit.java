@@ -1467,6 +1467,12 @@ public class zsjhedit extends BaseAction {
                 zbs.add(zb);
             }
         }
+        else if(sxcode=="" && (!reg.equals(""))){
+            IndexZb zb = new IndexZb();
+            zb.setIndexcode(index_code);
+            zb.setRegions(reg);
+            zbs.add(zb);
+        }
         IndexList indexList = new IndexList();
         //生成plantime，planperiod
         if (startpeirod.length()==4){
