@@ -15,6 +15,7 @@
         background-color: #EBECF1;
     }
     td{
+        white-space: nowrap;
         text-align: center;
         vertical-align: middle!important;
     }
@@ -37,7 +38,7 @@
 
 </select>
 </div>
-<div>
+<div style="width: 100%;overflow: auto">
     <input type="hidden" class="tbgs" value="${fn:length(info.get('head'))}">
     <table style="margin-top: 10px" class="table table-hover pastviewtable">
         <thead>
@@ -59,7 +60,4 @@
 
         </tbody>
     </table>
-</div>
-<div class="ict-footer footer fixed-footer">
-    Copyright © 2018 中国信息通信研究院 版权所有
 </div>
