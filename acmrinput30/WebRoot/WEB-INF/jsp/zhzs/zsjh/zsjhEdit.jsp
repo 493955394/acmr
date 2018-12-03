@@ -89,7 +89,7 @@
                 <button type="reset" class="btn btn-primary resetindex btn-sm" style="float: right;margin-left:10px;">返回</button>
                 <button type="button" class="btn btn-primary tosaveall btn-sm" style="float: right;margin-left:10px;">保存</button>
                 <span id="btn-fullscreen" class="btn-fullscreen" style="float: right;padding:10px;margin-left:10px;margin-top:5px;"></span>
-                <a href="#" type="button" class="btn btn-primary btn-sm" style="float: right;margin-left:10px;">预览结果</a>
+                <a href="${ctx}/zbdata/zsjhedit.htm?m=previewIndex&id=${list.getCode()}" type="button" class="btn btn-primary btn-sm" style="float: right;margin-left:10px;">预览结果</a>
                 <div id="top_div">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">

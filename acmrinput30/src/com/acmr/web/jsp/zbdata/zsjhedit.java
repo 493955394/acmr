@@ -2045,4 +2045,15 @@ public class zsjhedit extends BaseAction {
         List<String> path=re.getRegPath(code,dbcode);
         this.sendJson(path);
     }
+
+    //以下是预览结果
+
+    /**
+     * 预览结果首页
+     * @return
+     */
+    public ModelAndView previewIndex(){
+        String code = this.getRequest().getParameter("id");
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewIndex").addObject("icode",code);
+    }
 }
