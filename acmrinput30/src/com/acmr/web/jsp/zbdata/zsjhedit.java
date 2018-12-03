@@ -2054,6 +2054,31 @@ public class zsjhedit extends BaseAction {
      */
     public ModelAndView previewIndex(){
         String code = this.getRequest().getParameter("id");
+        IndexListService indexListService=new IndexListService();
+        //校验部分
+        Boolean check=false;
+        //校验模型
+        Boolean checkmod=indexListService.checkModule(code);
+        //   PubInfo.printStr("checkmode"+checkmod);
+        //校验是否已经通过编辑，基本信息完善
+        Boolean checkInfo=indexListService.checkInfo(code);
+        // PubInfo.printStr("checkInfo"+checkInfo);
+        //校验是否有指标、地区
+        Boolean checkZbReg=indexListService.checkZBandReg(code);
+        //  PubInfo.printStr("checkZbReg"+checkZbReg);
+        Boolean checkhasMod=indexListService.checkHasMod(code);
+
+        check=checkInfo&&checkmod&&checkZbReg&&checkhasMod;
+        //PubInfo.printStr(String.valueOf(check));
+
+        //校验通过
+        if (check){
+            //计算
+
+        }
+        else {
+
+        }
         return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewIndex").addObject("icode",code);
     }
 }
