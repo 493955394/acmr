@@ -38,6 +38,7 @@ import javax.script.ScriptEngineManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -812,12 +813,12 @@ public class zsjhedit extends BaseAction {
         CubeWdCodes where = new CubeWdCodes();
 
         String funit=originService.getwdnode("zb",zbcode,dbcode).getUnitcode();
-        List<Double> rates=new ArrayList<>();
+        List<BigDecimal> rates=new ArrayList<>();
         //sjs排序
         sjs=new IndexEditService().sjSort(sjs);
         for (int i=0;i<sjs.size();i++){
             String sj=sjs.get(i);
-            double rate=originService.getRate(funit,unitcode,sj);
+            BigDecimal rate=new BigDecimal(originService.getRate(funit,unitcode,sj));
             rates.add(rate);
         }
         // PubInfo.printStr(rates.toString());
@@ -842,7 +843,7 @@ public class zsjhedit extends BaseAction {
                         where.Add("sj",sjs.get(j));
                         where.Add("reg",regs.get(i));
                         if(originService.querydata(where,dbcode).size()>0){
-                            double data=originService.querydata(where,dbcode).get(0).getData().getData()*rates.get(j);
+                            BigDecimal data=(new BigDecimal(originService.querydata(where,dbcode).get(0).getData().getStrdata())).multiply(rates.get(j));
                             row.add(data+"");
                         }
                         else row.add("");
