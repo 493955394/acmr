@@ -164,7 +164,7 @@ public class zsjhedit extends BaseAction {
             for (int j = 0; j < zbcodes.length; j++) {
                 List<String> datas = new ArrayList<>();
                 String funit = originService.getwdnode("zb", zbcodes[j],dbcode).getUnitcode();
-                double rate = originService.getRate(funit, units[j], sjs[i]);
+                BigDecimal rate=new BigDecimal(originService.getRate(funit, units[j], sjs[i]));
                 datas.add(sjs[i]);//获取时间
                 datas.add(zbnames[j]);//获取指标
                 for (int k = 0; k < regs.length; k++) {
@@ -179,8 +179,8 @@ public class zsjhedit extends BaseAction {
                         datas.add("");
                     }else{
                         for (int l = 0; l < result.size(); l++) {
-                            if (result.get(l).getData().toString() != "") {
-                                double resulttemp = result.get(l).getData().getData() * rate;
+                            if (!result.get(l).getData().toString().equals("")) {
+                                BigDecimal resulttemp=(new BigDecimal(result.get(l).getData().getStrdata())).multiply(rate);
                                 datas.add(resulttemp + "");
                             } else {
                                 datas.add("");
@@ -278,7 +278,7 @@ public class zsjhedit extends BaseAction {
 
                 CubeWdCodes where = new CubeWdCodes();
                 String funit=originService.getwdnode("zb",zbcodes[i],dbcode).getUnitcode();
-                double rate=originService.getRate(funit,units[i],sjs[j]);
+                BigDecimal rate=new BigDecimal(originService.getRate(funit,units[i],sjs[j]));
                 where.Add("zb", zbcodes[i]);
                 where.Add("ds", dss[i]);
                 where.Add("co", cos[i]);
@@ -289,8 +289,8 @@ public class zsjhedit extends BaseAction {
                     datas.add("");
                 }else{
                     for (int k = 0; k <result.size() ; k++) {
-                        if (result.get(k).getData().toString() != ""){
-                            double resulttemp = result.get(k).getData().getData()*rate;
+                        if (!result.get(k).getData().toString().equals("")){
+                            BigDecimal resulttemp=(new BigDecimal(result.get(k).getData().getStrdata())).multiply(rate);
                             datas.add(resulttemp+"") ;
                         }
                        else{
