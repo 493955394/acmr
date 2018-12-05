@@ -67,7 +67,7 @@ public class OraDataPreviewDaoImpl implements IDataPreviewDao {
 
     @Override
     public DataTable getSubMod(String code){
-        String sql = "select * from tb_coindex_module where code=? order by sortcode";
+        String sql = "select * from tb_coindex_module where procode=? order by sortcode";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code});
     }
 
@@ -103,5 +103,23 @@ public class OraDataPreviewDaoImpl implements IDataPreviewDao {
         params.add(new Timestamp(new Date().getTime()));
 
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
+    }
+
+    @Override
+    public DataTable getRootData(String icode) {
+        String sql = "select * from tb_coindex_module where indexcode = ? and ifzs=1 and procode is null order by sortcode ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode});
+    }
+
+    @Override
+    public String findRegions(String icode) {
+        String sql = "select * from tb_coindex_zb where indexcode =?";
+        DataTable table = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode});
+        if(table.getRows().size()>0){
+            return table.getRows().get(0).getString("regions");
+        }
+        else {
+            return null;
+        }
     }
 }

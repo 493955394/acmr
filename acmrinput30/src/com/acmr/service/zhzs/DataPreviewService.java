@@ -7,6 +7,7 @@ import acmr.math.entity.MathException;
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import com.acmr.dao.zhzs.DataPreviewDao;
+import com.acmr.dao.zhzs.IDataPreviewDao;
 import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.model.zhzs.DataPreview;
 import com.acmr.model.zhzs.IndexMoudle;
@@ -28,6 +29,27 @@ import java.util.Map;
  */
 public class DataPreviewService {
     private CalculateExpression ce = new CalculateExpression();
+
+    public boolean todocalculate(String icode,String time){
+        String regs = findRegions(icode);
+        String [] reg = regs.split(",");
+        //开始计算指数的值，包括乘上weight
+        try {
+            if(calculateZB(time,regs,icode)){
+                //指标已经算完
+                List<IndexMoudle> zong = findRoot(icode);
+                for (int i = 0; i <zong.size() ; i++) {
+                    for (int j = 0; j <reg.length ; j++) {//一个地区一个地区地算
+                        calculateZS(zong.get(i).getCode(),time,reg[j]);
+                    }
+                }
+            }
+        } catch (MathException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
     /**
      * 自定义公式计算函数
      */
@@ -226,7 +248,7 @@ public class DataPreviewService {
             IndexMoudle taskModule = new IndexMoudle();
             taskModule.setCode(data.get(i).getString("code"));
             taskModule.setCname(data.get(i).getString("cname"));
-            taskModule.setIndexcode(data.get(i).getString("taskcode"));
+            taskModule.setIndexcode(data.get(i).getString("indexcode"));
             taskModule.setProcode(data.get(i).getString("procode"));
             taskModule.setIfzs(data.get(i).getString("ifzs"));
             taskModule.setIfzb(data.get(i).getString("ifzb"));
@@ -269,5 +291,31 @@ public class DataPreviewService {
             value = data.getRows().get(0).getString("data");
         }
         return value;
+    }
+    /**
+     * 通过icode 查询总指数
+     */
+    public List<IndexMoudle> findRoot(String icode){
+        List<IndexMoudle> indexModules = new ArrayList<>();
+        List<DataTableRow> data = DataPreviewDao.Fator.getInstance().getIndexdatadao().getRootData(icode).getRows();
+        for (int i = 0; i <data.size(); i++) {
+            IndexMoudle iModule = new IndexMoudle();
+            iModule.setCode(data.get(i).getString("code"));
+            iModule.setCname(data.get(i).getString("cname"));
+            iModule.setIndexcode(data.get(i).getString("indexcode"));
+            iModule.setProcode(data.get(i).getString("procode"));
+            iModule.setIfzs(data.get(i).getString("ifzs"));
+            iModule.setIfzb(data.get(i).getString("ifzb"));
+            iModule.setFormula(data.get(i).getString("formula"));
+            iModule.setWeight(data.get(i).getString("weight"));
+            iModule.setSortcode(data.get(i).getString("sortcode"));
+            iModule.setDacimal(data.get(i).getString("dacimal"));
+            indexModules.add(iModule);
+        }
+
+        return indexModules;
+    }
+    public String findRegions(String icode){
+        return DataPreviewDao.Fator.getInstance().getIndexdatadao().findRegions(icode);
     }
 }

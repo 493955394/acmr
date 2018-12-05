@@ -26,6 +26,7 @@ import com.acmr.model.zhzs.IndexZb;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zbdata.RegdataService;
 import com.acmr.service.zbdata.ZBdataService;
+import com.acmr.service.zhzs.DataPreviewService;
 import com.acmr.service.zhzs.IndexEditService;
 import com.acmr.service.zhzs.IndexListService;
 import com.acmr.service.zhzs.MathService;
@@ -2061,9 +2062,10 @@ public class zsjhedit extends BaseAction {
      * 预览结果首页
      * @return
      */
-    public ModelAndView previewIndex(){
+    public ModelAndView previewIndex() throws MathException {
         String code = this.getRequest().getParameter("id");
         IndexListService indexListService=new IndexListService();
+        DataPreviewService dp = new DataPreviewService();
         //校验部分
         Boolean check=false;
         //校验模型
@@ -2083,7 +2085,7 @@ public class zsjhedit extends BaseAction {
         //校验通过
         if (check){
             //计算
-
+           // dp.todocalculate(code,"1961");
         }
         else {
 

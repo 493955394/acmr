@@ -18,4 +18,6 @@ public interface IDataPreviewDao {
     public int subDataCheck(String modcode,String reg,String time);
     public DataTable getData(String modcode,String region,String time);
     public int addZSData (DataPreview dataResult);
+    public DataTable getRootData (String icode);
+    public String findRegions(String icode);
 }
