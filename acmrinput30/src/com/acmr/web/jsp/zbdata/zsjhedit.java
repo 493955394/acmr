@@ -2085,11 +2085,18 @@ public class zsjhedit extends BaseAction {
         //校验通过
         if (check){
             //计算
-           // dp.todocalculate(code,"1961");
+            dp.todocalculate(code,"1961");
+            //画表格
+           // Lis<>
         }
         else {
 
         }
         return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewIndex").addObject("icode",code);
     }
+
+    //预览结果的表格
+   // public List<List<String>> drawTable(String icode){
+
+   // }
 }

@@ -15,6 +15,16 @@ public class DataPreview {
     private String data;
     private String updatetime;
 
+    public String getDacimal() {
+        return dacimal;
+    }
+
+    public void setDacimal(String dacimal) {
+        this.dacimal = dacimal;
+    }
+
+    private String dacimal;
+
     public String getId() {
         return id;
     }

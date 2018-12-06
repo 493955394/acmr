@@ -92,6 +92,7 @@ public class DataPreviewService {
                     da.setRegion(reg[j]);
                     da.setIndexcode(icode);
                     da.setModcode(data.get(i).getCode());
+                    da.setDacimal(data.get(i).getDacimal());
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(data.get(i).getFormula().contains(zbs.get(k).get("code").toString())){//要是存在这个code,就去取对应的zbcode
                             CubeWdCodes where = new CubeWdCodes();
@@ -126,6 +127,7 @@ public class DataPreviewService {
                     da.setRegion(reg[j]);
                     da.setIndexcode(icode);
                     da.setModcode(data.get(i).getCode());
+                    da.setDacimal(data.get(i).getDacimal());
                     boolean flag = false;
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(formula.contains(zbs.get(k).get("code").toString())){//要是存在这个code,就去取对应的zbcode
@@ -194,6 +196,7 @@ public class DataPreviewService {
             zsdata.setRegion(reg);
             zsdata.setIndexcode(temp.getIndexcode());
             zsdata.setModcode(temp.getCode());
+            zsdata.setDacimal(temp.getDacimal());
             String formula = "";
             boolean flag = false;
             for (int i = 0; i < subs.size(); i++) {

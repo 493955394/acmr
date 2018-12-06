@@ -38,7 +38,7 @@ public class OraDataPreviewDaoImpl implements IDataPreviewDao {
                 String delold = "delete from tb_coindex_data_preview where indexcode =? ";
                 dataQuery.executeSql(delold, new Object[] {dataResults.get(0).getIndexcode()});
                 // 添加新的
-                String sql1 = "insert into tb_coindex_data_preview (indexcode,modcode,region,ayearmon,data,updatetime) values(?,?,?,?,?,?)";
+                String sql1 = "insert into tb_coindex_data_preview (indexcode,modcode,region,ayearmon,data,dacimal,updatetime) values(?,?,?,?,?,?,?)";
                 for (int i = 0; i <dataResults.size() ; i++) {
                     List<Object> params = new ArrayList<Object>();
                     params.add(dataResults.get(i).getIndexcode());
@@ -46,6 +46,7 @@ public class OraDataPreviewDaoImpl implements IDataPreviewDao {
                     params.add(dataResults.get(i).getRegion());
                     params.add(dataResults.get(i).getAyearmon());
                     params.add(dataResults.get(i).getData());
+                    params.add(dataResults.get(i).getDacimal());
                     params.add(new Timestamp(new Date().getTime()));
 
                     dataQuery.executeSql(sql1, params.toArray());
@@ -92,7 +93,7 @@ public class OraDataPreviewDaoImpl implements IDataPreviewDao {
     @Override
     public int addZSData( DataPreview dataResult) {
         String sql1 ="";
-        sql1 = "insert into tb_coindex_data_preview (indexcode,modcode,region,ayearmon,data,updatetime) values(?,?,?,?,?,?)";
+        sql1 = "insert into tb_coindex_data_preview (indexcode,modcode,region,ayearmon,data,dacimal,updatetime) values(?,?,?,?,?,?,?)";
 
         List<Object> params = new ArrayList<Object>();
         params.add(dataResult.getIndexcode());
@@ -100,6 +101,7 @@ public class OraDataPreviewDaoImpl implements IDataPreviewDao {
         params.add(dataResult.getRegion());
         params.add(dataResult.getAyearmon());
         params.add(dataResult.getData());
+        params.add(dataResult.getDacimal());
         params.add(new Timestamp(new Date().getTime()));
 
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
