@@ -20,4 +20,5 @@ public interface IDataPreviewDao {
     public int addZSData (DataPreview dataResult);
     public DataTable getRootData (String icode);
     public String findRegions(String icode);
+ //   public DataTable getAllData(String icode);
 }

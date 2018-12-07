@@ -48,7 +48,6 @@ public class OraDataPreviewDaoImpl implements IDataPreviewDao {
                     params.add(dataResults.get(i).getData());
                     params.add(dataResults.get(i).getDacimal());
                     params.add(new Timestamp(new Date().getTime()));
-
                     dataQuery.executeSql(sql1, params.toArray());
                 }
                 dataQuery.commit();
@@ -124,4 +123,10 @@ public class OraDataPreviewDaoImpl implements IDataPreviewDao {
             return null;
         }
     }
+
+  /*  @Override
+    public DataTable getAllData(String icode) {
+        String sql = "select m.cname,p.* from tb_coindex_data_preview p left join tb_coindex_module m on p.modcode = m.code where p.indexcode=?";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{icode});
+    }*/
 }

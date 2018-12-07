@@ -34,6 +34,9 @@
                 地区：
                 <select>
                     <option >多选下拉框</option>
+                    <c:forEach items="${regions}" var="reg">
+                        <option value="${reg.regcode}">${reg.regcname}</option>
+                    </c:forEach>
                 </select>
             </div>
             <div id="mySelect2"></div>
@@ -66,5 +69,5 @@
             $("#timeinput").click();
         });
     });
-
+    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/preview');
 </script>

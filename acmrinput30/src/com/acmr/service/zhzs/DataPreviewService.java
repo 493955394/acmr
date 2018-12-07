@@ -132,21 +132,21 @@ public class DataPreviewService {
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(formula.contains(zbs.get(k).get("code").toString())){//要是存在这个code,就去取对应的zbcode
                             CubeWdCodes where = new CubeWdCodes();
-                            where.Add("zb", zbs.get(k).get("code").toString());
+                            where.Add("zb", zbs.get(k).get("zbcode").toString());
                             where.Add("ds", zbs.get(k).get("dscode").toString());
                             where.Add("co", zbs.get(k).get("cocode").toString());
                             where.Add("reg", reg[j]);
                             where.Add("sj", time);
                             ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode, where);
                             //替换公式中的值
-                            if(result.size() ==0){
+                            if(result.get(0).getData().getStrdata().equals("")){
 //                                formula = formula.replace("#"+zbs.get(k).getProcode()+"#","0");//换成0
                                 flag = true;
                                 break;
                             }
                             else{
                                 //单位换算
-                                String funit=originService.getwdnode("zb",zbs.get(k).get("code").toString(),dbcode).getUnitcode();
+                                String funit=originService.getwdnode("zb",zbs.get(k).get("zbcode").toString(),dbcode).getUnitcode();
                                 BigDecimal rate = new BigDecimal(originService.getRate(funit,zbs.get(k).get("unitcode").toString(),time));
                                 BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
                                 formula = formula.replace("#"+zbs.get(k).get("code").toString()+"#",orval.toPlainString());//换成对应的value
@@ -320,5 +320,18 @@ public class DataPreviewService {
     }
     public String findRegions(String icode){
         return DataPreviewDao.Fator.getInstance().getIndexdatadao().findRegions(icode);
+    }
+    public DataPreview getData(String modcode,String region,String time){
+        List<DataTableRow> data =  DataPreviewDao.Fator.getInstance().getIndexdatadao().getData(modcode,region,time).getRows();
+        DataPreview row = new DataPreview();
+       if(data.size()>0){
+            row.setIndexcode(data.get(0).getString("indexcode"));
+            row.setAyearmon(data.get(0).getString("ayearmon"));
+            row.setDacimal(data.get(0).getString("dacimal"));
+            row.setData(data.get(0).getString("data"));
+            row.setModcode(data.get(0).getString("modcode"));
+            row.setRegion(data.get(0).getString("region"));
+        }
+        return row;
     }
 }

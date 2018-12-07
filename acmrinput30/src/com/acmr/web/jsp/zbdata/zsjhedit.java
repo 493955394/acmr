@@ -19,10 +19,7 @@ import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.pub.TreeNode;
-import com.acmr.model.zhzs.IndexList;
-import com.acmr.model.zhzs.IndexMoudle;
-import com.acmr.model.zhzs.IndexTask;
-import com.acmr.model.zhzs.IndexZb;
+import com.acmr.model.zhzs.*;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zbdata.RegdataService;
 import com.acmr.service.zbdata.ZBdataService;
@@ -31,6 +28,7 @@ import com.acmr.service.zhzs.IndexEditService;
 import com.acmr.service.zhzs.IndexListService;
 import com.acmr.service.zhzs.MathService;
 import com.alibaba.fastjson.JSONObject;
+import com.sun.javafx.collections.MappingChange;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.lang.StringUtils;
 
@@ -2081,22 +2079,85 @@ public class zsjhedit extends BaseAction {
 
         check=checkInfo&&checkmod&&checkZbReg&&checkhasMod;
         //PubInfo.printStr(String.valueOf(check));
-
+        List<String> times = new ArrayList<>();
+        List<Map> regions = regshow(code);
+        List<List<String>> predata = new ArrayList<>();
         //校验通过
         if (check){
             //计算
             dp.todocalculate(code,"1961");
             //画表格
-           // Lis<>
+             predata = drawTable(code,"1961,2016");
+            times.add("2015");
+            times.add("2016");
         }
         else {
 
         }
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewIndex").addObject("icode",code);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewIndex").addObject("icode",code).addObject("times",times).addObject("regions",regions).addObject("predata",predata);
     }
 
-    //预览结果的表格
-   // public List<List<String>> drawTable(String icode){
 
-   // }
+    //画预览结果的表格
+    public List<List<String>> drawTable(String icode,String times){
+        List<List<String>> data = new ArrayList<>();
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+        DataPreviewService dp =  new DataPreviewService();
+        OriginService originService = new OriginService();
+        String region = dp.findRegions(icode);
+        String[] regions = region.split(",");
+        String[] time = times.split(",");
+       List<IndexMoudle> mods = new IndexEditService().getAllMods("",icode);
+        List<Map> zbs = new IndexEditService().getZBS(icode);
+        int zbsnum = zbs.size();//指标名的长度
+        int modnum = mods.size();//模型节点的长度
+        int num = modnum;
+        if(zbsnum>modnum){
+            num = zbsnum;
+        }
+            for (String i : regions) {
+                for (int j = 0; j <num-1 ; j++) {
+                    List<String> rows = new ArrayList<>();
+                    rows.add(new OriginService().getwdnode("reg",i,dbcode).getName());//地区名
+                    if(j<=zbsnum-1){//如果还在范围内
+                        rows.add(zbs.get(j).get("zbname").toString());
+                    }else {//范围外填充空
+                        rows.add("");
+                    }
+                    if(j<=modnum-1){//如果还在范围内
+                        rows.add(mods.get(j).getCname());
+                    }else {//范围外填充空
+                        rows.add("");
+                    }
+                    for (String k : time) {
+                        if(j<=zbsnum-1){//如果还在范围内,去找它的值
+                            CubeWdCodes where = new CubeWdCodes();
+                            where.Add("zb", zbs.get(j).get("zbcode").toString());
+                            where.Add("ds", zbs.get(j).get("dscode").toString());
+                            where.Add("co", zbs.get(j).get("cocode").toString());
+                            where.Add("reg", i);
+                            where.Add("sj", k);
+                            ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode, where);
+                            if(!result.get(0).getData().getStrdata().equals("")){
+                                String funit=originService.getwdnode("zb",zbs.get(j).get("zbcode").toString(),dbcode).getUnitcode();
+                                BigDecimal rate = new BigDecimal(originService.getRate(funit,zbs.get(j).get("unitcode").toString(),k));
+                                BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
+                                rows.add(orval.toPlainString());
+                            }else {
+                                rows.add("");
+                            }
+                        }else {//范围外填充空
+                            rows.add("");
+                        }
+                        if(j<=modnum-1){//如果还在范围内
+                            rows.add(dp.getData(mods.get(j).getCode(),i,k).getData());
+                        }else {//范围外填充空
+                            rows.add("");
+                        }
+                    }
+                    data.add(rows);
+                }
+        }
+        return  data;
+    }
 }
