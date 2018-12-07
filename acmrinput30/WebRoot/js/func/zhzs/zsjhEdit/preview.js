@@ -7,6 +7,7 @@ define(function (require,exports,module) {
     $(document).ready(function(){
         mc('preview-table',0,0,0);
     })
+    var icode = $("#preview-code").val();
     /**
      * 合并第一列
      * @param tb的id
@@ -27,4 +28,24 @@ define(function (require,exports,module) {
             }
         }
     }
+    var sjselect="";
+    $(document).on('click', '#timeinput', function () {
+        var timeinput = $("#timecode").val();
+        var url = common.rootPath + "zbdata/zsjhedit.htm?m=timeCheck&timeinput="+timeinput+"&icode="+icode;
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                if (data.returncode == 300) {
+                    alert("时间格式有误");
+                } else if (data.returncode == 200) {
+                    if(!(data.returndata ==""||data.returndata==null)){
+                        sjselect = data.returndata;
+                        //sendPjax();
+                    }
+                }
+            }
+        })
+    })
 })

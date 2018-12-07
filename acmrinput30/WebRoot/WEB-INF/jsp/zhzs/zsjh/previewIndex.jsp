@@ -12,7 +12,7 @@
 <script type="text/javascript" src="${ctx}/js/lib/dropList.js"></script>
 <html>
 <head>
-    <title>-预览结果</title>
+    <title>${projectTitle}-预览结果</title>
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
     <style>
         table tr th, table tr td { border:1px solid #cecfdf; }
@@ -24,6 +24,7 @@
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 <div class="col-xs-12">
     <div>
+        <input type="hidden" value="${icode}" id="preview-code">
         <div class="panel panel-default">
             <div class="panel-heading">
                 预览结果
@@ -40,13 +41,19 @@
                 </select>
             </div>
             <div id="mySelect2"></div>
+            <input type="hidden" id="timecode" value="">
+            <button  type="button" id="timeinput" data-value="" style="display: none"/>
         </div>
 
 
             <div class="J_preview_data_table">
                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/previewTable.jsp" flush="true"/>
             </div>
+
     </div>
+</div>
+<div class="ict-footer footer">
+    Copyright © 2018 中国信息通信研究院 版权所有
 </div>
 </body>
 </html>
@@ -58,7 +65,7 @@
             wdcode:'sj',
             wdname:'时间',
             nodes:[
-                {code:"last5",name:'最近五期'}
+                {code:"last3",name:'最近三期'}
             ]
         };
         var dt2 = $('#mySelect2');
@@ -69,5 +76,20 @@
             $("#timeinput").click();
         });
     });
+    function footerPosition(){
+        $(".footer").removeClass("fixed-footer");
+        var contentHeight = document.body.scrollHeight,//网页正文全文高度
+
+            winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
+        if(!(contentHeight > winHeight)){
+            //当网页正文高度小于可视窗口高度时，为footer添加类fixed-footer
+            $(".footer").addClass("fixed-footer");
+            $(".content").height(winHeight);
+        } else {
+            $(".footer").removeClass("fixed-footer");
+        }
+    }
+    footerPosition();
+    $(window).resize(footerPosition);
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/preview');
 </script>
