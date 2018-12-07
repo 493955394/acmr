@@ -2055,15 +2055,12 @@ public class zsjhedit extends BaseAction {
     }
 
     //以下是预览结果
-
     /**
-     * 预览结果首页
-     * @return
+     * 预览前校验
      */
-    public ModelAndView previewIndex() throws MathException {
+    public void checkPreview() throws IOException {
         String code = this.getRequest().getParameter("id");
         IndexListService indexListService=new IndexListService();
-        DataPreviewService dp = new DataPreviewService();
         //校验部分
         Boolean check=false;
         //校验模型
@@ -2078,22 +2075,36 @@ public class zsjhedit extends BaseAction {
         Boolean checkhasMod=indexListService.checkHasMod(code);
 
         check=checkInfo&&checkmod&&checkZbReg&&checkhasMod;
+        JSONReturnData data = new JSONReturnData("");
+        if (check){
+            data.setReturncode(200);
+        }
+        else {
+            data.setReturncode(300);
+        }
+        this.sendJson(data);
+    }
+    /**
+     * 预览结果首页
+     * @return
+     */
+    public ModelAndView previewIndex() throws MathException {
+        String code = this.getRequest().getParameter("id");
+
+        DataPreviewService dp = new DataPreviewService();
         //PubInfo.printStr(String.valueOf(check));
         List<String> times = new ArrayList<>();
         List<Map> regions = regshow(code);
         List<List<String>> predata = new ArrayList<>();
         //校验通过
-        if (check){
+
             //计算
             dp.todocalculate(code,"1961");
             //画表格
              predata = drawTable(code,"1961,2016");
             times.add("2015");
             times.add("2016");
-        }
-        else {
 
-        }
         return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewIndex").addObject("icode",code).addObject("times",times).addObject("regions",regions).addObject("predata",predata);
     }
 

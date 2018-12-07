@@ -939,4 +939,21 @@ define(function (require,exports,module) {
             setting1.callback.onClick(null, treeObj.setting.treeId, node);
         }
     }
+
+    /**
+     * 预览结果
+     */
+    $("#preview-check").click(function () {
+        $.ajax({
+            url:common.rootPath+'zbdata/zsjhedit.htm?m=checkPreview&id='+incode,
+            type:'get',
+            success:function (re) {
+               if(re.returncode==200){
+                   window.location.href=common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode;
+               }else {
+                   alert("信息有误，无法查看预览结果！")
+               }
+            }
+        })
+    })
 });
