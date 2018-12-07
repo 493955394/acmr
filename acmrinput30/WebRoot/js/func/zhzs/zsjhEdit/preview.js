@@ -2,10 +2,12 @@ define(function (require,exports,module) {
     var $ = require('jquery'),
         tree = require('tree'),
         pjax = require('pjax'),
-        common = require('common'),
-        editjsp = require('editjsp');
+        common = require('common');
     $(document).ready(function(){
         mc('preview-table',0,0,0);
+
+        footerPosition();
+        $(window).resize(footerPosition);
     })
     var icode = $("#preview-code").val();
     /**
@@ -28,10 +30,24 @@ define(function (require,exports,module) {
             }
         }
     }
+
+    function footerPosition(){
+        $(".footer").removeClass("fixed-footer");
+        var contentHeight = document.body.scrollHeight,//网页正文全文高度
+
+            winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
+        if(!(contentHeight > winHeight)){
+            //当网页正文高度小于可视窗口高度时，为footer添加类fixed-footer
+            $(".footer").addClass("fixed-footer");
+            $(".content").height(winHeight);
+        } else {
+            $(".footer").removeClass("fixed-footer");
+        }
+    }
     var sjselect="";
     $(document).on('click', '#timeinput', function () {
         var timeinput = $("#timecode").val();
-        var url = common.rootPath + "zbdata/zsjhedit.htm?m=timeCheck&timeinput="+timeinput+"&icode="+icode;
+        var url = common.rootPath + "zbdata/zsjhedit.htm?m=previewTimeCheck&timeinput="+timeinput+"&icode="+icode;
         $.ajax({
             url: url,
             type: 'get',
@@ -42,10 +58,25 @@ define(function (require,exports,module) {
                 } else if (data.returncode == 200) {
                     if(!(data.returndata ==""||data.returndata==null)){
                         sjselect = data.returndata;
-                        //sendPjax();
+                       // console.log(sjselect);
+                        sendPjax();
                     }
                 }
             }
         })
     })
+
+    function sendPjax(){
+        var url = common.rootPath + "zbdata/zsjhedit.htm?m=preCaculate&icode="+icode +"&time="+sjselect;
+        $.pjax({
+            url: url,
+            container: '.J_preview_data_table',
+            timeout: 10000
+        })
+        $(document).on('pjax:success', function() {
+            mc('preview-table',0,0,0);
+            footerPosition();
+            $(window).resize(footerPosition);
+        })
+    }
 })

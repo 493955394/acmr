@@ -2304,4 +2304,33 @@ public class zsjhedit extends BaseAction {
         data.setReturndata(result);
         this.sendJson(data);
     }
+
+    /**
+     * 时间变后重新算
+     * @return
+     * @throws IOException
+     */
+    public ModelAndView preCaculate() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        String pjax = req.getHeader("X-PJAX");
+        String icode = req.getParameter("icode");
+        String time = req.getParameter("time");
+        String[] times = time.split(",");
+        List<List<String>> predata = new ArrayList<>();
+        if(!StringUtil.isEmpty(pjax)){
+            DataPreviewService dp = new DataPreviewService();
+                for(String i :times){
+                    dp.todocalculate(icode,i);
+                }
+                //画表格
+                predata = drawTable(icode,time);
+
+        }
+        if (StringUtil.isEmpty(pjax)) {
+            this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/zsjhedit.htm?m=previewIndex&id="+icode);
+        } else {
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewTable").addObject("predata",predata).addObject("times",times);
+        }
+        return null;
+    }
 }
