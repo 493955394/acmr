@@ -70,13 +70,12 @@ define(function (require,exports,module) {
         var url = common.rootPath + "zbdata/zsjhedit.htm?m=preCaculate&icode="+icode +"&time="+sjselect;
         $.pjax({
             url: url,
+            async:false,
             container: '.J_preview_data_table',
             timeout: 10000
         })
-        $(document).on('pjax:success', function() {
             mc('preview-table',0,0,0);
             footerPosition();
             $(window).resize(footerPosition);
-        })
     }
 })

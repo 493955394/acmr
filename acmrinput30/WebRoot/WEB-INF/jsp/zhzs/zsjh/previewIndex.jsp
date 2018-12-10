@@ -96,11 +96,12 @@
         })
         for (var i = 0; i <val.length ; i++) {
             $("#preview-table tr").each(function(){
+                var rowspan = $(this).children("td:first").attr("rowspan");
                 var text = $(this).children("td:first").text();
                 if(text == val[i]){
                     var num = $(this).index();
-                    var rowspan = $(this).children("td:first").attr("rowspan");
-                    for (var j = num; j <num+rowspan ; j++) {
+                    var total = parseInt(num)+parseInt(rowspan);
+                    for (var j = num; j <total ; j++) {
                         $("#preview-table tbody tr").eq(j).addClass("red")
                     }
                 }
