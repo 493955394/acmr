@@ -22,7 +22,7 @@
             text-align: center;
             vertical-align: middle;
         }
-        .red{background-color: #F39801}
+        .red{background-color: #e4edf6}
     </style>
 </head>
 <body>

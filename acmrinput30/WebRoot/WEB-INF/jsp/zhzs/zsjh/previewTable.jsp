@@ -12,7 +12,7 @@
 <input type="hidden" id="result-ifcomplete" value="${flag}">
 <div style="max-height:55%;max-width: 100%;overflow: auto;margin-top: 10px">
     <table class="table table-bordered J_jgyl_table" id="preview-table">
-        <thead>
+        <thead style="background-color: #e4edf6">
         <tr>
             <td rowspan="2" align="center">地区</td>
             <td colspan="2" align="center">指标</td>
