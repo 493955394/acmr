@@ -2183,7 +2183,14 @@ public class zsjhedit extends BaseAction {
                             rows.add("");
                         }
                         if(j<modnum){//如果还在范围内
-                            rows.add(dp.getData(mods.get(j).getCode(),i,k).getData());
+                            String val = dp.getData(mods.get(j).getCode(),i,k).getData();
+                            if(!val.equals("")){
+                              val=  String.format("%."+mods.get(j).getDacimal()+"f",Double.valueOf(val));//保留几位小数
+                                rows.add(val);
+                            }
+                           else {
+                                rows.add("");
+                            }
                         }else {//范围外填充空
                             rows.add("");
                         }
