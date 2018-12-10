@@ -96,15 +96,15 @@ public class DataPreviewService {
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(data.get(i).getFormula().contains(zbs.get(k).get("code").toString())){//要是存在这个code,就去取对应的zbcode
                             CubeWdCodes where = new CubeWdCodes();
-                            where.Add("zb", zbs.get(k).get("code").toString());
+                            where.Add("zb", zbs.get(k).get("zbcode").toString());
                             where.Add("ds", zbs.get(k).get("dscode").toString());
                             where.Add("co", zbs.get(k).get("cocode").toString());
                             where.Add("reg", reg[j]);
                             where.Add("sj", time);
                             ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode, where);
-                            if(!(result.size() ==0)){//如果有值的话
+                            if(!result.get(0).getData().getStrdata().equals("")){//如果有值的话
                                 //单位换算
-                                String funit=originService.getwdnode("zb",zbs.get(k).get("code").toString(),dbcode).getUnitcode();
+                                String funit=originService.getwdnode("zb",zbs.get(k).get("zbcode").toString(),dbcode).getUnitcode();
                                 BigDecimal rate = new BigDecimal(originService.getRate(funit,zbs.get(k).get("unitcode").toString(),time));
                                 BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
                                 BigDecimal val = orval.setScale(Integer.parseInt(data.get(i).getDacimal()));//截取小数点
