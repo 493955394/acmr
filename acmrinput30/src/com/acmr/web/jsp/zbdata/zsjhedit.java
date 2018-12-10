@@ -2149,21 +2149,21 @@ public class zsjhedit extends BaseAction {
             num = zbsnum;
         }
             for (String i : regions) {
-                for (int j = 0; j <num-1 ; j++) {
+                for (int j = 0; j <num ; j++) {
                     List<String> rows = new ArrayList<>();
                     rows.add(new OriginService().getwdnode("reg",i,dbcode).getName());//地区名
-                    if(j<=zbsnum-1){//如果还在范围内
+                    if(j<zbsnum){//如果还在范围内
                         rows.add(zbs.get(j).get("zbname").toString());
                     }else {//范围外填充空
                         rows.add("");
                     }
-                    if(j<=modnum-1){//如果还在范围内
+                    if(j<modnum){//如果还在范围内
                         rows.add(mods.get(j).getCname());
                     }else {//范围外填充空
                         rows.add("");
                     }
                     for (String k : time) {
-                        if(j<=zbsnum-1){//如果还在范围内,去找它的值
+                        if(j<zbsnum){//如果还在范围内,去找它的值
                             CubeWdCodes where = new CubeWdCodes();
                             where.Add("zb", zbs.get(j).get("zbcode").toString());
                             where.Add("ds", zbs.get(j).get("dscode").toString());
@@ -2182,7 +2182,7 @@ public class zsjhedit extends BaseAction {
                         }else {//范围外填充空
                             rows.add("");
                         }
-                        if(j<=modnum-1){//如果还在范围内
+                        if(j<modnum){//如果还在范围内
                             rows.add(dp.getData(mods.get(j).getCode(),i,k).getData());
                         }else {//范围外填充空
                             rows.add("");
