@@ -949,7 +949,7 @@ define(function (require,exports,module) {
             type:'get',
             success:function (re) {
                if(re.returncode==200){
-                   window.location.href=common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode;
+                   window.open(common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode);
                }else {
                    alert("信息有误，无法查看预览结果！")
                }

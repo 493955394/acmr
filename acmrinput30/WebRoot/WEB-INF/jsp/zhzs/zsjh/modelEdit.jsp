@@ -66,7 +66,7 @@
                         <span class="col-sm-offset-2 col-sm-3" style="text-align:center;font-size: 20px;color: #F39801">----------次级指数设置-----------</span><br>
                         <br>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">所属节点：</label>
+                            <label class="col-sm-2 control-label">父级节点：</label>
                             <div class="col-sm-3">
                                 <select class="form-control cjzs" name="cjzs" autocomplete="off" >
                                     <c:forEach items="${zslist}" var="list">
@@ -81,7 +81,7 @@
                         <span class="col-sm-offset-2 col-sm-3" style="text-align:center;font-size: 20px;color: #F39801">------------指标设置-------------</span><br>
                         <div class="form-group">
                             <br>
-                            <label class="col-sm-2 control-label">所属节点：</label>
+                            <label class="col-sm-2 control-label">父级节点：</label>
                             <div class="col-sm-3">
                                 <select class="form-control zb_ifzs" name="zb_ifzs" autocomplete="off" >
                                     <c:forEach items="${zslist}" var="list">
