@@ -93,15 +93,15 @@
                 <div id="top_div">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">
-                        <li  class="active"><a href="#jbxx" aria-controls="jbxx" role="tab" data-toggle="tab">基本信息</a></li>
-                        <li ><a href="#zssx" aria-controls="zssx" role="tab" data-toggle="tab">指标筛选</a></li>
+                        <li  class="active"><a href="#zssx" aria-controls="zssx" role="tab" data-toggle="tab">指标筛选</a></li>
                         <li ><a href="#jsfw" aria-controls="jsfw" role="tab" data-toggle="tab">计算范围</a></li>
                         <li ><a href="#mxgh" aria-controls="mxgh" role="tab" data-toggle="tab">模型规划</a></li>
+                        <li ><a href="#jbxx" aria-controls="jbxx" role="tab" data-toggle="tab">项目信息</a></li>
                     </ul>
                 </div>
                 <!-- Tab panes -->
                 <div class="col-xs-12 tab-content row" style="padding-top: 10px;padding-right: 0;overflow: auto;">
-                    <div role="tabpanel" class="edit_tab tab-pane active" id="jbxx">
+                    <div role="tabpanel" class="edit_tab tab-pane" id="jbxx">
                         <form class="form-horizontal" id="indexForm" action="" method="post">
                             <div class="form-group" style="display: none">
                                 <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
@@ -196,7 +196,7 @@
                             <input type="reset" style="display:none;"/>
                         </form>
                     </div>
-                    <div role="tabpanel" class="edit_tab tab-pane" id="zssx">
+                    <div role="tabpanel" class="edit_tab tab-pane active" id="zssx">
                         <div id="tree_and_find" class="col-md-2  left-panel" style="overflow: auto;min-height: inherit">
                             <form class="form-inline J_search_form" onkeydown="if(event.keyCode==13){return false;}">
 

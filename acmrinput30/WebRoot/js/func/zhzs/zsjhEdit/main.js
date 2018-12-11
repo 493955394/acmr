@@ -172,6 +172,9 @@ define(function (require,exports,module) {
         $('ul.regul').find('li').each(function() {
             select.push({code:$(this).attr("id"),name:$(this).text()});
         })
+        if ($(".zb_panel").length>0){
+            $(".zb_panel")[0].click()//激活第一个已选指标
+        }
         $.fn.zTree.init($("#tree"), setting, zNodes);
         //修正添加的table的classname，方便和树联动
     });
@@ -733,75 +736,77 @@ define(function (require,exports,module) {
     //右下角保存按钮
     $(document).on('click','.tosaveall',function (event) {
         event.preventDefault();
-        var checkDelegate = new VaildNormal();
-        var flag = true;
-        //前端检查
+        if( $("#bjjhTab li.active").index()==3){
+            var checkDelegate = new VaildNormal();
+            var flag = true;
+            //前端检查
 
-        if (!checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'required', 'msg': '计划名称不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'maxlength', 'msg': '计划名称最大长度为50', 'param': 51 }])) {
-            flag = false;
-        }
-        if (!checkDelegate.checkNormal($('input[name="startpeirod"]'), [{ 'name': 'required', 'msg': '起始数据期不能为空' }]) ||
-            !checkDelegate.checkNormal($('input[name="startpeirod"]'), [{ 'name': 'ch', 'msg': '起始数据期不能包含汉字' }])) {
-            flag = false;
-        }
-        if ($('input[name="delayday"]').val()=="") {
-            flag = false;
-            $('.normalday').append('<label class="control-label tips-error">该项不能为空</label>');
-        }
-        if (flag == false) {
-            alert("基本信息不全！")
-            $('#bjjhTab li:eq(0) a').tab('show');
-            return;
+            if (!checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'required', 'msg': '计划名称不能为空' }]) ||
+                !checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'maxlength', 'msg': '计划名称最大长度为50', 'param': 51 }])) {
+                flag = false;
+            }
+            if (!checkDelegate.checkNormal($('input[name="startpeirod"]'), [{ 'name': 'required', 'msg': '起始数据期不能为空' }]) ||
+                !checkDelegate.checkNormal($('input[name="startpeirod"]'), [{ 'name': 'ch', 'msg': '起始数据期不能包含汉字' }])) {
+                flag = false;
+            }
+            if ($('input[name="delayday"]').val()=="") {
+                flag = false;
+                $('.normalday').append('<label class="control-label tips-error">该项不能为空</label>');
+            }
+            if (flag == false) {
+                return;
+            }
+
+            var timetext = $("#startpeirod").val();
+            if(timesort == "y"){
+                var reg=/^\d{4}$/;
+                var r= timetext.match(reg);
+                if(r==null){
+                    alert("您的"+"年度"+"起始数据期格式有误")
+                    $('#bjjhTab li:eq(0) a').tab('show');
+                    return;
+                }
+            }else if(timesort == "q"){
+                var reg=/^(\d{4})([A-D]{1})$/;
+                var r= timetext.match(reg);
+                if(r==null){
+                    alert("您的季度起始数据期格式有误")
+                    $('#bjjhTab li:eq(0) a').tab('show');
+                    return;
+                }
+            }else if(timesort == "m"){
+                var reg=/^\d{6}$/;
+                var r= timetext.match(reg);
+                if(r==null){
+                    alert("您的"+"月度"+"起始数据期格式有误")
+                    $('#bjjhTab li:eq(0) a').tab('show');
+                    return;
+                }
+                var sub = timetext.substring(timetext.length-2);
+                if(sub == "00"||parseInt(sub)>12){
+                    alert("您的"+"月度"+"起始数据期格式有误")
+                    $('#bjjhTab li:eq(0) a').tab('show');
+                    return;
+                }
+            }
+            var regDelayDays=/^[0-9]*$/;
+            var r=$('input[name="delayday"]').val().match(regDelayDays);
+            if(r==null){
+                alert("您的"+"数据期时间间隔"+"有误");
+                $('#bjjhTab li:eq(0) a').tab('show');
+                return;
+            }
+            //名字只能是中文和字母
+            var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
+            var z = $('input[name="index_cname"]').val().match(namecheck);
+            if(z==null){
+                alert("名称含有不规则字符，请修改");
+                $('#bjjhTab li:eq(0) a').tab('show');
+                return;
+            }
         }
 
-        var timetext = $("#startpeirod").val();
-        if(timesort == "y"){
-            var reg=/^\d{4}$/;
-            var r= timetext.match(reg);
-            if(r==null){
-                alert("您的"+"年度"+"起始数据期格式有误")
-                $('#bjjhTab li:eq(0) a').tab('show');
-                return;
-            }
-        }else if(timesort == "q"){
-            var reg=/^(\d{4})([A-D]{1})$/;
-            var r= timetext.match(reg);
-            if(r==null){
-                alert("您的季度起始数据期格式有误")
-                $('#bjjhTab li:eq(0) a').tab('show');
-                return;
-            }
-        }else if(timesort == "m"){
-            var reg=/^\d{6}$/;
-            var r= timetext.match(reg);
-            if(r==null){
-                alert("您的"+"月度"+"起始数据期格式有误")
-                $('#bjjhTab li:eq(0) a').tab('show');
-                return;
-            }
-            var sub = timetext.substring(timetext.length-2);
-            if(sub == "00"||parseInt(sub)>12){
-                alert("您的"+"月度"+"起始数据期格式有误")
-                $('#bjjhTab li:eq(0) a').tab('show');
-                return;
-            }
-        }
-        var regDelayDays=/^[0-9]*$/;
-        var r=$('input[name="delayday"]').val().match(regDelayDays);
-        if(r==null){
-            alert("您的"+"数据期时间间隔"+"有误");
-            $('#bjjhTab li:eq(0) a').tab('show');
-            return;
-        }
-        //名字只能是中文和字母
-        var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
-        var z = $('input[name="index_cname"]').val().match(namecheck);
-        if(z==null){
-            alert("名称含有不规则字符，请修改");
-            $('#bjjhTab li:eq(0) a').tab('show');
-            return;
-        }
+
         var zbcode = "";//指标code
         var zbco = "";//指标主体
         var zbds = "";//指标数据来源
