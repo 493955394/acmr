@@ -14,15 +14,15 @@
     <table class="table table-bordered J_jgyl_table" id="preview-table">
         <thead style="background-color: #e4edf6">
         <tr>
-            <td rowspan="2" align="center">地区</td>
-            <td colspan="2" align="center">指标</td>
+            <td rowspan="2" align="center" width="10%">地区</td>
+            <td colspan="2" align="center" width="20%">指标</td>
             <c:forEach items="${times}" var="time">
                 <td colspan="2">${time}</td>
             </c:forEach>
         </tr>
         <tr>
-            <td>原始指标</td>
-            <td>计算结果</td>
+            <td width="10%">原始指标</td>
+            <td width="10%">计算结果</td>
             <c:forEach items="${times}" var="li">
                 <td>原始指标</td>
                 <td>计算结果</td>

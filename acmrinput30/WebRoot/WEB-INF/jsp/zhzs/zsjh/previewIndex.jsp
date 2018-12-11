@@ -90,19 +90,19 @@
         });
     });
     $("#select-choose").click(function () {
-        var val = $("#ms").multipleSelect('getSelects', 'text');//是个数组
+        var val = $("#ms").multipleSelect('getSelects', 'text');//获取下拉框中选的值，是个数组
         $("#preview-table tr").each(function(){
-            $(this).removeClass("red")
+            $(this).removeClass("red")//先把之前的颜色全清空
         })
         for (var i = 0; i <val.length ; i++) {
             $("#preview-table tr").each(function(){
-                var rowspan = $(this).children("td:first").attr("rowspan");
-                var text = $(this).children("td:first").text();
-                if(text == val[i]){
+                var rowspan = $(this).children("td:first").attr("rowspan");//看第一列单元格向下合并了几行
+                var text = $(this).children("td:first").text();//获取第一列单元格里的内容
+                if(text == val[i]){//地区名相等的话
                     var num = $(this).index();
                     var total = parseInt(num)+parseInt(rowspan);
                     for (var j = num; j <total ; j++) {
-                        $("#preview-table tbody tr").eq(j).addClass("red")
+                        $("#preview-table tbody tr").eq(j).addClass("red")//添加高亮颜色
                     }
                 }
             })
