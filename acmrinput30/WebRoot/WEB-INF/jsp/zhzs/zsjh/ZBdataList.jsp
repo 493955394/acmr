@@ -6,7 +6,7 @@
     <table class="table table-bordered table-hover table_head" style="width: 100%;position:absolute;">
         <thead style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
         <tr id="zb_data_head" class="ict-table-header">
-            <td class="ict-th" id="thead_column1" style="font-weight: bold;font-family: 'Microsoft YaHei'">地区</td>
+            <td class="ict-th" id="thead_column1" style="font-weight: bold;font-family: 'Microsoft YaHei'">地区(${regsize}个)</td>
             <c:forEach items="${sjs}" var="sj" varStatus="i">
                 <td class="ict-th" id="thead_column${i.count+1}" style=" font-weight: bold;font-family: 'Microsoft YaHei'">${sj}</td>
             </c:forEach>

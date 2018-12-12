@@ -719,6 +719,7 @@ public class zsjhedit extends BaseAction {
         String pjax = req.getHeader("X-PJAX");
         ZBdataService zBdataService=new ZBdataService();
         List<String> regs=zBdataService.getHasDataReg(zbcode,dscode,cocode,"reg",dbcode);
+        int regsize=regs.size();
         OriginService originService=new OriginService();
         CubeWdCodes where = new CubeWdCodes();
 
@@ -784,7 +785,7 @@ public class zsjhedit extends BaseAction {
            // PubInfo.printStr("isempty");
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("zbs",zbs).addObject("list",list).addObject("proname",proname).addObject("indexlist",indexlist).addObject("regs",regoins);
         } else {
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/ZBdataList").addObject("sjs",sjs).addObject("rows",rows).addObject("nodata",nodata);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/ZBdataList").addObject("sjs",sjs).addObject("rows",rows).addObject("nodata",nodata).addObject("regsize",regsize);
         }
     }
 
