@@ -102,14 +102,20 @@ public class DataPreviewService {
                             where.Add("reg", reg[j]);
                             where.Add("sj", time);
                             ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode, where);
-                            if(!result.get(0).getData().getStrdata().equals("")){//如果有值的话
-                                //单位换算
-                                String funit=originService.getwdnode("zb",zbs.get(k).get("zbcode").toString(),dbcode).getUnitcode();
-                                BigDecimal rate = new BigDecimal(originService.getRate(funit,zbs.get(k).get("unitcode").toString(),time));
-                                BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
-                                BigDecimal val = orval.setScale(Integer.parseInt(data.get(i).getDacimal()));//截取小数点
-                                da.setData(val.toPlainString());
-                            }else{//要是没有值
+                            if(result.size()>0){
+                                if(!result.get(0).getData().getStrdata().equals("")){//如果有值的话
+                                    //单位换算
+                                    String funit=originService.getwdnode("zb",zbs.get(k).get("zbcode").toString(),dbcode).getUnitcode();
+                                    BigDecimal rate = new BigDecimal(originService.getRate(funit,zbs.get(k).get("unitcode").toString(),time));
+                                    BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
+                                    BigDecimal val = orval.setScale(Integer.parseInt(data.get(i).getDacimal()));//截取小数点
+                                    da.setData(val.toPlainString());
+                                }
+                                else {
+                                    da.setData("");
+                                }
+                            }
+                           else{//要是没有值
                                 da.setData("");
                             }
 
@@ -139,7 +145,7 @@ public class DataPreviewService {
                             where.Add("sj", time);
                             ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode, where);
                             //替换公式中的值
-                            if(result.get(0).getData().getStrdata().equals("")){
+                            if((result.size()!=0 && result.get(0).getData().getStrdata().equals("")) || result.size()==0){
 //                                formula = formula.replace("#"+zbs.get(k).getProcode()+"#","0");//换成0
                                 flag = true;
                                 break;

@@ -288,7 +288,7 @@ public class zsjhedit extends BaseAction {
                     datas.add("");
                 }else{
                     for (int k = 0; k <result.size() ; k++) {
-                        if (!result.get(k).getData().toString().equals("")){
+                        if (!result.get(k).getData().toString().equals("") && result.size()!=0){
                             BigDecimal resulttemp=(new BigDecimal(result.get(k).getData().getStrdata())).multiply(rate);
                             datas.add(resulttemp+"") ;
                         }
@@ -2169,12 +2169,18 @@ public class zsjhedit extends BaseAction {
                             where.Add("reg", i);
                             where.Add("sj", k);
                             ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode, where);
-                            if(!result.get(0).getData().getStrdata().equals("")){
-                                String funit=originService.getwdnode("zb",zbs.get(j).get("zbcode").toString(),dbcode).getUnitcode();
-                                BigDecimal rate = new BigDecimal(originService.getRate(funit,zbs.get(j).get("unitcode").toString(),k));
-                                BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
-                                rows.add(orval.toPlainString());
-                            }else {
+                            if(result.size()>0){
+                                if(!result.get(0).getData().getStrdata().equals("")){
+                                    String funit=originService.getwdnode("zb",zbs.get(j).get("zbcode").toString(),dbcode).getUnitcode();
+                                    BigDecimal rate = new BigDecimal(originService.getRate(funit,zbs.get(j).get("unitcode").toString(),k));
+                                    BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
+                                    rows.add(orval.toPlainString());
+                                }
+                                else {
+                                    rows.add("");
+                                }
+                            }
+                           else {
                                 rows.add("");
                             }
                         }else {//范围外填充空
