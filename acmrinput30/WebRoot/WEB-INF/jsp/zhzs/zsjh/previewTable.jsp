@@ -9,6 +9,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<style>
+    #preview-table td{
+        white-space: nowrap;
+    }
+</style>
 <input type="hidden" id="result-ifcomplete" value="${flag}">
 <div style="max-height:55%;max-width: 100%;overflow: auto;margin-top: 10px">
     <table class="table table-bordered J_jgyl_table" id="preview-table">
