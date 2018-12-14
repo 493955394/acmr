@@ -2073,13 +2073,39 @@ public class zsjhedit extends BaseAction {
         Boolean checkhasMod=indexListService.checkHasMod(code);
 
         check=checkInfo&&checkmod&&checkZbReg&&checkhasMod;
-        JSONReturnData data = new JSONReturnData("");
+        JSONObject data=new JSONObject();
+        data.put("return","");
+        if (check){
+            data.put("return","200");
+        }
+        else if (!checkmod){
+            data.put("return",data.get("return")+"模型节点设置不符合规定，");
+        }
+        else if (!checkInfo){
+            data.put("return",data.get("return")+"基本信息缺失，");
+        }
+        else if (!checkZbReg){
+            data.put("return",data.get("return")+"指标/地区缺失，");
+        }
+        else if (!checkhasMod){
+            data.put("return",data.get("return")+"不存在模型节点，");
+        }
+        /*JSONReturnData data = new JSONReturnData("");
         if (check){
             data.setReturncode(200);
         }
-        else {
+        else if (!checkmod){
             data.setReturncode(300);
         }
+        else if (!checkInfo){
+
+        }
+        else if (!checkZbReg){
+
+        }
+        else if (!checkhasMod){
+            data.setReturncode();
+        }*/
         this.sendJson(data);
     }
     /**

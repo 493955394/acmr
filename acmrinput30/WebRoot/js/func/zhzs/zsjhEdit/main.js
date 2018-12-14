@@ -953,11 +953,18 @@ define(function (require,exports,module) {
             url:common.rootPath+'zbdata/zsjhedit.htm?m=checkPreview&id='+incode,
             type:'get',
             success:function (re) {
-               if(re.returncode==200){
+                console.log(re)
+                if (re.return==200){
+                    window.open(common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode);
+                }
+                else {
+                    alert(re.return+"无法查看预览结果！")
+                }
+               /*if(re.return==200){
                    window.open(common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode);
                }else {
                    alert("信息有误，无法查看预览结果！")
-               }
+               }*/
             }
         })
     })
