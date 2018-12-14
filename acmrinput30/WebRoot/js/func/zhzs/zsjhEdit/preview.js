@@ -8,6 +8,7 @@ define(function (require,exports,module) {
 
         footerPosition();
         $(window).resize(footerPosition);
+        drawtable()
     })
     var icode = $("#preview-code").val();
     /**
@@ -77,5 +78,18 @@ define(function (require,exports,module) {
             mc('preview-table',0,0,0);
             footerPosition();
             $(window).resize(footerPosition);
+        drawtable();
+
+    }
+    //重新绘制表格，定宽
+    function drawtable() {
+        var windowwidth = $(window).width();
+        var table = $("#preview-table").width();
+        if(windowwidth>table){
+            $(".table").css("width","100%")
+        }
+        else {
+            $(".table").css("width","auto")
+        }
     }
 })
