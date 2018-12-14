@@ -10,8 +10,8 @@
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <style>
-    #preview-table td{
-        white-space: nowrap;
+    #preview-table {
+        table-layout: fixed;
     }
 </style>
 <input type="hidden" id="result-ifcomplete" value="${flag}">
@@ -19,18 +19,18 @@
     <table class="table table-bordered J_jgyl_table" id="preview-table">
         <thead style="background-color: #e4edf6">
         <tr>
-            <td rowspan="2" align="center" width="10%">地区</td>
-            <td colspan="2" align="center" width="20%">指标</td>
+            <td rowspan="2" align="center" style="width: 150px;min-width: 150px" >地区</td>
+            <td colspan="2" align="center" style="width: 300px;min-width: 300px">指标</td>
             <c:forEach items="${times}" var="time">
-                <td colspan="2">${time}</td>
+                <td colspan="2" style="width: 162px">${time}</td>
             </c:forEach>
         </tr>
         <tr>
-            <td width="10%">原始指标</td>
-            <td width="10%">计算结果</td>
+            <td style="width: 150px;min-width: 150px">原始指标</td>
+            <td style="width: 150px;min-width: 150px">计算结果</td>
             <c:forEach items="${times}" var="li">
-                <td>原始指标</td>
-                <td>计算结果</td>
+                <td style="width: 81px">原始指标</td>
+                <td style="width: 81px">计算结果</td>
             </c:forEach>
         </tr>
         </thead>
