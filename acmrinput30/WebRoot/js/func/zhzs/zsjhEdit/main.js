@@ -177,6 +177,10 @@ define(function (require,exports,module) {
         }
         $.fn.zTree.init($("#tree"), setting, zNodes);
         //修正添加的table的classname，方便和树联动
+
+        //默认显示全屏
+        $(".btn-fullscreen").click();
+
     });
     //点击指标筛选，激活第一个已选指标
     $(document).on('click','a[href="#zssx"]',function (event) {
