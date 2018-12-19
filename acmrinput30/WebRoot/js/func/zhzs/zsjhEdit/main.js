@@ -865,10 +865,10 @@ define(function (require,exports,module) {
                     if(index == 3)//如果是模型规划的tab页才回首页
                     window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+incode;
                 }
-                if (data.returncode == 301) {
+               else if (data.returncode == 301) {
                     alert("该计划名称已经存在！");
                 }
-                if (data.returncode == 501) {
+                else{
                     alert("保存失败！");
                 }
             }
