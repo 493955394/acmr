@@ -1655,6 +1655,7 @@ public class zsjhedit extends BaseAction {
                         }
                         List<String> ets = os.gethasdatawdlist(list1,"sj",dbcode);
                         if(ets.size()>0){
+                            ets=new IndexEditService().sjSort(ets);
                             String et = ets.get(0);
                             List<String> temp = getNomalTimes(sort,et,num);
                             for(String arr : temp){
@@ -2214,7 +2215,7 @@ public class zsjhedit extends BaseAction {
                         }
                         if(j<modnum){//如果还在范围内
                             String val = dp.getData(mods.get(j).getCode(),i,k).getData();
-                            if(!val.equals("")){
+                            if(val!=null&&!val.equals("")){
                               val=  String.format("%."+mods.get(j).getDacimal()+"f",Double.valueOf(val));//保留几位小数
                                 rows.add(val);
                             }
