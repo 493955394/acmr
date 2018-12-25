@@ -16,6 +16,7 @@ import com.acmr.service.zbdata.RegdataService;
 
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -108,7 +109,7 @@ public class DataPreviewService {
                                     String funit=originService.getwdnode("zb",zbs.get(k).get("zbcode").toString(),dbcode).getUnitcode();
                                     BigDecimal rate = new BigDecimal(originService.getRate(funit,zbs.get(k).get("unitcode").toString(),time));
                                     BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
-                                    BigDecimal val = orval.setScale(Integer.parseInt(data.get(i).getDacimal()));//截取小数点
+                                    BigDecimal val = orval.setScale(Integer.parseInt(data.get(i).getDacimal()),RoundingMode.CEILING);//截取小数点
                                     da.setData(val.toPlainString());
                                 }
                                 else {
