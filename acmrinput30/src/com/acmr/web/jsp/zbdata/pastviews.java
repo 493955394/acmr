@@ -65,7 +65,7 @@ public class pastviews extends BaseAction {
             //存在的地区并集,用于select
             info.put("options",regs);
             info.put("span","地区选择");
-            info.put("spancode",null);
+            info.put("spancode",reg);
         }
         return new ModelAndView("/WEB-INF/jsp/zhzs/zstask/pastviews").addObject("showdata",showdatas).addObject("info",info);
    }
@@ -103,7 +103,6 @@ public class pastviews extends BaseAction {
        if (alltaskcodes.size()==0) info.put("tasknum","0");
        else {
            info.put("tasknum",alltaskcodes.size());
-           info.put("spancode",spancode);
            String span;
            List<String> head=new ArrayList<>();
            List<String> taskcodes=new ArrayList<>();
@@ -235,6 +234,22 @@ public class pastviews extends BaseAction {
            }
            info.put("span",span);
            info.put("head",head);
+
+           //序列化（spancode==null）后默认选择第一个
+           if (spancode==null){
+               if (span=="地区选择"){
+                   spancode=pastViewService.getRegList(icode).get(0).get("code");
+               }
+               else if (span=="指标选择"){
+                   List<String> alltaskcode=pastViewService.getAllTask(icode);
+                   spancode=pastViewService.getModsList(alltaskcode).get(0).get("code");
+               }
+               else if (span=="时间选择"){
+                   spancode=pastViewService.getAllTime(icode).get(0);
+               }
+           }
+           info.put("spancode",spancode);
+
        }
 
 

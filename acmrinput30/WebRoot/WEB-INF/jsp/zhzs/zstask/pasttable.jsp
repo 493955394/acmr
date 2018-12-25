@@ -29,11 +29,11 @@
             <option class="wd_option" id="${option.get('code')}" selected="selected">${option.get('name')}</option>
         </c:if>
         <c:if test="${info.get('spancode')!=option.get('code')&&info.get('spancode')!=null}">
-            <option class="wd_option" id="${option.get('code')}" selected="selected">${option.get('name')}</option>
+            <option class="wd_option" id="${option.get('code')}">${option.get('name')}</option>
         </c:if>
-        <c:if test="${info.get('spancode')==null}">
+       <%-- <c:if test="${info.get('spancode')==null}">
             <option class="wd_option" id="${option.get('code')}" selected="selected">${option.get('name')}</option>
-        </c:if>
+        </c:if>--%>
     </c:forEach>
 
 </select>
