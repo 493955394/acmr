@@ -5,6 +5,7 @@ import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IndexEditDao;
 import com.acmr.dao.zhzs.IndexListDao;
+import com.acmr.dao.zhzs.SchemeDao;
 import com.acmr.model.security.Department;
 import com.acmr.model.security.User;
 import com.acmr.model.zhzs.IndexList;
@@ -186,6 +187,12 @@ public class IndexListService {
             if(indexlist.get(i).get("startperiod")!=null){
                 index.setStartperiod(indexlist.get(i).get("startperiod").toString());
             }
+            //新增方案
+            String schemecode= SchemeDao.Fator.getInstance().getIndexdatadao().getSelectedSchemeCode(indexlist.get(i).get("code").toString());
+            String schemename= SchemeDao.Fator.getInstance().getIndexdatadao().getSchemeNameByCode(schemecode);
+            index.setSchemecode(schemecode);
+            index.setSchemename(schemename);
+
             indexLists.add(index);
         }
         return indexLists;
@@ -387,6 +394,12 @@ public class IndexListService {
             String ifdata=rows.get(i).getString("ifdata");
             String state=rows.get(i).getString("state");
             IndexList indexList=new IndexList(code,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser,ifdata,state);
+            //新增方案
+            String schemecode= SchemeDao.Fator.getInstance().getIndexdatadao().getSelectedSchemeCode(code);
+            String schemename= SchemeDao.Fator.getInstance().getIndexdatadao().getSchemeNameByCode(schemecode);
+            indexList.setSchemecode(schemecode);
+            indexList.setSchemename(schemename);
+
             list.add(indexList);
         }
         return list;
@@ -421,6 +434,12 @@ public class IndexListService {
             String ifdata=rows.get(i).getString("ifdata");
             String state=rows.get(i).getString("state");
             IndexList indexList=new IndexList(code,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser,ifdata,state);
+            //新增方案
+            String schemecode= SchemeDao.Fator.getInstance().getIndexdatadao().getSelectedSchemeCode(code);
+            String schemename= SchemeDao.Fator.getInstance().getIndexdatadao().getSchemeNameByCode(schemecode);
+            indexList.setSchemecode(schemecode);
+            indexList.setSchemename(schemename);
+
             list.add(indexList);
         }
         return list;

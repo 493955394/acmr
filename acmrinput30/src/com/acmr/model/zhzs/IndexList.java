@@ -34,6 +34,28 @@ public class IndexList {
     private String updatetime;
     /** 更新时间 */
     private String remark;
+    /** 备注 */
+    private String schemename;
+    /** 方案名称 */
+    private String schemecode;
+    /** 方案编码 */
+
+    public String getSchemename() {
+        return schemename;
+    }
+
+    public void setSchemename(String schemename) {
+        this.schemename = schemename;
+    }
+
+    public String getSchemecode() {
+        return schemecode;
+    }
+
+    public void setSchemecode(String schemecode) {
+        this.schemecode = schemecode;
+    }
+
 
     public IndexList(){
 

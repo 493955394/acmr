@@ -112,6 +112,7 @@
             <th><span class="word">类型</span></th>
             <th><span class="word">周期</span></th>
             <th><span class="word">最新数据期</span></th>
+            <th><span class="word">方案</span></th>
             <th><span class="word">操作</span></th>
         </tr>
         </thead>
@@ -139,6 +140,7 @@
                         <c:if test="${index.getSort() == 'm'}">月度</c:if>
                     </td>
                     <td  style="text-align: center;vertical-align: middle!important;">${index.getPlanperiod()}</td>
+                    <td  style="text-align: center;vertical-align: middle!important;">${index.getSchemename()}</td>
                     <td  style="text-align: left;vertical-align: middle!important;">
                         <c:if test="${index.getIfdata().equals('1')}">
                             <c:if test="${index.getState().equals('0')}">
