@@ -161,13 +161,32 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                 dataQuery.executeSql(sql5,new Object[]{code,icode,zbcode,company,datasource,regions,unitcode,dacimal});
             }
 
+            //复制方案
+            String f_sql1 = "select * from tb_coindex_scheme where indexcode=?";
+            DataTable f_table1 = dataQuery.getDataTableSql(sql4,new Object[]{cpcode});
+            List<DataTableRow> f_row1 = f_table1.getRows();
+            for(int j=0;j<f_row1.size();j++){
+                String id = UUID.randomUUID().toString().replace("-", "").toLowerCase();
+                String code = f_row1.get(j).getString("code");
+
+                String cname = f_row1.get(j).getString("cname");
+                String modcode = f_row1.get(j).getString("modcode");
+                String state = f_row1.get(j).getString("state");
+                String ifzb = f_row1.get(j).getString("ifzb");
+                String weight = f_row1.get(j).getString("weight");
+                String formula = f_row1.get(j).getString("formula");
+                String fremark = f_row1.get(j).getString("remark");
+                String f_sql2 = "insert into tb_coindex_scheme (id,code,cname,indexcode,modcode,state,ifzb,weight,formula,remark) values(?,?,?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(f_sql2,new Object[]{id,code,cname,icode,modcode,state,ifzb,weight,formula,fremark});
+            }
 
             //复制模型
             String sql2 = "select * from tb_coindex_module where indexcode=?";
             DataTable table1=dataQuery.getDataTableSql(sql2,new Object[]{cpcode});
             List<DataTableRow> rows1=table1.getRows();
             for(int i=0;i<rows1.size();i++){
-                String code= UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,6);
+                //String code= UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,6);
+                String code= UUID.randomUUID().toString().replace("-", "").toLowerCase();
                 String cname=rows1.get(i).getString("cname");
                 String procode = rows1.get(i).getString("procode");
                 String ifzs = rows1.get(i).getString("ifzs");
@@ -179,6 +198,9 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                 String copycode = rows1.get(i).getString("copycode");
                 String sql3 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode) values(?,?,?,?,?,?,?,?,?,?,?)";
                 dataQuery.executeSql(sql3,new Object[]{code,cname,procode,icode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode});
+                String modcode =rows1.get(i).getString("code");
+                String f_sql3="update tb_coindex_scheme set modcode=? where indexcode=? and modcode=?";
+                dataQuery.executeSql(f_sql3,new Object[]{code,icode,modcode});
             }
             //修正tb_coindex_module的procode
             //String newcode = UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,6);
@@ -267,10 +289,16 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                         if(nformula.contains("#")){
                             nformula = nformula.replace("#"+oforcode+"#","#"+nforcode+"#");//换成新模型节点code
                             String sql3 = "update tb_coindex_module set formula=? where copycode=? and code=?";
+                            //修改方案公式
+                            String f_sql4="update tb_coindex_scheme set formula=? where indexcode=? and formula=?";
+                            dataQuery.executeSql(f_sql4,new Object[]{nformula,ncode,oformula});
                             dataQuery.executeSql(sql3,new Object[]{nformula,omocode,nmocode});
                         }else{
                             nformula = nformula.replace(oforcode,nforcode);//换成新模型节点code
                             String sql3 = "update tb_coindex_module set formula=? where copycode=? and code=?";
+                            //修改方案公式
+                            String f_sql4="update tb_coindex_scheme set formula=? where indexcode=? and formula=?";
+                            dataQuery.executeSql(f_sql4,new Object[]{nformula,ncode,oformula});
                             dataQuery.executeSql(sql3,new Object[]{nformula,omocode,nmocode});
                         }
 
@@ -423,6 +451,26 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                 String sql3 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode) values(?,?,?,?,?,?,?,?,?,?,?)";
                 dataQuery.executeSql(sql3,new Object[]{code,cname,procode,icode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode});
             }
+
+            //复制方案
+            String f_sql1 = "select * from tb_coindex_scheme where indexcode=?";
+            DataTable f_table1 = dataQuery.getDataTableSql(f_sql1,new Object[]{cpcode});
+            List<DataTableRow> f_row1 = f_table1.getRows();
+            for(int j=0;j<f_row1.size();j++){
+                String id = UUID.randomUUID().toString().replace("-", "").toLowerCase();
+                String code = f_row1.get(j).getString("code");
+
+                String cname = f_row1.get(j).getString("cname");
+                String modcode = f_row1.get(j).getString("modcode");
+                String state = f_row1.get(j).getString("state");
+                String ifzb = f_row1.get(j).getString("ifzb");
+                String weight = f_row1.get(j).getString("weight");
+                String formula = f_row1.get(j).getString("formula");
+                String fremark = f_row1.get(j).getString("remark");
+                String f_sql2 = "insert into tb_coindex_scheme (id,code,cname,indexcode,modcode,state,ifzb,weight,formula,remark) values(?,?,?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(f_sql2,new Object[]{id,code,cname,icode,modcode,state,ifzb,weight,formula,fremark});
+            }
+
             //复制筛选条件
             String sql4 = "select * from tb_coindex_zb where indexcode=?";
             DataTable table2 = dataQuery.getDataTableSql(sql4,new Object[]{cpcode});
@@ -438,6 +486,9 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                 String dacimal = row2.get(j).getString("dacimal");
                 String sql5 = "insert into tb_coindex_zb (code,indexcode,zbcode,company,datasource,regions,unitcode,dacimal) values(?,?,?,?,?,?,?,?)";
                 dataQuery.executeSql(sql5,new Object[]{code,icode,zbcode,company,datasource,regions,unitcode,dacimal});
+                String modcode =rows1.get(j).getString("code");
+                String f_sql3="update tb_coindex_scheme set modcode=? where indexcode=? and modcode=?";
+                dataQuery.executeSql(f_sql3,new Object[]{code,icode,modcode});
             }
             //修正tb_coindex_module的procode
            // String newcode = UUID.randomUUID().toString().replace("-", "").toLowerCase().substring(0,6);
