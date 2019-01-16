@@ -1,5 +1,6 @@
 package com.acmr.dao.oracle.zhzs;
 
+import acmr.util.DataTable;
 import acmr.util.DataTableRow;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.ISchemeDao;
@@ -23,5 +24,12 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         List<DataTableRow> rows=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{code}).getRows();
         if (rows.size()==0) return null;
         else return rows.get(0).getString("cname");
+    }
+
+    @Override
+    public List<DataTableRow> getSchemesByIcode(String icode) {
+        String sql="select * from tb_coindex_scheme where indexcode=?";
+        List<DataTableRow> rows=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode}).getRows();
+        return rows;
     }
 }

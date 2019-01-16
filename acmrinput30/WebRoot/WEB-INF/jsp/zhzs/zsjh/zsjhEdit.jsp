@@ -65,6 +65,18 @@
         .add-padding{
             padding-top: 200px;
         }
+        #set_scheme_weight_formula{
+            float: right;
+            margin: 5px;
+        }
+        #add_scheme{
+            float: right;
+            margin: 5px;
+        }
+        #scheme_time_select{
+            float: right;
+            margin: 5px;
+        }
     </style>
 
     <script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
@@ -95,7 +107,8 @@
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">
                         <li  class="active"><a href="#zssx" aria-controls="zssx" role="tab" data-toggle="tab">指标筛选</a></li>
                         <li ><a href="#jsfw" aria-controls="jsfw" role="tab" data-toggle="tab">计算范围</a></li>
-                        <li ><a href="#mxgh" aria-controls="mxgh" role="tab" data-toggle="tab">模型规划</a></li>
+                        <li ><a href="#mxgh" aria-controls="mxgh" role="tab" data-toggle="tab">模型构建</a></li>
+                        <li ><a href="#jsfa" aria-controls="jsfa" role="tab" data-toggle="tab">计算方案</a></li>
                         <li ><a href="#jbxx" aria-controls="jbxx" role="tab" data-toggle="tab">项目信息</a></li>
                     </ul>
                 </div>
@@ -425,6 +438,18 @@
 
                         </div>
                     </div>
+                    <div role="tabpanel" class="edit_tab tab-pane" id="jsfa">
+                        <div id="scheme_main_container">
+                            <div id="scheme_select_button">
+                                <button class="btn btn-default btn-sm" id="set_scheme_weight_formula">公式/权重设置</button>
+                                <button class="btn btn-default btn-sm" id="add_scheme">新增方案</button>
+                                <select id="scheme_time_select"></select>
+                            </div>
+                            <div class="J_zsjh_scheme_table"  style="width: 100%;overflow: auto">
+                                <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/schemeTable.jsp" flush="true"/>
+                            </div>
+                        </div>
+                    </div>
                     <!--Tab panes end-->
                 </div>
             </div>
@@ -478,6 +503,7 @@
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/main');
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/zbAdd');
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/module');
+    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/scheme');
 </script>
 </html>
 

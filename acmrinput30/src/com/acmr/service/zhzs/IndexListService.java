@@ -187,7 +187,7 @@ public class IndexListService {
             if(indexlist.get(i).get("startperiod")!=null){
                 index.setStartperiod(indexlist.get(i).get("startperiod").toString());
             }
-            //新增方案
+            //新增选中的方案
             String schemecode= SchemeDao.Fator.getInstance().getIndexdatadao().getSelectedSchemeCode(indexlist.get(i).get("code").toString());
             String schemename= SchemeDao.Fator.getInstance().getIndexdatadao().getSchemeNameByCode(schemecode);
             index.setSchemecode(schemecode);
@@ -394,7 +394,7 @@ public class IndexListService {
             String ifdata=rows.get(i).getString("ifdata");
             String state=rows.get(i).getString("state");
             IndexList indexList=new IndexList(code,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser,ifdata,state);
-            //新增方案
+            //新增选中的方案
             String schemecode= SchemeDao.Fator.getInstance().getIndexdatadao().getSelectedSchemeCode(code);
             String schemename= SchemeDao.Fator.getInstance().getIndexdatadao().getSchemeNameByCode(schemecode);
             indexList.setSchemecode(schemecode);
@@ -434,7 +434,7 @@ public class IndexListService {
             String ifdata=rows.get(i).getString("ifdata");
             String state=rows.get(i).getString("state");
             IndexList indexList=new IndexList(code,cname,procode,sort,startperiod,delayday,planperiod,plantime,createuser,ifdata,state);
-            //新增方案
+            //新增选中的方案
             String schemecode= SchemeDao.Fator.getInstance().getIndexdatadao().getSelectedSchemeCode(code);
             String schemename= SchemeDao.Fator.getInstance().getIndexdatadao().getSchemeNameByCode(schemecode);
             indexList.setSchemecode(schemecode);
