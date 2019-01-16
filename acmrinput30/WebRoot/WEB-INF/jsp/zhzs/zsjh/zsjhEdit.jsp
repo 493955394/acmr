@@ -164,7 +164,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                           <%-- <div class="form-group">
                                 <label class="col-sm-2 control-label talign-center fz13"><span class="glyphicon glyphicon-asterisk required_ico"></span>起始数据期：</label>
                                 <div class="col-sm-5">
                                     <c:if test="${right!='1'}">
@@ -178,7 +178,7 @@
                                                readonly/>
                                     </c:if>
                                 </div>
-                            </div>
+                            </div>--%>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label "><span class="glyphicon glyphicon-asterisk required_ico"></span>更新周期：</label>
                                 <div class="col-sm-5">
@@ -314,7 +314,7 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="edit_tab tab-pane" id="jsfw">
-                        <div class="jsfw_col col-xs-2">
+                        <div class="jsfw_col col-xs-2 col-xs-offset-3">
                             <input type="hidden" id="initTreePara" value="${initTreePara}"/>
                             <input type="hidden" id="procode" value=""/>
                             <div class="panel tree-panel" >
@@ -365,7 +365,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="jsfw_col col-xs-7"
+                      <%--  <div class="jsfw_col col-xs-7"
                              style="border:#dddddd;padding-left: 20px;">
                             <div class="panel tree-panel">
                                 <div class="panel-heading" style="text-align:center">数据检查区</div>
@@ -388,7 +388,7 @@
                                     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/regSelect.jsp" flush="true"/>
                                 </div>
                             </div>
-                        </div>
+                        </div>--%>
                     </div>
                     <div role="tabpanel" class="edit_tab tab-pane" id="mxgh">
                         <div class="module_tab_container col-md-2" id="module_tree_container" style="background-color: #F4F5F9;overflow: auto;">
