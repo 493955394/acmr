@@ -11,6 +11,13 @@ import java.util.List;
 
 public class IndexSchemeService {
     private ISchemeDao ischemeDao=SchemeDao.Fator.getInstance().getIndexdatadao();
+    /**
+    * @Description: 根据指标code返回该指标所有的方案列表，并局部刷新table
+    * @Param: [icode]
+    * @return: java.util.List<com.acmr.model.zhzs.Scheme>
+    * @Author: lyh
+    * @Date: 2019/1/16
+    */
     public List<Scheme> getSchemesByIcode(String icode) {
         List<Scheme> schemes=new ArrayList<>();
         List<DataTableRow> rows=ischemeDao.getSchemesByIcode(icode);

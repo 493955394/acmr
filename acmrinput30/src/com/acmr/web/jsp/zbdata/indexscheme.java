@@ -13,6 +13,13 @@ import java.util.List;
 
 public class indexscheme extends BaseAction {
     private IndexSchemeService indexSchemeService=new IndexSchemeService();
+    /**
+    * @Description: 返回计划方案列表
+    * @Param: []
+    * @return: acmr.web.entity.ModelAndView
+    * @Author: lyh
+    * @Date: 2019/1/16
+    */
     public ModelAndView getSchemeList() throws IOException {
         HttpServletRequest req = this.getRequest();
         String icode=req.getParameter("icode");
