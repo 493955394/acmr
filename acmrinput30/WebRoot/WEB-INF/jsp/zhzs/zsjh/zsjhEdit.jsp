@@ -105,7 +105,8 @@
                 <div id="top_div">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">
-                        <li  class="active"><a href="#zssx" aria-controls="zssx" role="tab" data-toggle="tab">指标筛选</a></li>
+                        <li  class="active"><a href="#zssx" aria-controls="zssx" role="tab" data-toggle="tab">指标初选</a></li>
+                        <li ><a href="#dqcx" aria-controls="dqcx" role="tab" data-toggle="tab">地区初选</a></li>
                         <li ><a href="#jsfw" aria-controls="jsfw" role="tab" data-toggle="tab">计算范围</a></li>
                         <li ><a href="#mxgh" aria-controls="mxgh" role="tab" data-toggle="tab">模型构建</a></li>
                         <li ><a href="#jsfa" aria-controls="jsfa" role="tab" data-toggle="tab">计算方案</a></li>
@@ -164,21 +165,6 @@
                                     </select>
                                 </div>
                             </div>
-                           <%-- <div class="form-group">
-                                <label class="col-sm-2 control-label talign-center fz13"><span class="glyphicon glyphicon-asterisk required_ico"></span>起始数据期：</label>
-                                <div class="col-sm-5">
-                                    <c:if test="${right!='1'}">
-                                        <input id="startpeirod" name="startpeirod" class="form-control" type="text"
-                                               value="${list.getStartperiod()}"
-                                               placeholder="年度：2015，季度：2015A，月度：201501"/>
-                                    </c:if>
-                                    <c:if test="${right=='1'}">
-                                        <input id="startpeirod" name="startpeirod" class="form-control" type="text"
-                                               value="${list.getStartperiod()}" placeholder="年度：2015，季度：2015A，月度：201501"
-                                               readonly/>
-                                    </c:if>
-                                </div>
-                            </div>--%>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label "><span class="glyphicon glyphicon-asterisk required_ico"></span>更新周期：</label>
                                 <div class="col-sm-5">
@@ -313,7 +299,7 @@
                             </div>
                         </div>
                     </div>
-                    <div role="tabpanel" class="edit_tab tab-pane" id="jsfw">
+                    <div role="tabpanel" class="edit_tab tab-pane" id="dqcx">
                         <div class="jsfw_col col-xs-2 col-xs-offset-3">
                             <input type="hidden" id="initTreePara" value="${initTreePara}"/>
                             <input type="hidden" id="procode" value=""/>
@@ -365,30 +351,19 @@
                                 </ul>
                             </div>
                         </div>
-                      <%--  <div class="jsfw_col col-xs-7"
-                             style="border:#dddddd;padding-left: 20px;">
-                            <div class="panel tree-panel">
-                                <div class="panel-heading" style="text-align:center">数据检查区</div>
+                    </div>
+                    <div role="tabpanel" class="edit_tab tab-pane" id="jsfw">
+                        <div class="col-xs-12">
+                            <input  type="hidden" id="fwtimeinput"/>
+                            <input type="hidden" id="timeval" value="last3">
+                            <div id="mySelectTime1" style="margin-top: 10px;margin-bottom: 10px;float: left"></div>
+
+                            <div style="float: right">计划起始时间：
+                                <input />
+                                <button class="btn btn-primary btn-sm">范围确认</button>
+                                <button class="btn btn-primary btn-sm">数据下载</button>
                             </div>
-                            <div id="data_check_container">
-                                <div style="border:solid 1px #dddddd">
-                                    <span style="font-size: 15px;margin-top: 10px;margin-bottom: 10px">时间选择</span>
-                                    <input  name="begintime" style="margin-top: 10px;margin-bottom: 10px"/>
-                                    <span style="font-size: 15px;margin-top: 10px;margin-bottom: 10px">至</span>
-                                    <input  name="endtime" style="margin-top: 10px;margin-bottom: 10px"/>
-                                    <span ></span>
-                                    <div style="float: right;margin-top: 10px;margin-bottom: 10px">
-                                        <button id="datachecks" class="btn btn-default btn-sm" style="font-size: 10px"><i class="data-check"></i>数据检查</button>
-                                        <button id="down_data" class="J_plan_excel btn btn-default btn-sm" style="font-size: 10px;margin-left: 10px;display:none"><i class="glyphicon glyphicon-save"></i>数据下载</button>
-                                    </div>
-                                </div>
-                                <input type="hidden" id="single_reg" value="">
-                                <div class="clearfix"></div>
-                                <div class="data_check_show">
-                                    <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/regSelect.jsp" flush="true"/>
-                                </div>
-                            </div>
-                        </div>--%>
+                        </div>
                     </div>
                     <div role="tabpanel" class="edit_tab tab-pane" id="mxgh">
                         <div class="module_tab_container col-md-2" id="module_tree_container" style="background-color: #F4F5F9;overflow: auto;">
@@ -483,8 +458,15 @@
             zbs: zbs
         }
     });
-    //查询的时间
+    //查询的时间搜索框
     $(function(){
+        var json1 = {
+            wdcode:'sj',
+            wdname:'预览时间',
+            nodes:[
+                {code:"last3",name:'最近三期'}
+            ]
+        };
         var json2 = {
             wdcode:'sj',
             wdname:'时间',
@@ -492,7 +474,12 @@
                 {code:"last5",name:'最近五期'}
             ]
         };
+        var dt1 = $('#mySelectTime1');
         var dt2 = $('#mySelectTime');
+        dt1.dropList(json1,{isText:true},function(o){     //事件处理
+            $("#timeval").val(o.getItem().code)
+            $("#fwtimeinput").click();
+        });
         //dt2.dropList(json2,{isText:true});   //实例化2(带底部输入框)、默认选中第一个item
         //dt2.dropList(json2,{isText:true,setIndex: 2});   //实例化2(带底部输入框)、选中指定位置item
         dt2.dropList(json2,{isText:true},function(o){     //事件处理

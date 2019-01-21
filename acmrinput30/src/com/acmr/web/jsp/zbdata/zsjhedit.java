@@ -1631,101 +1631,10 @@ public class zsjhedit extends BaseAction {
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         JSONReturnData data = new JSONReturnData("");
         List<String> timelist = new ArrayList<>();
-        IndexListService ls = new IndexListService();
-
-        String[] times = time.split(",");
-        for (int i = 0; i <times.length ; i++) {
-            if(times[i].equals("")){continue;}
-            else  if(checkLast(times[i])){//如果存在last这个字母
-                try{
-                    int num = Integer.parseInt(times[i].substring(times[i].indexOf("t")+1));
-                    //找到最新一期的时间
-                    OriginService os = new OriginService();
-                    List<CubeWdValue> list1 = new ArrayList<CubeWdValue>();
-                    if(!StringUtil.isEmpty(zbcode)){//要是有传指标
-                        list1.add(new CubeWdValue("zb",
-                                zbcode));
-                        if(!StringUtil.isEmpty(cocode)){
-                            list1.add(new CubeWdValue("co",
-                                    cocode));
-                        }
-                        if(!StringUtil.isEmpty(cocode)){
-                            list1.add(new CubeWdValue("ds",
-                                    dscode));
-                        }
-                        List<String> ets = os.gethasdatawdlist(list1,"sj",dbcode);
-                        if(ets.size()>0){
-                            ets=new IndexEditService().sjSort(ets);
-                            String et = ets.get(0);
-                            List<String> temp = getNomalTimes(sort,et,num);
-                            for(String arr : temp){
-                                if(!timelist.contains(arr)){//没有才加上
-                                    timelist.add(arr);
-                                }
-                            }
-                        }
-
-                    }
-                    //处理last这种格式的
-                }catch (NumberFormatException e){
-                    data.setReturncode(300);
-                    break;
-                }
-            }
-            else if(checkstart(times[i])){//要是存在横杠
-                String begintime = times[i].substring(0,times[i].indexOf("-"));
-                String endtime = times[i].substring(times[i].indexOf("-")+1);
-                List<String> tmp = getTime1(begintime,endtime,sort);
-                if(tmp.size()<=0){//起止时间没有或者格式不对
-                    data.setReturncode(300);
-                    break;
-                }
-                else{
-                    for(String arr : tmp){
-                        if(!timelist.contains(arr)){//没有才加上
-                            timelist.add(arr);
-                        }
-                    }
-                }
-            }
-            else {//是直接的那种格式比如2012
-                List<String> templist =new ArrayList<>();
-                String bt = getTimeFormat(times[i],sort);
-                String et = getEndTimeFormat(times[i],sort);
-                int num = 0;
-                if(sort.equals("y")) { //如果是年度
-                    num = Integer.parseInt(et)-Integer.parseInt(bt)+1;
-                }
-                if(sort.equals("q")) { //如果是季度
-                    num = (Integer.parseInt(et.substring(0,4))-Integer.parseInt(bt.substring(0,4)))*4+getQnum(et.substring(4,5),bt.substring(4,5));
-                }
-                if(sort.equals("m")) { //如果是月度
-                    int mothnum = Integer.parseInt(et.substring(4,6))-Integer.parseInt(bt.substring(4,6))+1;//月份差
-                    num = (Integer.parseInt(et.substring(0,4))-Integer.parseInt(bt.substring(0,4)))*12+mothnum;
-                }
-                if(num<1){
-                    data.setReturncode(300);
-                    break;
-                }
-                else {
-                    templist = getNomalTimes(sort,et,num);
-                }
-                if(templist.size()<=0){//起止时间没有或者格式不对
-                    data.setReturncode(300);
-                    break;
-                }
-                else{
-                for(String arr : templist){
-                    if(!timelist.contains(arr)){//没有才加上
-                        timelist.add(arr);
-                    }
-                } }
-            }
-
-        }
-        if(data.getReturncode()==300){
-            this.sendJson(data);
-            return;
+        OriginService os = new OriginService();
+        List<CubeNode> tmp = os.getwdsubnodes("sj",time,dbcode);
+        for (int i = 0; i <tmp.size() ; i++) {
+            timelist.add(tmp.get(i).getCode());
         }
         //要是能算出来，代表可以排序
         Collections.sort(timelist,Collections.reverseOrder());

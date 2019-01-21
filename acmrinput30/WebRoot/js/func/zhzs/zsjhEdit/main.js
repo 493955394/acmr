@@ -972,4 +972,36 @@ define(function (require,exports,module) {
             }
         })
     })
+    /**
+     * 计算范围时间
+     */
+    var sjselect;
+    var sort = $("#index_sort").val();//是年度，季度还是月度；
+    $(document).on('click', '#fwtimeinput', function () {
+        var zbcode=$(".panel_zbname").attr("code")
+        //console.log(zbcode)
+        var cocode=$('#co_select option:selected').attr("class")
+        //console.log(cocode)
+        var dscode=$('#ds_select option:selected').attr("class")
+        //console.log(dscode)
+        var unitcode=$('#unit_select option:selected').attr("class")
+        var timeinput = $("#timeval").val();
+        var url = common.rootPath + "zbdata/zsjhedit.htm?m=timeCheck&sort=" + sort + "&timeinput=" + timeinput+"&icode="+incode+"&zbcode="+zbcode+"&cocode="+cocode+"&dscode="+dscode;
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                if (data.returncode == 300) {
+                    alert("时间格式有误");
+                } else if (data.returncode == 200) {
+                    if(!(data.returndata ==""||data.returndata==null)){
+                        sjselect = data.returndata;
+                        console.log(sjselect)
+                    }
+                }
+            }
+        })
+    })
+    $("#fwtimeinput").click();
 });

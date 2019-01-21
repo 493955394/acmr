@@ -124,7 +124,7 @@ define(function (require,exports,module) {
     }
 
     function zbclick(zb,isadd) {
-        $(".dtHead").text("最近五期")
+        $("#mySelectTime .dtHead").text("最近五期")
         $("#timecode").val("last5");
         if(isadd==true){
             pagenum=1
