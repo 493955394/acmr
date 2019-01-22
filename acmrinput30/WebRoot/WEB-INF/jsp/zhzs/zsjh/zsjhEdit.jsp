@@ -358,9 +358,9 @@
                             <div id="mySelectTime1" style="margin-top: 10px;margin-bottom: 10px;float: left"></div>
 
                             <div style="float: right">计划起始时间：
-                                <input />
-                                <button class="btn btn-primary btn-sm">范围确认</button>
-                                <button class="btn btn-primary btn-sm">数据下载</button>
+                                <input id="startpeirod" name="startpeirod"/>
+                                <button type="button" class="btn btn-primary btn-sm" id="rangeConfirm">范围确认</button>
+                                <button type="button" class="btn btn-primary btn-sm J_plan_excel">数据下载</button>
                             </div>
                             <div class="range_data_table J_zsjh_rangedata_table" style="height: 72%;width: 100%;"  id="range_data_table">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/rangeDataTable.jsp" flush="true"/>

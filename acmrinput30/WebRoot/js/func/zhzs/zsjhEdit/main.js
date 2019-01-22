@@ -559,16 +559,11 @@ define(function (require,exports,module) {
                 else {
                     alert(re.return+"无法查看预览结果！")
                 }
-               /*if(re.return==200){
-                   window.open(common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode);
-               }else {
-                   alert("信息有误，无法查看预览结果！")
-               }*/
             }
         })
     })
     /**
-     * 计算范围时间
+     * 计算范围时间搜索框
      */
     var sjselect;
     var sort = $("#index_sort").val();//是年度，季度还是月度；
@@ -579,7 +574,6 @@ define(function (require,exports,module) {
         //console.log(cocode)
         var dscode=$('#ds_select option:selected').attr("class")
         //console.log(dscode)
-        var unitcode=$('#unit_select option:selected').attr("class")
         var timeinput = $("#timeval").val();
         var url = common.rootPath + "zbdata/zsjhedit.htm?m=timeCheck&sort=" + sort + "&timeinput=" + timeinput+"&icode="+incode+"&zbcode="+zbcode+"&cocode="+cocode+"&dscode="+dscode;
         $.ajax({
@@ -599,6 +593,40 @@ define(function (require,exports,module) {
         })
     })
     $("#fwtimeinput").click();
+    /**
+     *  范围确认
+     */
+    $(document).on('click','#rangeConfirm',function () {
+        var timetext = $("#startpeirod").val();
+        if(timesort == "y"){
+            var reg=/^\d{4}$/;
+            var r= timetext.match(reg);
+            if(r==null){
+                alert("您的"+"年度"+"计划起始时间格式有误")
+                return;
+            }
+        }else if(timesort == "q"){
+            var reg=/^(\d{4})([A-D]{1})$/;
+            var r= timetext.match(reg);
+            if(r==null){
+                alert("您的季度计划起始时间格式有误")
+                return;
+            }
+        }else if(timesort == "m") {
+            var reg = /^\d{6}$/;
+            var r = timetext.match(reg);
+            if (r == null) {
+                alert("您的" + "月度" + "计划起始时间格式有误")
+                return;
+            }
+            var sub = timetext.substring(timetext.length - 2);
+            if (sub == "00" || parseInt(sub) > 12) {
+                alert("您的" + "月度" + "计划起始时间格式有误")
+                return;
+            }
+        }
+    })
+
 
 
     //点击tab重新绘制计算范围表格
