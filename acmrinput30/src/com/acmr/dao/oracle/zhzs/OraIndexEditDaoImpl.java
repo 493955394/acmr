@@ -209,7 +209,7 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
         return false;
     }
     @Override
-    public int toSaveAll(String indexcode, ArrayList<IndexZb> indexZb, IndexList indexList){
+    public int toSaveAll(String indexcode,IndexList indexList){
         // return值暂时无用
         if (indexcode == null) {
             return 0;
@@ -217,11 +217,11 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
         DataQuery dataQuery = null;
         try {
 
-            dataQuery = AcmrInputDPFactor.getDataQuery();
+           dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
             // 删除旧的
 
-            String delold = "delete from tb_coindex_zb where indexcode = ?";
+            /* String delold = "delete from tb_coindex_zb where indexcode = ?";
             dataQuery.executeSql(delold, new Object[] { indexcode });
             // 添加新的
             if(indexZb.size()>0){
@@ -237,7 +237,7 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
                 parms.add(indexZb.get(i).getUnitcode());
                 dataQuery.executeSql(sql, parms.toArray());
             }
-            }
+            }*/
             //更新基本信息表
             String sql1 = "";
             List<Object> upd = new ArrayList<Object>();
@@ -247,8 +247,6 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
             }
                 sql1+=",cname=?";
                 upd.add(indexList.getCname());
-                sql1+=",startperiod=?";
-                upd.add(indexList.getStartperiod());
                 sql1+=",delayday=?";
                 upd.add(indexList.getDelayday());
                 sql1+=",plantime=to_date(?,'yyyy-mm-dd hh24:mi:ss')";

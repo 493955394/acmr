@@ -308,8 +308,8 @@ public class IndexEditService {
         Boolean bool=IndexEditDao.Fator.getInstance().getIndexdatadao().checkModule(code);
         return bool;
     }
-    public int toSaveAll(String indexcode, ArrayList<IndexZb> indexzb, IndexList indexList){
-       return IndexEditDao.Fator.getInstance().getIndexdatadao().toSaveAll(indexcode,indexzb,indexList);
+    public int toSaveAll(String indexcode,IndexList indexList){
+       return IndexEditDao.Fator.getInstance().getIndexdatadao().toSaveAll(indexcode,indexList);
     }
     /**
      * 指标表查单个信息

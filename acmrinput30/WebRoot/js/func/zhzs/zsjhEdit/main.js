@@ -740,17 +740,13 @@ define(function (require,exports,module) {
     //右下角保存按钮
     $(document).on('click','.tosaveall',function (event) {
         event.preventDefault();
-        if( $("#bjjhTab li.active").index()==3){
+        if( $("#bjjhTab li.active").index()==5){
             var checkDelegate = new VaildNormal();
             var flag = true;
             //前端检查
 
             if (!checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'required', 'msg': '计划名称不能为空' }]) ||
                 !checkDelegate.checkNormal($('input[name="index_cname"]'), [{ 'name': 'maxlength', 'msg': '计划名称最大长度为50', 'param': 51 }])) {
-                flag = false;
-            }
-            if (!checkDelegate.checkNormal($('input[name="startpeirod"]'), [{ 'name': 'required', 'msg': '起始数据期不能为空' }]) ||
-                !checkDelegate.checkNormal($('input[name="startpeirod"]'), [{ 'name': 'ch', 'msg': '起始数据期不能包含汉字' }])) {
                 flag = false;
             }
             if ($('input[name="delayday"]').val()=="") {
@@ -760,44 +756,11 @@ define(function (require,exports,module) {
             if (flag == false) {
                 return;
             }
-
-            var timetext = $("#startpeirod").val();
-            if(timesort == "y"){
-                var reg=/^\d{4}$/;
-                var r= timetext.match(reg);
-                if(r==null){
-                    alert("您的"+"年度"+"起始数据期格式有误")
-                    $('#bjjhTab li:eq(0) a').tab('show');
-                    return;
-                }
-            }else if(timesort == "q"){
-                var reg=/^(\d{4})([A-D]{1})$/;
-                var r= timetext.match(reg);
-                if(r==null){
-                    alert("您的季度起始数据期格式有误")
-                    $('#bjjhTab li:eq(0) a').tab('show');
-                    return;
-                }
-            }else if(timesort == "m"){
-                var reg=/^\d{6}$/;
-                var r= timetext.match(reg);
-                if(r==null){
-                    alert("您的"+"月度"+"起始数据期格式有误")
-                    $('#bjjhTab li:eq(0) a').tab('show');
-                    return;
-                }
-                var sub = timetext.substring(timetext.length-2);
-                if(sub == "00"||parseInt(sub)>12){
-                    alert("您的"+"月度"+"起始数据期格式有误")
-                    $('#bjjhTab li:eq(0) a').tab('show');
-                    return;
-                }
-            }
             var regDelayDays=/^[0-9]*$/;
             var r=$('input[name="delayday"]').val().match(regDelayDays);
             if(r==null){
                 alert("您的"+"数据期时间间隔"+"有误");
-                $('#bjjhTab li:eq(0) a').tab('show');
+                $('#bjjhTab li:eq(5) a').tab('show');
                 return;
             }
             //名字只能是中文和字母
@@ -805,56 +768,13 @@ define(function (require,exports,module) {
             var z = $('input[name="index_cname"]').val().match(namecheck);
             if(z==null){
                 alert("名称含有不规则字符，请修改");
-                $('#bjjhTab li:eq(0) a').tab('show');
+                $('#bjjhTab li:eq(5) a').tab('show');
                 return;
             }
         }
-
-
-        var zbcode = "";//指标code
-        var zbco = "";//指标主体
-        var zbds = "";//指标数据来源
-        var zbunit ="";//指标单位
-        var sxcode = "";//指标名称
-        var regselect ="";//地区信息
-        var zbs=zbAdd.zbs;//获取指标的信息
-        for (var i = 0; i <zbs.length ; i++) {
-            zbcode += zbs[i].zbcode+",";
-            zbco += zbs[i].cocode+",";
-            zbds += zbs[i].dscode+",";
-            sxcode += zbs[i].code+",";
-            zbunit += zbs[i].unitcode+",";
-        }
-        zbcode = zbcode.substr(0, zbcode.length - 1);//去除最后一个逗号
-        zbco = zbco.substr(0, zbco.length - 1);//去除最后一个逗号
-        zbds = zbds.substr(0, zbds.length - 1);//去除最后一个逗号
-        sxcode = sxcode.substr(0, sxcode.length - 1);//去除最后一个逗号
-        zbunit = zbunit.substr(0, zbunit.length - 1);//去除最后一个逗号
-       /* if(zbs.length==0){
-            alert("指标未选择")
-            $('#bjjhTab li:eq(1) a').tab('show');
-        }
-        if(select.length==0){
-            alert("地区未选择")
-            if(zbs.length==0){
-                $('#bjjhTab li:eq(1) a').tab('show');
-            }
-            else {
-                $('#bjjhTab li:eq(2) a').tab('show');
-            }
-        }
-        if(zbs.length==0 || select.length==0){
-            return;
-        }*/
-        for (var i = 0; i <select.length ; i++) {
-            regselect += select[i].code+",";
-        }
-        regselect = regselect.substr(0, regselect.length - 1);//去除最后一个逗号
-
-        $("#indexForm").serialize();
         $.ajax({
             url: common.rootPath+'zbdata/zsjhedit.htm?m=toSaveAll',
-            data: $.param({'zbcode':zbcode,'zbco':zbco,'zbds':zbds,'sxcode':sxcode,'zbunit':zbunit,'regselect':regselect})+'&'+$("#indexForm").serialize(),
+            data: $("#indexForm").serialize(),
             type: 'post',
             dataType: 'json',
             timeout: 10000,
@@ -862,7 +782,7 @@ define(function (require,exports,module) {
                 if (data.returncode == 200) {
                     alert("保存成功！");
                     var index = $("#bjjhTab li.active").index();
-                    if(index == 3)//如果是模型规划的tab页才回首页
+                    if(index == 5)//如果是模型规划的tab页才回首页
                     window.location.href= common.rootPath+"zbdata/indexlist.htm?icode="+incode;
                 }
                else if (data.returncode == 301) {
@@ -873,7 +793,6 @@ define(function (require,exports,module) {
                 }
             }
         })
-
     })
     
     /*
