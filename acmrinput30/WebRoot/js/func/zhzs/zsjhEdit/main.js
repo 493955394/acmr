@@ -546,14 +546,15 @@ define(function (require,exports,module) {
     /**
      * 预览结果
      */
-    $("#preview-check").click(function () {
+    $("#scheme_timeinput").click(function () {
         $.ajax({
             url:common.rootPath+'zbdata/zsjhedit.htm?m=checkPreview&id='+incode,
             type:'get',
             success:function (re) {
                 console.log(re)
                 if (re.return==200){
-                    window.open(common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode);
+                    var schemetime = $('#scheme_timeval').val();
+                    window.open(common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode+"&timeinput="+schemetime);
                 }
                 else {
                     alert(re.return+"无法查看预览结果！")

@@ -101,7 +101,6 @@
                 <button type="reset" class="btn btn-primary resetindex btn-sm" style="float: right;margin-left:10px;">返回</button>
                 <button type="button" class="btn btn-primary tosaveall btn-sm" style="float: right;margin-left:10px;">保存</button>
                 <span id="btn-fullscreen" class="btn-fullscreen" style="float: right;padding:10px;margin-left:10px;margin-top:5px;"></span>
-                <a href="#" type="button" class="btn btn-primary btn-sm" style="float: right;margin-left:10px;" id="preview-check">预览结果</a>
                 <div id="top_div">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">
@@ -421,7 +420,9 @@
                             <div id="scheme_select_button">
                                 <button class="btn btn-default btn-sm" id="set_scheme_weight_formula">公式/权重设置</button>
                                 <button class="btn btn-default btn-sm" id="add_scheme">新增方案</button>
-                                <select id="scheme_time_select"></select>
+                                <input  type="hidden" id="scheme_timeinput"/>
+                                <input type="hidden" id="scheme_timeval" value="">
+                                <div id="scheme_time_select" style="margin-bottom: 10px;"></div>
                             </div>
                             <div class="J_zsjh_scheme_table"  style="width: 100%;overflow: auto">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/schemeTable.jsp" flush="true"/>
@@ -477,17 +478,30 @@
                 {code:"last5",name:'最近五期'}
             ]
         };
+        var json3 = {
+            wdcode:'sj',
+            wdname:'预览结果时间选择',
+            nodes:[
+                {code:null,name:'请选择'},
+                {code:"last3",name:'最近三期'}
+            ]
+        };
         var dt1 = $('#mySelectTime1');
         var dt2 = $('#mySelectTime');
-        dt1.dropList(json1,{isText:true},function(o){     //事件处理
+        var dt3 = $('#scheme_time_select');
+        dt1.dropList(json1,{isText:true},function(o){     //指标初选事件处理
             $("#timeval").val(o.getItem().code)
             $("#fwtimeinput").click();
         });
-        //dt2.dropList(json2,{isText:true});   //实例化2(带底部输入框)、默认选中第一个item
-        //dt2.dropList(json2,{isText:true,setIndex: 2});   //实例化2(带底部输入框)、选中指定位置item
-        dt2.dropList(json2,{isText:true},function(o){     //事件处理
+        dt2.dropList(json2,{isText:true},function(o){     //地区初选事件处理
             $("#timecode").val(o.getItem().code)
             $("#zbtimeinput").click();
+        });
+        dt3.dropList(json3,{isText:true},function(o){     //方案事件处理
+            if(o.getItem().code != null){
+                $("#scheme_timeval").val(o.getItem().code)
+                $("#scheme_timeinput").click();
+            }
         });
     });
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/main');
