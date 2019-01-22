@@ -363,6 +363,9 @@
                                 <button class="btn btn-primary btn-sm">范围确认</button>
                                 <button class="btn btn-primary btn-sm">数据下载</button>
                             </div>
+                            <div class="range_data_table J_zsjh_rangedata_table" style="height: 72%;width: 100%;"  id="range_data_table">
+                                <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/rangeDataTable.jsp" flush="true"/>
+                            </div>
                         </div>
                     </div>
                     <div role="tabpanel" class="edit_tab tab-pane" id="mxgh">

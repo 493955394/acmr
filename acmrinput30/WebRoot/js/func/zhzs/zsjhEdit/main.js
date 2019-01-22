@@ -1004,4 +1004,38 @@ define(function (require,exports,module) {
         })
     })
     $("#fwtimeinput").click();
+
+
+    //点击tab重新绘制计算范围表格
+
+    $("#bjjhTab  a[href='#jsfw']").click(function () {
+        var zbs=zbAdd.zbs;//获取指标的信息
+        var regs=select;//获取地区信息
+        var sjs=sjselect;//获取时间信息
+        console.log(zbs)
+        console.log(regs)
+        console.log(sjs)
+        var data={
+            zbs:zbs,
+            regs:regs,
+            sjs:sjs
+        }
+        sendPjax(data)
+    })
+
+    function sendPjax(data) {
+        var zbnum=data.zbs.length
+        var regnum=data.regs.length
+        var sjnum=data.sjs.length
+        $.pjax({
+            url:common.rootPath+'zbdata/zsjhedit.htm?m=getRangeData&zbnum='+zbnum+'&regnum='+regnum+'&sjnum='+sjnum+'&icode='+incode,
+            container:'.J_zsjh_rangedata_table',
+            type:'POST',
+            data:data,
+            dataType:'json',
+            timeout:50000
+        })
+    }
+
+
 });

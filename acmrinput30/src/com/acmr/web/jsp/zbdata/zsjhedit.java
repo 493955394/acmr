@@ -31,6 +31,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sun.javafx.collections.MappingChange;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.lang.StringUtils;
+import sun.rmi.log.LogInputStream;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -2277,6 +2278,71 @@ public class zsjhedit extends BaseAction {
             this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/zsjhedit.htm?m=previewIndex&id="+icode);
         } else {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewTable").addObject("predata",predata).addObject("times",times);
+        }
+        return null;
+    }
+    
+    
+    /** 
+    * @Description: 地区初选表格 
+    * @Param: [] 
+    * @return: acmr.web.entity.ModelAndView 
+    * @Author: lyh
+    * @Date: 2019/1/22 
+    */ 
+    public ModelAndView getRangeData() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        String pjax = req.getHeader("X-PJAX");
+        String icode=req.getParameter("icode");
+        int zbnum= Integer.parseInt(req.getParameter("zbnum"));
+        int regnum= Integer.parseInt(req.getParameter("regnum"));
+        int sjnum= Integer.parseInt(req.getParameter("sjnum"));
+
+        //取数据
+        List<Map<String,String>> zbrow=new ArrayList<>();
+        List<String> sjrow=new ArrayList<>();
+        List<Map<String,Object>> datarow=new ArrayList<>();
+
+        //取时间
+        String sjs=req.getParameter("sjs");
+        List<String> sjlist=new ArrayList<>();
+        if (sjs!=null){
+            sjlist= Arrays.asList(sjs.split(","));
+        }
+
+        for (int i=0;i<zbnum;i++){
+            Map<String,String> zbmap=new HashMap<>();
+            zbmap.put("code",req.getParameter("zbs["+i+"][code]"));
+            zbmap.put("name",req.getParameter("zbs["+i+"][zbname]"));
+            //添加指标和时间行
+            zbrow.add(zbmap);
+            sjrow.addAll(sjlist);
+        }
+        //添加数据行
+        for (int j=0;j<regnum;j++){
+            String regcode=req.getParameter("regs["+j+"][code]");
+            String regname=req.getParameter("regs["+j+"][name]");
+            Map<String,Object> datamap=new HashMap<>();
+            //放第一行地区数据
+            datamap.put("code",regcode);
+            datamap.put("name",regname);
+            //放查询数据，待完成
+            List<String> data=new ArrayList<>();
+
+
+
+
+
+            datamap.put("value",data);
+            datarow.add(datamap);
+        }
+
+        if (StringUtil.isEmpty(pjax)) {
+            //PubInfo.printStr("isempty");
+            this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/zsjhedit.htm?id="+icode);
+        } else {
+            // PubInfo.printStr("pjax");
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/rangeDataTable").addObject("zbrow",zbrow).addObject("sjrow",sjrow).addObject("datarow",datarow);
         }
         return null;
     }
