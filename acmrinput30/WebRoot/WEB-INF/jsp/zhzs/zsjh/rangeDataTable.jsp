@@ -10,7 +10,7 @@
             <td class="null_td" style="width: 8%;min-width: 60px"></td>
             <c:forEach var="zb" items="${zbrow}">
                 <td colspan="${sjrow.size()/zbrow.size()}}" style="min-width: 60px">
-                    <input type="checkbox" class="zb_checkbox" id="${zb.get("code")}">
+                    <input type="checkbox" class="zb_checkbox" id="${zb.get("code")}" checked>
                         ${zb.get("name")}
                 </td>
             </c:forEach>
@@ -26,7 +26,7 @@
         <c:forEach var="data" items="${datarow}">
             <tr>
                 <td class="reg_td" style="width: 8%;min-width: 60px" >
-                    <input type="checkbox" class="reg_checkbox" id="${data.get("code")}">
+                    <input type="checkbox" class="reg_checkbox" id="${data.get("code")}" checked>
                         ${data.get("name")}
                 </td>
                 <c:forEach items="${data.get('value')}" var="value" varStatus="i">

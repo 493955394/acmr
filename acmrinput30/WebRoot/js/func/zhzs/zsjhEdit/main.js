@@ -628,6 +628,46 @@ define(function (require,exports,module) {
                 return;
             }
         }
+
+
+        //过滤zbs
+        var zbs=zbAdd.zbs;//获取指标的信息
+        var codelist=[];
+        var check=$("input:checkbox[class='zb_checkbox']:checked");
+        for (var i=0;i<check.length;i++){
+            codelist.push(check[i].id)
+        }
+        zbs.forEach(function (value,index) {
+            var code=value.code
+            var flag=false;
+            for (var i=0;i<codelist.length;i++){
+                if (code==codelist[i]){
+                    flag=true
+                }
+            }
+            if (flag==false){
+                zbs.splice(index,1)
+            }
+        })
+        //过滤regs
+        var regs=select;
+        var reglist=[];
+        var regcheck=$("input:checkbox[class='reg_checkbox']:checked");
+        for (var i=0;i<regcheck.length;i++){
+            codelist.push(regcheck[i].id)
+        }
+        regs.forEach(function (value,index) {
+            var code=value.code
+            var flag=false;
+            for (var i=0;i<codelist.length;i++){
+                if (code==codelist[i]){
+                    flag=true
+                }
+            }
+            if (flag==false){
+                regs.splice(index,1)
+            }
+        })
     })
 
 
@@ -667,6 +707,8 @@ define(function (require,exports,module) {
 
 
     }
+
+
 /*    $(".J_zsjh_rangedata_table").on('pjax:success', function() {
         //加载表格后设置表格
 
@@ -686,5 +728,8 @@ define(function (require,exports,module) {
         })
 
     }*/
+
+
+
 
 });
