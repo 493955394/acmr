@@ -2,16 +2,42 @@
          pageEncoding="utf-8" %>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<div class="rangetable_container" >
-    <table class="table table-bordered table-hover table_head">
-        <tr class="zb_row">
+
+
+<div class="range_table_head_cont" style="overflow: hidden;">
+    <table class="table table-bordered table-hover range_table_head" style="width: 100%;position:absolute;height: 100%;">
+        <thead style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
+        <tr id="range_data_head">
+            <td></td>
             <c:forEach var="zb" items="${zbrow}">
-                <td>${zb}</td>
+                <td colspan="${sjrow.size()/zbrow.size()}}">
+                    <input type="checkbox" class="zb_checkbox" id="${zb.get("code")}">
+                        ${zb.get("name")}
+                </td>
             </c:forEach>
         </tr>
-        <tr class="sj_row">
-
+        <tr>
+            <td></td>
+            <c:forEach var="sj" items="${sjrow}">
+                <td>${sj}</td>
+            </c:forEach>
         </tr>
+        </thead>
+    </table>
+
+</div>
+<div class="range_table_body_cont" style="overflow: auto;width: 100%;height: 75%;">
+    <table class="table table-bordered table-hover range_table_body" style="width: 100%;height: 100%;">
+        <tbody id="range_data_body">
+        <c:forEach var="data" items="${datarow}">
+            <tr>
+                <td class="reg_td" id="${data.get("code")}">${data.get("name")}</td>
+                <c:forEach items="${data.get('value')}" var="value">
+                    <td>${value}</td>
+                </c:forEach>
+            </tr>
+        </c:forEach>
+        </tbody>
     </table>
 </div>
 

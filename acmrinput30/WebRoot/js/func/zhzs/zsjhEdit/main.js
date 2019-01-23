@@ -587,6 +587,9 @@ define(function (require,exports,module) {
                     if(!(data.returndata ==""||data.returndata==null)){
                         sjselect = data.returndata;
                         console.log(sjselect)
+
+                        //重新绘制表格
+                        reTable()
                     }
                 }
             }
@@ -632,6 +635,10 @@ define(function (require,exports,module) {
     //点击tab重新绘制计算范围表格
 
     $("#bjjhTab  a[href='#jsfw']").click(function () {
+        reTable()
+    })
+
+    function reTable() {
         var zbs=zbAdd.zbs;//获取指标的信息
         var regs=select;//获取地区信息
         var sjs=sjselect;//获取时间信息
@@ -644,18 +651,17 @@ define(function (require,exports,module) {
             sjs:sjs
         }
         sendPjax(data)
-    })
+    }
 
     function sendPjax(data) {
         var zbnum=data.zbs.length
         var regnum=data.regs.length
-        var sjnum=data.sjs.length
+        var sjnum=data.sjs.split(",").length
         $.pjax({
             url:common.rootPath+'zbdata/zsjhedit.htm?m=getRangeData&zbnum='+zbnum+'&regnum='+regnum+'&sjnum='+sjnum+'&icode='+incode,
             container:'.J_zsjh_rangedata_table',
             type:'POST',
             data:data,
-            dataType:'json',
             timeout:50000
         })
     }

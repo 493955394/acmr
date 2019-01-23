@@ -77,6 +77,7 @@
             float: right;
             margin: 5px;
         }
+
     </style>
 
     <script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
@@ -353,16 +354,18 @@
                     </div>
                     <div role="tabpanel" class="edit_tab tab-pane" id="jsfw">
                         <div class="col-xs-12">
-                            <input  type="hidden" id="fwtimeinput"/>
-                            <input type="hidden" id="timeval" value="last3">
-                            <div id="mySelectTime1" style="margin-top: 10px;margin-bottom: 10px;float: left"></div>
-
-                            <div style="float: right">计划起始时间：
-                                <input id="startpeirod" name="startpeirod"/>
-                                <button type="button" class="btn btn-primary btn-sm" id="rangeConfirm">范围确认</button>
-                                <button type="button" class="btn btn-primary btn-sm J_plan_excel">数据下载</button>
+                            <div style="height: 6%;">
+                                <input  type="hidden" id="fwtimeinput"/>
+                                <input type="hidden" id="timeval" value="last3">
+                                <div id="mySelectTime1" style="margin-top: 10px;margin-bottom: 10px;float: left"></div>
+                                <div style="float: right">计划起始时间：
+                                    <input id="startpeirod" name="startpeirod"/>
+                                    <button type="button" class="btn btn-primary btn-sm" id="rangeConfirm">范围确认</button>
+                                    <button type="button" class="btn btn-primary btn-sm J_plan_excel">数据下载</button>
+                                </div>
                             </div>
-                            <div class="range_data_table J_zsjh_rangedata_table" style="height: 72%;width: 100%;"  id="range_data_table">
+
+                            <div class="J_zsjh_rangedata_table" id="range_data_table">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/rangeDataTable.jsp" flush="true"/>
                             </div>
                         </div>

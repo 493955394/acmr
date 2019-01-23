@@ -2146,9 +2146,11 @@ public class zsjhedit extends BaseAction {
     * @Date: 2019/1/22 
     */ 
     public ModelAndView getRangeData() throws IOException {
+        OriginService originService=new OriginService();
         HttpServletRequest req = this.getRequest();
         String pjax = req.getHeader("X-PJAX");
         String icode=req.getParameter("icode");
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         int zbnum= Integer.parseInt(req.getParameter("zbnum"));
         int regnum= Integer.parseInt(req.getParameter("regnum"));
         int sjnum= Integer.parseInt(req.getParameter("sjnum"));
@@ -2169,6 +2171,10 @@ public class zsjhedit extends BaseAction {
             Map<String,String> zbmap=new HashMap<>();
             zbmap.put("code",req.getParameter("zbs["+i+"][code]"));
             zbmap.put("name",req.getParameter("zbs["+i+"][zbname]"));
+            zbmap.put("zbcode",req.getParameter("zbs["+i+"][zbcode]"));
+            zbmap.put("dscode",req.getParameter("zbs["+i+"][dscode]"));
+            zbmap.put("unitcode",req.getParameter("zbs["+i+"][unitcode]"));
+            zbmap.put("cocode",req.getParameter("zbs["+i+"][cocode]"));
             //添加指标和时间行
             zbrow.add(zbmap);
             sjrow.addAll(sjlist);
@@ -2183,10 +2189,36 @@ public class zsjhedit extends BaseAction {
             datamap.put("name",regname);
             //放查询数据，待完成
             List<String> data=new ArrayList<>();
+            CubeWdCodes where = new CubeWdCodes();
+            for (int m=0;m<zbnum;m++){
+                String zbcode=zbrow.get(m).get("zbcode");
+                String cocode=zbrow.get(m).get("cocode");
+                String dscode=zbrow.get(m).get("dscode");
+                String unitcode=zbrow.get(m).get("unitcode");
+                for (int n=0;n<sjnum;n++){
+                    String sj=sjlist.get(n);
+                    where.Add("reg",regcode);
+                    where.Add("zb",zbcode);
+                    where.Add("ds",dscode);
+                    where.Add("co",cocode);
+                    where.Add("sj",sj);
+                    //取数据
+                    String odata="";
+                    if (originService.querydata(where,dbcode).size()>0){
+                        odata=originService.querydata(where,dbcode).get(0).getData().getStrdata();
+                    }
+                    //换算单位
+                    if (!odata.equals("")){
+                        String funit=originService.getwdnode("zb",zbcode,dbcode).getUnitcode();
+                        BigDecimal rate=new BigDecimal(originService.getRate(funit,unitcode,sj));
+                        BigDecimal ndata=(new BigDecimal(odata)).multiply(rate);
+                        data.add(String.valueOf(ndata));
+                    }
+                    else data.add("");
+                    where.Clear();
 
-
-
-
+                }
+            }
 
             datamap.put("value",data);
             datarow.add(datamap);
