@@ -664,7 +664,27 @@ define(function (require,exports,module) {
             data:data,
             timeout:50000
         })
-    }
 
+
+    }
+/*    $(".J_zsjh_rangedata_table").on('pjax:success', function() {
+        //加载表格后设置表格
+
+        setTable()
+
+
+    });*/
+/*
+    //设置表格动态变化
+    function setTable(){
+
+        $(".value_col").each(function () {
+            var thisID=$(this).attr("id")
+            var tarCla="sj_"+thisID.split("_")[2]
+            var thisWidth=$("."+tarCla).width()
+            $(this).width(thisWidth)
+        })
+
+    }*/
 
 });

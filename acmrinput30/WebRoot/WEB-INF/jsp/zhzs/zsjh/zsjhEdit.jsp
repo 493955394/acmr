@@ -365,7 +365,7 @@
                                 </div>
                             </div>
 
-                            <div class="J_zsjh_rangedata_table" id="range_data_table">
+                            <div class="J_zsjh_rangedata_table" id="range_data_table" style="height: 80%;width: 100%;">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/rangeDataTable.jsp" flush="true"/>
                             </div>
                         </div>
