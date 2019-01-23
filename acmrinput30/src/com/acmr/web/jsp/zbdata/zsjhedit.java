@@ -1473,6 +1473,172 @@ public class zsjhedit extends BaseAction {
     }
 
     /**
+     * 保存计算范围的范围确认信息
+     */
+    public void toSaveRange() throws IOException{
+        HttpServletRequest req = this.getRequest();
+        IndexEditService indexEditService = new IndexEditService();
+        JSONReturnData data = new JSONReturnData("");
+        //index表中的信息
+        String index_code = PubInfo.getString(req.getParameter("icode"));//code
+        String startpeirod = PubInfo.getString(req.getParameter("startpeirod"));
+        String delayday = PubInfo.getString(req.getParameter("delayday"));
+        //ZB表的信息
+        String reg = PubInfo.getString(req.getParameter("regselect"));//地区
+        String zbcode = PubInfo.getString(req.getParameter("zbcode"));//zbcode
+        String ds = PubInfo.getString(req.getParameter("zbds"));//数据来源
+        String co = PubInfo.getString(req.getParameter("zbco"));//主体
+        String zbunit = PubInfo.getString(req.getParameter("zbunit"));//单位
+        String sxcode = PubInfo.getString(req.getParameter("sxcode"));//ZB表的code
+        String [] zbcodes = zbcode.split(",");
+        String [] dss = ds.split(",");
+        String [] cos = co.split(",");
+        String [] units = zbunit.split(",");
+        String [] sxcodes = sxcode.split(",");
+        ArrayList<IndexZb> zbs = new ArrayList<IndexZb>();
+        if(sxcode != ""){
+            for (int i = 0; i <sxcodes.length ; i++) {
+                IndexZb zb = new IndexZb();
+                zb.setCode(sxcodes[i]);
+                zb.setZbcode(zbcodes[i]);
+                zb.setIndexcode(index_code);
+                zb.setCompany(cos[i]);
+                zb.setDatasource(dss[i]);
+                zb.setRegions(reg);
+                zb.setUnitcode(units[i]);
+                zbs.add(zb);
+            }
+        }
+        IndexList indexList = new IndexList();
+        //生成plantime，planperiod
+        if (startpeirod.length()==4){
+            Calendar calendar=Calendar.getInstance();
+            calendar.set(Calendar.YEAR, Integer.parseInt(startpeirod)+1);
+            calendar.set(Calendar.MONTH,0);
+            calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(delayday));
+            calendar.set(Calendar.HOUR_OF_DAY,0);
+            calendar.set(Calendar.MINUTE,0);
+            calendar.set(Calendar.SECOND,0);
+            // calendar.set(Calendar.MILLISECOND,0);
+            Date time=calendar.getTime();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String plantime=df.format(time);
+            indexList.setPlantime(plantime);
+            String planperiod=startpeirod;
+            indexList.setPlanperiod(planperiod);
+
+        }
+        else if (startpeirod.length()==5){
+            String q=startpeirod.substring(4);
+            String year=startpeirod.substring(0,4);
+            Calendar calendar=Calendar.getInstance();
+            if (q.equals("D")){
+                calendar.set(Calendar.YEAR, Integer.parseInt(year)+1);
+                calendar.set(Calendar.MONTH,0);
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(delayday));
+                calendar.set(Calendar.HOUR_OF_DAY,0);
+                calendar.set(Calendar.MINUTE,0);
+                calendar.set(Calendar.SECOND,0);
+                Date time=calendar.getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String plantime=df.format(time);
+                indexList.setPlantime(plantime);
+                String planperiod=startpeirod;
+                indexList.setPlanperiod(planperiod);
+            }
+            else if (q.equals("A")){
+                calendar.set(Calendar.YEAR, Integer.parseInt(year));
+                calendar.set(Calendar.MONTH,3);
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(delayday));
+                calendar.set(Calendar.HOUR_OF_DAY,0);
+                calendar.set(Calendar.MINUTE,0);
+                calendar.set(Calendar.SECOND,0);
+                Date time=calendar.getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String plantime=df.format(time);
+                indexList.setPlantime(plantime);
+                String planperiod=startpeirod;
+                indexList.setPlanperiod(planperiod);
+            }
+            else if (q.equals("B")){
+                calendar.set(Calendar.YEAR, Integer.parseInt(year));
+                calendar.set(Calendar.MONTH,6);
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(delayday));
+                calendar.set(Calendar.HOUR_OF_DAY,0);
+                calendar.set(Calendar.MINUTE,0);
+                calendar.set(Calendar.SECOND,0);
+                Date time=calendar.getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String plantime=df.format(time);
+                indexList.setPlantime(plantime);
+                String planperiod=startpeirod;
+                indexList.setPlanperiod(planperiod);
+            }
+            else {
+                calendar.set(Calendar.YEAR, Integer.parseInt(year));
+                calendar.set(Calendar.MONTH,9);
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(delayday));
+                calendar.set(Calendar.HOUR_OF_DAY,0);
+                calendar.set(Calendar.MINUTE,0);
+                calendar.set(Calendar.SECOND,0);
+                Date time=calendar.getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String plantime=df.format(time);
+                indexList.setPlantime(plantime);
+                String planperiod=startpeirod;
+                indexList.setPlanperiod(planperiod);
+            }
+        }
+        else {
+            String year=startpeirod.substring(0,4);
+            String mon=startpeirod.substring(4);
+            Calendar calendar=Calendar.getInstance();
+            if (mon.equals("12")){
+                calendar.set(Calendar.YEAR, Integer.parseInt(year)+1);
+                calendar.set(Calendar.MONTH,0);
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(delayday));
+                calendar.set(Calendar.HOUR_OF_DAY,0);
+                calendar.set(Calendar.MINUTE,0);
+                calendar.set(Calendar.SECOND,0);
+                Date time=calendar.getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String plantime=df.format(time);
+                indexList.setPlantime(plantime);
+                String planperiod=startpeirod;
+                indexList.setPlanperiod(planperiod);
+            }
+            else {
+                calendar.set(Calendar.YEAR, Integer.parseInt(year));
+                calendar.set(Calendar.MONTH,Integer.parseInt(mon));
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(delayday));
+                calendar.set(Calendar.HOUR_OF_DAY,0);
+                calendar.set(Calendar.MINUTE,0);
+                calendar.set(Calendar.SECOND,0);
+                Date time=calendar.getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String plantime=df.format(time);
+                indexList.setPlantime(plantime);
+                String planperiod=startpeirod;
+                indexList.setPlanperiod(planperiod);
+            }
+        }
+
+        //基本信息表的信息
+        indexList.setCode(index_code);
+        indexList.setStartperiod(startpeirod);
+        int result = indexEditService.toSaveRange(index_code,zbs,indexList);
+        if(result ==0){
+            data.setReturncode(200);
+            this.sendJson(data);
+            return;
+        }else if(result ==1){
+            data.setReturncode(501);
+            this.sendJson(data);
+            return;
+        }
+    }
+
+    /**
      * 以下是指标筛选的时间搜索功能的时间校验和补全
      */
     //===============================start

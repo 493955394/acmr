@@ -28,4 +28,5 @@ public interface IIndexEditDao {
     public DataTable getZBData(String code);
     public boolean saveCheckCname(String icode,String cname,String ifzs);
     public boolean updCheckCname(String icode,String cname,String ifzs,String code);
+    public int toSaveRange(String indexcode, ArrayList<IndexZb> indexzb, IndexList indexList);
 }

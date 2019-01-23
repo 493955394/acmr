@@ -313,4 +313,64 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
         }
         return false;
     }
+
+    @Override
+    public int toSaveRange(String indexcode, ArrayList<IndexZb> indexZb, IndexList indexList) {
+        // return值暂时无用
+        if (indexcode == null) {
+            return 0;
+        }
+        DataQuery dataQuery = null;
+        try {
+
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+            // 删除旧的
+
+            String delold = "delete from tb_coindex_zb where indexcode = ?";
+            dataQuery.executeSql(delold, new Object[] { indexcode });
+            // 添加新的
+            if(indexZb.size()>0){
+                String sql = "insert into tb_coindex_zb (code,indexcode,zbcode,company,datasource,regions,unitcode) values(?,?,?,?,?,?,?)";
+                for (int i = 0; i < indexZb.size(); i++) {
+                    ArrayList<Object> parms = new ArrayList<Object>();
+                    parms.add(indexZb.get(i).getCode());
+                    parms.add(indexZb.get(i).getIndexcode());
+                    parms.add(indexZb.get(i).getZbcode());
+                    parms.add(indexZb.get(i).getCompany());
+                    parms.add(indexZb.get(i).getDatasource());
+                    parms.add(indexZb.get(i).getRegions());
+                    parms.add(indexZb.get(i).getUnitcode());
+                    dataQuery.executeSql(sql, parms.toArray());
+                }
+            }
+            //更新基本信息表
+            String sql1 = "";
+            List<Object> upd = new ArrayList<Object>();
+            sql1+=",startperiod=?";
+            upd.add(indexList.getStartperiod());
+            sql1+=",plantime=to_date(?,'yyyy-mm-dd hh24:mi:ss')";
+            upd.add(indexList.getPlantime());
+            sql1+=",planperiod=?";
+            upd.add(indexList.getPlanperiod());
+            if (sql1.equals("")) {
+                return 0;
+            }
+            sql1 = "update tb_coindex_index set " + sql1.substring(1) + " where code=?";
+            upd.add(indexList.getCode());
+            dataQuery.executeSql(sql1, upd.toArray());
+            dataQuery.commit();
+        } catch (SQLException e) {
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                return 1;
+            }
+            e.printStackTrace();
+        } finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+        return 0;
+    }
 }

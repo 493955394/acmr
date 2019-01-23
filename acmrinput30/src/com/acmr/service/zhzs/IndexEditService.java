@@ -311,6 +311,9 @@ public class IndexEditService {
     public int toSaveAll(String indexcode,IndexList indexList){
        return IndexEditDao.Fator.getInstance().getIndexdatadao().toSaveAll(indexcode,indexList);
     }
+    public int toSaveRange(String indexcode, ArrayList<IndexZb> indexzb, IndexList indexList){
+        return IndexEditDao.Fator.getInstance().getIndexdatadao().toSaveRange(indexcode,indexzb,indexList);
+    }
     /**
      * 指标表查单个信息
      */

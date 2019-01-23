@@ -651,7 +651,6 @@ define(function (require,exports,module) {
         })
         //过滤regs
         var regs=select;
-        var reglist=[];
         var regcheck=$("input:checkbox[class='reg_checkbox']:checked");
         for (var i=0;i<regcheck.length;i++){
             codelist.push(regcheck[i].id)
@@ -668,6 +667,54 @@ define(function (require,exports,module) {
                 regs.splice(index,1)
             }
         })
+        /**
+         * 入库
+         */
+        var zbcode = "";//指标code
+        var zbco = "";//指标主体
+        var zbds = "";//指标数据来源
+        var zbunit ="";//指标单位
+        var sxcode = "";//指标名称
+        var regselect ="";//地区信息
+        for (var i = 0; i <zbs.length ; i++) {
+            zbcode += zbs[i].zbcode+",";
+            zbco += zbs[i].cocode+",";
+            zbds += zbs[i].dscode+",";
+            sxcode += zbs[i].code+",";
+            zbunit += zbs[i].unitcode+",";
+        }
+        zbcode = zbcode.substr(0, zbcode.length - 1);//去除最后一个逗号
+        zbco = zbco.substr(0, zbco.length - 1);//去除最后一个逗号
+        zbds = zbds.substr(0, zbds.length - 1);//去除最后一个逗号
+        sxcode = sxcode.substr(0, sxcode.length - 1);//去除最后一个逗号
+        zbunit = zbunit.substr(0, zbunit.length - 1);//去除最后一个逗号
+        if(zbs.length==0){
+            alert("指标未选择")
+        }
+        if(regs.length==0){
+            alert("地区未选择")
+        }
+        if(zbs.length==0 || regs.length==0){
+            return;
+        }
+        for (var i = 0; i <regs.length ; i++) {
+            regselect += regs[i].code+",";
+        }
+        regselect = regselect.substr(0, regselect.length - 1);//去除最后一个逗号
+        var delayday = $('#delayday').val();
+        console.log(timetext)
+        $.ajax({
+            url: common.rootPath+'zbdata/zsjhedit.htm?m=toSaveRange',
+            data: {'zbcode':zbcode,'zbco':zbco,'zbds':zbds,'sxcode':sxcode,'zbunit':zbunit,'regselect':regselect,'icode':incode,'startpeirod':timetext,'delayday':delayday},
+            type: 'post',
+            dataType: 'json',
+            timeout: 10000,
+            success: function(data) {
+                if (data.returncode == 200) {
+                    alert("保存成功！");
+                }
+            }
+        })
     })
 
 
@@ -682,9 +729,9 @@ define(function (require,exports,module) {
         var zbs=zbAdd.zbs;//获取指标的信息
         var regs=select;//获取地区信息
         var sjs=sjselect;//获取时间信息
-        console.log(zbs)
+     /*   console.log(zbs)
         console.log(regs)
-        console.log(sjs)
+        console.log(sjs)*/
         var data={
             zbs:zbs,
             regs:regs,
