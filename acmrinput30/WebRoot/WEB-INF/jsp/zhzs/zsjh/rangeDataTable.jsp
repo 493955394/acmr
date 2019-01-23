@@ -31,9 +31,12 @@
         <tbody id="range_data_body">
         <c:forEach var="data" items="${datarow}">
             <tr>
-                <td class="reg_td" id="${data.get("code")}">${data.get("name")}</td>
-                <c:forEach items="${data.get('value')}" var="value">
-                    <td>${value}</td>
+                <td class="reg_td" >
+                    <input type="checkbox" class="reg_checkbox" id="${data.get("code")}">
+                        ${data.get("name")}
+                </td>
+                <c:forEach items="${data.get('value')}" var="value" varStatus="i">
+                    <td class="value_col"+${i}>${value}</td>
                 </c:forEach>
             </tr>
         </c:forEach>

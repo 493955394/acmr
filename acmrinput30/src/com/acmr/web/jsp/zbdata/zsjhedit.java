@@ -2150,6 +2150,12 @@ public class zsjhedit extends BaseAction {
         HttpServletRequest req = this.getRequest();
         String pjax = req.getHeader("X-PJAX");
         String icode=req.getParameter("icode");
+
+        if (StringUtil.isEmpty(pjax)) {
+            //PubInfo.printStr("isempty");
+            this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/zsjhedit.htm?id="+icode);
+        }
+
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         int zbnum= Integer.parseInt(req.getParameter("zbnum"));
         int regnum= Integer.parseInt(req.getParameter("regnum"));
@@ -2224,13 +2230,8 @@ public class zsjhedit extends BaseAction {
             datarow.add(datamap);
         }
 
-        if (StringUtil.isEmpty(pjax)) {
-            //PubInfo.printStr("isempty");
-            this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/zsjhedit.htm?id="+icode);
-        } else {
-            // PubInfo.printStr("pjax");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/rangeDataTable").addObject("zbrow",zbrow).addObject("sjrow",sjrow).addObject("datarow",datarow);
-        }
-        return null;
+        // PubInfo.printStr("pjax");
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/rangeDataTable").addObject("zbrow",zbrow).addObject("sjrow",sjrow).addObject("datarow",datarow);
+
     }
 }
