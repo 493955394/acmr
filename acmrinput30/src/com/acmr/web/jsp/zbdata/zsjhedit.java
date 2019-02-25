@@ -1047,9 +1047,6 @@ public class zsjhedit extends BaseAction {
         String code = PubInfo.getString(req.getParameter("ZS_code"));
         String name = PubInfo.getString(req.getParameter("ZS_cname"));
         String ifzs = PubInfo.getString(req.getParameter("ifzs"));
-        String formula = PubInfo.getString(req.getParameter("formula"));//判断是不是自定义，是指标还是公式
-        String formulatext = PubInfo.getString(req.getParameter("formulatext"));
-        String ifzb = "";
         if(ifzs.equals("1")){//选了次级指标
             String zs = PubInfo.getString(req.getParameter("cjzs"));//次级指数的所属节点类别
             procodeId = zs;
@@ -1058,11 +1055,6 @@ public class zsjhedit extends BaseAction {
             String zb = PubInfo.getString(req.getParameter("zb_ifzs"));//指标的所属节点类别
             procodeId = zb;
         }
-       if(formula.equals("userdefined")){
-           ifzb = "0";//0是公式
-       }else {
-           ifzb = "1";//1是指标
-       }
         String sortcode = indexEditService.getCurrentSort(procodeId,indexCode);
         String dacimal = PubInfo.getString(req.getParameter("dotcount"));
         if(checkCode(code)){
@@ -1079,8 +1071,6 @@ public class zsjhedit extends BaseAction {
         }
             if(ifzs.equals("1")||ifzs.equals("2")){
                 ifzs = "1";//总指数或者次级指数
-                ifzb ="";
-                formula="";
             }
         if(indexEditService.checkCname(indexCode,name,ifzs)){
             data.setReturncode(301);
@@ -1094,21 +1084,6 @@ public class zsjhedit extends BaseAction {
             indexMoudle.setIfzs(ifzs);
             indexMoudle.setDacimal(dacimal);
             indexMoudle.setSortcode(sortcode);
-        if(ifzb.equals("1")){
-            indexMoudle.setIfzb(ifzb);
-            indexMoudle.setFormula(formula);
-        }
-           else if(ifzb.equals("0")){
-                indexMoudle.setIfzb(ifzb);//是选的自定义公式，要做校验
-           if(checkFormula(formulatext,indexCode)){
-               formulatext = changeFormula(formulatext,indexCode,"NTC");
-               indexMoudle.setFormula(formulatext);
-           }else {
-               data.setReturncode(300);
-               this.sendJson(data);
-               return;
-           }
-            }
         int back = indexEditService.addZStoModel(indexMoudle);
         if(back == 1){
             data.setReturncode(200);

@@ -50,14 +50,6 @@ define(function (require,exports,module) {
             return;
         }
 
-
-        var formulas = $(".formula option:selected").val();
-        var formulatexts = $("#formulatext").val();
-        var ifzscheck = $("#selectifzs option:selected").val();
-        if(formulas =="userdefined" &&(formulatexts == "" ||formulatexts == null) && ifzscheck == 0  ){
-            alert("请筛选对应指标！");
-            return;
-        }
         get_uuid();//获取编码
         $.ajax({
             url: currentUrl,
@@ -104,10 +96,6 @@ define(function (require,exports,module) {
         else if(id == 0){
             $('#select_zb').show();
         }
-        userdefine = $(".formula option:selected").val();
-        if(userdefine == "userdefined" && ifzs == 0){
-            $('.hidden_group').show();
-        }
     })
     /**
      * 控制显示和隐藏
@@ -123,73 +111,17 @@ define(function (require,exports,module) {
             $('#secend_zs').hide();
             cleanContents();
             $('#select_zb').show();
-            var userdefine = $(".formula option:selected").val();
-            if(userdefine == "userdefined"){
-                $('.hidden_group').show();
-            }
         }else {
             $('#select_zb').hide();
             $('#secend_zs').hide();
         }
     })
-    $(document).on('change', '[name=formula]', function(event){
-        var isGroup = $(this).val();
-        if(isGroup == "userdefined"){
-            $('.hidden_group').show();
-        }else{
-            $('.hidden_group').hide();
-        }
-    })
+
     function  cleanContents(){
         //清空所选
-        $('select.formula').prop('selectedIndex', 0);
         $(".cjzs").find("option[value = '"+ciji+"']").attr('selected',true);
         $(".zb_ifzs").find("option[value = '"+zhibiao+"']").attr('selected',true);
         $('[name=dotcount]').val('1');
-        $("#formulatext").val("");
-    }
-
-    /**
-     * 公式编辑器添加左边的筛选指标
-     */
-    $("#add_zb").click(function (){
-        $(".zb_index").val();//获取当前选择项的值.
-        var options=$(".zb_index option:selected");//获取当前选择项
-        if(options){
-            var code = options.val();//获取当前选择项的值
-            var cname = options.text();//获取当前选择项的文本
-            var str = "#"+cname+"#";
-            if(cname !=""){
-                addExpressContent(str);
-            }
-        }
-    })
-    /**
-     * 函数的添加
-     */
-    $("#add_hanshu").click(function () {
-        $("#hanshu").val();//获取当前选择项的值.
-        var options=$("#hanshu option:selected");//获取当前选择项
-        if(options.text()){
-            var str = options.val();//获取当前选择项的值
-            var text = options.text();//获取当前选择项的文本
-            addExpressContent(str);
-        }
-
-    });
-
-    /**
-     * 检查自定义公式是否合理
-     * @param str
-     * @returns {boolean}
-     */
-    function checkZB(str) {
-        $(".zb_index option").each(function () {
-            var text = $(this).text(); //获取option的text
-            var cname = "#" + text + "#";
-            str = str.replace(cname, " 2.0 ");
-        });
-        return str;
     }
 
     $(document).on('click',".resetbutton" ,function() {//初始化一次
