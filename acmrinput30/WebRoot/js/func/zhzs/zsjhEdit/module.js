@@ -182,7 +182,7 @@ define(function (require,exports,module) {
 
     $(document).ready(function () {
         sendPjax("")
-    })
+    });
     /**
      * 新增模型节点
      */

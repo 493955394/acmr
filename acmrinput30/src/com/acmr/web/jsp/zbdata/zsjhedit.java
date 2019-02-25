@@ -1026,13 +1026,11 @@ public class zsjhedit extends BaseAction {
         List<IndexMoudle> zslist = new ArrayList<IndexMoudle>();
         IndexEditService indexEditService = new IndexEditService();
         zslist = indexEditService.getZSList(indexCode);
-        //筛选指标信息
-        JSONObject zblist=getZBS(indexCode);
         Map<String, String> datas = new HashMap<String, String>();
         datas.put("procodeId", procodeId);
         datas.put("procodeName", procodeName);
         datas.put("indexCode", indexCode);
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/toAddZB").addObject("datas",datas).addObject("zslist",zslist).addObject("zblist",zblist);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/toAddZB").addObject("datas",datas).addObject("zslist",zslist);
     }
     /**
      * 新增模型节点保存方法
@@ -1260,19 +1258,12 @@ public class zsjhedit extends BaseAction {
         IndexEditService indexEditService = new IndexEditService();
         zslist = indexEditService.getZSList(indexCode,code);
         IndexMoudle getdata = indexEditService.getData(code);
-       /* String procodeId =getdata.getProcode() ;
-        String proname = indexEditService.getData(procodeId,indexCode).getCname();*/
         //要是是自定义公式，读取的时候要换成对应的名字
        if (getdata.getIfzb().equals("0")){
            String formula = getdata.getFormula();
            getdata.setFormula(changeFormula(formula,indexCode,"CTN"));
        }
-        //筛选指标信息
-        JSONObject zblist=getZBS(indexCode);
-     //   Map<String, String> datas = new HashMap<String, String>();
-      //  datas.put("proname", proname);
-//        datas.put("procodeId", getdata.getProcode());
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modelEdit").addObject("icode",indexCode).addObject("zslist",zslist).addObject("zblist",zblist).addObject("data",getdata);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/modelEdit").addObject("icode",indexCode).addObject("zslist",zslist).addObject("data",getdata);
     }
     /**
      * 编辑模型节点保存方法
