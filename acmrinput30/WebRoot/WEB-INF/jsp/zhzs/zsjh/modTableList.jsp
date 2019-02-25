@@ -23,7 +23,6 @@
                     <td>名称</td>
                     <td>类型</td>
                     <td>权重</td>
-                    <td>详情</td>
                     <td>小数位数</td>
                     <td>操作</td>
                 </tr>
@@ -31,7 +30,7 @@
                 <tbody id="mod_list_body">
                 <c:if test="${fn:length(mods)==0}">
                     <tr>
-                        <td colspan="6">没有查询到数据</td>
+                        <td colspan="5">没有查询到数据</td>
                     </tr>
                 </c:if>
                 <c:forEach items="${mods}" var="module" varStatus="stat">
@@ -43,7 +42,6 @@
                                 <c:if test="${module.getIfzs()==0}" >指标</c:if>
                         </td>
                         <td>${module.getWeight()}</td>
-                        <td>${module.getFormula()}</td>
                         <td>${module.getDacimal()}</td>
                         <input type="hidden" name="thisprocode" value="${module.getProcode()}">
                         <td>

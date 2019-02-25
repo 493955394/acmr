@@ -932,7 +932,7 @@ public class zsjhedit extends BaseAction {
                 mods.add(self);
             }
         }
-        for (int i = 0; i <mods.size() ; i++) {
+       /* for (int i = 0; i <mods.size() ; i++) {
             if (mods.get(i).getIfzb().equals("0")){
                 String formula = mods.get(i).getFormula();
                 mods.get(i).setFormula(changeFormula(formula,icode,"CTN"));
@@ -940,7 +940,7 @@ public class zsjhedit extends BaseAction {
                 String formula = mods.get(i).getFormula();
                 mods.get(i).setFormula(formulaShow(formula,icode));
             }
-        }
+        }*/
         if (StringUtil.isEmpty(pjax)) {
             JSONObject zbs=getZBS(icode);
             IndexListService indexListService=new IndexListService();
