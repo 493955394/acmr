@@ -13,6 +13,39 @@ define(function (require,exports,module) {
     var zhibiao = $(".zb_ifzs option:selected").val();
     var ifzs = $("#selectifzs option:selected").val();
 
+    /**
+     * 点击选择按钮之后隐藏和显示的内容
+     */
+    $(document).ready(function(){
+        var obj, index, id,userdefine;
+        obj = document.getElementById('selectifzs');
+        index = obj.selectedIndex;
+        id = obj.options[index].value;
+        if(id == 1){
+            $('#secend_zs').show();
+        }
+        else if(id == 0){
+            $('#select_zb').show();
+        }
+
+        //footer位置设置
+        function footerPosition(){
+            $(".footer").removeClass("fixed-footer");
+            var contentHeight = document.body.scrollHeight,//网页正文全文高度
+
+                winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
+            if(!(contentHeight > winHeight)){
+                //当网页正文高度小于可视窗口高度时，为footer添加类fixed-footer
+                $(".footer").addClass("fixed-footer");
+                $(".content").height(winHeight);
+            } else {
+                $(".footer").removeClass("fixed-footer");
+            }
+        }
+        footerPosition();
+        $(window).resize(footerPosition);
+    })
+
     function get_uuid(){
         var s = [];
         var hexDigits = "0123456789abcdef";
@@ -67,9 +100,6 @@ define(function (require,exports,module) {
                 else if(data.returncode == 301){
                     alert("该名称已经存在");
                 }
-                else if(data.returncode == 300){
-                    alert("表达式有误");
-                }
                 else if(data.returncode == 400){
                     alert("该指标已被删除");
                 }
@@ -83,21 +113,6 @@ define(function (require,exports,module) {
 
     });
     /**
-     * 点击选择按钮之后隐藏和显示的内容
-     */
-    $(document).ready(function(){
-        var obj, index, id,userdefine;
-        obj = document.getElementById('selectifzs');
-        index = obj.selectedIndex;
-        id = obj.options[index].value;
-        if(id == 1){
-            $('#secend_zs').show();
-        }
-        else if(id == 0){
-            $('#select_zb').show();
-        }
-    })
-    /**
      * 控制显示和隐藏
      */
     $(document).on('change', '[name=ifzs]', function(event){
@@ -105,7 +120,6 @@ define(function (require,exports,module) {
         if(isGroup === '1'){
            cleanContents();
             $('#select_zb').hide();
-            $('.hidden_group').hide();
             $('#secend_zs').show();
         }else if(isGroup === '0'){
             $('#secend_zs').hide();
@@ -126,8 +140,5 @@ define(function (require,exports,module) {
 
     $(document).on('click',".resetbutton" ,function() {//初始化一次
         window.location.reload()
-      /*  $('#secend_zs').show();
-        $('#select_zb').hide();
-        $('.hidden_group').hide();*/
     })
 })

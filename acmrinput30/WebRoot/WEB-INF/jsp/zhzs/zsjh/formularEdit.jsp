@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: 涑水科技
-  Date: 2018/9/4
-  Time: 14:46
+  Date: 2019/2/26
+  Time: 18:07
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -49,17 +49,17 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">节点类别：</label>
                         <div class="col-sm-3">
-                                <c:choose>
-                                    <c:when test="${(data.getProcode() == '' || data.getProcode()== null)&&data.getIfzs()=='1'}">
-                                        <input class="form-control" name="ifzs" id="selectifzs" readonly="" data-value="2" value="总指数">
-                                    </c:when>
-                                    <c:when test="${data.getIfzs()=='0'}">
-                                        <input class="form-control" name="ifzs" id="selectifzs" readonly="" data-value="0" value="指标">
-                                    </c:when>
-                                    <c:otherwise>
-                                        <input class="form-control" name="ifzs" id="selectifzs" readonly="" data-value="1" value="次级指数">
-                                    </c:otherwise>
-                                </c:choose>
+                            <c:choose>
+                                <c:when test="${(data.getProcode() == '' || data.getProcode()== null)&&data.getIfzs()=='1'}">
+                                    <input class="form-control" name="ifzs" id="selectifzs" readonly="" data-value="2" value="总指数">
+                                </c:when>
+                                <c:when test="${data.getIfzs()=='0'}">
+                                    <input class="form-control" name="ifzs" id="selectifzs" readonly="" data-value="0" value="指标">
+                                </c:when>
+                                <c:otherwise>
+                                    <input class="form-control" name="ifzs" id="selectifzs" readonly="" data-value="1" value="次级指数">
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                     <div id="secend_zs" style="display: none">
@@ -114,7 +114,23 @@
     Copyright © 2018 中国信息通信研究院 版权所有
 </div>
 <script type="text/javascript">
-    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/modelEdit');
+    /**
+     * 添加内容
+     */
+    function addExpressContent(str){
+        var tc = document.getElementById("formulatext");
+        var tclen = tc.value.length;
+        tc.focus();
+        if(typeof document.selection != "undefined")
+        {
+            document.selection.createRange().text = str;
+        }
+        else
+        {
+            tc.value = tc.value.substr(0,tc.selectionStart)+str+tc.value.substring(tc.selectionStart,tclen);
+        }
+    }
+    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/formular');
 </script>
 </body>
 </html>

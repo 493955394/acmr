@@ -106,7 +106,6 @@
 </div>
 <script type="text/javascript">
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/toAdd');
-    seajs.use('${ctx}/js/func/zhzs/zstask/caculate');
 </script>
 <div class="teset" style="padding-bottom: 10px;padding-top: 20px"></div>
 <div class="ict-footer footer">
