@@ -72,7 +72,7 @@ define(function (require,exports,module) {
 
     function deleteMod(){
         console.log("delete")
-        var modcode=$(this).parent().prevAll()[6].innerHTML
+        var modcode=$(this).parent().prevAll()[5].innerHTML
         var procode=$(this).parent().prevAll()[0].value;
         console.log(procode)
         $.ajax({
@@ -99,7 +99,7 @@ define(function (require,exports,module) {
         var nexts=$(this).parent().parent().nextAll()
         var precodes=getcodes(prevs)
         var nextcodes=getcodes(nexts)
-        var thiscode=$(this).parent().prevAll()[6].innerHTML
+        var thiscode=$(this).parent().prevAll()[5].innerHTML
         var switchcode=precodes[precodes.length-1];
         precodes[precodes.length-1]=thiscode
         precodes.push(switchcode);
@@ -127,7 +127,7 @@ define(function (require,exports,module) {
         var nexts=$(this).parent().parent().nextAll()
         var precodes=getcodes(prevs)
         var nextcodes=getcodes(nexts)
-        var thiscode=$(this).parent().prevAll()[6].innerHTML
+        var thiscode=$(this).parent().prevAll()[5].innerHTML
         //console.log(precodes)
         //console.log(nextcodes)
         //console.log(thiscode)
@@ -203,7 +203,7 @@ define(function (require,exports,module) {
             })
     });
     function jumpedit() {
-        var code = $(this).parent().prevAll()[6].innerHTML
+        var code = $(this).parent().prevAll()[5].innerHTML
         window.open(common.rootPath+'zbdata/zsjhedit.htm?m=toEditShow&indexCode='+indexCode+'&code='+code);
     }
 
