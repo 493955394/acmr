@@ -754,7 +754,42 @@ define(function (require,exports,module) {
 
 
     }
+    /**
+     * 计算范围数据下载
+     */
 
+    $(document).on('click', '#J_plan_excel', function() {
+
+        var zbs=zbAdd.zbs;//获取指标的信息
+        var regs=select;//获取地区信息
+        var sjs=sjselect;//获取时间信息
+        /*   console.log(zbs)
+           console.log(regs)
+           console.log(sjs)*/
+        var data={
+            zbs:zbs,
+            regs:regs,
+            sjs:sjs
+        }
+        var zbnum=data.zbs.length
+        var regnum=data.regs.length
+        var sjnum=data.sjs.split(",").length
+        console.log(zbnum)
+        var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toRangeExcel&zbnum='+zbnum+'&regnum='+regnum+'&sjnum='+sjnum+'&icode='+incode;
+        $.ajax({
+            url: url,
+            type: 'post',
+            data:data,
+            success: function(data) {
+                if (data.returncode == 300) {
+                    alert("请补充下载条件");
+                } else {
+                    alert("下载成功!");
+                }
+            }
+        })
+        window.location.href = url;
+    })
 
 /*    $(".J_zsjh_rangedata_table").on('pjax:success', function() {
         //加载表格后设置表格

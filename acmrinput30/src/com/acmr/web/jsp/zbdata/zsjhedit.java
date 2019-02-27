@@ -2366,4 +2366,182 @@ public class zsjhedit extends BaseAction {
         return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/rangeDataTable").addObject("zbrow",zbrow).addObject("sjrow",sjrow).addObject("datarow",datarow);
 
     }
+    /**
+     * 全部地区数据下载
+     *
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public void toRangeExcel() throws IOException {
+        //接参
+        HttpServletRequest req = this.getRequest();
+        OriginService originService=new OriginService();
+        String icode = req.getParameter("icode");
+        int zbnum= Integer.parseInt(req.getParameter("zbnum"));
+        int regnum= Integer.parseInt(req.getParameter("regnum"));
+        int sjnum= Integer.parseInt(req.getParameter("sjnum"));
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+       /* String excelsj = PubInfo.getString(req.getParameter("sjs"));//时间
+        String zblists = PubInfo.getString(req.getParameter("zbs"));//指标和查询条件
+        String reglists = PubInfo.getString(req.getParameter("regs"));//zbname
+        String [] sjs = excelsj.split(",");*/
+        //取行列数据
+        List<String> zbrow=new ArrayList<>();
+        List<String> sjrow=new ArrayList<>();
+        List<List<String>> datarow=new ArrayList<>();
+        //取时间
+        String sjs=req.getParameter("sjs");
+        List<String> sjlist=new ArrayList<>();
+        if (sjs!=null){
+            sjlist= Arrays.asList(sjs.split(","));
+        }
+        for (int i=0;i<zbnum;i++){
+            String zbname = req.getParameter("zbs["+i+"][zbcode]");
+            //添加指标和时间行
+            for(int j=0; j<sjnum;j++){
+                zbrow.add(zbname);
+            }
+            sjrow.addAll(sjlist);
+        }
+
+        //添加数据行
+        for (int j=0;j<regnum;j++) {
+            String regcode = req.getParameter("regs[" + j + "][code]");
+            String regname = req.getParameter("regs[" + j + "][name]");
+            List<String> datalist = new ArrayList<>();
+            //放第一行地区数据
+            datalist.add(regname);
+            CubeWdCodes where = new CubeWdCodes();
+            for (int m = 0; m < zbnum; m++) {
+                String zbcode = req.getParameter("zbs[" + m + "][zbcode]");
+                String cocode = req.getParameter("zbs[" + m + "][cocode]");
+                String dscode = req.getParameter("zbs[" + m + "][dscode]");
+                String unitcode = req.getParameter("zbs[" + m + "][unitcode]");
+                for (int n = 0; n < sjnum; n++) {
+                    String sj = sjlist.get(n);
+                    where.Add("reg", regcode);
+                    where.Add("zb", zbcode);
+                    where.Add("ds", dscode);
+                    where.Add("co", cocode);
+                    where.Add("sj", sj);
+                    //取数据
+                    String odata = "";
+                    if (originService.querydata(where, dbcode).size() > 0) {
+                        odata = originService.querydata(where, dbcode).get(0).getData().getStrdata();
+                    }
+                    //换算单位
+                    if (!odata.equals("")) {
+                        String funit = originService.getwdnode("zb", zbcode, dbcode).getUnitcode();
+                        BigDecimal rate = new BigDecimal(originService.getRate(funit, unitcode, sj));
+                        BigDecimal ndata = (new BigDecimal(odata)).multiply(rate);
+                        datalist.add(String.valueOf(ndata));
+                    } else datalist.add("");
+                    where.Clear();
+
+                }
+            }
+            datarow.add(datalist);
+        }
+
+        JSONReturnData data = new JSONReturnData("");
+        ExcelBook book = new ExcelBook();
+        ExcelSheet sheet1 = new ExcelSheet();
+        sheet1.setName("sheet1");
+        sheet1.addColumn();
+        sheet1.addColumn();
+        if (datarow == null) {
+            data.setReturncode(300);
+            this.sendJson(data);
+            return;
+        } else {
+            data.setReturncode(200);
+        }
+
+
+        ExcelCell cell1 = new ExcelCell();
+        ExcelRow dr1 = sheet1.addRow();
+        ExcelCell cell2 = cell1.clone();
+        cell2.setCellValue("");
+        dr1.set(0, cell2);
+        for (int i = 0; i < zbrow.size(); i++){
+            sheet1.addColumn();
+            int j =i+1;
+            cell2 = cell1.clone();
+            cell2.setCellValue(zbrow.get(i));
+            dr1.set(j, cell2);
+        }
+        sheet1.addRow();
+        cell2.setCellValue("");
+        dr1.set(0, cell2);
+        for (int i = 0; i < sjrow.size(); i++){
+            sheet1.addColumn();
+            int j =i+1;
+            cell2 = cell1.clone();
+            cell2.setCellValue(sjrow.get(i));
+            dr1.set(j, cell2);
+        }
+
+        /*int i = sjs.length;
+        int j = zblists.length();
+        int k = i*j;*/
+        /*for (int i= 0; i<zblists.length(); i++){
+            for (int j= 0; j<sjs.length; j++){
+                cell2 = cell1.clone();
+                String zbname = req.getParameter("zbs["+j+"][zbname]");
+                cell2.setCellValue();
+                dr1.set(j, cell2);
+            }
+        }
+        cell2 = cell1.clone();
+        cell2.setCellValue("指标");
+        dr1.set(1, cell2);
+        // for (int a=2;a<)
+        for (int k = 0; k < regnames.length; k++){
+            int m =k+2;
+            sheet1.addColumn();
+            cell2 = cell1.clone();
+            cell2.setCellValue(regnames[k]);
+            dr1.set(m, cell2);
+        }*/
+        cell1.getCellstyle().getFont().setBoldweight((short) 10);
+        for(int i=0;i<datarow.size();i++){
+
+            List<String> arr =datarow.get(i);
+            dr1 = sheet1.addRow();
+            for(int j=0;j<arr.size();j++){
+                cell2 = cell1.clone();
+                cell2.setCellValue(arr.get(j));
+                dr1.set(j, cell2);
+            }
+        }
+        for(int t=0;t<zbrow.size();t++){
+            int n = t+2;
+            int w = t+1;
+            /*String arr =data1.get(t).toString().substring(1,data1.get(t).toString().length()-1);
+            String [] a3 = arr.split(",");
+            //if(w<data1.size() && n<=data1.size()){*/
+            if(w<zbrow.size()){
+                if(zbrow.get(t).equals(zbrow.get(w))){
+                    sheet1.MergedRegions(w,0,n,0);
+                }
+            }
+        }
+        book.getSheets().add(sheet1);
+        HttpServletResponse resp = this.getResponse();
+        resp.reset();
+        resp.setContentType("application/vnd.ms-excel; charset=UTF-8");
+        resp.setHeader("Pragma", "public");
+        resp.setHeader("Cache-Control", "max-age=30");
+        String fileName="计算范围.xlsx";
+        fileName=java.net.URLEncoder.encode(fileName, "UTF-8");
+        resp.addHeader("Content-Disposition", "attachment; filename="+fileName);
+        try {
+            book.saveExcel(resp.getOutputStream(), XLSTYPE.XLSX);
+        } catch (ExcelException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }
