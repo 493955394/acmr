@@ -361,7 +361,7 @@
                                 <div style="float: right">计划起始时间：
                                     <input id="startpeirod" name="startpeirod"/>
                                     <button type="button" class="btn btn-primary btn-sm" id="rangeConfirm">范围确认</button>
-                                    <button type="button" class="btn btn-primary btn-sm J_plan_excel">数据下载</button>
+                                    <button type="button" class="btn btn-primary btn-sm" id="J_plan_excel">数据下载</button>
                                 </div>
                             </div>
 
