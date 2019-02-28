@@ -8,7 +8,6 @@ define(function (require,exports,module) {
 
     var indexCode=$("#index_code").val();
     var st = new Date().getTime();//时间戳
-    $(".weight_set").click(setWeight);
 
     var choosedprocode = "",
         choosedname = "";
@@ -162,23 +161,6 @@ define(function (require,exports,module) {
         return codes
     }
 
-    function setWeight(){
-        //先判断是否存在空目录，如果存在，不跳转
-        $.ajax({
-            url: common.rootPath+'zbdata/indexlist.htm?m=checkModuleCat&icode='+indexCode,
-            type:'get',
-            datatype:'json',
-            success:function (re){
-                console.log(re)
-                if(re == false){
-                    alert("指数不能为空！");
-                    return;
-                }else{
-                    window.open(common.rootPath+"zbdata/weightset.htm?m=editweight&icode="+indexCode)
-                }
-            }
-        })
-    }
 
     $(document).ready(function () {
         sendPjax("")

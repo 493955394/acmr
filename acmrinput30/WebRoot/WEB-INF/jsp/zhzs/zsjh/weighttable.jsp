@@ -35,112 +35,92 @@
         <button type="button" class="btn btn-default btn-sm save_weight" style="float: right;margin-bottom: 15px"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;保存设置
         </button>
     </div>
-    <table class="table table-bordered">
-        <c:forEach items="${mods}" var="module">
-            <c:if test="${module.getProcode()==''}">
-                <c:if test="${module.ZBnums()!=0}">
-                    <tbody>
-                    <tr>
-                        <td rowspan="${module.ZBnums()}" flag="0"
-                            class="root_zs p_${module.getCode()}">${module.getCname()}</td>
-                            <%--<td>test</td>--%>
-                    </tr>
-                    </tbody>
-                </c:if>
-            </c:if>
-        </c:forEach>
+    <table class="table table-bordered" id="module_table">
+        <tr id="row_head1">
+            <td rowspan="2">总指数</td>
+            <%--<td colspan="2">指标</td>--%>
+        </tr>
+        <tr id="row_head2">
+            <%--<td>空白</td>
+            <td>方案</td>--%>
+        </tr>
     </table>
 </div>
 </body>
 <script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
 <script>
-    $(".root_zs").each(function () {
-        var rnums = $(this).attr("rowspan")
-        for (var i = rnums - 1; i > 0; i--) {
-            $(this).parent().after("<tr></tr>")
-        }
-    })
+
     <c:forEach items="${mods}" var="module">
-    <c:if test="${module.getProcode()!=''&&module.ZBnums()!=0}">
-    var classname = "${module.getProcode()}"
-    var thiszbnums = parseInt("${module.ZBnums()}")
-    //console.log("sortcode"+"${module.getSortcode()}")
-    //同一父节点的第一个
-    if (${module.getSortcode().equals("0")&&module.isLast()==false}) {
-        //console.log("first:"+"${module.getCname()}")
-        $(".p_" + classname).after("<td code='" +
-            "${module.getCode()}" + "' procode='" +
-            "${module.getProcode()}" + "' sort='" +
-            "${module.getSortcode()}" + "'  rowspan='" +
-            "${module.ZBnums()}" + "'>" +
-            "${module.getCname()}" + "</td><td rowspan='" +
-            "${module.ZBnums()}" + "'>" +
-            "<input class='input_weight " +
-            "${module.getProcode()}" + "' value='" +
-            "${module.getWeight()}" + "'>" + "</td><td class='" +
-            "p_${module.getCode()}" + "' flag='0' rowspan='" +
-            "${module.ZBnums()}" + "'><label class='btn-disabled mod_up_noclick'>上移</label><a href='#' class='mod_down'>下移</a></td>")
-        $(".p_" + classname).attr("flag", parseInt($(".p_" + classname).attr("flag")) + thiszbnums)
+    var zbnums=${module.ZBnums()}
+        //总指数
+        <c:if test="${module.getProcode().equals('')}">
+        $("#module_table").append(
+            "<tr class='row_body'><td rowspan=${module.ZBnums()} id=${module.getCode()} flag=${module.ZBnums()}>${module.getCname()}</td></tr>"
+        )
+    for (var i=zbnums;i>1;i--){
+        $("#module_table").append(
+            "<tr class='row_body'></tr>"
+        )
     }
-    else if (${module.getSortcode().equals("0")&&module.isLast()==true}) {
-        $(".p_" + classname).after("<td code='" +
-            "${module.getCode()}" + "' procode='" +
-            "${module.getProcode()}" + "' sort='" +
-            "${module.getSortcode()}" + "'  rowspan='" +
-            "${module.ZBnums()}" + "'>" +
-            "${module.getCname()}" + "</td><td rowspan='" +
-            "${module.ZBnums()}" + "'>" +
-            "<input class='input_weight " +
-            "${module.getProcode()}" + "' value='" +
-            "${module.getWeight()}" + "'>" + "</td><td class='" +
-            "p_${module.getCode()}" + "' flag='0' rowspan='" +
-            "${module.ZBnums()}" + "'><label class='btn-disabled mod_up_noclick'>上移</label><label class='btn-disabled mod_down_noclick'>下移</label></td>")
-        $(".p_" + classname).attr("flag", parseInt($(".p_" + classname).attr("flag")) + thiszbnums)
-    }
+    </c:if>
+    //指数
+    <c:if test="${!module.getProcode().equals('')&&module.getIfzs().equals('1')}">
+   // console.log("${module.getCname()}")
+    //console.log($("#"+"${module.getProcode()}"))
+    var flag=$("#"+"${module.getProcode()}").attr("flag")
+    var rows=$("#"+"${module.getProcode()}").attr("rowspan")
+    //和父节点同行
+    if (flag==rows){
+        $("#"+"${module.getProcode()}").after(
+            "<td rowspan=${module.ZBnums()}>${module.getCname()}</td><td id=${module.getCode()} rowspan=${module.ZBnums()} flag=${module.ZBnums()}>权重：<input value='${module.getWeight()}'></td>"
+        )
 
-    else if (${module.isLast()==true}) {
-        //console.log("last"+"${module.getCname()}")
-        //console.log( $(".p_"+classname).parent().nextAll())
-        var index = parseInt($(".p_" + classname).attr("flag")) - 1
-        $(".p_" + classname).parent().nextAll(":eq(" +
-            index + ")").append("<td code='" +
-            "${module.getCode()}" + "' procode='" +
-            "${module.getProcode()}" + "' sort='" +
-            "${module.getSortcode()}" + "' rowspan='" +
-            "${module.ZBnums()}" + "'>" +
-            "${module.getCname()}" + "</td><td rowspan='" +
-            "${module.ZBnums()}" + "'>" +
-            "<input class='input_weight " +
-            "${module.getProcode()}" + "' value='" +
-            "${module.getWeight()}" + "'" + "</td><td rowspan='" +
-            "${module.ZBnums()}" + "' class='" +
-            "p_${module.getCode()}" + "' flag='0'><a href='#' class='mod_up'>上移</a><label class='btn-disabled mod_up_noclick'>下移</label></td>")
-        $(".p_" + classname).attr("flag", parseInt($(".p_" + classname).attr("flag")) + thiszbnums)
-
+        $("#"+"${module.getProcode()}").attr("flag",flag-${module.ZBnums()})
     }
+    //与父节点不同行
     else {
-        var index = parseInt($(".p_" + classname).attr("flag")) - 1
-        $(".p_" + classname).parent().nextAll(":eq(" +
-            index + ")").append("<td code='" +
-            "${module.getCode()}" + "' procode='" +
-            "${module.getProcode()}" + "' sort='" +
-            "${module.getSortcode()}" + "' rowspan='" +
-            "${module.ZBnums()}" + "'>" +
-            "${module.getCname()}" + "</td><td rowspan='" +
-            "${module.ZBnums()}" + "'>" +
-            "<input class='input_weight " +
-            "${module.getProcode()}" + "' value='" +
-            "${module.getWeight()}" + "'" + "</td><td rowspan='" +
-            "${module.ZBnums()}" + "' class='" +
-            "p_${module.getCode()}" + "' flag='0'><a href='#' class='mod_up'>上移</a><a href='#' class='mod_down'>下移</a></td>")
-        $(".p_" + classname).attr("flag", parseInt($(".p_" + classname).attr("flag")) + thiszbnums)
-
+        //$("#"+"${module.getProcode()}").parent().nextAll(":eq(1)").append("<td>test</td>")
+        $("#"+"${module.getProcode()}").parent().nextAll(":eq(" +
+            (rows-flag-1)+")").append("<td rowspan=${module.ZBnums()}>${module.getCname()}</td><td id=${module.getCode()} rowspan=${module.ZBnums()} flag=${module.ZBnums()}>权重：<input value='${module.getWeight()}'></td>")
+        $("#"+"${module.getProcode()}").attr("flag",flag-1)
     }
-
+    //console.log($("#"+"${module.getProcode()}").parent().nextAll())
 
     </c:if>
-    </c:forEach>
+    //指标
+    <c:if test="${!module.getProcode().equals('')&&module.getIfzs().equals('0')}">
+    var flag=$("#"+"${module.getProcode()}").attr("flag")
+    var rows=$("#"+"${module.getProcode()}").attr("rowspan")
+    //和父节点同行
+    if (flag==rows){
+        $("#"+"${module.getProcode()}").after(
+            "<td>${module.getCname()}</td><td id=${module.getCode()}>权重：<input value='${module.getWeight()}'>公式：<input value='这里放公式' readonly></td>"
+        )
 
+        $("#"+"${module.getProcode()}").attr("flag",flag-${module.ZBnums()})
+    }
+    //与父节点不同行
+    else {
+        //$("#"+"${module.getProcode()}").parent().nextAll(":eq(1)").append("<td>test</td>")
+        $("#"+"${module.getProcode()}").parent().nextAll(":eq(" +
+            (rows-flag-1)+")").append("<td>${module.getCname()}</td><td id=${module.getCode()} >权重：<input value='${module.getWeight()}'>公式：<input value='这里放公式' readonly></td>")
+        $("#"+"${module.getProcode()}").attr("flag",flag-1)
+    }
+    </c:if>
+    </c:forEach>
+    //console.log(colnum)
+    var colnum=0;
+    $(".row_body").each(function () {
+        var tdnum=$(this).children().length;
+        if (tdnum>colnum){
+            colnum=tdnum;
+        }
+    })
+    console.log(colnum)
+    for (var i=(colnum-1)/2;i>0;i--){
+        $("#row_head1").append("<td colspan='2'>指标</td>")
+        $("#row_head2").append("<td></td><td>这里放方案名</td>")
+    }
 
 </script>
 

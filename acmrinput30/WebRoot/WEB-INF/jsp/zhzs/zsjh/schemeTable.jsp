@@ -51,7 +51,7 @@
                     <a href="javascript:;">编辑</a>
                     <a href="javascript:;">删除</a>
                     <a href="javascript:;">克隆</a>
-                    <a href="javascript:;">公式/权重设置</a>
+                    <a href="#" class="single_weight_set">公式/权重设置</a>
 
                 </td>
             </tr>

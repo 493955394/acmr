@@ -404,9 +404,9 @@
                                                     class="glyphicon glyphicon-plus"></i>新增节点
                                             </button>
                                             &nbsp;
-                                            <button class="btn btn-default btn-sm J_Add weight_set" type="button">
+                                           <%-- <button class="btn btn-default btn-sm J_Add weight_set" type="button">
                                                 <i class="weight-edit"></i>权重设置
-                                            </button>
+                                            </button>--%>
                                             &nbsp;
                                         </div>
                                     </div>
