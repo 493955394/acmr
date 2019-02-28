@@ -2497,21 +2497,6 @@ public class zsjhedit extends BaseAction {
         List<String> zbrow=new ArrayList<>();
         List<String> sjrow=new ArrayList<>();
         List<List<String>> datarow=new ArrayList<>();
-       /* //取时间
-        List<String> sjlist=new ArrayList<>();
-        if (sjs!=null){
-            sjlist= Arrays.asList(sjs.split(","));
-        }
-        //取指标
-        List<String> zblist=new ArrayList<>();
-        if (zbs!=null){
-            zblist= Arrays.asList(zbs.split(","));
-        }
-        //取地区
-        List<String> reglist=new ArrayList<>();
-        if (regs!=null){
-            reglist= Arrays.asList(regs.split(","));
-        }*/
         List<String> sjlist=new ArrayList<>();
         if (sjs!=null){
             sjlist= Arrays.asList(sjs.split(","));
@@ -2571,8 +2556,6 @@ public class zsjhedit extends BaseAction {
         } else {
             data.setReturncode(200);
         }
-
-
         ExcelCell cell1 = new ExcelCell();
         ExcelRow dr1 = sheet1.addRow();
         ExcelCell cell2 = cell1.clone();
@@ -2596,28 +2579,6 @@ public class zsjhedit extends BaseAction {
             dr1.set(j, cell2);
         }
 
-        /*int i = sjs.length;
-        int j = zblists.length();
-        int k = i*j;*/
-        /*for (int i= 0; i<zblists.length(); i++){
-            for (int j= 0; j<sjs.length; j++){
-                cell2 = cell1.clone();
-                String zbname = req.getParameter("zbs["+j+"][zbname]");
-                cell2.setCellValue();
-                dr1.set(j, cell2);
-            }
-        }
-        cell2 = cell1.clone();
-        cell2.setCellValue("指标");
-        dr1.set(1, cell2);
-        // for (int a=2;a<)
-        for (int k = 0; k < regnames.length; k++){
-            int m =k+2;
-            sheet1.addColumn();
-            cell2 = cell1.clone();
-            cell2.setCellValue(regnames[k]);
-            dr1.set(m, cell2);
-        }*/
         cell1.getCellstyle().getFont().setBoldweight((short) 10);
         for(int i=0;i<datarow.size();i++){
 
