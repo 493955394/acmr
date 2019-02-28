@@ -5,9 +5,6 @@ define(function (require,exports,module) {
         common = require('common');
 
 
-    $(".mod_up").click(moveup)
-    $(".mod_down").click(movedown)
-
     $(document).on('click','.save_weight',function (event) {
         event.stopPropagation();
         Array.prototype.contain = function(val)
@@ -87,83 +84,19 @@ define(function (require,exports,module) {
         }
     })
     var icode=$(".indexCode").val()
+    var scode=$(".scheme_code").val()
     var st = new Date().getTime();//时间戳
     console.log(icode)
 
 
     function sendPjax() {
         $.pjax({
-            url:common.rootPath+'zbdata/weightset.htm?m=editweight&icode='+icode+'&st='+st,
+            url:common.rootPath+'zbdata/weightset.htm?m=editSingleWeight&icode='+icode+'&scode='+scode+'&st='+st,
             container:'.J_weight_table',
             timeout:10000
         })
-        $(document).on('pjax:success', function() {
-            $(".mod_up").unbind("click")
-            $(".mod_up").click(moveup)
-            $(".mod_down").unbind("click")
-            $(".mod_down").click(movedown)
-        });
+
     }
 
-    function moveup() {
-        console.log("上移")
-        var thiscode=$(this).parent().prev().prev().attr("code")
-        var pcode=$(this).parent().prev().prev().attr("procode")
-        //console.log(thiscode)
-        //console.log(pcode)
-        var codes=[]
-        $("[procode="+pcode+"]").each(function () {
-            codes.push($(this).attr("code"))
-        })
-       // console.log(codes)
-
-        for(var i=0;i<codes.length;i++){
-            if (codes[i]==thiscode){
-                bcode=codes[i-1]
-                codes[i-1]=thiscode
-                codes[i]=bcode
-                break
-            }
-        }
-       // console.log(codes)
-        $.ajax({
-            url:common.rootPath+"zbdata/zsjhedit.htm?m=resort&codes="+codes,
-            type:'get',
-            data:'json',
-            success:function (re) {
-               // console.log("success")
-                //window.location.reload()
-                sendPjax()
-            }
-        })
-    }
-
-    function movedown() {
-        console.log("下移")
-        var thiscode=$(this).parent().prev().prev().attr("code")
-        var pcode=$(this).parent().prev().prev().attr("procode")
-        var codes=[]
-        $("[procode="+pcode+"]").each(function () {
-            codes.push($(this).attr("code"))
-        })
-        for(var i=0;i<codes.length;i++){
-            if (codes[i]==thiscode){
-                bcode=codes[i+1]
-                codes[i+1]=thiscode
-                codes[i]=bcode
-                break
-            }
-        }
-        $.ajax({
-            url:common.rootPath+"zbdata/zsjhedit.htm?m=resort&codes="+codes,
-            type:'get',
-            data:'json',
-            success:function (re) {
-                // console.log("success")
-                //window.location.reload()
-                sendPjax()
-            }
-        })
-    }
 
 })

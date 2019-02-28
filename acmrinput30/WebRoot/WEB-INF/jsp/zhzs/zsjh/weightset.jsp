@@ -20,6 +20,8 @@
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 
 <input class="indexCode" type="hidden" value="${indexcode}">
+<input type="hidden" class="scheme_code" value="${schemecode}">
+
 <div class="panel-body J_weight_table">
     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/weighttable.jsp" flush="true"/>
 </div>

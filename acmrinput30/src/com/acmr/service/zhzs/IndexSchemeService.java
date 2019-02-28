@@ -38,4 +38,8 @@ public class IndexSchemeService {
         }
         return schemes;
     }
+
+    public String getModSchemeWeight(String scode,String modcode){
+        return ischemeDao.getModSchemeWeight(scode,modcode);
+    }
 }

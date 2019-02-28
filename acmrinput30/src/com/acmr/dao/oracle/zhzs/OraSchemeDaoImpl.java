@@ -32,4 +32,12 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         List<DataTableRow> rows=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode}).getRows();
         return rows;
     }
+
+    @Override
+    public String getModSchemeWeight(String scode,String modcode) {
+        String sql="select * from tb_coindex_scheme where code=? and modcode=?";
+        List<DataTableRow> rows=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{scode,modcode}).getRows();
+        if (rows.size()==0) return "";
+        else return rows.get(0).getString("weight");
+    }
 }
