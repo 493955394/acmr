@@ -763,32 +763,46 @@ define(function (require,exports,module) {
         var zbs=zbAdd.zbs;//获取指标的信息
         var regs=select;//获取地区信息
         var sjs=sjselect;//获取时间信息
-        /*   console.log(zbs)
-           console.log(regs)
-           console.log(sjs)*/
-        var data={
-            zbs:zbs,
-            regs:regs,
-            sjs:sjs
+        var zbcode = "";//指标code
+        var zbco = "";//指标主体
+        var zbds = "";//指标数据来源
+        var zbunit ="";//指标单位
+        var zbname = "";//指标名称
+        var regcode ="";//地区code
+        var regname ="";//地区name
+        for (var i = 0; i <regs.length ; i++) {
+            regcode += regs[i].code+",";
+            regname += regs[i].name+",";
         }
-        var zbnum=data.zbs.length
-        var regnum=data.regs.length
-        var sjnum=data.sjs.split(",").length
-        console.log(zbnum)
-        var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toRangeExcel&zbnum='+zbnum+'&regnum='+regnum+'&sjnum='+sjnum+'&icode='+incode;
+        for (var i = 0; i <zbs.length ; i++) {
+            zbcode += zbs[i].zbcode+",";
+            zbco += zbs[i].cocode+",";
+            zbds += zbs[i].dscode+",";
+            zbname += zbs[i].zbname+",";
+            zbunit += zbs[i].unitcode+",";
+        }
+        zbcode = zbcode.substr(0, zbcode.length - 1);//去除最后一个逗号
+        zbco = zbco.substr(0, zbco.length - 1);//去除最后一个逗号
+        zbds = zbds.substr(0, zbds.length - 1);//去除最后一个逗号
+        zbname = zbname.substr(0, zbname.length - 1);//去除最后一个逗号
+        zbunit = zbunit.substr(0, zbunit.length - 1);//去除最后一个逗号
+        regname = regname.substr(0, regname.length - 1);//去除最后一个逗号
+        regcode = regcode.substr(0, regcode.length - 1);//去除最后一个逗号
+        //var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toRangeExcel&indexcode='+incode+'&regcode='+regcode+'&regname='+regname+'&sj='+sjs+'&zb='+zbcode+'&co='+zbco+'&ds='+zbds+'&zbname='+zbname+'&zbunit='+zbunit;
+        var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toRangeExcel&icode='+incode+'&regcode='+regcode+
+            '&regname='+regname+'&sj='+sjs+'&zb='+zbcode+'&co='+zbco+'&ds='+zbds+'&zbname='+zbname+'&zbunit='+zbunit;
         $.ajax({
             url: url,
             type: 'post',
-            data:data,
             success: function(data) {
                 if (data.returncode == 300) {
                     alert("请补充下载条件");
-                } else {
+                } else if(data.returncode == 200) {
                     alert("下载成功!");
                 }
             }
         })
-        window.location.href = url;
+        window.location.href =url;
     })
 
 /*    $(".J_zsjh_rangedata_table").on('pjax:success', function() {
