@@ -9,28 +9,40 @@ public class MathService extends CalculateFunction {
 
     /**
      * max函数
-     * @param a
-     * @param b
+     * @param
+     * @param
      * @return
      */
-    public String function_max(String a,String b){
-        BigDecimal a1 = new BigDecimal(a);
-        BigDecimal b1 = new BigDecimal(b);
-        a1 = a1.max(b1);
-        return a1.toPlainString();
+    public String function_max(String orgStr){
+        String [] result = orgStr.split(",");
+
+        BigDecimal max = new BigDecimal(result[0]);
+        for (int i = 0; i <result.length ; i++) {
+            BigDecimal a = new BigDecimal(result[i]);
+            if(a.compareTo(max)>0){
+                max=a;
+            }
+        }
+        return max.toPlainString();
     }
 
     /**
      * 取最小
-     * @param a
-     * @param b
+     * @param
+     * @param
      * @return
      */
-    public String function_min(String a,String b){
-        BigDecimal a1 = new BigDecimal(a);
-        BigDecimal b1 = new BigDecimal(b);
-        a1 = a1.min(b1);
-        return a1.toPlainString();
+    public String function_min(String orgStr){
+        String [] result = orgStr.split(",");
+
+        BigDecimal min = new BigDecimal(result[0]);
+        for (int i = 0; i <result.length ; i++) {
+            BigDecimal a = new BigDecimal(result[i]);
+            if(a.compareTo(min)<0){
+                min=a;
+            }
+        }
+        return min.toPlainString();
     }
 
     /**
@@ -86,5 +98,20 @@ public class MathService extends CalculateFunction {
     public String function_chance(){
         BigDecimal a1 = BigDecimal.valueOf(Math.random());
         return a1.toPlainString();
+    }
+
+    /**
+     * 求数组的平均值
+     * @param orgStr
+     * @return
+     */
+    public String function_avg(String orgStr){
+        String [] result = orgStr.split(",");
+        BigDecimal add = new BigDecimal(result[0]);
+        for (int i = 1; i <result.length ; i++) {
+            add = add.add(new BigDecimal(result[i]));
+        }
+        BigDecimal data = add.divide(new BigDecimal(result.length),16,4);
+        return data.toPlainString();
     }
 }

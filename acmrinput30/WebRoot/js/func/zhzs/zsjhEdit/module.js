@@ -204,7 +204,7 @@ define(function (require,exports,module) {
     });
     function jumpedit() {
         var code = $(this).parent().prevAll()[5].innerHTML
-        window.open(common.rootPath+'zbdata/zsjhedit.htm?m=toEditShow&indexCode='+indexCode+'&code='+code);
+        window.open(common.rootPath+'zbdata/zsjhedit.htm?m=formularEdit&indexCode='+indexCode+'&code='+code);
     }
 
     /**

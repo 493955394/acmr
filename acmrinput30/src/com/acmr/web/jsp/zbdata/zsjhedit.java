@@ -2544,4 +2544,30 @@ public class zsjhedit extends BaseAction {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 公式编辑
+     */
+    public ModelAndView formularEdit(){
+        HttpServletRequest req = this.getRequest();
+        String code = req.getParameter("code");
+        String indexCode = req.getParameter("indexCode");
+        List<IndexMoudle> zslist = new ArrayList<IndexMoudle>();
+        IndexEditService indexEditService = new IndexEditService();
+        zslist = indexEditService.getZSList(indexCode,code);
+        IndexMoudle getdata = indexEditService.getData(code);
+       /* String procodeId =getdata.getProcode() ;
+        String proname = indexEditService.getData(procodeId,indexCode).getCname();*/
+        //要是是自定义公式，读取的时候要换成对应的名字
+        if (getdata.getIfzb().equals("0")){
+            String formula = getdata.getFormula();
+            getdata.setFormula(changeFormula(formula,indexCode,"CTN"));
+        }
+        //筛选指标信息
+        JSONObject zblist=getZBS(indexCode);
+        //   Map<String, String> datas = new HashMap<String, String>();
+        //  datas.put("proname", proname);
+//        datas.put("procodeId", getdata.getProcode());
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/formularEdit").addObject("icode",indexCode).addObject("zslist",zslist).addObject("zblist",zblist).addObject("data",getdata);
+    }
 }

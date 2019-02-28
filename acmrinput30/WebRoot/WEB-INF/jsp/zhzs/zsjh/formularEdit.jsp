@@ -94,6 +94,7 @@
                             <label class="col-sm-2 control-label">指标类型：</label>
                             <div class="col-sm-3">
                                 <select class="form-control formula" name="formula" autocomplete="off">
+                                    <option value="userdefined" <c:if test="${data.getIfzb() =='0'}">selected</c:if> >自定义</option>
                                     <c:forEach  items="${zblist.zbchoose}" var="zbl">
                                         <c:if test="${data.getIfzb() == '1'}" >
                                             <option value="${zbl.code}"<c:if test="${zbl.code == data.getFormula()}">selected</c:if>>${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
@@ -102,7 +103,6 @@
                                             <option value="${zbl.code}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
                                         </c:if>
                                     </c:forEach>
-                                    <option value="userdefined" <c:if test="${data.getIfzb() =='0'}">selected</c:if> >自定义</option>
                                 </select>
                             </div>
                         </div>
@@ -152,22 +152,25 @@
                         <div class="col-sm-1">
                             <div type="button" id="add_hanshu" style="border-color: #F39801;background-color: #F39801;height: 30px;width: 50px"><span style="color: white"><添加</span></div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-1">
+                            <label class="control-label">计算公式：</label>
                             <select size="15" id="hanshu">
                                 <option value="abs()" title="求绝对值">Math.abs</option>
-                                <option value="max()" title="求两数中最大">Math.max</option>
-                                <option value="min()" title="求两数中最小">Math.min</option>
                                 <option value="pow()" title="x的y次方">Math.pow(x,y)</option>
                                 <option value="exp()" title="求e的任意次方">Math.exp</option>
                                 <option value="log10()" title="以10为底的对数">Math.log10</option>
                                 <option value="log()" title="自然对数">Math.log</option>
-                                <option value="random()" title="返回0，1之间的一个随机数">Math.random</option>
-                                <%-- <option>add(BigInteger val)</option>
-                                 <option>subtract(BigInteger val)</option>
-                                 <option>multiply(BigInteger val)</option>
-                                 <option>divide(BigInteger val)</option>
-                                 <option>compareTo(BigInteger val)</option>
-                                 <option>pow(int exponent)</option>--%>
+                                <option value="max([])" title="求最大值">max()</option>
+                                <option value="min([])" title="求最小值">min()</option>
+                                <option value="arg([])" title="求平均值">arg()</option>
+                                <option value="gettimevalue([])" title="取指标对应前时间值的数值">gettimevalue()</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <label class="control-label">数组公式：</label>
+                            <select size="15" id="shuzu">
+                                <option value="allareavalue()" title="取指标对应所有地区值的数组">allareavalue()</option>
+                                <option value="alltimevalue()" title="取指标对应所有时间值的数组">alltimevalue()</option>
                             </select>
                         </div>
                     </div>
