@@ -28,6 +28,7 @@ public class weightset extends BaseAction {
         HttpServletRequest req=this.getRequest();
         String icode=req.getParameter("icode");
         String scode=req.getParameter("scode");
+        String sname=req.getParameter("sname");
         WeightEditService weightEditService=new WeightEditService();
         IndexEditService indexEditService=new IndexEditService();
         IndexSchemeService indexSchemeService=new IndexSchemeService();
@@ -60,10 +61,10 @@ public class weightset extends BaseAction {
         String pjax = req.getHeader("X-PJAX");
         if (StringUtil.isEmpty(pjax)) {
             PubInfo.printStr("====================================================empty");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/weightset").addObject("indexcode",icode).addObject("mods",mods).addObject("schemecode",scode);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/weightset").addObject("indexcode",icode).addObject("mods",mods).addObject("schemecode",scode).addObject("schemename",sname);
         } else {
             PubInfo.printStr("====================================================pjax");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/weighttable").addObject("indexcode",icode).addObject("mods",mods).addObject("schemecode",scode);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/weighttable").addObject("indexcode",icode).addObject("mods",mods).addObject("schemecode",scode).addObject("schemename",sname);
         }
     }
 

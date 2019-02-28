@@ -119,7 +119,7 @@
     console.log(colnum)
     for (var i=(colnum-1)/2;i>0;i--){
         $("#row_head1").append("<td colspan='2'>指标</td>")
-        $("#row_head2").append("<td></td><td>这里放方案名</td>")
+        $("#row_head2").append("<td></td><td class='scheme_name'>${schemename}</td>")
     }
 
 </script>

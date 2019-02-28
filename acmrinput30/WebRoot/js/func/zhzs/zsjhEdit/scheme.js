@@ -30,6 +30,7 @@ define(function (require,exports,module) {
     //设置单个方案权重
     function setSingleWeight(){
         var scode=$(this).attr("scheme_code")
+        var sname=$(this).attr("scheme_name")
         //先判断是否存在空目录，如果存在，不跳转
         $.ajax({
             url: common.rootPath+'zbdata/indexlist.htm?m=checkModuleCat&icode='+icode,
@@ -41,7 +42,7 @@ define(function (require,exports,module) {
                     alert("指数不能为空！");
                     return;
                 }else{
-                    window.open(common.rootPath+"zbdata/weightset.htm?m=editSingleWeight&icode="+icode+'&scode='+scode)
+                    window.open(common.rootPath+"zbdata/weightset.htm?m=editSingleWeight&icode="+icode+'&scode='+scode+'&sname='+sname)
                 }
             }
         })

@@ -85,13 +85,14 @@ define(function (require,exports,module) {
     })
     var icode=$(".indexCode").val()
     var scode=$(".scheme_code").val()
+    var sname=$(".scheme_name").val()
     var st = new Date().getTime();//时间戳
     console.log(icode)
 
 
     function sendPjax() {
         $.pjax({
-            url:common.rootPath+'zbdata/weightset.htm?m=editSingleWeight&icode='+icode+'&scode='+scode+'&st='+st,
+            url:common.rootPath+'zbdata/weightset.htm?m=editSingleWeight&icode='+icode+'&scode='+scode+'&sname='+sname+'&st='+st,
             container:'.J_weight_table',
             timeout:10000
         })
