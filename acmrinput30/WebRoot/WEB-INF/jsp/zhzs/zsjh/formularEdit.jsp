@@ -162,13 +162,13 @@
                                 <option value="log()" title="自然对数">Math.log</option>
                                 <option value="max([])" title="求最大值">max()</option>
                                 <option value="min([])" title="求最小值">min()</option>
-                                <option value="arg([])" title="求平均值">arg()</option>
+                                <option value="avg([])" title="求平均值">avg()</option>
                             </select>
                         </div>
                         <div class="col-sm-1">
                             <label class="control-label">数组公式：</label>
                             <select size="15" id="shuzu">
-                                <option value="getvalue()" title="取指标对应所有地区值的数组">getvalue()</option>
+                                <option value="getvalue()" title="取指标对应的数组">getvalue()</option>
                             </select>
                         </div>
                     </div>
