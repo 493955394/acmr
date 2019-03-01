@@ -4,6 +4,7 @@ import acmr.util.DataTableRow;
 import com.acmr.dao.oracle.zhzs.OraSchemeDaoImpl;
 import com.acmr.dao.zhzs.ISchemeDao;
 import com.acmr.dao.zhzs.SchemeDao;
+import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.model.zhzs.Scheme;
 
 import java.util.ArrayList;
@@ -95,6 +96,40 @@ public class IndexSchemeService {
             Scheme scheme1=new Scheme(id,code,cname,indexcode,modcode,state,ifzb,weight,formula,remark);
             schemes.add(scheme1);
         }
+        return ischemeDao.cloneSch(schemes);
+    }
+    //所有方案唯一选用
+    public List<Scheme> setOnlyStart(String icode,String schcode) {
+        List<Scheme> schemes=new ArrayList<>();
+        List<DataTableRow> rows=ischemeDao.getSch(icode,schcode);
+
+        for (DataTableRow row:rows){
+            if (!row.getString("code").equals(schcode)){
+                String id=row.getString("id");
+                String code=row.getString("code");
+                String cname=row.getString("cname");
+                String indexcode=icode;
+                String modcode=row.getString("modcode");
+                String state="0";
+                String ifzb=row.getString("ifzb");
+                String weight=row.getString("weight");
+                String formula=row.getString("formula");
+                String remark=row.getString("remark");
+                Scheme scheme=new Scheme(id,code,cname,indexcode,modcode,state,ifzb,weight,formula,remark);
+                schemes.add(scheme);
+            }
+
+        }
+        //复制权重到module表
+        List<Scheme> scheme =getSchs(icode,schcode);
+        for(int i= 0;i<scheme.size();i++){
+            String modulecode = scheme.get(i).getModcode();
+            String weight = scheme.get(i).getWeight();
+            WeightEditDao.Fator.getInstance().getIndexdatadao().weightset(modulecode,weight);
+        }
+        return schemes;
+    }
+    public int updateState(List<Scheme> schemes){
         return ischemeDao.cloneSch(schemes);
     }
 }

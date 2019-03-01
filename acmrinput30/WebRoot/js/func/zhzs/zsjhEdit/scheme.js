@@ -159,6 +159,39 @@ define(function (require,exports,module) {
 
     });
     /**
+     * 选用
+     */
+    $(document).on('click','.J_start',function(event){
+        event.preventDefault();
+        var self = this,
+            code = $(self).attr('id');
+        $.ajax({
+            url:common.rootPath+'zbdata/indexscheme.htm?m=schstart',
+            data:  {"icode": icode, "code":code},
+            type:'post',
+            dataType:'json',
+            timeout:1000,
+            success:function(data){
+                if (data.returncode == 200) {
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_scheme_table'
+                    });
+                    alert("选用成功！");
+                }else if(data.returncode == 300){
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_scheme_table'
+                    });
+                    alert("请设置方案权重");
+                }
+            }
+        });
+
+    });
+    /**
      * 编辑方案
      */
     $(document).on('submit', '.J_sch_edit', function(event) {

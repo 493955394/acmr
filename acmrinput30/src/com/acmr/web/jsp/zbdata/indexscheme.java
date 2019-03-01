@@ -93,6 +93,38 @@ public class indexscheme extends BaseAction {
         this.sendJson(data);
     }
     /**
+     * 方案选用
+     * @author wf
+     * @param
+     * @return
+     */
+    public void schstart() throws IOException {
+        JSONReturnData data = new JSONReturnData("");
+        String code = PubInfo.getString(this.getRequest().getParameter("code"));
+        String icode = PubInfo.getString(this.getRequest().getParameter("icode"));
+        List<Scheme> schemes = indexSchemeService.getSchs(icode,code);
+        for(int i=0;i<schemes.size();i++){
+            if(schemes.get(i).getWeight().equals("")){
+                data.setReturncode(300);
+                this.sendJson(data);
+                return;
+            }else{
+                data.setReturncode(200);
+            }
+        }
+
+        String state ="1";
+        Scheme scheme = new Scheme();
+        scheme.setIndexcode(icode);
+        scheme.setCode(code);
+        scheme.setState(state);
+        indexSchemeService.editSch(scheme);
+        //其他方案state设置为0（未选用）
+        List<Scheme> schemes1 = indexSchemeService.setOnlyStart(icode,code);
+        indexSchemeService.updateState(schemes1);
+        this.sendJson(data);
+    }
+    /**
      * 方案编辑
      * @author wf
      * @param
