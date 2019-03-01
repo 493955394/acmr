@@ -77,6 +77,22 @@ public class indexscheme extends BaseAction {
         this.sendJson(data);
     }
     /**
+     * 方案停用
+     * @author wf
+     * @param
+     * @return
+     */
+    public void schstop() throws IOException {
+        JSONReturnData data = new JSONReturnData("");
+        String code = PubInfo.getString(this.getRequest().getParameter("id"));
+        String state ="0";
+        Scheme scheme = new Scheme();
+        scheme.setCode(code);
+        scheme.setState(state);
+        indexSchemeService.editSch(scheme);
+        this.sendJson(data);
+    }
+    /**
      * 方案编辑
      * @author wf
      * @param

@@ -101,7 +101,7 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function(data) {
                 if (data.returncode == 200) {
-                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode;
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
                     $.pjax({
                         url: url,
                         container: '.J_zsjh_scheme_table'
@@ -131,6 +131,32 @@ define(function (require,exports,module) {
         $('input[name="schcloneicode"]').val(icode);
         $('input[name="schclonecode"]').val(code);
         $("#scheme_modal2").modal('show');
+    });
+    /**
+     * 停用
+     */
+    $(document).on('click','.J_stop',function(event){
+        event.preventDefault();
+        var self = this,
+            id = $(self).attr('id');
+        $.ajax({
+            url:common.rootPath+'zbdata/indexscheme.htm?m=schstop',
+            data: "id=" + id,
+            type:'post',
+            dataType:'json',
+            timeout:1000,
+            success:function(data){
+                if (data.returncode == 200) {
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_scheme_table'
+                    });
+                    alert("停用成功！");
+                }
+            }
+        });
+
     });
     /**
      * 编辑方案
@@ -165,7 +191,7 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function(data) {
                 if (data.returncode == 200) {
-                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode;
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
                     $.pjax({
                         url: url,
                         container: '.J_zsjh_scheme_table'
@@ -184,7 +210,7 @@ define(function (require,exports,module) {
     /**
      * 删除方案
      */
-    $(document).on('click','.J_sch_del',function(event){
+    $(document).on('click','.J_del',function(event){
         event.preventDefault();
         var self = this,
             id = $(self).attr('id');
@@ -199,7 +225,7 @@ define(function (require,exports,module) {
             timeout:1000,
             success:function(data){
                 if (data.returncode == 200) {
-                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode;
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
                     $.pjax({
                         url: url,
                         container: '.J_zsjh_scheme_table'
@@ -243,7 +269,7 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function(data) {
                 if (data.returncode == 200) {
-                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode;
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
                     $.pjax({
                         url: url,
                         container: '.J_zsjh_scheme_table'

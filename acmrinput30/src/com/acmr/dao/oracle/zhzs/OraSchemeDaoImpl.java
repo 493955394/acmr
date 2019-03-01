@@ -129,6 +129,10 @@ public class OraSchemeDaoImpl implements ISchemeDao {
             sql1+=",remark=?";
             parms.add(scheme.getRemark());
         }
+        if(scheme.getState()!=null){
+            sql1+=",state=?";
+            parms.add(scheme.getState());
+        }
         if (sql1.equals("")) {
             return 0;
         }
