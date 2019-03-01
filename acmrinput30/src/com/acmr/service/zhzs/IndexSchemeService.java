@@ -8,6 +8,7 @@ import com.acmr.model.zhzs.Scheme;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class IndexSchemeService {
     private ISchemeDao ischemeDao=SchemeDao.Fator.getInstance().getIndexdatadao();
@@ -47,5 +48,53 @@ public class IndexSchemeService {
     }
     public int addSch(Scheme scheme,List<DataTableRow> rows){
         return ischemeDao.insertSch(scheme,rows);
+    }
+    public int editSch(Scheme scheme){
+        return ischemeDao.updateSch(scheme);
+    }
+    public int delScheme(String code){
+        return ischemeDao.delSch(code);
+    }
+    public List<Scheme> getSchs(String icode,String schcode) {
+        List<Scheme> schemes=new ArrayList<>();
+        List<DataTableRow> rows=ischemeDao.getSch(icode,schcode);
+        if (rows.size()==0) return null;
+        for (DataTableRow row:rows){
+            String id=row.getString("id");
+            String code=row.getString("code");
+            String cname=row.getString("cname");
+            String indexcode=icode;
+            String modcode=row.getString("modcode");
+            String state=row.getString("state");
+            String ifzb=row.getString("ifzb");
+            String weight=row.getString("weight");
+            String formula=row.getString("formula");
+            String remark=row.getString("remark");
+            Scheme scheme=new Scheme(id,code,cname,indexcode,modcode,state,ifzb,weight,formula,remark);
+            schemes.add(scheme);
+        }
+        return schemes;
+    }
+    public int cloneSch(Scheme scheme){
+
+        String icode = scheme.getIndexcode();
+        String schcode = scheme.getCode();
+        List<DataTableRow> rows=ischemeDao.getSch(icode,schcode);
+        List<Scheme> schemes=new ArrayList<>();
+        for (DataTableRow row:rows){
+            String id=row.getString("id");
+            String code= UUID.randomUUID().toString().replace("-", "").toLowerCase();
+            String cname=scheme.getCname();
+            String indexcode=icode;
+            String modcode=row.getString("modcode");
+            String state=scheme.getState();
+            String ifzb=row.getString("ifzb");
+            String weight=row.getString("weight");
+            String formula=row.getString("formula");
+            String remark=scheme.getRemark();
+            Scheme scheme1=new Scheme(id,code,cname,indexcode,modcode,state,ifzb,weight,formula,remark);
+            schemes.add(scheme1);
+        }
+        return ischemeDao.cloneSch(schemes);
     }
 }

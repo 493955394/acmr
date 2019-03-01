@@ -446,8 +446,9 @@
     <div class="modal" id="scheme_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form class="form-horizontal J_add_scheme"  action="${ctx}/zbdata/zsjhEdit.htm?m=addscheme">
+                <form class="form-horizontal J_add_scheme"  action="${ctx}/zbdata/indexscheme.htm?m=addscheme">
                     <input type="hidden" class="form-control" name="indexcode" value="">
+                    <input type="hidden" class="form-control" name="schemecode" value="">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <h4 class="modal-title">新增方案</h4>
@@ -465,6 +466,78 @@
                             <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>备注：</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" name="showinfo" value="" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">确定</button>
+                        <button type="reset" class="btn btn-default resetcata" data-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!-- 编辑方案 -->
+    <div class="modal" id="scheme_modal1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form class="form-horizontal J_sch_edit"  action="${ctx}/zbdata/indexscheme.htm?m=editscheme">
+                    <input type="hidden" class="form-control" name="scheditcode" value="">
+                    <input type="hidden" class="form-control" name="scheidticode" value="">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">编辑方案</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>方案名称：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="scheditname" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>备注：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="remark" value="" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">确定</button>
+                        <button type="reset" class="btn btn-default resetcata" data-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!-- 克隆方案 -->
+    <div class="modal" id="scheme_modal2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form class="form-horizontal J_sch_clone"  action="${ctx}/zbdata/indexscheme.htm?m=clonescheme">
+                    <input type="hidden" class="form-control" name="schclonecode" value="">
+                    <input type="hidden" class="form-control" name="schcloneicode" value="">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">克隆方案</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>方案名称：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="schclonename" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>备注：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="newremark" value="" >
                             </div>
                         </div>
                     </div>

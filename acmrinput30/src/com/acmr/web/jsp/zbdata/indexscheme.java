@@ -53,7 +53,7 @@ public class indexscheme extends BaseAction {
         String scode = PubInfo.getString(req.getParameter("schemecode"));
         String cname = PubInfo.getString(req.getParameter("schemename"));
         String remark = PubInfo.getString(req.getParameter("showinfo"));
-        JSONReturnData data = new JSONReturnData("200");
+        JSONReturnData data = new JSONReturnData("");
         int y = indexSchemeService.checkSchname(icode,cname);
         if (y == 0) {
             data.setReturncode(300);
@@ -75,6 +75,84 @@ public class indexscheme extends BaseAction {
 
         data.setReturndata(scheme);
         this.sendJson(data);
+    }
+    /**
+     * 方案编辑
+     * @author wf
+     * @param
+     * @return
+     */
+    public void editscheme() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        String icode = PubInfo.getString(req.getParameter("schediticode"));
+        String scode = PubInfo.getString(req.getParameter("scheditcode"));
+        String cname = PubInfo.getString(req.getParameter("scheditname"));
+        String remark = PubInfo.getString(req.getParameter("remark"));
+        JSONReturnData data = new JSONReturnData("");
+        int y = indexSchemeService.checkSchname(icode,cname);
+        if (y == 0) {
+            data.setReturncode(300);
+            data.setReturndata("该名称已存在");
+            this.sendJson(data);
+            return;
+        }else {
+            data.setReturncode(200);
+        }
+        Scheme scheme = new Scheme();
+        scheme.setCode(scode);
+        scheme.setCname(cname);
+        scheme.setRemark(remark);
+        indexSchemeService.editSch(scheme);
 
+        data.setReturndata(scheme);
+        this.sendJson(data);
+    }
+    /**
+     * 方案克隆
+     * @author wf
+     * @param
+     * @return
+     */
+    public void clonescheme() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        String icode = PubInfo.getString(req.getParameter("schcloneicode"));
+        String scode = PubInfo.getString(req.getParameter("schclonecode"));
+        String cname = PubInfo.getString(req.getParameter("schclonename"));
+        String remark = PubInfo.getString(req.getParameter("newremark"));
+        JSONReturnData data = new JSONReturnData("");
+        int y = indexSchemeService.checkSchname(icode,cname);
+        if (y == 0) {
+            data.setReturncode(300);
+            data.setReturndata("该名称已存在");
+            this.sendJson(data);
+            return;
+        }else {
+            data.setReturncode(200);
+        }
+        /*List<Scheme> schemes = indexSchemeService.getSchs(icode,scode);
+        String ostate =  schemes.get(0).getState();*/
+        String state="0";
+        Scheme scheme = new Scheme();
+        scheme.setCode(scode);
+        scheme.setCname(cname);
+        scheme.setIndexcode(icode);
+        scheme.setRemark(remark);
+        scheme.setState(state);
+        indexSchemeService.cloneSch(scheme);
+
+        data.setReturndata(scheme);
+        this.sendJson(data);
+    }
+    /**
+     * 方案删除
+     * @author wf
+     * @param
+     * @return
+     */
+    public void schdelete() throws IOException {
+        JSONReturnData data = new JSONReturnData("");
+        String code = PubInfo.getString(this.getRequest().getParameter("id"));
+        indexSchemeService.delScheme(code);
+        this.sendJson(data);
     }
 }

@@ -48,10 +48,10 @@
                     <c:if test="${scheme.getState().equals('1')}">
                         <a href="javascript:;">停用</a>
                     </c:if>
-                    <a href="javascript:;">编辑</a>
-                    <a href="javascript:;">删除</a>
-                    <a href="javascript:;">克隆</a>
-                    <a href="#" class="single_weight_set" scheme_code="${scheme.getCode()}" scheme_name="${scheme.getCname()}">公式/权重设置</a>
+                    <a href="javascript:;" class="btn-margin J_edit" id="${scheme.getCode()}">编辑</a>
+                    <a href="javascript:;" class="btn-margin J_del" id="${scheme.getCode()}">删除</a>
+                    <a href="javascript:;" class="btn-margin J_clone" id="${scheme.getCode()}">克隆</a>
+                    <a href="#" class="btn-margin single_weight_set" scheme_code="${scheme.getCode()}" scheme_name="${scheme.getCname()}">公式/权重设置</a>
 
                 </td>
             </tr>
