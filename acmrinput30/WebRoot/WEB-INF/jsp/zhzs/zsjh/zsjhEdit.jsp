@@ -448,7 +448,7 @@
             <div class="modal-content">
                 <form class="form-horizontal J_add_scheme"  action="${ctx}/zbdata/indexscheme.htm?m=addscheme">
                     <input type="hidden" class="form-control" name="indexcode" value="">
-                    <input type="text" class="form-control" name="schemecode" value="">
+                    <input type="hidden" class="form-control" name="schemecode" value="">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <h4 class="modal-title">新增方案</h4>

@@ -101,9 +101,13 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function(data) {
                 if (data.returncode == 200) {
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode;
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_scheme_table'
+                    });
                     alert("保存成功！");
-                    window.location.href= common.rootPath+"zbdata/indexlist.htm?schemecode="+sch_code+"&icode="+icode;
-                    // window.location.reload(true);
+                    $("#scheme_modal").modal('hide');
                 }else if (data.returncode == 300) {
                     alert(data.returndata);
                     $("#scheme_modal").modal('show');
@@ -131,13 +135,12 @@ define(function (require,exports,module) {
             timeout:1000,
             success:function(data){
                 if (data.returncode == 200) {
-                    var url=window.location.href;
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode;
                     $.pjax({
                         url: url,
                         container: '.J_zsjh_scheme_table'
                     });
                     alert("删除成功！");
-                    refreshNode(id)
                 }
             }
         });
