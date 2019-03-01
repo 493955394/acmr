@@ -122,8 +122,9 @@ define(function (require,exports,module) {
      */
     $(document).on('submit', '.J_sch_edit', function(event) {
         event.preventDefault();
-        var code = $(self).attr('id');
+
         var self = this,
+            code = $(self).attr('id'),
             currentUrl = $(self).prop('action'),
             checkDelegate;
         checkDelegate = new VaildNormal();
@@ -157,10 +158,10 @@ define(function (require,exports,module) {
                         container: '.J_zsjh_scheme_table'
                     });
                     alert("编辑成功！");
-                    $("#scheme_modal").modal('hide');
+                    $("#scheme_modal1").modal('hide');
                 }else if (data.returncode == 300) {
                     alert(data.returndata);
-                    $("#scheme_modal").modal('show');
+                    $("#scheme_modal1").modal('show');
                 } else {
                     alert("编辑失败");
                 }
@@ -194,6 +195,57 @@ define(function (require,exports,module) {
                 }
             }
         });
+    });
+    /**
+     * 克隆方案
+     */
+    $(document).on('submit', '.J_sch_clone', function(event) {
+        event.preventDefault();
+
+        var self = this,
+            code = $(self).attr('id'),
+            currentUrl = $(self).prop('action'),
+            checkDelegate;
+        checkDelegate = new VaildNormal();
+        var flag = true;
+        if (!checkDelegate.checkNormal($('input[name="schclonename"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="schclonename"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为50', 'param': 51 }])) {
+            flag = false;
+        }
+        if (flag == false) {
+            return;
+        }
+        var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
+        var z = $('input[name="schclonename"]').val().match(namecheck);
+        if(z==null){
+            alert("名称含有不规则字符，请修改");
+            return;
+        }
+        $('input[name="schcloneicode"]').val(icode);
+        $('input[name="schclonecode"]').val(code);
+        $.ajax({
+            url: currentUrl,
+            data: $(self).serialize(),
+            type: 'post',
+            dataType: 'json',
+            timeout: 10000,
+            success: function(data) {
+                if (data.returncode == 200) {
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode;
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_scheme_table'
+                    });
+                    alert("克隆成功！");
+                    $("#scheme_modal2").modal('hide');
+                }else if (data.returncode == 300) {
+                    alert(data.returndata);
+                    $("#scheme_modal2").modal('show');
+                } else {
+                    alert("克隆失败");
+                }
+            }
+        })
     });
 
 
