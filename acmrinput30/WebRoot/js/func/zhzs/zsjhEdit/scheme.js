@@ -118,6 +118,56 @@ define(function (require,exports,module) {
         })
     });
     /**
+     * 编辑方案
+     */
+    $(document).on('submit', '.J_sch_edit', function(event) {
+        event.preventDefault();
+        var code = $(self).attr('id');
+        var self = this,
+            currentUrl = $(self).prop('action'),
+            checkDelegate;
+        checkDelegate = new VaildNormal();
+        var flag = true;
+        if (!checkDelegate.checkNormal($('input[name="scheditname"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="scheditname"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为50', 'param': 51 }])) {
+            flag = false;
+        }
+        if (flag == false) {
+            return;
+        }
+        var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
+        var z = $('input[name="scheditname"]').val().match(namecheck);
+        if(z==null){
+            alert("名称含有不规则字符，请修改");
+            return;
+        }
+        $('input[name="scheidticode"]').val(icode);
+        $('input[name="scheditcode"]').val(code);
+        $.ajax({
+            url: currentUrl,
+            data: $(self).serialize(),
+            type: 'post',
+            dataType: 'json',
+            timeout: 10000,
+            success: function(data) {
+                if (data.returncode == 200) {
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode;
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_scheme_table'
+                    });
+                    alert("编辑成功！");
+                    $("#scheme_modal").modal('hide');
+                }else if (data.returncode == 300) {
+                    alert(data.returndata);
+                    $("#scheme_modal").modal('show');
+                } else {
+                    alert("编辑失败");
+                }
+            }
+        })
+    });
+    /**
      * 删除方案
      */
     $(document).on('click','.J_sch_del',function(event){

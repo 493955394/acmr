@@ -53,7 +53,7 @@ public class indexscheme extends BaseAction {
         String scode = PubInfo.getString(req.getParameter("schemecode"));
         String cname = PubInfo.getString(req.getParameter("schemename"));
         String remark = PubInfo.getString(req.getParameter("showinfo"));
-        JSONReturnData data = new JSONReturnData("200");
+        JSONReturnData data = new JSONReturnData("");
         int y = indexSchemeService.checkSchname(icode,cname);
         if (y == 0) {
             data.setReturncode(300);
@@ -72,6 +72,37 @@ public class indexscheme extends BaseAction {
         scheme.setState(state);
         scheme.setRemark(remark);
         indexSchemeService.addSch(scheme,rows);
+
+        data.setReturndata(scheme);
+        this.sendJson(data);
+    }
+    /**
+     * 方案编辑
+     * @author wf
+     * @param
+     * @return
+     */
+    public void editscheme() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        String icode = PubInfo.getString(req.getParameter("icode"));
+        String scode = PubInfo.getString(req.getParameter("scheditcode"));
+        String cname = PubInfo.getString(req.getParameter("scheditname"));
+        String remark = PubInfo.getString(req.getParameter("remark"));
+        JSONReturnData data = new JSONReturnData("");
+        int y = indexSchemeService.checkSchname(icode,cname);
+        if (y == 0) {
+            data.setReturncode(300);
+            data.setReturndata("该名称已存在");
+            this.sendJson(data);
+            return;
+        }else {
+            data.setReturncode(200);
+        }
+        Scheme scheme = new Scheme();
+        scheme.setCode(scode);
+        scheme.setCname(cname);
+        scheme.setRemark(remark);
+        indexSchemeService.editSch(scheme);
 
         data.setReturndata(scheme);
         this.sendJson(data);

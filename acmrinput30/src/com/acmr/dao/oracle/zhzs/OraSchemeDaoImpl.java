@@ -113,4 +113,27 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         return AcmrInputDPFactor.getQuickQuery().executeSql(sbf.toString(), params.toArray());
 
     }
+    @Override
+    public int updateSch(Scheme scheme) {
+        String sql1 = "";
+        List<Object> parms = new ArrayList<Object>();
+        if(scheme.getCode()!=null){
+            sql1+=",code=?";
+            parms.add(scheme.getCode());
+        }
+        if (scheme.getCname() != null) {
+            sql1 += ",cname=?";
+            parms.add(scheme.getCname());
+        }
+        if(scheme.getRemark()!=null){
+            sql1+=",remark=?";
+            parms.add(scheme.getRemark());
+        }
+        if (sql1.equals("")) {
+            return 0;
+        }
+        sql1 = "update tb_coindex_scheme set " + sql1.substring(1) + " where code=?";
+        parms.add(scheme.getCode());
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, parms.toArray());
+    }
 }

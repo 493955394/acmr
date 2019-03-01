@@ -14,4 +14,5 @@ public interface ISchemeDao {
     public int checkCname(String icode,String cname);
     public int insertSch(Scheme scheme, List<DataTableRow> rows);
     public int delSch(String icode);
+    public int updateSch(Scheme scheme);
 }
