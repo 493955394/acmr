@@ -42,4 +42,10 @@ public class IndexSchemeService {
     public String getModSchemeWeight(String scode,String modcode){
         return ischemeDao.getModSchemeWeight(scode,modcode);
     }
+    public int checkSchname(String icode,String cname){
+        return ischemeDao.checkCname(icode,cname);
+    }
+    public int addSch(Scheme scheme,List<DataTableRow> rows){
+        return ischemeDao.insertSch(scheme,rows);
+    }
 }

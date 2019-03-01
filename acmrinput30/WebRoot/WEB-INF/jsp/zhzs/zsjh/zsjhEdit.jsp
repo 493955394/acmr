@@ -422,7 +422,7 @@
                         <div id="scheme_main_container">
                             <div id="scheme_select_button">
                                 <button class="btn btn-default btn-sm" id="set_scheme_weight_formula">公式/权重设置</button>
-                                <button class="btn btn-default btn-sm" id="add_scheme">新增方案</button>
+                                <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#scheme_modal" id="add_scheme">新增方案</button>
                                 <input  type="hidden" id="scheme_timeinput"/>
                                 <input type="hidden" id="scheme_timeval" value="">
                                 <div id="scheme_time_select" style="margin-bottom: 10px;"></div>
@@ -437,6 +437,43 @@
             </div>
         </div>
         <div class="col-sm-12 savediv" style="text-align:center;padding: 10px 0;">
+
+        </div>
+    </div>
+    zsjuEdit.jsp
+
+    <!-- 新增方案 -->
+    <div class="modal" id="scheme_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form class="form-horizontal J_add_scheme"  action="${ctx}/zbdata/zsjhEdit.htm?m=addscheme">
+                    <input type="hidden" class="form-control" name="indexcode" value="">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">新增方案</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>方案名称：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="schemename" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>备注：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="showinfo" value="" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">确定</button>
+                        <button type="reset" class="btn btn-default resetcata" data-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
 
         </div>
     </div>

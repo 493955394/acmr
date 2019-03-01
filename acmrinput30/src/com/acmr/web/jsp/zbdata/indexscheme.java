@@ -1,8 +1,12 @@
 package com.acmr.web.jsp.zbdata;
 
+import acmr.util.DataTableRow;
+import acmr.util.PubInfo;
 import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
+import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.helper.util.StringUtil;
+import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.zhzs.Scheme;
 import com.acmr.service.zhzs.IndexSchemeService;
 
@@ -35,5 +39,42 @@ public class indexscheme extends BaseAction {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/schemeTable").addObject("schemes",schemes);
         }
         return null;
+    }
+    /**
+     * 方案新增
+     * @author wf
+     * @param
+     * @return
+     */
+    public void addscheme() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        String icode = PubInfo.getString(req.getParameter("indexcode"));
+        //String indexcode = PubInfo.getString(req.getParameter("icode"));
+        String scode = PubInfo.getString(req.getParameter("schemecode"));
+        String cname = PubInfo.getString(req.getParameter("schemename"));
+        String remark = PubInfo.getString(req.getParameter("showinfo"));
+        JSONReturnData data = new JSONReturnData("200");
+        int y = indexSchemeService.checkSchname(icode,cname);
+        if (y == 0) {
+            data.setReturncode(300);
+            data.setReturndata("该名称已存在");
+            this.sendJson(data);
+            return;
+        }else {
+            data.setReturncode(200);
+        }
+        List<DataTableRow> rows = WeightEditDao.Fator.getInstance().getIndexdatadao().getModsbyIcode(icode).getRows();
+        String state = "0";
+        Scheme scheme = new Scheme();
+        scheme.setCode(scode);
+        scheme.setCname(cname);
+        scheme.setIndexcode(icode);
+        scheme.setState(state);
+        scheme.setRemark(remark);
+        indexSchemeService.addSch(scheme,rows);
+
+        data.setReturndata(scheme);
+        this.sendJson(data);
+
     }
 }

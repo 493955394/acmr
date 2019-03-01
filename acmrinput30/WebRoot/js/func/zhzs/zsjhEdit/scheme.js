@@ -1,6 +1,11 @@
 define(function (require,exports,module) {
+    'use strict';
     var $ = require('jquery'),
-        pjax=require('pjax')
+        pjax=require('pjax'),
+        VaildNormal = require('vaildnormal'),
+        common = require('common'),
+        dropdown = require('dropdown'),
+        modal = require('modal'),
         common = require('common');
 
 
@@ -47,5 +52,65 @@ define(function (require,exports,module) {
             }
         })
     }
+    /**
+     * 新增方案
+     */
+    $(document).on('submit', '.J_add_scheme', function(event) {
+        event.preventDefault();
+        $('input[name="indexcode"]').val(icode);
+        var self = this,
+            currentUrl = $(self).prop('action'),
+            checkDelegate;
+        checkDelegate = new VaildNormal();
+        var flag = true;
+        if (!checkDelegate.checkNormal($('input[name="schemename"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
+            !checkDelegate.checkNormal($('input[name="schemename"]'), [{ 'name': 'maxlength', 'msg': '名称最大长度为50', 'param': 51 }])) {
+            flag = false;
+        }
+        if (flag == false) {
+            return;
+        }
+        var namecheck = /^[0-9a-zA-z-_\u4e00-\u9fa5]+$/;
+        var z = $('input[name="schemename"]').val().match(namecheck);
+        if(z==null){
+            alert("名称含有不规则字符，请修改");
+            return;
+        }
+        var sch_code="";
+        function get_uuid(){
+            var s = [];
+            var hexDigits = "0123456789abcdef";
+            for (var i = 0; i < 36; i++) {
+                s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+            }
+            s[14] = "4";
+            s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+            s[8] = s[13] = s[18] = s[23] = "-";
+
+            var uuid = s.join("");
+            sch_code= uuid;
+        }
+        get_uuid();
+        console.log(sch_code)
+        $.ajax({
+            url: currentUrl,
+            data: $(self).serialize(),
+            type: 'post',
+            dataType: 'json',
+            timeout: 10000,
+            success: function(data) {
+                if (data.returncode == 200) {
+                    alert("保存成功！");
+                    window.location.href= common.rootPath+"zbdata/indexlist.htm?schemecode="+sch_code+"&icode="+icode;
+                    // window.location.reload(true);
+                }else if (data.returncode == 300) {
+                    alert(data.returndata);
+                    $("#scheme_modal").modal('show');
+                } else {
+                    alert("添加失败");
+                }
+            }
+        })
+    });
 
 })
