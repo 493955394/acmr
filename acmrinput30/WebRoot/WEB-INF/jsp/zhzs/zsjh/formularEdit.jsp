@@ -30,7 +30,7 @@
         <div>
             <span class="col-sm-offset-2 col-sm-3" style="font-size: 20px;color: #F39801;text-align: center;margin-top: 5px">-------------基本信息-------------</span><br>
             <div class="panel-body">
-                <form class="form-horizontal J_addZS_form" action="${ctx}/zbdata/zsjhedit.htm?m=toUpdateZS">
+                <form class="form-horizontal J_addZS_form" action="${ctx}/zbdata/zsjhedit.htm?m=toSaveFormular">
                     <input type="hidden" name="icode" value="${icode}" class="input-small"/>
                     <input type="hidden" id="ifzs" value="${data.getIfzs()}" class="input-small"/>
                     <div class="form-group" style="display: none">
@@ -163,14 +163,12 @@
                                 <option value="max([])" title="求最大值">max()</option>
                                 <option value="min([])" title="求最小值">min()</option>
                                 <option value="arg([])" title="求平均值">arg()</option>
-                                <option value="gettimevalue([])" title="取指标对应前时间值的数值">gettimevalue()</option>
                             </select>
                         </div>
                         <div class="col-sm-1">
                             <label class="control-label">数组公式：</label>
                             <select size="15" id="shuzu">
-                                <option value="allareavalue()" title="取指标对应所有地区值的数组">allareavalue()</option>
-                                <option value="alltimevalue()" title="取指标对应所有时间值的数组">alltimevalue()</option>
+                                <option value="getvalue()" title="取指标对应所有地区值的数组">getvalue()</option>
                             </select>
                         </div>
                     </div>

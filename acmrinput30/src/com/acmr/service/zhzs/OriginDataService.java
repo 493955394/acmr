@@ -1,5 +1,6 @@
 package com.acmr.service.zhzs;
 
+import acmr.cubequery.service.cubequery.entity.CubeNode;
 import acmr.math.CalculateExpression;
 import acmr.math.entity.MathException;
 import acmr.util.DataTable;
@@ -12,10 +13,13 @@ import com.acmr.model.zhzs.Data;
 import com.acmr.model.zhzs.DataResult;
 import com.acmr.model.zhzs.TaskModule;
 import com.acmr.model.zhzs.TaskZb;
+import com.acmr.service.zbdata.OriginService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class OriginDataService {
     //这个表是做计算的,和指数计算有关的功能都在这
@@ -375,4 +379,79 @@ public class OriginDataService {
      * 通过taskcode和orcode去找是否有模型节点，有的话返回模型节点的code,用于查上期值
      */
     public String findoldmod(String taskcode,String orcode){return DataDao.Fator.getInstance().getIndexdatadao().findModCode(taskcode,orcode);}
+
+    /**
+     * 校验时计算那几个特殊的自定义函数
+     */
+    public String specialMath(String formulatext,String dbcode){
+        //存在getvalue函数
+        String regex = "getvalue\\((.*?)\\)";
+        List<String> list = new ArrayList<String>();
+        Pattern pattern = Pattern.compile(regex);
+        Matcher m = pattern.matcher(formulatext);
+        while (m.find()) {
+            int i = 1;
+            list.add(m.group(i));
+            i++;
+        }
+        for (int i = 0; i <list.size() ; i++) {
+            String result = getvalueMath(list.get(i),dbcode);
+            if(result!="[]")
+            {formulatext = formulatext.replace("getvalue("+list.get(i)+")",result);}
+            else{break;}
+        }
+        return formulatext;
+    }
+
+    public String getvalueMath(String orgStr,String dbcode){
+        String data = "";
+        OriginService os = new OriginService();
+        List<CubeNode> tmp = os.getwdsubnodes("sj",orgStr,dbcode);
+        for (int i = 0; i <tmp.size() ; i++) {
+            data +=","+tmp.get(i).getCode();
+            data =  data.substring(1);
+        }
+        return data;
+    }
+
+    public static void main(String[] args) {
+        String formulatext = "gettimevalue(test,l,a)";
+        String regex = "gettimevalue\\((.*?)\\)";
+        List<String> list = new ArrayList<String>();
+        Pattern pattern = Pattern.compile(regex);
+        Matcher m = pattern.matcher(formulatext);
+        while (m.find()) {
+            int i = 1;
+            list.add(m.group(i));
+            i++;
+        }
+        for (String str : list) {
+            int index = str.indexOf(",");
+            if(index<=0)break;
+            String code = str.substring(0,index);
+            String wd = str.substring(index+1);
+            System.out.println(code);
+            System.out.println(wd);
+
+        }
+        //存在allareavalue函数
+        String regex1 = "allareavalue\\((.*?)\\)";
+        List<String> list1 = new ArrayList<String>();
+        Pattern pattern1 = Pattern.compile(regex1);
+        Matcher m1 = pattern1.matcher(formulatext);
+        while (m1.find()) {
+            int i = 1;
+            list1.add(m1.group(i));
+            i++;
+        }
+        for (String str : list1) {
+            int index = str.indexOf(",");
+            if(index<=0)break;
+            String code = str.substring(0,index);
+            String wd = str.substring(index+1);
+            System.out.println(code);
+            System.out.println(wd);
+        }
+    }
+
 }

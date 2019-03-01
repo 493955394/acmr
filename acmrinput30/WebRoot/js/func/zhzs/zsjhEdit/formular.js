@@ -89,7 +89,7 @@ define(function (require,exports,module) {
             dataType: 'json',
             timeout: 10000,
             success: function(data) {
-                if (data.returncode == 200) {
+             /*  if (data.returncode == 200) {
                     alert("保存成功");
                     window.close();
                 }
@@ -101,7 +101,7 @@ define(function (require,exports,module) {
                 }
                 else if(data.returncode == 400){
                     alert("该指标已被删除");
-                }
+                }*/
             },
             error: function() {
                 common.commonTips('更新失败');
@@ -129,11 +129,27 @@ define(function (require,exports,module) {
         }
     })
     /**
+     * 选择框清空
+     */
+
+    $("#hanshu").click(function () {
+        $('#shuzu').find("option").each(function() {
+            $(this).removeAttr("selected");
+        });
+    })
+
+    $("#shuzu").click(function () {
+        $('#hanshu').find("option").each(function() {
+            $(this).removeAttr("selected");
+        });
+    })
+    /**
      * 函数的添加
      */
     $("#add_hanshu").click(function () {
         $("#hanshu").val();//获取当前选择项的值.
         var options=$("#hanshu option:selected");//获取当前选择项
+        if(options.text()=="") options = $("#shuzu option:selected");//获取当前选择项
         if(options.text()){
             var str = options.val();//获取当前选择项的值
             var text = options.text();//获取当前选择项的文本
