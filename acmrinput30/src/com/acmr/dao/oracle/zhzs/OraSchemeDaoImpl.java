@@ -46,7 +46,7 @@ public class OraSchemeDaoImpl implements ISchemeDao {
     }
     @Override
     public int checkCname(String icode, String cname) {
-        String sql = "select count(*) from tb_coindex_scheme where icode=? and cname =?";
+        String sql = "select count(*) from tb_coindex_scheme where indexcode=? and cname =?";
         List<Object> params = new ArrayList<Object>();
         params.add(icode);
         params.add(cname);
@@ -66,19 +66,27 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         try {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
+            String sql1 = "insert into tb_coindex_scheme (code,cname,indexcode,modcode,state,remark) values(?,?,?,?,?,?)";
             for (int i = 0; i < rows.size(); i++) {
-                String code = scheme.getCode();
+
+                /*String code = scheme.getCode();
                 String cname = scheme.getCname();
                 String icode = scheme.getIndexcode();
-                String modcode = rows.get(i).getString("modcode");
+                String modcode = rows.get(i).getString("code");
                 String state = scheme.getState();
                 String remark = scheme.getRemark();
-                String sql1 = "insert into tb_coindex_scheme (code,cname,indexcode,modcode,state.remark) values(?,?,?,?,?,?)";
+                dataQuery.executeSql(sql1, new Object[]{code, cname, icode, modcode, state, remark});*/
+                List<Object> params = new ArrayList<Object>();
+                params.add(scheme.getCode());
+                params.add(scheme.getCname());
+                params.add(scheme.getIndexcode());
+                params.add(rows.get(i).getString("code"));
+                params.add(scheme.getState());
+                params.add(scheme.getRemark());
+                dataQuery.executeSql(sql1, params.toArray());
 
-                dataQuery.executeSql(sql1, new Object[]{code, cname, icode, modcode, state, remark});
-
-                dataQuery.commit();
             }
+            dataQuery.commit();
 
         } catch (SQLException e) {
             if (dataQuery != null) {

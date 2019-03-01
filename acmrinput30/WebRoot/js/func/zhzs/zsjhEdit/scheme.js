@@ -13,7 +13,6 @@ define(function (require,exports,module) {
     var icode=$("#index_code").attr("value");
     var st = new Date().getTime();//时间戳
 
-
     $(document).ready(function () {
         //请求方案列表
         sendPjax();
@@ -61,6 +60,7 @@ define(function (require,exports,module) {
         var self = this,
             currentUrl = $(self).prop('action'),
             checkDelegate;
+        console.log(currentUrl)
         checkDelegate = new VaildNormal();
         var flag = true;
         if (!checkDelegate.checkNormal($('input[name="schemename"]'), [{ 'name': 'required', 'msg': '名称不能为空' }]) ||
@@ -89,6 +89,7 @@ define(function (require,exports,module) {
 
             var uuid = s.join("");
             sch_code= uuid;
+            $('input[name="schemecode"]').val(sch_code);
         }
         get_uuid();
         console.log(sch_code)
