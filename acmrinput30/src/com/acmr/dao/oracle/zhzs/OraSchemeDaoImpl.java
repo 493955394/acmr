@@ -140,7 +140,7 @@ public class OraSchemeDaoImpl implements ISchemeDao {
     @Override
     public List<DataTableRow> getSch(String icode,String code) {
         String sql="select * from tb_coindex_scheme where indexcode=? and code=?";
-        List<DataTableRow> rows=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode}).getRows();
+        List<DataTableRow> rows=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode,code}).getRows();
         return rows;
     }
     @Override

@@ -91,7 +91,7 @@ public class IndexSchemeService {
             String ifzb=row.getString("ifzb");
             String weight=row.getString("weight");
             String formula=row.getString("formula");
-            String remark=row.getString("remark");
+            String remark=scheme.getRemark();
             Scheme scheme1=new Scheme(id,code,cname,indexcode,modcode,state,ifzb,weight,formula,remark);
             schemes.add(scheme1);
         }

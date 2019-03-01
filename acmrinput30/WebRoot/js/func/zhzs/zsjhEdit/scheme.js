@@ -117,6 +117,21 @@ define(function (require,exports,module) {
             }
         })
     });
+    $(document).on('click','.J_edit',function (event) {
+
+        event.preventDefault();
+        var code =$(this).attr('id');
+        $('input[name="scheidticode"]').val(icode);
+        $('input[name="scheditcode"]').val(code);
+        $("#scheme_modal1").modal('show');
+    });
+    $(document).on('click','.J_clone',function (event) {
+        event.preventDefault();
+        var code =$(this).attr('id');
+        $('input[name="schcloneicode"]').val(icode);
+        $('input[name="schclonecode"]').val(code);
+        $("#scheme_modal2").modal('show');
+    });
     /**
      * 编辑方案
      */
@@ -124,7 +139,6 @@ define(function (require,exports,module) {
         event.preventDefault();
 
         var self = this,
-            code = $(self).attr('id'),
             currentUrl = $(self).prop('action'),
             checkDelegate;
         checkDelegate = new VaildNormal();
@@ -142,8 +156,7 @@ define(function (require,exports,module) {
             alert("名称含有不规则字符，请修改");
             return;
         }
-        $('input[name="scheidticode"]').val(icode);
-        $('input[name="scheditcode"]').val(code);
+
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),
@@ -195,6 +208,7 @@ define(function (require,exports,module) {
                 }
             }
         });
+
     });
     /**
      * 克隆方案
@@ -203,7 +217,6 @@ define(function (require,exports,module) {
         event.preventDefault();
 
         var self = this,
-            code = $(self).attr('id'),
             currentUrl = $(self).prop('action'),
             checkDelegate;
         checkDelegate = new VaildNormal();
@@ -221,8 +234,7 @@ define(function (require,exports,module) {
             alert("名称含有不规则字符，请修改");
             return;
         }
-        $('input[name="schcloneicode"]').val(icode);
-        $('input[name="schclonecode"]').val(code);
+
         $.ajax({
             url: currentUrl,
             data: $(self).serialize(),
@@ -246,6 +258,7 @@ define(function (require,exports,module) {
                 }
             }
         })
+
     });
 
 
