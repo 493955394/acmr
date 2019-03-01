@@ -102,4 +102,15 @@ public class OraSchemeDaoImpl implements ISchemeDao {
 
         return 0;
     }
+    @Override
+    public int delSch(String code)  {
+        StringBuffer sbf = new StringBuffer();
+        List<Object> params = new ArrayList<Object>();
+        sbf.append("delete from tb_coindex_scheme t where t.code = ? ");
+        params.add(code);
+
+
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sbf.toString(), params.toArray());
+
+    }
 }

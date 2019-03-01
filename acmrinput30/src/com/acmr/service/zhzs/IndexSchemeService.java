@@ -48,4 +48,7 @@ public class IndexSchemeService {
     public int addSch(Scheme scheme,List<DataTableRow> rows){
         return ischemeDao.insertSch(scheme,rows);
     }
+    public int delScheme(String code){
+        return ischemeDao.delSch(code);
+    }
 }

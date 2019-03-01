@@ -113,5 +113,35 @@ define(function (require,exports,module) {
             }
         })
     });
+    /**
+     * 删除方案
+     */
+    $(document).on('click','.J_sch_del',function(event){
+        event.preventDefault();
+        var self = this,
+            id = $(self).attr('id');
+        if(!confirm("确定要删除选中记录吗？")){
+            return;
+        }
+        $.ajax({
+            url:common.rootPath+'zbdata/indexscheme.htm?m=schdelete',
+            data: "id=" + id,
+            type:'post',
+            dataType:'json',
+            timeout:1000,
+            success:function(data){
+                if (data.returncode == 200) {
+                    var url=window.location.href;
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_scheme_table'
+                    });
+                    alert("删除成功！");
+                    refreshNode(id)
+                }
+            }
+        });
+    });
+
 
 })

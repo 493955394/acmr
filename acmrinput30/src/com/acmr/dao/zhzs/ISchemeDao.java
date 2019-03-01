@@ -13,4 +13,5 @@ public interface ISchemeDao {
     public String getModSchemeWeight(String scode,String modcode);
     public int checkCname(String icode,String cname);
     public int insertSch(Scheme scheme, List<DataTableRow> rows);
+    public int delSch(String icode);
 }

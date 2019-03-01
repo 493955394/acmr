@@ -75,6 +75,17 @@ public class indexscheme extends BaseAction {
 
         data.setReturndata(scheme);
         this.sendJson(data);
-
+    }
+    /**
+     * 方案删除
+     * @author wf
+     * @param
+     * @return
+     */
+    public void schdelete() throws IOException {
+        JSONReturnData data = new JSONReturnData("");
+        String code = PubInfo.getString(this.getRequest().getParameter("id"));
+        indexSchemeService.delScheme(code);
+        this.sendJson(data);
     }
 }

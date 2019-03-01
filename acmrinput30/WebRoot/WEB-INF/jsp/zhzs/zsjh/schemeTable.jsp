@@ -49,7 +49,7 @@
                         <a href="javascript:;">停用</a>
                     </c:if>
                     <a href="javascript:;">编辑</a>
-                    <a href="javascript:;">删除</a>
+                    <a href="javascript:;" class="btn-margin J_sch_del" id="${scheme.getCode}">删除</a>
                     <a href="javascript:;">克隆</a>
                     <a href="#" class="single_weight_set" scheme_code="${scheme.getCode()}" scheme_name="${scheme.getCname()}">公式/权重设置</a>
 
