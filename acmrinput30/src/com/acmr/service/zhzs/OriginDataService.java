@@ -1,6 +1,9 @@
 package com.acmr.service.zhzs;
 
 import acmr.cubequery.service.cubequery.entity.CubeNode;
+import acmr.cubequery.service.cubequery.entity.CubeQueryData;
+import acmr.cubequery.service.cubequery.entity.CubeWdCodes;
+import acmr.cubequery.service.cubequery.entity.CubeWdValue;
 import acmr.math.CalculateExpression;
 import acmr.math.entity.MathException;
 import acmr.util.DataTable;
@@ -9,12 +12,12 @@ import acmr.util.PubInfo;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.DataDao;
 import com.acmr.model.taskindex.TaskIndex;
-import com.acmr.model.zhzs.Data;
-import com.acmr.model.zhzs.DataResult;
-import com.acmr.model.zhzs.TaskModule;
-import com.acmr.model.zhzs.TaskZb;
+import com.acmr.model.zhzs.*;
 import com.acmr.service.zbdata.OriginService;
+import com.acmr.service.zbdata.RegdataService;
+import org.apache.commons.lang.StringUtils;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -383,7 +386,7 @@ public class OriginDataService {
     /**
      * 校验时计算那几个特殊的自定义函数
      */
-    public String specialMath(String formulatext,String dbcode){
+    public String specialMath(String formulatext,String dbcode,String icode){
         //存在getvalue函数
         String regex = "getvalue\\((.*?)\\)";
         List<String> list = new ArrayList<String>();
@@ -395,7 +398,7 @@ public class OriginDataService {
             i++;
         }
         for (int i = 0; i <list.size() ; i++) {
-            String result = getvalueMath(list.get(i),dbcode);
+            String result = getvalueMath(list.get(i),dbcode,icode);
             if(result!="[]")
             {formulatext = formulatext.replace("getvalue("+list.get(i)+")",result);}
             else{break;}
@@ -403,14 +406,85 @@ public class OriginDataService {
         return formulatext;
     }
 
-    public String getvalueMath(String orgStr,String dbcode){
+    public String getvalueMath(String orgStr,String dbcode,String icode) {
         String data = "";
         OriginService os = new OriginService();
-        List<CubeNode> tmp = os.getwdsubnodes("sj",orgStr,dbcode);
-        for (int i = 0; i <tmp.size() ; i++) {
-            data +=","+tmp.get(i).getCode();
-            data =  data.substring(1);
-        }
+        int index = orgStr.indexOf(",");
+        if (index <= 0) return data;
+        String code = orgStr.substring(0, index);
+        String wd = orgStr.substring(index + 1);
+        IndexEditService is = new IndexEditService();
+        IndexZb zb = is.getZBData(code);
+        System.out.println(code);
+        System.out.println(wd);
+   if(StringUtils.countMatches(orgStr,",")>=2) {//如果全是指标
+       String [] modcode = orgStr.split(",");
+   }else{
+       if (wd.equals("dq")) {//如果后边填的是地区,找这个指标所有有数的地区
+           String[] reg = null;
+           List<CubeWdValue> list1 = new ArrayList<CubeWdValue>();
+           list1.add(new CubeWdValue("zb",
+                   zb.getZbcode()));
+           list1.add(new CubeWdValue("co", zb.getCompany()));
+           list1.add(new CubeWdValue("ds", zb.getDatasource()));
+           List<String> nodes = os.gethasdatawdlist(list1, "reg", dbcode);
+           for (int i = 0; i < nodes.size(); i++) {
+               reg[i] = nodes.get(i);
+           }
+           List<CubeNode> sjtmp = os.getwdsubnodes("sj", "last1", dbcode);
+           String[] sj = {sjtmp.get(0).getCode()};//取当期的时间
+           if (reg != null) data = findData(dbcode, zb, sj, reg);
+       } else if (wd.equals("begintime")) {
+           String[] reg = zb.getRegions().split(",");
+           String[] sj = null;
+           String begintime = new IndexListService().getData(icode).getStartperiod();
+           if (!begintime.equals("")) {
+               List<CubeNode> sjtmp = os.getwdsubnodes("sj", begintime + "-", dbcode);
+               for (int i = 0; i < sjtmp.size(); i++) {
+                   sj[i] = sjtmp.get(i).getCode();
+               }
+               if (sj != null) data = findData(dbcode, zb, sj, reg);
+           }
+       } else {
+           String[] reg = zb.getRegions().split(",");
+           String[] sj = null;
+           String begintime = new IndexListService().getData(icode).getStartperiod();
+           if (!begintime.equals("")) {
+               List<CubeNode> sjtmp = os.getwdsubnodes("sj", wd, dbcode);
+               for (int i = 0; i < sjtmp.size(); i++) {
+                   sj[i] = sjtmp.get(i).getCode();
+               }
+               if (sj != null) data = findData(dbcode, zb, sj, reg);
+           }
+       }
+   }
+        if(data!="") data = data.substring(1);
+        return data;
+    }
+
+    public String findData(String dbcode,IndexZb zb,String[] sj,String[] reg){
+        String data = "";
+        OriginService os = new OriginService();
+            String funit = os.getwdnode("zb", zb.getZbcode(), dbcode).getUnitcode();
+            for (int i = 0; i < sj.length; i++) {
+                BigDecimal rate = new BigDecimal(os.getRate(funit, zb.getUnitcode(), sj[i]));
+                CubeWdCodes where = new CubeWdCodes();
+                where.Add("zb", zb.getZbcode());
+                where.Add("ds", zb.getDatasource());
+                where.Add("co", zb.getCompany());
+                where.Add("reg", Arrays.asList(reg));
+                where.Add("sj", sj[i]);
+                ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode, where);
+                if (result.size() == 0) {
+                } else {
+                    for (int l = 0; l < result.size(); l++) {
+                        if (!result.get(l).getData().toString().equals("")) {
+                            BigDecimal resulttemp = (new BigDecimal(result.get(l).getData().getStrdata())).multiply(rate);
+                            data += "," + resulttemp;
+                        }
+                    }
+                }
+            }
         return data;
     }
 
@@ -453,5 +527,4 @@ public class OriginDataService {
             System.out.println(wd);
         }
     }
-
 }

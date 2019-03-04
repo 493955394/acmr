@@ -2711,7 +2711,7 @@ public class zsjhedit extends BaseAction {
             //用于校验，先把公式校验一遍
             formulatext = changeFormula(formulatext,indexCode,"NTC");
             OriginDataService originDataService = new OriginDataService();
-            formulatext = originDataService.specialMath(formulatext,dbcode);
+            formulatext = originDataService.specialMath(formulatext,dbcode,indexCode);
             if(checkFormula(formulatext,indexCode)){
                 indexMoudle.setFormula(formulatext);
             }else {
