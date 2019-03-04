@@ -3,8 +3,10 @@ package com.acmr.service.zhzs;
 import acmr.util.DataTableRow;
 import com.acmr.dao.oracle.zhzs.OraSchemeDaoImpl;
 import com.acmr.dao.zhzs.ISchemeDao;
+import com.acmr.dao.zhzs.IndexEditDao;
 import com.acmr.dao.zhzs.SchemeDao;
 import com.acmr.dao.zhzs.WeightEditDao;
+import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.model.zhzs.Scheme;
 
 import java.util.*;
@@ -139,5 +141,31 @@ public class IndexSchemeService {
             String weight=entry.getValue();
             ischemeDao.setWeight(scode,modcode,weight);
         }
+    }
+
+    /**
+     * 查询单个方案下某节点的公式
+     * @param modcode
+     * @param icode
+     * @param scode
+     * @return
+     */
+    public IndexMoudle getModData(String modcode, String icode, String scode){
+        IndexMoudle mod=new IndexMoudle();
+        List<DataTableRow> scheme = SchemeDao.Fator.getInstance().getIndexdatadao().getScMod(modcode,icode,scode).getRows();
+        List<DataTableRow> info = IndexEditDao.Fator.getInstance().getIndexdatadao().getDataByCode(icode).getRows();
+        if(scheme.size()>0&&info.size()>0) {
+            mod.setCname(info.get(0).getString("cname"));
+            mod.setCode(modcode);
+            mod.setDacimal(info.get(0).getString("dacimal"));
+            mod.setFormula(scheme.get(0).getString("formula"));//替换公式和权重
+            mod.setIfzb(info.get(0).getString("ifzb"));
+            mod.setIfzs(info.get(0).getString("ifzs"));
+            mod.setIndexcode(info.get(0).getString("indexcode"));
+            mod.setProcode(info.get(0).getString("procode"));
+            mod.setSortcode(info.get(0).getString("sortcode"));
+            mod.setWeight(scheme.get(0).getString("weight"));//替换公式和权重
+        }
+        return  mod;
     }
 }

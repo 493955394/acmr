@@ -2630,18 +2630,19 @@ public class zsjhedit extends BaseAction {
         String scode = req.getParameter("scode");
         IndexEditService indexEditService = new IndexEditService();
         IndexMoudle getdata = indexEditService.getData(code);
+        IndexMoudle scheme_info = new IndexSchemeService().getModData(code,indexCode,scode);
         String procode = getdata.getProcode();
         String proname =null;
         if(procode!= null && procode!=""){//处理为空的步骤
             IndexMoudle list1 =indexEditService.getData(procode);
             proname = list1.getCname();
         }
-
+        getdata.setWeight(scheme_info.getWeight());//替换权重
        /* String procodeId =getdata.getProcode() ;
         String proname = indexEditService.getData(procodeId,indexCode).getCname();*/
         //要是是自定义公式，读取的时候要换成对应的名字
         if (getdata.getIfzb().equals("0")){
-            String formula = getdata.getFormula();
+            String formula = scheme_info.getFormula();
             getdata.setFormula(changeFormula(formula,indexCode,"CTN"));
         }
         //筛选指标信息

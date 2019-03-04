@@ -454,12 +454,11 @@ public class IndexEditService {
                     String temp = "#"+zbchoose.get(j).get("code").toString()+"#";
                     arr = arr.replace(temp,"");//有指标的话就删掉
                 }
-                arr = arr.replace("dq","");//删掉
-                arr = arr.replace("begintime","");//删掉
                 if(arr.equals("")){str=str.replace("getvalue("+arr+")","2.0,2.0");}//要是符合条件就给换成数组
                 else {
                     int index = arr.indexOf(",");
                     String wd = arr.substring(index+1);
+                    if(wd.equals("dq")||wd.equals("begintime")) str=str.replace("getvalue(,"+arr+")","2.0,2.0");
                     OriginService os = new OriginService();
                    try {
                        List<CubeNode> sj = os.getwdsubnodes("sj", wd, dbcode);
