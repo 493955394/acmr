@@ -122,7 +122,6 @@ public class IndexSchemeService {
             }
 
         }
-
         return schemes;
     }
     public int copyWeightFormula(String icode,String schcode){

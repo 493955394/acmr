@@ -121,6 +121,7 @@ public class indexscheme extends BaseAction {
         indexSchemeService.editSch(scheme);
         //其他方案state设置为0（未选用）
         List<Scheme> schemes1 = indexSchemeService.setOnlyStart(icode,code);
+        indexSchemeService.copyWeightFormula(icode,code);
         indexSchemeService.updateState(schemes1);
         this.sendJson(data);
     }
