@@ -94,7 +94,7 @@
     //和父节点同行
     if (flag==rows){
         $("#"+"${module.getProcode()}").after(
-            "<td>${module.getCname()}</td><td id=${module.getCode()}><input pcode='${module.getProcode()}'  placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'>公式：<input value='${module.getFormula()}' readonly>    <a href='#'>编辑</a></td>"
+            "<td>${module.getCname()}</td><td id=${module.getCode()}><input pcode='${module.getProcode()}'  placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'>公式：<input value='${module.getFormula()}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}'>编辑</a></td>"
         )
 
         $("#"+"${module.getProcode()}").attr("flag",flag-${module.ZBnums()})
@@ -103,7 +103,7 @@
     else {
         //$("#"+"${module.getProcode()}").parent().nextAll(":eq(1)").append("<td>test</td>")
         $("#"+"${module.getProcode()}").parent().nextAll(":eq(" +
-            (rows-flag-1)+")").append("<td>${module.getCname()}</td><td id=${module.getCode()} ><input pcode='${module.getProcode()}'   placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'>公式：<input value='${module.getFormula()}' readonly>    <a href='#'>编辑</a></td>")
+            (rows-flag-1)+")").append("<td>${module.getCname()}</td><td id=${module.getCode()} ><input pcode='${module.getProcode()}'   placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'>公式：<input value='${module.getFormula()}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}'>编辑</a></td>")
         $("#"+"${module.getProcode()}").attr("flag",flag-1)
     }
     </c:if>

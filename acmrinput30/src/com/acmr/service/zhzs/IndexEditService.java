@@ -1,5 +1,6 @@
 package com.acmr.service.zhzs;
 
+import acmr.cubequery.service.cubequery.entity.CubeNode;
 import acmr.cubequery.service.cubequery.entity.CubeUnit;
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
@@ -14,9 +15,12 @@ import com.acmr.model.zhzs.Scheme;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.web.jsp.Index;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.impl.xb.xsdschema.LocalSimpleType;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class IndexEditService {
 /*    public static void main(String[] args) {
@@ -420,4 +424,53 @@ public class IndexEditService {
         return IndexEditDao.Fator.getInstance().getIndexdatadao().updCheckCname(icode,cname,ifzs,code);
     }
 
+    /**
+     * 检查getvalue函数的格式是不是对的
+     */
+    public String checkMathFormat(String icode,List<Map> zbchoose,String str){
+        //存在getvalue函数
+        String regex = "getvalue\\((.*?)\\)";
+        List<String> list = new ArrayList<String>();
+        Pattern pattern = Pattern.compile(regex);
+        Matcher m = pattern.matcher(str);
+        while (m.find()) {
+            int i = 1;
+            list.add(m.group(i));
+            i++;
+        }
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+        for (String arr : list) {
+           //如果是两个指标或者以上，后面不能跟时间
+            if(StringUtils.countMatches(arr,"#")>2){
+                for (int j = 0; j <zbchoose.size() ; j++) {
+                    String temp = "#"+zbchoose.get(j).get("code").toString()+"#";
+                    arr = arr.replace(temp,"");//删掉
+                }
+                arr = arr.replace(",","");//逗号删掉
+                if(arr.equals("")) str=str.replace("getvalue("+arr+")","2.0,2.0");//要是符合条件就给换成数组
+            }
+            else if(StringUtils.countMatches(arr,"#")==2){
+                for (int j = 0; j <zbchoose.size() ; j++) {
+                    String temp = "#"+zbchoose.get(j).get("code").toString()+"#";
+                    arr = arr.replace(temp,"");//有指标的话就删掉
+                }
+                arr = arr.replace("dq","");//删掉
+                arr = arr.replace("begintime","");//删掉
+                if(arr.equals("")){str=str.replace("getvalue("+arr+")","2.0,2.0");}//要是符合条件就给换成数组
+                else {
+                    int index = arr.indexOf(",");
+                    String wd = arr.substring(index+1);
+                    OriginService os = new OriginService();
+                   try {
+                       List<CubeNode> sj = os.getwdsubnodes("sj", wd, dbcode);
+                       str=str.replace("getvalue("+arr+")","2.0,2.0");//要是符合条件就给换成数组
+                   }catch (NullPointerException e){
+                       e.printStackTrace();
+                       break;//不符合直接跳出循环
+                   }
+                }
+            }
+        }
+        return str;
+    }
 }

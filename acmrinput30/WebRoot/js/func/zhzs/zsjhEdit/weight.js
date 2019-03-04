@@ -104,5 +104,11 @@ define(function (require,exports,module) {
 
     }
 
+    $(document).on('click','.edit_formula',function (event) {
+        event.preventDefault();
+        var modcode = $(this).attr("modcode");
+        window.open(common.rootPath+'zbdata/zsjhedit.htm?m=formularEdit&indexCode='+icode+'&scode='+scode+'&modcode='+modcode);
+    })
+
 
 })

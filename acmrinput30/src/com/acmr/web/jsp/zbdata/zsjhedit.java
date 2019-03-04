@@ -1195,8 +1195,10 @@ public class zsjhedit extends BaseAction {
         IndexEditService indexEditService=new IndexEditService();
         //String icode=this.getRequest().getParameter("icode");
         List<Map> zbchoose=indexEditService.getZBS(icode);
+        //先检查getvalue这个函数的格式是不是对的
+        str = indexEditService.checkMathFormat(icode,zbchoose,str);//先处理数组函数
         for (int i = 0; i <zbchoose.size() ; i++) {
-            String temp = "#"+zbchoose.get(i).get("zbname").toString()+"("+zbchoose.get(i).get("dsname").toString()+","+zbchoose.get(i).get("unitname").toString()+")#";
+            String temp = "#"+zbchoose.get(i).get("code").toString()+"#";
             str = str.replace(temp," 2.0 ");//随便给个数算
         }
        // str = str.replace("random()","chance()");//不能用random这个函数名因为有个and会报错
@@ -2657,7 +2659,6 @@ public class zsjhedit extends BaseAction {
         String formula = PubInfo.getString(req.getParameter("formula"));//判断是不是自定义，是指标还是公式
         String formulatext = PubInfo.getString(req.getParameter("formulatext"));
         String ifzb = "";
-        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(indexCode);
         if(ifzs.equals("1")){//选了次级指标
             String zs = PubInfo.getString(req.getParameter("cjzs"));//次级指数的所属节点类别
             procodeId = zs;
@@ -2672,11 +2673,6 @@ public class zsjhedit extends BaseAction {
             ifzb = "1";//1是指标
         }
         String sortcode = indexEditService.getCurrentSort(procodeId,indexCode);
-        if(checkCode(code)){
-            data.setReturncode(501);
-            this.sendJson(data); //要是code已经存在
-            return;
-        }
 
         if(ifzs.equals("2")){//如果是总指数，默认权重是1
             indexMoudle.setWeight("1");
