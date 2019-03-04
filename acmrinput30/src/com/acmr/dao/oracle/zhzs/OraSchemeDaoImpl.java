@@ -187,4 +187,10 @@ public class OraSchemeDaoImpl implements ISchemeDao {
 
         return 0;
     }
+
+    @Override
+    public int setWeight(String scode, String modcode, String weight) {
+        String sql="update tb_coindex_scheme set weight=? where code=? and modcode=? ";
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sql,new Object[]{weight,scode,modcode});
+    }
 }

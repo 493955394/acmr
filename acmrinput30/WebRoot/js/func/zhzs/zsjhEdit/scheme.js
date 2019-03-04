@@ -28,7 +28,7 @@ define(function (require,exports,module) {
             timeout:10000
         })
         $(document).on('pjax:success', function() {
-
+            $(".single_weight_set").click(setSingleWeight);
         });
     }
     //设置单个方案权重

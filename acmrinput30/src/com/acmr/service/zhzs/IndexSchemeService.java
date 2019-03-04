@@ -7,9 +7,7 @@ import com.acmr.dao.zhzs.SchemeDao;
 import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.model.zhzs.Scheme;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class IndexSchemeService {
     private ISchemeDao ischemeDao=SchemeDao.Fator.getInstance().getIndexdatadao();
@@ -24,19 +22,23 @@ public class IndexSchemeService {
         List<Scheme> schemes=new ArrayList<>();
         List<DataTableRow> rows=ischemeDao.getSchemesByIcode(icode);
         if (rows.size()==0) return null;
+        Map<String,Integer> map=new HashMap<>();
         for (DataTableRow row:rows){
-            String id=row.getString("id");
             String code=row.getString("code");
-            String cname=row.getString("cname");
-            String indexcode=icode;
-            String modcode=row.getString("modcode");
-            String state=row.getString("state");
-            String ifzb=row.getString("ifzb");
-            String weight=row.getString("weight");
-            String formula=row.getString("formula");
-            String remark=row.getString("remark");
-            Scheme scheme=new Scheme(id,code,cname,indexcode,modcode,state,ifzb,weight,formula,remark);
-            schemes.add(scheme);
+            if (!map.keySet().contains(code)){
+                map.put(code,1);
+                String id=row.getString("id");
+                String cname=row.getString("cname");
+                String indexcode=icode;
+                String modcode=row.getString("modcode");
+                String state=row.getString("state");
+                String ifzb=row.getString("ifzb");
+                String weight=row.getString("weight");
+                String formula=row.getString("formula");
+                String remark=row.getString("remark");
+                Scheme scheme=new Scheme(id,code,cname,indexcode,modcode,state,ifzb,weight,formula,remark);
+                schemes.add(scheme);
+            }
         }
         return schemes;
     }
@@ -131,5 +133,13 @@ public class IndexSchemeService {
     }
     public int updateState(List<Scheme> schemes){
         return ischemeDao.cloneSch(schemes);
+    }
+
+    public void setSingleSchemeWeight(String scode, Map<String,String> weightmap){
+        for (Map.Entry<String,String> entry:weightmap.entrySet()){
+            String modcode=entry.getKey();
+            String weight=entry.getValue();
+            ischemeDao.setWeight(scode,modcode,weight);
+        }
     }
 }

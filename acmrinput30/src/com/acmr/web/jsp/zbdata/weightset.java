@@ -11,9 +11,7 @@ import com.acmr.service.zhzs.IndexSchemeService;
 import com.acmr.service.zhzs.WeightEditService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class weightset extends BaseAction {
 
@@ -79,8 +77,14 @@ public class weightset extends BaseAction {
         HttpServletRequest req=this.getRequest();
         String cws=req.getParameter("cws");
         String scode=req.getParameter("scode");
-        //PubInfo.printStr(cws);
         List<String> cw= Arrays.asList(cws.split(","));
+        IndexSchemeService indexSchemeService=new IndexSchemeService();
+        Map<String,String> weightmap=new HashMap<>();
+        for (String s:cw){
+            String[] array=s.split(":");
+            weightmap.put(array[0],array[1]);
+        }
+        indexSchemeService.setSingleSchemeWeight(scode,weightmap);
         /*for (int i=0;i<cw.size();i++){
             String code=cw.get(i).split(":")[0];
             String weight=cw.get(i).split(":")[1];

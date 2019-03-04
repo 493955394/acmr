@@ -17,4 +17,5 @@ public interface ISchemeDao {
     public int updateSch(Scheme scheme);
     public List<DataTableRow> getSch(String icode,String code);
     public int cloneSch(List<Scheme> scheme);
+    public int setWeight(String scode,String modcode,String weight);
 }
