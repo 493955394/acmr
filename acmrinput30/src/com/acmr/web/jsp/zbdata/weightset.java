@@ -69,7 +69,7 @@ public class weightset extends BaseAction {
     }
 
     /**
-    * @Description: 保存权重设置页面修改的所有weights
+    * @Description: 保存权重设置页面修改的所有weights到方案的对应权重中,单个方案
     * @Param: []
     * @return: void
     * @Author: lyh
@@ -78,15 +78,16 @@ public class weightset extends BaseAction {
     public void setWeights(){
         HttpServletRequest req=this.getRequest();
         String cws=req.getParameter("cws");
-        PubInfo.printStr(cws);
+        String scode=req.getParameter("scode");
+        //PubInfo.printStr(cws);
         List<String> cw= Arrays.asList(cws.split(","));
-        for (int i=0;i<cw.size();i++){
+        /*for (int i=0;i<cw.size();i++){
             String code=cw.get(i).split(":")[0];
             String weight=cw.get(i).split(":")[1];
             WeightEditService weightEditService=new WeightEditService();
             weightEditService.setWeight(code,weight);
         }
-
+*/
     }
 
 /*    public ModelAndView getWeightTable(){
