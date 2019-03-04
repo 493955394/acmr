@@ -6,9 +6,11 @@ import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.zhzs.IndexEditDao;
 import com.acmr.dao.zhzs.IndexListDao;
+import com.acmr.dao.zhzs.SchemeDao;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.model.zhzs.IndexZb;
+import com.acmr.model.zhzs.Scheme;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.web.jsp.Index;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
@@ -100,6 +102,23 @@ public class IndexEditService {
         return allmods;
     }
 
+    /**
+     * @Description: 根据给定的模型节点code和计划code返回方案节点下所有的模型节点，包括子节点的子节点
+     * @Param: [code, icode]
+     * @return: java.util.List<com.acmr.model.zhzs.IndexMoudle
+     */
+    public List<IndexMoudle> getAllMods(String code,String icode,String scode){
+        List<IndexMoudle> allmods=new ArrayList<>();
+        List<IndexMoudle> thissubs=getSubMod(code,icode,scode);
+        if (thissubs.size()>0){
+            allmods.addAll(thissubs);
+            for (int i=0;i<thissubs.size();i++){
+                allmods.addAll(getAllMods(thissubs.get(i).getCode(),icode,scode));
+            }
+        }
+        return allmods;
+    }
+
 
     /**
     * @Description: 根据给定模型节点的code和所属计划的icode返回submods
@@ -124,6 +143,35 @@ public class IndexEditService {
             mod.setProcode(subs.get(i).getString("procode"));
             mod.setSortcode(subs.get(i).getString("sortcode"));
             mod.setWeight(subs.get(i).getString("weight"));
+            submods.add(mod);
+        }
+        return submods;
+    }
+
+    /**
+     * 寻找方案节点的下级
+     * @param code
+     * @param icode
+     * @param scode
+     * @return
+     */
+    public  List<IndexMoudle> getSubMod(String code,String icode,String scode){
+        List<IndexMoudle> submods=new ArrayList<>();
+        List<DataTableRow> subs = IndexEditDao.Fator.getInstance().getIndexdatadao().getSubModsbyCode(code,icode).getRows();
+        for (int i=0;i<subs.size();i++){
+           String modcode = subs.get(i).getString("code");
+            DataTableRow scheme = SchemeDao.Fator.getInstance().getIndexdatadao().getScMod(modcode,icode,scode).getRows().get(0);
+            IndexMoudle mod=new IndexMoudle();
+            mod.setCname(subs.get(i).getString("cname"));
+            mod.setCode(modcode);
+            mod.setDacimal(subs.get(i).getString("dacimal"));
+            mod.setFormula(scheme.getString("formula"));//替换公式和权重
+            mod.setIfzb(subs.get(i).getString("ifzb"));
+            mod.setIfzs(subs.get(i).getString("ifzs"));
+            mod.setIndexcode(subs.get(i).getString("indexcode"));
+            mod.setProcode(subs.get(i).getString("procode"));
+            mod.setSortcode(subs.get(i).getString("sortcode"));
+            mod.setWeight(scheme.getString("weight"));//替换公式和权重
             submods.add(mod);
         }
         return submods;

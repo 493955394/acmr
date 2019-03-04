@@ -417,7 +417,7 @@ public class OriginDataService {
         IndexZb zb = is.getZBData(code);
         System.out.println(code);
         System.out.println(wd);
-   if(StringUtils.countMatches(orgStr,",")>=2) {//如果全是指标
+   if(wd.substring(0,1).equals("#") && wd.substring(wd.length()-1).equals("#")) {//如果全是指标
        String [] modcode = orgStr.split(",");
    }else{
        if (wd.equals("dq")) {//如果后边填的是地区,找这个指标所有有数的地区

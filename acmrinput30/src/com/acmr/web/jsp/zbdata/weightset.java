@@ -37,7 +37,7 @@ public class weightset extends BaseAction {
             if (re.get(j).getProcode()==""){
                 //PubInfo.printStr("find1");
                 mods.add(re.get(j));
-                List<IndexMoudle> allsub=indexEditService.getAllMods(re.get(j).getCode(),icode);
+                List<IndexMoudle> allsub=indexEditService.getAllMods(re.get(j).getCode(),icode,scode);
                 //要显示注解，所以要替换公式
                 for (int i = 0; i <allsub.size() ; i++) {
                     if(allsub.get(i).getIfzs().equals("0")){//如果是指数的话

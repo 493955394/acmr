@@ -1199,7 +1199,7 @@ public class zsjhedit extends BaseAction {
             String temp = "#"+zbchoose.get(i).get("zbname").toString()+"("+zbchoose.get(i).get("dsname").toString()+","+zbchoose.get(i).get("unitname").toString()+")#";
             str = str.replace(temp," 2.0 ");//随便给个数算
         }
-        str = str.replace("random()","chance()");//不能用random这个函数名因为有个and会报错
+       // str = str.replace("random()","chance()");//不能用random这个函数名因为有个and会报错
         try {
             ce.setFunctionclass(new MathService());
             System.out.println(ce.Eval(str));
@@ -2672,7 +2672,6 @@ public class zsjhedit extends BaseAction {
             ifzb = "1";//1是指标
         }
         String sortcode = indexEditService.getCurrentSort(procodeId,indexCode);
-        String dacimal = PubInfo.getString(req.getParameter("dotcount"));
         if(checkCode(code)){
             data.setReturncode(501);
             this.sendJson(data); //要是code已经存在
@@ -2700,7 +2699,6 @@ public class zsjhedit extends BaseAction {
         indexMoudle.setProcode(procodeId);
         indexMoudle.setIndexcode(indexCode);
         indexMoudle.setIfzs(ifzs);
-        indexMoudle.setDacimal(dacimal);
         indexMoudle.setSortcode(sortcode);
         if(ifzb.equals("1")){
             indexMoudle.setIfzb(ifzb);
@@ -2710,8 +2708,8 @@ public class zsjhedit extends BaseAction {
             indexMoudle.setIfzb(ifzb);//是选的自定义公式，要做校验
             //用于校验，先把公式校验一遍
             formulatext = changeFormula(formulatext,indexCode,"NTC");
-            OriginDataService originDataService = new OriginDataService();
-            formulatext = originDataService.specialMath(formulatext,dbcode,indexCode);
+           /* OriginDataService originDataService = new OriginDataService();
+            formulatext = originDataService.specialMath(formulatext,dbcode,indexCode);*/
             if(checkFormula(formulatext,indexCode)){
                 indexMoudle.setFormula(formulatext);
             }else {

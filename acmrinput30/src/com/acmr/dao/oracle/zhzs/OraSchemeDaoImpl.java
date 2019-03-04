@@ -193,4 +193,13 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         String sql="update tb_coindex_scheme set weight=? where code=? and modcode=? ";
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql,new Object[]{weight,scode,modcode});
     }
+
+    @Override
+    public DataTable getScMod(String modcode, String icode, String scode) {
+        String sql="select * from tb_coindex_scheme where indexcode=? and modcode=? and code=?";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {icode,modcode,scode});
+
+    }
+
+
 }
