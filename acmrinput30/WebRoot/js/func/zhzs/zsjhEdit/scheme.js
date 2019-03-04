@@ -17,7 +17,7 @@ define(function (require,exports,module) {
         //请求方案列表
         sendPjax();
         $(".single_weight_set").click(setSingleWeight);
-
+        $("#set_scheme_weight_formula").click(setSchemesWeight);
 
     })
     //局部刷新方案列表
@@ -28,7 +28,8 @@ define(function (require,exports,module) {
             timeout:10000
         })
         $(document).on('pjax:success', function() {
-
+            $(".single_weight_set").unbind('click')
+            $(".single_weight_set").bind('click',setSingleWeight);
         });
     }
     //设置单个方案权重
@@ -47,6 +48,30 @@ define(function (require,exports,module) {
                     return;
                 }else{
                     window.open(common.rootPath+"zbdata/weightset.htm?m=editSingleWeight&icode="+icode+'&scode='+scode+'&sname='+sname)
+                }
+            }
+        })
+    }
+    //设置多个方案权重
+    function setSchemesWeight(){
+        /*var schemes=""
+        $(".single_weight_set").each(function () {
+            var thiscode=$(this).attr("scheme_code")
+            var thisname=$(this).attr("scheme_name")
+            schemes=schemes+thisname+":"+thiscode+","
+        })*/
+        //先判断是否存在空目录，如果存在，不跳转
+        $.ajax({
+            url: common.rootPath+'zbdata/indexlist.htm?m=checkModuleCat&icode='+icode,
+            type:'get',
+            datatype:'json',
+            success:function (re){
+                console.log(re)
+                if(re == false){
+                    alert("指数不能为空！");
+                    return;
+                }else{
+                    window.open(common.rootPath+"zbdata/weightset.htm?m=editSchemesWeight&icode="+icode)
                 }
             }
         })
@@ -101,7 +126,7 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function(data) {
                 if (data.returncode == 200) {
-                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode;
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
                     $.pjax({
                         url: url,
                         container: '.J_zsjh_scheme_table'
@@ -131,6 +156,65 @@ define(function (require,exports,module) {
         $('input[name="schcloneicode"]').val(icode);
         $('input[name="schclonecode"]').val(code);
         $("#scheme_modal2").modal('show');
+    });
+    /**
+     * 停用
+     */
+    $(document).on('click','.J_stop',function(event){
+        event.preventDefault();
+        var self = this,
+            id = $(self).attr('id');
+        $.ajax({
+            url:common.rootPath+'zbdata/indexscheme.htm?m=schstop',
+            data: "id=" + id,
+            type:'post',
+            dataType:'json',
+            timeout:1000,
+            success:function(data){
+                if (data.returncode == 200) {
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_scheme_table'
+                    });
+                    alert("停用成功！");
+                }
+            }
+        });
+
+    });
+    /**
+     * 选用
+     */
+    $(document).on('click','.J_start',function(event){
+        event.preventDefault();
+        var self = this,
+            code = $(self).attr('id');
+        $.ajax({
+            url:common.rootPath+'zbdata/indexscheme.htm?m=schstart',
+            data:  {"icode": icode, "code":code},
+            type:'post',
+            dataType:'json',
+            timeout:1000,
+            success:function(data){
+                if (data.returncode == 200) {
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_scheme_table'
+                    });
+                    alert("选用成功！");
+                }else if(data.returncode == 300){
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
+                    $.pjax({
+                        url: url,
+                        container: '.J_zsjh_scheme_table'
+                    });
+                    alert("请设置方案权重");
+                }
+            }
+        });
+
     });
     /**
      * 编辑方案
@@ -165,7 +249,7 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function(data) {
                 if (data.returncode == 200) {
-                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode;
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
                     $.pjax({
                         url: url,
                         container: '.J_zsjh_scheme_table'
@@ -184,7 +268,7 @@ define(function (require,exports,module) {
     /**
      * 删除方案
      */
-    $(document).on('click','.J_sch_del',function(event){
+    $(document).on('click','.J_del',function(event){
         event.preventDefault();
         var self = this,
             id = $(self).attr('id');
@@ -199,7 +283,7 @@ define(function (require,exports,module) {
             timeout:1000,
             success:function(data){
                 if (data.returncode == 200) {
-                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode;
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
                     $.pjax({
                         url: url,
                         container: '.J_zsjh_scheme_table'
@@ -243,7 +327,7 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function(data) {
                 if (data.returncode == 200) {
-                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode;
+                    var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
                     $.pjax({
                         url: url,
                         container: '.J_zsjh_scheme_table'

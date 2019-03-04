@@ -32,7 +32,7 @@ define(function (require,exports,module) {
                     flag=false;
                     return
                 }
-                var pcode=$(this).attr("class").split(" ")[1]
+                var pcode=$(this).attr("pcode")
                 console.log(pcode)
                 if (!codes.contain(pcode)){
                     codes.push(pcode)
@@ -45,17 +45,18 @@ define(function (require,exports,module) {
 
         for (var i=0;i<codes.length;i++){
             var pcode=codes[i]
-            console.log("pcode:"+pcode)
+            //console.log("pcode:"+pcode)
             var values=[]
-            $("input[class~="+pcode+"]").each(function () {
+            $("input[pcode~="+pcode+"]").each(function () {
                 values.push($(this).val())
-                console.log($(this).val())
+                //console.log($(this).val())
             })
             var sum=parseFloat("0")
             for (var j=0;j<values.length;j++){
                 sum=parseFloat(sum)+parseFloat(values[j].valueOf())
             }
             sum=sum.toFixed(1)
+            //console.log(sum)
             if (sum!=1){
                 console.log(codes[i])
                 flag=false
@@ -66,16 +67,20 @@ define(function (require,exports,module) {
 
         //检查通过，保存
         if (flag){
-            var cws=[]
+            var cws=""
             $(".input_weight").each(function () {
-                var code=$(this).parent().prev().attr("code")
+                var code=$(this).parent().attr("id")
                 var weight=$(this).val()
-                cws.push(code+":"+weight)
+                //cws.push(code+":"+weight)
+                cws=cws+code+':'+weight+','
             })
+            //alert("success")
             $.ajax({
-                url:common.rootPath+"zbdata/weightset.htm?m=setWeights&cws="+cws,
-                type:'get',
-                data:'json',
+                url:common.rootPath+"zbdata/weightset.htm?m=setWeights&scode="+scode,
+                type:'post',
+                data:{
+                    cws:cws
+                },
                 success:function (re) {
                     console.log("success")
                     alert("保存成功")
@@ -87,7 +92,7 @@ define(function (require,exports,module) {
     var scode=$(".scheme_code").val()
     var sname=$(".scheme_name").val()
     var st = new Date().getTime();//时间戳
-    console.log(icode)
+    //console.log(icode)
 
 
     function sendPjax() {

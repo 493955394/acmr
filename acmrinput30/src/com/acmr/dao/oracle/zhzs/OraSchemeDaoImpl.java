@@ -66,7 +66,7 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         try {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
-            String sql1 = "insert into tb_coindex_scheme (code,cname,indexcode,modcode,state,remark) values(?,?,?,?,?,?)";
+            String sql1 = "insert into tb_coindex_scheme (code,cname,indexcode,modcode,ifzb,formula,state,remark) values(?,?,?,?,?,?,?,?)";
             for (int i = 0; i < rows.size(); i++) {
 
                 /*String code = scheme.getCode();
@@ -81,6 +81,8 @@ public class OraSchemeDaoImpl implements ISchemeDao {
                 params.add(scheme.getCname());
                 params.add(scheme.getIndexcode());
                 params.add(rows.get(i).getString("code"));
+                params.add(rows.get(i).getString("ifzb"));
+                params.add(rows.get(i).getString("formula"));
                 params.add(scheme.getState());
                 params.add(scheme.getRemark());
                 dataQuery.executeSql(sql1, params.toArray());
@@ -129,6 +131,10 @@ public class OraSchemeDaoImpl implements ISchemeDao {
             sql1+=",remark=?";
             parms.add(scheme.getRemark());
         }
+        if(scheme.getState()!=null){
+            sql1+=",state=?";
+            parms.add(scheme.getState());
+        }
         if (sql1.equals("")) {
             return 0;
         }
@@ -153,15 +159,15 @@ public class OraSchemeDaoImpl implements ISchemeDao {
             String sql1 = "insert into tb_coindex_scheme (code,cname,indexcode,modcode,state,ifzb,weight,formula,remark) values(?,?,?,?,?,?,?,?,?)";
             for (int i = 0; i < scheme.size(); i++) {
                 List<Object> params = new ArrayList<Object>();
-                params.add(scheme.get(0).getCode());
-                params.add(scheme.get(0).getCname());
-                params.add(scheme.get(0).getIndexcode());
-                params.add(scheme.get(0).getModcode());
-                params.add(scheme.get(0).getState());
-                params.add(scheme.get(0).getIfzb());
-                params.add(scheme.get(0).getWeight());
-                params.add(scheme.get(0).getFormula());
-                params.add(scheme.get(0).getRemark());
+                params.add(scheme.get(i).getCode());
+                params.add(scheme.get(i).getCname());
+                params.add(scheme.get(i).getIndexcode());
+                params.add(scheme.get(i).getModcode());
+                params.add(scheme.get(i).getState());
+                params.add(scheme.get(i).getIfzb());
+                params.add(scheme.get(i).getWeight());
+                params.add(scheme.get(i).getFormula());
+                params.add(scheme.get(i).getRemark());
                 dataQuery.executeSql(sql1, params.toArray());
 
             }
@@ -180,5 +186,11 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         }
 
         return 0;
+    }
+
+    @Override
+    public int setWeight(String scode, String modcode, String weight) {
+        String sql="update tb_coindex_scheme set weight=? where code=? and modcode=? ";
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sql,new Object[]{weight,scode,modcode});
     }
 }

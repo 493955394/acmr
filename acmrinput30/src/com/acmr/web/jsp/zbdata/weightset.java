@@ -6,14 +6,13 @@ import acmr.web.entity.ModelAndView;
 import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.zhzs.IndexMoudle;
+import com.acmr.model.zhzs.Scheme;
 import com.acmr.service.zhzs.IndexEditService;
 import com.acmr.service.zhzs.IndexSchemeService;
 import com.acmr.service.zhzs.WeightEditService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class weightset extends BaseAction {
 
@@ -69,7 +68,23 @@ public class weightset extends BaseAction {
     }
 
     /**
-    * @Description: 保存权重设置页面修改的所有weights
+    * @Description: 根据计划code返回该计划的多个方案权重设置页面
+    * @Param: []
+    * @return: acmr.web.entity.ModelAndView
+    * @Author: lyh
+    * @Date: 2019/3/4
+    */
+    public ModelAndView editSchemesWeight(){
+        HttpServletRequest req=this.getRequest();
+        String icode=req.getParameter("icode");
+        IndexSchemeService indexSchemeService=new IndexSchemeService();
+        List<Scheme> schemes=indexSchemeService.getSchemesByIcode(icode);
+
+        return new ModelAndView("");
+    }
+
+    /**
+    * @Description: 保存权重设置页面修改的所有weights到方案的对应权重中,单个方案
     * @Param: []
     * @return: void
     * @Author: lyh
@@ -78,15 +93,22 @@ public class weightset extends BaseAction {
     public void setWeights(){
         HttpServletRequest req=this.getRequest();
         String cws=req.getParameter("cws");
-        PubInfo.printStr(cws);
+        String scode=req.getParameter("scode");
         List<String> cw= Arrays.asList(cws.split(","));
-        for (int i=0;i<cw.size();i++){
+        IndexSchemeService indexSchemeService=new IndexSchemeService();
+        Map<String,String> weightmap=new HashMap<>();
+        for (String s:cw){
+            String[] array=s.split(":");
+            weightmap.put(array[0],array[1]);
+        }
+        indexSchemeService.setSingleSchemeWeight(scode,weightmap);
+        /*for (int i=0;i<cw.size();i++){
             String code=cw.get(i).split(":")[0];
             String weight=cw.get(i).split(":")[1];
             WeightEditService weightEditService=new WeightEditService();
             weightEditService.setWeight(code,weight);
         }
-
+*/
     }
 
 /*    public ModelAndView getWeightTable(){
