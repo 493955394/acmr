@@ -12,7 +12,7 @@ import java.util.*;
 public class IndexSchemeService {
     private ISchemeDao ischemeDao=SchemeDao.Fator.getInstance().getIndexdatadao();
     /**
-    * @Description: 根据指标code返回该指标所有的方案列表，并局部刷新table
+    * @Description: 根据指标code返回该指标所有的方案列表(去重)，并局部刷新table
     * @Param: [icode]
     * @return: java.util.List<com.acmr.model.zhzs.Scheme>
     * @Author: lyh

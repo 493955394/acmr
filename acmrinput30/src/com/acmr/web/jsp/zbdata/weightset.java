@@ -6,6 +6,7 @@ import acmr.web.entity.ModelAndView;
 import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.zhzs.IndexMoudle;
+import com.acmr.model.zhzs.Scheme;
 import com.acmr.service.zhzs.IndexEditService;
 import com.acmr.service.zhzs.IndexSchemeService;
 import com.acmr.service.zhzs.WeightEditService;
@@ -64,6 +65,22 @@ public class weightset extends BaseAction {
             PubInfo.printStr("====================================================pjax");
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/weighttable").addObject("indexcode",icode).addObject("mods",mods).addObject("schemecode",scode).addObject("schemename",sname);
         }
+    }
+
+    /**
+    * @Description: 根据计划code返回该计划的多个方案权重设置页面
+    * @Param: []
+    * @return: acmr.web.entity.ModelAndView
+    * @Author: lyh
+    * @Date: 2019/3/4
+    */
+    public ModelAndView editSchemesWeight(){
+        HttpServletRequest req=this.getRequest();
+        String icode=req.getParameter("icode");
+        IndexSchemeService indexSchemeService=new IndexSchemeService();
+        List<Scheme> schemes=indexSchemeService.getSchemesByIcode(icode);
+
+        return new ModelAndView("");
     }
 
     /**

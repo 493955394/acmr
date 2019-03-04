@@ -54,12 +54,12 @@ define(function (require,exports,module) {
     }
     //设置多个方案权重
     function setSchemesWeight(){
-        var schemecodes=[];
-        var schemenames=[];
+        /*var schemes=""
         $(".single_weight_set").each(function () {
-            schemecodes.push($(this).attr("scheme_code"))
-            schemenames.push($(this).attr("scheme_name"))
-        })
+            var thiscode=$(this).attr("scheme_code")
+            var thisname=$(this).attr("scheme_name")
+            schemes=schemes+thisname+":"+thiscode+","
+        })*/
         //先判断是否存在空目录，如果存在，不跳转
         $.ajax({
             url: common.rootPath+'zbdata/indexlist.htm?m=checkModuleCat&icode='+icode,
@@ -71,7 +71,7 @@ define(function (require,exports,module) {
                     alert("指数不能为空！");
                     return;
                 }else{
-                    //window.open(common.rootPath+"zbdata/weightset.htm?m=editSingleWeight&icode="+icode+'&scode='+scode+'&sname='+sname)
+                    window.open(common.rootPath+"zbdata/weightset.htm?m=editSchemesWeight&icode="+icode)
                 }
             }
         })
