@@ -611,6 +611,9 @@ define(function (require,exports,module) {
                             info=info+"计划模型节点设置及权重不符合规定，"
                             // alert("计划模型节点设置及权重不符合规定，启动失败")
                         }
+                        if (data.checkScheme!=true){
+                            info=info+"请选用计划方案，"
+                        }
                         info=info+"启用失败！"
                         alert(info)
 

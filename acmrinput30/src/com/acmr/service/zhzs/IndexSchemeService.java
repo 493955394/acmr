@@ -101,7 +101,7 @@ public class IndexSchemeService {
         }
         return ischemeDao.cloneSch(schemes);
     }
-    //所有方案唯一选用
+    //所有方案选用后设置其他为未选用
     public List<Scheme> setOnlyStart(String icode,String schcode) {
         List<Scheme> schemes=new ArrayList<>();
         List<DataTableRow> rows=ischemeDao.getSch(icode,schcode);
