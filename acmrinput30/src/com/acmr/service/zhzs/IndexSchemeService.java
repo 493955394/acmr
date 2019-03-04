@@ -83,10 +83,11 @@ public class IndexSchemeService {
         String icode = scheme.getIndexcode();
         String schcode = scheme.getCode();
         List<DataTableRow> rows=ischemeDao.getSch(icode,schcode);
+        String schemecode= UUID.randomUUID().toString().replace("-", "").toLowerCase();
         List<Scheme> schemes=new ArrayList<>();
         for (DataTableRow row:rows){
             String id=row.getString("id");
-            String code= UUID.randomUUID().toString().replace("-", "").toLowerCase();
+            String code =schemecode;
             String cname=scheme.getCname();
             String indexcode=icode;
             String modcode=row.getString("modcode");
