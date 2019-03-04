@@ -6,8 +6,10 @@ import acmr.util.DataTableRow;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.IWeightEditDao;
 import com.acmr.model.zhzs.Data;
+import com.acmr.model.zhzs.Scheme;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +25,42 @@ public class OraWeightEditDaoImpl implements IWeightEditDao {
     public int weightset(String code, String weight) {
         String sql="update tb_coindex_module set weight=? where code=?";
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql,new Object[]{weight,code});
+    }
+
+    @Override
+    public int setWeightFormula(List<Scheme> scheme) {
+
+        DataQuery dataQuery = null;
+        try {
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+            String sql1="update tb_coindex_module set weight=?,formula=? where code=?";
+            for (int i = 0; i < scheme.size(); i++) {
+                List<Object> params = new ArrayList<Object>();
+                params.add(scheme.get(i).getWeight());
+                params.add(scheme.get(i).getFormula());
+                params.add(scheme.get(i).getModcode());
+                dataQuery.executeSql(sql1, params.toArray());
+
+            }
+            dataQuery.commit();
+
+        } catch (SQLException e) {
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                e.printStackTrace();
+                return 1;
+            }
+        } finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+
+        return 0;
+
+
+
     }
 
     @Override

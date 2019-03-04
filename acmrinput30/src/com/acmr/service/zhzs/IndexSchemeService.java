@@ -122,14 +122,12 @@ public class IndexSchemeService {
             }
 
         }
-        //复制权重到module表
-        List<Scheme> scheme =getSchs(icode,schcode);
-        for(int i= 0;i<scheme.size();i++){
-            String modulecode = scheme.get(i).getModcode();
-            String weight = scheme.get(i).getWeight();
-            WeightEditDao.Fator.getInstance().getIndexdatadao().weightset(modulecode,weight);
-        }
+
         return schemes;
+    }
+    public int copyWeightFormula(String icode,String schcode){
+        List<Scheme> scheme =getSchs(icode,schcode);
+        return WeightEditDao.Fator.getInstance().getIndexdatadao().setWeightFormula(scheme);
     }
     public int updateState(List<Scheme> schemes){
         return ischemeDao.cloneSch(schemes);

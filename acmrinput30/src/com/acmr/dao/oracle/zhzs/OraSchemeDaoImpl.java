@@ -159,15 +159,15 @@ public class OraSchemeDaoImpl implements ISchemeDao {
             String sql1 = "insert into tb_coindex_scheme (code,cname,indexcode,modcode,state,ifzb,weight,formula,remark) values(?,?,?,?,?,?,?,?,?)";
             for (int i = 0; i < scheme.size(); i++) {
                 List<Object> params = new ArrayList<Object>();
-                params.add(scheme.get(0).getCode());
-                params.add(scheme.get(0).getCname());
-                params.add(scheme.get(0).getIndexcode());
-                params.add(scheme.get(0).getModcode());
-                params.add(scheme.get(0).getState());
-                params.add(scheme.get(0).getIfzb());
-                params.add(scheme.get(0).getWeight());
-                params.add(scheme.get(0).getFormula());
-                params.add(scheme.get(0).getRemark());
+                params.add(scheme.get(i).getCode());
+                params.add(scheme.get(i).getCname());
+                params.add(scheme.get(i).getIndexcode());
+                params.add(scheme.get(i).getModcode());
+                params.add(scheme.get(i).getState());
+                params.add(scheme.get(i).getIfzb());
+                params.add(scheme.get(i).getWeight());
+                params.add(scheme.get(i).getFormula());
+                params.add(scheme.get(i).getRemark());
                 dataQuery.executeSql(sql1, params.toArray());
 
             }
