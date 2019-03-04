@@ -83,10 +83,11 @@ public class IndexSchemeService {
         String icode = scheme.getIndexcode();
         String schcode = scheme.getCode();
         List<DataTableRow> rows=ischemeDao.getSch(icode,schcode);
+        String schemecode= UUID.randomUUID().toString().replace("-", "").toLowerCase();
         List<Scheme> schemes=new ArrayList<>();
         for (DataTableRow row:rows){
             String id=row.getString("id");
-            String code= UUID.randomUUID().toString().replace("-", "").toLowerCase();
+            String code =schemecode;
             String cname=scheme.getCname();
             String indexcode=icode;
             String modcode=row.getString("modcode");
@@ -100,7 +101,7 @@ public class IndexSchemeService {
         }
         return ischemeDao.cloneSch(schemes);
     }
-    //所有方案唯一选用
+    //所有方案选用后设置其他为未选用
     public List<Scheme> setOnlyStart(String icode,String schcode) {
         List<Scheme> schemes=new ArrayList<>();
         List<DataTableRow> rows=ischemeDao.getSch(icode,schcode);

@@ -659,6 +659,24 @@ public class IndexListService {
         }
         return check;
     }
+    /**
+     *  校验方案的选用
+     */
+    public Boolean checkSch(String icode){
+        Boolean check=false;
+        List<DataTableRow> schrows=SchemeDao.Fator.getInstance().getIndexdatadao().getSchemesByIcode(icode);
+        List<String> states =new ArrayList<>();
+        for(int i=0;i<schrows.size();i++){
+            String state =schrows.get(i).getString("state");
+            states.add(state);
+        }
+        if (states.contains("1")){
+            check=true;
+        }else{
+            check=false;
+        }
+        return check;
+    }
 
     /**
      * 计划分享的撤回

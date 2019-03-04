@@ -691,8 +691,8 @@ public class indexlist extends BaseAction {
             Boolean checkZbReg=indexListService.checkZBandReg(code);
             //  PubInfo.printStr("checkZbReg"+checkZbReg);
             Boolean checkhasMod=indexListService.checkHasMod(code);
-
-            check=checkInfo&&checkmod&&checkZbReg&&checkhasMod;
+            Boolean checkScheme=indexListService.checkSch(code);
+            check=checkInfo&&checkmod&&checkZbReg&&checkhasMod&&checkScheme;
             //PubInfo.printStr(String.valueOf(check));
 
             //校验通过
