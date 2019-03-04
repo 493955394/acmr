@@ -168,4 +168,8 @@ public class IndexSchemeService {
         }
         return  mod;
     }
+
+    public int updtoModel(Scheme sc,String modcode,String scode){
+        return ischemeDao.updScheme(sc,modcode,scode);
+    }
 }

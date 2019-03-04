@@ -2654,38 +2654,22 @@ public class zsjhedit extends BaseAction {
     }
 
     public void toSaveFormular() throws IOException {
-        IndexMoudle indexMoudle = new IndexMoudle();
+        Scheme sc = new Scheme();
         IndexEditService indexEditService = new IndexEditService();
         JSONReturnData data = new JSONReturnData("");
         HttpServletRequest req = this.getRequest();
-        String procodeId = PubInfo.getString(req.getParameter("procodeId"));
         String indexCode = PubInfo.getString(req.getParameter("icode"));
+        String scode = PubInfo.getString(req.getParameter("scode"));
         String code = PubInfo.getString(req.getParameter("ZS_code"));
         String name = PubInfo.getString(req.getParameter("ZS_cname"));
         String ifzs = PubInfo.getString(req.getParameter("ifzs"));
         String formula = PubInfo.getString(req.getParameter("formula"));//判断是不是自定义，是指标还是公式
         String formulatext = PubInfo.getString(req.getParameter("formulatext"));
         String ifzb = "";
-        if(ifzs.equals("1")){//选了次级指标
-            String zs = PubInfo.getString(req.getParameter("cjzs"));//次级指数的所属节点类别
-            procodeId = zs;
-        }
-        else if(ifzs.equals("0")){//要是选了指标
-            String zb = PubInfo.getString(req.getParameter("zb_ifzs"));//指标的所属节点类别
-            procodeId = zb;
-        }
         if(formula.equals("userdefined")){
             ifzb = "0";//0是公式
         }else {
             ifzb = "1";//1是指标
-        }
-        String sortcode = indexEditService.getCurrentSort(procodeId,indexCode);
-
-        if(ifzs.equals("2")){//如果是总指数，默认权重是1
-            indexMoudle.setWeight("1");
-        }
-        else{
-            indexMoudle.setWeight("0");
         }
         if(ifzs.equals("1")||ifzs.equals("2")){
             ifzs = "1";//总指数或者次级指数
@@ -2697,31 +2681,26 @@ public class zsjhedit extends BaseAction {
             this.sendJson(data); //要是cname已经存在
             return;
         }
-        indexMoudle.setCode(code);
-        indexMoudle.setCname(name);
-        indexMoudle.setProcode(procodeId);
-        indexMoudle.setIndexcode(indexCode);
-        indexMoudle.setIfzs(ifzs);
-        indexMoudle.setSortcode(sortcode);
+        sc.setCode(scode);
+        sc.setIndexcode(indexCode);
         if(ifzb.equals("1")){
-            indexMoudle.setIfzb(ifzb);
-            indexMoudle.setFormula(formula);
+            sc.setFormula(formula);
         }
         else if(ifzb.equals("0")){
-            indexMoudle.setIfzb(ifzb);//是选的自定义公式，要做校验
+            //是选的自定义公式，要做校验
             //用于校验，先把公式校验一遍
             formulatext = changeFormula(formulatext,indexCode,"NTC");
            /* OriginDataService originDataService = new OriginDataService();
             formulatext = originDataService.specialMath(formulatext,dbcode,indexCode);*/
             if(checkFormula(formulatext,indexCode)){
-                indexMoudle.setFormula(formulatext);
+                sc.setFormula(formulatext);
             }else {
                 data.setReturncode(300);
                 this.sendJson(data);
                 return;
             }
         }
-        int back = indexEditService.addZStoModel(indexMoudle);
+        int back = new IndexSchemeService().updtoModel(sc,code,scode);
         if(back == 1){
             data.setReturncode(200);
             this.sendJson(data);

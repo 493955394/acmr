@@ -200,6 +200,15 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {icode,modcode,scode});
 
     }
-
+    @Override
+    public int updScheme(Scheme sc,String modcode,String scode ) {
+        String sql="update tb_coindex_scheme set weight=?,formula=? where code=? and modcode=? ";
+        List<Object> params = new ArrayList<Object>();
+        params.add(sc.getWeight());
+        params.add(sc.getFormula());
+        params.add(scode);
+        params.add(modcode);
+        return AcmrInputDPFactor.getQuickQuery().executeSql(sql,params.toArray());
+    }
 
 }
