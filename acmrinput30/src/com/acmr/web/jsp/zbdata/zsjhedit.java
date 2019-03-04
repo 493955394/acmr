@@ -2625,12 +2625,18 @@ public class zsjhedit extends BaseAction {
      */
     public ModelAndView formularEdit(){
         HttpServletRequest req = this.getRequest();
-        String code = req.getParameter("code");
+        String code = req.getParameter("modcode");
         String indexCode = req.getParameter("indexCode");
-        List<IndexMoudle> zslist = new ArrayList<IndexMoudle>();
+        String scode = req.getParameter("scode");
         IndexEditService indexEditService = new IndexEditService();
-        zslist = indexEditService.getZSList(indexCode,code);
         IndexMoudle getdata = indexEditService.getData(code);
+        String procode = getdata.getProcode();
+        String proname =null;
+        if(procode!= null && procode!=""){//处理为空的步骤
+            IndexMoudle list1 =indexEditService.getData(procode);
+            proname = list1.getCname();
+        }
+
        /* String procodeId =getdata.getProcode() ;
         String proname = indexEditService.getData(procodeId,indexCode).getCname();*/
         //要是是自定义公式，读取的时候要换成对应的名字
@@ -2643,7 +2649,7 @@ public class zsjhedit extends BaseAction {
         //   Map<String, String> datas = new HashMap<String, String>();
         //  datas.put("proname", proname);
 //        datas.put("procodeId", getdata.getProcode());
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/formularEdit").addObject("icode",indexCode).addObject("zslist",zslist).addObject("zblist",zblist).addObject("data",getdata);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/formularEdit").addObject("icode",indexCode).addObject("proname",proname).addObject("zblist",zblist).addObject("data",getdata).addObject("scode",scode);
     }
 
     public void toSaveFormular() throws IOException {

@@ -32,6 +32,7 @@
             <div class="panel-body">
                 <form class="form-horizontal J_addZS_form" action="${ctx}/zbdata/zsjhedit.htm?m=toSaveFormular">
                     <input type="hidden" name="icode" value="${icode}" class="input-small"/>
+                    <input type="hidden" name="scode" value="${scode}" class="input-small"/>
                     <input type="hidden" id="ifzs" value="${data.getIfzs()}" class="input-small"/>
                     <div class="form-group" style="display: none">
                         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
@@ -43,7 +44,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" name="ZS_cname" value="${data.getCname()}">
+                            <input type="text" class="form-control" name="ZS_cname" value="${data.getCname()}" readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -68,11 +69,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">父级节点：</label>
                             <div class="col-sm-3">
-                                <select class="form-control cjzs" name="cjzs" autocomplete="off" >
-                                    <c:forEach items="${zslist}" var="list">
-                                        <option value="${list.getCode()}" <c:if test="${list.getCode() == data.getProcode()}"> selected</c:if>>${list.getCname()}</option>
-                                    </c:forEach>
-                                </select>
+                                <input class="form-control cjzs" name="cjzs" readonly="" data-value="1" value="${proname}">
                             </div>
                         </div>
                     </div>
@@ -83,11 +80,7 @@
                             <br>
                             <label class="col-sm-2 control-label">父级节点：</label>
                             <div class="col-sm-3">
-                                <select class="form-control zb_ifzs" name="zb_ifzs" autocomplete="off" >
-                                    <c:forEach items="${zslist}" var="list">
-                                        <option value="${list.getCode()}" <c:if test="${list.getCode() == data.getProcode()}"> selected</c:if>>${list.getCname()}</option>
-                                    </c:forEach>
-                                </select>
+                                <input class="form-control zb_ifzs" name="zb_ifzs" readonly="" data-value="1" value="${proname}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -105,12 +98,6 @@
                                     </c:forEach>
                                 </select>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">小数点位数：</label>
-                        <div class="col-sm-3">
-                            <input name="dotcount" type="text" class="form-control" value="${data.getDacimal()}"/>
                         </div>
                     </div>
                     <div class="hidden_group form-group" style="display: none">
