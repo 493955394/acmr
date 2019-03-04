@@ -17,7 +17,7 @@ define(function (require,exports,module) {
         //请求方案列表
         sendPjax();
         $(".single_weight_set").click(setSingleWeight);
-
+        $("#set_scheme_weight_formula").click(setSchemesWeight);
 
     })
     //局部刷新方案列表
@@ -48,6 +48,30 @@ define(function (require,exports,module) {
                     return;
                 }else{
                     window.open(common.rootPath+"zbdata/weightset.htm?m=editSingleWeight&icode="+icode+'&scode='+scode+'&sname='+sname)
+                }
+            }
+        })
+    }
+    //设置多个方案权重
+    function setSchemesWeight(){
+        var schemecodes=[];
+        var schemenames=[];
+        $(".single_weight_set").each(function () {
+            schemecodes.push($(this).attr("scheme_code"))
+            schemenames.push($(this).attr("scheme_name"))
+        })
+        //先判断是否存在空目录，如果存在，不跳转
+        $.ajax({
+            url: common.rootPath+'zbdata/indexlist.htm?m=checkModuleCat&icode='+icode,
+            type:'get',
+            datatype:'json',
+            success:function (re){
+                console.log(re)
+                if(re == false){
+                    alert("指数不能为空！");
+                    return;
+                }else{
+                    //window.open(common.rootPath+"zbdata/weightset.htm?m=editSingleWeight&icode="+icode+'&scode='+scode+'&sname='+sname)
                 }
             }
         })
