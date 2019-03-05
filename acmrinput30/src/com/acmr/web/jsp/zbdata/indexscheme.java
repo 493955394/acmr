@@ -102,7 +102,7 @@ public class indexscheme extends BaseAction {
         JSONReturnData data = new JSONReturnData("");
         String code = PubInfo.getString(this.getRequest().getParameter("code"));
         String icode = PubInfo.getString(this.getRequest().getParameter("icode"));
-        List<Scheme> schemes = indexSchemeService.getSchs(icode,code);
+        /*List<Scheme> schemes = indexSchemeService.getSchs(icode,code);
         for(int i=0;i<schemes.size();i++){
             if(schemes.get(i).getWeight().equals("")){
                 data.setReturncode(300);
@@ -111,7 +111,7 @@ public class indexscheme extends BaseAction {
             }else{
                 data.setReturncode(200);
             }
-        }
+        }*/
 
         String state ="1";
         Scheme scheme = new Scheme();
@@ -120,9 +120,9 @@ public class indexscheme extends BaseAction {
         scheme.setState(state);
         indexSchemeService.editSch(scheme);
         //其他方案state设置为0（未选用）
-        List<Scheme> schemes1 = indexSchemeService.setOnlyStart(icode,code);
+        List<Scheme> schemes = indexSchemeService.setOnlyStart(icode,code);
         indexSchemeService.copyWeightFormula(icode,code);
-        indexSchemeService.updateState(schemes1);
+        indexSchemeService.updateState(schemes);
         this.sendJson(data);
     }
     /**

@@ -204,14 +204,14 @@ define(function (require,exports,module) {
                         container: '.J_zsjh_scheme_table'
                     });
                     alert("选用成功！");
-                }else if(data.returncode == 300){
+                }/*else if(data.returncode == 300){
                     var url=common.rootPath+'zbdata/indexscheme.htm?m=getSchemeList&icode='+icode+'&st='+st;
                     $.pjax({
                         url: url,
                         container: '.J_zsjh_scheme_table'
                     });
                     alert("请设置方案权重");
-                }
+                }*/
             }
         });
 
