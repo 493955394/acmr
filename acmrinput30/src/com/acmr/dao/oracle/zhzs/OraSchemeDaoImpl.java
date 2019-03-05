@@ -211,4 +211,27 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql,params.toArray());
     }
 
+    @Override
+    public boolean checkScheme (String icode) {
+        String sql = "select count(*) from tb_coindex_scheme where indexcode=? ";
+        DataTable dt = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[] {icode});
+        List<DataTableRow> rows = dt.getRows();
+        int getint = rows.get(0).getint(0);
+        if (getint > 0) {
+            return true;//说明有这个模型的方案
+        }
+        return false;
+    }
+
+    /**
+     * 把当前该计划下所有的方案的code,cname,state取出
+     * @param icode
+     * @return
+     */
+    @Override
+    public DataTable getScodes(String icode) {
+        String sql = "select code,cname,state,remark from tb_coindex_scheme where indexcode=? group by code,cname,state,remark";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode});
+    }
+
 }

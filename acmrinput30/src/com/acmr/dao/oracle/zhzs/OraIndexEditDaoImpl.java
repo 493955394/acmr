@@ -11,6 +11,7 @@ import com.acmr.helper.util.StringUtil;
 import com.acmr.model.zhzs.IndexList;
 import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.model.zhzs.IndexZb;
+import com.acmr.model.zhzs.Scheme;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -88,21 +89,61 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{"%" + cname + "%",icode});
     }
     @Override
-    public int addZS(IndexMoudle indexMoudle){
-        String sql1 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode) values(?,?,?,?,?,?,?,?,?,?,?)";
-        List<Object> params = new ArrayList<Object>();
-        params.add(indexMoudle.getCode());
-        params.add(indexMoudle.getCname());
-        params.add(indexMoudle.getProcode());
-        params.add(indexMoudle.getIndexcode());
-        params.add(indexMoudle.getIfzs());
-        params.add(indexMoudle.getIfzb());
-        params.add(indexMoudle.getFormula());
-        params.add(indexMoudle.getSortcode());
-        params.add(indexMoudle.getWeight());
-        params.add(indexMoudle.getDacimal());
-        params.add(indexMoudle.getCode());
-        return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
+    public int addZS(IndexMoudle indexMoudle, ArrayList<Scheme> scodes){
+        DataQuery dataQuery = null;
+        try {
+
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+            // 删除旧的
+
+            String sql1 = "insert into tb_coindex_module (code,cname,procode,indexcode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode) values(?,?,?,?,?,?,?,?,?,?,?)";
+            List<Object> params = new ArrayList<Object>();
+            params.add(indexMoudle.getCode());
+            params.add(indexMoudle.getCname());
+            params.add(indexMoudle.getProcode());
+            params.add(indexMoudle.getIndexcode());
+            params.add(indexMoudle.getIfzs());
+            params.add(indexMoudle.getIfzb());
+            params.add(indexMoudle.getFormula());
+            params.add(indexMoudle.getSortcode());
+            params.add(indexMoudle.getWeight());
+            params.add(indexMoudle.getDacimal());
+            params.add(indexMoudle.getCode());
+            dataQuery.executeSql(sql1, params.toArray());
+
+            //如果已经有方案了，所有的方案都要新加这个模型节点
+            if(scodes.size()>0){
+                for (int i = 0; i <scodes.size() ; i++) {
+                    String sql = "insert into tb_coindex_scheme (code,cname,indexcode,modcode,state,ifzb,weight,formula,remark) values(?,?,?,?,?,?,?,?,?)";
+                    List<Object> arr = new ArrayList<Object>();
+                    arr.add(scodes.get(i).getCode());
+                    arr.add(scodes.get(i).getCname());
+                    arr.add(indexMoudle.getIndexcode());
+                    arr.add(indexMoudle.getCode());
+                    arr.add(scodes.get(i).getState());
+                    arr.add(indexMoudle.getIfzb());
+                    arr.add(indexMoudle.getWeight());
+                    arr.add(indexMoudle.getFormula());
+                    arr.add(scodes.get(i).getRemark());
+                    dataQuery.executeSql(sql, arr.toArray());
+                }
+            }
+
+
+            dataQuery.commit();
+        } catch (SQLException e) {
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                return 0;
+            }
+            e.printStackTrace();
+        } finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+        return 1;
     }
     /*
      *通过code查信息

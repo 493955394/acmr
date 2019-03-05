@@ -238,8 +238,21 @@ public class IndexEditService {
     /**
      * 新增指数或者指标
      */
-    public int addZStoModel(IndexMoudle indexMoudle){
-        return IndexEditDao.Fator.getInstance().getIndexdatadao().addZS(indexMoudle);
+    public int addZStoModel(IndexMoudle indexMoudle){//还要考虑方案的新增
+        ArrayList<Scheme> adddata = new ArrayList<>();
+        boolean hasScheme = SchemeDao.Fator.getInstance().getIndexdatadao().checkScheme(indexMoudle.getIndexcode());
+        if(hasScheme){
+            DataTable scodes = SchemeDao.Fator.getInstance().getIndexdatadao().getScodes(indexMoudle.getIndexcode());
+            for (int i = 0; i <scodes.getRows().size() ; i++) {
+                Scheme addScMod = new Scheme();
+                addScMod.setCode(scodes.getRows().get(i).getString("code"));
+                addScMod.setCname(scodes.getRows().get(i).getString("cname"));
+                addScMod.setState(scodes.getRows().get(i).getString("state"));
+                addScMod.setRemark(scodes.getRows().get(i).getString("remark"));
+                adddata.add(addScMod);
+            }
+        }
+        return IndexEditDao.Fator.getInstance().getIndexdatadao().addZS(indexMoudle,adddata);
     }
 
     /**
