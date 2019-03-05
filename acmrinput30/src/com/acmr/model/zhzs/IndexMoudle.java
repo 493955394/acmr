@@ -2,6 +2,7 @@ package com.acmr.model.zhzs;
 
 import acmr.util.PubInfo;
 import com.acmr.service.zhzs.IndexEditService;
+import com.acmr.service.zhzs.IndexSchemeService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -210,6 +211,33 @@ public class IndexMoudle {
             return false;
         }
     }
+
+    /**
+    * @Description: 返回模型节点对应方案的权重
+    * @Param: [scode]
+    * @return: java.lang.String
+    * @Author: lyh
+    * @Date: 2019/3/5
+    */
+    public String getSweight(String scode) {
+        IndexSchemeService indexSchemeService = new IndexSchemeService();
+        String sweight = indexSchemeService.getModSchemeWeight(scode, this.getCode());
+        return sweight;
+    }
+
+    /**
+    * @Description: 返回模型节点对应方案的公式
+    * @Param: [scode]
+    * @return: java.lang.String
+    * @Author: lyh
+    * @Date: 2019/3/5
+    */
+    public String getSformula(String scode){
+        IndexSchemeService indexSchemeService = new IndexSchemeService();
+        String sformula = indexSchemeService.getModSchemeFormula(scode, this.getCode());
+        return sformula;
+    }
+
 
 
 }

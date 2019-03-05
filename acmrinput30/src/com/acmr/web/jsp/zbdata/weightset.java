@@ -78,9 +78,25 @@ public class weightset extends BaseAction {
         HttpServletRequest req=this.getRequest();
         String icode=req.getParameter("icode");
         IndexSchemeService indexSchemeService=new IndexSchemeService();
-        List<Scheme> schemes=indexSchemeService.getSchemesByIcode(icode);
+        WeightEditService weightEditService=new WeightEditService();
+        IndexEditService indexEditService=new IndexEditService();
+        List<Scheme> schemes=indexSchemeService.getSchemeByIcode(icode);
+        List<String> scodes=new ArrayList<>();
+        for (Scheme scheme:schemes){
+            scodes.add(scheme.getCode());
+        }
+        List<IndexMoudle> re=weightEditService.getMods(icode);
+        List<IndexMoudle> mods=new ArrayList<>();
+        for (int j=0;j<re.size();j++){
+            if (re.get(j).getProcode()==""){
+                //PubInfo.printStr("find1");
+                mods.add(re.get(j));
+                List<IndexMoudle> allsub=indexEditService.getAllMods(re.get(j).getCode(),icode);
+                mods.addAll(allsub);
+            }
+        }
 
-        return new ModelAndView("");
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/weightschemesset").addObject("indexcode",icode).addObject("scodes",scodes).addObject("mods",mods);
     }
 
     /**
