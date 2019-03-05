@@ -39,10 +39,35 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
 
     @Override
     public int deleteMod(String code) {
-        StringBuffer sbf = new StringBuffer();
-        sbf.append("delete from tb_coindex_module where code=?");
-        return AcmrInputDPFactor.getQuickQuery().executeSql(sbf.toString(),new Object[]{code});
+        // return值暂时无用
+        if (code == null) {
+            return 1;
+        }
+        DataQuery dataQuery = null;
+        try {
 
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+            // 删除module表
+            StringBuffer sbf = new StringBuffer();
+            sbf.append("delete from tb_coindex_module where code=?");
+            dataQuery.executeSql(sbf.toString(),new Object[]{code});
+            //删除scheme表
+            String sql1 = "delete from tb_coindex_scheme where modcode=?";
+            dataQuery.executeSql(sql1,new Object[]{code});
+            dataQuery.commit();
+        } catch (SQLException e) {
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                return 0;
+            }
+            e.printStackTrace();
+        } finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+        return 1;
     }
 
     @Override

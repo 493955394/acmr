@@ -441,28 +441,29 @@ public class IndexEditService {
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         for (String arr : list) {
            //如果是两个指标或者以上，后面不能跟时间
+            String orgStr = arr;
             if(StringUtils.countMatches(arr,"#")>2){
                 for (int j = 0; j <zbchoose.size() ; j++) {
                     String temp = "#"+zbchoose.get(j).get("code").toString()+"#";
                     arr = arr.replace(temp,"");//删掉
                 }
                 arr = arr.replace(",","");//逗号删掉
-                if(arr.equals("")) str=str.replace("getvalue("+arr+")","2.0,2.0");//要是符合条件就给换成数组
+                if(arr.equals("")) str=str.replace("getvalue("+orgStr+")","2.0,2.0");//要是符合条件就给换成数组
             }
             else if(StringUtils.countMatches(arr,"#")==2){
                 for (int j = 0; j <zbchoose.size() ; j++) {
                     String temp = "#"+zbchoose.get(j).get("code").toString()+"#";
                     arr = arr.replace(temp,"");//有指标的话就删掉
                 }
-                if(arr.equals("")){str=str.replace("getvalue("+arr+")","2.0,2.0");}//要是符合条件就给换成数组
+                if(arr.equals("")){str=str.replace("getvalue("+orgStr+")","2.0,2.0");}//要是符合条件就给换成数组
                 else {
                     int index = arr.indexOf(",");
                     String wd = arr.substring(index+1);
-                    if(wd.equals("dq")||wd.equals("begintime")) str=str.replace("getvalue(,"+arr+")","2.0,2.0");
+                    if(wd.equals("dq")||wd.equals("begintime")) str=str.replace("getvalue("+orgStr+")","2.0,2.0");
                     OriginService os = new OriginService();
                    try {
                        List<CubeNode> sj = os.getwdsubnodes("sj", wd, dbcode);
-                       str=str.replace("getvalue("+arr+")","2.0,2.0");//要是符合条件就给换成数组
+                       str=str.replace("getvalue("+orgStr+")","2.0,2.0");//要是符合条件就给换成数组
                    }catch (NullPointerException e){
                        e.printStackTrace();
                        break;//不符合直接跳出循环
