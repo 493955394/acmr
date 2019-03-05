@@ -1314,7 +1314,7 @@ public class zsjhedit extends BaseAction {
         indexMoudle.setIfzs(ifzs);
         indexMoudle.setDacimal(dacimal);
         int back = indexEditService.updateToModel(indexMoudle);
-        if(back == 1 || back == 0){
+        if(back == 1){
             data.setReturncode(200);
             this.sendJson(data);
             return;
@@ -2659,6 +2659,7 @@ public class zsjhedit extends BaseAction {
         }
         sc.setCode(scode);
         sc.setIndexcode(indexCode);
+        sc.setIfzb(ifzb);
         if(ifzb.equals("1")){
             sc.setFormula(formula);
         }

@@ -187,8 +187,8 @@ public class IndexSchemeService {
     public IndexMoudle getModData(String modcode, String icode, String scode){
         IndexMoudle mod=new IndexMoudle();
         List<DataTableRow> scheme = SchemeDao.Fator.getInstance().getIndexdatadao().getScMod(modcode,icode,scode).getRows();
-        List<DataTableRow> info = IndexEditDao.Fator.getInstance().getIndexdatadao().getDataByCode(icode).getRows();
-        if(scheme.size()>0&&info.size()>0) {
+        List<DataTableRow> info = IndexEditDao.Fator.getInstance().getIndexdatadao().getDataByCode(modcode).getRows();
+        if(scheme.size()>0 && info.size()>0) {
             mod.setCname(info.get(0).getString("cname"));
             mod.setCode(modcode);
             mod.setDacimal(info.get(0).getString("dacimal"));
@@ -204,6 +204,8 @@ public class IndexSchemeService {
     }
 
     public int updtoModel(Scheme sc,String modcode,String scode){
-        return ischemeDao.updScheme(sc,modcode,scode);
+        //检查这个模型所在的方案是不是处于启用状态
+        String state = ischemeDao.getScMod(modcode,sc.getIndexcode(),scode).getRows().get(0).getString("state");
+        return ischemeDao.updScheme(sc,modcode,scode,state);
     }
 }

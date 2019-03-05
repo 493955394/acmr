@@ -209,15 +209,51 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {icode,modcode,scode});
 
     }
+
+    /**
+     * 保存公式时，可能也要更新module表
+     * @param sc
+     * @param modcode
+     * @param scode
+     * @return
+     */
     @Override
-    public int updScheme(Scheme sc,String modcode,String scode ) {
-        String sql="update tb_coindex_scheme set weight=?,formula=? where code=? and modcode=? ";
+    public int updScheme(Scheme sc,String modcode,String scode,String state ) {
+        DataQuery dataQuery = null;
+        try {
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+        String sql="update tb_coindex_scheme set weight=?,formula=?,ifzb=? where code=? and modcode=? ";
         List<Object> params = new ArrayList<Object>();
         params.add(sc.getWeight());
         params.add(sc.getFormula());
+        params.add(sc.getIfzb());
         params.add(scode);
         params.add(modcode);
-        return AcmrInputDPFactor.getQuickQuery().executeSql(sql,params.toArray());
+        dataQuery.executeSql(sql,params.toArray());
+        //检查该状态是否处于启用状态
+        if(state.equals("1")){
+            String sql1="update tb_coindex_module set ifzb=?,formula=? where code=?";
+            List<Object> arr = new ArrayList<Object>();
+            arr.add(sc.getIfzb());
+            arr.add(sc.getFormula());
+            arr.add(modcode);
+            dataQuery.executeSql(sql1,arr.toArray());
+        }
+        dataQuery.commit();
+
+    } catch (SQLException e) {
+        if (dataQuery != null) {
+            dataQuery.rollback();
+            e.printStackTrace();
+            return 0;
+        }
+    } finally {
+        if (dataQuery != null) {
+            dataQuery.releaseConnl();
+        }
+    }
+        return 1;
     }
 
     @Override
