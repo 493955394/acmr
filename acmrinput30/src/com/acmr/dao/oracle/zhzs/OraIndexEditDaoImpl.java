@@ -192,14 +192,6 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
             sql1+=",ifzs=?";
             parms.add(indexMoudle.getIfzs());
         }
-        if(indexMoudle.getIfzb()!=null){
-            sql1+=",ifzb=?";
-            parms.add(indexMoudle.getIfzb());
-        }
-        if(indexMoudle.getFormula()!=null){
-            sql1+=",formula=?";
-            parms.add(indexMoudle.getFormula());
-        }
         if(indexMoudle.getDacimal()!=null){
             sql1+=",dacimal=?";
             parms.add(indexMoudle.getDacimal());

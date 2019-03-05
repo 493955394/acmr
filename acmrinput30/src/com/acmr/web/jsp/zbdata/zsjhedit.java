@@ -1279,17 +1279,10 @@ public class zsjhedit extends BaseAction {
         String code = PubInfo.getString(req.getParameter("ZS_code"));
         String name = PubInfo.getString(req.getParameter("ZS_cname"));
         String ifzs = PubInfo.getString(req.getParameter("inputifzs"));
-        String formula = PubInfo.getString(req.getParameter("formula"));//判断是不是自定义，是指标还是公式
-        String formulatext = PubInfo.getString(req.getParameter("formulatext"));
-        String ifzb = "";
+
         if(ifzs.equals("1")){//选了次级指标
             String zs = PubInfo.getString(req.getParameter("cjzs"));//次级指数的所属节点类别
             procodeId = zs;
-        }
-        if(formula.equals("userdefined")){
-            ifzb = "0";//0是公式
-        }else {
-            ifzb = "1";//1是指标
         }
         String dacimal = PubInfo.getString(req.getParameter("dotcount"));
         if(ifzs.equals("1")||ifzs.equals("0")){
@@ -1297,8 +1290,6 @@ public class zsjhedit extends BaseAction {
         }
         if(ifzs.equals("1")||ifzs.equals("2")){
             ifzs = "1";//总指数或者次级指数
-            ifzb ="";
-            formula="";
         }
         if(indexEditService.checkCname(indexCode,name,ifzs,code)){//名称不重复校验
             data.setReturncode(301);
@@ -1322,21 +1313,6 @@ public class zsjhedit extends BaseAction {
         indexMoudle.setIndexcode(indexCode);
         indexMoudle.setIfzs(ifzs);
         indexMoudle.setDacimal(dacimal);
-        if(ifzb.equals("1")){
-            indexMoudle.setIfzb(ifzb);
-            indexMoudle.setFormula(formula);
-        }
-        else if(ifzb.equals("0")){
-            indexMoudle.setIfzb(ifzb);//是选的自定义公式，要做校验
-            if(checkFormula(formulatext,indexCode)){
-                formulatext = changeFormula(formulatext,indexCode,"NTC");
-                indexMoudle.setFormula(formulatext);
-            }else {
-                data.setReturncode(300);
-                this.sendJson(data);
-                return;
-            }
-        }
         int back = indexEditService.updateToModel(indexMoudle);
         if(back == 1 || back == 0){
             data.setReturncode(200);
