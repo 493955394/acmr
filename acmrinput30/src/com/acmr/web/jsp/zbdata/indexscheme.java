@@ -29,7 +29,7 @@ public class indexscheme extends BaseAction {
         String icode=req.getParameter("icode");
         String pjax = req.getHeader("X-PJAX");
         //获得计划所有的方案
-        List<Scheme> schemes=indexSchemeService.getSchemesByIcode(icode);
+        List<Scheme> schemes=indexSchemeService.getSchemeByIcode(icode);
 
         if (StringUtil.isEmpty(pjax)) {
             //PubInfo.printStr("isempty");

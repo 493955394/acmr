@@ -44,6 +44,15 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         if (rows.size()==0) return "";
         else return rows.get(0).getString("weight");
     }
+
+    @Override
+    public String getModSchemeFormula(String scode, String modcode) {
+        String sql="select * from tb_coindex_scheme where code=? and modcode=?";
+        List<DataTableRow> rows=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{scode,modcode}).getRows();
+        if (rows.size()==0) return "";
+        else return rows.get(0).getString("formula");
+    }
+
     @Override
     public int checkCname(String icode, String cname) {
         String sql = "select count(*) from tb_coindex_scheme where indexcode=? and cname =?";

@@ -14,13 +14,13 @@ import java.util.*;
 public class IndexSchemeService {
     private ISchemeDao ischemeDao=SchemeDao.Fator.getInstance().getIndexdatadao();
     /**
-    * @Description: 根据指标code返回该指标所有的方案列表(去重)，并局部刷新table
+    * @Description: 根据指标code返回该指标所有的方案列表(去重)
     * @Param: [icode]
     * @return: java.util.List<com.acmr.model.zhzs.Scheme>
     * @Author: lyh
     * @Date: 2019/1/16
     */
-    public List<Scheme> getSchemesByIcode(String icode) {
+    public List<Scheme> getSchemeByIcode(String icode) {
         List<Scheme> schemes=new ArrayList<>();
         List<DataTableRow> rows=ischemeDao.getSchemesByIcode(icode);
         if (rows.size()==0) return null;
@@ -45,9 +45,43 @@ public class IndexSchemeService {
         return schemes;
     }
 
+
+    /**
+    * @Description:  根据指标code返回该指标所有的方案列表
+    * @Param: [icode]
+    * @return: java.util.List<com.acmr.model.zhzs.Scheme>
+    * @Author: lyh
+    * @Date: 2019/3/5
+    */
+    public List<Scheme> getSchemesByIcode(String icode) {
+        List<Scheme> schemes=new ArrayList<>();
+        List<DataTableRow> rows=ischemeDao.getSchemesByIcode(icode);
+        if (rows.size()==0) return null;
+        for (DataTableRow row:rows){
+            String code=row.getString("code");
+            String id=row.getString("id");
+            String cname=row.getString("cname");
+            String indexcode=icode;
+            String modcode=row.getString("modcode");
+            String state=row.getString("state");
+            String ifzb=row.getString("ifzb");
+            String weight=row.getString("weight");
+            String formula=row.getString("formula");
+            String remark=row.getString("remark");
+            Scheme scheme=new Scheme(id,code,cname,indexcode,modcode,state,ifzb,weight,formula,remark);
+            schemes.add(scheme);
+        }
+        return schemes;
+    }
+
+
     public String getModSchemeWeight(String scode,String modcode){
         return ischemeDao.getModSchemeWeight(scode,modcode);
     }
+    public String getModSchemeFormula(String scode,String modcode){
+        return ischemeDao.getModSchemeFormula(scode,modcode);
+    }
+
     public int checkSchname(String icode,String cname){
         return ischemeDao.checkCname(icode,cname);
     }
