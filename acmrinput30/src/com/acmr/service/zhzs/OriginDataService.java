@@ -11,6 +11,8 @@ import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 import com.acmr.dao.AcmrInputDPFactor;
 import com.acmr.dao.zhzs.DataDao;
+import com.acmr.dao.zhzs.IndexListDao;
+import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.model.taskindex.TaskIndex;
 import com.acmr.model.zhzs.*;
 import com.acmr.service.zbdata.OriginService;
@@ -172,7 +174,6 @@ public class OriginDataService {
             }
             else if(data.get(i).getIfzb().equals("0")){//如果是自己编辑的公式
                 //先处理公式
-
                 for (int j = 0; j <reg.length ; j++) {//地区循环
                     String formula = data.get(i).getFormula();
                     DataResult da = new DataResult();
@@ -183,13 +184,18 @@ public class OriginDataService {
                     da.setSessionid(sessionid);
                     boolean flag = false;
                     for (int k = 0; k <zbs.size() ; k++) {
+                        //先处理特殊的getvalue函数
+                        formula = specialMath(formula,iftmp,zbs,taskcode,time,reg[j],regs,sessionid);
+                        if(formula.equals("false")){  //getvalue函数里没数
+                            flag = true;
+                            break;}
                         if(formula.contains(zbs.get(k).getProcode())){//要是存在这个code,就去取对应的zbcode
                             String tempval = originDataService.getvalue(iftmp,taskcode,zbs.get(k).getCode(),reg[j],time,sessionid);
                             //替换公式中的值
                             if(tempval.equals("")){
 //                                formula = formula.replace("#"+zbs.get(k).getProcode()+"#","0");//换成0
                                 flag = true;
-                                continue;
+                               break;
                             }
                             else{
                                 formula = formula.replace("#"+zbs.get(k).getProcode()+"#",tempval);//换成对应的value
@@ -220,7 +226,7 @@ public class OriginDataService {
      */
     public String tocalculate(String formula,String dacimal){
         String result="";
-        formula = formula.replace("random()","chance()");//不能用random这个函数名因为有个and会报错
+       // formula = formula.replace("random()","chance()");//不能用random这个函数名因为有个and会报错
         try {
             ce.setFunctionclass(new MathService());
             result = ce.Eval(formula);
@@ -386,7 +392,7 @@ public class OriginDataService {
     /**
      * 校验时计算那几个特殊的自定义函数
      */
-    public String specialMath(String formulatext,String dbcode,String icode){
+    public String specialMath(String formulatext,boolean iftmp, List<TaskZb> zbs,String taskcode, String time,String thisreg,String regs,String sessionid){
         //存在getvalue函数
         String regex = "getvalue\\((.*?)\\)";
         List<String> list = new ArrayList<String>();
@@ -397,134 +403,107 @@ public class OriginDataService {
             list.add(m.group(i));
             i++;
         }
+        boolean flag = false;
         for (int i = 0; i <list.size() ; i++) {
-            String result = getvalueMath(list.get(i),dbcode,icode);
-            if(result!="[]")
-            {formulatext = formulatext.replace("getvalue("+list.get(i)+")",result);}
-            else{break;}
+            String result = getvalueMath(list.get(i),iftmp,zbs,taskcode,time,thisreg,regs,sessionid);
+            if(result.equals("false")){//是空数组，报错
+                flag = true;
+                break;
+            }else {//不是空数组的话做替换
+                formulatext = formulatext.replace("getvalue("+list.get(i)+")",result);
+            }
         }
+        if(flag)return "false";
         return formulatext;
     }
 
-    public String getvalueMath(String orgStr,String dbcode,String icode) {
-        String data = "";
-        OriginService os = new OriginService();
-        int index = orgStr.indexOf(",");
-        if (index <= 0) return data;
-        String code = orgStr.substring(0, index);
-        String wd = orgStr.substring(index + 1);
-        IndexEditService is = new IndexEditService();
-        IndexZb zb = is.getZBData(code);
-        System.out.println(code);
-        System.out.println(wd);
-   if(wd.substring(0,1).equals("#") && wd.substring(wd.length()-1).equals("#")) {//如果全是指标
-       String [] modcode = orgStr.split(",");
-   }else{
-       if (wd.equals("dq")) {//如果后边填的是地区,找这个指标所有有数的地区
-           String[] reg = null;
-           List<CubeWdValue> list1 = new ArrayList<CubeWdValue>();
-           list1.add(new CubeWdValue("zb",
-                   zb.getZbcode()));
-           list1.add(new CubeWdValue("co", zb.getCompany()));
-           list1.add(new CubeWdValue("ds", zb.getDatasource()));
-           List<String> nodes = os.gethasdatawdlist(list1, "reg", dbcode);
-           for (int i = 0; i < nodes.size(); i++) {
-               reg[i] = nodes.get(i);
-           }
-           List<CubeNode> sjtmp = os.getwdsubnodes("sj", "last1", dbcode);
-           String[] sj = {sjtmp.get(0).getCode()};//取当期的时间
-           if (reg != null) data = findData(dbcode, zb, sj, reg);
-       } else if (wd.equals("begintime")) {
-           String[] reg = zb.getRegions().split(",");
-           String[] sj = null;
-           String begintime = new IndexListService().getData(icode).getStartperiod();
-           if (!begintime.equals("")) {
-               List<CubeNode> sjtmp = os.getwdsubnodes("sj", begintime + "-", dbcode);
-               for (int i = 0; i < sjtmp.size(); i++) {
-                   sj[i] = sjtmp.get(i).getCode();
+    public String getvalueMath(String orgStr,boolean iftmp, List<TaskZb> zbs,String taskcode, String time,String thisreg,String regs,String sessionid) {
+        String data = "false";//默认没有值
+        String text = orgStr;
+        OriginDataService originDataService = new OriginDataService();
+       if(!text.contains(",")){//不包含逗号，说明是单个的zb,当前时间当前地区直接找值就可以
+           for (int k = 0; k <zbs.size() ; k++) {
+               if (text.contains(zbs.get(k).getProcode())) {//要是存在这个code,就去取对应的zbcode
+                   String val = originDataService.getvalue(iftmp, taskcode, zbs.get(k).getCode(), thisreg, time, sessionid);
+                   if (!val.equals("")) {//如果有值的话,做替换
+                       data = val;
+                   } else {//要是没有值
+                       break;
+                   }
                }
-               if (sj != null) data = findData(dbcode, zb, sj, reg);
            }
-       } else {
-           String[] reg = zb.getRegions().split(",");
-           String[] sj = null;
-           String begintime = new IndexListService().getData(icode).getStartperiod();
-           if (!begintime.equals("")) {
-               List<CubeNode> sjtmp = os.getwdsubnodes("sj", wd, dbcode);
-               for (int i = 0; i < sjtmp.size(); i++) {
-                   sj[i] = sjtmp.get(i).getCode();
+       }else{ //有逗号，又分为几种情况
+           if(StringUtils.countMatches(text,"#")>2){ //全都是指标的话
+               String tmp = "";
+               for (int k = 0; k <zbs.size() ; k++) {
+                   if (text.contains(zbs.get(k).getProcode())) {//要是存在这个code,就去取对应的zbcode
+                       String val = originDataService.getvalue(iftmp, taskcode, zbs.get(k).getCode(), thisreg, time, sessionid);
+                       if (!val.equals("")) {//如果有值的话,做替换
+                           tmp +=","+val;
+                       } else {//要是没有值
+                          continue;
+                       }
+                   }
                }
-               if (sj != null) data = findData(dbcode, zb, sj, reg);
+               if(!tmp.equals("")) data = tmp.substring(1);//只要有一组数组有值，就算对
+           }
+           else{//要是既有指标又有时间，又分三种情况
+               int index = text.indexOf(",");
+               String modcode = text.substring(0, index);
+               String wd = text.substring(index + 1);
+               String icode = IndexTaskDao.Fator.getInstance().getIndexdatadao().getIcode(taskcode);
+               String dbcode= IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+               OriginService os = new OriginService();
+               String zbcode="";
+               for (int k = 0; k <zbs.size() ; k++) {//先找到modcode对应的zbcode
+                   if (modcode.contains(zbs.get(k).getProcode())) {//要是存在这个modcode,就去取对应的zbcode
+                       zbcode = zbs.get(k).getCode();
+                   }
+               }
+               if(wd.equals("dq")){//如果是所有地区，当期时间
+                   String[] reg = regs.split(",");
+                   String tmp = "";
+                   for (int k = 0; k <reg.length ; k++) {
+                       if (!zbcode.equals("")) {//要是存在这个code,就去取对应的zbcode
+                           String val = originDataService.getvalue(iftmp, taskcode, zbcode, reg[k], time, sessionid);
+                           if (!val.equals("")) {//如果有值的话,做替换
+                               tmp +=","+val;
+                           } else {//要是没有值
+                               continue;
+                           }
+                       }
+                   }
+                   if(!tmp.equals("")) data = tmp.substring(1);//只要有一组数组有值，就算对
+               }else if(wd.equals("begintime")){//如果是计划起始时间,用当前地区
+                   String tmp = "";
+                   String begintime = IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(icode).getRows().get(0).getString("startperiod");
+                   List<CubeNode> sjs = os.getwdsubnodes("sj",begintime+"-",dbcode);
+                   for (int i = 0; i <sjs.size() ; i++) {
+                           String val = originDataService.getvalue(iftmp, taskcode, zbcode, thisreg, sjs.get(i).getCode(), sessionid);
+                           if (!val.equals("")) {//如果有值的话,做替换
+                               tmp +=","+val;
+                           } else {//要是没有值
+                               continue;
+                           }
+                       }
+                   if(!tmp.equals("")) data = tmp.substring(1);//只要有一组数组有值，就算对
+               }
+               else {//其他情况直接丢去库里找
+                   String tmp = "";
+                   List<CubeNode> sjs = os.getwdsubnodes("sj",wd,dbcode);
+                   for (int i = 0; i <sjs.size() ; i++) {
+                       String val = originDataService.getvalue(iftmp, taskcode, zbcode, thisreg, sjs.get(i).getCode(), sessionid);
+                       if (!val.equals("")) {//如果有值的话,做替换
+                           tmp +=","+val;
+                       } else {//要是没有值
+                           continue;
+                       }
+                   }
+                   if(!tmp.equals("")) data = tmp.substring(1);//只要有一组数组有值，就算对
+               }
            }
        }
-   }
-        if(data!="") data = data.substring(1);
         return data;
     }
 
-    public String findData(String dbcode,IndexZb zb,String[] sj,String[] reg){
-        String data = "";
-        OriginService os = new OriginService();
-            String funit = os.getwdnode("zb", zb.getZbcode(), dbcode).getUnitcode();
-            for (int i = 0; i < sj.length; i++) {
-                BigDecimal rate = new BigDecimal(os.getRate(funit, zb.getUnitcode(), sj[i]));
-                CubeWdCodes where = new CubeWdCodes();
-                where.Add("zb", zb.getZbcode());
-                where.Add("ds", zb.getDatasource());
-                where.Add("co", zb.getCompany());
-                where.Add("reg", Arrays.asList(reg));
-                where.Add("sj", sj[i]);
-                ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode, where);
-                if (result.size() == 0) {
-                } else {
-                    for (int l = 0; l < result.size(); l++) {
-                        if (!result.get(l).getData().toString().equals("")) {
-                            BigDecimal resulttemp = (new BigDecimal(result.get(l).getData().getStrdata())).multiply(rate);
-                            data += "," + resulttemp;
-                        }
-                    }
-                }
-            }
-        return data;
-    }
-
-    public static void main(String[] args) {
-        String formulatext = "gettimevalue(test,l,a)";
-        String regex = "gettimevalue\\((.*?)\\)";
-        List<String> list = new ArrayList<String>();
-        Pattern pattern = Pattern.compile(regex);
-        Matcher m = pattern.matcher(formulatext);
-        while (m.find()) {
-            int i = 1;
-            list.add(m.group(i));
-            i++;
-        }
-        for (String str : list) {
-            int index = str.indexOf(",");
-            if(index<=0)break;
-            String code = str.substring(0,index);
-            String wd = str.substring(index+1);
-            System.out.println(code);
-            System.out.println(wd);
-
-        }
-        //存在allareavalue函数
-        String regex1 = "allareavalue\\((.*?)\\)";
-        List<String> list1 = new ArrayList<String>();
-        Pattern pattern1 = Pattern.compile(regex1);
-        Matcher m1 = pattern1.matcher(formulatext);
-        while (m1.find()) {
-            int i = 1;
-            list1.add(m1.group(i));
-            i++;
-        }
-        for (String str : list1) {
-            int index = str.indexOf(",");
-            if(index<=0)break;
-            String code = str.substring(0,index);
-            String wd = str.substring(index+1);
-            System.out.println(code);
-            System.out.println(wd);
-        }
-    }
 }
