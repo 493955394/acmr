@@ -53,17 +53,101 @@
     <c:forEach items="${mods}" var="module">
     var zbnums=${module.ZBnums()}
         //总指数
-        <c:if test="${module.getProcode().equals('')}">
+     <c:if test="${module.getProcode().equals('')}">
         $("#module_table").append(
             "<tr class='row_body'><td rowspan=${module.ZBnums()} code=${module.getCode()} flag=${module.ZBnums()}>${module.getCname()}</td></tr>"
         )
-    for (var i=zbnums;i>1;i--){
-        $("#module_table").append(
-            "<tr class='row_body'></tr>"
+        for (var i=zbnums;i>1;i--){
+            $("#module_table").append(
+                "<tr class='row_body'></tr>"
+            )
+        }
+     </c:if>
+    //指数
+    <c:if test="${!module.getProcode().equals('')&&module.getIfzs().equals('1')}">
+    var flag=$("td[code='${module.getProcode()}']:first").attr("flag")
+    var rows=$("td[code='${module.getProcode()}']:first").attr("rowspan")
+    //和父节点同行
+    if (flag==rows){
+        <c:forEach items="${scodes}" var="scode">
+        $("td[code='${module.getProcode()}']:first").after(
+            "<td code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input pcode='${module.getProcode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
         )
+        </c:forEach>
+
+        $("td[code='${module.getProcode()}']:first").after(
+            "<td rowspan=${module.ZBnums()}>${module.getCname()}</td>")
+
+        $("td[code='${module.getProcode()}']:first").attr("flag",flag-${module.ZBnums()})
+    }
+    //与父节点不同行
+    else {
+        console.log($("td[code='${module.getProcode()}']:first").parent().nextAll())
+        $("td[code='${module.getProcode()}']:first").parent().nextAll(":eq(" +
+            (rows-flag-1)+")").append("<td rowspan=${module.ZBnums()}>${module.getCname()}</td>")
+        <c:forEach items="${scodes}" var="scode">
+        $("td[code='${module.getProcode()}']:first").parent().nextAll(":eq(" +
+            (rows-flag-1)+")").append(
+            "<td code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input pcode='${module.getProcode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
+        )
+        </c:forEach>
+
+
+        $("td[code='${module.getProcode()}']:first").attr("flag",flag-${module.ZBnums()})
+
+    }
+
+
+    </c:if>
+    //指标
+    <c:if test="${!module.getProcode().equals('')&&module.getIfzs().equals('0')}">
+    var flag=$("td[code='${module.getProcode()}']:last").attr("flag")
+    var rows=$("td[code='${module.getProcode()}']:last").attr("rowspan")
+    //和父节点同行
+    if (flag==rows){
+        <c:forEach items="${scodes}" var="scode">
+        $("td[code='${module.getProcode()}']:last").after(
+            "<td code=${module.getCode()}><input pcode='${module.getProcode()}'  placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>公式：<input value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
+        )
+        </c:forEach>
+        $("td[code='${module.getProcode()}']:last").after(
+            "<td>${module.getCname()}</td>"
+        )
+
+        $("td[code='${module.getProcode()}']:last").attr("flag",flag-1)
+    }
+    //与父节点不同行
+    else {
+        $("td[code='${module.getProcode()}']:last").parent().nextAll(":eq(" +
+            (rows-flag-1)+")").append("<td>${module.getCname()}</td>")
+        <c:forEach items="${scodes}" var="scode">
+        $("td[code='${module.getProcode()}']:last").parent().nextAll(":eq(" +
+            (rows-flag-1)+")").append(
+            "<td code=${module.getCode()}><input pcode='${module.getProcode()}'  placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>公式：<input value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
+        )
+        </c:forEach>
+
+        $("td[code='${module.getProcode()}']:last").attr("flag",flag-1)
+
     }
     </c:if>
     </c:forEach>
+
+    var colnum=0;
+    $(".row_body").each(function () {
+        var tdnum=$(this).children().length;
+        if (tdnum>colnum){
+            colnum=tdnum;
+        }
+    })
+    console.log(colnum)
+    for (var i=(colnum-1)/2;i>0;i--){
+        $("#row_head1").append("<td colspan='2'>指标</td>")
+        <%--<c:forEach items="${snames}" var="sname">
+
+        $("#row_head2").append("<td></td><td class='scheme_name'>${sname}</td>")
+        </c:forEach>--%>
+    }
 
 </script>
 
