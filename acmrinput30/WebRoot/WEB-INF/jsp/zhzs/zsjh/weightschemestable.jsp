@@ -133,6 +133,21 @@
     </c:if>
     </c:forEach>
 
+    var colnum=0;
+    $(".row_body").each(function () {
+        var tdnum=$(this).children().length;
+        if (tdnum>colnum){
+            colnum=tdnum;
+        }
+    })
+    console.log(colnum)
+    for (var i=(colnum-1)/2;i>0;i--){
+        $("#row_head1").append("<td colspan='2'>指标</td>")
+        <c:forEach items="${snames}" var="sname">
+        $("#row_head2").append("<td></td><td class='scheme_name'>${sname}</td>")
+        </c:forEach>
+    }
+
 </script>
 
 
