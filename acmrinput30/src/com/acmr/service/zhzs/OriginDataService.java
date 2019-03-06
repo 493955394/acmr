@@ -183,12 +183,13 @@ public class OriginDataService {
                     da.setModcode(data.get(i).getCode());
                     da.setSessionid(sessionid);
                     boolean flag = false;
+                    //先处理特殊的getvalue函数
+                    formula = specialMath(formula,iftmp,zbs,taskcode,time,reg[j],regs,sessionid);
+                    if(formula.equals("false")){  //getvalue函数里没数
+                        flag = true;
+                        }
+                        else{
                     for (int k = 0; k <zbs.size() ; k++) {
-                        //先处理特殊的getvalue函数
-                        formula = specialMath(formula,iftmp,zbs,taskcode,time,reg[j],regs,sessionid);
-                        if(formula.equals("false")){  //getvalue函数里没数
-                            flag = true;
-                            break;}
                         if(formula.contains(zbs.get(k).getProcode())){//要是存在这个code,就去取对应的zbcode
                             String tempval = originDataService.getvalue(iftmp,taskcode,zbs.get(k).getCode(),reg[j],time,sessionid);
                             //替换公式中的值
@@ -203,6 +204,7 @@ public class OriginDataService {
 
                         }
                     }
+                        }
                     if(flag){
                         da.setData("");//要是替换后有一个是null就不算了
                     }else {
@@ -390,7 +392,7 @@ public class OriginDataService {
     public String findoldmod(String taskcode,String orcode){return DataDao.Fator.getInstance().getIndexdatadao().findModCode(taskcode,orcode);}
 
     /**
-     * 校验时计算那几个特殊的自定义函数
+     * 校验时计算那个特殊的自定义函数getvalue
      */
     public String specialMath(String formulatext,boolean iftmp, List<TaskZb> zbs,String taskcode, String time,String thisreg,String regs,String sessionid){
         //存在getvalue函数
