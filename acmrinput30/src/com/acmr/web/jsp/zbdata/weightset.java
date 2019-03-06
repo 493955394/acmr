@@ -17,7 +17,7 @@ import java.util.*;
 public class weightset extends BaseAction {
 
     /**
-    * @Description: 根据传来的indexcode取模型节点信息，并跳转页面
+    * @Description: 根据传来的indexcode取模型节点信息，并跳转页面,单个方案权重设置
     * @Param: []
     * @return: void
     * @Author: lyh

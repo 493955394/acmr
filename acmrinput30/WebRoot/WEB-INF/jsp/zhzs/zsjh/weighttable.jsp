@@ -82,7 +82,7 @@
         //$("#"+"${module.getProcode()}").parent().nextAll(":eq(1)").append("<td>test</td>")
         $("#"+"${module.getProcode()}").parent().nextAll(":eq(" +
             (rows-flag-1)+")").append("<td rowspan=${module.ZBnums()}>${module.getCname()}</td><td id=${module.getCode()} rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input pcode='${module.getProcode()}'  placeholder='请输入权重'  class='input_weight' value='${module.getWeight()}'></td>")
-        $("#"+"${module.getProcode()}").attr("flag",flag-1)
+        $("#"+"${module.getProcode()}").attr("flag",flag-${module.ZBnums()})
     }
     //console.log($("#"+"${module.getProcode()}").parent().nextAll())
 
@@ -97,7 +97,7 @@
             "<td>${module.getCname()}</td><td id=${module.getCode()}><input pcode='${module.getProcode()}'  placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'>公式：<input value='${module.getFormula()}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}'>编辑</a></td>"
         )
 
-        $("#"+"${module.getProcode()}").attr("flag",flag-${module.ZBnums()})
+        $("#"+"${module.getProcode()}").attr("flag",flag-1)
     }
     //与父节点不同行
     else {
