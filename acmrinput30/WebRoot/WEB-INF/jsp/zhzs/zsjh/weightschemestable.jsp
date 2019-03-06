@@ -143,9 +143,10 @@
     console.log(colnum)
     for (var i=(colnum-1)/2;i>0;i--){
         $("#row_head1").append("<td colspan='2'>指标</td>")
-        <c:forEach items="${snames}" var="sname">
+        <%--<c:forEach items="${snames}" var="sname">
+
         $("#row_head2").append("<td></td><td class='scheme_name'>${sname}</td>")
-        </c:forEach>
+        </c:forEach>--%>
     }
 
 </script>
