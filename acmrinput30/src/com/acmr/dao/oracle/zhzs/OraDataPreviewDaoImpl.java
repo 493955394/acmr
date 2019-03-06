@@ -38,7 +38,7 @@ public class OraDataPreviewDaoImpl implements IDataPreviewDao {
                 String delold = "delete from tb_coindex_data_preview where indexcode =? and ayearmon=? ";
                 dataQuery.executeSql(delold, new Object[] {dataResults.get(0).getIndexcode(),dataResults.get(0).getAyearmon()});
                 // 添加新的
-                String sql1 = "insert into tb_coindex_data_preview (indexcode,modcode,region,ayearmon,data,dacimal,updatetime) values(?,?,?,?,?,?,?)";
+                String sql1 = "insert into tb_coindex_data_preview (indexcode,modcode,region,ayearmon,data,dacimal,updatetime,scode) values(?,?,?,?,?,?,?,?)";
                 for (int i = 0; i <dataResults.size() ; i++) {
                     List<Object> params = new ArrayList<Object>();
                     params.add(dataResults.get(i).getIndexcode());
@@ -48,6 +48,7 @@ public class OraDataPreviewDaoImpl implements IDataPreviewDao {
                     params.add(dataResults.get(i).getData());
                     params.add(dataResults.get(i).getDacimal());
                     params.add(new Timestamp(new Date().getTime()));
+                    params.add(dataResults.get(i).getScode());
                     dataQuery.executeSql(sql1, params.toArray());
                 }
                 dataQuery.commit();
@@ -72,11 +73,11 @@ public class OraDataPreviewDaoImpl implements IDataPreviewDao {
     }
 
     @Override
-    public int subDataCheck(String modcode, String reg, String time) {
+    public int subDataCheck(String modcode, String reg, String time,String scode) {
         String sql = "";
         DataTable table = new DataTable();
-            sql = "select * from tb_coindex_data_preview where modcode=? and region=? and ayearmon=?";
-            table = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{modcode,reg,time});
+            sql = "select * from tb_coindex_data_preview where modcode=? and region=? and ayearmon=? and scode=?";
+            table = AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{modcode,reg,time,scode});
         if (table.getRows().size()>0){
             return 0;
         }
@@ -84,15 +85,15 @@ public class OraDataPreviewDaoImpl implements IDataPreviewDao {
     }
 
     @Override
-    public DataTable getData(String modcode, String region, String time) {
-        String sql = "select * from tb_coindex_data_preview where modcode=? and region=? and ayearmon=?";
-        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{modcode,region,time});
+    public DataTable getData(String modcode, String region, String time,String scode) {
+        String sql = "select * from tb_coindex_data_preview where modcode=? and region=? and ayearmon=? and scode=?";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{modcode,region,time,scode});
     }
 
     @Override
     public int addZSData( DataPreview dataResult) {
         String sql1 ="";
-        sql1 = "insert into tb_coindex_data_preview (indexcode,modcode,region,ayearmon,data,dacimal,updatetime) values(?,?,?,?,?,?,?)";
+        sql1 = "insert into tb_coindex_data_preview (indexcode,modcode,region,ayearmon,data,dacimal,updatetime,scode) values(?,?,?,?,?,?,?,?)";
 
         List<Object> params = new ArrayList<Object>();
         params.add(dataResult.getIndexcode());
@@ -102,7 +103,7 @@ public class OraDataPreviewDaoImpl implements IDataPreviewDao {
         params.add(dataResult.getData());
         params.add(dataResult.getDacimal());
         params.add(new Timestamp(new Date().getTime()));
-
+        params.add(dataResult.getScode());
         return AcmrInputDPFactor.getQuickQuery().executeSql(sql1, params.toArray());
     }
 

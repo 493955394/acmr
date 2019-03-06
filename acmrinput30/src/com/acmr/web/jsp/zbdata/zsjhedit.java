@@ -1989,6 +1989,7 @@ public class zsjhedit extends BaseAction {
      */
     public ModelAndView previewIndex() throws MathException {
         String code = this.getRequest().getParameter("id");
+        String scodes = this.getRequest().getParameter("scodes");
         DataPreviewService dp = new DataPreviewService();
         //PubInfo.printStr(String.valueOf(check));
         List<String> times = new ArrayList<>();
@@ -2017,11 +2018,14 @@ public class zsjhedit extends BaseAction {
                 //要是能算出来，代表可以排序
                 Collections.sort(timelist,Collections.reverseOrder());
                 String result = StringUtils.join(timelist.toArray(), ",");
+                String[] scode = scodes.split(",");
                 for(String i :timelist){
-                    dp.todocalculate(code,i);
+                    for (int j = 0; j <scode.length ; j++) {
+                        dp.todocalculate(code,i,scode[j]);
+                    }
                 }
                 //画表格
-                predata = drawTable(code,result);
+               // predata = drawTable(code,result);
                 times.addAll(timelist);
             }
             //处理last这种格式的
@@ -2031,7 +2035,7 @@ public class zsjhedit extends BaseAction {
 
 
     //画预览结果的表格
-    public List<List<String>> drawTable(String icode,String times){
+    /*public List<List<String>> drawTable(String icode,String times){
         List<List<String>> data = new ArrayList<>();
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         DataPreviewService dp =  new DataPreviewService();
@@ -2104,7 +2108,7 @@ public class zsjhedit extends BaseAction {
                 }
         }
         return  data;
-    }
+    }*/
     //preview的时间检查
     public void previewTimeCheck() throws IOException {
         HttpServletRequest req = this.getRequest();
@@ -2222,7 +2226,7 @@ public class zsjhedit extends BaseAction {
      * @return
      * @throws IOException
      */
-    public ModelAndView preCaculate() throws IOException {
+   /* public ModelAndView preCaculate() throws IOException {
         HttpServletRequest req = this.getRequest();
         String pjax = req.getHeader("X-PJAX");
         String icode = req.getParameter("icode");
@@ -2244,7 +2248,7 @@ public class zsjhedit extends BaseAction {
             return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewTable").addObject("predata",predata).addObject("times",times);
         }
         return null;
-    }
+    }*/
     
     
     /** 

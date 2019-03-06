@@ -11,6 +11,7 @@ import com.acmr.dao.zhzs.IDataPreviewDao;
 import com.acmr.dao.zhzs.IndexListDao;
 import com.acmr.model.zhzs.DataPreview;
 import com.acmr.model.zhzs.IndexMoudle;
+import com.acmr.model.zhzs.Scheme;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zbdata.RegdataService;
 
@@ -31,17 +32,17 @@ import java.util.Map;
 public class DataPreviewService {
     private CalculateExpression ce = new CalculateExpression();
 
-    public boolean todocalculate(String icode,String time){
+    public boolean todocalculate(String icode,String time,String scode){
         String regs = findRegions(icode);
         String [] reg = regs.split(",");
         //开始计算指数的值，包括乘上weight
         try {
-            if(calculateZB(time,regs,icode)){
+            if(calculateZB(time,regs,icode,scode)){
                 //指标已经算完
                 List<IndexMoudle> zong = findRoot(icode);
                 for (int i = 0; i <zong.size() ; i++) {
                     for (int j = 0; j <reg.length ; j++) {//一个地区一个地区地算
-                        calculateZS(zong.get(i).getCode(),time,reg[j]);
+                        calculateZS(zong.get(i).getCode(),time,reg[j],scode);
                     }
                 }
             }
@@ -56,7 +57,6 @@ public class DataPreviewService {
      */
     public String tocalculate(String formula,String dacimal){
         String result="";
-        formula = formula.replace("random()","chance()");//不能用random这个函数名因为有个and会报错
         try {
             ce.setFunctionclass(new MathService());
             result = ce.Eval(formula);
@@ -76,13 +76,13 @@ public class DataPreviewService {
     /**
      * 计算的方法,只算指标
      */
-    public boolean calculateZB(String time, String regs,String icode) throws MathException {
+    public boolean calculateZB(String time, String regs,String icode,String scode) throws MathException {
         String [] reg = regs.split(",");
         IndexEditService indexEditService = new IndexEditService();
         OriginService originService = new OriginService();
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         List<DataPreview> newadd = new ArrayList<>();
-        List<IndexMoudle> data = getModuleFormula(icode,"0");//取的是指标的list
+        List<IndexMoudle> data = getModuleFormula(icode,"0",scode);//取的是指标的list
         List<Map>  zbs = indexEditService.getZBS(icode);
         for (int i = 0; i <data.size() ; i++) {//开始循环
             if(data.get(i).getIfzb().equals("1")){//如果是直接用筛选的指标的话直接去查值
@@ -181,21 +181,21 @@ public class DataPreviewService {
     /**
      * 计算指数（乘上权重），递归
      */
-    public  void calculateZS(String code, String time, String reg) throws MathException{
+    public  void calculateZS(String code, String time, String reg,String scode) throws MathException{
         DataPreview zsdata = new DataPreview();
         IndexEditService originDataService = new IndexEditService();
-        List<IndexMoudle> subs = findSubMod(code);
-        int check = subDataCheck(subs,reg,time);
+        List<IndexMoudle> subs = findSubMod(code,scode);
+        int check = subDataCheck(subs,reg,time,scode);
         if(check ==1){//下一级的值不全
             for (int i = 0; i <subs.size() ; i++) {
                 //先去检查数据库有没有值，有值就不算了
                 List<IndexMoudle> tmp =new ArrayList<>();
                 tmp.add(subs.get(i));
-                if(subDataCheck(tmp,reg,time)==1){
-                    calculateZS(subs.get(i).getCode(),time,reg);
+                if(subDataCheck(tmp,reg,time,scode)==1){
+                    calculateZS(subs.get(i).getCode(),time,reg,scode);
                 }
             }
-            calculateZS(code,time,reg);//计算一遍它的父级
+            calculateZS(code,time,reg,scode);//计算一遍它的父级
         }
         else {//要是下一级的值是全的，就把值加到zsdatas中
             IndexMoudle temp = originDataService.getData(code);
@@ -207,7 +207,7 @@ public class DataPreviewService {
             String formula = "";
             boolean flag = false;
             for (int i = 0; i < subs.size(); i++) {
-                String data = getzbvalue(subs.get(i).getCode(),reg,time);
+                String data = getzbvalue(subs.get(i).getCode(),reg,time,scode);
                 if(data.equals("")){
                     flag = true;
                     continue;
@@ -224,21 +224,26 @@ public class DataPreviewService {
     }
 
     /*
-   获取对应任务的指数或者指标的list
+   获取对应计划的指数或者指标的list
     */
-    public List<IndexMoudle> getModuleFormula(String icode,String ifzs){
+    public List<IndexMoudle> getModuleFormula(String icode,String ifzs,String scode){
         List<IndexMoudle> indexModules = new ArrayList<>();
+        IndexSchemeService ss = new IndexSchemeService();
         List<DataTableRow> data = DataPreviewDao.Fator.getInstance().getIndexdatadao().getModuleData(icode,ifzs).getRows();
         for (int i = 0; i <data.size(); i++) {
             IndexMoudle iModule = new IndexMoudle();
-            iModule.setCode(data.get(i).getString("code"));
+            String modcode = data.get(i).getString("code");
+            String indexcode = data.get(i).getString("indexcode");
+            //找到方案对应的公式和权重
+            IndexMoudle scheme= ss.getModData(modcode,indexcode,scode);
+            iModule.setCode(modcode);
             iModule.setCname(data.get(i).getString("cname"));
-            iModule.setIndexcode(data.get(i).getString("indexcode"));
+            iModule.setIndexcode(indexcode);
             iModule.setProcode(data.get(i).getString("procode"));
             iModule.setIfzs(data.get(i).getString("ifzs"));
-            iModule.setIfzb(data.get(i).getString("ifzb"));
-            iModule.setFormula(data.get(i).getString("formula"));
-            iModule.setWeight(data.get(i).getString("weight"));
+            iModule.setIfzb(scheme.getIfzb());//替换成方案对应的权重和公式，同下
+            iModule.setFormula(scheme.getFormula());
+            iModule.setWeight(scheme.getWeight());
             iModule.setSortcode(data.get(i).getString("sortcode"));
             iModule.setDacimal(data.get(i).getString("dacimal"));
             indexModules.add(iModule);
@@ -250,20 +255,25 @@ public class DataPreviewService {
     /**
      * 查询MODULE表submod
      */
-    public List<IndexMoudle> findSubMod(String code){
+    public List<IndexMoudle> findSubMod(String code,String scode){
         List<IndexMoudle> taskModules = new ArrayList<>();
         List<DataTableRow> data =new ArrayList<>();
+        IndexSchemeService ss = new IndexSchemeService();
         data = DataPreviewDao.Fator.getInstance().getIndexdatadao().getSubMod(code).getRows();
         for (int i = 0; i <data.size() ; i++) {
             IndexMoudle taskModule = new IndexMoudle();
-            taskModule.setCode(data.get(i).getString("code"));
+            String modcode = data.get(i).getString("code");
+            String indexcode = data.get(i).getString("indexcode");
+            //找到方案对应的公式和权重
+            IndexMoudle scheme= ss.getModData(modcode,indexcode,scode);
+            taskModule.setCode(modcode);
             taskModule.setCname(data.get(i).getString("cname"));
-            taskModule.setIndexcode(data.get(i).getString("indexcode"));
+            taskModule.setIndexcode(indexcode);
             taskModule.setProcode(data.get(i).getString("procode"));
             taskModule.setIfzs(data.get(i).getString("ifzs"));
-            taskModule.setIfzb(data.get(i).getString("ifzb"));
-            taskModule.setFormula(data.get(i).getString("formula"));
-            taskModule.setWeight(data.get(i).getString("weight"));
+            taskModule.setIfzb(scheme.getIfzb());
+            taskModule.setFormula(scheme.getFormula());
+            taskModule.setWeight(scheme.getWeight());
             taskModule.setSortcode(data.get(i).getString("sortcode"));
             taskModule.setDacimal(data.get(i).getString("dacimal"));
             taskModules.add(taskModule);
@@ -274,10 +284,10 @@ public class DataPreviewService {
     /**
      * 查询data_result_tmp中是否有值，返回1代表缺值
      */
-    public int subDataCheck(List<IndexMoudle> iModules, String reg, String time){
+    public int subDataCheck(List<IndexMoudle> iModules, String reg, String time,String scode){
         int i = 0;
         for (int j = 0; j <iModules.size() ; j++) {
-            int temp = DataPreviewDao.Fator.getInstance().getIndexdatadao().subDataCheck(iModules.get(j).getCode(),reg,time);
+            int temp = DataPreviewDao.Fator.getInstance().getIndexdatadao().subDataCheck(iModules.get(j).getCode(),reg,time,scode);
             if(temp == 1 ){
                 i = 1;//证明缺值
             }
@@ -294,9 +304,9 @@ public class DataPreviewService {
     /**
      * 查询对应的data值
      */
-    public String getzbvalue(String modcode,String region,String time){
+    public String getzbvalue(String modcode,String region,String time,String scode){
         String value = "";
-        DataTable data = DataPreviewDao.Fator.getInstance().getIndexdatadao().getData(modcode,region,time);
+        DataTable data = DataPreviewDao.Fator.getInstance().getIndexdatadao().getData(modcode,region,time,scode);
         if(data.getRows().size()!=0){
             value = data.getRows().get(0).getString("data");
         }
@@ -328,8 +338,8 @@ public class DataPreviewService {
     public String findRegions(String icode){
         return DataPreviewDao.Fator.getInstance().getIndexdatadao().findRegions(icode);
     }
-    public DataPreview getData(String modcode,String region,String time){
-        List<DataTableRow> data =  DataPreviewDao.Fator.getInstance().getIndexdatadao().getData(modcode,region,time).getRows();
+    public DataPreview getData(String modcode,String region,String time,String scode){
+        List<DataTableRow> data =  DataPreviewDao.Fator.getInstance().getIndexdatadao().getData(modcode,region,time,scode).getRows();
         DataPreview row = new DataPreview();
        if(data.size()>0){
             row.setIndexcode(data.get(0).getString("indexcode"));

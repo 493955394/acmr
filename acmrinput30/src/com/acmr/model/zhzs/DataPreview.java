@@ -14,7 +14,15 @@ public class DataPreview {
     private String ayearmon;
     private String data;
     private String updatetime;
+    private String scode;
 
+    public String getScode() {
+        return scode;
+    }
+
+    public void setScode(String scode) {
+        this.scode = scode;
+    }
     public String getDacimal() {
         return dacimal;
     }
