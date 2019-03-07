@@ -74,7 +74,7 @@
 
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:first").parent().append(
-            "<td code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input pcode='${module.getProcode()}' scode='${scode}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
+            "<td code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
         )
         </c:forEach>
 
@@ -90,7 +90,7 @@
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:first").parent().nextAll(":eq(" +
             (rows-flag-1)+")").append(
-            "<td code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input pcode='${module.getProcode()}' scode='${scode}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
+            "<td code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
         )
         </c:forEach>
 
@@ -113,7 +113,7 @@
 
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:last").parent().append(
-            "<td code=${module.getCode()}><input pcode='${module.getProcode()}' scode='${scode}'  placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>公式：<input value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
+            "<td code=${module.getCode()}><input pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}'  placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>公式：<input value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
         )
         </c:forEach>
 
@@ -127,7 +127,7 @@
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:last").parent().nextAll(":eq(" +
             (rows-flag-1)+")").append(
-            "<td code=${module.getCode()}><input pcode='${module.getProcode()}' scode='${scode}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>公式：<input value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
+            "<td code=${module.getCode()}><input pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>公式：<input value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
         )
         </c:forEach>
 

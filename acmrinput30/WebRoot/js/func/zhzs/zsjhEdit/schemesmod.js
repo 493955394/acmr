@@ -33,7 +33,7 @@ define(function (require,exports,module) {
                     return
                 }
                 var pcode=$(this).attr("pcode")
-                console.log(pcode)
+                //console.log(pcode)
                 if (!codes.contain(pcode)){
                     codes.push(pcode)
                 }
@@ -57,7 +57,7 @@ define(function (require,exports,module) {
                     sum=parseFloat(sum)+parseFloat(values[j].valueOf())
                 }
                 sum=sum.toFixed(1)
-                console.log(sum)
+                //console.log(sum)
                 if (sum!=1){
                     //console.log(codes[i])
                     flag=false
@@ -70,25 +70,31 @@ define(function (require,exports,module) {
 
         //检查通过，保存
         if (flag){
-            /*var cws=""
-            $(".input_weight").each(function () {
-                var code=$(this).parent().attr("id")
-                var weight=$(this).val()
-                //cws.push(code+":"+weight)
-                cws=cws+code+':'+weight+','
-            })*/
-            alert("success")
-            /*$.ajax({
-                url:common.rootPath+"zbdata/weightset.htm?m=setWeights&scode="+scode,
-                type:'post',
-                data:{
-                    cws:cws
-                },
-                success:function (re) {
-                    console.log("success")
-                    alert("保存成功")
-                }
-            })*/
+            count=0;
+            $(".scodes").each(function () {
+                var cws=""
+                var scode=$(this).val()
+                $(".input_weight [scode='" + scode + "']").each(function () {
+                    var code=$(this).parent().attr("code")
+                    var weight=$(this).val()
+                    //cws.push(code+":"+weight)
+                    cws=cws+code+':'+weight+','
+                })
+                $.ajax({
+                    url:common.rootPath+"zbdata/weightset.htm?m=setWeights&scode="+scode,
+                    type:'post',
+                    data:{
+                        cws:cws
+                    },
+                    success:function (re) {
+                        count++;
+                    }
+                })
+            },function () {
+                console.log("done")
+            })
+
+
         }
     })
 
