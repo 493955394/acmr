@@ -20,7 +20,9 @@
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 
 <input class="indexCode" type="hidden" value="${indexcode}">
-
+<c:forEach items="${scodes}" var="scode">
+    <input class="scodes" type="hidden" value="${scode}">
+</c:forEach>
 <div class="panel-body J_weight_table">
     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/weightschemestable.jsp" flush="true"/>
 </div>
@@ -31,7 +33,7 @@
 </body>
 
 <script>
-
+    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/schemesmod');
 </script>
 
 </html>

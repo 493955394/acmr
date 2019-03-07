@@ -69,14 +69,16 @@
     var rows=$("td[code='${module.getProcode()}']:first").attr("rowspan")
     //和父节点同行
     if (flag==rows){
+        $("td[code='${module.getProcode()}']:first").parent().append(
+            "<td rowspan=${module.ZBnums()} class='count_mod'>${module.getCname()}</td>")
+
         <c:forEach items="${scodes}" var="scode">
-        $("td[code='${module.getProcode()}']:first").after(
-            "<td code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input pcode='${module.getProcode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
+        $("td[code='${module.getProcode()}']:first").parent().append(
+            "<td code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input pcode='${module.getProcode()}' scode='${scode}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
         )
         </c:forEach>
 
-        $("td[code='${module.getProcode()}']:first").after(
-            "<td rowspan=${module.ZBnums()} class='count_mod'>${module.getCname()}</td>")
+
 
         $("td[code='${module.getProcode()}']:first").attr("flag",flag-${module.ZBnums()})
     }
@@ -88,7 +90,7 @@
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:first").parent().nextAll(":eq(" +
             (rows-flag-1)+")").append(
-            "<td code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input pcode='${module.getProcode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
+            "<td code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input pcode='${module.getProcode()}' scode='${scode}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
         )
         </c:forEach>
 
@@ -105,14 +107,16 @@
     var rows=$("td[code='${module.getProcode()}']:last").attr("rowspan")
     //和父节点同行
     if (flag==rows){
-        <c:forEach items="${scodes}" var="scode">
-        $("td[code='${module.getProcode()}']:last").after(
-            "<td code=${module.getCode()}><input pcode='${module.getProcode()}'  placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>公式：<input value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
-        )
-        </c:forEach>
-        $("td[code='${module.getProcode()}']:last").after(
+        $("td[code='${module.getProcode()}']:last").parent().append(
             "<td class='count_mod'>${module.getCname()}</td>"
         )
+
+        <c:forEach items="${scodes}" var="scode">
+        $("td[code='${module.getProcode()}']:last").parent().append(
+            "<td code=${module.getCode()}><input pcode='${module.getProcode()}' scode='${scode}'  placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>公式：<input value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
+        )
+        </c:forEach>
+
 
         $("td[code='${module.getProcode()}']:last").attr("flag",flag-1)
     }
@@ -123,7 +127,7 @@
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:last").parent().nextAll(":eq(" +
             (rows-flag-1)+")").append(
-            "<td code=${module.getCode()}><input pcode='${module.getProcode()}'  placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>公式：<input value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
+            "<td code=${module.getCode()}><input pcode='${module.getProcode()}' scode='${scode}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>公式：<input value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
         )
         </c:forEach>
 
