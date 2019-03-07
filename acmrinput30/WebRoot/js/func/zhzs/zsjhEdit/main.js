@@ -760,7 +760,7 @@ define(function (require,exports,module) {
 
     $(document).on('click', '#J_plan_excel', function() {
 
-        var zbs=zbAdd.zbs;//获取指标的信息
+       /* var zbs=zbAdd.zbs;//获取指标的信息
         var regs=select;//获取地区信息
         var sjs=sjselect;//获取时间信息
         var zbcode = "";//指标code
@@ -787,22 +787,24 @@ define(function (require,exports,module) {
         zbname = zbname.substr(0, zbname.length - 1);//去除最后一个逗号
         zbunit = zbunit.substr(0, zbunit.length - 1);//去除最后一个逗号
         regname = regname.substr(0, regname.length - 1);//去除最后一个逗号
-        regcode = regcode.substr(0, regcode.length - 1);//去除最后一个逗号
+        regcode = regcode.substr(0, regcode.length - 1);//去除最后一个逗号*/
         //var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toRangeExcel&indexcode='+incode+'&regcode='+regcode+'&regname='+regname+'&sj='+sjs+'&zb='+zbcode+'&co='+zbco+'&ds='+zbds+'&zbname='+zbname+'&zbunit='+zbunit;
-        var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toRangeExcel&icode='+incode+'&regcode='+regcode+
-            '&regname='+regname+'&sj='+sjs+'&zb='+zbcode+'&co='+zbco+'&ds='+zbds+'&zbname='+zbname+'&zbunit='+zbunit;
+        /*var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toRangeExcel&icode='+incode+'&regcode='+regcode+
+            '&regname='+regname+'&sj='+sjs+'&zb='+zbcode+'&co='+zbco+'&ds='+zbds+'&zbname='+zbname+'&zbunit='+zbunit;*/
+        var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toRangeExcel&icode='+incode;
         $.ajax({
             url: url,
             type: 'post',
             success: function(data) {
                 if (data.returncode == 300) {
                     alert("请进行范围确认");
-                } else if(data.returncode == 200) {
+                }else{
                     alert("下载成功!");
+                    window.location.href =url;
                 }
             }
         })
-        window.location.href =url;
+
     })
 
 /*    $(".J_zsjh_rangedata_table").on('pjax:success', function() {

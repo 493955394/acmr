@@ -54,6 +54,7 @@ public class IndexEditService {
             attr.put("dscode",data.get(i).getString("datasource"));
             attr.put("cocode",data.get(i).getString("company"));
             attr.put("unitcode",data.get(i).getString("unitcode"));
+            attr.put("datatimes",data.get(i).getString("datatimes"));
             attr.put("zbname",originService.getwdnode("zb",data.get(i).getString("zbcode"),dbcode).getName());
             attr.put("dsname",originService.getwdnode("ds",data.get(i).getString("datasource"),dbcode).getName());
             attr.put("coname",originService.getwdnode("co",data.get(i).getString("company"),dbcode).getName());

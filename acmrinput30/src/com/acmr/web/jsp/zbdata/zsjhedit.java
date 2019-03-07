@@ -2365,13 +2365,13 @@ public class zsjhedit extends BaseAction {
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         JSONReturnData data = new JSONReturnData("");
         List<Map> regs = regshow(icode);
-        if(regs == null){
+        List<Map> zbs=indexEditService.getZBS(icode);
+        String sjs = zbs.get(0).get("datatimes").toString();
+        if(sjs.equals("")){
             data.setReturncode(300);
             this.sendJson(data);
             return;
         }
-        List<Map> zbs=indexEditService.getZBS(icode);
-        String sjs = zbs.get(0).get("datatimes").toString();
         //获取指标中文名
         List<String> zbnames = new ArrayList<>();
         List<String> regcodes = new ArrayList<>();
@@ -2383,7 +2383,7 @@ public class zsjhedit extends BaseAction {
             zbcodes.add(zbcode);
             zbnames.add(zbname);
         }
-        for(int j = 0;j<zbs.size();j++){
+        for(int j = 0;j<regs.size();j++){
             String regcode = regs.get(j).get("regcode").toString();
             String regname = regs.get(j).get("regcname").toString();
             regnames.add(regname);
@@ -2393,10 +2393,7 @@ public class zsjhedit extends BaseAction {
         List<String> zbrow=new ArrayList<>();
         List<String> sjrow=new ArrayList<>();
         List<List<String>> datarow=new ArrayList<>();
-        List<String> sjlist=new ArrayList<>();
-        if (sjs!=null){
-            sjlist= Arrays.asList(sjs.split(","));
-        }
+        List<String> sjlist=Arrays.asList(sjs.split(","));
         for (int i=0;i<zbnames.size();i++){
 
             //添加指标和时间行
@@ -2409,13 +2406,14 @@ public class zsjhedit extends BaseAction {
         //添加数据行
         for (int j=0;j<regcodes.size();j++) {
             List<String> datalist = new ArrayList<>();
+            String regcode1 = regcodes.get(j);
             //放第一行地区数据
             datalist.add(regnames.get(j));
             CubeWdCodes where = new CubeWdCodes();
             for (int m = 0; m < zbcodes.size(); m++) {
                 for (int n = 0; n < sjlist.size(); n++) {
                     String sj = sjlist.get(n);
-                    where.Add("reg", regcodes.get(m));
+                    where.Add("reg", regcode1);
                     where.Add("zb", zbcodes.get(m));
                     where.Add("ds", zbs.get(m).get("dscode").toString());
                     where.Add("co", zbs.get(m).get("cocode").toString());
