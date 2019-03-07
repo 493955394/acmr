@@ -796,7 +796,7 @@ define(function (require,exports,module) {
             type: 'post',
             success: function(data) {
                 if (data.returncode == 300) {
-                    alert("请补充下载条件");
+                    alert("请进行范围确认");
                 } else if(data.returncode == 200) {
                     alert("下载成功!");
                 }

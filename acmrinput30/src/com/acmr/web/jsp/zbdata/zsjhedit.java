@@ -2347,101 +2347,6 @@ public class zsjhedit extends BaseAction {
         return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/rangeDataTable").addObject("zbrow",zbrow).addObject("sjrow",sjrow).addObject("datarow",datarow);
 
     }
-//    /**
-//     * 计算范围数据查询
-//     *
-//     * @author wf
-//     * @date
-//     * @param
-//     * @return
-//     */
-//    public void find() throws IOException {
-//        JSONReturnData data = new JSONReturnData(200);
-//        HttpServletRequest req = this.getRequest();
-//        OriginService originService=new OriginService();
-//        String zbs = req.getParameter("zbs");
-//        String regs = req.getParameter("regs");
-//        String sjs = req.getParameter("sjs");
-//        String uuid = StringUtil.getUUID();
-//        req.getSession().setAttribute(uuid+"zbs", zbs);
-//        req.getSession().setAttribute(uuid+"regs", regs);
-//        req.getSession().setAttribute(uuid+"sjs", sjs);
-//        String icode = req.getParameter("icode");
-//        int zbnum= Integer.parseInt(req.getParameter("zbnum"));
-//        int regnum= Integer.parseInt(req.getParameter("regnum"));
-//        int sjnum= Integer.parseInt(req.getParameter("sjnum"));
-//        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
-//       /* String excelsj = PubInfo.getString(req.getParameter("sjs"));//时间
-//        String zblists = PubInfo.getString(req.getParameter("zbs"));//指标和查询条件
-//        String reglists = PubInfo.getString(req.getParameter("regs"));//zbname
-//        String [] sjs = excelsj.split(",");*/
-//        //取行列数据
-//        List<String> zbrow=new ArrayList<>();
-//        List<String> sjrow=new ArrayList<>();
-//        List<List<String>> datarow=new ArrayList<>();
-//        //取时间
-//        List<String> sjlist=new ArrayList<>();
-//        if (sjs!=null){
-//            sjlist= Arrays.asList(sjs.split(","));
-//        }
-//        for (int i=0;i<zbnum;i++){
-//            String zbname = req.getParameter("zbs["+i+"][zbcode]");
-//            //添加指标和时间行
-//            for(int j=0; j<sjnum;j++){
-//                zbrow.add(zbname);
-//            }
-//            sjrow.addAll(sjlist);
-//        }
-//
-//        //添加数据行
-//        for (int j=0;j<regnum;j++) {
-//            String regcode = req.getParameter("regs[" + j + "][code]");
-//            String regname = req.getParameter("regs[" + j + "][name]");
-//            List<String> datalist = new ArrayList<>();
-//            //放第一行地区数据
-//            datalist.add(regname);
-//            CubeWdCodes where = new CubeWdCodes();
-//            for (int m = 0; m < zbnum; m++) {
-//                String zbcode = req.getParameter("zbs[" + m + "][zbcode]");
-//                String cocode = req.getParameter("zbs[" + m + "][cocode]");
-//                String dscode = req.getParameter("zbs[" + m + "][dscode]");
-//                String unitcode = req.getParameter("zbs[" + m + "][unitcode]");
-//                for (int n = 0; n < sjnum; n++) {
-//                    String sj = sjlist.get(n);
-//                    where.Add("reg", regcode);
-//                    where.Add("zb", zbcode);
-//                    where.Add("ds", dscode);
-//                    where.Add("co", cocode);
-//                    where.Add("sj", sj);
-//                    //取数据
-//                    String odata = "";
-//                    if (originService.querydata(where, dbcode).size() > 0) {
-//                        odata = originService.querydata(where, dbcode).get(0).getData().getStrdata();
-//                    }
-//                    //换算单位
-//                    if (!odata.equals("")) {
-//                        String funit = originService.getwdnode("zb", zbcode, dbcode).getUnitcode();
-//                        BigDecimal rate = new BigDecimal(originService.getRate(funit, unitcode, sj));
-//                        BigDecimal ndata = (new BigDecimal(odata)).multiply(rate);
-//                        datalist.add(String.valueOf(ndata));
-//                    } else datalist.add("");
-//                    where.Clear();
-//
-//                }
-//            }
-//            datarow.add(datalist);
-//        }
-//        if (datarow == null) {
-//            data.setReturncode(300);
-//            this.sendJson(data);
-//            return;
-//        } else {
-//            data.setReturncode(200);
-//        }
-//        data.setReturndata(uuid);
-//        this.sendJson(data);
-//    }
-
     /**
      * 全部地区数据下载
      *
@@ -2455,25 +2360,35 @@ public class zsjhedit extends BaseAction {
         HttpServletRequest request = this.getRequest();
         HttpServletRequest req = this.getRequest();
         OriginService originService=new OriginService();
+        IndexEditService indexEditService = new IndexEditService();
         String icode = req.getParameter("icode");
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
-        String regcode = PubInfo.getString(req.getParameter("regcode"));//地区
-        String regname = PubInfo.getString(req.getParameter("regname"));//地区名称
-        String sjs = PubInfo.getString(req.getParameter("sj"));//时间
-        String zbcode = PubInfo.getString(req.getParameter("zb"));//zbcode
-        String zbname = PubInfo.getString(req.getParameter("zbname"));//zbname
-        String ds = PubInfo.getString(req.getParameter("ds"));//数据来源
-        String co = PubInfo.getString(req.getParameter("co"));//主体
-        String zbunit = PubInfo.getString(req.getParameter("zbunit"));//单位
-        String [] regcodes = regcode.split(",");
-        String [] regnames = regname.split(",");
-        //String [] sjs = excelsj.split(",");
-        String [] zbcodes = zbcode.split(",");
-        String [] zbnames = zbname.split(",");
-        String [] dss = ds.split(",");
-        String [] cos = co.split(",");
-        String [] units = zbunit.split(",");
-        //String name = originService.getwdnode("reg",singlereg,dbcode).getName();
+        JSONReturnData data = new JSONReturnData("");
+        List<Map> regs = regshow(icode);
+        if(regs == null){
+            data.setReturncode(300);
+            this.sendJson(data);
+            return;
+        }
+        List<Map> zbs=indexEditService.getZBS(icode);
+        String sjs = zbs.get(0).get("datatimes").toString();
+        //获取指标中文名
+        List<String> zbnames = new ArrayList<>();
+        List<String> regcodes = new ArrayList<>();
+        List<String> regnames = new ArrayList<>();
+        List<String> zbcodes = new ArrayList<>();
+        for(int i = 0;i<zbs.size();i++){
+            String zbname = zbs.get(i).get("zbname").toString();
+            String zbcode = zbs.get(i).get("zbcode").toString();
+            zbcodes.add(zbcode);
+            zbnames.add(zbname);
+        }
+        for(int j = 0;j<zbs.size();j++){
+            String regcode = regs.get(j).get("regcode").toString();
+            String regname = regs.get(j).get("regcname").toString();
+            regnames.add(regname);
+            regcodes.add(regcode);
+        }
         //取行列数据
         List<String> zbrow=new ArrayList<>();
         List<String> sjrow=new ArrayList<>();
@@ -2482,28 +2397,28 @@ public class zsjhedit extends BaseAction {
         if (sjs!=null){
             sjlist= Arrays.asList(sjs.split(","));
         }
-        for (int i=0;i<zbnames.length;i++){
+        for (int i=0;i<zbnames.size();i++){
 
             //添加指标和时间行
             for(int j=0; j<sjlist.size();j++){
-                zbrow.add(zbnames[i]);
+                zbrow.add(zbnames.get(i));
             }
             sjrow.addAll(sjlist);
         }
 
         //添加数据行
-        for (int j=0;j<regcodes.length;j++) {
+        for (int j=0;j<regcodes.size();j++) {
             List<String> datalist = new ArrayList<>();
             //放第一行地区数据
-            datalist.add(regnames[j]);
+            datalist.add(regnames.get(j));
             CubeWdCodes where = new CubeWdCodes();
-            for (int m = 0; m < zbcodes.length; m++) {
+            for (int m = 0; m < zbcodes.size(); m++) {
                 for (int n = 0; n < sjlist.size(); n++) {
                     String sj = sjlist.get(n);
-                    where.Add("reg", regcodes[m]);
-                    where.Add("zb", zbcodes[m]);
-                    where.Add("ds", dss[m]);
-                    where.Add("co", cos[m]);
+                    where.Add("reg", regcodes.get(m));
+                    where.Add("zb", zbcodes.get(m));
+                    where.Add("ds", zbs.get(m).get("dscode").toString());
+                    where.Add("co", zbs.get(m).get("cocode").toString());
                     where.Add("sj", sj);
                     //取数据
                     String odata = "";
@@ -2512,8 +2427,8 @@ public class zsjhedit extends BaseAction {
                     }
                     //换算单位
                     if (!odata.equals("")) {
-                        String funit = originService.getwdnode("zb", zbcode, dbcode).getUnitcode();
-                        BigDecimal rate = new BigDecimal(originService.getRate(funit, units[m], sj));
+                        String funit = originService.getwdnode("zb", zbcodes.get(m), dbcode).getUnitcode();
+                        BigDecimal rate = new BigDecimal(originService.getRate(funit, zbs.get(m).get("unitcode").toString(), sj));
                         BigDecimal ndata = (new BigDecimal(odata)).multiply(rate);
                         datalist.add(String.valueOf(ndata));
                     } else datalist.add("");
@@ -2523,8 +2438,6 @@ public class zsjhedit extends BaseAction {
             }
             datarow.add(datalist);
         }
-
-        JSONReturnData data = new JSONReturnData("");
         ExcelBook book = new ExcelBook();
         ExcelSheet sheet1 = new ExcelSheet();
         sheet1.setName("sheet1");
