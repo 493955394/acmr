@@ -76,15 +76,15 @@
         </c:forEach>
 
         $("td[code='${module.getProcode()}']:first").after(
-            "<td rowspan=${module.ZBnums()}>${module.getCname()}</td>")
+            "<td rowspan=${module.ZBnums()} class='count_mod'>${module.getCname()}</td>")
 
         $("td[code='${module.getProcode()}']:first").attr("flag",flag-${module.ZBnums()})
     }
     //与父节点不同行
     else {
-        console.log($("td[code='${module.getProcode()}']:first").parent().nextAll())
+        //console.log($("td[code='${module.getProcode()}']:first").parent().nextAll())
         $("td[code='${module.getProcode()}']:first").parent().nextAll(":eq(" +
-            (rows-flag-1)+")").append("<td rowspan=${module.ZBnums()}>${module.getCname()}</td>")
+            (rows-flag-1)+")").append("<td rowspan=${module.ZBnums()} class='count_mod'>${module.getCname()}</td>")
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:first").parent().nextAll(":eq(" +
             (rows-flag-1)+")").append(
@@ -111,7 +111,7 @@
         )
         </c:forEach>
         $("td[code='${module.getProcode()}']:last").after(
-            "<td>${module.getCname()}</td>"
+            "<td class='count_mod'>${module.getCname()}</td>"
         )
 
         $("td[code='${module.getProcode()}']:last").attr("flag",flag-1)
@@ -119,7 +119,7 @@
     //与父节点不同行
     else {
         $("td[code='${module.getProcode()}']:last").parent().nextAll(":eq(" +
-            (rows-flag-1)+")").append("<td>${module.getCname()}</td>")
+            (rows-flag-1)+")").append("<td class='count_mod'>${module.getCname()}</td>")
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:last").parent().nextAll(":eq(" +
             (rows-flag-1)+")").append(
@@ -132,21 +132,18 @@
     }
     </c:if>
     </c:forEach>
-
     var colnum=0;
     $(".row_body").each(function () {
-        var tdnum=$(this).children().length;
-        if (tdnum>colnum){
-            colnum=tdnum;
-        }
+        var count=$(this).children("[class~='count_mod']").length;
+        if (count>colnum) colnum=count;
     })
-    console.log(colnum)
-    for (var i=(colnum-1)/2;i>0;i--){
-        $("#row_head1").append("<td colspan='2'>指标</td>")
-        <%--<c:forEach items="${snames}" var="sname">
-
-        $("#row_head2").append("<td></td><td class='scheme_name'>${sname}</td>")
-        </c:forEach>--%>
+    //console.log(colnum)
+    for (i=0;i<colnum;i++){
+        $("#row_head1").append("<td colspan='${scodes.size()+1}'>指标</td>")
+        $("#row_head2").append("<td></td>");
+        <c:forEach items="${snames}" var="sname">
+        $("#row_head2").append("<td>${sname}</td>")
+        </c:forEach>
     }
 
 </script>
