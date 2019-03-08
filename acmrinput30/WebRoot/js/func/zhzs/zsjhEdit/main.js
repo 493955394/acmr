@@ -791,7 +791,37 @@ define(function (require,exports,module) {
         //var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toRangeExcel&indexcode='+incode+'&regcode='+regcode+'&regname='+regname+'&sj='+sjs+'&zb='+zbcode+'&co='+zbco+'&ds='+zbds+'&zbname='+zbname+'&zbunit='+zbunit;
         /*var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toRangeExcel&icode='+incode+'&regcode='+regcode+
             '&regname='+regname+'&sj='+sjs+'&zb='+zbcode+'&co='+zbco+'&ds='+zbds+'&zbname='+zbname+'&zbunit='+zbunit;*/
-        var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toRangeExcel&icode='+incode;
+
+        var timetext = $("#startpeirod").val();
+        if(timesort == "y"){
+            var reg=/^\d{4}$/;
+            var r= timetext.match(reg);
+            if(r==null){
+                alert("您的"+"年度"+"计划起始时间格式有误")
+                return;
+            }
+        }else if(timesort == "q"){
+            var reg=/^(\d{4})([A-D]{1})$/;
+            var r= timetext.match(reg);
+            if(r==null){
+                alert("您的季度计划起始时间格式有误")
+                return;
+            }
+        }else if(timesort == "m") {
+            var reg = /^\d{6}$/;
+            var r = timetext.match(reg);
+            if (r == null) {
+                alert("您的" + "月度" + "计划起始时间格式有误")
+                return;
+            }
+            var sub = timetext.substring(timetext.length - 2);
+            if (sub == "00" || parseInt(sub) > 12) {
+                alert("您的" + "月度" + "计划起始时间格式有误")
+                return;
+            }
+        }
+
+        var url = common.rootPath + 'zbdata/zsjhedit.htm?m=toRangeExcel&icode='+incode+'&plantime='+timetext;
         $.ajax({
             url: url,
             type: 'post',
@@ -804,7 +834,6 @@ define(function (require,exports,module) {
                 }
             }
         })
-
     })
 
 /*    $(".J_zsjh_rangedata_table").on('pjax:success', function() {

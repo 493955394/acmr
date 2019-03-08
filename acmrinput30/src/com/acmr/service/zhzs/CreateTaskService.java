@@ -111,8 +111,6 @@ public class CreateTaskService {
                     periods.add(thisp);
                 }
             }
-
-
         }
         //统计周期为月度
         else if (sort.equals("m")){
@@ -168,6 +166,105 @@ public class CreateTaskService {
                         if (!bool&&dateBefore(index,thisp)){
                             periods.add(thisp);
                         }
+                    }
+                }
+            }
+        }
+        PubInfo.printStr("periods:"+periods.toString());
+        return periods;
+    }
+    /**
+     * 范围确认计划起始时间补全
+     */
+    public List<String> getTimes(IndexList index){
+        List<String> periods=new ArrayList<>();
+        String code=index.getCode();
+        String sort=index.getSort();
+        String startperiod=index.getStartperiod();
+        //统计周期为年度
+        if (sort.equals("y")){
+            Calendar calendar=Calendar.getInstance();
+            int now=calendar.get(Calendar.YEAR);
+            int start= Integer.parseInt(startperiod);
+            for (int i=start;i<now;i++){
+                    periods.add(String.valueOf(i));
+            }
+        }
+        //统计周期为季度
+        else if (sort.equals("q")){
+            Calendar calendar=Calendar.getInstance();
+            int syear= Integer.parseInt(startperiod.substring(0,4));
+            //转为asc码，65，66，67，68，ABCD
+            int sq=startperiod.charAt(4);
+            int nyear=calendar.get(Calendar.YEAR);
+            int nq=getQ(calendar.get(Calendar.MONTH));
+            for (int i=syear;i<nyear;i++){
+                //处理第一年
+                if (i==syear){
+                    for (int j=sq;j<69;j++){
+                        String thisp=String.valueOf(i)+(char)j;
+                            periods.add(thisp);
+                    }
+                }
+                //处理中间年
+                else {
+                    for (int j=65;j<69;j++){
+                        String thisp=String.valueOf(i)+(char)j;
+                            periods.add(thisp);
+                    }
+                }
+            }
+            //处理最后一年
+            for (int i=65;i<=nq;i++){
+                String thisp=String.valueOf(nyear)+(char)i;
+                    periods.add(thisp);
+            }
+        }
+        //统计周期为月度
+        else if (sort.equals("m")){
+            Calendar calendar=Calendar.getInstance();
+            int syear= Integer.parseInt(startperiod.substring(0,4));
+            int sm= Integer.parseInt(startperiod.substring(4));
+            int nyear=calendar.get(Calendar.YEAR);
+            int nm=calendar.get(Calendar.MONTH);
+            for (int i=syear;i<=nyear;i++){
+                //处理第一年
+                if (i==syear){
+                    for (int j=sm;j<13;j++){
+                        String thisp;
+                        if (j<10){
+                            thisp=String.valueOf(i)+"0"+String.valueOf(j);
+                        }
+                        else {
+                            thisp=String.valueOf(i)+String.valueOf(j);
+                        }
+                            periods.add(thisp);
+                    }
+                }
+                //处理中间年
+                else if (syear<i&&i<nyear){
+                    for (int j=1;j<13;j++){
+                        String thisp;
+                        if (j<10){
+                            thisp=String.valueOf(i)+"0"+String.valueOf(j);
+                        }
+                        else {
+                            thisp=String.valueOf(i)+String.valueOf(j);
+                        }
+                            periods.add(thisp);
+                    }
+                }
+                //处理最后一年
+                else if (i==nyear&&i!=syear){
+                    for (int j=1;j<=nm;j++){
+                        String thisp;
+                        if (j<10){
+                            thisp=String.valueOf(i)+"0"+String.valueOf(j);
+                        }
+                        else {
+                            thisp=String.valueOf(i)+String.valueOf(j);
+                        }
+                            periods.add(thisp);
                     }
                 }
             }

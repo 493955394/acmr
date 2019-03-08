@@ -10,6 +10,7 @@ import acmr.excel.pojo.ExcelRow;
 import acmr.excel.pojo.ExcelSheet;
 import acmr.math.CalculateExpression;
 import acmr.math.entity.MathException;
+import acmr.util.DataTableRow;
 import acmr.util.PubInfo;
 
 import acmr.web.control.BaseAction;
@@ -2347,6 +2348,7 @@ public class zsjhedit extends BaseAction {
         return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/rangeDataTable").addObject("zbrow",zbrow).addObject("sjrow",sjrow).addObject("datarow",datarow);
 
     }
+
     /**
      * 全部地区数据下载
      *
@@ -2359,19 +2361,31 @@ public class zsjhedit extends BaseAction {
         //接参
         HttpServletRequest request = this.getRequest();
         HttpServletRequest req = this.getRequest();
+        JSONReturnData data = new JSONReturnData("");
         OriginService originService=new OriginService();
         IndexEditService indexEditService = new IndexEditService();
         String icode = req.getParameter("icode");
-        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
-        JSONReturnData data = new JSONReturnData("");
-        List<Map> regs = regshow(icode);
         List<Map> zbs=indexEditService.getZBS(icode);
-        String sjs = zbs.get(0).get("datatimes").toString();
-        if(sjs.equals("")){
+        if(zbs.equals("")){
             data.setReturncode(300);
             this.sendJson(data);
             return;
         }
+        DataTableRow row= IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(icode).getRows().get(0);
+        String start = row.getString("startperiod");
+        String sort = row.getString("sort");
+        String delayday = row.getString("delayday");
+        IndexList index = new IndexList();
+            index.setCode(icode);
+            index.setStartperiod(start);
+            index.setSort(sort);
+            index.setDelayday(delayday);
+        CreateTaskService createTaskService = new CreateTaskService();
+        List<String> sjs = createTaskService.getTimes(index);
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+
+        List<Map> regs = regshow(icode);
+
         //获取指标中文名
         List<String> zbnames = new ArrayList<>();
         List<String> regcodes = new ArrayList<>();
@@ -2393,14 +2407,13 @@ public class zsjhedit extends BaseAction {
         List<String> zbrow=new ArrayList<>();
         List<String> sjrow=new ArrayList<>();
         List<List<String>> datarow=new ArrayList<>();
-        List<String> sjlist=Arrays.asList(sjs.split(","));
         for (int i=0;i<zbnames.size();i++){
 
             //添加指标和时间行
-            for(int j=0; j<sjlist.size();j++){
+            for(int j=0; j<sjs.size();j++){
                 zbrow.add(zbnames.get(i));
             }
-            sjrow.addAll(sjlist);
+            sjrow.addAll(sjs);
         }
 
         //添加数据行
@@ -2411,8 +2424,8 @@ public class zsjhedit extends BaseAction {
             datalist.add(regnames.get(j));
             CubeWdCodes where = new CubeWdCodes();
             for (int m = 0; m < zbcodes.size(); m++) {
-                for (int n = 0; n < sjlist.size(); n++) {
-                    String sj = sjlist.get(n);
+                for (int n = 0; n < sjs.size(); n++) {
+                    String sj = sjs.get(n);
                     where.Add("reg", regcode1);
                     where.Add("zb", zbcodes.get(m));
                     where.Add("ds", zbs.get(m).get("dscode").toString());
@@ -2461,6 +2474,7 @@ public class zsjhedit extends BaseAction {
             dr1.set(j, cell2);
         }
         dr1 = sheet1.addRow();
+        cell2 = cell1.clone();
         cell2.setCellValue(" ");
         dr1.set(0, cell2);
         for (int i = 0; i < sjrow.size(); i++){
