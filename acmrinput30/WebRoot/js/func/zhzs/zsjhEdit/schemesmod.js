@@ -71,13 +71,13 @@ define(function (require,exports,module) {
         //检查通过，保存
         if (flag){
             count=0;
+            $.ajaxSettings.async=false
             $(".scodes").each(function () {
                 var cws=""
                 var scode=$(this).val()
-                $(".input_weight [scode='" + scode + "']").each(function () {
+                $(".input_weight[scode=" + scode+"]").each(function () {
                     var code=$(this).parent().attr("code")
                     var weight=$(this).val()
-                    //cws.push(code+":"+weight)
                     cws=cws+code+':'+weight+','
                 })
                 $.ajax({
@@ -90,9 +90,13 @@ define(function (require,exports,module) {
                         count++;
                     }
                 })
-            },function () {
-                console.log("done")
             })
+            if (count==$(".scodes").length){
+                alert("success")
+            }
+            else {
+                alert("保存失败！")
+            }
 
 
         }
