@@ -34,6 +34,7 @@
             </div>
         </div>
         <input type="hidden" id="timecode" value="${times}">
+        <input type="hidden" id="scheme_codes" value="${scodes}">
         <div class="col-sm-7">
             <div class="modselect" style="padding-right: 20px;">
                 <select id="ms">
@@ -41,10 +42,9 @@
                         <option value="${module.getCode()}">${module.getCname()}</option>
                     </c:forEach>
                 </select>
-                <button  type="button" id="select-choose" style="display: none"/>
             </div>
             <div class="J_preview_data_table">
-                <%--<jsp:include page="/WEB-INF/jsp/zhzs/zsjh/previewTable.jsp" flush="true"/>--%>
+                <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/previewTable.jsp" flush="true"/>
             </div>
         </div>
         <div class="col-sm-5">
@@ -55,12 +55,17 @@
                     </c:forEach>
                 </select>
             </div>
+            <div class="J_zb_data_table">
+                <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/previewzbTable.jsp" flush="true"/>
+            </div>
         </div>
     </div>
 </div>
 </body>
 </html>
-
+<div class="ict-footer footer">
+    Copyright © 2018 中国信息通信研究院 版权所有
+</div>
 <script type="text/javascript">
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/preview');
 </script>

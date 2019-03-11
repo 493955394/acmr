@@ -2016,195 +2016,73 @@ public class zsjhedit extends BaseAction {
         List<IndexMoudle> mods = indexEditService.getAllMods("",code);
         //筛选指标的信息
         JSONObject zblist=getZBS(code);
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewIndex").addObject("icode",code).addObject("times",times).addObject("zblist",zblist).addObject("mods",mods);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewIndex").addObject("icode",code).addObject("times",times).addObject("zblist",zblist).addObject("mods",mods).addObject("scodes",scodes);
     }
-
-
-    //画预览结果的表格
-    /*public List<List<String>> drawTable(String icode,String times){
-        List<List<String>> data = new ArrayList<>();
-        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
-        DataPreviewService dp =  new DataPreviewService();
-        OriginService originService = new OriginService();
-        String region = dp.findRegions(icode);
-        String[] regions = region.split(",");
-        String[] time = times.split(",");
-       List<IndexMoudle> mods = new IndexEditService().getAllMods("",icode);
-        List<Map> zbs = new IndexEditService().getZBS(icode);
-        int zbsnum = zbs.size();//指标名的长度
-        int modnum = mods.size();//模型节点的长度
-        int num = modnum;
-        if(zbsnum>modnum){
-            num = zbsnum;
-        }
-            for (String i : regions) {
-                for (int j = 0; j <num ; j++) {
-                    List<String> rows = new ArrayList<>();
-                    rows.add(new OriginService().getwdnode("reg",i,dbcode).getName());//地区名
-                    if(j<zbsnum){//如果还在范围内
-                        rows.add(zbs.get(j).get("zbname").toString());
-                    }else {//范围外填充空
-                        rows.add("");
-                    }
-                    if(j<modnum){//如果还在范围内
-                        rows.add(mods.get(j).getCname());
-                    }else {//范围外填充空
-                        rows.add("");
-                    }
-                    for (String k : time) {
-                        if(j<zbsnum){//如果还在范围内,去找它的值
-                            CubeWdCodes where = new CubeWdCodes();
-                            where.Add("zb", zbs.get(j).get("zbcode").toString());
-                            where.Add("ds", zbs.get(j).get("dscode").toString());
-                            where.Add("co", zbs.get(j).get("cocode").toString());
-                            where.Add("reg", i);
-                            where.Add("sj", k);
-                            ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode, where);
-                            if(result.size()>0){
-                                if(!result.get(0).getData().getStrdata().equals("")){
-                                    String funit=originService.getwdnode("zb",zbs.get(j).get("zbcode").toString(),dbcode).getUnitcode();
-                                    BigDecimal rate = new BigDecimal(originService.getRate(funit,zbs.get(j).get("unitcode").toString(),k));
-                                    BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
-                                    rows.add(orval.toPlainString());
-                                }
-                                else {
-                                    rows.add("");
-                                }
-                            }
-                           else {
-                                rows.add("");
-                            }
-                        }else {//范围外填充空
-                            rows.add("");
-                        }
-                        if(j<modnum){//如果还在范围内
-                            String val = dp.getData(mods.get(j).getCode(),i,k).getData();
-                            if(val!=null&&!val.equals("")){
-                              val=  String.format("%."+mods.get(j).getDacimal()+"f",Double.valueOf(val));//保留几位小数
-                                rows.add(val);
-                            }
-                           else {
-                                rows.add("");
-                            }
-                        }else {//范围外填充空
-                            rows.add("");
-                        }
-                    }
-                    data.add(rows);
-                }
-        }
-        return  data;
-    }*/
-    //preview的时间检查
-    public void previewTimeCheck() throws IOException {
+    /**
+     * 预览结果的原始指标表格刷新
+     */
+    public ModelAndView preZbValue() throws IOException {
         HttpServletRequest req = this.getRequest();
-        String time = req.getParameter("timeinput");//得到时间搜索框中的时间
-        String icode = req.getParameter("icode"); //看是年度的还是月度的还是季度的
-        IndexList indexinfo = new IndexListService().getData(icode);
-        String sort = indexinfo.getSort(); //看是年度的还是月度的还是季度的
-        String starttime = indexinfo.getStartperiod();//起始时间
+        String pjax = req.getHeader("X-PJAX");
+        String icode=req.getParameter("icode");
+        String time=req.getParameter("time");
+        String scodes=req.getParameter("scodes");
+        String code=req.getParameter("zbcode");//IndexZb表的code
+        String [] sj = time.split(",");
+        List<List<String>> datas = new ArrayList<>();
+        IndexEditService es = new IndexEditService();
+        OriginService os = new OriginService();
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
-        JSONReturnData data = new JSONReturnData("");
-        List<String> timelist = new ArrayList<>();
-        IndexListService ls = new IndexListService();
-        Calendar now = Calendar.getInstance();
-        String[] times = time.split(",");
-        for (int i = 0; i <times.length ; i++) {
-            if(times[i].equals("")){continue;}
-            else  if(checkLast(times[i])){//如果存在last这个字母
-                try{
-                    int nums = Integer.parseInt(times[i].substring(times[i].indexOf("t")+1));
-                    String bt = starttime;
-                    String et = getEndTimeFormat(now.get(Calendar.YEAR)+getQ(now.get(Calendar.MONTH)+1),sort);
-                    List<String> tmp = getTime1(bt,et,sort);
-                    int qishu = tmp.size();
-                    if(qishu<=0){//起止时间没有或者格式不对
-                        data.setReturncode(300);
-                        break;
+        IndexZb zbdata = es.getZBData(code);
+        /**
+         * 检查数据是否完整
+         */
+        if (StringUtil.isEmpty(pjax)) {
+            this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/previewIndex.htm?m=previewIndex&id="+icode+"&timeinput="+time+"&scodes="+scodes);
+        } else {
+            for(String reg : zbdata.getRegions().split(",")){
+                List<String> row = new ArrayList<>();
+                String zbname = os.getwdnode("zb",zbdata.getZbcode(),dbcode).getName();
+                String dsname = os.getwdnode("ds",zbdata.getDatasource(),dbcode).getName();
+                String unitname="";
+                List<CubeUnit> units=os.getUnitList(zbdata.getUnitcode());
+                for(int j=0;j<units.size();j++){
+                    String thiscode=units.get(j).getCode();
+                    if (thiscode.equals(zbdata.getUnitcode())){
+                        unitname=units.get(j).getName();
                     }
-                    else{
-                        if(qishu<=nums){//实际没有这么多期
-                            for(String arr : tmp){
-                                if(!timelist.contains(arr)){//没有才加上
-                                    timelist.add(arr);
-                                }
+                }
+                row.add(zbname+"("+dsname+","+unitname+")");//原指标名
+                row.add(os.getwdnode("reg",reg,dbcode).getName());//地区
+                for(String date :sj){//按时间循环
+                    CubeWdCodes where = new CubeWdCodes();
+                    String funit=os.getwdnode("zb",zbdata.getZbcode(),dbcode).getUnitcode();
+                    BigDecimal rate=new BigDecimal(os.getRate(funit,zbdata.getUnitcode(),date));
+                    where.Add("zb", zbdata.getZbcode());
+                    where.Add("ds",zbdata.getDatasource());
+                    where.Add("co", zbdata.getCompany());
+                    where.Add("reg",reg);
+                    where.Add("sj",date);
+                    ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode,where);
+                    if(result.size()==0){
+                        row.add("");
+                    }else{
+                        for (int k = 0; k <result.size() ; k++) {
+                            if (!result.get(k).getData().toString().equals("") && result.size()!=0){
+                                BigDecimal resulttemp=(new BigDecimal(result.get(k).getData().getStrdata())).multiply(rate);
+                                row.add(resulttemp+"") ;
+                            }
+                            else{
+                                row.add("");
                             }
                         }
-                        else{
-                            for (int j = qishu-1; j >qishu-nums-1; j--) {
-                                if(!timelist.contains(tmp.get(j))){//没有才加上
-                                    timelist.add(tmp.get(j));
-                                }
-                            }
-                        }
-                    }
-                    //处理last这种格式的
-                }catch (NumberFormatException e){
-                    data.setReturncode(300);
-                    break;
-                }
-            }
-            else if(checkstart(times[i])){//要是存在横杠
-                String begintime = times[i].substring(0,times[i].indexOf("-"));
-                String endtime = times[i].substring(times[i].indexOf("-")+1);
-                List<String> tmp = getTime1(begintime,endtime,sort);
-                if(tmp.size()<=0){//起止时间没有或者格式不对
-                    data.setReturncode(300);
-                    break;
-                }
-                else{
-                    for(String arr : tmp){
-                        if(!timelist.contains(arr)){//没有才加上
-                            timelist.add(arr);
-                        }
                     }
                 }
+                datas.add(row);//封装成行
             }
-            else {//是直接的那种格式比如2012
-                List<String> templist =new ArrayList<>();
-                String bt = getTimeFormat(times[i],sort);
-                String et = getEndTimeFormat(times[i],sort);
-                int num = 0;
-                if(sort.equals("y")) { //如果是年度
-                    num = Integer.parseInt(et)-Integer.parseInt(bt)+1;
-                }
-                if(sort.equals("q")) { //如果是季度
-                    num = (Integer.parseInt(et.substring(0,4))-Integer.parseInt(bt.substring(0,4)))*4+getQnum(et.substring(4,5),bt.substring(4,5));
-                }
-                if(sort.equals("m")) { //如果是月度
-                    int mothnum = Integer.parseInt(et.substring(4,6))-Integer.parseInt(bt.substring(4,6))+1;//月份差
-                    num = (Integer.parseInt(et.substring(0,4))-Integer.parseInt(bt.substring(0,4)))*12+mothnum;
-                }
-                if(num<1){
-                    data.setReturncode(300);
-                    break;
-                }
-                else {
-                    templist = getNomalTimes(sort,et,num);
-                }
-                if(templist.size()<=0){//起止时间没有或者格式不对
-                    data.setReturncode(300);
-                    break;
-                }
-                else{
-                    for(String arr : templist){
-                        if(!timelist.contains(arr)){//没有才加上
-                            timelist.add(arr);
-                        }
-                    } }
-            }
-
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewzbTable").addObject("datas",datas).addObject("sj",sj);
         }
-        if(data.getReturncode()==300){
-            this.sendJson(data);
-            return;
-        }
-        //要是能算出来，代表可以排序
-        Collections.sort(timelist,Collections.reverseOrder());
-        String result = StringUtils.join(timelist.toArray(), ",");
-        data.setReturncode(200);
-        data.setReturndata(result);
-        this.sendJson(data);
+        return null;
     }
 
     /**

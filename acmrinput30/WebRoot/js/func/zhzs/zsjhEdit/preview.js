@@ -4,7 +4,7 @@ define(function (require,exports,module) {
         pjax = require('pjax'),
         common = require('common');
     $(document).ready(function(){
-        mc('preview-table',0,0,0);
+       // mc('preview-table',0,0,0);
 
         footerPosition();
         $(window).resize(footerPosition);
@@ -45,7 +45,8 @@ define(function (require,exports,module) {
             $(".footer").removeClass("fixed-footer");
         }
     }
-    var sjselect="";
+    var sjselect=$("#timecode").val();
+    var scodes = $("#scheme_codes").val();
     $(document).on('click', '#timeinput', function () {
         var timeinput = $("#timecode").val();
         var url = common.rootPath + "zbdata/zsjhedit.htm?m=previewTimeCheck&timeinput="+timeinput+"&icode="+icode;
@@ -81,6 +82,30 @@ define(function (require,exports,module) {
         drawtable();
 
     }
+
+    /**
+     * 触发切换指标的值
+     */
+    $("#zblist").change(function (e) {
+        var zbcode = $(this).val();
+        sendzbPjax(zbcode);
+    })
+
+    function sendzbPjax(zbcode){
+        var url = common.rootPath + "zbdata/zsjhedit.htm?m=preZbValue&icode="+icode +"&time="+sjselect+"&scodes="+scodes+"&zbcode="+zbcode;
+        $.pjax({
+            url: url,
+            async:false,
+            container: '.J_zb_data_table',
+            timeout: 10000
+        })
+       // mc('preview-table',0,0,0);
+        footerPosition();
+        $(window).resize(footerPosition);
+     //   drawtable();
+
+    }
+
     //重新绘制表格，定宽
     function drawtable() {
         var windowwidth = $(window).width();
