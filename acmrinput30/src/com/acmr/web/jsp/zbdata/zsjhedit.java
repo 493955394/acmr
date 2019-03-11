@@ -2033,6 +2033,7 @@ public class zsjhedit extends BaseAction {
         OriginService os = new OriginService();
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         IndexZb zbdata = es.getZBData(code);
+        String title="";
         List<CubeNode> sjs = os.getwdsubnodes("sj", time, dbcode);
         List<String> sj = new ArrayList<>();
         for (int i = 0; i <sjs.size() ; i++) {
@@ -2056,7 +2057,8 @@ public class zsjhedit extends BaseAction {
                         unitname=units.get(j).getName();
                     }
                 }
-                row.add(zbname+"("+dsname+","+unitname+")");//原指标名
+                title = zbname+"("+dsname+","+unitname+")";
+                row.add(title);//原指标名
                 row.add(os.getwdnode("reg",reg,dbcode).getName());//地区
                 for(String date :sj){//按时间循环
                     CubeWdCodes where = new CubeWdCodes();
@@ -2084,7 +2086,7 @@ public class zsjhedit extends BaseAction {
                 }
                 datas.add(row);//封装成行
             }
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewzbTable").addObject("datas",datas).addObject("sj",sj);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewzbTable").addObject("datas",datas).addObject("sj",sj).addObject("title",title);
         }
         return null;
     }
