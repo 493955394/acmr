@@ -562,7 +562,7 @@ define(function (require,exports,module) {
             success:function (re) {
                 if (re.return==200){
                     var schemetime = $('#scheme_timeval').val();
-                    window.open(common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode+"&timeinput="+schemetime+"&scodes="+schemetime.substring(1));
+                    window.open(common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode+"&timeinput="+schemetime+"&scodes="+schemecheck.substring(1));
                 }
                 else {
                     alert(re.return+"无法查看预览结果！")

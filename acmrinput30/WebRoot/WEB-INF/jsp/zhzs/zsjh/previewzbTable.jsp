@@ -20,7 +20,11 @@
         </thead>
         <tbody>
         <c:forEach items="${datas}" var="data">
-            <td>${data}</td>
+        <tr>
+            <c:forEach items="${data}" var="var">
+                <td>${var}</td>
+            </c:forEach>
+        </tr>
         </c:forEach>
         </tbody>
     </table>

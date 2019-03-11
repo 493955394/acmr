@@ -5,7 +5,8 @@ define(function (require,exports,module) {
         common = require('common');
     $(document).ready(function(){
        // mc('preview-table',0,0,0);
-
+        var zbcode = $("#zblist").find("option:selected").val();
+        sendzbPjax(zbcode);
         footerPosition();
         $(window).resize(footerPosition);
         drawtable()

@@ -2028,17 +2028,21 @@ public class zsjhedit extends BaseAction {
         String time=req.getParameter("time");
         String scodes=req.getParameter("scodes");
         String code=req.getParameter("zbcode");//IndexZb表的code
-        String [] sj = time.split(",");
         List<List<String>> datas = new ArrayList<>();
         IndexEditService es = new IndexEditService();
         OriginService os = new OriginService();
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         IndexZb zbdata = es.getZBData(code);
+        List<CubeNode> sjs = os.getwdsubnodes("sj", time, dbcode);
+        List<String> sj = new ArrayList<>();
+        for (int i = 0; i <sjs.size() ; i++) {
+            sj.add(sjs.get(i).getCode());
+        }
         /**
          * 检查数据是否完整
          */
         if (StringUtil.isEmpty(pjax)) {
-            this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/previewIndex.htm?m=previewIndex&id="+icode+"&timeinput="+time+"&scodes="+scodes);
+            this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/zsjhedit.htm?m=previewIndex&id="+icode+"&timeinput="+time+"&scodes="+scodes);
         } else {
             for(String reg : zbdata.getRegions().split(",")){
                 List<String> row = new ArrayList<>();
