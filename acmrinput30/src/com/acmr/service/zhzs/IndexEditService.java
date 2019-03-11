@@ -370,8 +370,8 @@ public class IndexEditService {
     * @Author: lyh
     * @Date: 2018/9/10 
     */ 
-    public boolean checkModule(String code){
-        Boolean bool=IndexEditDao.Fator.getInstance().getIndexdatadao().checkModule(code);
+    public boolean checkModule(String code,String icode){
+        Boolean bool=IndexEditDao.Fator.getInstance().getIndexdatadao().checkModule(code,icode);
         return bool;
     }
     public int toSaveAll(String indexcode,IndexList indexList){

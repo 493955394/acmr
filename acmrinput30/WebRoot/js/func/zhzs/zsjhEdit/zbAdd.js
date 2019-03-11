@@ -637,7 +637,7 @@ define(function (require,exports,module) {
         //console.log(zbcode)
         $.ajaxSettings.async=false
         $.ajax({
-            url:common.rootPath+"zbdata/zsjhedit.htm?m=checkModule&code="+code,
+            url:common.rootPath+"zbdata/zsjhedit.htm?m=checkModule&code="+code+"&icode="+indexCode,
             type:'get',
             data:'json',
             success:function (re) {

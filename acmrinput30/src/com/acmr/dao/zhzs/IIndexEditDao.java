@@ -24,7 +24,7 @@ public interface IIndexEditDao {
     public int updateModel(IndexMoudle indexMoudle);
     public boolean checkCode (String code);
     public boolean checkProcode(String procode,String indexcode);
-    public boolean checkModule(String code);
+    public boolean checkModule(String code,String icode);
     public int toSaveAll(String indexcode,IndexList indexList);
     public DataTable getZBData(String code);
     public boolean saveCheckCname(String icode,String cname,String ifzs);

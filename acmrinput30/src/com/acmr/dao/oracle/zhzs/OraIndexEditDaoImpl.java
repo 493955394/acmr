@@ -242,9 +242,9 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
     }
 
     @Override
-    public boolean checkModule(String code) {
-        String sql="select * from tb_coindex_module where formula like ?";
-        DataTable rows= AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {"%"+code+"%"});
+    public boolean checkModule(String code,String icode) {
+        String sql="select * from tb_coindex_scheme where formula like ? and indexcode=?";
+        DataTable rows= AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[] {"%"+code+"%",icode});
         if (rows.getRows().size()>0){
             return true;
         }

@@ -1325,19 +1325,20 @@ public class zsjhedit extends BaseAction {
 
 
     /**
-    * @Description:  判断要删除的筛选指标是否被模型引用
+    * @Description:  判断要删除的筛选指标是否被模型引用(现在从方案表中查)
     * @Param: []
     * @return: boolean
-    * @Author: lyh
+    * @Author: lyhl
     * @Date: 2018/9/10
     */
     public void checkModule() throws IOException {
         HttpServletRequest req=this.getRequest();
         String code=req.getParameter("code");
+        String icode=req.getParameter("icode");
        // PubInfo.printStr("==================================code:");
        // PubInfo.printStr(code);
         IndexEditService indexEditService=new IndexEditService();
-        Boolean bool=indexEditService.checkModule(code);
+        Boolean bool=indexEditService.checkModule(code,icode);
         this.sendJson(bool);
     }
 
