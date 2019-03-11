@@ -633,12 +633,11 @@ define(function (require,exports,module) {
         //过滤zbs
         var zbs=zbAdd.zbs;//获取指标的信息
         var codelist=[];
+        var unchoose = "";//没选择的指标
         var check=$("input:checkbox[class='zb_checkbox']:checked");
         for (var i=0;i<check.length;i++){
             codelist.push(check[i].id)
         }
-        console.log(zbs)
-        console.log(codelist)
         for (var i=0;i<zbs.length;i++){
             var code=zbs[i].code
             var flag=false;
@@ -649,12 +648,14 @@ define(function (require,exports,module) {
             }
             if (flag==false){
                 zbs.splice(i,1)
+                unchoose += ","+code;
                 i--;
             }
         }
-        console.log(zbs)
         //过滤regs
         var regs=select;
+        console.log(unchoose)
+        console.log(zbs)
         var reglist=[];
         var regcheck=$("input:checkbox[class='reg_checkbox']:checked");
         for (var i=0;i<regcheck.length;i++){
@@ -697,6 +698,8 @@ define(function (require,exports,module) {
         zbds = zbds.substr(0, zbds.length - 1);//去除最后一个逗号
         sxcode = sxcode.substr(0, sxcode.length - 1);//去除最后一个逗号
         zbunit = zbunit.substr(0, zbunit.length - 1);//去除最后一个逗号
+        if (unchoose != "")
+            unchoose = unchoose.substring(1);
         if(zbs.length==0){
             alert("指标未选择")
         }
@@ -711,16 +714,17 @@ define(function (require,exports,module) {
         }
         regselect = regselect.substr(0, regselect.length - 1);//去除最后一个逗号
         var delayday = $('#delayday').val();
-        console.log(timetext)
         $.ajax({
             url: common.rootPath+'zbdata/zsjhedit.htm?m=toSaveRange',
-            data: {'zbcode':zbcode,'zbco':zbco,'zbds':zbds,'sxcode':sxcode,'zbunit':zbunit,'regselect':regselect,'icode':incode,'startpeirod':timetext,'delayday':delayday},
+            data: {'zbcode':zbcode,'zbco':zbco,'zbds':zbds,'sxcode':sxcode,'zbunit':zbunit,'regselect':regselect,'icode':incode,'startpeirod':timetext,'delayday':delayday,'unchoose':unchoose},
             type: 'post',
             dataType: 'json',
             timeout: 10000,
             success: function(data) {
                 if (data.returncode == 200)
                     alert("保存成功！");
+                else if(data.returncode ==303)
+                    alert(data.returndata+"被模型节点引用，无法删除！")
                 else if(data.returncode == 501||data.returncode == 301)
                     alert("保存失败！");
             }

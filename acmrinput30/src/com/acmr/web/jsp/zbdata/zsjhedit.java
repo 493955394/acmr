@@ -1435,6 +1435,21 @@ public class zsjhedit extends BaseAction {
         String co = PubInfo.getString(req.getParameter("zbco"));//主体
         String zbunit = PubInfo.getString(req.getParameter("zbunit"));//单位
         String sxcode = PubInfo.getString(req.getParameter("sxcode"));//ZB表的code
+        String unchooses = PubInfo.getString(req.getParameter("unchoose"));//没有选择的指标
+        if(!unchooses.equals("")) {
+            String[] unchoose = unchooses.split(",");
+            for (String i : unchoose) {
+                if (indexEditService.checkModule(i, index_code)) {//该指标被引用
+                    String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(index_code);
+                    String zb_code = indexEditService.getZBData(i).getZbcode();
+                    String returndata = new OriginService().getwdnode("zb",zb_code,dbcode).getName();
+                    data.setReturndata(returndata);
+                    data.setReturncode(303);
+                    this.sendJson(data);
+                    return;
+                }
+            }
+        }
         String [] zbcodes = zbcode.split(",");
         String [] dss = ds.split(",");
         String [] cos = co.split(",");
