@@ -5,7 +5,7 @@
 
 <div class="range_table_container">
     <table class="table table-bordered table-hover range_table">
-        <thead style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
+        <thead style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';">
         <tr id="range_data_head">
             <td class="null_td" style="width: 8%;min-width: 60px"></td>
             <c:forEach var="zb" items="${zbrow}">
