@@ -637,36 +637,45 @@ define(function (require,exports,module) {
         for (var i=0;i<check.length;i++){
             codelist.push(check[i].id)
         }
-        zbs.forEach(function (value,index) {
-            var code=value.code
+        console.log(zbs)
+        console.log(codelist)
+        for (var i=0;i<zbs.length;i++){
+            var code=zbs[i].code
             var flag=false;
-            for (var i=0;i<codelist.length;i++){
-                if (code==codelist[i]){
+            for (var j=0;j<codelist.length;j++){
+                if (code==codelist[j]){
                     flag=true
                 }
             }
             if (flag==false){
-                zbs.splice(index,1)
+                zbs.splice(i,1)
+                i--;
             }
-        })
+        }
+        console.log(zbs)
         //过滤regs
         var regs=select;
+        var reglist=[];
         var regcheck=$("input:checkbox[class='reg_checkbox']:checked");
         for (var i=0;i<regcheck.length;i++){
-            codelist.push(regcheck[i].id)
+            reglist.push(regcheck[i].id)
         }
-        regs.forEach(function (value,index) {
-            var code=value.code
+        //console.log(reglist)
+        //console.log(regs)
+        for (var i=0;i<regs.length;i++){
+            var code=regs[i].code
             var flag=false;
-            for (var i=0;i<codelist.length;i++){
-                if (code==codelist[i]){
+            for (var j=0;j<reglist.length;j++){
+                if (code==reglist[j]){
                     flag=true
                 }
             }
             if (flag==false){
-                regs.splice(index,1)
+                regs.splice(i,1)
+                i--
             }
-        })
+        }
+        //console.log(regs)
         /**
          * 入库
          */
