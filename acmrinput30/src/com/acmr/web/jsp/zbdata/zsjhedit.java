@@ -2010,48 +2010,13 @@ public class zsjhedit extends BaseAction {
      */
     public ModelAndView previewIndex() throws MathException {
         String code = this.getRequest().getParameter("id");
-        String scodes = this.getRequest().getParameter("scodes");
-        DataPreviewService dp = new DataPreviewService();
-        //PubInfo.printStr(String.valueOf(check));
-        List<String> times = new ArrayList<>();
-        List<Map> regions = regshow(code);
-        List<List<String>> predata = new ArrayList<>();
-        IndexList indexinfo = new IndexListService().getData(code);
-        String sort = indexinfo.getSort(); //看是年度的还是月度的还是季度的
-        String starttime = indexinfo.getStartperiod();//起始时间
-        Calendar now = Calendar.getInstance();
-            int nums = 3;
-            String bt = starttime;
-            String et = getEndTimeFormat(now.get(Calendar.YEAR)+getQ(now.get(Calendar.MONTH)+1),sort);
-            List<String> tmp = getTime1(bt,et,sort);
-            int qishu = tmp.size();
-            if(qishu>0){
-                List<String> timelist = new ArrayList<>();
-                if(qishu<=nums){//实际没有这么多期
-                        timelist.addAll(tmp);
-                }
-                else{
-                    for (int j = qishu-1; j >qishu-nums-1; j--) {
-                            timelist.add(tmp.get(j));
-                    }
-                }
-                //计算
-                //要是能算出来，代表可以排序
-                Collections.sort(timelist,Collections.reverseOrder());
-                String result = StringUtils.join(timelist.toArray(), ",");
-                String[] scode = scodes.split(",");
-                for(String i :timelist){
-                    for (int j = 0; j <scode.length ; j++) {
-                        dp.todocalculate(code,i,scode[j]);
-                    }
-                }
-                //画表格
-               // predata = drawTable(code,result);
-                times.addAll(timelist);
-            }
-            //处理last这种格式的
-
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewIndex").addObject("icode",code).addObject("times",times).addObject("regions",regions).addObject("predata",predata);
+        String scodes = this.getRequest().getParameter("scodes");//选择的方案个数
+        String times = this.getRequest().getParameter("timeinput");//时间期
+        IndexEditService indexEditService = new IndexEditService();
+        List<IndexMoudle> mods = indexEditService.getAllMods("",code);
+        //筛选指标的信息
+        JSONObject zblist=getZBS(code);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewIndex").addObject("icode",code).addObject("times",times).addObject("zblist",zblist).addObject("mods",mods);
     }
 
 

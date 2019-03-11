@@ -8,10 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <link rel="stylesheet" type="text/css" href="${ctx}/css/pastreview.css" />
-<link rel="stylesheet" type="text/css" href="${ctx}/css/zhzs/zsjh/multiple-select.css" />
-<script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="${ctx}/js/lib/dropList.js"></script>
-<script type="text/javascript" src="${ctx}/js/func/zhzs/zsjhEdit/multipleSelect.js"></script>
 <html>
 <head>
     <title>${projectTitle}-预览结果</title>
@@ -37,76 +33,34 @@
                 预览结果
             </div>
         </div>
-        <div class="toolbar">
-            <div class="regselect" style="float: left ;padding-right: 20px;">
-                地区：
-                <select multiple="multiple" id="ms" size="10">
-                    <c:forEach items="${regions}" var="reg">
-                        <option value="${reg.regcode}">${reg.regcname}</option>
+        <input type="hidden" id="timecode" value="${times}">
+        <div class="col-sm-7">
+            <div class="modselect" style="padding-right: 20px;">
+                <select id="ms">
+                    <c:forEach items="${mods}" var="module">
+                        <option value="${module.getCode()}">${module.getCname()}</option>
                     </c:forEach>
                 </select>
                 <button  type="button" id="select-choose" style="display: none"/>
             </div>
-            <div id="mySelect2"></div>
-            <input type="hidden" id="timecode" value="">
-            <button  type="button" id="timeinput" data-value="" style="display: none"/>
-        </div>
-
-
             <div class="J_preview_data_table">
-                <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/previewTable.jsp" flush="true"/>
+                <%--<jsp:include page="/WEB-INF/jsp/zhzs/zsjh/previewTable.jsp" flush="true"/>--%>
             </div>
-
+        </div>
+        <div class="col-sm-5">
+            <div class="zbselect" style="padding-right: 20px;">
+                <select  id="zblist">
+                    <c:forEach items="${zblist.zbchoose}" var="zbl">
+                        <option value="${zbl.code}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
     </div>
 </div>
 </body>
 </html>
 
 <script type="text/javascript">
-    //查询的时间
-    $(function(){
-        var json2 = {
-            wdcode:'sj',
-            wdname:'时间',
-            nodes:[
-                {code:"last3",name:'最近三期'}
-            ]
-        };
-        var dt2 = $('#mySelect2');
-        //dt2.dropList(json2,{isText:true});	//实例化2(带底部输入框)、默认选中第一个item
-        //dt2.dropList(json2,{isText:true,setIndex: 2});	//实例化2(带底部输入框)、选中指定位置item
-        dt2.dropList(json2,{isText:true},function(o){		//事件处理
-            $("#timecode").val(o.getItem().code)
-            $("#timeinput").click();
-        });
-    });
-    $(function() {
-        $('#ms').change(function() {
-        }).multipleSelect({
-            width:'200px',
-            selectAllText: "全选", //选择全部的复选框的text值
-            allSelected: "全部", //全部选中后显示的
-            placeholder: "多选下拉框", //不选择时下拉框显示的内容
-        });
-    });
-    $("#select-choose").click(function () {
-        var val = $("#ms").multipleSelect('getSelects', 'text');//获取下拉框中选的值，是个数组
-        $("#preview-table tr").each(function(){
-            $(this).removeClass("red")//先把之前的颜色全清空
-        })
-        for (var i = 0; i <val.length ; i++) {
-            $("#preview-table tr").each(function(){
-                var rowspan = $(this).children("td:first").attr("rowspan");//看第一列单元格向下合并了几行
-                var text = $(this).children("td:first").text();//获取第一列单元格里的内容
-                if(text == val[i]){//地区名相等的话
-                    var num = $(this).index();
-                    var total = parseInt(num)+parseInt(rowspan);
-                    for (var j = num; j <total ; j++) {
-                        $("#preview-table tbody tr").eq(j).addClass("red")//添加高亮颜色
-                    }
-                }
-            })
-        }
-    })
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/preview');
 </script>

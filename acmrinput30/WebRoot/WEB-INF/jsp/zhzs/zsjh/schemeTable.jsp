@@ -29,7 +29,7 @@
         <c:forEach var="scheme" items="${schemes}">
             <tr>
                 <td>
-                    <input autocomplete="off" type="checkbox"/>
+                    <input autocomplete="off" class="scheme_check" scheme_code="${scheme.getCode()}" type="checkbox"/>
                 </td>
                 <td>${scheme.getCname()}</td>
                 <td>${scheme.getRemark()}</td>

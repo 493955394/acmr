@@ -89,12 +89,14 @@
                                 <select class="form-control formula" name="formula" autocomplete="off">
                                     <option value="userdefined" <c:if test="${data.getIfzb() =='0'}">selected</c:if> >自定义</option>
                                     <c:forEach  items="${zblist.zbchoose}" var="zbl">
-                                        <c:if test="${data.getIfzb() == '1'}" >
+                                        <c:choose>
+                                        <c:when test="${data.getIfzb() == '1'}" >
                                             <option value="${zbl.code}"<c:if test="${zbl.code == data.getFormula()}">selected</c:if>>${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
-                                        </c:if>
-                                        <c:if test="${data.getIfzb() == '0'}">
+                                        </c:when>
+                                        <c:otherwise>
                                             <option value="${zbl.code}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
-                                        </c:if>
+                                        </c:otherwise>
+                                        </c:choose>
                                     </c:forEach>
                                 </select>
                             </div>

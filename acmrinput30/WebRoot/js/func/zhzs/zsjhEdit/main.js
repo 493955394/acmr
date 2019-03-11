@@ -547,14 +547,22 @@ define(function (require,exports,module) {
      * 预览结果
      */
     $("#scheme_timeinput").click(function () {
+        var schemecheck= "";
+        $(".scheme_check").each(function () {
+            if($(this).is(':checked'))
+            schemecheck += ","+$(this).attr("scheme_code")
+        })
+        if(schemecheck==""){
+            alert("请至少选择一个方案")
+            return;
+        }
         $.ajax({
             url:common.rootPath+'zbdata/zsjhedit.htm?m=checkPreview&id='+incode,
             type:'get',
             success:function (re) {
-                console.log(re)
                 if (re.return==200){
                     var schemetime = $('#scheme_timeval').val();
-                    window.open(common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode+"&timeinput="+schemetime);
+                    window.open(common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode+"&timeinput="+schemetime+"&scodes="+schemetime.substring(1));
                 }
                 else {
                     alert(re.return+"无法查看预览结果！")
