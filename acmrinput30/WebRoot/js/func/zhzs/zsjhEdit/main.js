@@ -719,9 +719,10 @@ define(function (require,exports,module) {
             dataType: 'json',
             timeout: 10000,
             success: function(data) {
-                if (data.returncode == 200) {
+                if (data.returncode == 200)
                     alert("保存成功！");
-                }
+                else if(data.returncode == 501||data.returncode == 301)
+                    alert("保存失败！");
             }
         })
     })

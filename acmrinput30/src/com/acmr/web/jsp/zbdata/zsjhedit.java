@@ -1440,6 +1440,10 @@ public class zsjhedit extends BaseAction {
         String [] units = zbunit.split(",");
         String [] sxcodes = sxcode.split(",");
         ArrayList<IndexZb> zbs = new ArrayList<IndexZb>();
+        if(zbcode.contains("undefined")||ds.contains("undefined")||co.contains("undefined")||reg.contains("undefined"))
+        { data.setReturncode(301);
+            this.sendJson(data);
+            return;}
         if(sxcode != ""){
             for (int i = 0; i <sxcodes.length ; i++) {
                 IndexZb zb = new IndexZb();
