@@ -400,8 +400,9 @@
                                     </div>
                                     <div class="toolbar-right">
                                         <div class="toolbar-group" style="position: relative;">
-                                            <button class="btn btn-default btn-sm J_Add_ZS" type="button"><i
+                                            <button class="btn btn-primary btn-sm J_Add_ZS" type="button"><i
                                                     class="glyphicon glyphicon-plus"></i>新增节点
+
                                             </button>
                                             &nbsp;
                                            <%-- <button class="btn btn-default btn-sm J_Add weight_set" type="button">
@@ -421,8 +422,8 @@
                     <div role="tabpanel" class="edit_tab tab-pane" id="jsfa">
                         <div id="scheme_main_container">
                             <div id="scheme_select_button">
-                                <button class="btn btn-default btn-sm" id="set_scheme_weight_formula">公式/权重设置</button>
-                                <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#scheme_modal" id="add_scheme">新增方案</button>
+                                <button class="btn btn-primary btn-sm" id="set_scheme_weight_formula">公式/权重设置</button>
+                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#scheme_modal" id="add_scheme">新增方案</button>
                                 <input  type="hidden" id="scheme_timeinput"/>
                                 <input type="hidden" id="scheme_timeval" value="">
                                 <div id="scheme_time_select" style="margin-bottom: 10px;"></div>

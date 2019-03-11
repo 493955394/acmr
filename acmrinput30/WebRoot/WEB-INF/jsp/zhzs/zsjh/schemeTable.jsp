@@ -16,7 +16,7 @@
 </style>
 <div>
     <table class="table table-bordered table-hover">
-        <thead  id="scheme_list_head" style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
+        <thead  id="scheme_list_head" style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';">
         <tr>
             <td>  </td>
             <td>方案名称</td>

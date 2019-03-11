@@ -18,7 +18,7 @@
     <div>
         <div>
             <table class="table table-bordered table-hover">
-                <thead  style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
+                <thead  style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';">
                 <tr id="mod_list_head">
                     <td>名称</td>
                     <td>类型</td>
