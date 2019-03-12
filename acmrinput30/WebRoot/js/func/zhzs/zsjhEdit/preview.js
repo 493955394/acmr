@@ -7,6 +7,8 @@ define(function (require,exports,module) {
        // mc('preview-table',0,0,0);
         var zbcode = $("#zblist").find("option:selected").val();
         sendzbPjax(zbcode);
+        var modcode = $("#ms").find("option:selected").val();
+        sendPjax(modcode);
         footerPosition();
         $(window).resize(footerPosition);
         drawtable()
@@ -48,42 +50,29 @@ define(function (require,exports,module) {
     }
     var sjselect=$("#timecode").val();
     var scodes = $("#scheme_codes").val();
-    $(document).on('click', '#timeinput', function () {
-        var timeinput = $("#timecode").val();
-        var url = common.rootPath + "zbdata/zsjhedit.htm?m=previewTimeCheck&timeinput="+timeinput+"&icode="+icode;
-        $.ajax({
-            url: url,
-            type: 'get',
-            dataType: 'json',
-            success: function (data) {
-                if (data.returncode == 300) {
-                    alert("时间格式有误");
-                } else if (data.returncode == 200) {
-                    if(!(data.returndata ==""||data.returndata==null)){
-                        sjselect = data.returndata;
-                       // console.log(sjselect);
-                        sendPjax();
-                    }
-                }
-            }
-        })
-    })
 
-    function sendPjax(){
-        var url = common.rootPath + "zbdata/zsjhedit.htm?m=preCaculate&icode="+icode +"&time="+sjselect;
+    function sendPjax(modcode){
+        var url = common.rootPath + "zbdata/zsjhedit.htm?m=preDataValue&icode="+icode +"&time="+sjselect+"&scodes="+scodes+"&modcode="+modcode;
         $.pjax({
             url: url,
             async:false,
             container: '.J_preview_data_table',
             timeout: 10000
         })
-            mc('preview-table',0,0,0);
+          //  mc('preview-table',0,0,0);
             footerPosition();
             $(window).resize(footerPosition);
         drawtable();
 
     }
 
+    /**
+     * 触发切换模型的值
+     */
+    $("#ms").change(function (e) {
+        var modcode = $(this).val();
+        sendPjax(modcode);
+    })
     /**
      * 触发切换指标的值
      */

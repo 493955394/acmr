@@ -17,6 +17,7 @@ import acmr.web.control.BaseAction;
 import acmr.web.entity.ModelAndView;
 import com.acmr.dao.zhzs.IIndexListDao;
 import com.acmr.dao.zhzs.IndexListDao;
+import com.acmr.dao.zhzs.SchemeDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.pub.TreeNode;
@@ -2104,6 +2105,62 @@ public class zsjhedit extends BaseAction {
         return null;
     }
 
+    /**
+     * 预览结果的原始指标表格刷新
+     */
+    public ModelAndView preDataValue() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        String pjax = req.getHeader("X-PJAX");
+        String icode=req.getParameter("icode");
+        String time=req.getParameter("time");
+        String scodes=req.getParameter("scodes");
+        String modcode=req.getParameter("modcode");
+        List<List<String>> datas = new ArrayList<>();
+        IndexEditService es = new IndexEditService();
+        OriginService os = new OriginService();
+        DataPreviewService dps = new DataPreviewService();
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
+        String [] scheme = scodes.split(",");
+        String regs = dps.findRegions(icode);
+        String decimal = es.getData(modcode).getDacimal();//获取小数点位数
+        String title="";
+        List<CubeNode> sjs = os.getwdsubnodes("sj", time, dbcode);
+        List<String> sj = new ArrayList<>();
+        for (int i = 0; i <sjs.size() ; i++) {
+            sj.add(sjs.get(i).getCode());
+        }
+        /**
+         * 检查数据是否完整
+         */
+        if (StringUtil.isEmpty(pjax)) {
+            this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/zsjhedit.htm?m=previewIndex&id="+icode+"&timeinput="+time+"&scodes="+scodes);
+        } else {
+            //加方案名
+            List<String> schemename = new ArrayList<>();
+            for (int i = 0; i <scheme.length ; i++) {
+                schemename.add(SchemeDao.Fator.getInstance().getIndexdatadao().getSchemeNameByCode(scheme[i]));
+            }
+            for(String reg : regs.split(",")){
+               List<String> row = new ArrayList<>();
+               row.add(os.getwdnode("reg",reg,dbcode).getName());//地区名
+                for(String date :sj){//按时间循环
+                    for (String scode :scheme) {//按方案循环
+                        String val = dps.getData(modcode,reg,date,scode).getData();
+                        if(val!=null&&!val.equals("")){
+                            val=  String.format("%."+decimal+"f",Double.valueOf(val));//保留几位小数
+                            row.add(val);
+                        }
+                        else {
+                            row.add("");
+                        }
+                    }
+                }
+                datas.add(row);//封装成行
+            }
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewTable").addObject("val",datas).addObject("date",sj).addObject("title",title).addObject("schemename",schemename);
+        }
+        return null;
+    }
     /**
      * 时间变后重新算
      * @return
