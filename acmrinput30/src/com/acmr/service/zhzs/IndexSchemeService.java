@@ -74,6 +74,11 @@ public class IndexSchemeService {
         return schemes;
     }
 
+    public boolean checkSchemeState(String scode){
+        int state=ischemeDao.getSchemeState(scode);
+        if (state==1) return true;
+        else return false;
+    }
 
     public String getModSchemeWeight(String scode,String modcode){
         return ischemeDao.getModSchemeWeight(scode,modcode);

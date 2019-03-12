@@ -279,4 +279,14 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{icode});
     }
 
+    @Override
+    public int getSchemeState(String scode) {
+        String sql="select * from tb_coindex_scheme where code=?";
+        List<DataTableRow> dataTableRows=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{scode}).getRows();
+        if (dataTableRows.size()>0){
+            return Integer.parseInt(dataTableRows.get(0).getString("state"));
+        }
+        return 0;
+    }
+
 }

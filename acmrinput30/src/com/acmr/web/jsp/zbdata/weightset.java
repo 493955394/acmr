@@ -120,13 +120,17 @@ public class weightset extends BaseAction {
             weightmap.put(array[0],array[1]);
         }
         indexSchemeService.setSingleSchemeWeight(scode,weightmap);
-        /*for (int i=0;i<cw.size();i++){
-            String code=cw.get(i).split(":")[0];
-            String weight=cw.get(i).split(":")[1];
+
+        //判断该方案是否被选用，选用则覆盖module
+        if (indexSchemeService.checkSchemeState(scode)){
             WeightEditService weightEditService=new WeightEditService();
-            weightEditService.setWeight(code,weight);
+            for (int i=0;i<cw.size();i++){
+                String code=cw.get(i).split(":")[0];
+                String weight=cw.get(i).split(":")[1];
+                weightEditService.setWeight(code,weight);
+            }
         }
-*/
+
     }
 
 /*    public ModelAndView getWeightTable(){
