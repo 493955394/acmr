@@ -36,12 +36,12 @@
         </button>
     </div>
     <table class="table table-bordered" id="module_table">
-        <tr id="row_head1">
+        <tr style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';" id="row_head1">
             <td rowspan="2">总指数</td>
             <%--<td colspan="2">指标</td>--%>
         </tr>
 
-        <tr id="row_head2">
+        <tr style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';" id="row_head2">
             <%--<td>空白</td>
             <td>方案</td>--%>
         </tr>
@@ -76,7 +76,7 @@
 
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:first").parent().append(
-            "<td code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
+            "<td style=\"text-align:left\" code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input style=\"width:100px\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
         )
         </c:forEach>
 
@@ -92,7 +92,7 @@
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:first").parent().nextAll(":eq(" +
             (rows-flag-1)+")").append(
-            "<td code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
+            "<td style=\"text-align:left\" code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input style=\"width:100px\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
         )
         </c:forEach>
 
@@ -115,7 +115,7 @@
 
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:last").parent().append(
-            "<td code=${module.getCode()}><input pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}'  placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>公式：<input value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
+            "<td style=\"text-align:left\" code=${module.getCode()}><input style=\"width:100px\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}'  placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>&nbsp;&nbsp;公式：<input style=\"width:100px\" value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
         )
         </c:forEach>
 
@@ -129,7 +129,7 @@
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:last").parent().nextAll(":eq(" +
             (rows-flag-1)+")").append(
-            "<td code=${module.getCode()}><input pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>公式：<input value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
+            "<td style=\"text-align:left\" code=${module.getCode()}><input style=\"width:100px\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>&nbsp;&nbsp;公式：<input style=\"width:100px\" value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
         )
         </c:forEach>
 
@@ -151,6 +151,26 @@
         $("#row_head2").append("<td>${sname}</td>")
         </c:forEach>
     }
+    $(document).ready(function(){
+        //footer位置设置
+        function footerPosition(){
+            $(".footer").removeClass("fixed-footer");
+            var contentHeight = document.body.scrollHeight,//网页正文全文高度
+
+                winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
+            if(!(contentHeight > winHeight)){
+                //当网页正文高度小于可视窗口高度时，为footer添加类fixed-footer
+                $(".footer").addClass("fixed-footer");
+                $(".content").height(winHeight);
+            } else {
+                $(".footer").removeClass("fixed-footer");
+            }
+        }
+        footerPosition();
+        $(window).resize(footerPosition);
+        if($("#result-ifcomplete").val()=="true")
+            alert("原始数据缺失");
+    })
 
 </script>
 
