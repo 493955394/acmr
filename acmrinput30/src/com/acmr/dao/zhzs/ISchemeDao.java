@@ -23,4 +23,5 @@ public interface ISchemeDao {
     public int updScheme(Scheme sc,String modcode,String scode,String state);
     public boolean checkScheme (String icode);
     public DataTable getScodes (String icode);
+    public int getSchemeState(String scode);
 }
