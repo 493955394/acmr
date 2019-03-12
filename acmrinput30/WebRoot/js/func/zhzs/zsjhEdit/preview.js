@@ -89,7 +89,7 @@ define(function (require,exports,module) {
             container: '.J_zb_data_table',
             timeout: 10000
         })
-        mc('previewzb-table',0,0,0);
+       // mc('previewzb-table',0,0,0);
         footerPosition();
         $(window).resize(footerPosition);
      //   drawtable();

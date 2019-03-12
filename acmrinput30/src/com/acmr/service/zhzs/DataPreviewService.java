@@ -7,10 +7,7 @@ import acmr.math.CalculateExpression;
 import acmr.math.entity.MathException;
 import acmr.util.DataTable;
 import acmr.util.DataTableRow;
-import com.acmr.dao.zhzs.DataPreviewDao;
-import com.acmr.dao.zhzs.IDataPreviewDao;
-import com.acmr.dao.zhzs.IndexListDao;
-import com.acmr.dao.zhzs.IndexTaskDao;
+import com.acmr.dao.zhzs.*;
 import com.acmr.model.zhzs.DataPreview;
 import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.model.zhzs.Scheme;
@@ -48,7 +45,7 @@ public class DataPreviewService {
                 List<IndexMoudle> zong = findRoot(icode);
                 for (int i = 0; i <zong.size() ; i++) {
                     for (int j = 0; j <reg.length ; j++) {//一个地区一个地区地算
-                        calculateZS(zong.get(i).getCode(),time,reg[j],scode);
+                        calculateZS(zong.get(i).getCode(),time,reg[j],scode,icode);
                     }
                 }
             }
@@ -188,7 +185,7 @@ public class DataPreviewService {
     /**
      * 计算指数（乘上权重），递归
      */
-    public  void calculateZS(String code, String time, String reg,String scode) throws MathException{
+    public  void calculateZS(String code, String time, String reg,String scode,String icode) throws MathException{
         DataPreview zsdata = new DataPreview();
         IndexEditService originDataService = new IndexEditService();
         List<IndexMoudle> subs = findSubMod(code,scode);
@@ -199,13 +196,13 @@ public class DataPreviewService {
                 List<IndexMoudle> tmp =new ArrayList<>();
                 tmp.add(subs.get(i));
                 if(subDataCheck(tmp,reg,time,scode)==1){
-                    calculateZS(subs.get(i).getCode(),time,reg,scode);
+                    calculateZS(subs.get(i).getCode(),time,reg,scode,icode);
                 }
             }
-            calculateZS(code,time,reg,scode);//计算一遍它的父级
+            calculateZS(code,time,reg,scode,icode);//计算一遍它的父级
         }
         else {//要是下一级的值是全的，就把值加到zsdatas中
-            IndexMoudle temp = originDataService.getData(code);
+            IndexMoudle temp = getModData(code,scode,icode);
             zsdata.setAyearmon(time);
             zsdata.setRegion(reg);
             zsdata.setIndexcode(temp.getIndexcode());
@@ -541,5 +538,15 @@ public class DataPreviewService {
         where.Add("reg", reg);
         where.Add("sj", sj);
         return RegdataService.queryData(dbcode, where);
+    }
+
+    public IndexMoudle getModData(String mcode,String scode,String icode){
+       IndexMoudle mod = new IndexEditService().getData(mcode);
+            String modcode = mod.getCode();
+            DataTableRow scheme = SchemeDao.Fator.getInstance().getIndexdatadao().getScMod(modcode,icode,scode).getRows().get(0);
+            mod.setFormula(scheme.getString("formula"));//替换公式和权重
+             mod.setIfzb(scheme.getString("ifzb"));//替换公式和权重
+            mod.setWeight(scheme.getString("weight"));//替换公式和权重
+        return mod;
     }
 }

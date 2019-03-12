@@ -12,7 +12,6 @@
 <div style="max-height:55%;max-width: 100%;overflow: auto;margin-top: 10px">
     <table class="table table-bordered J_orgZb_table" id="previewzb-table">
         <thead style="background-color: #e4edf6">
-        <th></th>
         <th>地区</th>
         <c:forEach items="${sj}" var="list">
             <th>${list}</th>

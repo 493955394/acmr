@@ -2060,8 +2060,8 @@ public class zsjhedit extends BaseAction {
             this.getResponse().sendRedirect(this.getContextPath() + "/zbdata/zsjhedit.htm?m=previewIndex&id="+icode+"&timeinput="+time+"&scodes="+scodes);
         } else {
             for(String reg : zbdata.getRegions().split(",")){
-                List<String> row = new ArrayList<>();
-                String zbname = os.getwdnode("zb",zbdata.getZbcode(),dbcode).getName();
+              List<String> row = new ArrayList<>();
+                 /* String zbname = os.getwdnode("zb",zbdata.getZbcode(),dbcode).getName();
                 String dsname = os.getwdnode("ds",zbdata.getDatasource(),dbcode).getName();
                 String unitname="";
                 List<CubeUnit> units=os.getUnitList(zbdata.getUnitcode());
@@ -2072,7 +2072,7 @@ public class zsjhedit extends BaseAction {
                     }
                 }
                 title = zbname+"("+dsname+","+unitname+")";
-                row.add(title);//原指标名
+                row.add(title);//原指标名*/
                 row.add(os.getwdnode("reg",reg,dbcode).getName());//地区
                 for(String date :sj){//按时间循环
                     CubeWdCodes where = new CubeWdCodes();
