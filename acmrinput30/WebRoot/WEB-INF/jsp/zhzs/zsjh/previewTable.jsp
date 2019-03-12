@@ -18,6 +18,7 @@
     }
 </style>
 <div style="max-height:55%;max-width: 100%;overflow: auto;margin-top: 10px">
+    <input type="hidden" value="${zbtitle}" id="modname"/>
     <table class="table table-bordered J_jgyl_table" id="preview-table">
         <thead style="background-color: #e4edf6">
         <tr>

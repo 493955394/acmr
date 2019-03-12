@@ -42,7 +42,9 @@
                         <option value="${module.getCode()}">${module.getCname()}</option>
                     </c:forEach>
                 </select>
+                <span id="mod_text"></span>
             </div>
+
             <div class="J_preview_data_table">
                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/previewTable.jsp" flush="true"/>
             </div>
@@ -54,6 +56,7 @@
                         <option value="${zbl.code}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
                     </c:forEach>
                 </select>
+                <span id="zb_text"></span>
             </div>
             <div class="J_zb_data_table">
                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/previewzbTable.jsp" flush="true"/>

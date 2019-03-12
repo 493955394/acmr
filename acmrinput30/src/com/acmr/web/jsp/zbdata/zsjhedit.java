@@ -1065,9 +1065,6 @@ public class zsjhedit extends BaseAction {
         if(ifzs.equals("2")){//如果是总指数，默认权重是1
             indexMoudle.setWeight("1");
         }
-        else{
-            indexMoudle.setWeight("0");
-        }
             if(ifzs.equals("1")||ifzs.equals("2")){
                 ifzs = "1";//总指数或者次级指数
             }
@@ -2047,7 +2044,6 @@ public class zsjhedit extends BaseAction {
         OriginService os = new OriginService();
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         IndexZb zbdata = es.getZBData(code);
-        String title="";
         List<CubeNode> sjs = os.getwdsubnodes("sj", time, dbcode);
         List<String> sj = new ArrayList<>();
         for (int i = 0; i <sjs.size() ; i++) {
@@ -2100,7 +2096,7 @@ public class zsjhedit extends BaseAction {
                 }
                 datas.add(row);//封装成行
             }
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewzbTable").addObject("datas",datas).addObject("sj",sj).addObject("title",title);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewzbTable").addObject("datas",datas).addObject("sj",sj);
         }
         return null;
     }
@@ -2123,7 +2119,7 @@ public class zsjhedit extends BaseAction {
         String [] scheme = scodes.split(",");
         String regs = dps.findRegions(icode);
         String decimal = es.getData(modcode).getDacimal();//获取小数点位数
-        String title="";
+        String title=es.getData(modcode).getCname()+";";
         List<CubeNode> sjs = os.getwdsubnodes("sj", time, dbcode);
         List<String> sj = new ArrayList<>();
         for (int i = 0; i <sjs.size() ; i++) {
@@ -2138,7 +2134,10 @@ public class zsjhedit extends BaseAction {
             //加方案名
             List<String> schemename = new ArrayList<>();
             for (int i = 0; i <scheme.length ; i++) {
-                schemename.add(SchemeDao.Fator.getInstance().getIndexdatadao().getSchemeNameByCode(scheme[i]));
+                String sname = SchemeDao.Fator.getInstance().getIndexdatadao().getSchemeNameByCode(scheme[i]);
+                String weight = SchemeDao.Fator.getInstance().getIndexdatadao().getModSchemeWeight(scheme[i],modcode);
+                schemename.add(sname);
+                title = title+sname +":"+weight+";";
             }
             for(String reg : regs.split(",")){
                List<String> row = new ArrayList<>();
@@ -2157,7 +2156,7 @@ public class zsjhedit extends BaseAction {
                 }
                 datas.add(row);//封装成行
             }
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewTable").addObject("val",datas).addObject("date",sj).addObject("title",title).addObject("schemename",schemename);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewTable").addObject("val",datas).addObject("date",sj).addObject("zbtitle",title).addObject("schemename",schemename);
         }
         return null;
     }

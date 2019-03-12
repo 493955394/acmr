@@ -223,9 +223,8 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         try {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
-        String sql="update tb_coindex_scheme set weight=?,formula=?,ifzb=? where code=? and modcode=? ";
+        String sql="update tb_coindex_scheme set formula=?,ifzb=? where code=? and modcode=? ";
         List<Object> params = new ArrayList<Object>();
-        params.add(sc.getWeight());
         params.add(sc.getFormula());
         params.add(sc.getIfzb());
         params.add(scode);

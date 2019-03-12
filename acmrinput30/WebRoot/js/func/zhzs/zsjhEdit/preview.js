@@ -59,6 +59,7 @@ define(function (require,exports,module) {
             container: '.J_preview_data_table',
             timeout: 10000
         })
+        $("#mod_text").html($("#modname").val());
           //  mc('preview-table',0,0,0);
             footerPosition();
             $(window).resize(footerPosition);
@@ -89,7 +90,7 @@ define(function (require,exports,module) {
             container: '.J_zb_data_table',
             timeout: 10000
         })
-       // mc('previewzb-table',0,0,0);
+        $("#zb_text").html($("#zblist").find("option:selected").text());
         footerPosition();
         $(window).resize(footerPosition);
      //   drawtable();
