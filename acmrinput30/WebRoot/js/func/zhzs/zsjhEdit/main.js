@@ -639,7 +639,12 @@ define(function (require,exports,module) {
 
 
         //过滤zbs
-        var zbs=zbAdd.zbs;//获取指标的信息
+        var oldzb=zbAdd.zbs;
+        var zbs=[];
+        //获取指标的信息
+        for (var m=0;m<oldzb.length;m++){
+            zbs.push(oldzb[m])
+        }
         var codelist=[];
         var unchoose = "";//没选择的指标
         var check=$("input:checkbox[class='zb_checkbox']:checked");
