@@ -2014,6 +2014,19 @@ public class zsjhedit extends BaseAction {
         String times = this.getRequest().getParameter("timeinput");//时间期
         IndexEditService indexEditService = new IndexEditService();
         List<IndexMoudle> mods = indexEditService.getAllMods("",code);
+        //开始做计算
+        DataPreviewService dps = new DataPreviewService();
+        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(code);
+        List<CubeNode> sjs = new OriginService().getwdsubnodes("sj", times, dbcode);
+        List<String> sj = new ArrayList<>();
+        for (int i = 0; i <sjs.size() ; i++) {
+            sj.add(sjs.get(i).getCode());
+        }
+        for(String scode: scodes.split(",")){
+            for(String time :sj){
+                dps.todocalculate(code,time,scode);
+            }
+        }
         //筛选指标的信息
         JSONObject zblist=getZBS(code);
         return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewIndex").addObject("icode",code).addObject("times",times).addObject("zblist",zblist).addObject("mods",mods).addObject("scodes",scodes);

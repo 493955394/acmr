@@ -100,6 +100,7 @@ public class DataPreviewService {
                     da.setIndexcode(icode);
                     da.setModcode(data.get(i).getCode());
                     da.setDacimal(data.get(i).getDacimal());
+                    da.setScode(scode);
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(data.get(i).getFormula().contains(zbs.get(k).get("code").toString())){//要是存在这个code,就去取对应的zbcode
                             ArrayList<CubeQueryData> result = findZbData(zbs.get(k).get("zbcode").toString(),zbs.get(k).get("dscode").toString(),zbs.get(k).get("cocode").toString(),reg[j],time,dbcode);
@@ -134,6 +135,7 @@ public class DataPreviewService {
                     da.setIndexcode(icode);
                     da.setModcode(data.get(i).getCode());
                     da.setDacimal(data.get(i).getDacimal());
+                    da.setScode(scode);
                     boolean flag = false;
                     //先处理特殊的getvalue函数
                     formula = specialMath(formula,zbs,time,reg[j],regs,icode,dbcode);
@@ -209,6 +211,7 @@ public class DataPreviewService {
             zsdata.setIndexcode(temp.getIndexcode());
             zsdata.setModcode(temp.getCode());
             zsdata.setDacimal(temp.getDacimal());
+            zsdata.setScode(scode);
             String formula = "";
             boolean flag = false;
             for (int i = 0; i < subs.size(); i++) {
