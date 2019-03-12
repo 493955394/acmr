@@ -287,5 +287,37 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         }
         return 0;
     }
+    //将其他state设置为0
+    @Override
+    public int updateAllSch(List<Scheme> scheme) {
+
+        DataQuery dataQuery = null;
+        try {
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+            String sql1 = "update tb_coindex_scheme set state=? where code=? and indexcode=?";
+            for (int i = 0; i < scheme.size(); i++) {
+                List<Object> params = new ArrayList<Object>();
+                params.add(scheme.get(i).getState());
+                params.add(scheme.get(i).getCode());
+                params.add(scheme.get(i).getIndexcode());
+                dataQuery.executeSql(sql1, params.toArray());
+            }
+            dataQuery.commit();
+
+        } catch (SQLException e) {
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                e.printStackTrace();
+                return 1;
+            }
+        } finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+
+        return 0;
+    }
 
 }

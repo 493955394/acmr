@@ -145,7 +145,7 @@ public class IndexSchemeService {
     //所有方案选用后设置其他为未选用
     public List<Scheme> setOnlyStart(String icode,String schcode) {
         List<Scheme> schemes=new ArrayList<>();
-        List<DataTableRow> rows=ischemeDao.getSch(icode,schcode);
+        List<DataTableRow> rows=ischemeDao.getSchemesByIcode(icode);
 
         for (DataTableRow row:rows){
             if (!row.getString("code").equals(schcode)){
@@ -171,7 +171,7 @@ public class IndexSchemeService {
         return WeightEditDao.Fator.getInstance().getIndexdatadao().setWeightFormula(scheme);
     }
     public int updateState(List<Scheme> schemes){
-        return ischemeDao.cloneSch(schemes);
+        return ischemeDao.updateAllSch(schemes);
     }
 
     public void setSingleSchemeWeight(String scode, Map<String,String> weightmap){

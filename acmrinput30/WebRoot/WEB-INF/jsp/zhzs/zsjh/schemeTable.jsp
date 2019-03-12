@@ -44,12 +44,14 @@
                 <td>
                     <c:if test="${scheme.getState().equals('0')}">
                         <a href="javascript:;" class="btn-margin J_start" id="${scheme.getCode()}">选用</a>
-                        <a href="javascript:;" class="btn-margin J_edit" id="${scheme.getCode()}">编辑</a>
+                        <a href="javascript:;" class="btn-margin J_edit" id="${scheme.getCode()}"
+                           name="${scheme.getCname()}" remark="${scheme.getRemark()}">编辑</a>
                         <a href="javascript:;" class="btn-margin J_del" id="${scheme.getCode()}">删除</a>
                     </c:if>
                     <c:if test="${scheme.getState().equals('1')}">
                         <a href="javascript:;" class="btn-margin J_stop" id="${scheme.getCode()}">停用</a>
-                        <a href="javascript:;" class="btn-margin J_edit" id="${scheme.getCode()}">编辑</a>
+                        <a href="javascript:;" class="btn-margin J_edit" id="${scheme.getCode()}"
+                           name="${scheme.getCname()}"  remark="${scheme.getRemark()}">编辑</a>
                         <span class="btn-disabled btn-margin">删除</span>
                     </c:if>
 
