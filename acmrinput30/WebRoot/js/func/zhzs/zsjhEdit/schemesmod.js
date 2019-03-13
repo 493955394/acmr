@@ -27,8 +27,8 @@ define(function (require,exports,module) {
             //console.log($(this).val())
             if (flag){
                 var value=$(this).val()
-                if (value<=0){
-                    alert("权重不能为小于等于0的数")
+                if (value<0){
+                    alert("权重不能为小于0的数")
                     flag=false;
                     return
                 }
