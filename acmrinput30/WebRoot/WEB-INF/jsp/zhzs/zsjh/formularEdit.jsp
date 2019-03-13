@@ -141,8 +141,7 @@
                         <div class="col-sm-1">
                             <div type="button" id="add_hanshu" style="border-color: #F39801;background-color: #F39801;height: 30px;width: 50px"><span style="color: white"><添加</span></div>
                         </div>
-                        <div class="col-sm-1">
-                            <label class="control-label">计算公式：</label>
+                        <div class="col-sm-2">
                             <select size="15" id="hanshu">
                                 <option value="abs()" title="求绝对值">Math.abs</option>
                                 <option value="pow()" title="x的y次方">Math.pow(x,y)</option>
@@ -152,11 +151,6 @@
                                 <option value="max([])" title="求最大值">max()</option>
                                 <option value="min([])" title="求最小值">min()</option>
                                 <option value="avg([])" title="求平均值">avg()</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-1">
-                            <label class="control-label">数组公式：</label>
-                            <select size="15" id="shuzu">
                                 <option value="getvalue()" title="取指标对应的数组">getvalue()</option>
                             </select>
                         </div>

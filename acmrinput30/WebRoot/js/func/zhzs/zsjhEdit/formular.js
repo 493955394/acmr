@@ -132,7 +132,7 @@ define(function (require,exports,module) {
      * 选择框清空
      */
 
-    $("#hanshu").click(function () {
+   /* $("#hanshu").click(function () {
         $('#shuzu').find("option").each(function() {
             $(this).removeAttr("selected");
         });
@@ -142,7 +142,7 @@ define(function (require,exports,module) {
         $('#hanshu').find("option").each(function() {
             $(this).removeAttr("selected");
         });
-    })
+    })*/
     /**
      * 函数的添加
      */
