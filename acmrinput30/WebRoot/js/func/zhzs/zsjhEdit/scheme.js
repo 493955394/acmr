@@ -158,7 +158,7 @@ define(function (require,exports,module) {
         var remark =$(this).attr('remark');
         var name =$(this).attr('name');
         console.log(remark)
-        $('input[name="scheidticode"]').val(icode);
+        $('input[name="schediticode"]').val(icode);
         $('input[name="scheditcode"]').val(code);
         $('input[name="scheditname"]').val(name);
         $('input[name="remark"]').val(remark);

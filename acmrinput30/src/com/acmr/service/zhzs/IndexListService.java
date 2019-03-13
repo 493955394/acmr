@@ -672,8 +672,6 @@ public class IndexListService {
         }
         if (states.contains("1")){
             check=true;
-        }else{
-            check=false;
         }
         return check;
     }
