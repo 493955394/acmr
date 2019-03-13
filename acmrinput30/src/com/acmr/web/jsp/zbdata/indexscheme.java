@@ -64,6 +64,14 @@ public class indexscheme extends BaseAction {
             data.setReturncode(200);
         }
         List<DataTableRow> rows = WeightEditDao.Fator.getInstance().getIndexdatadao().getModsbyIcode(icode).getRows();
+        if (rows.size() == 0) {
+            data.setReturncode(400);
+            data.setReturndata("请添加模型节点");
+            this.sendJson(data);
+            return;
+        }else {
+            data.setReturncode(200);
+        }
         String state = "0";
         Scheme scheme = new Scheme();
         scheme.setCode(scode);

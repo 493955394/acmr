@@ -464,7 +464,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>备注：</label>
+                            <label class="col-sm-3 control-label">备注：</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" name="showinfo" value="" >
                             </div>
@@ -500,7 +500,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>备注：</label>
+                            <label class="col-sm-3 control-label">备注：</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" name="remark" value="" >
                             </div>
@@ -536,7 +536,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>备注：</label>
+                            <label class="col-sm-3 control-label">备注：</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" name="newremark" value="" >
                             </div>

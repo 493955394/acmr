@@ -145,7 +145,10 @@ define(function (require,exports,module) {
                 }else if (data.returncode == 300) {
                     alert(data.returndata);
                     $("#scheme_modal").modal('show');
-                } else {
+                } else if(data.returncode == 400) {
+                    alert(data.returndata);
+                    $("#scheme_modal").modal('show');
+                } else{
                     alert("添加失败");
                 }
             }
