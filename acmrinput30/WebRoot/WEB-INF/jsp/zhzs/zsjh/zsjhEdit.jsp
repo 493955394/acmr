@@ -438,10 +438,9 @@
             </div>
         </div>
         <div class="col-sm-12 savediv" style="text-align:center;padding: 10px 0;">
-
+            <input type="hidden" value="${tab}" id="currentTab"/>
         </div>
     </div>
-    zsjuEdit.jsp
 
     <!-- 新增方案 -->
     <div class="modal" id="scheme_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">

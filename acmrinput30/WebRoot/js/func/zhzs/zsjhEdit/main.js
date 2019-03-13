@@ -181,6 +181,9 @@ define(function (require,exports,module) {
         //默认显示全屏
         $(".btn-fullscreen").click();
 
+        var currenttab = $("#currentTab").val();
+        if(currenttab!="")
+            $("#bjjhTab li:eq("+currenttab+") a").tab('show');
     });
     //点击指标筛选，激活第一个已选指标
     $(document).on('click','a[href="#zssx"]',function (event) {
@@ -667,8 +670,6 @@ define(function (require,exports,module) {
         }
         //过滤regs
         var regs=select;
-        console.log(unchoose)
-        console.log(zbs)
         var reglist=[];
         var regcheck=$("input:checkbox[class='reg_checkbox']:checked");
         for (var i=0;i<regcheck.length;i++){
@@ -737,6 +738,7 @@ define(function (require,exports,module) {
                 if (data.returncode == 200)
                 {
                     alert("保存成功！");
+                    window.location.href= common.rootPath+"zbdata/zsjhedit.htm?id="+incode+"&currentTab=2";
                 }
                 else if(data.returncode ==303)
                     alert(data.returndata+"被模型节点引用，无法删除！")
