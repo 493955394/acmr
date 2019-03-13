@@ -616,7 +616,7 @@ public class IndexListService {
             String dacimal=rows.get(i).getString("dacimal");
             String copycode=rows.get(i).getString("copycode");
             IndexMoudle mod=new IndexMoudle(code,cname,indexcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode);
-            if (mod.ZBnums()<1||mod.getWeight().equals("0")){
+            if (mod.ZBnums()<1||mod.getWeight().equals("")){
                 check=false;
                 break;
             }
