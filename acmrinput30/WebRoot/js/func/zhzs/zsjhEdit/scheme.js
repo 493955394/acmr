@@ -79,6 +79,15 @@ define(function (require,exports,module) {
     /**
      * 新增方案
      */
+    $(document).on('click','#add_scheme',function (event) {
+
+        event.preventDefault();
+
+        var name ="";
+        var remark = "";
+        $('input[name="schemename"]').val(name);
+        $('input[name="showinfo"]').val(remark);
+    });
     $(document).on('submit', '.J_add_scheme', function(event) {
         event.preventDefault();
         $('input[name="indexcode"]').val(icode);
@@ -136,7 +145,10 @@ define(function (require,exports,module) {
                 }else if (data.returncode == 300) {
                     alert(data.returndata);
                     $("#scheme_modal").modal('show');
-                } else {
+                } else if(data.returncode == 400) {
+                    alert(data.returndata);
+                    $("#scheme_modal").modal('show');
+                } else{
                     alert("添加失败");
                 }
             }
@@ -146,8 +158,13 @@ define(function (require,exports,module) {
 
         event.preventDefault();
         var code =$(this).attr('id');
-        $('input[name="scheidticode"]').val(icode);
+        var remark =$(this).attr('remark');
+        var name =$(this).attr('name');
+        console.log(remark)
+        $('input[name="schediticode"]').val(icode);
         $('input[name="scheditcode"]').val(code);
+        $('input[name="scheditname"]').val(name);
+        $('input[name="remark"]').val(remark);
         $("#scheme_modal1").modal('show');
     });
     $(document).on('click','.J_clone',function (event) {

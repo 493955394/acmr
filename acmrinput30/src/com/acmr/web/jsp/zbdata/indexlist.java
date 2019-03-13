@@ -715,6 +715,7 @@ public class indexlist extends BaseAction {
                 obj.put("checkInfo",checkInfo);
                 obj.put("checkZbReg",checkZbReg);
                 obj.put("checkhasMod",checkhasMod);
+                obj.put("checkScheme",checkScheme);
                 this.sendJson(obj);
             }
 
