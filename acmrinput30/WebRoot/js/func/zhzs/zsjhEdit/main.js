@@ -180,10 +180,9 @@ define(function (require,exports,module) {
 
         //默认显示全屏
         $(".btn-fullscreen").click();
-
         var currenttab = $("#currentTab").val();
         if(currenttab!="")
-            $("#bjjhTab li:eq("+currenttab+") a").tab('show');
+            $("#bjjhTab a[href='#jsfw']").click();
     });
     //点击指标筛选，激活第一个已选指标
     $(document).on('click','a[href="#zssx"]',function (event) {
