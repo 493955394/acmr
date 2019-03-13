@@ -87,7 +87,7 @@
                             <label class="col-sm-2 control-label">指标类型：</label>
                             <div class="col-sm-3">
                                 <select class="form-control formula" name="formula" autocomplete="off">
-                                    <option value="userdefined" <c:if test="${data.getIfzb() =='0'}">selected</c:if> >自定义</option>
+                                    <option value="userdefined" <c:if test="${data.getIfzb() =='0'||data.getIfzb() ==''}">selected</c:if> >自定义</option>
                                     <c:forEach  items="${zblist.zbchoose}" var="zbl">
                                         <c:choose>
                                         <c:when test="${data.getIfzb() == '1'}" >

@@ -171,7 +171,7 @@ public class IndexEditService {
             mod.setCode(modcode);
             mod.setDacimal(subs.get(i).getString("dacimal"));
             mod.setFormula(scheme.getString("formula"));//替换公式和权重
-            mod.setIfzb(subs.get(i).getString("ifzb"));
+            mod.setIfzb(scheme.getString("ifzb"));
             mod.setIfzs(subs.get(i).getString("ifzs"));
             mod.setIndexcode(subs.get(i).getString("indexcode"));
             mod.setProcode(subs.get(i).getString("procode"));

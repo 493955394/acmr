@@ -198,7 +198,7 @@ public class IndexSchemeService {
             mod.setCode(modcode);
             mod.setDacimal(info.get(0).getString("dacimal"));
             mod.setFormula(scheme.get(0).getString("formula"));//替换公式和权重
-            mod.setIfzb(info.get(0).getString("ifzb"));
+            mod.setIfzb(scheme.get(0).getString("ifzb"));//替换ifzb
             mod.setIfzs(info.get(0).getString("ifzs"));
             mod.setIndexcode(info.get(0).getString("indexcode"));
             mod.setProcode(info.get(0).getString("procode"));

@@ -75,7 +75,7 @@ public class OraSchemeDaoImpl implements ISchemeDao {
         try {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
-            String sql1 = "insert into tb_coindex_scheme (code,cname,indexcode,modcode,ifzb,weight,state,remark) values(?,?,?,?,?,?,?,?)";
+            String sql1 = "insert into tb_coindex_scheme (code,cname,indexcode,modcode,weight,state,remark) values(?,?,?,?,?,?,?)";
             for (int i = 0; i < rows.size(); i++) {
 
                 /*String code = scheme.getCode();
@@ -90,7 +90,6 @@ public class OraSchemeDaoImpl implements ISchemeDao {
                 params.add(scheme.getCname());
                 params.add(scheme.getIndexcode());
                 params.add(rows.get(i).getString("code"));
-                params.add(rows.get(i).getString("ifzb"));
                 String procode = rows.get(i).getString("procode");
                 if(procode.equals("")){
                     params.add(rows.get(i).getString("weight"));

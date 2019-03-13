@@ -2496,11 +2496,13 @@ public class zsjhedit extends BaseAction {
             proname = list1.getCname();
         }
         getdata.setWeight(scheme_info.getWeight());//替换权重
+        getdata.setIfzb(scheme_info.getIfzb());//替换IFZB
+        String formula = scheme_info.getFormula();
+        getdata.setFormula(formula);//替换公式
        /* String procodeId =getdata.getProcode() ;
         String proname = indexEditService.getData(procodeId,indexCode).getCname();*/
         //要是是自定义公式，读取的时候要换成对应的名字
         if (getdata.getIfzb().equals("0")){
-            String formula = scheme_info.getFormula();
             getdata.setFormula(changeFormula(formula,indexCode,"CTN"));
         }
         //筛选指标信息
