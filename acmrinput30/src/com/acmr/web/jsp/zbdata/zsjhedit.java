@@ -1952,32 +1952,46 @@ public class zsjhedit extends BaseAction {
      */
     public void checkPreview() throws IOException {
         String code = this.getRequest().getParameter("id");
+        String scodes = this.getRequest().getParameter("scodes");//选用的方案列表
         IndexListService indexListService=new IndexListService();
         //校验部分
         Boolean check=false;
+        JSONObject data=new JSONObject();
+        data.put("return","");
         //校验模型
-        Boolean checkmod=indexListService.checkModule(code);
+        //校验选中的方案中，模型权重和公式是否都完善
+        boolean flag = true;
+        String str = "";
+        for(String scode:scodes.split(",")){
+            if(!indexListService.checkWeiAndFor(code,scode)){
+                flag = false;
+                str=SchemeDao.Fator.getInstance().getIndexdatadao().getSchemeNameByCode(scode);
+                break;
+            }
+        }
+        if(!flag){
+            data.put("return",str+"权重或公式未设置");
+            this.sendJson(data);
+            return;
+        }
+      //  Boolean checkmod=indexListService.checkModule(code);
         //   PubInfo.printStr("checkmode"+checkmod);
         //校验是否已经通过编辑，基本信息完善
-        Boolean checkInfo=indexListService.checkInfo(code);
+      //  Boolean checkInfo=indexListService.checkInfo(code);
         // PubInfo.printStr("checkInfo"+checkInfo);
         //校验是否有指标、地区
         Boolean checkZbReg=indexListService.checkZBandReg(code);
         //  PubInfo.printStr("checkZbReg"+checkZbReg);
         Boolean checkhasMod=indexListService.checkHasMod(code);
 
-        check=checkInfo&&checkmod&&checkZbReg&&checkhasMod;
-        JSONObject data=new JSONObject();
-        data.put("return","");
+        check=checkZbReg&&checkhasMod;
+
         if (check){
             data.put("return","200");
         }
-        else if (!checkmod){
-            data.put("return",data.get("return")+"模型节点设置不符合规定，");
-        }
-        else if (!checkInfo){
+       /* else if (!checkInfo){
             data.put("return",data.get("return")+"基本信息缺失，");
-        }
+        }*/
         else if (!checkZbReg){
             data.put("return",data.get("return")+"指标/地区缺失，");
         }

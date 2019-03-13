@@ -557,7 +557,7 @@ define(function (require,exports,module) {
             return;
         }
         $.ajax({
-            url:common.rootPath+'zbdata/zsjhedit.htm?m=checkPreview&id='+incode,
+            url:common.rootPath+'zbdata/zsjhedit.htm?m=checkPreview&id='+incode+"&scodes="+schemecheck.substring(1),
             type:'get',
             success:function (re) {
                 if (re.return==200){
@@ -735,7 +735,9 @@ define(function (require,exports,module) {
             timeout: 10000,
             success: function(data) {
                 if (data.returncode == 200)
+                {
                     alert("保存成功！");
+                }
                 else if(data.returncode ==303)
                     alert(data.returndata+"被模型节点引用，无法删除！")
                 else if(data.returncode == 501||data.returncode == 301)

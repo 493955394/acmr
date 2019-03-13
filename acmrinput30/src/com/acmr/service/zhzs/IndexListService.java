@@ -854,22 +854,42 @@ public class IndexListService {
         return path;
     }
 
-  /*  public static void main(String[] args) {
-        String path=getIndexPath("bupt2");
-        PubInfo.printStr(path);
-    }*/
-
-/*        Date test= (Date) indexlist.get(1).get("plantime");
-        PubInfo.printStr("123"+test.toString());
-        for (int i=0;i<indexlist.size();i++){
-            PubInfo.printStr(indexlist.get(i).get("createtime").toString());
-            if(indexlist.get(i).get("plantime")!=null){
-                PubInfo.printStr(indexlist.get(i).get("plantime").toString());
+    public boolean checkWeiAndFor (String icode,String scode){
+        //校验模型节点下必须有指标，且权重不能为null
+        List<DataTableRow> rows=IndexListDao.Fator.getInstance().getIndexdatadao().getZSMods(icode).getRows();
+        // List<IndexMoudle> mods=new ArrayList<>();
+        Boolean check=true;
+        for (int i=0;i<rows.size();i++){
+            String code=rows.get(i).getString("code");
+            DataTableRow scheme = SchemeDao.Fator.getInstance().getIndexdatadao().getScMod(code,icode,scode).getRows().get(0);
+            String cname=rows.get(i).getString("cname");
+            String indexcode=rows.get(i).getString("indexcode");
+            String procode=rows.get(i).getString("procode");
+            String ifzs=rows.get(i).getString("ifzs");
+            String ifzb=scheme.getString("ifzb");
+            String formula=scheme.getString("formula");
+            String sortcode=rows.get(i).getString("sortcode");
+            String weight=scheme.getString("weight");
+            String dacimal=rows.get(i).getString("dacimal");
+            String copycode=rows.get(i).getString("copycode");
+            IndexMoudle mod=new IndexMoudle(code,cname,indexcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode);
+            if (mod.ZBnums()<1||mod.getWeight().equals("")){
+                check=false;
+                break;
             }
-        }*/
-/*        PubInfo.printStr(code.getRows().get(1).getRows().toString());
-        PubInfo.printStr(code.getColumns().get(0).getColumnName());*/
-
+        }
+        //指标的权重或公式也不能为null
+        List<DataTableRow> rows1=IndexListDao.Fator.getInstance().getIndexdatadao().getZBMods(icode).getRows();
+        for (int j=0;j<rows1.size();j++){
+            String code=rows1.get(j).getString("code");
+            DataTableRow scheme = SchemeDao.Fator.getInstance().getIndexdatadao().getScMod(code,icode,scode).getRows().get(0);
+            if(scheme.getString("weight").equals("")||scheme.getString("formula").equals("")){
+                check = false;
+                break;
+            }
+        }
+        return check;
+    }
 
 }
 
