@@ -163,11 +163,11 @@ public class OraIndexListDaoImpl implements IIndexListDao {
 
             //复制方案
             String f_sql1 = "select * from tb_coindex_scheme where indexcode=?";
-            DataTable f_table1 = dataQuery.getDataTableSql(sql4,new Object[]{cpcode});
+            DataTable f_table1 = dataQuery.getDataTableSql(f_sql1,new Object[]{cpcode});
             List<DataTableRow> f_row1 = f_table1.getRows();
+            String schcode = UUID.randomUUID().toString().replace("-", "").toLowerCase();
             for(int j=0;j<f_row1.size();j++){
-                String id = UUID.randomUUID().toString().replace("-", "").toLowerCase();
-                String code = f_row1.get(j).getString("code");
+
 
                 String cname = f_row1.get(j).getString("cname");
                 String modcode = f_row1.get(j).getString("modcode");
@@ -176,8 +176,8 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                 String weight = f_row1.get(j).getString("weight");
                 String formula = f_row1.get(j).getString("formula");
                 String fremark = f_row1.get(j).getString("remark");
-                String f_sql2 = "insert into tb_coindex_scheme (id,code,cname,indexcode,modcode,state,ifzb,weight,formula,remark) values(?,?,?,?,?,?,?,?,?,?)";
-                dataQuery.executeSql(f_sql2,new Object[]{id,code,cname,icode,modcode,state,ifzb,weight,formula,fremark});
+                String f_sql2 = "insert into tb_coindex_scheme (code,cname,indexcode,modcode,state,ifzb,weight,formula,remark) values(?,?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(f_sql2,new Object[]{schcode,cname,icode,modcode,state,ifzb,weight,formula,fremark});
             }
 
             //复制模型
@@ -456,9 +456,9 @@ public class OraIndexListDaoImpl implements IIndexListDao {
             String f_sql1 = "select * from tb_coindex_scheme where indexcode=?";
             DataTable f_table1 = dataQuery.getDataTableSql(f_sql1,new Object[]{cpcode});
             List<DataTableRow> f_row1 = f_table1.getRows();
+            String schcode = UUID.randomUUID().toString().replace("-", "").toLowerCase();
             for(int j=0;j<f_row1.size();j++){
-                String id = UUID.randomUUID().toString().replace("-", "").toLowerCase();
-                String code = f_row1.get(j).getString("code");
+
 
                 String cname = f_row1.get(j).getString("cname");
                 String modcode = f_row1.get(j).getString("modcode");
@@ -467,8 +467,8 @@ public class OraIndexListDaoImpl implements IIndexListDao {
                 String weight = f_row1.get(j).getString("weight");
                 String formula = f_row1.get(j).getString("formula");
                 String fremark = f_row1.get(j).getString("remark");
-                String f_sql2 = "insert into tb_coindex_scheme (id,code,cname,indexcode,modcode,state,ifzb,weight,formula,remark) values(?,?,?,?,?,?,?,?,?,?)";
-                dataQuery.executeSql(f_sql2,new Object[]{id,code,cname,icode,modcode,state,ifzb,weight,formula,fremark});
+                String f_sql2 = "insert into tb_coindex_scheme (code,cname,indexcode,modcode,state,ifzb,weight,formula,remark) values(?,?,?,?,?,?,?,?,?)";
+                dataQuery.executeSql(f_sql2,new Object[]{schcode,cname,icode,modcode,state,ifzb,weight,formula,fremark});
             }
 
             //复制筛选条件
