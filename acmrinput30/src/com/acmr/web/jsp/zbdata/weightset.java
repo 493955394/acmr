@@ -107,6 +107,8 @@ public class weightset extends BaseAction {
             }
         }
 
+
+
         return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/weightschemesset").addObject("indexcode",icode).addObject("scodes",scodes).addObject("mods",mods).addObject("snames",snames);
     }
 

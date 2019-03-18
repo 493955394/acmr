@@ -3,6 +3,7 @@ package com.acmr.model.zhzs;
 import acmr.util.PubInfo;
 import com.acmr.service.zhzs.IndexEditService;
 import com.acmr.service.zhzs.IndexSchemeService;
+import com.acmr.web.jsp.zbdata.zsjhedit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -235,6 +236,14 @@ public class IndexMoudle {
     public String getSformula(String scode){
         IndexSchemeService indexSchemeService = new IndexSchemeService();
         String sformula = indexSchemeService.getModSchemeFormula(scode, this.getCode());
+            if(this.ifzs.equals("0")){//如果是指数的话
+                if(this.ifzb.equals("0")){//自定义公式
+                    sformula = new zsjhedit().changeFormula(sformula,this.indexcode,"CTN");
+                }
+                else {//直接选的指标当公式
+                    sformula =new zsjhedit().formulaShow(sformula,this.indexcode);
+                }
+            }
         return sformula;
     }
 
