@@ -2348,7 +2348,12 @@ public class zsjhedit extends BaseAction {
             index.setSort(sort);
             index.setDelayday(delayday);
         CreateTaskService createTaskService = new CreateTaskService();
-        List<String> sjs = createTaskService.getTimes(index);
+        List<String> oldsjs = createTaskService.getTimes(index);
+        List<String> sjs = new ArrayList<>();
+        for(int n = oldsjs.size()-1;n>=0;n--){
+            String sj = oldsjs.get(n);
+            sjs.add(sj);
+        }
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
 
         List<Map> regs = regshow(icode);
