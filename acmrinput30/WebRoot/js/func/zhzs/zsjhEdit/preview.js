@@ -61,10 +61,7 @@ define(function (require,exports,module) {
         })
         $("#mod_text").html($("#modname").val());
           //  mc('preview-table',0,0,0);
-            footerPosition();
-            $(window).resize(footerPosition);
         drawtable();
-
     }
 
     /**
@@ -90,12 +87,20 @@ define(function (require,exports,module) {
             container: '.J_zb_data_table',
             timeout: 10000
         })
-        $("#zb_text").html($("#zblist").find("option:selected").text());
-        footerPosition();
-        $(window).resize(footerPosition);
+
      //   drawtable();
 
     }
+
+   $(".J_zb_data_table").on('pjax:success', function() {
+       footerPosition();
+       $(window).resize(footerPosition);
+   })
+
+    $(".J_preview_data_table").on('pjax:success', function() {
+        footerPosition();
+        $(window).resize(footerPosition);
+    })
 
     //重新绘制表格，定宽
     function drawtable() {

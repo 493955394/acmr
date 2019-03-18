@@ -2134,7 +2134,7 @@ public class zsjhedit extends BaseAction {
         String [] scheme = scodes.split(",");
         String regs = dps.findRegions(icode);
         String decimal = es.getData(modcode).getDacimal();//获取小数点位数
-        String title=es.getData(modcode).getCname()+";";
+        String title = "";
         List<CubeNode> sjs = os.getwdsubnodes("sj", time, dbcode);
         List<String> sj = new ArrayList<>();
         for (int i = 0; i <sjs.size() ; i++) {
