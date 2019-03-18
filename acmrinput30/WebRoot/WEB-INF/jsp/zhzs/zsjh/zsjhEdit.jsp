@@ -381,17 +381,17 @@
                                 <div>
                                     <div class="toolbar-left" style="margin-bottom: 0px">
                                         <form class="form-inline J_search_form" action="${ctx}/zbdata/zsjhedit.htm?m=searchFind">
-                                            <div class="form-group">
+                                            <%--<div class="form-group">
                                                     <div class="form-group">
                                                             <span id="querykey" class="form-control input-sm">
                                                                 名称
                                                             </span>
                                                     </div>
 
-                                            </div>
+                                            </div>--%>
                                             <div class="form-group">
                                                 <input id="moduleQuery" type="text" class="form-control input-sm"
-                                                       placeholder="输入搜索内容" value="">
+                                                       placeholder="输入节点名称" value="">
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-sm" style="background-color: #ff7f19;"><span style="color: white">查询</span></button>
