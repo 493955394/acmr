@@ -77,6 +77,12 @@ public class weightset extends BaseAction {
     public ModelAndView editSchemesWeight(){
         HttpServletRequest req=this.getRequest();
         String icode=req.getParameter("icode");
+        String schemecodes=req.getParameter("schemecodes");
+        String[] scodesarray=schemecodes.split(";");
+        Map<String,Integer> scodesmap=new HashMap<>();
+        for (String s:scodesarray){
+            scodesmap.put(s,1);
+        }
         IndexSchemeService indexSchemeService=new IndexSchemeService();
         WeightEditService weightEditService=new WeightEditService();
         IndexEditService indexEditService=new IndexEditService();
@@ -84,8 +90,11 @@ public class weightset extends BaseAction {
         List<String> scodes=new ArrayList<>();
         List<String> snames=new ArrayList<>();
         for (Scheme scheme:schemes){
-            scodes.add(scheme.getCode());
-            snames.add(scheme.getCname());
+            String scode=scheme.getCode();
+            if (scodesmap.get(scode)!=null){
+                scodes.add(scheme.getCode());
+                snames.add(scheme.getCname());
+            }
         }
         List<IndexMoudle> re=weightEditService.getMods(icode);
         List<IndexMoudle> mods=new ArrayList<>();

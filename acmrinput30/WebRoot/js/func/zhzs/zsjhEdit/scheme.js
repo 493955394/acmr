@@ -71,7 +71,20 @@ define(function (require,exports,module) {
                     alert("指数不能为空！");
                     return;
                 }else{
-                    window.open(common.rootPath+"zbdata/weightset.htm?m=editSchemesWeight&icode="+icode)
+                    //判断是否有选中的方案，个数在1-3个
+                    var len=$("input[class=scheme_check]:checked").length
+                    var schemecodes=""
+                    $("input[class=scheme_check]:checked").each(function () {
+                        var code=$(this).attr("scheme_code")
+                        schemecodes=schemecodes+code+";"
+                    })
+                    if (len==0) alert("请选择方案！")
+                    else if (len>0&&len<=3){
+                        window.open(common.rootPath+"zbdata/weightset.htm?m=editSchemesWeight&icode="+icode+"&schemecodes="+schemecodes)
+                    }
+                    else {
+                        alert("最多只能选择3个方案！")
+                    }
                 }
             }
         })
