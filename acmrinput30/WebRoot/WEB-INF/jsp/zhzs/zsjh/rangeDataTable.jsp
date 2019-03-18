@@ -5,6 +5,7 @@
 
 <div class="range_table_container">
     <table class="table table-bordered table-hover range_table">
+
         <thead style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';">
         <tr id="range_data_head">
             <td class="null_td" style="width: 8%;min-width: 60px"></td>
@@ -23,6 +24,11 @@
         </tr>
         </thead>
         <tbody id="range_data_body">
+        <c:if test="${fn:length(zbrow)==0}">
+            <tr>
+                <td colspan="4">请选择指标和地区</td>
+            </tr>
+        </c:if>
         <c:forEach var="data" items="${datarow}">
             <tr>
                 <td class="reg_td" style="width: 8%;min-width: 60px" >

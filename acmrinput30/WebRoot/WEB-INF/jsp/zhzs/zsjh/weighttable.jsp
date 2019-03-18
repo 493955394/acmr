@@ -73,7 +73,7 @@
     //和父节点同行
     if (flag==rows){
         $("#"+"${module.getProcode()}").after(
-            "<td rowspan=${module.ZBnums()}>${module.getCname()}</td><td style=\"text-align:left;padding-left:25%\" id=${module.getCode()} rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'></td>"
+            "<td rowspan=${module.ZBnums()}>${module.getCname()}</td><td style=\"text-align:center\" id=${module.getCode()} rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'></td>"
         )
 
         $("#"+"${module.getProcode()}").attr("flag",flag-${module.ZBnums()})
@@ -82,7 +82,7 @@
     else {
         //$("#"+"${module.getProcode()}").parent().nextAll(":eq(1)").append("<td>test</td>")
         $("#"+"${module.getProcode()}").parent().nextAll(":eq(" +
-            (rows-flag-1)+")").append("<td rowspan=${module.ZBnums()}>${module.getCname()}</td><td style=\"text-align:left;padding-left:25%\" id=${module.getCode()} rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}'  placeholder='请输入权重'  class='input_weight' value='${module.getWeight()}'></td>")
+            (rows-flag-1)+")").append("<td rowspan=${module.ZBnums()}>${module.getCname()}</td><td style=\"text-align:center\" id=${module.getCode()} rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}'  placeholder='请输入权重'  class='input_weight' value='${module.getWeight()}'></td>")
         $("#"+"${module.getProcode()}").attr("flag",flag-${module.ZBnums()})
     }
     //console.log($("#"+"${module.getProcode()}").parent().nextAll())
@@ -95,7 +95,7 @@
     //和父节点同行
     if (flag==rows){
         $("#"+"${module.getProcode()}").after(
-            "<td>${module.getCname()}</td><td style=\"text-align:left;padding-left:25%\" id=${module.getCode()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}'  placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'>&nbsp;&nbsp;公式：<input style=\"width:280px\" value='${module.getFormula()}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}'>编辑</a></td>"
+            "<td>${module.getCname()}</td><td style=\"text-align:center\" id=${module.getCode()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}'  placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'>&nbsp;&nbsp;公式：<input style=\"width:280px\" value='${module.getFormula()}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}'>编辑</a></td>"
         )
 
         $("#"+"${module.getProcode()}").attr("flag",flag-1)
@@ -104,7 +104,7 @@
     else {
         //$("#"+"${module.getProcode()}").parent().nextAll(":eq(1)").append("<td>test</td>")
         $("#"+"${module.getProcode()}").parent().nextAll(":eq(" +
-            (rows-flag-1)+")").append("<td>${module.getCname()}</td><td style=\"text-align:left;padding-left:25%\" id=${module.getCode()} ><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}'   placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'>&nbsp;&nbsp;公式：<input style=\"width:280px\" value='${module.getFormula()}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}'>编辑</a></td>")
+            (rows-flag-1)+")").append("<td>${module.getCname()}</td><td style=\"text-align:center\" id=${module.getCode()} ><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}'   placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'>&nbsp;&nbsp;公式：<input style=\"width:280px\" value='${module.getFormula()}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}'>编辑</a></td>")
         $("#"+"${module.getProcode()}").attr("flag",flag-1)
     }
     </c:if>

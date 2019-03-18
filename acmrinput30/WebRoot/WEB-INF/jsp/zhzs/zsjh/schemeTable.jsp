@@ -26,6 +26,11 @@
         </tr>
         </thead>
         <tbody id="scheme_list_body">
+        <c:if test="${fn:length(schemes)==0}">
+            <tr>
+                <td colspan="5">没有查询到数据</td>
+            </tr>
+        </c:if>
         <c:forEach var="scheme" items="${schemes}">
             <tr>
                 <td>
