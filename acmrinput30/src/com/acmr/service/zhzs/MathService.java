@@ -109,6 +109,7 @@ public class MathService extends CalculateFunction {
      * @return
      */
     public String function_avg(String orgStr){
+        orgStr = orgStr.replace(" ","");
         String [] result = orgStr.split(",");
         BigDecimal add = new BigDecimal(result[0]);
         for (int i = 1; i <result.length ; i++) {

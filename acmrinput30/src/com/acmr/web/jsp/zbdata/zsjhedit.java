@@ -1213,6 +1213,20 @@ public class zsjhedit extends BaseAction {
         return true;
     }
 
+   /* public static void main(String[] args) {
+        String str = ""
+        CalculateExpression ce = new CalculateExpression();
+        try {
+            ce.setFunctionclass(new MathService());
+            System.out.println(ce.Eval(str));
+        } catch (MathException e) {
+            e.printStackTrace();
+            System.out.println("error");
+
+        }
+
+    }*/
+
     /**
      * code 和name互相转换
      * @param str
