@@ -307,10 +307,12 @@ public class OraIndexEditDaoImpl implements IIndexEditDao {
                 upd.add(indexList.getCname());
                 sql1+=",delayday=?";
                 upd.add(indexList.getDelayday());
+            if(indexList.getPlantime()!=null){
                 sql1+=",plantime=to_date(?,'yyyy-mm-dd hh24:mi:ss')";
-                upd.add(indexList.getPlantime());
+                upd.add(indexList.getPlantime());}
+            if(indexList.getPlantime()!=null){
                 sql1+=",planperiod=?";
-                upd.add(indexList.getPlanperiod());
+                upd.add(indexList.getPlanperiod());}
                 sql1+=",remark=?";
                 upd.add(indexList.getRemark());
             if (sql1.equals("")) {
