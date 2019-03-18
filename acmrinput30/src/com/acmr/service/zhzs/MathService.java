@@ -17,8 +17,8 @@ public class MathService extends CalculateFunction {
      * @return
      */
     public String function_max(String orgStr){
+        orgStr = orgStr.replace(" ","");
         String [] result = orgStr.split(",");
-
         BigDecimal max = new BigDecimal(result[0]);
         for (int i = 0; i <result.length ; i++) {
             BigDecimal a = new BigDecimal(result[i]);
@@ -36,8 +36,8 @@ public class MathService extends CalculateFunction {
      * @return
      */
     public String function_min(String orgStr){
+        orgStr = orgStr.replace(" ","");
         String [] result = orgStr.split(",");
-
         BigDecimal min = new BigDecimal(result[0]);
         for (int i = 0; i <result.length ; i++) {
             BigDecimal a = new BigDecimal(result[i]);
