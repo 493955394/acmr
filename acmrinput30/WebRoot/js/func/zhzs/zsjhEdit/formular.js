@@ -27,24 +27,25 @@ define(function (require,exports,module) {
 
         if(userdefine == "userdefined" && ifzs !=1){
             $('.hidden_group').show();
-        }
-        //footer位置设置
-        function footerPosition(){
-            $(".footer").removeClass("fixed-footer");
-            var contentHeight = document.body.scrollHeight,//网页正文全文高度
+        } //footer位置设置
 
-                winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
-            if(!(contentHeight > winHeight)){
-                //当网页正文高度小于可视窗口高度时，为footer添加类fixed-footer
-                $(".footer").addClass("fixed-footer");
-                $(".content").height(winHeight);
-            } else {
-                $(".footer").removeClass("fixed-footer");
-            }
-        }
         footerPosition();
         $(window).resize(footerPosition);
     })
+    
+    function footerPosition(){
+        $(".footer").removeClass("fixed-footer");
+        var contentHeight = document.body.scrollHeight,//网页正文全文高度
+
+            winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
+        if(!(contentHeight > winHeight)){
+            //当网页正文高度小于可视窗口高度时，为footer添加类fixed-footer
+            $(".footer").addClass("fixed-footer");
+            $(".content").height(winHeight);
+        } else {
+            $(".footer").removeClass("fixed-footer");
+        }
+    }
 
     $(document).on('change', '[name=formula]', function(event){
 
@@ -52,9 +53,10 @@ define(function (require,exports,module) {
         if(isGroup == "userdefined"){
             cleanContents();
             $('.hidden_group').show();
+            footerPosition();
         }else{
-
             $('.hidden_group').hide();
+            footerPosition();
         }
     })
 
