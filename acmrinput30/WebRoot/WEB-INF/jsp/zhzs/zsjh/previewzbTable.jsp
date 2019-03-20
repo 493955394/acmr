@@ -9,7 +9,7 @@
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 
-<div style="width: 100%;overflow: auto;margin-top: 10px">
+<div style="max-height:55%;max-width: 100%;overflow: auto;margin-top: 10px">
     <table  style="width: 100%" class="table table-bordered" id="previewzb-table">
         <thead style="background-color: #e4edf6">
         <th>地区</th>

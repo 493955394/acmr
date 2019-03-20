@@ -65,7 +65,7 @@
 </div>
 </body>
 </html>
-<div class="ict-footer footer">
+<div class="ict-footer footer fixed-footer">
     Copyright © 2018 中国信息通信研究院 版权所有
 </div>
 <script type="text/javascript">
