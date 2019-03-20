@@ -599,7 +599,7 @@ public class IndexListService {
     */
 
     public Boolean checkModule(String icode){
-        //校验模型节点下必须有指标，且权重不能为0
+        //校验模型节点下必须有指标，且权重不能为空
         List<DataTableRow> rows=IndexListDao.Fator.getInstance().getIndexdatadao().getZSMods(icode).getRows();
        // List<IndexMoudle> mods=new ArrayList<>();
         Boolean check=true;
@@ -632,10 +632,10 @@ public class IndexListService {
             break;
 
         }
-        //指标的权重也不能为0
+        //指标的权重也不能为空
         List<DataTableRow> rows1=IndexListDao.Fator.getInstance().getIndexdatadao().getZBMods(icode).getRows();
         for (int j=0;j<rows1.size();j++){
-            if (rows1.get(j).getString("weight").equals("0")){
+            if (rows1.get(j).getString("weight").equals("")){
                 check=false;
                 break;
             }
