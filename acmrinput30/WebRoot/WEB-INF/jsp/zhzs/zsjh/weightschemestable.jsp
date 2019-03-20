@@ -35,7 +35,7 @@
         <button type="button" class="btn btn-default btn-sm save_weight" style="float: right;margin-bottom: 15px"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;保存设置
         </button>
     </div>
-    <table class="table table-bordered" id="module_table">
+    <table class="table table-bordered" id="module_table" style="min-width: 80px;height: 100%;">
         <tr style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';" id="row_head1">
             <td rowspan="2">总指数</td>
             <%--<td colspan="2">指标</td>--%>
@@ -147,7 +147,12 @@
         $("#row_head1").append("<td colspan='${scodes.size()+1}'>指标</td>")
         $("#row_head2").append("<td></td>");
         <c:forEach items="${snames}" var="sname">
+        <c:if test="${fn:length(sname)>6}">
+        $("#row_head2").append("<td>......</td>")
+        </c:if>
+        <c:if test="${fn:length(sname)<=6}">
         $("#row_head2").append("<td>${sname}</td>")
+        </c:if>
         </c:forEach>
     }
     $(document).ready(function(){

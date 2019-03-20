@@ -36,7 +36,12 @@
                 <td>
                     <input autocomplete="off" class="scheme_check" scheme_code="${scheme.getCode()}" type="checkbox"/>
                 </td>
-                <td>${scheme.getCname()}</td>
+                <c:if test="${fn:length(scheme.getCname())>8}">
+                    <td>......</td>
+                </c:if>
+                <c:if test="${fn:length(scheme.getCname())<=8}">
+                    <td>${scheme.getCname()}</td>
+                </c:if>
                 <td>${scheme.getRemark()}</td>
                 <td>
                     <c:if test="${scheme.getState().equals('0')}">
