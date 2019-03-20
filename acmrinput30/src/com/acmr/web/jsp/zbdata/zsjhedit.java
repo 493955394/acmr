@@ -732,7 +732,7 @@ public class zsjhedit extends BaseAction {
         sjs=new IndexEditService().sjSort(sjs);
         for (int i=0;i<sjs.size();i++){
             String sj=sjs.get(i);
-            BigDecimal rate=new BigDecimal(originService.getRate(funit,unitcode,sj));
+            BigDecimal rate=new BigDecimal(String.valueOf(originService.getRate(funit,unitcode,sj)));
             rates.add(rate);
         }
        // PubInfo.printStr(rates.toString());
