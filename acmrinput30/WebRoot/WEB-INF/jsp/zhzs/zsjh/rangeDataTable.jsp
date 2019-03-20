@@ -3,8 +3,8 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<div class="range_table_container">
-    <table class="table table-bordered table-hover range_table">
+<div class="range_table_container" style="overflow: auto;width: 100%;max-height: 100%;">
+    <table class="table table-bordered table-hover range_table " style="width: 100%;">
 
         <thead style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';">
         <tr id="range_data_head">
@@ -31,7 +31,7 @@
         </c:if>
         <c:forEach var="data" items="${datarow}">
             <tr>
-                <td class="reg_td" style="width: 8%;min-width: 60px" >
+                <td class="reg_td" style="width: 8%;min-width: 100px" >
                     <input type="checkbox" class="reg_checkbox" id="${data.get("code")}" checked>
                         ${data.get("name")}
                 </td>

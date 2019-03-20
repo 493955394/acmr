@@ -122,8 +122,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指数时间类型：</label>
-                                    <div class="col-sm-5">
-                                        <select class="form-control" name="sort" id="sort">
+                                    <div class="col-sm-5" style="z-index: 1000;">
+                                        <select class="form-control"  name="sort" id="sort">
                                             <option value="y">年度</option>
                                             <option value="q">季度</option>
                                             <option value="m">月度</option>
