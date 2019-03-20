@@ -614,6 +614,9 @@ define(function (require,exports,module) {
                         if (data.checkScheme!=true){
                             info=info+"请选用计划方案，"
                         }
+                        if (data.checkFormula!=true){
+                            info=info+"公式不能为空，"
+                        }
                         info=info+"启用失败！"
                         alert(info)
 

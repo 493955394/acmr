@@ -338,7 +338,7 @@ define(function (require,exports,module) {
         setting.callback.onClick(null, treeObj.setting.treeId, node);
         //  console.log("expandtree")
         for(var i=0;i<path.length;i++){
-            console.log(node)
+            //console.log(node)
             if(node.isParent==true){
                 var nodes=node.children;
                 //console.log(nodes)

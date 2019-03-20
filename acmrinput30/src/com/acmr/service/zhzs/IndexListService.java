@@ -677,6 +677,28 @@ public class IndexListService {
     }
 
     /**
+    * @Description: 校验计划的模型公式不能为空
+    * @Param: [icode]
+    * @return: java.lang.Boolean
+    * @Author: lyh
+    * @Date: 2019/3/20
+    */
+    public Boolean checkFormula(String icode){
+        Boolean check=false;
+        List<DataTableRow> zsrows=IndexListDao.Fator.getInstance().getIndexdatadao().getZBMods(icode).getRows();
+        if (zsrows.size()!=0){
+            for (DataTableRow row:zsrows){
+                String formula=row.getString("formula");
+                if (formula.equals("")){
+                    return check;
+                }
+            }
+            check=true;
+        }
+        return check;
+    }
+
+    /**
      * 计划分享的撤回
      * @param indexcode
      * @param depusercode

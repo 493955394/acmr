@@ -19,6 +19,7 @@ import com.acmr.service.zhzs.CreateTaskService;
 import com.acmr.service.zhzs.IndexListService;
 import com.acmr.service.zhzs.RightControlService;
 import com.alibaba.fastjson.JSONObject;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -691,8 +692,11 @@ public class indexlist extends BaseAction {
             Boolean checkZbReg=indexListService.checkZBandReg(code);
             //  PubInfo.printStr("checkZbReg"+checkZbReg);
             Boolean checkhasMod=indexListService.checkHasMod(code);
+            //校验是否选用方案
             Boolean checkScheme=indexListService.checkSch(code);
-            check=checkInfo&&checkmod&&checkZbReg&&checkhasMod&&checkScheme;
+            //校验公式
+            Boolean checkFormula=indexListService.checkFormula(code);
+            check=checkInfo&&checkmod&&checkZbReg&&checkhasMod&&checkScheme&&checkFormula;
             //PubInfo.printStr(String.valueOf(check));
 
             //校验通过
@@ -716,6 +720,7 @@ public class indexlist extends BaseAction {
                 obj.put("checkZbReg",checkZbReg);
                 obj.put("checkhasMod",checkhasMod);
                 obj.put("checkScheme",checkScheme);
+                obj.put("checkFormula",checkFormula);
                 this.sendJson(obj);
             }
 
