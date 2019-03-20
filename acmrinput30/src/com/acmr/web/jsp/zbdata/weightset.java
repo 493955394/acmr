@@ -10,8 +10,10 @@ import com.acmr.model.zhzs.Scheme;
 import com.acmr.service.zhzs.IndexEditService;
 import com.acmr.service.zhzs.IndexSchemeService;
 import com.acmr.service.zhzs.WeightEditService;
+import com.acmr.web.jsp.Index;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.image.IndexColorModel;
 import java.util.*;
 
 public class weightset extends BaseAction {
@@ -57,13 +59,31 @@ public class weightset extends BaseAction {
             String newweight=indexSchemeService.getModSchemeWeight(scode,indexMoudle.getCode());
             indexMoudle.setWeight(newweight);
         }
+        //计算module指标最大层级
+        int count=0;
+        //map存储code-module
+        Map<String,IndexMoudle> map=new HashMap<>();
+        for (IndexMoudle mod:mods){
+            map.put(mod.getCode(),mod);
+        }
+        //遍历mod找出最大层级
+        for (IndexMoudle mod:mods){
+            if (mod.getIfzs().equals("0")){
+                int tcount=1;
+                while (!mod.getProcode().equals("")){
+                    tcount++;
+                    mod=map.get(mod.getProcode());
+                }
+                count=count>tcount?count:tcount;
+            }
+        }
         String pjax = req.getHeader("X-PJAX");
         if (StringUtil.isEmpty(pjax)) {
             PubInfo.printStr("====================================================empty");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/weightset").addObject("indexcode",icode).addObject("mods",mods).addObject("schemecode",scode).addObject("schemename",sname);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/weightset").addObject("indexcode",icode).addObject("mods",mods).addObject("schemecode",scode).addObject("schemename",sname).addObject("count",count);
         } else {
             PubInfo.printStr("====================================================pjax");
-            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/weighttable").addObject("indexcode",icode).addObject("mods",mods).addObject("schemecode",scode).addObject("schemename",sname);
+            return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/weighttable").addObject("indexcode",icode).addObject("mods",mods).addObject("schemecode",scode).addObject("schemename",sname).addObject("count",count);
         }
     }
 
@@ -107,9 +127,28 @@ public class weightset extends BaseAction {
             }
         }
 
+        //计算module指标最大层级
+        int count=0;
+        //map存储code-module
+        Map<String,IndexMoudle> map=new HashMap<>();
+        for (IndexMoudle mod:mods){
+            map.put(mod.getCode(),mod);
+        }
+        //遍历mod找出最大层级
+        for (IndexMoudle mod:mods){
+            if (mod.getIfzs().equals("0")){
+                int tcount=1;
+                while (!mod.getProcode().equals("")){
+                    tcount++;
+                    mod=map.get(mod.getProcode());
+                }
+                count=count>tcount?count:tcount;
+            }
+        }
 
 
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/weightschemesset").addObject("indexcode",icode).addObject("scodes",scodes).addObject("mods",mods).addObject("snames",snames);
+
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/weightschemesset").addObject("indexcode",icode).addObject("scodes",scodes).addObject("mods",mods).addObject("snames",snames).addObject("count",count);
     }
 
     /**

@@ -71,6 +71,7 @@
     var rows=$("td[code='${module.getProcode()}']:first").attr("rowspan")
     //和父节点同行
     if (flag==rows){
+        console.log("${module.getCname()}:${module.getProcode()}flag:"+flag+",rows:"+rows)
         $("td[code='${module.getProcode()}']:first").parent().append(
             "<td rowspan=${module.ZBnums()} class='count_mod'>${module.getCname()}</td>")
 
@@ -79,9 +80,6 @@
             "<td style=\"text-align:center\" code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
         )
         </c:forEach>
-
-
-
         $("td[code='${module.getProcode()}']:first").attr("flag",flag-${module.ZBnums()})
     }
     //与父节点不同行
@@ -105,8 +103,8 @@
     </c:if>
     //指标
     <c:if test="${!module.getProcode().equals('')&&module.getIfzs().equals('0')}">
-    var flag=$("td[code='${module.getProcode()}']:last").attr("flag")
-    var rows=$("td[code='${module.getProcode()}']:last").attr("rowspan")
+    var flag=$("td[code='${module.getProcode()}']:first").attr("flag")
+    var rows=$("td[code='${module.getProcode()}']:first").attr("rowspan")
     //和父节点同行
     if (flag==rows){
         $("td[code='${module.getProcode()}']:last").parent().append(
@@ -120,7 +118,7 @@
         </c:forEach>
 
 
-        $("td[code='${module.getProcode()}']:last").attr("flag",flag-1)
+        $("td[code='${module.getProcode()}']:first").attr("flag",flag-1)
     }
     //与父节点不同行
     else {
@@ -133,16 +131,17 @@
         )
         </c:forEach>
 
-        $("td[code='${module.getProcode()}']:last").attr("flag",flag-1)
+        $("td[code='${module.getProcode()}']:first").attr("flag",flag-1)
 
     }
     </c:if>
     </c:forEach>
-    var colnum=0;
-    $(".row_body").each(function () {
+    console.log("${count}")
+    var colnum=parseInt("${count}")-1;
+    /*$(".row_body").each(function () {
         var count=$(this).children("[class~='count_mod']").length;
         if (count>colnum) colnum=count;
-    })
+    })*/
     //console.log(colnum)
     for (i=0;i<colnum;i++){
         $("#row_head1").append("<td colspan='${scodes.size()+1}'>指标</td>")
