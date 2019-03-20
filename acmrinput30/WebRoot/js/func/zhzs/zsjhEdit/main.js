@@ -549,6 +549,7 @@ define(function (require,exports,module) {
      * 预览结果
      */
     $("#scheme_timeinput").click(function () {
+        $(".rangData_ing").css("display","block")
         var schemecheck= "";
         $(".scheme_check").each(function () {
             if($(this).is(':checked'))
@@ -562,6 +563,7 @@ define(function (require,exports,module) {
             url:common.rootPath+'zbdata/zsjhedit.htm?m=checkPreview&id='+incode+"&scodes="+schemecheck.substring(1),
             type:'get',
             success:function (re) {
+                $(".rangData_ing").css("display","none")
                 if (re.return==200){
                     var schemetime = $('#scheme_timeval').val();
                     window.open(common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode+"&timeinput="+schemetime+"&scodes="+schemecheck.substring(1));

@@ -35,7 +35,7 @@
         <button type="button" class="btn btn-default btn-sm save_weight" style="float: right;margin-bottom: 15px"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;保存设置
         </button>
     </div>
-    <table class="table table-bordered" id="module_table" style="min-width: 80px;height: 100%;">
+    <table class="table table-bordered" id="module_table" style="min-width: 80px;height: 100%;text-align: center;font-size: 14px;">
         <tr style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';" id="row_head1">
             <td rowspan="2">总指数</td>
             <%--<td colspan="2">指标</td>--%>

@@ -60,6 +60,7 @@
             <div class="J_zb_data_table">
                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/previewzbTable.jsp" flush="true"/>
             </div>
+
         </div>
     </div>
 </div>
@@ -70,4 +71,5 @@
 </div>
 <script type="text/javascript">
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/preview');
+    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/main');
 </script>

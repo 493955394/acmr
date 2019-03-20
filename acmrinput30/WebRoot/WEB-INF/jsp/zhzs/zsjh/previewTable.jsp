@@ -19,10 +19,10 @@
 </style>
 <div style="max-height:55%;max-width: 100%;overflow: auto;margin-top: 10px">
     <input type="hidden" value="${zbtitle}" id="modname"/>
-    <table class="table table-bordered J_jgyl_table" id="preview-table">
+    <table style="font-size: 14px;text-align: center;" class="table table-bordered J_jgyl_table" >
         <thead style="background-color: #e4edf6">
         <tr>
-        <td rowspan="2">地区</td>
+        <td style="text-align: center;vertical-align:middle;" rowspan="2">地区</td>
         <c:forEach items="${date}" var="arr">
             <td colspan="${schemename.size()}">${arr}</td>
         </c:forEach>
@@ -39,7 +39,7 @@
         <c:forEach items="${val}" var="vall">
             <tr>
                 <c:forEach items="${vall}" var="list">
-                    <td>${list}</td>
+                    <td style="min-width: 80px;">${list}</td>
                 </c:forEach>
             </tr>
         </c:forEach>
