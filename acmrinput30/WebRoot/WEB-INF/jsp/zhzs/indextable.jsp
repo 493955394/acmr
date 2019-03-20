@@ -28,13 +28,13 @@
     <div class="panel-body">
         <div class="toolbar-left">
             <form class="form-inline J_search_form" action="${ctx}/zbdata/indexlist.htm?m=find">
-                <div class="form-group">
+                <%--<div class="form-group">
                     <span id="querykey" class="form-control input-sm">
                         名称
                     </span>
-                </div>
+                </div>--%>
                 <div class="form-group">
-                    <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入搜索内容" value="${codes.keyword}" autocomplete="off">
+                    <input id="queryValue" type="text" class="form-control input-sm" placeholder="输入节点名称" value="${codes.keyword}" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-sm">查询</button>

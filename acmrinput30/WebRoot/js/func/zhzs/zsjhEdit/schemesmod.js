@@ -92,7 +92,7 @@ define(function (require,exports,module) {
                 })
             })
             if (count==$(".scodes").length){
-                alert("success")
+                alert("保存成功！")
                 window.close()
             }
             else {
