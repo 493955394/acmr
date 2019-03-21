@@ -48,7 +48,7 @@
             padding-bottom: 0;
         }
         .rightfull{
-            height: 100% !important;
+            height: 99% !important;
         }
         .leftfull{
             height: 100% !important;

@@ -2166,7 +2166,7 @@ public class zsjhedit extends BaseAction {
                 String sname = SchemeDao.Fator.getInstance().getIndexdatadao().getSchemeNameByCode(scheme[i]);
                 String weight = SchemeDao.Fator.getInstance().getIndexdatadao().getModSchemeWeight(scheme[i],modcode);
                 schemename.add(sname);
-                title = title+sname +":"+weight+";";
+                title = title+sname +"权重:"+weight+";";
             }
             for(String reg : regs.split(",")){
                List<String> row = new ArrayList<>();
