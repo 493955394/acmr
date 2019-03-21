@@ -2505,6 +2505,9 @@ public class zsjhedit extends BaseAction {
         String code = req.getParameter("modcode");
         String indexCode = req.getParameter("indexCode");
         String scode = req.getParameter("scode");
+        String type = req.getParameter("type");//看是单方案进来的还是多方案进来的
+        String sname = req.getParameter("sname");
+        String schemecodes = req.getParameter("schemecodes");
         IndexEditService indexEditService = new IndexEditService();
         IndexMoudle getdata = indexEditService.getData(code);
         IndexMoudle scheme_info = new IndexSchemeService().getModData(code,indexCode,scode);
@@ -2526,10 +2529,11 @@ public class zsjhedit extends BaseAction {
         }
         //筛选指标信息
         JSONObject zblist=getZBS(indexCode);
-        //   Map<String, String> datas = new HashMap<String, String>();
-        //  datas.put("proname", proname);
-//        datas.put("procodeId", getdata.getProcode());
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/formularEdit").addObject("icode",indexCode).addObject("proname",proname).addObject("zblist",zblist).addObject("data",getdata).addObject("scode",scode);
+       Map<String,String> info = new HashMap<String,String>();
+       info.put("type",type);
+       info.put("sname",sname);
+       info.put("schemecodes",schemecodes);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/formularEdit").addObject("icode",indexCode).addObject("proname",proname).addObject("zblist",zblist).addObject("data",getdata).addObject("scode",scode).addObject("info",info);
     }
 
     public void toSaveFormular() throws IOException {

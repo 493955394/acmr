@@ -106,8 +106,12 @@ define(function (require,exports,module) {
     $(document).on('click','.edit_formula',function (event) {
         event.preventDefault();
         var modcode = $(this).attr("modcode");
-        var scode=$(this).attr("scode")
-        window.open(common.rootPath+'zbdata/zsjhedit.htm?m=formularEdit&indexCode='+icode+'&scode='+scode+'&modcode='+modcode);
+        var scode=$(this).attr("scode");
+        var schemecodes = "";
+        $(".scodes").each(function () {
+            schemecodes +=$(this).val()+";";
+            })
+        window.location.href = common.rootPath+'zbdata/zsjhedit.htm?m=formularEdit&indexCode='+icode+'&scode='+scode+'&schemecodes='+schemecodes+'&modcode='+modcode+'&type=B';
     })
 
 })

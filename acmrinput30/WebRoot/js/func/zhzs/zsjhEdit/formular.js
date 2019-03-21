@@ -6,11 +6,13 @@ define(function (require,exports,module) {
         common = require('common'),
         pjax=require('pjax'),
         modal = require('modal');
-    var ciji = $(".cjzs option:selected").val();
-    var zhibiao = $(".zb_ifzs option:selected").val();
     var ifzs = $("#ifzs").val();
     var formulartext = $("#formulatext").val();
-
+    var type = $('input[name = "type"]').val();
+    var scode = $('input[name = "scode"]').val();
+    var icode = $('input[name = "icode"]').val();
+    var sname =  $('input[name = "sname"]').val();
+    var schemecodes =  $('input[name = "schemecodes"]').val();
     /**
      * 点击选择按钮之后隐藏和显示的内容
      */
@@ -46,6 +48,16 @@ define(function (require,exports,module) {
             $(".footer").removeClass("fixed-footer");
         }
     }
+
+    /**
+     * 关闭
+     */
+    $(document).on('click',".close-edit",function () {
+        if(type=="A")
+            window.location.href = common.rootPath+"zbdata/weightset.htm?m=editSingleWeight&icode="+icode+'&scode='+scode+'&sname='+sname;
+        else
+            window.location.href =  common.rootPath+"zbdata/weightset.htm?m=editSchemesWeight&icode="+icode+"&schemecodes="+schemecodes;
+    })
 
     $(document).on('change', '[name=formula]', function(event){
 
@@ -93,7 +105,10 @@ define(function (require,exports,module) {
             success: function(data) {
                if (data.returncode == 200) {
                     alert("保存成功");
-                    window.close();
+                    if(type=="A")
+                   window.location.href = common.rootPath+"zbdata/weightset.htm?m=editSingleWeight&icode="+icode+'&scode='+scode+'&sname='+sname;
+                   else
+                       window.location.href =  common.rootPath+"zbdata/weightset.htm?m=editSchemesWeight&icode="+icode+"&schemecodes="+schemecodes;
                 }
                 else if(data.returncode == 300){
                     alert("表达式有误");

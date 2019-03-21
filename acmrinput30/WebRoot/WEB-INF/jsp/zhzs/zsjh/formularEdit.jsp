@@ -27,6 +27,9 @@
 </div>
 <div class="ict-page">
     <div class="container-fluid">
+        <input type="hidden" name="schemecodes" value="${info.schemecodes}" class="input-small"/>
+        <input type="hidden" name="sname" value="${info.snmae}" class="input-small"/>
+        <input type="hidden" name="type" value="${info.type}" class="input-small"/>
         <div>
             <span class="col-sm-offset-2 col-sm-3" style="font-size: 20px;color: #F39801;text-align: center;margin-top: 5px">-------------基本信息-------------</span><br>
             <div class="panel-body">
@@ -159,7 +162,7 @@
                         <div class="col-sm-offset-6 col-sm-6">
                             <button type="submit" class="btn btn-primary ZS_Add">确认</button>
                             <button type="button" class="btn btn-primary resetbutton">重置</button>
-                            <button type="button" class="btn btn-primary" onclick="window.close();">关闭</button>
+                            <button type="button" class="btn btn-primary close-edit" >关闭</button>
                         </div>
                     </div>
                 </form>
