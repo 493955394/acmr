@@ -9,7 +9,7 @@
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <input type="hidden" id="result-ifcomplete" value="${flag}">
-<div style="max-height:55%;width: 100%;overflow: auto">
+<div style="max-height:100%;width: 100%;overflow: auto">
     <table class="table table-bordered J_jsjg_table">
         <thead>
         <tr>

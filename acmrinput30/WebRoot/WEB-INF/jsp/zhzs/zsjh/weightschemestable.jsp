@@ -24,7 +24,7 @@
     }
 </style>
 <body>
-<div style="max-height:70%;max-width: 100%;overflow: auto;margin-top: 10px" class="container-fluid" id="mainpanel">
+<div style="height:70%;width: 100%;overflow: auto;margin-top: 10px" class="container-fluid" id="mainpanel">
     <div class="panel panel-default">
         <div class="panel-heading">
             权重设置
@@ -35,7 +35,7 @@
         <button type="button" class="btn btn-default btn-sm save_weight" style="float: right;margin-bottom: 15px"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;保存设置
         </button>
     </div>
-    <table class="table table-bordered" id="module_table" style="min-width: 80px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;text-align: center;font-size: 14px;">
+    <table class="table table-bordered" id="module_table" style="width: 100%;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;text-align: center;font-size: 14px;">
         <tr style="background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';" id="row_head1">
             <td rowspan="2">总指数</td>
             <%--<td colspan="2">指标</td>--%>
