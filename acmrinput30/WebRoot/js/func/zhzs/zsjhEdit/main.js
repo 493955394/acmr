@@ -183,6 +183,10 @@ define(function (require,exports,module) {
         var currenttab = $("#currentTab").val();
         if(currenttab!="")
             $("#bjjhTab a[href='#jsfw']").click();
+        if($("#sjss").val()!=""){
+            $(".dttext").val($("#sjss").val())
+            $(".dttextbtn").click();
+        }
     });
     //点击指标筛选，激活第一个已选指标
     $(document).on('click','a[href="#zssx"]',function (event) {
@@ -756,7 +760,7 @@ define(function (require,exports,module) {
                 if (data.returncode == 200)
                 {
                     alert("保存成功！");
-                    window.location.href= common.rootPath+"zbdata/zsjhedit.htm?id="+incode+"&currentTab=2";
+                    window.location.href= common.rootPath+"zbdata/zsjhedit.htm?id="+incode+"&currentTab=2&sjss="+$("#timeval").val();
                 }
                 else if(data.returncode ==303)
                     alert(data.returndata+"被模型节点引用，无法删除！")

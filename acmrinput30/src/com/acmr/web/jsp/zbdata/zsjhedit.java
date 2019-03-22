@@ -60,6 +60,7 @@ public class zsjhedit extends BaseAction {
         /* 第一个分页显示*/
         String code = this.getRequest().getParameter("id");
         String tab = this.getRequest().getParameter("currentTab");
+        String sjss = this.getRequest().getParameter("sjss");
         //获取用户权限
         String right=this.getRequest().getParameter("right");
         String proname =null;
@@ -74,7 +75,7 @@ public class zsjhedit extends BaseAction {
         /* 第一个分页显示*/
         JSONObject zbs=getZBS(code);
         List<Map> regs = regshow(code);
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("proname",proname).addObject("list",list).addObject("indexlist",indexlist).addObject("zbs",zbs).addObject("regs",regs).addObject("right",right).addObject("tab",tab);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("proname",proname).addObject("list",list).addObject("indexlist",indexlist).addObject("zbs",zbs).addObject("regs",regs).addObject("right",right).addObject("tab",tab).addObject("sjss",sjss);
     }
     /**
      *
