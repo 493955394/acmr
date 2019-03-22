@@ -8,7 +8,9 @@ import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.helper.util.StringUtil;
 import com.acmr.model.pub.JSONReturnData;
 import com.acmr.model.zhzs.Scheme;
+import com.acmr.service.zhzs.IndexListService;
 import com.acmr.service.zhzs.IndexSchemeService;
+import com.alibaba.fastjson.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -211,5 +213,22 @@ public class indexscheme extends BaseAction {
         String code = PubInfo.getString(this.getRequest().getParameter("id"));
         indexSchemeService.delScheme(code);
         this.sendJson(data);
+    }
+    /**
+     * 新增方案时优先校验模型节点
+     * @author wf
+     * @date
+     * @param
+     * @return
+     */
+    public void schCheckMod() throws IOException {
+        HttpServletRequest req = this.getRequest();
+        JSONReturnData data = new JSONReturnData("");
+        String code = PubInfo.getString(req.getParameter("icode"));
+        IndexListService indexListService = new IndexListService();
+        Boolean checkhasMod = indexListService.checkHasMod(code);
+        JSONObject obj=new JSONObject();
+        obj.put("checkhasMod",checkhasMod);
+        this.sendJson(obj);
     }
 }

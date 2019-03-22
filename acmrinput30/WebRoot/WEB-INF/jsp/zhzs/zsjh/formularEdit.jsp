@@ -137,7 +137,7 @@
                             <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('9')"><span style="color: white">9</span></div>
                             <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('*')"><span style="color: white">*</span></div>
                             <div style="margin-top: 10px" class="clearfix"></div>
-                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('()')"><span style="color: white">()</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('()')"><span style="color: white">( )</span></div>
                             <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('0')"><span style="color: white">0</span></div>
                             <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('.')"><span style="color: white">.</span></div>
                             <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('/')"><span style="color: white">/</span></div>
