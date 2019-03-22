@@ -143,7 +143,7 @@
                             <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('/')"><span style="color: white">/</span></div>
                         </div>
                         <div class="col-sm-1">
-                            <div type="button" class="btn btn-primary" ><<添加</div>
+                            <div type="button" id="add_hanshu" class="btn btn-primary" ><<添加</div>
                         </div>
                         <div class="col-sm-2">
                             <select style="width:250px" size="18" id="hanshu">
@@ -157,14 +157,14 @@
                                 <option value="avg([])" title="求平均值">avg()</option>
 
 
-                                <option value="getvalue(指标1，dq)" title="取当前时间对应指标所有地区的数值集合">getvalue(指标1，dq)</option>
-                                <option value="getvalue()" title="取当前地区对应指标最近n期时间数值集合">getvalue(指标1，lastn-)</option>
-                                <option value="getvalue()" title="取当前地区对应指标第最近n期时间数值">getvalue(指标1，lastn)</option>
-                                <option value="getvalue(指标1，begintime)" title="取当前地区对应指标从计划开始时间到当前时间的数值集合">getvalue(指标1，begintime)</option>
-                                <option value="getvalue()" title="取当前地区对应指标参数的数值">getvalue(指标1，YYYY)</option>
-                                <option value="getvalue()" title="取当前地区对应指标从指定年份到最新时间的数值集合">getvalue(指标1，YYYY-)</option>
-                                <option value="getvalue()" title="取当前地区对应指标从指定时间范围的数值集合">getvalue(指标1，YYYY-YYYY)</option>
-                                <option value="getvalue()" title="取当前地区和当前时间不同指标的数值集合">getvalue(指标1，指标1，指标3)</option>
+                                <option value="getvalue(指标1,dq)" title="取当前时间对应指标所有地区的数值集合">getvalue(指标1,dq)</option>
+                                <option value="getvalue()" title="取当前地区对应指标最近n期时间数值集合">getvalue(指标1,lastn-)</option>
+                                <option value="getvalue()" title="取当前地区对应指标第最近n期时间数值">getvalue(指标1,lastn)</option>
+                                <option value="getvalue(指标1,begintime)" title="取当前地区对应指标从计划开始时间到当前时间的数值集合">getvalue(指标1,begintime)</option>
+                                <option value="getvalue()" title="取当前地区对应指标参数的数值">getvalue(指标1,YYYY)</option>
+                                <option value="getvalue()" title="取当前地区对应指标从指定年份到最新时间的数值集合">getvalue(指标1,YYYY-)</option>
+                                <option value="getvalue()" title="取当前地区对应指标从指定时间范围的数值集合">getvalue(指标1,YYYY-YYYY)</option>
+                                <option value="getvalue()" title="取当前地区和当前时间不同指标的数值集合">getvalue(指标1,指标1,指标3)</option>
                             </select>
                         </div>
                     </div>
