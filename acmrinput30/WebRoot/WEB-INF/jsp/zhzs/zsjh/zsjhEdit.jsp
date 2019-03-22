@@ -420,6 +420,11 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="edit_tab tab-pane" id="jsfa">
+                        <div class="rangData_ing" style="display:none;position: fixed; width: 100%;height: 100%;z-index: 2000;background-color: gray;filter:alpha(opacity=60);opacity: 0.4;">
+                            <div style="background-color: white;position: fixed;top: 50%;left: 50%;border-radius: 10%">
+                                <p style="color: orangered;font-size: 30px;padding: 10% 0;">计算中……</p>
+                            </div>
+                        </div>
                         <div id="scheme_main_container">
                             <div id="scheme_select_button">
                                 <button class="btn btn-primary btn-sm" id="set_scheme_weight_formula">公式/权重设置</button>

@@ -549,7 +549,6 @@ define(function (require,exports,module) {
      * 预览结果
      */
     $("#scheme_timeinput").click(function () {
-        $(".rangData_ing").css("display","block")
         var schemecheck= "";
         $(".scheme_check").each(function () {
             if($(this).is(':checked'))
@@ -559,14 +558,23 @@ define(function (require,exports,module) {
             alert("请至少选择一个方案")
             return;
         }
+        schemecheck=schemecheck.substring(1)
+        $(".rangData_ing").css("display","block");
         $.ajax({
-            url:common.rootPath+'zbdata/zsjhedit.htm?m=checkPreview&id='+incode+"&scodes="+schemecheck.substring(1),
+            url:common.rootPath+'zbdata/zsjhedit.htm?m=checkPreview&id='+incode+"&scodes="+schemecheck,
             type:'get',
             success:function (re) {
-                $(".rangData_ing").css("display","none")
                 if (re.return==200){
                     var schemetime = $('#scheme_timeval').val();
-                    window.open(common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode+"&timeinput="+schemetime+"&scodes="+schemecheck.substring(1));
+                    $.ajax({
+                        url:common.rootPath+'zbdata/zsjhedit.htm?m=previewCalculate&id='+incode+"&timeinput="+schemetime+"&scodes="+schemecheck,
+                        type:'get',
+                        success:function (re) {
+                            if(re.returncode==200)
+                            {$(".rangData_ing").css("display","none");
+                            window.open(common.rootPath+'zbdata/zsjhedit.htm?m=previewIndex&id='+incode+"&timeinput="+schemetime+"&scodes="+schemecheck);}
+                        }
+                    })
                 }
                 else {
                     alert(re.return+"无法查看预览结果！")

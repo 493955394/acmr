@@ -2031,16 +2031,10 @@ public class zsjhedit extends BaseAction {
         }*/
         this.sendJson(data);
     }
-    /**
-     * 预览结果首页
-     * @return
-     */
-    public ModelAndView previewIndex() throws MathException {
+    public void previewCalculate() throws IOException{
         String code = this.getRequest().getParameter("id");
         String scodes = this.getRequest().getParameter("scodes");//选择的方案个数
         String times = this.getRequest().getParameter("timeinput");//时间期
-        IndexEditService indexEditService = new IndexEditService();
-        List<IndexMoudle> mods = indexEditService.getAllMods("",code);
         //开始做计算
         DataPreviewService dps = new DataPreviewService();
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(code);
@@ -2054,6 +2048,21 @@ public class zsjhedit extends BaseAction {
                 dps.todocalculate(code,time,scode);
             }
         }
+        JSONReturnData data = new JSONReturnData("");
+        data.setReturncode(200);
+        this.sendJson(data);
+    }
+    /**
+     * 预览结果首页
+     * @return
+     */
+    public ModelAndView previewIndex() throws MathException {
+        String code = this.getRequest().getParameter("id");
+        String scodes = this.getRequest().getParameter("scodes");//选择的方案个数
+        String times = this.getRequest().getParameter("timeinput");//时间期
+        IndexEditService indexEditService = new IndexEditService();
+        List<IndexMoudle> mods = indexEditService.getAllMods("",code);
+
         //筛选指标的信息
         JSONObject zblist=getZBS(code);
         return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/previewIndex").addObject("icode",code).addObject("times",times).addObject("zblist",zblist).addObject("mods",mods).addObject("scodes",scodes);

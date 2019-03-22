@@ -63,6 +63,11 @@
 
         </div>
     </div>
+    <div class="search_ing" style="display:none;position: fixed; width: 100%;height: 100%;z-index: 200;background-color: gray;filter:alpha(opacity=60);;opacity: 0.4;">
+        <div style="background-color: white;position: fixed;top: 50%;left: 50%;border-radius: 10%">
+            <p style="color: orangered;font-size: 30px;padding: 10% 0;">计算中……</p>
+        </div>
+    </div>
 </div>
 </body>
 </html>
@@ -71,5 +76,4 @@
 </div>
 <script type="text/javascript">
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/preview');
-    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/main');
 </script>

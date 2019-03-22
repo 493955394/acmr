@@ -55,6 +55,7 @@ define(function (require,exports,module) {
      */
     $("#ms").change(function (e) {
         var modcode = $(this).val();
+        $(".search_ing").css("display","block");
         sendPjax(modcode);
     })
     /**
@@ -62,6 +63,7 @@ define(function (require,exports,module) {
      */
     $("#zblist").change(function (e) {
         var zbcode = $(this).val();
+        $(".search_ing").css("display","block");
         sendzbPjax(zbcode);
     })
 
@@ -78,7 +80,9 @@ define(function (require,exports,module) {
 
     }
 
-
+    $(document).on('pjax:success',function(){
+        $(".search_ing").css("display","none");
+    });
 
     //重新绘制表格，定宽
     function drawtable() {
