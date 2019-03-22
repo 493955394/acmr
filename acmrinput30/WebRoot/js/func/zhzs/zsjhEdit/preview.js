@@ -38,43 +38,50 @@ define(function (require,exports,module) {
     var scodes = $("#scheme_codes").val();
 
     function sendPjax(modcode){
-        var url = common.rootPath + "zbdata/zsjhedit.htm?m=preDataValue&icode="+icode +"&time="+sjselect+"&scodes="+scodes+"&modcode="+modcode;
-        $.pjax({
-            url: url,
-            async:false,
-            container: '.J_preview_data_table',
-            timeout: 10000
-        })
-        $("#mod_text").html($("#modname").val());
-          //  mc('preview-table',0,0,0);
-        drawtable();
+        setTimeout(function () {
+            $(".search_ing").css("display", "block");
+            var url = common.rootPath + "zbdata/zsjhedit.htm?m=preDataValue&icode=" + icode + "&time=" + sjselect + "&scodes=" + scodes + "&modcode=" + modcode;
+            $.pjax({
+                url: url,
+                async: false,
+                container: '.J_preview_data_table',
+                timeout: 10000
+            })
+            $("#mod_text").html($("#modname").val());
+            //  mc('preview-table',0,0,0);
+            drawtable();
+        },50)
     }
 
     /**
      * 触发切换模型的值
      */
     $("#ms").change(function (e) {
-        var modcode = $(this).val();
+        e.preventDefault();
         $(".search_ing").css("display","block");
+        var modcode = $(this).val();
         sendPjax(modcode);
     })
     /**
      * 触发切换指标的值
      */
     $("#zblist").change(function (e) {
+        e.preventDefault();
         var zbcode = $(this).val();
-        $(".search_ing").css("display","block");
         sendzbPjax(zbcode);
     })
 
     function sendzbPjax(zbcode){
-        var url = common.rootPath + "zbdata/zsjhedit.htm?m=preZbValue&icode="+icode +"&time="+sjselect+"&scodes="+scodes+"&zbcode="+zbcode;
-        $.pjax({
-            url: url,
-            async:false,
-            container: '.J_zb_data_table',
-            timeout: 10000
-        })
+        setTimeout(function () {
+            $(".search_ing").css("display", "block");
+            var url = common.rootPath + "zbdata/zsjhedit.htm?m=preZbValue&icode=" + icode + "&time=" + sjselect + "&scodes=" + scodes + "&zbcode=" + zbcode;
+            $.pjax({
+                url: url,
+                async: false,
+                container: '.J_zb_data_table',
+                timeout: 10000
+            });
+        },50)
 
      //   drawtable();
 
