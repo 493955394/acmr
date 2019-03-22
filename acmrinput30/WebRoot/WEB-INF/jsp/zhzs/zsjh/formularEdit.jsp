@@ -147,6 +147,8 @@
                         </div>
                         <div class="col-sm-2">
                             <select style="width:250px" size="18" id="hanshu">
+
+                                <optgroup label="计算函数" style="background-color: #EEEEEE;"></optgroup>
                                 <option value="abs()" title="求绝对值">Math.abs</option>
                                 <option value="pow()" title="x的y次方">Math.pow(x,y)</option>
                                 <option value="exp()" title="求e的任意次方">Math.exp</option>
@@ -156,7 +158,7 @@
                                 <option value="min([])" title="求最小值">min()</option>
                                 <option value="avg([])" title="求平均值">avg()</option>
 
-
+                                <optgroup label="数组函数" style="background-color: #EEEEEE;"></optgroup>
                                 <option value="getvalue(指标1,dq)" title="取当前时间对应指标所有地区的数值集合">getvalue(指标,dq)</option>
                                 <option value="getvalue()" title="取当前地区对应指标最近n期时间数值集合">getvalue(指标,lastn)</option>
                                 <option value="getvalue(指标1,begintime)" title="取当前地区对应指标从计划开始时间到当前时间的数值集合">getvalue(指标,begintime)</option>

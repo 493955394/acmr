@@ -111,7 +111,7 @@
             <th><span class="word">名称</span></th>
             <th><span class="word">类型</span></th>
             <th><span class="word">周期</span></th>
-            <th><span class="word">最新数据期</span></th>
+            <th><span class="word">下一数据期</span></th>
             <th><span class="word">方案</span></th>
             <th><span class="word">操作</span></th>
         </tr>

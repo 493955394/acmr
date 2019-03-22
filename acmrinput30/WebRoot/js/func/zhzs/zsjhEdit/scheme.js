@@ -182,6 +182,10 @@ define(function (require,exports,module) {
     });
     $(document).on('click','.J_clone',function (event) {
         event.preventDefault();
+        var name ="";
+        var remark = "";
+        $('input[name="schclonename"]').val(name);
+        $('input[name="newremark"]').val(remark);
         var code =$(this).attr('id');
         $('input[name="schcloneicode"]').val(icode);
         $('input[name="schclonecode"]').val(code);

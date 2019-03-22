@@ -281,16 +281,15 @@ public class zstask extends BaseAction {
                                         int m = i+1;
                                         ExcelCell cell = Rows.getCells().get(m);
                                         if (cell != null) {
-                                            String value = cell.getText() + "";
-                                            if(isDouble(value)||isInteger(value)){
-                                                reganddata.add(value);
+                                            String value = cell.getText();
+                                            if(value.trim().isEmpty()){
+                                                data.setReturncode(300);
+                                                data.setReturndata("数据不能为空");
+                                                this.sendJson(data);
+                                                return;
+                                            }else if(isDouble(value)||isInteger(value)){
+                                                    reganddata.add(value);
                                             }else{
-                                                if(value.equals("")){
-                                                    data.setReturncode(300);
-                                                    data.setReturndata("数据不能为空");
-                                                    this.sendJson(data);
-                                                    return;
-                                                }
                                                 data.setReturncode(400);
                                                 data.setReturndata("数据格式不正确");
                                                 this.sendJson(data);
