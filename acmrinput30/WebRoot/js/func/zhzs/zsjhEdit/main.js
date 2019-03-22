@@ -589,7 +589,7 @@ define(function (require,exports,module) {
                     }
                 }
             })
-        },5);
+        },30);
     })
     /**
      * 计算范围时间搜索框

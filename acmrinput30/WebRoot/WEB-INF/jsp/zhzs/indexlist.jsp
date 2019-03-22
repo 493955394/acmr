@@ -319,9 +319,9 @@
                     </div>
                 </div>
             </div>
-            <div class="start_ing" style="display:none;position: fixed; width: 100%;height: 100%;z-index: 2;background-color: gray;filter:alpha(opacity=60);;opacity: 0.4;">
-                <div style="background-color: white;position: fixed;top: 50%;left: 50%;border-radius: 10%">
-                    <p style="color: orangered;font-size: 30px;padding: 10% 0;">启用中……</p>
+            <div id="ict-loading-box start_ing">
+                <div class="ict-loading-box start_ing">
+                    <img src="${ctx}/images/ict_loading.svg" /> 启用中
                 </div>
             </div>
         </div>

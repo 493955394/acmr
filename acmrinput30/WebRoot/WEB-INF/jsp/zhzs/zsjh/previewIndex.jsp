@@ -25,9 +25,9 @@
 <style type="text/css">
 </style>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
-<div class="search_ing" style="display:none;position: fixed; width: 100%;height: 100%;z-index: 200;background-color: gray;filter:alpha(opacity=60);;opacity: 0.4;">
-    <div style="background-color: white;position: fixed;top: 50%;left: 50%;border-radius: 10%">
-        <p style="color: orangered;font-size: 30px;padding: 10% 0;">查询中……</p>
+<div id="ict-loading-box search_ing">
+    <div class="ict-loading-box search_ing">
+        <img src="${ctx}/images/ict_loading.svg" /> 查询中
     </div>
 </div>
 <div class="col-xs-12">
