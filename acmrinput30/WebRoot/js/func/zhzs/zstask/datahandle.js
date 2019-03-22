@@ -96,6 +96,10 @@ define(function(require,exports,module) {
                     $("#import_count").html(alert("上传失败！"+result.returndata));
                 } else if (result.returncode == 400) {
                     $("#import_count").html(alert("上传失败！"+result.returndata));
+                }else if(result.returncode == 500){
+                    $("#import_count").html(alert("上传失败！"+result.returndata));
+                } else if (result.returncode == 600) {
+                    $("#import_count").html(alert("上传失败！"+result.returndata));
                 } else {
                     alert("数据不正确,上传失败");
                 }

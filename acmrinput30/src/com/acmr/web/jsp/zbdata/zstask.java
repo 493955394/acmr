@@ -283,16 +283,15 @@ public class zstask extends BaseAction {
                                         if (cell != null) {
                                             String value = cell.getText() + "";
                                             if(isDouble(value)||isInteger(value)){
-                                                if(value.equals("  ")){
+                                                reganddata.add(value);
+                                            }else{
+                                                if(value.equals("")){
                                                     data.setReturncode(300);
                                                     data.setReturndata("数据不能为空");
                                                     this.sendJson(data);
                                                     return;
                                                 }
-                                                reganddata.add(value);
-                                            }else{
-
-                                                data.setReturncode(300);
+                                                data.setReturncode(400);
                                                 data.setReturndata("数据格式不正确");
                                                 this.sendJson(data);
                                                 return;
@@ -319,14 +318,14 @@ public class zstask extends BaseAction {
                         }
 
                         if (count >= 10000) {
-                            data.setReturncode(400);
+                            data.setReturncode(500);
                             data.setReturndata("导入的数据不能超过10000行");
                             return;
                         }
                         // 入库
                         int uploaddata = indexTaskService.updateData(taskcode,ayearmon,sessionid,regscode,zbandreg);
                         if(uploaddata == 1){
-                            data.setReturncode(500);
+                            data.setReturncode(600);
                             data.setReturndata("数据存入数据库失败");
                             return;
                         }
@@ -335,7 +334,7 @@ public class zstask extends BaseAction {
                         data.setReturndata("数据文件上传成功");
                     } catch (Exception e) {
                         e.printStackTrace();
-                        data.setReturncode(500);
+                        data.setReturncode(700);
                         data.setReturndata("数据上传失败");
                     }
                 }

@@ -14,7 +14,7 @@
     }
 </style>
 
-        <div style="width: 100%;overflow: auto">
+        <div style="width: 100%;max-height: 100%;overflow: auto">
             <table class="table table-bordered" id="origin-data">
                 <thead>
                 <tr id="mod_list_head">
