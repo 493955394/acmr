@@ -356,6 +356,7 @@
                         <div class="col-xs-12">
                             <div style="height: 6%;">
                                 <input  type="hidden" id="fwtimeinput"/>
+                                <input type="hidden" id="sjss" value="${sjss}">
                                 <input type="hidden" id="timeval" value="last3">
                                 <div id="mySelectTime1" style="margin-top: 10px;margin-bottom: 10px;float: left"></div>
                                 <div style="float: right">计划起始时间：
@@ -607,7 +608,7 @@
         var dt1 = $('#mySelectTime1');
         var dt2 = $('#mySelectTime');
         var dt3 = $('#scheme_time_select');
-        dt1.dropList(json1,{isText:true},function(o){     //指标初选事件处理
+        dt1.dropList(json1,{isText:true,setIndex:0},function(o){     //指标初选事件处理
             $("#timeval").val(o.getItem().code)
             $("#fwtimeinput").click();
         });
