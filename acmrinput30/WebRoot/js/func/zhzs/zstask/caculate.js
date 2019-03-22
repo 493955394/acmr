@@ -68,8 +68,8 @@ define(function (require,exports,module) {
         $(".input_weight").each(function () {
             //console.log($(this).val())
             var value=$(this).val()
-            if (value<=0){
-                alert("权重不能为小于等于0的数")
+            if (value<0){
+                alert("权重不能为小于0的数")
                 flag = true;
                 return
             }
@@ -93,7 +93,6 @@ define(function (require,exports,module) {
             sum=sum.toFixed(1)
             //console.log(sum)
             if (sum!=1){
-                console.log(codes[i])
                 alert("同一级别权重和必须为1")
                 flag = true;
                 return;
@@ -203,8 +202,8 @@ define(function (require,exports,module) {
         $(".input_weight").each(function () {
             //console.log($(this).val())
             var value=$(this).val()
-            if (value<=0){
-                alert("权重不能为小于等于0的数")
+            if (value<0){
+                alert("权重不能为小于0的数")
                 flag=true;
                 return
             }
@@ -228,7 +227,6 @@ define(function (require,exports,module) {
             sum=sum.toFixed(1)
             //console.log(sum)
             if (sum!=1){
-                console.log(codes[i])
                 alert("同一级别权重和必须为1")
                 flag=true;
                 return;
