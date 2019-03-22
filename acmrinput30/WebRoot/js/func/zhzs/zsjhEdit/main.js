@@ -559,8 +559,8 @@ define(function (require,exports,module) {
             return;
         }
         schemecheck=schemecheck.substring(1);
+        $(".rangData_ing").show();
         setTimeout(function () {
-            $(".rangData_ing").show();
             $.ajax({
                 url: common.rootPath + 'zbdata/zsjhedit.htm?m=checkPreview',
                 data: {"id": incode, "scodes": schemecheck},
@@ -589,7 +589,7 @@ define(function (require,exports,module) {
                     }
                 }
             })
-        },500);
+        },5);
     })
     /**
      * 计算范围时间搜索框

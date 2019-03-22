@@ -38,8 +38,8 @@ define(function (require,exports,module) {
     var scodes = $("#scheme_codes").val();
 
     function sendPjax(modcode){
+        $(".search_ing").css("display", "block");
         setTimeout(function () {
-            $(".search_ing").css("display", "block");
             var url = common.rootPath + "zbdata/zsjhedit.htm?m=preDataValue&icode=" + icode + "&time=" + sjselect + "&scodes=" + scodes + "&modcode=" + modcode;
             $.pjax({
                 url: url,
@@ -72,8 +72,8 @@ define(function (require,exports,module) {
     })
 
     function sendzbPjax(zbcode){
+        $(".search_ing").css("display", "block");
         setTimeout(function () {
-            $(".search_ing").css("display", "block");
             var url = common.rootPath + "zbdata/zsjhedit.htm?m=preZbValue&icode=" + icode + "&time=" + sjselect + "&scodes=" + scodes + "&zbcode=" + zbcode;
             $.pjax({
                 url: url,
