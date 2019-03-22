@@ -24,7 +24,7 @@
     }
 </style>
 <body>
-<div class="container-fluid" id="mainpanel">
+<div style="max-height:70%;max-width: 100%;overflow: auto;margin-top: 10px" class="container-fluid" id="mainpanel">
     <div class="panel panel-default">
         <div class="panel-heading">
             权重设置
@@ -35,13 +35,13 @@
         <button type="button" class="btn btn-default btn-sm save_weight" style="float: right;margin-bottom: 15px"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;保存设置
         </button>
     </div>
-    <table class="table table-bordered" id="module_table" style="min-width: 80px;height: 100%;text-align: center;font-size: 14px;">
-        <tr style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';" id="row_head1">
+    <table class="table table-bordered" id="module_table" style="min-width: 100px;text-align: center;font-size: 14px;">
+        <tr style="background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';" id="row_head1">
             <td rowspan="2">总指数</td>
             <%--<td colspan="2">指标</td>--%>
         </tr>
 
-        <tr style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';" id="row_head2">
+        <tr style="background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';" id="row_head2">
             <%--<td>空白</td>
             <td>方案</td>--%>
         </tr>
@@ -113,7 +113,7 @@
 
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:last").parent().append(
-            "<td style=\"text-align:center\" code=${module.getCode()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}'  placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>&nbsp;&nbsp;公式：<input style=\"width:280px\" value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
+            "<td style=\"text-align:center;min-width:480px\" code=${module.getCode()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}'  placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>&nbsp;&nbsp;公式：<input style=\"width:280px\" value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
         )
         </c:forEach>
 
@@ -127,7 +127,7 @@
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:last").parent().nextAll(":eq(" +
             (rows-flag-1)+")").append(
-            "<td style=\"text-align:center\" code=${module.getCode()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>&nbsp;&nbsp;公式：<input style=\"width:280px\" value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
+            "<td style=\"text-align:center;min-width:480px\" code=${module.getCode()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>&nbsp;&nbsp;公式：<input style=\"width:280px\" value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
         )
         </c:forEach>
 
