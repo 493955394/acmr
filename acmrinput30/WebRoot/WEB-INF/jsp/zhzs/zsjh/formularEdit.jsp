@@ -115,37 +115,38 @@
                             </select>
                         </div>
                         <div class="col-sm-1">
-                            <div type="button" class="btn btn-lg btn-block btn-primary" id="add_zb" style="border-radius: 0;background-color: #F39801;color: white;padding-left: 0px;height:40px;width:55px;">添加》</div>
+                            <%--<div type="button" id="add_zb" style="border-radius: 0;background-color: #F39801;color: white;padding-left: 0px;height:30px;width:50px;">添加》</div>--%>
+                                <div type="button" class="btn btn-primary" id="add_zb"> 添加>></div>
                         </div>
                         <div class="col-sm-2">
-                            <textarea rows="8" cols="23" id="formulatext" name="formulatext"><c:if test="${data.getIfzb()==0}">${data.getFormula()}</c:if></textarea>
+                            <textarea rows="8" cols="30" id="formulatext" name="formulatext"><c:if test="${data.getIfzb()==0}">${data.getFormula()}</c:if></textarea>
                             <div class="clearfix"></div>
                             <p></p>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px" class="btn btn-default cal" onclick="addExpressContent('1')"><span style="color: white;">1</span></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px" class="btn btn-default" onclick="addExpressContent('2')"><span style="color: white">2</span></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('3')"><span style="color: white">3</span></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('+')"><span style="color: white">+</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px" class="btn btn-default cal" onclick="addExpressContent('1')"><span style="color: white;">1</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px" class="btn btn-default" onclick="addExpressContent('2')"><span style="color: white">2</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('3')"><span style="color: white">3</span></div>
+                            <div type="button" style="height: 40px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('+')"><span style="color: white">+</span></div>
                             <div style="margin-top: 10px" class="clearfix"></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px"  class="btn btn-default" onclick="addExpressContent('4')"><span style="color: white">4</span></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('5')"><span style="color: white">5</span></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('6')"><span style="color: white">6</span></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('-')"><span style="color: white"> - </span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('4')"><span style="color: white">4</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('5')"><span style="color: white">5</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('6')"><span style="color: white">6</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('-')"><span style="color: white"> - </span></div>
                             <div style="margin-top: 10px" class="clearfix"></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px"  class="btn btn-default" onclick="addExpressContent('7')"><span style="color: white">7</span></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('8')"><span style="color: white">8</span></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('9')"><span style="color: white">9</span></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('*')"><span style="color: white">*</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('7')"><span style="color: white">7</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('8')"><span style="color: white">8</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('9')"><span style="color: white">9</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('*')"><span style="color: white">*</span></div>
                             <div style="margin-top: 10px" class="clearfix"></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px"  class="btn btn-default" onclick="addExpressContent('()')"><span style="color: white">()</span></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('0')"><span style="color: white">0</span></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('.')"><span style="color: white">.</span></div>
-                            <div type="button" style="height: 35px;width: 35px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('/')"><span style="color: white">/</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('()')"><span style="color: white">()</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('0')"><span style="color: white">0</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('.')"><span style="color: white">.</span></div>
+                            <div type="button" style="height: 42px;width: 42px;border-radius: 8px;margin-left: 10px"  class="btn btn-default" onclick="addExpressContent('/')"><span style="color: white">/</span></div>
                         </div>
                         <div class="col-sm-1">
-                            <div type="button" class="btn btn-lg btn-block btn-primary" id="add_hanshu" style="border-radius: 0;background-color: #F39801;color: white;padding-left: 0px;height:40px;width:55px;">《添加</div>
+                            <div type="button" class="btn btn-primary" ><<添加</div>
                         </div>
                         <div class="col-sm-2">
-                            <select size="15" id="hanshu">
+                            <select style="width:250px" size="18" id="hanshu">
                                 <option value="abs()" title="求绝对值">Math.abs</option>
                                 <option value="pow()" title="x的y次方">Math.pow(x,y)</option>
                                 <option value="exp()" title="求e的任意次方">Math.exp</option>
@@ -154,15 +155,24 @@
                                 <option value="max([])" title="求最大值">max()</option>
                                 <option value="min([])" title="求最小值">min()</option>
                                 <option value="avg([])" title="求平均值">avg()</option>
-                                <option value="getvalue()" title="取指标对应的数组">getvalue()</option>
+
+
+                                <option value="getvalue()" title="取指标对应的数组">getvalue(指标1，dq)</option>
+                                <option value="getvalue()" title="取指标对应的数组">getvalue(指标1，lastn-)</option>
+                                <option value="getvalue()" title="取指标对应的数组">getvalue(指标1，lastn-)</option>
+                                <option value="getvalue()" title="取指标对应的数组">getvalue(指标1，begintime)</option>
+                                <option value="getvalue()" title="取指标对应的数组">getvalue(指标1，YYYY)</option>
+                                <option value="getvalue()" title="取指标对应的数组">getvalue(指标1，YYYY-)</option>
+                                <option value="getvalue()" title="取指标对应的数组">getvalue(指标1，YYYY-YYYY)</option>
+                                <option value="getvalue()" title="取指标对应的数组">getvalue(指标1，指标1，指标3)</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-6 col-sm-6">
-                            <button type="submit" class="btn btn-primary ZS_Add">确认</button>
-                            <button type="button" class="btn btn-primary resetbutton">重置</button>
-                            <button type="button" class="btn btn-primary close-edit" >关闭</button>
+                            <button type="submit" class="btn btn-primary ZS_Add"  style="margin-left: 14px">确认</button>
+                            <button type="button" class="btn btn-primary resetbutton" style="margin-left: 10px">重置</button>
+                            <button type="button" class="btn btn-primary close-edit" style="margin-left: 10px">关闭</button>
                         </div>
                     </div>
                 </form>
