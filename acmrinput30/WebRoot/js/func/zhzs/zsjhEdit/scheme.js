@@ -92,6 +92,7 @@ define(function (require,exports,module) {
     /**
      * 新增方案
      */
+
     $(document).on('click','#add_scheme',function (event) {
 
         event.preventDefault();
@@ -100,6 +101,23 @@ define(function (require,exports,module) {
         var remark = "";
         $('input[name="schemename"]').val(name);
         $('input[name="showinfo"]').val(remark);
+
+        $.ajax({
+            url: common.rootPath+'zbdata/indexscheme.htm?m=schCheckMod',
+            data: {"code": icode},
+            type: 'post',
+            dataType: 'json',
+            success:function (data){
+                console.log(data.checkhasMod)
+                if (data.checkhasMod==true) {
+                    $("#scheme_modal").modal('show');
+                }else{
+                    alert("请添加模型节点")
+                    $("#scheme_modal").modal('hide');
+                }
+            }
+        })
+
     });
     $(document).on('submit', '.J_add_scheme', function(event) {
         event.preventDefault();

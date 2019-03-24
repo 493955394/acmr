@@ -429,7 +429,8 @@
                         <div id="scheme_main_container">
                             <div id="scheme_select_button">
                                 <button class="btn btn-primary btn-sm" id="set_scheme_weight_formula">公式/权重设置</button>
-                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#scheme_modal" id="add_scheme">新增方案</button>
+                                <a href="javascript:;" class="btn btn-primary btn-sm" id="add_scheme">新增方案</a>
+                                <%--<span class="btn btn-primary btn-sm" data-toggle="modal" data-target="#scheme_modal" id="add_scheme">新增方案</span>--%>
                                 <input  type="hidden" id="scheme_timeinput"/>
                                 <input type="hidden" id="scheme_timeval" value="">
                                 <div id="scheme_time_select" style="margin-bottom: 10px;"></div>
