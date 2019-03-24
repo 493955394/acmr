@@ -560,15 +560,18 @@ public class IndexListService {
     
     
     /** 
-    * @Description: 检查index下的模型的次级指数总指数下面必须要有指标
+    * @Description: 检查index下的模型的次级指数总指数下面必须要有指标,且范围必须选中
     * @Param: [icode] 
     * @return: java.lang.Boolean 
     * @Author: lyh
     * @Date: 2018/10/17 
     */ 
-    public Boolean checkModuleCat(String icode){
+    public Map<String,String> checkZBModuleCat(String icode){
         List<DataTableRow> rows=IndexListDao.Fator.getInstance().getIndexdatadao().getZSMods(icode).getRows();
+        Map<String,String> map=new HashMap<>();
+        map.put("norange","false");
         Boolean check=true;
+        String s="";
         for (int i=0;i<rows.size();i++){
             String code=rows.get(i).getString("code");
             String cname=rows.get(i).getString("cname");
@@ -584,10 +587,19 @@ public class IndexListService {
             IndexMoudle mod=new IndexMoudle(code,cname,indexcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode);
             if (mod.ZBnums()<1){
                 check=false;
+                s=s+"指数不能为空，";
             }
-
         }
-        return check;
+        List<DataTableRow> zbrow=IndexEditDao.Fator.getInstance().getIndexdatadao().getZBSbyIndexCode(icode).getRows();
+        if (zbrow.size()==0) {
+            check=false;
+            s=s+"计算范围未确认";
+            map.put("norange","true");
+        }
+        map.put("bool", String.valueOf(check));
+        map.put("info",s);
+
+        return map;
     }
 
     /**

@@ -224,7 +224,7 @@ public class indexscheme extends BaseAction {
     public void schCheckMod() throws IOException {
         HttpServletRequest req = this.getRequest();
         JSONReturnData data = new JSONReturnData("");
-        String code = PubInfo.getString(req.getParameter("icode"));
+        String code = req.getParameter("icode");
         IndexListService indexListService = new IndexListService();
         Boolean checkhasMod = indexListService.checkHasMod(code);
         JSONObject obj=new JSONObject();

@@ -1170,17 +1170,22 @@ public class indexlist extends BaseAction {
     //权限管理-------end
     
     /** 
-    * @Description: 检查计划的模型是否有空目录 
+    * @Description: 检查计划的模型是否有空目录，指标是否已经选定
     * @Param: [] 
     * @return: void 
     * @Author: lyh
     * @Date: 2018/10/17 
     */ 
-    public void checkModuleCat() throws IOException {
+    public void checkZBModuleCat() throws IOException {
         HttpServletRequest req=this.getRequest();
         String icode= req.getParameter("icode");
         IndexListService indexListService=new IndexListService();
-        this.sendJson(indexListService.checkModuleCat(icode));
+        Map<String,String> map=indexListService.checkZBModuleCat(icode);
+        JSONObject json=new JSONObject();
+        json.put("info",map.get("info"));
+        json.put("bool",map.get("bool"));
+        json.put("norange",map.get("norange"));
+        this.sendJson(json);
     }
     /**
      * 收到的指数 复制到

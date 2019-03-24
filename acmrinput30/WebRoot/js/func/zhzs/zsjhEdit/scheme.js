@@ -36,15 +36,21 @@ define(function (require,exports,module) {
     function setSingleWeight(){
         var scode=$(this).attr("scheme_code")
         var sname=$(this).attr("scheme_name")
-        //先判断是否存在空目录，如果存在，不跳转
+        //先判断是否存在空目录，如果存在，不跳转，是否已经确认范围，没有，不跳转
         $.ajax({
-            url: common.rootPath+'zbdata/indexlist.htm?m=checkModuleCat&icode='+icode,
+            url: common.rootPath+'zbdata/indexlist.htm?m=checkZBModuleCat&icode='+icode,
             type:'get',
             datatype:'json',
             success:function (re){
-                console.log(re)
-                if(re == false){
-                    alert("指数不能为空！");
+                //console.log(re)
+                if(re.bool == "false"){
+                    alert(re.info);
+                    if (re.norange == "true"){
+                        //console.log("tiaozhuan")
+                        $("#bjjhTab > li").removeClass("active")
+                        $("a[aria-controls='jsfw']").parent().addClass("active")
+                        $("#jsfw").addClass("active")
+                    }
                     return;
                 }else{
                     window.open(common.rootPath+"zbdata/weightset.htm?m=editSingleWeight&icode="+icode+'&scode='+scode+'&sname='+sname)
@@ -62,13 +68,19 @@ define(function (require,exports,module) {
         })*/
         //先判断是否存在空目录，如果存在，不跳转
         $.ajax({
-            url: common.rootPath+'zbdata/indexlist.htm?m=checkModuleCat&icode='+icode,
+            url: common.rootPath+'zbdata/indexlist.htm?m=checkZBModuleCat&icode='+icode,
             type:'get',
-            datatype:'json',
+            dataType:'json',
             success:function (re){
-                console.log(re)
-                if(re == false){
-                    alert("指数不能为空！");
+                //console.log(re)
+                if(re.bool == "false"){
+                    alert(re.info);
+                    if (re.norange == "true"){
+                        //console.log("tiaozhuan")
+                        $("#bjjhTab > li").removeClass("active")
+                        $("a[aria-controls='jsfw']").parent().addClass("active")
+                        $("#jsfw").addClass("active")
+                    }
                     return;
                 }else{
                     //判断是否有选中的方案，个数在1-3个
@@ -104,7 +116,7 @@ define(function (require,exports,module) {
 
         $.ajax({
             url: common.rootPath+'zbdata/indexscheme.htm?m=schCheckMod',
-            data: {"code": icode},
+            data: {"icode": icode},
             type: 'post',
             dataType: 'json',
             success:function (data){
