@@ -2307,8 +2307,8 @@ public class zsjhedit extends BaseAction {
                     //换算单位
                     if (!odata.equals("")){
                         String funit=originService.getwdnode("zb",zbcode,dbcode).getUnitcode();
-                        BigDecimal rate=new BigDecimal(originService.getRate(funit,unitcode,sj));
-                        BigDecimal ndata=(new BigDecimal(odata)).multiply(rate);
+                        BigDecimal rate=new BigDecimal(String.valueOf(originService.getRate(funit,unitcode,sj)));
+                        BigDecimal ndata=(new BigDecimal(String.valueOf(odata))).multiply(rate);
                         data.add(String.valueOf(ndata));
                     }
                     else data.add("");
