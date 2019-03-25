@@ -9,8 +9,8 @@
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 
-<div style="max-height:55%;max-width: 100%;overflow: auto;margin-top: 10px">
-    <table  style="width: 100%;font-size: 14px;text-align: center;" class="table table-bordered" id="previewzb-table">
+<div style="max-height:60%;max-width: 100%;overflow: auto;margin-top: 30px; border: 1px solid #EAECF1;font-size: 14px;text-align: center;">
+    <table  style="font-size: 14px;text-align: center;" class="table table-bordered" id="previewzb-table">
         <thead style="background-color: #e4edf6">
         <th>地区</th>
         <c:forEach items="${sj}" var="list">
@@ -21,7 +21,7 @@
         <c:forEach items="${datas}" var="data">
         <tr>
             <c:forEach items="${data}" var="var">
-                <td style="min-width: 80px;">${var}</td>
+                <td><div  style="min-width: 80px;">${var}</div></td>
             </c:forEach>
         </tr>
         </c:forEach>

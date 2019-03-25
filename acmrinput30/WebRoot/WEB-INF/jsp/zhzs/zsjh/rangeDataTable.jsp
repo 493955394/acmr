@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<div class="range_table_container" style="overflow: auto;width: 100%;max-height: 100%;">
+<div class="range_table_container" style="overflow: auto;width: 100%;max-height: 100%;border: 1px solid #EAECF1;font-size: 14px;text-align: center;">
     <table class="table table-bordered table-hover range_table " style="width: 100%;">
 
         <thead style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';">

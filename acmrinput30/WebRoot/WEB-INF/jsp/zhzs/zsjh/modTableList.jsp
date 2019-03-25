@@ -16,7 +16,8 @@
 </style>
 <div>
     <div>
-        <div>
+        <div style="overflow-x: auto;
+    border: 1px solid #EAECF1;max-height:100%;font-size: 14px;text-align: center;">
             <table class="table table-bordered table-hover">
                 <thead  style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';">
                 <tr id="mod_list_head">
