@@ -14,8 +14,8 @@
     }
 </style>
 
-        <div style="width: 100%;max-height: 100%;overflow: auto">
-            <table class="table table-bordered" id="origin-data">
+        <div style="overflow: auto;height: 55%;">
+            <table class="table table-bordered" id="origin-data" style="height: 100%">
                 <thead>
                 <tr id="mod_list_head">
                     <td>指标</td>
