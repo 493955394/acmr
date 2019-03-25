@@ -120,8 +120,8 @@ define(function (require,exports,module) {
             type: 'post',
             dataType: 'json',
             success:function (data){
-                console.log(data.checkhasMod)
-                if (data.checkhasMod==true) {
+                console.log(data.checkTureMod)
+                if (data.checkTureMod==true) {
                     $("#scheme_modal").modal('show');
                 }else{
                     alert("请添加模型节点")

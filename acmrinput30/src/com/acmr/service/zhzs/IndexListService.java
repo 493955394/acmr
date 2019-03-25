@@ -671,6 +671,36 @@ public class IndexListService {
         }
         return check;
     }
+
+    /**
+     * @Description: 校验该计划必须有完整模型节点
+     * @Param: [icode]
+     * @return: java.lang.Boolean
+     * @Date: 2019/3/25
+     */
+    public Boolean checkTureMod(String icode) {
+        List<DataTableRow> rows = IndexListDao.Fator.getInstance().getIndexdatadao().getZSMods(icode).getRows();
+        Boolean check = true;
+        for (int i = 0; i < rows.size(); i++) {
+            String code = rows.get(i).getString("code");
+            String cname = rows.get(i).getString("cname");
+            String indexcode = rows.get(i).getString("indexcode");
+            String procode = rows.get(i).getString("procode");
+            String ifzs = rows.get(i).getString("ifzs");
+            String ifzb = rows.get(i).getString("ifzb");
+            String formula = rows.get(i).getString("formula");
+            String sortcode = rows.get(i).getString("sortcode");
+            String weight = rows.get(i).getString("weight");
+            String dacimal = rows.get(i).getString("dacimal");
+            String copycode = rows.get(i).getString("copycode");
+            IndexMoudle mod = new IndexMoudle(code, cname, indexcode, procode, ifzs, ifzb, formula, sortcode, weight, dacimal, copycode);
+            if (mod.ZBnums() < 1) {
+                check = false;
+                break;
+            }
+        }
+        return check;
+    }
     /**
      *  校验方案的选用
      */

@@ -226,9 +226,10 @@ public class indexscheme extends BaseAction {
         JSONReturnData data = new JSONReturnData("");
         String code = req.getParameter("icode");
         IndexListService indexListService = new IndexListService();
-        Boolean checkhasMod = indexListService.checkHasMod(code);
+        Boolean checkTureMod = indexListService.checkTureMod(code);
+
         JSONObject obj=new JSONObject();
-        obj.put("checkhasMod",checkhasMod);
+        obj.put("checkTureMod",checkTureMod);
         this.sendJson(obj);
     }
 }
