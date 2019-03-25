@@ -479,7 +479,7 @@ public class IndexEditService {
                    try {
                        List<CubeNode> sj = os.getwdsubnodes("sj", wd, dbcode);
                        str=str.replace("getvalue("+orgStr+")","2.0,2.0,2.0");//要是符合条件就给换成数组
-                   }catch (NullPointerException e){
+                   }catch (NullPointerException | NumberFormatException e){
                        e.printStackTrace();
                        break;//不符合直接跳出循环
                    }
