@@ -147,9 +147,9 @@
                             <div type="button" id="add_hanshu" class="btn btn-primary" ><<添加</div>
                         </div>
                         <div class="col-sm-2">
-                            <select style="width:250px" size="18" id="hanshu">
+                            <select style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width:250px" size="20" id="hanshu">
 
-                                <optgroup label="计算函数" style="background-color: #EEEEEE;"></optgroup>
+                                <optgroup label="计算公式" style="background-color: #EEEEEE;"></optgroup>
                                 <option value="abs()" title="求绝对值">Math.abs</option>
                                 <option value="pow()" title="x的y次方">Math.pow(x,y)</option>
                                 <option value="exp()" title="求e的任意次方">Math.exp</option>
@@ -159,7 +159,7 @@
                                 <option value="min([])" title="求最小值">min()</option>
                                 <option value="avg([])" title="求平均值">avg()</option>
 
-                                <optgroup label="数组函数" style="background-color: #EEEEEE;"></optgroup>
+                                <optgroup label="数组公式" style="background-color: #EEEEEE;"></optgroup>
                                 <option value="getvalue(指标1,dq)" title="取当前时间对应指标所有地区的数值集合">getvalue(指标,dq)</option>
                                 <option value="getvalue()" title="取当前地区对应指标最近n期时间数值集合">getvalue(指标,lastn)</option>
                                 <option value="getvalue(指标1,lastnumn)" title="取当前地区对应指标最近第n期时间数值集合">getvalue(指标,lastnumn)</option>
@@ -168,6 +168,10 @@
                                 <option value="getvalue()" title="取当前地区对应指标从指定年份到最新时间的数值集合">getvalue(指标,YYYY-)</option>
                                 <option value="getvalue()" title="取当前地区对应指标从指定时间范围的数值集合">getvalue(指标,YYYY-YYYY)</option>
                                 <option value="getvalue()" title="取当前地区和当前时间不同指标的数值集合">getvalue(指标1,指标2,指标3)</option>
+
+                                <optgroup label="提示" style="background-color: #F39801;"></optgroup>
+                                <option style="width:240px" value="" >getvalue()数值集合需要配合max(),min(),avg()计算公式使用</option>
+
                             </select>
                         </div>
                     </div>

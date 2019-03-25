@@ -9,8 +9,8 @@
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <input type="hidden" id="result-ifcomplete" value="${flag}">
-<div style="max-height:100%;width: 100%;overflow: auto">
-    <table class="table table-bordered J_jsjg_table">
+<div style="overflow: auto;height: 55%;">
+    <table class="table table-bordered J_jsjg_table" style="height: 100%">
         <thead>
         <tr>
         <td rowspan="2" align="center">指标</td>
