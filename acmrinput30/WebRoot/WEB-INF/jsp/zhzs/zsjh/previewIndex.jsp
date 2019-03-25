@@ -41,7 +41,7 @@
         <input type="hidden" id="timecode" value="${times}">
         <input type="hidden" id="scheme_codes" value="${scodes}">
         <div class="col-sm-7">
-            <div class="modselect" style="padding-right: 20px;">
+            <div class="modselect" style="padding-right: 20px;height: 20px">
                 <select id="ms">
                     <c:forEach items="${mods}" var="module">
                         <option value="${module.getCode()}">${module.getCname()}</option>
@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="col-sm-5">
-            <div class="zbselect" style="padding-right: 20px;">
+            <div class="zbselect" style="padding-right: 20px;height: 20px">
                 <select  id="zblist">
                     <c:forEach items="${zblist.zbchoose}" var="zbl">
                         <option value="${zbl.code}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
