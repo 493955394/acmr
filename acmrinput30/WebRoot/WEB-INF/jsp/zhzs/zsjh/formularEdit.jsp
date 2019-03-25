@@ -169,9 +169,9 @@
                                 <option value="getvalue()" title="取当前地区对应指标从指定时间范围的数值集合">getvalue(指标,YYYY-YYYY)</option>
                                 <option value="getvalue()" title="取当前地区和当前时间不同指标的数值集合">getvalue(指标1,指标2,指标3)</option>
 
-                                <optgroup label="提示" style="background-color: #F39801;"></optgroup>
-                                <option style="width:240px" value="" >getvalue()数值集合需要配合max(),min(),avg()计算公式使用</option>
-
+                                <optgroup label="提示:" style="background-color: #F39801;"></optgroup>
+                                <option value="" >注：getvalue()数值集合需要配合</option>
+                                <option value="" >max(),min(),avg()计算公式使用</option>
                             </select>
                         </div>
                     </div>
