@@ -193,6 +193,7 @@ public class DataPreviewService {
         int check = subDataCheck(subs,reg,scode,listToMap);
         if(check ==1){//下一级的值不全
             for (int i = 0; i <subs.size() ; i++) {
+                if(!listToMap.containsKey(subs.get(i).getCode()+","+reg+","+scode))
                     calculateZS(subs.get(i).getCode(),time,reg,scode,icode,list,listToMap);
             }
             calculateZS(code,time,reg,scode,icode,list,listToMap);//计算一遍它的父级
@@ -297,11 +298,11 @@ public class DataPreviewService {
         int i = 0;
         Map<String,String> sub = new HashMap<>();
         for (int j = 0; j <iModules.size() ; ++j) {
-            String modcode = iModules.get(i).getCode();
+            String modcode = iModules.get(j).getCode();
            sub.put(modcode+","+reg+","+scode,"");
         }
         for(String k : sub.keySet()){
-            if(list.get(k)==null){
+            if(!list.containsKey(k)){
                 i = 1;//证明缺值
                 break;
             }
