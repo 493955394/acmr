@@ -190,7 +190,7 @@ public class DataPreviewService {
     public  void calculateZS(String code, String time, String reg,String scode,String icode,List<DataPreview> list,Map<String,String> listToMap){
         DataPreview zsdata = new DataPreview();
         List<IndexMoudle> subs = findSubMod(code,scode);
-        int check = subDataCheck(subs,reg,time,scode,list);
+        int check = subDataCheck(subs,reg,scode,listToMap);
         if(check ==1){//下一级的值不全
             for (int i = 0; i <subs.size() ; i++) {
                     calculateZS(subs.get(i).getCode(),time,reg,scode,icode,list,listToMap);
@@ -293,28 +293,15 @@ public class DataPreviewService {
     /**
      * 查询当前的节点的下级的值是否是全的，返回1代表缺值
      */
-    public int subDataCheck(List<IndexMoudle> iModules, String reg, String time,String scode,List<DataPreview> list){
+    public int subDataCheck(List<IndexMoudle> iModules, String reg,String scode,Map<String,String> list){
         int i = 0;
-        List<Map<String,String>> sublist = new ArrayList<>();
-        List<Map<String,String>> haslist = new ArrayList<>();
+        Map<String,String> sub = new HashMap<>();
         for (int j = 0; j <iModules.size() ; ++j) {
-            Map<String,String> sub = new HashMap<>();
-            sub.put("modcode",iModules.get(j).getCode());
-            sub.put("reg",reg);
-            sub.put("sj",time);
-            sub.put("scode",scode);
-            sublist.add(sub);
+            String modcode = iModules.get(i).getCode();
+           sub.put(modcode+","+reg+","+scode,"");
         }
-        for(int j =0;j<list.size();++j){
-            Map<String,String> sub = new HashMap<>();
-            sub.put("modcode",list.get(j).getModcode());
-            sub.put("reg",list.get(j).getRegion());
-            sub.put("sj",list.get(j).getAyearmon());
-            sub.put("scode",list.get(j).getScode());
-            haslist.add(sub);
-        }
-        for(int k=0;k<sublist.size();++k){
-            if(!haslist.contains(sublist.get(k))){
+        for(String k : sub.keySet()){
+            if(list.get(k)==null){
                 i = 1;//证明缺值
                 break;
             }
