@@ -172,9 +172,10 @@ public class DataPreviewService {
         //开始算指数
         //指标已经算完
         List<IndexMoudle> zong = findRoot(icode);
+        Map<String,String> listToMap = listToMap(newadd);
         for (int i = 0; i <zong.size() ; i++) {
             for (int j = 0; j <reg.length ; j++) {//一个地区一个地区地算
-                calculateZS(zong.get(i).getCode(),time,reg[j],scode,icode,newadd);
+                calculateZS(zong.get(i).getCode(),time,reg[j],scode,icode,newadd,listToMap);
             }
         }
         int i=addDataresult(newadd);
@@ -186,15 +187,15 @@ public class DataPreviewService {
     /**
      * 计算指数（乘上权重），递归
      */
-    public  void calculateZS(String code, String time, String reg,String scode,String icode,List<DataPreview> list){
+    public  void calculateZS(String code, String time, String reg,String scode,String icode,List<DataPreview> list,Map<String,String> listToMap){
         DataPreview zsdata = new DataPreview();
         List<IndexMoudle> subs = findSubMod(code,scode);
         int check = subDataCheck(subs,reg,time,scode,list);
         if(check ==1){//下一级的值不全
             for (int i = 0; i <subs.size() ; i++) {
-                    calculateZS(subs.get(i).getCode(),time,reg,scode,icode,list);
+                    calculateZS(subs.get(i).getCode(),time,reg,scode,icode,list,listToMap);
             }
-            calculateZS(code,time,reg,scode,icode,list);//计算一遍它的父级
+            calculateZS(code,time,reg,scode,icode,list,listToMap);//计算一遍它的父级
         }
         else {//要是下一级的值是全的，就把值加到zsdatas中
             IndexMoudle temp = getModData(code,scode,icode);
@@ -206,7 +207,6 @@ public class DataPreviewService {
             zsdata.setScode(scode);
             String formula = "";
             boolean flag = false;
-           Map<String,String> listToMap = listToMap(list);
             for (int i = 0; i < subs.size(); i++) {
                 String data = listToMap.get(subs.get(i).getCode()+","+reg+","+scode);
                 if(data.equals("")){
@@ -217,11 +217,15 @@ public class DataPreviewService {
             }
             if(flag){
                 zsdata.setData("");
+                listToMap.put(temp.getCode()+","+reg+","+scode,"");
             }else {
-                zsdata.setData(tocalculate(formula.substring(1),temp.getDacimal()));
+                String val = tocalculate(formula.substring(1),temp.getDacimal());
+                zsdata.setData(val);
+                listToMap.put(temp.getCode()+","+reg+","+scode,val);
             }
             list.add(zsdata);
-        }
+
+            }
     }
 
     /*
