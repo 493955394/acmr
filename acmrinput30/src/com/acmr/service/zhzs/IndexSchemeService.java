@@ -8,6 +8,7 @@ import com.acmr.dao.zhzs.SchemeDao;
 import com.acmr.dao.zhzs.WeightEditDao;
 import com.acmr.model.zhzs.IndexMoudle;
 import com.acmr.model.zhzs.Scheme;
+import com.acmr.web.jsp.zbdata.zsjhedit;
 
 import java.util.*;
 
@@ -83,8 +84,19 @@ public class IndexSchemeService {
     public String getModSchemeWeight(String scode,String modcode){
         return ischemeDao.getModSchemeWeight(scode,modcode);
     }
-    public String getModSchemeFormula(String scode,String modcode){
-        return ischemeDao.getModSchemeFormula(scode,modcode);
+    public String getModSchemeFormula(String scode,String modcode,String icode,String ifzs){
+        String sformula = ischemeDao.getModSchemeFormula(scode,modcode);
+        //替换
+        String ifzb = ischemeDao.getScMod(modcode,icode,scode).getRows().get(0).getString("ifzb");
+        if(ifzs.equals("0")){//如果是指数的话
+            if(ifzb.equals("0")){//自定义公式
+                sformula = new zsjhedit().changeFormula(sformula,icode,"CTN");
+            }
+            else {//直接选的指标当公式
+                sformula =new zsjhedit().formulaShow(sformula,icode);
+            }
+        }
+        return sformula;
     }
 
     public int checkSchname(String icode,String cname){

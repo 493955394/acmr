@@ -235,15 +235,7 @@ public class IndexMoudle {
     */
     public String getSformula(String scode){
         IndexSchemeService indexSchemeService = new IndexSchemeService();
-        String sformula = indexSchemeService.getModSchemeFormula(scode, this.getCode());
-            if(this.ifzs.equals("0")){//如果是指数的话
-                if(this.ifzb.equals("0")){//自定义公式
-                    sformula = new zsjhedit().changeFormula(sformula,this.indexcode,"CTN");
-                }
-                else {//直接选的指标当公式
-                    sformula =new zsjhedit().formulaShow(sformula,this.indexcode);
-                }
-            }
+        String sformula = indexSchemeService.getModSchemeFormula(scode, this.getCode(),this.indexcode,this.ifzs);
         return sformula;
     }
 
