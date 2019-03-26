@@ -230,7 +230,7 @@ public class zstask extends BaseAction {
                             String [] getregname = getreg.split(",");
                             String reg = regs.get(r);
                             String b = regs.get(0);
-                            if(!getreg.equals(reg)){
+                            if(!getreg.trim().equals(reg)){
                                 data.setReturncode(300);
                                 data.setReturndata("指标或地区有误，请比对下载进行数据修改");
                                 this.sendJson(data);
@@ -249,7 +249,7 @@ public class zstask extends BaseAction {
                             String ZBcode = ZBcodes.get(z);
                             ZBname.add(indexTaskService.getzbname(ZBcode,icode));
                             String zbname = ZBname.get(z);
-                            if(!getzb.equals(zbname)){
+                            if(!getzb.trim().equals(zbname)){
                                 data.setReturncode(300);
                                 data.setReturndata("指标或地区有误，请重新下载再进行数据修改上传");
                                 this.sendJson(data);
