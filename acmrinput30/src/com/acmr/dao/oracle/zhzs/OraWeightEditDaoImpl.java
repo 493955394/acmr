@@ -34,11 +34,12 @@ public class OraWeightEditDaoImpl implements IWeightEditDao {
         try {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
-            String sql1="update tb_coindex_module set weight=?,formula=? where code=?";
+            String sql1="update tb_coindex_module set weight=?,formula=?,ifzb=? where code=?";
             for (int i = 0; i < scheme.size(); i++) {
                 List<Object> params = new ArrayList<Object>();
                 params.add(scheme.get(i).getWeight());
                 params.add(scheme.get(i).getFormula());
+                params.add(scheme.get(i).getIfzb());
                 params.add(scheme.get(i).getModcode());
                 dataQuery.executeSql(sql1, params.toArray());
 
