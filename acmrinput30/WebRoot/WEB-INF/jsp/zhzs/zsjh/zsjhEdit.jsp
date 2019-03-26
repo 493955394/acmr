@@ -421,8 +421,8 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="edit_tab tab-pane" id="jsfa">
-                        <div id="ict-loading-box rangData_ing">
-                            <div class="ict-loading-box rangData_ing">
+                        <div id="rangData_ing" style="position: fixed; z-index: 19910414; width: 100%; background: rgba(0, 0, 0, 0.15); height: 100%; display: none; top: 0; left: 0;">
+                            <div class="ict-loading-box">
                                 <img src="${ctx}/images/ict_loading.svg" /> 计算中
                             </div>
                         </div>

@@ -38,7 +38,7 @@ define(function (require,exports,module) {
     var scodes = $("#scheme_codes").val();
 
     function sendPjax(modcode){
-        $(".search_ing").css("display", "block");
+        $("#search_ing").css("display", "block");
         setTimeout(function () {
             var url = common.rootPath + "zbdata/zsjhedit.htm?m=preDataValue&icode=" + icode + "&time=" + sjselect + "&scodes=" + scodes + "&modcode=" + modcode;
             $.pjax({
@@ -58,7 +58,7 @@ define(function (require,exports,module) {
      */
     $("#ms").change(function (e) {
         e.preventDefault();
-        $(".search_ing").css("display","block");
+        $("#search_ing").css("display","block");
         var modcode = $(this).val();
         sendPjax(modcode);
     })
@@ -72,7 +72,7 @@ define(function (require,exports,module) {
     })
 
     function sendzbPjax(zbcode){
-        $(".search_ing").css("display", "block");
+        $("#search_ing").css("display", "block");
         setTimeout(function () {
             var url = common.rootPath + "zbdata/zsjhedit.htm?m=preZbValue&icode=" + icode + "&time=" + sjselect + "&scodes=" + scodes + "&zbcode=" + zbcode;
             $.pjax({
@@ -88,7 +88,7 @@ define(function (require,exports,module) {
     }
 
     $(document).on('pjax:success',function(){
-        $(".search_ing").css("display","none");
+        $("#search_ing").css("display","none");
     });
 
     //重新绘制表格，定宽

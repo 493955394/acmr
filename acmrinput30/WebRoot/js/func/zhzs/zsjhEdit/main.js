@@ -616,7 +616,7 @@ define(function (require,exports,module) {
         }
         schemecheck=schemecheck.substring(1);
         var schemetime = $('#scheme_timeval').val();
-        $(".rangData_ing").show();
+        $("#rangData_ing").show();
         setTimeout(function () {
             $.ajax({
                 url: common.rootPath + 'zbdata/zsjhedit.htm?m=checkPreview',
@@ -627,12 +627,12 @@ define(function (require,exports,module) {
                 timeout: 50,
                 success: function (re) {
                     if (re.return == 200) {
-                        $(".rangData_ing").hide();
+                        $("#rangData_ing").hide();
                         window.open(common.rootPath + 'zbdata/zsjhedit.htm?m=previewIndex&id=' + incode + "&timeinput=" + schemetime + "&scodes=" + schemecheck);
                     }
                     else {
                         alert(re.return + "无法查看预览结果！")
-                        $(".rangData_ing").hide();
+                        $("#rangData_ing").hide();
                     }
                 }
             })

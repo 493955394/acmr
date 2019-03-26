@@ -574,7 +574,7 @@ define(function (require,exports,module) {
         event.preventDefault();
         var code=$(this).attr('name')
         var state="1"
-        $(".start_ing").css("display","block")
+        $("#start_ing").css("display","block")
         setTimeout(function () {
             $.ajax({
                 url: common.rootPath + 'zbdata/indexlist.htm?m=switchState',
@@ -582,7 +582,7 @@ define(function (require,exports,module) {
                 type: 'post',
                 dataType: 'json',
                 success:function(data){
-                    $(".start_ing").css("display","none")
+                    $("#start_ing").css("display","none")
                     if(data.returncode == 200){
                         var url=window.location.href;
                         alert("启用成功")
