@@ -408,7 +408,7 @@
                                             &nbsp;
                                            <%-- <button class="btn btn-default btn-sm J_Add weight_set" type="button">
                                                 <i class="weight-edit"></i>权重设置
-                                            </button>--%
+                                            </button>--%>
                                             &nbsp;
                                         </div>
                                     </div>
