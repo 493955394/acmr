@@ -42,6 +42,9 @@
         </c:forEach>
         </tbody>
     </table>
+    <div>
+        <p id="check_info"></p>
+    </div>
 </div>
 
 
