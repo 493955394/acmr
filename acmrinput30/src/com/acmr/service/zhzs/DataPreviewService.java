@@ -98,7 +98,7 @@ public class DataPreviewService {
                                 if(!result.get(0).getData().getStrdata().equals("")){//如果有值的话
                                     //单位换算
                                     String funit=originService.getwdnode("zb",zbs.get(k).get("zbcode").toString(),dbcode).getUnitcode();
-                                    BigDecimal rate = new BigDecimal(originService.getRate(funit,zbs.get(k).get("unitcode").toString(),time));
+                                    BigDecimal rate = new BigDecimal(String.valueOf(originService.getRate(funit,zbs.get(k).get("unitcode").toString(),time)));
                                     BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
                                     BigDecimal val = orval.setScale(Integer.parseInt(data.get(i).getDacimal()),RoundingMode.CEILING);//截取小数点
                                     da.setData(val.toPlainString());
@@ -150,7 +150,7 @@ public class DataPreviewService {
                                 } else {
                                     //单位换算
                                     String funit = originService.getwdnode("zb", zbs.get(k).get("zbcode").toString(), dbcode).getUnitcode();
-                                    BigDecimal rate = new BigDecimal(originService.getRate(funit, zbs.get(k).get("unitcode").toString(), time));
+                                    BigDecimal rate = new BigDecimal(String.valueOf(originService.getRate(funit, zbs.get(k).get("unitcode").toString(), time)));
                                     BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
                                     formula = formula.replace("#" + zbs.get(k).get("code").toString() + "#", orval.toPlainString());//换成对应的value
                                 }
@@ -398,7 +398,7 @@ public class DataPreviewService {
                         if(!result.get(0).getData().getStrdata().equals("")){//如果有值的话
                             //单位换算
                             String funit=originService.getwdnode("zb",zbs.get(k).get("zbcode").toString(),dbcode).getUnitcode();
-                            BigDecimal rate = new BigDecimal(originService.getRate(funit,zbs.get(k).get("unitcode").toString(),time));
+                            BigDecimal rate = new BigDecimal(String.valueOf(originService.getRate(funit,zbs.get(k).get("unitcode").toString(),time)));
                             BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
                            val = orval.toPlainString();
                         }
