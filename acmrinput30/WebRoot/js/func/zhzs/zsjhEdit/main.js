@@ -184,8 +184,8 @@ define(function (require,exports,module) {
         if(currenttab!="")
             $("#bjjhTab a[href='#jsfw']").click();
         if($("#sjss").val()!=""){
-            $(".dttext").val($("#sjss").val())
-            $(".dttextbtn").click();
+            $("#mySelectTime1 .dttext").val($("#sjss").val())
+            $("#mySelectTime1 .dttextbtn").click();
         }
     });
     //点击指标筛选，激活第一个已选指标

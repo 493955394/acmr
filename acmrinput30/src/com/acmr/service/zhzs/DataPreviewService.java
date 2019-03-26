@@ -20,6 +20,7 @@ import org.apache.commons.lang.StringUtils;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -40,15 +41,7 @@ public class DataPreviewService {
         String [] reg = regs.split(",");
         //开始计算指数的值，包括乘上weight
         try {
-            if(calculateZB(time,regs,icode,scode)){
-                //指标已经算完
-                List<IndexMoudle> zong = findRoot(icode);
-                for (int i = 0; i <zong.size() ; i++) {
-                    for (int j = 0; j <reg.length ; j++) {//一个地区一个地区地算
-                        calculateZS(zong.get(i).getCode(),time,reg[j],scode,icode);
-                    }
-                }
-            }
+            calculateZB(time,regs,icode,scode);
         } catch (MathException e) {
             e.printStackTrace();
             return false;
@@ -176,6 +169,15 @@ public class DataPreviewService {
                 }
             }
         }
+        //开始算指数
+        //指标已经算完
+        List<IndexMoudle> zong = findRoot(icode);
+        Map<String,String> listToMap = listToMap(newadd);
+        for (int i = 0; i <zong.size() ; i++) {
+            for (int j = 0; j <reg.length ; j++) {//一个地区一个地区地算
+                calculateZS(zong.get(i).getCode(),time,reg[j],scode,icode,newadd,listToMap);
+            }
+        }
         int i=addDataresult(newadd);
         if (i!=1){
             return false;
@@ -185,21 +187,16 @@ public class DataPreviewService {
     /**
      * 计算指数（乘上权重），递归
      */
-    public  void calculateZS(String code, String time, String reg,String scode,String icode) throws MathException{
+    public  void calculateZS(String code, String time, String reg,String scode,String icode,List<DataPreview> list,Map<String,String> listToMap){
         DataPreview zsdata = new DataPreview();
-        IndexEditService originDataService = new IndexEditService();
         List<IndexMoudle> subs = findSubMod(code,scode);
-        int check = subDataCheck(subs,reg,time,scode);
+        int check = subDataCheck(subs,reg,scode,listToMap);
         if(check ==1){//下一级的值不全
             for (int i = 0; i <subs.size() ; i++) {
-                //先去检查数据库有没有值，有值就不算了
-                List<IndexMoudle> tmp =new ArrayList<>();
-                tmp.add(subs.get(i));
-                if(subDataCheck(tmp,reg,time,scode)==1){
-                    calculateZS(subs.get(i).getCode(),time,reg,scode,icode);
-                }
+                if(!listToMap.containsKey(subs.get(i).getCode()+","+reg+","+scode))
+                    calculateZS(subs.get(i).getCode(),time,reg,scode,icode,list,listToMap);
             }
-            calculateZS(code,time,reg,scode,icode);//计算一遍它的父级
+            calculateZS(code,time,reg,scode,icode,list,listToMap);//计算一遍它的父级
         }
         else {//要是下一级的值是全的，就把值加到zsdatas中
             IndexMoudle temp = getModData(code,scode,icode);
@@ -212,7 +209,7 @@ public class DataPreviewService {
             String formula = "";
             boolean flag = false;
             for (int i = 0; i < subs.size(); i++) {
-                String data = getzbvalue(subs.get(i).getCode(),reg,time,scode);
+                String data = listToMap.get(subs.get(i).getCode()+","+reg+","+scode);
                 if(data.equals("")){
                     flag = true;
                     continue;
@@ -221,11 +218,15 @@ public class DataPreviewService {
             }
             if(flag){
                 zsdata.setData("");
+                listToMap.put(temp.getCode()+","+reg+","+scode,"");
             }else {
-                zsdata.setData(tocalculate(formula.substring(1),temp.getDacimal()));
+                String val = tocalculate(formula.substring(1),temp.getDacimal());
+                zsdata.setData(val);
+                listToMap.put(temp.getCode()+","+reg+","+scode,val);
             }
-            addzsdata(zsdata);
-        }
+            list.add(zsdata);
+
+            }
     }
 
     /*
@@ -239,16 +240,24 @@ public class DataPreviewService {
             IndexMoudle iModule = new IndexMoudle();
             String modcode = data.get(i).getString("code");
             String indexcode = data.get(i).getString("indexcode");
-            //找到方案对应的公式和权重
-            IndexMoudle scheme= ss.getModData(modcode,indexcode,scode);
+
             iModule.setCode(modcode);
             iModule.setCname(data.get(i).getString("cname"));
             iModule.setIndexcode(indexcode);
             iModule.setProcode(data.get(i).getString("procode"));
             iModule.setIfzs(data.get(i).getString("ifzs"));
-            iModule.setIfzb(scheme.getIfzb());//替换成方案对应的权重和公式，同下
-            iModule.setFormula(scheme.getFormula());
-            iModule.setWeight(scheme.getWeight());
+            if(ifzs.equals("0")){
+                //找到方案对应的公式和权重
+                IndexMoudle scheme= ss.getModData(modcode,indexcode,scode);
+                iModule.setIfzb(scheme.getIfzb());//替换成方案对应的权重和公式，同下
+                iModule.setFormula(scheme.getFormula());
+                iModule.setWeight(scheme.getWeight());
+            }
+            else {
+                iModule.setIfzb(data.get(i).getString("ifzb"));
+                iModule.setFormula(data.get(i).getString("formula"));
+                iModule.setWeight(data.get(i).getString("weight"));
+            }
             iModule.setSortcode(data.get(i).getString("sortcode"));
             iModule.setDacimal(data.get(i).getString("dacimal"));
             indexModules.add(iModule);
@@ -262,23 +271,19 @@ public class DataPreviewService {
      */
     public List<IndexMoudle> findSubMod(String code,String scode){
         List<IndexMoudle> taskModules = new ArrayList<>();
-        List<DataTableRow> data =new ArrayList<>();
-        IndexSchemeService ss = new IndexSchemeService();
-        data = DataPreviewDao.Fator.getInstance().getIndexdatadao().getSubMod(code).getRows();
+        List<DataTableRow> data = DataPreviewDao.Fator.getInstance().getIndexdatadao().getSubMod(code).getRows();
         for (int i = 0; i <data.size() ; i++) {
             IndexMoudle taskModule = new IndexMoudle();
             String modcode = data.get(i).getString("code");
             String indexcode = data.get(i).getString("indexcode");
-            //找到方案对应的公式和权重
-            IndexMoudle scheme= ss.getModData(modcode,indexcode,scode);
             taskModule.setCode(modcode);
             taskModule.setCname(data.get(i).getString("cname"));
             taskModule.setIndexcode(indexcode);
             taskModule.setProcode(data.get(i).getString("procode"));
             taskModule.setIfzs(data.get(i).getString("ifzs"));
-            taskModule.setIfzb(scheme.getIfzb());
-            taskModule.setFormula(scheme.getFormula());
-            taskModule.setWeight(scheme.getWeight());
+            taskModule.setIfzb(data.get(i).getString("ifzb"));
+            taskModule.setFormula(data.get(i).getString("formula"));
+            taskModule.setWeight(data.get(i).getString("weight"));
             taskModule.setSortcode(data.get(i).getString("sortcode"));
             taskModule.setDacimal(data.get(i).getString("dacimal"));
             taskModules.add(taskModule);
@@ -287,14 +292,19 @@ public class DataPreviewService {
     }
 
     /**
-     * 查询data_result_tmp中是否有值，返回1代表缺值
+     * 查询当前的节点的下级的值是否是全的，返回1代表缺值
      */
-    public int subDataCheck(List<IndexMoudle> iModules, String reg, String time,String scode){
+    public int subDataCheck(List<IndexMoudle> iModules, String reg,String scode,Map<String,String> list){
         int i = 0;
-        for (int j = 0; j <iModules.size() ; j++) {
-            int temp = DataPreviewDao.Fator.getInstance().getIndexdatadao().subDataCheck(iModules.get(j).getCode(),reg,time,scode);
-            if(temp == 1 ){
+        Map<String,String> sub = new HashMap<>();
+        for (int j = 0; j <iModules.size() ; ++j) {
+            String modcode = iModules.get(j).getCode();
+           sub.put(modcode+","+reg+","+scode,"");
+        }
+        for(String k : sub.keySet()){
+            if(!list.containsKey(k)){
                 i = 1;//证明缺值
+                break;
             }
         }
         return i;
@@ -306,17 +316,6 @@ public class DataPreviewService {
     public int addDataresult(List<DataPreview> dataResults){return DataPreviewDao.Fator.getInstance().getIndexdatadao().addDataResult(dataResults);}
     public int addzsdata(DataPreview dataResult){return DataPreviewDao.Fator.getInstance().getIndexdatadao().addZSData(dataResult);}
 
-    /**
-     * 查询对应的data值
-     */
-    public String getzbvalue(String modcode,String region,String time,String scode){
-        String value = "";
-        DataTable data = DataPreviewDao.Fator.getInstance().getIndexdatadao().getData(modcode,region,time,scode);
-        if(data.getRows().size()!=0){
-            value = data.getRows().get(0).getString("data");
-        }
-        return value;
-    }
     /**
      * 通过icode 查询总指数
      */
@@ -548,5 +547,20 @@ public class DataPreviewService {
              mod.setIfzb(scheme.getString("ifzb"));//替换公式和权重
             mod.setWeight(scheme.getString("weight"));//替换公式和权重
         return mod;
+    }
+
+    /**
+     * 将值封成HashMap
+     * @return
+     */
+    public Map<String,String> listToMap(List<DataPreview> list){
+        Map<String,String> data = new HashMap<>();
+        for(int i =0;i<list.size();++i){
+            String modcode = list.get(i).getModcode();
+            String scode = list.get(i).getScode();
+            String reg = list.get(i).getRegion();
+            data.put(modcode+","+reg+","+scode,list.get(i).getData());
+        }
+        return data;
     }
 }

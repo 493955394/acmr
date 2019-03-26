@@ -78,8 +78,10 @@
                             <div style="float: right;margin-right: 13px;margin-bottom: 15px">
                                 <button class="btn btn-default btn-sm" id="result_download"><i class="glyphicon glyphicon-download"></i>下载数据</button>
                             </div>
-                        <div class="calculate_result">
-                            <jsp:include page="/WEB-INF/jsp/zhzs/zstask/tbdataresult.jsp" flush="true"/>
+                            <div class="clearfix"></div>
+                            <div class="calculate_result">
+                                <jsp:include page="/WEB-INF/jsp/zhzs/zstask/tbdataresult.jsp" flush="true"/>
+                            </div>
                         </div>
                     </div>
                     <!--Tab panes end-->

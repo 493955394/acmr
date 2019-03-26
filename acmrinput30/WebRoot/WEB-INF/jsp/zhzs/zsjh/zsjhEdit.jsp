@@ -300,7 +300,7 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="edit_tab tab-pane" id="dqcx">
-                        <div class="jsfw_col col-xs-2 col-xs-offset-3">
+                        <div style="min-width: 180px" class="jsfw_col col-xs-2 col-xs-offset-3">
                             <input type="hidden" id="initTreePara" value="${initTreePara}"/>
                             <input type="hidden" id="procode" value=""/>
                             <div class="panel tree-panel" >
@@ -322,7 +322,7 @@
                             <input type="hidden" name="regcode" value=""/>
                             <input type="hidden" name="regname" value=""/>
                         </div>
-                        <div class="jsfw_col col-xs-1 col-md-1 col-sm-1 btn-group-vertical add-or-del" role="group" >
+                        <div style="min-width: 180px" class="jsfw_col col-xs-1 col-md-1 col-sm-1 btn-group-vertical add-or-del" role="group" >
                             <div id="sigglechoose" class="col-md-offset-3 col-md-4">
                                 <span>></span>
                             </div>
@@ -339,7 +339,7 @@
                             <div id="delall" class="col-md-offset-3 col-md-4">
                                 <span><<</span></div>
                         </div>
-                        <div class="jsfw_col col-xs-2">
+                        <div style="min-width: 180px" class="jsfw_col col-xs-2">
                             <div class="panel tree-panel">
                                 <div class="panel-heading regs-title" style="text-align:center">地区列表</div>
                             </div>
