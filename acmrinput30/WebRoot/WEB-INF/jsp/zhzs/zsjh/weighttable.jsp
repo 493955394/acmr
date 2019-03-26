@@ -117,7 +117,7 @@
             colnum=tdnum;
         }
     })*/
-    console.log(colnum)
+    //console.log(colnum)
     for (var i=colnum;i>0;i--){
         $("#row_head1").append("<td colspan='2'>指标</td>")
         $("#row_head2").append("<td></td><td class='scheme_name'>${schemename}</td>")

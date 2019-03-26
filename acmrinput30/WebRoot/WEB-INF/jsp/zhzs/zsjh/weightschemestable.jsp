@@ -73,7 +73,7 @@
     var rows=$("td[code='${module.getProcode()}']:first").attr("rowspan")
     //和父节点同行
     if (flag==rows){
-        console.log("${module.getCname()}:${module.getProcode()}flag:"+flag+",rows:"+rows)
+        //console.log("${module.getCname()}:${module.getProcode()}flag:"+flag+",rows:"+rows)
         $("td[code='${module.getProcode()}']:first").parent().append(
             "<td rowspan=${module.ZBnums()} class='count_mod'>${module.getCname()}</td>")
 
@@ -138,7 +138,7 @@
     }
     </c:if>
     </c:forEach>
-    console.log("${count}")
+    //console.log("${count}")
     var colnum=parseInt("${count}")-1;
     /*$(".row_body").each(function () {
         var count=$(this).children("[class~='count_mod']").length;
