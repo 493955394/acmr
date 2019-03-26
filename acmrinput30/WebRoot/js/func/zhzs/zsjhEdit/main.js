@@ -549,6 +549,25 @@ define(function (require,exports,module) {
         }
     }
 
+    (function pageLoadTip(time) {
+        var ictlosading = false;
+        $(document).ajaxStart(function(e) {
+            ictlosading = true;
+            setTimeout(function() {
+                if (ictlosading == true) {
+                    $(".rangData_ing").show();
+                }
+            }, time || 300);
+        });
+
+        $(document).ajaxComplete(function(event, xhr, settings) {
+            var status = xhr.status;
+            if (ictlosading == true) {
+                $(".rangData_ing").hide();
+            }
+            ictlosading = false;
+        });
+    }());
     /**
      * 预览结果
      */
@@ -563,29 +582,20 @@ define(function (require,exports,module) {
             return;
         }
         schemecheck=schemecheck.substring(1);
+        var schemetime = $('#scheme_timeval').val();
         $(".rangData_ing").show();
         setTimeout(function () {
             $.ajax({
                 url: common.rootPath + 'zbdata/zsjhedit.htm?m=checkPreview',
-                data: {"id": incode, "scodes": schemecheck},
+                data: {"id": incode, "scodes": schemecheck,"timeinput":schemetime},
                 type: 'post',
+                global: true,
                 dataType: 'json',
                 timeout: 50,
                 success: function (re) {
                     if (re.return == 200) {
-                        var schemetime = $('#scheme_timeval').val();
-                        $.ajax({
-                            url: common.rootPath + 'zbdata/zsjhedit.htm?m=previewCalculate',
-                            data: {"id": incode, "scodes": schemecheck, "timeinput": schemetime},
-                            type: 'post',
-                            dataType: 'json',
-                            success: function (re) {
-                                if (re.returncode == 200) {
-                                    $(".rangData_ing").hide();
-                                    window.open(common.rootPath + 'zbdata/zsjhedit.htm?m=previewIndex&id=' + incode + "&timeinput=" + schemetime + "&scodes=" + schemecheck);
-                                }
-                            }
-                        })
+                        $(".rangData_ing").hide();
+                        window.open(common.rootPath + 'zbdata/zsjhedit.htm?m=previewIndex&id=' + incode + "&timeinput=" + schemetime + "&scodes=" + schemecheck);
                     }
                     else {
                         alert(re.return + "无法查看预览结果！")
@@ -594,7 +604,9 @@ define(function (require,exports,module) {
                 }
             })
         },30);
-    })
+    });
+
+
     /**
      * 计算范围时间搜索框
      */

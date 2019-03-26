@@ -162,7 +162,7 @@ background-color: #ffffff;
     left: 50%;
     margin-top: -60px;
     margin-left: -60px;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(0, 0, 0, 0.15);
     border-radius: 3px;
     text-align: center;
     font-size: 14px;

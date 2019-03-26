@@ -1969,6 +1969,7 @@ public class zsjhedit extends BaseAction {
     public void checkPreview() throws IOException {
         String code = this.getRequest().getParameter("id");
         String scodes = this.getRequest().getParameter("scodes");//选用的方案列表
+        String times = this.getRequest().getParameter("timeinput");//时间期
         IndexListService indexListService=new IndexListService();
         //校验部分
         Boolean check=false;
@@ -2003,6 +2004,20 @@ public class zsjhedit extends BaseAction {
         check=checkZbReg&&checkhasMod;
 
         if (check){
+
+            //开始做计算
+            DataPreviewService dps = new DataPreviewService();
+            String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(code);
+            List<CubeNode> sjs = new OriginService().getwdsubnodes("sj", times, dbcode);
+            List<String> sj = new ArrayList<>();
+            for (int i = 0; i <sjs.size() ; i++) {
+                sj.add(sjs.get(i).getCode());
+            }
+            for(String scode: scodes.split(",")){
+                for(String time :sj){
+                    dps.todocalculate(code,time,scode);
+                }
+            }
             data.put("return","200");
         }
        /* else if (!checkInfo){
@@ -2112,7 +2127,7 @@ public class zsjhedit extends BaseAction {
                 for(String date :sj){//按时间循环
                     CubeWdCodes where = new CubeWdCodes();
                     String funit=os.getwdnode("zb",zbdata.getZbcode(),dbcode).getUnitcode();
-                    BigDecimal rate=new BigDecimal(os.getRate(funit,zbdata.getUnitcode(),date));
+                    BigDecimal rate=new BigDecimal(String.valueOf(os.getRate(funit,zbdata.getUnitcode(),date)));
                     where.Add("zb", zbdata.getZbcode());
                     where.Add("ds",zbdata.getDatasource());
                     where.Add("co", zbdata.getCompany());
