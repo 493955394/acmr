@@ -183,7 +183,7 @@ define(function (require,exports,module) {
         var currenttab = $("#currentTab").val();
         if(currenttab!="")
             $("#bjjhTab a[href='#jsfw']").click();
-        if($("#sjss").val()!=""){
+        if($("#sjss").val()!="" && $("#sjss").val()!="last3"){
             $("#mySelectTime1 .dttext").val($("#sjss").val())
             $("#mySelectTime1 .dttextbtn").click();
         }
