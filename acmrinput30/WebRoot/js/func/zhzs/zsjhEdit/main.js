@@ -595,6 +595,11 @@ define(function (require,exports,module) {
             alert("请至少选择一个方案")
             return;
         }
+        var len=$("input[class=scheme_check]:checked").length
+        if(len>3){
+            alert("最多只能选择3个方案！")
+            return;
+        }
         schemecheck=schemecheck.substring(1);
         var schemetime = $('#scheme_timeval').val();
         $("#rangData_ing").show();
