@@ -42,7 +42,7 @@
         </c:forEach>
         </tbody>
     </table>
-    <div>
+    <div style="text-align: left">
         <p id="check_info"></p>
     </div>
 </div>

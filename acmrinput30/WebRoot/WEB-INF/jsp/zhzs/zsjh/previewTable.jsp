@@ -17,33 +17,31 @@
         width: auto;
     }
 </style>
-<div style="max-height:60%;width: 100%;overflow: auto;margin-top: 30px; border: 1px solid #EAECF1;font-size: 14px;text-align: center;">
+<div style="height:60%;width: 100%;overflow: auto;margin-top: 30px; border: 1px solid #EAECF1;font-size: 14px;text-align: center;">
     <input type="hidden" value="${zbtitle}" id="modname"/>
-    <table class="table table-bordered table-hover" style="width: 100%;font-size: 14px;text-align: center;" class="table table-bordered J_jgyl_table" >
+    <table class="table table-bordered J_jgyl_table"  style="width: 100%;height:100%;font-size: 14px;text-align: center;" >
         <thead style="background-color: #e4edf6">
         <tr>
-        <td style="text-align: center;vertical-align:middle;width:8%;min-width: 80px;" rowspan="2">地区</td>
+        <td style="width:8%;min-width: 80px;text-align: center;vertical-align:middle;" rowspan="2">地区</td>
         <c:forEach items="${date}" var="arr">
-            <td style="min-width: 80px;" colspan="${schemename.size()}">${arr}</td>
+            <td colspan="${schemename.size()}">${arr}</td>
         </c:forEach>
-            <td class="null_td" style="min-width: 80px"></td>
         </tr>
         <tr>
        <c:forEach items="${date}" var="arr">
             <c:forEach items="${schemename}" var="sname">
-                <td style="min-width: 80px;">${sname}</td>
+                <td style="text-align: center;vertical-align:middle;">${sname}</td>
             </c:forEach>
        </c:forEach>
-            <td class="null_td" style="min-width: 80px"></td>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${val}" var="vall">
             <tr>
                 <c:forEach items="${vall}" var="list">
-                    <td style="min-width: 80px;">${list}</td>
+                    <td style="min-width: 80px;text-align: center;vertical-align:middle;">${list}</td>
                 </c:forEach>
-                <td class="null_td" style="min-width: 80px"></td>
+
             </tr>
         </c:forEach>
         </tbody>
