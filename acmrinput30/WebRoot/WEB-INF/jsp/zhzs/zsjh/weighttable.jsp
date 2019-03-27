@@ -35,6 +35,7 @@
         <button type="button" class="btn btn-default btn-sm save_weight" style="float: right;margin-bottom: 15px"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;保存设置
         </button>
     </div>
+    <div style="width: 100%;overflow: auto">
     <table class="table table-bordered" id="module_table">
 
         <tr style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';" id="row_head1">
@@ -46,6 +47,7 @@
             <td>方案</td>--%>
         </tr>
     </table>
+    </div>
 </div>
 </body>
 <script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>

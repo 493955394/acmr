@@ -9,19 +9,19 @@
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 
-<div style="height:60%;max-width: 100%;overflow: auto;margin-top: 30px; border: 1px solid #EAECF1;font-size: 14px;text-align: center;vertical-align:middle;">
+<div style="overflow: auto;margin-top: 30px; border: 1px solid #EAECF1;font-size: 14px;text-align: center;vertical-align:middle;">
     <table  style="font-size: 14px;text-align: center;width: 100%;height:100%;" class="table table-bordered" id="previewzb-table">
         <thead style="background-color: #e4edf6">
-        <th>地区</th>
+        <th style="text-align: center;vertical-align:middle;min-width: 80px;width: 80px;">地区</th>
         <c:forEach items="${sj}" var="list">
-            <th>${list}</th>
+            <th style="text-align: center;vertical-align:middle;min-width: 80px;width: 80px;">${list}</th>
         </c:forEach>
         </thead>
         <tbody>
         <c:forEach items="${datas}" var="data">
         <tr>
             <c:forEach items="${data}" var="var">
-                <td style="min-width: 80px;text-align: center;vertical-align:middle;">${var}</td>
+                <td style="text-align: center;vertical-align:middle;min-width: 80px;width: 80px;">${var}</td>
             </c:forEach>
         </tr>
         </c:forEach>
