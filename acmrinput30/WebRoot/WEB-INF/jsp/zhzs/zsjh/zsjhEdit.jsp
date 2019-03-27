@@ -23,9 +23,6 @@
     <link rel="stylesheet" type="text/css" href="${ctx}/css/pastreview.css" />
     <link rel="stylesheet" type="text/css" href="${ctx}/css/zhzsTreeStyle.css" />
     <style type="text/css">
-        span.glyphicon{
-            color: red;
-        }
         /*.glyphicon {
             color: #F39801;
         }*/
@@ -43,6 +40,7 @@
             top: 0;
             left: 0;
             width: 100%;
+            min-width: 1270px;
             height: 100%;
             background-color: white;
             padding-bottom: 0;
@@ -89,7 +87,6 @@
     <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true"/>
 </div>
 <div class="ict-page">
-    <div class="container-fluid">
         <div class="panel panel-default reset-panel" style="padding-bottom: 10px;">
             <div class="panel-heading" id="ict-header">
                 [${list.getCname()}]指数计划编辑,类型：
@@ -449,118 +446,117 @@
         </div>
     </div>
 
-    <!-- 新增方案 -->
-    <div class="modal" id="scheme_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <form class="form-horizontal J_add_scheme"  action="${ctx}/zbdata/indexscheme.htm?m=addscheme">
-                    <input type="hidden" class="form-control" name="indexcode" value="">
-                    <input type="hidden" class="form-control" name="schemecode" value="">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title">新增方案</h4>
-                    </div>
-                    <div class="modal-body">
 
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>方案名称：</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" name="schemename" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">备注：</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" name="showinfo" value="" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">确定</button>
-                        <button type="reset" class="btn btn-default resetcata" data-dismiss="modal">取消</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-    <!-- 编辑方案 -->
-    <div class="modal" id="scheme_modal1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <form class="form-horizontal J_sch_edit"  action="${ctx}/zbdata/indexscheme.htm?m=editscheme">
-                    <input type="hidden" class="form-control" name="scheditcode" value="">
-                    <input type="hidden" class="form-control" name="schediticode" value="">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title">编辑方案</h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>方案名称：</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" name="scheditname" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">备注：</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" name="remark" value="" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">确定</button>
-                        <button type="reset" class="btn btn-default resetcata" data-dismiss="modal">取消</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-    <!-- 克隆方案 -->
-    <div class="modal" id="scheme_modal2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <form class="form-horizontal J_sch_clone"  action="${ctx}/zbdata/indexscheme.htm?m=clonescheme">
-                    <input type="hidden" class="form-control" name="schclonecode" value="">
-                    <input type="hidden" class="form-control" name="schcloneicode" value="">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title">克隆方案</h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>方案名称：</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" name="schclonename" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">备注：</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" name="newremark" value="" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">确定</button>
-                        <button type="reset" class="btn btn-default resetcata" data-dismiss="modal">取消</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
     <jsp:include page="/WEB-INF/jsp/common/footer.jsp" flush="true" />
 </div>
+<!-- 新增方案 -->
+<div class="modal" id="scheme_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal J_add_scheme"  action="${ctx}/zbdata/indexscheme.htm?m=addscheme">
+                <input type="hidden" class="form-control" name="indexcode" value="">
+                <input type="hidden" class="form-control" name="schemecode" value="">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增方案</h4>
+                </div>
+                <div class="modal-body">
 
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>方案名称：</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="schemename" value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">备注：</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="showinfo" value="" >
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">确定</button>
+                    <button type="reset" class="btn btn-default resetcata" data-dismiss="modal">取消</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<!-- 编辑方案 -->
+<div class="modal" id="scheme_modal1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal J_sch_edit"  action="${ctx}/zbdata/indexscheme.htm?m=editscheme">
+                <input type="hidden" class="form-control" name="scheditcode" value="">
+                <input type="hidden" class="form-control" name="schediticode" value="">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">编辑方案</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>方案名称：</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="scheditname" value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">备注：</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="remark" value="" >
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">确定</button>
+                    <button type="reset" class="btn btn-default resetcata" data-dismiss="modal">取消</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<!-- 克隆方案 -->
+<div class="modal" id="scheme_modal2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal J_sch_clone"  action="${ctx}/zbdata/indexscheme.htm?m=clonescheme">
+                <input type="hidden" class="form-control" name="schclonecode" value="">
+                <input type="hidden" class="form-control" name="schcloneicode" value="">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">克隆方案</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>方案名称：</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="schclonename" value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">备注：</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="newremark" value="" >
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">确定</button>
+                    <button type="reset" class="btn btn-default resetcata" data-dismiss="modal">取消</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
 </body>
 <script>
     define("editjsp", function (require, exports, module) {
