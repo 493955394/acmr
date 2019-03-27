@@ -19,10 +19,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,13 +32,19 @@ import java.util.regex.Pattern;
  */
 public class DataPreviewService {
     private CalculateExpression ce = new CalculateExpression();
-
-    public boolean todocalculate(String icode,String time,String scode){
+    private Map<String,List<IndexMoudle>> modSubList = new HashMap<>();
+    public boolean todocalculate(String icode, List<CubeNode> sjs,String scodes){
         String regs = findRegions(icode);
-        String [] reg = regs.split(",");
+        IndexEditService indexEditService = new IndexEditService();
+        List<Map>  zbs = indexEditService.getZBS(icode);
         //开始计算指数的值，包括乘上weight
         try {
-            calculateZB(time,regs,icode,scode);
+            for(String scode:scodes.split(",")){
+                for (int i = 0; i <sjs.size() ; i++) {
+                    calculateZB(sjs.get(i).getCode(),regs,icode,zbs,scode);
+                }
+            }
+
         } catch (MathException e) {
             e.printStackTrace();
             return false;
@@ -72,14 +75,12 @@ public class DataPreviewService {
     /**
      * 计算的方法,只算指标
      */
-    public boolean calculateZB(String time, String regs,String icode,String scode) throws MathException {
+    public boolean calculateZB(String time, String regs,String icode,List<Map> zbs,String scode) throws MathException {
         String [] reg = regs.split(",");
-        IndexEditService indexEditService = new IndexEditService();
         OriginService originService = new OriginService();
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         List<DataPreview> newadd = new ArrayList<>();
         List<IndexMoudle> data = getModuleFormula(icode,"0",scode);//取的是指标的list
-        List<Map>  zbs = indexEditService.getZBS(icode);
         for (int i = 0; i <data.size() ; i++) {//开始循环
             if(data.get(i).getIfzb().equals("1")){//如果是直接用筛选的指标的话直接去查值
                 //先去查tb_coindex_zb
@@ -189,7 +190,14 @@ public class DataPreviewService {
      */
     public  void calculateZS(String code, String time, String reg,String scode,String icode,List<DataPreview> list,Map<String,String> listToMap){
         DataPreview zsdata = new DataPreview();
-        List<IndexMoudle> subs = findSubMod(code,scode);
+        List<IndexMoudle> subs = new ArrayList<>();
+        if(!modSubList.containsKey(code)) { //如果之前没查过就去库里查它的sub,再添加到这个对象中
+            subs = findSubMod(code);
+            modSubList.put(code,subs);
+        }
+        else {
+            subs = modSubList.get(code);//如果之前查过了就直接取
+        }
         int check = subDataCheck(subs,reg,scode,listToMap);
         if(check ==1){//下一级的值不全
             for (int i = 0; i <subs.size() ; i++) {
@@ -269,7 +277,7 @@ public class DataPreviewService {
     /**
      * 查询MODULE表submod
      */
-    public List<IndexMoudle> findSubMod(String code,String scode){
+    public List<IndexMoudle> findSubMod(String code){
         List<IndexMoudle> taskModules = new ArrayList<>();
         List<DataTableRow> data = DataPreviewDao.Fator.getInstance().getIndexdatadao().getSubMod(code).getRows();
         for (int i = 0; i <data.size() ; i++) {
@@ -387,7 +395,6 @@ public class DataPreviewService {
     public String getvalueMath(String orgStr, List<Map> zbs, String time,String thisreg,String regs,String icode,String dbcode) {
         String data = "false";//默认没有值
         String text = orgStr;
-        OriginDataService originDataService = new OriginDataService();
       OriginService  originService = new OriginService();
         if(!text.contains(",")){//不包含逗号，说明是单个的zb,当前时间当前地区直接找值就可以
             for (int k = 0; k <zbs.size() ; k++) {
@@ -456,70 +463,75 @@ public class DataPreviewService {
                 if (wd.equals("dq")) {//如果是所有地区，当期时间
                     String[] reg = regs.split(",");
                     String tmp = "";
-                    for (int k = 0; k < reg.length; k++) {
-                        String val = "";
-                        ArrayList<CubeQueryData> result = findZbData(zbcode, ds, co, reg[k], time, dbcode);
-                        if (result.size() > 0) {
-                            if (!result.get(0).getData().getStrdata().equals("")) {//如果有值的话
-                                //单位换算
-                                String funit = originService.getwdnode("zb", zbcode, dbcode).getUnitcode();
-                                BigDecimal rate = new BigDecimal(originService.getRate(funit, unitcode, time));
-                                BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
-                                val = orval.toPlainString();
+                    String[] date = new String[]{time};
+                        ArrayList<CubeQueryData> result = findZbData(zbcode, ds, co, reg, date, dbcode);
+                            for(int i = 0; i<result.size();i++){
+                                String val = "";
+                                if (!result.get(i).getData().getStrdata().equals("")) {//如果有值的话
+                                    //单位换算
+                                    String funit = originService.getwdnode("zb", zbcode, dbcode).getUnitcode();
+                                    BigDecimal rate = new BigDecimal(String.valueOf(originService.getRate(funit, unitcode, time)));
+                                    BigDecimal orval = (new BigDecimal(result.get(i).getData().getStrdata())).multiply(rate);
+                                    val = orval.toPlainString();
+                                }
+                                if (!val.equals("")) {//如果有值的话,做替换
+                                    tmp += "," + val;
+                                } else {//要是没有值
+                                    continue;
+                                }
                             }
-                        }
-                        if (!val.equals("")) {//如果有值的话,做替换
-                            tmp += "," + val;
-                        } else {//要是没有值
-                            continue;
-                        }
-
-                    }
                     if (!tmp.equals("")) data = tmp.substring(1);//只要有一组数组有值，就算对
                 } else if (wd.equals("begintime")) {//如果是计划起始时间,用当前地区
                     String tmp = "";
                     String begintime = IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(icode).getRows().get(0).getString("startperiod");
                     List<CubeNode> sjs = os.getwdsubnodes("sj", begintime + "-", dbcode);
-                    for (int i = 0; i < sjs.size(); i++) {
-                        String val = "";
-                        ArrayList<CubeQueryData> result = findZbData(zbcode, ds, co, thisreg, sjs.get(i).getCode(), dbcode);
-                        if (result.size() > 0) {
-                            if (!result.get(0).getData().getStrdata().equals("")) {//如果有值的话
-                                //单位换算
-                                String funit = originService.getwdnode("zb", zbcode, dbcode).getUnitcode();
-                                BigDecimal rate = new BigDecimal(originService.getRate(funit, unitcode, time));
-                                BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
-                                val = orval.toPlainString();
+                    String[] date = new String[sjs.size()];
+                    for (int i = 0; i <sjs.size() ; i++) {
+                        date[i] = sjs.get(i).getCode();
+                    }
+                    ArrayList<CubeQueryData> result = findZbData(zbcode, ds, co, new String[]{thisreg}, date, dbcode);
+
+                        for (int i = 0; i <result.size() ; i++) {
+                            String val = "";
+                                if (!result.get(i).getData().getStrdata().equals("")) {//如果有值的话
+                                    //单位换算
+                                    String funit = originService.getwdnode("zb", zbcode, dbcode).getUnitcode();
+                                    BigDecimal rate = new BigDecimal(originService.getRate(funit, unitcode, time));
+                                    BigDecimal orval = (new BigDecimal(result.get(i).getData().getStrdata())).multiply(rate);
+                                    val = orval.toPlainString();
+                                }
+                            if (!val.equals("")) {//如果有值的话,做替换
+                                tmp += "," + val;
+                            } else {//要是没有值
+                                continue;
                             }
                         }
-                        if (!val.equals("")) {//如果有值的话,做替换
-                            tmp += "," + val;
-                        } else {//要是没有值
-                            continue;
-                        }
-                    }
                     if (!tmp.equals("")) data = tmp.substring(1);//只要有一组数组有值，就算对
                 } else {//其他情况直接丢去库里找
                     String tmp = "";
                     List<CubeNode> sjs = os.getwdsubnodes("sj", wd, dbcode);
-                    for (int i = 0; i < sjs.size(); i++) {
-                        String val = "";
-                        ArrayList<CubeQueryData> result = findZbData(zbcode, ds, co, thisreg, sjs.get(i).getCode(), dbcode);
-                        if (result.size() > 0) {
-                            if (!result.get(0).getData().getStrdata().equals("")) {//如果有值的话
+                    String[] date = new String[sjs.size()];
+                    for (int i = 0; i <sjs.size() ; i++) {
+                        date[i] = sjs.get(i).getCode();
+                    }
+                        ArrayList<CubeQueryData> result = findZbData(zbcode, ds, co, new String[]{thisreg}, date, dbcode);
+
+                        for (int i = 0; i <result.size() ; i++) {
+                            String val = "";
+                            if (!result.get(i).getData().getStrdata().equals("")) {//如果有值的话
                                 //单位换算
                                 String funit = originService.getwdnode("zb", zbcode, dbcode).getUnitcode();
                                 BigDecimal rate = new BigDecimal(originService.getRate(funit, unitcode, time));
-                                BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
+                                BigDecimal orval = (new BigDecimal(result.get(i).getData().getStrdata())).multiply(rate);
                                 val = orval.toPlainString();
                             }
-                        }
-                        if (!val.equals("")) {//如果有值的话,做替换
-                            tmp += "," + val;
-                        } else {//要是没有值
-                            continue;
-                        }
+                    if (!val.equals("")) {//如果有值的话,做替换
+                        tmp += "," + val;
+                    } else {//要是没有值
+                        continue;
                     }
+                        }
+
                     if (!tmp.equals("")) data = tmp.substring(1);//只要有一组数组有值，就算对
                 }
             }
@@ -536,6 +548,16 @@ public class DataPreviewService {
         where.Add("co", co);
         where.Add("reg", reg);
         where.Add("sj", sj);
+        return RegdataService.queryData(dbcode, where);
+    }
+
+    public ArrayList<CubeQueryData> findZbData(String zb,String ds,String co,String[] regs,String[] sjs,String dbcode){
+        CubeWdCodes where = new CubeWdCodes();
+        where.Add("zb", zb);
+        where.Add("ds", ds);
+        where.Add("co", co);
+        where.Add("reg", Arrays.asList(regs));
+        where.Add("sj", Arrays.asList(sjs));
         return RegdataService.queryData(dbcode, where);
     }
 

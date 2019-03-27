@@ -1991,11 +1991,6 @@ public class zsjhedit extends BaseAction {
             this.sendJson(data);
             return;
         }
-      //  Boolean checkmod=indexListService.checkModule(code);
-        //   PubInfo.printStr("checkmode"+checkmod);
-        //校验是否已经通过编辑，基本信息完善
-      //  Boolean checkInfo=indexListService.checkInfo(code);
-        // PubInfo.printStr("checkInfo"+checkInfo);
         //校验是否有指标、地区
         Boolean checkZbReg=indexListService.checkZBandReg(code);
         //  PubInfo.printStr("checkZbReg"+checkZbReg);
@@ -2009,15 +2004,7 @@ public class zsjhedit extends BaseAction {
             DataPreviewService dps = new DataPreviewService();
             String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(code);
             List<CubeNode> sjs = new OriginService().getwdsubnodes("sj", times, dbcode);
-            List<String> sj = new ArrayList<>();
-            for (int i = 0; i <sjs.size() ; i++) {
-                sj.add(sjs.get(i).getCode());
-            }
-            for(String scode: scodes.split(",")){
-                for(String time :sj){
-                    dps.todocalculate(code,time,scode);
-                }
-            }
+            dps.todocalculate(code,sjs,scodes);
             data.put("return","200");
         }
        /* else if (!checkInfo){
@@ -2029,43 +2016,6 @@ public class zsjhedit extends BaseAction {
         else if (!checkhasMod){
             data.put("return",data.get("return")+"不存在模型节点，");
         }
-        /*JSONReturnData data = new JSONReturnData("");
-        if (check){
-            data.setReturncode(200);
-        }
-        else if (!checkmod){
-            data.setReturncode(300);
-        }
-        else if (!checkInfo){
-
-        }
-        else if (!checkZbReg){
-
-        }
-        else if (!checkhasMod){
-            data.setReturncode();
-        }*/
-        this.sendJson(data);
-    }
-    public void previewCalculate() throws IOException{
-        String code = this.getRequest().getParameter("id");
-        String scodes = this.getRequest().getParameter("scodes");//选择的方案个数
-        String times = this.getRequest().getParameter("timeinput");//时间期
-        //开始做计算
-        DataPreviewService dps = new DataPreviewService();
-        String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(code);
-        List<CubeNode> sjs = new OriginService().getwdsubnodes("sj", times, dbcode);
-        List<String> sj = new ArrayList<>();
-        for (int i = 0; i <sjs.size() ; i++) {
-            sj.add(sjs.get(i).getCode());
-        }
-        for(String scode: scodes.split(",")){
-            for(String time :sj){
-                dps.todocalculate(code,time,scode);
-            }
-        }
-        JSONReturnData data = new JSONReturnData("");
-        data.setReturncode(200);
         this.sendJson(data);
     }
     /**
