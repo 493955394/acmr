@@ -152,8 +152,8 @@ public class DataPreviewService {
                                     //单位换算
                                     String funit = originService.getwdnode("zb", zbs.get(k).get("zbcode").toString(), dbcode).getUnitcode();
                                     BigDecimal rate = new BigDecimal(String.valueOf(originService.getRate(funit, zbs.get(k).get("unitcode").toString(), time)));
-                                    BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
-                                    formula = formula.replace("#" + zbs.get(k).get("code").toString() + "#", orval.toPlainString());//换成对应的value
+                                    BigDecimal orval = (new BigDecimal(String.valueOf(result.get(0).getData().getStrdata()))).multiply(rate);
+                                    formula = formula.replace("#" + zbs.get(k).get("code").toString() + "#", String.valueOf(orval));//换成对应的value
                                 }
 
                             }

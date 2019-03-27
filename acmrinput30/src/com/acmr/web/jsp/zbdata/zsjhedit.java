@@ -2089,8 +2089,8 @@ public class zsjhedit extends BaseAction {
                     }else{
                         for (int k = 0; k <result.size() ; k++) {
                             if (!result.get(k).getData().toString().equals("") && result.size()!=0){
-                                BigDecimal resulttemp=(new BigDecimal(result.get(k).getData().getStrdata())).multiply(rate);
-                                row.add(resulttemp+"") ;
+                                BigDecimal resulttemp=(new BigDecimal(String.valueOf(result.get(k).getData().getStrdata()))).multiply(rate);
+                                row.add(String.valueOf(resulttemp)+"") ;
                             }
                             else{
                                 row.add("");
