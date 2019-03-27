@@ -582,25 +582,6 @@ define(function (require,exports,module) {
         }
     }
 
-    (function pageLoadTip(time) {
-        var ictlosading = false;
-        $(document).ajaxStart(function(e) {
-            ictlosading = true;
-            setTimeout(function() {
-                if (ictlosading == true) {
-                    $(".rangData_ing").show();
-                }
-            }, time || 300);
-        });
-
-        $(document).ajaxComplete(function(event, xhr, settings) {
-            var status = xhr.status;
-            if (ictlosading == true) {
-                $(".rangData_ing").hide();
-            }
-            ictlosading = false;
-        });
-    }());
     /**
      * 预览结果
      */
@@ -624,7 +605,7 @@ define(function (require,exports,module) {
                 type: 'post',
                 global: true,
                 dataType: 'json',
-                timeout: 50,
+                timeout: 5000,
                 success: function (re) {
                     if (re.return == 200) {
                         $("#rangData_ing").hide();
@@ -636,7 +617,7 @@ define(function (require,exports,module) {
                     }
                 }
             })
-        },30);
+        },300);
     });
 
 
