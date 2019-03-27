@@ -42,12 +42,12 @@
         </c:forEach>
         </tbody>
     </table>
-    <div style="text-align: left">
-        <p id="check_info"></p>
-    </div>
+
 </div>
 
-
+<div style="text-align: left">
+    <p id="check_info"></p>
+</div>
 <%--
 <div class="range_table_head_cont" style="position:relative;overflow: hidden;width: 100%;height: 10%;">
     <table class="table table-bordered table-hover range_table_head" style="width: 100%;position:absolute;">
