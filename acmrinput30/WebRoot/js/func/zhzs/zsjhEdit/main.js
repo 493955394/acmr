@@ -585,45 +585,7 @@ define(function (require,exports,module) {
     /**
      * 预览结果
      */
-    $("#scheme_timeinput").click(function () {
-        var schemecheck= "";
-        $(".scheme_check").each(function () {
-            if($(this).is(':checked'))
-            schemecheck += ","+$(this).attr("scheme_code")
-        })
-        if(schemecheck==""){
-            alert("请至少选择一个方案")
-            return;
-        }
-        var len=$("input[class=scheme_check]:checked").length
-        if(len>3){
-            alert("最多只能选择3个方案！")
-            return;
-        }
-        schemecheck=schemecheck.substring(1);
-        var schemetime = $('#scheme_timeval').val();
-        $("#rangData_ing").show();
-        setTimeout(function () {
-            $.ajax({
-                url: common.rootPath + 'zbdata/zsjhedit.htm?m=checkPreview',
-                data: {"id": incode, "scodes": schemecheck,"timeinput":schemetime},
-                type: 'post',
-                global: true,
-                dataType: 'json',
-                timeout: 5000,
-                success: function (re) {
-                    if (re.return == 200) {
-                        $("#rangData_ing").hide();
-                        window.open(common.rootPath + 'zbdata/zsjhedit.htm?m=previewIndex&id=' + incode + "&timeinput=" + schemetime + "&scodes=" + schemecheck);
-                    }
-                    else {
-                        alert(re.return + "无法查看预览结果！")
-                        $("#rangData_ing").hide();
-                    }
-                }
-            })
-        },300);
-    });
+
 
 
     /**

@@ -26,6 +26,7 @@
     <title>${projectTitle}-指数计划</title>
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
     <link rel="stylesheet" type="text/css" href="${ctx}/css/zhzsTreeStyle.css" />
+    <script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 <div id="container">
@@ -341,6 +342,79 @@
     function delRemove(obj){
         obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
     }
+    /**
+     * 启用
+     */
+    $(document).on('click', '.start', function(event) {
+        $(this).parent().prepend("<a href=#>启用</a>")
+        $(this).remove()
+        event.preventDefault();
+        var code=$(this).attr('name')
+        var state="1"
+        $("#start_ing").css("display","block")
+            $.ajax({
+                url: '${ctx}/zbdata/indexlist.htm?m=switchState',
+                data: {"code": code, "state":state},
+                type: 'post',
+                dataType: 'json',
+                beforeSend:function(){
+                    $("#start_ing").show();
+                },
+                complete:function () {
+                    $("#start_ing").hide();
+                },
+                success:function(data){
+                    if(data.returncode == 200){
+                        $("#start_ing").hide();
+                        var url=window.location.href;
+                        alert("启用成功")
+                        $.pjax({
+                            url: url,
+                            container: '.J_zsjh_data_table',
+                            timeout:5000
+                        });
+                    }else{
+                        // console.log(data)
+
+                        var info=""
+                        if (data.checkhasMod!=true){
+                            info=info+"计划没有模型节点，"
+                            // alert("计划没有模型节点，启动失败")
+                        }
+                        if (data.checkInfo!=true){
+                            info=info+"计划基本信息缺失，"
+                            //alert("计划基本信息缺失，启动失败")
+                        }
+                        if (data.checkZbReg!=true){
+                            info=info+"计划基本信息缺失，"
+                            //alert("计划缺少指标或地区，启动失败")
+                        }
+                        if (data.checkmod!=true){
+                            info=info+"计划模型节点设置及权重不符合规定，"
+                            // alert("计划模型节点设置及权重不符合规定，启动失败")
+                        }
+                        if (data.checkScheme!=true){
+                            info=info+"请选用计划方案，"
+                        }
+                        if (data.checkFormula!=true){
+                            info=info+"公式不能为空，"
+                        }
+                        info=info+"启用失败！"
+                        alert(info)
+
+                        var url=window.location.href;
+                        $.pjax({
+                            url: url,
+                            container: '.J_zsjh_data_table',
+                            timeout:5000
+                        });
+
+                    }
+                }
+            });
+
+
+    });
 </script>
 </html>
 
