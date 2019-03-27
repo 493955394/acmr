@@ -253,7 +253,7 @@
                                     <%-- <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/addZB.jsp" flush="true"/>--%>
                                 </div>
 
-                                <div class="data_table J_zsjh_zbdata_table" style="height: 72%;width: 100%;"  id="zb_data_table">
+                                <div class="data_table J_zsjh_zbdata_table" style="height: 80%;width: 100%;"  id="zb_data_table">
                                     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/ZBdataList.jsp" flush="true"/>
                                 </div>
                             </div>
@@ -363,7 +363,7 @@
                                 </div>
                             </div>
 
-                            <div class="J_zsjh_rangedata_table" id="range_data_table" style="height: 80%;width: 100%;">
+                            <div class="J_zsjh_rangedata_table" id="range_data_table" style="height: 86%;width: 100%;">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/rangeDataTable.jsp" flush="true"/>
                             </div>
                         </div>

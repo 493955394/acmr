@@ -19,11 +19,13 @@
             vertical-align: middle;
         }
         .red{background-color: #e4edf6}
+        .J_preview_data_table .table tr td:last-child {
+            white-space: normal !important;
+        }
     </style>
 </head>
 <body>
-<style type="text/css">
-</style>
+
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 <div id="search_ing" style="position: fixed; z-index: 19910414; width: 100%; background: rgba(0, 0, 0, 0.15); height: 100%; display: none; top: 0; left: 0;">
     <div class="ict-loading-box search_ing">
@@ -40,6 +42,7 @@
         </div>
         <input type="hidden" id="timecode" value="${times}">
         <input type="hidden" id="scheme_codes" value="${scodes}">
+        <div style="width: 100%;height:100%;overflow: auto">
         <div class="col-sm-7">
             <div class="modselect" style="padding-right: 20px;height: 20px">
                 <select id="ms">
@@ -67,8 +70,10 @@
             </div>
 
         </div>
+        </div>
     </div>
 </div>
+
 </body>
 </html>
 <div class="ict-footer footer fixed-footer">
