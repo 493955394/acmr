@@ -13,7 +13,7 @@ define(function (require,exports,module) {
     console.log(indexcode)
     var time = null;//查询的时间
     var spancode = null;//传给后台重新请求数据的单个维度code
-
+    var timeinput = "";
 
     //查询的时间
     $(function(){
@@ -25,11 +25,9 @@ define(function (require,exports,module) {
             ]
         };
         var dt2 = $('#mySelect2');
-        //dt2.dropList(json2,{isText:true});	//实例化2(带底部输入框)、默认选中第一个item
-        //dt2.dropList(json2,{isText:true,setIndex: 2});	//实例化2(带底部输入框)、选中指定位置item
         dt2.dropList(json2,{isText:true},function(o){		//事件处理
-            $("#timecode").val(o.getItem().code)
-            $("#timeinput").click();
+            timeinput =  o.getItem().code;
+           timeClick();
         });
     });
 
@@ -48,30 +46,31 @@ define(function (require,exports,module) {
 
     })
 
-    $(document).on('click', '#timeinput', function () {
-        var timeinput = $("#timecode").val();
-        var url = common.rootPath + "zbdata/pastviews.htm?m=timeCheck&icode=" + indexcode + "&timeinput=" + timeinput;
-        $.ajax({
-            url: url,
-            type: 'get',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data.returncode)
-                if (data.returncode == 300) {
-                    alert("时间格式有误");
-                } else if (data.returncode == 200) {
-                    if(!(data.returndata ==""||data.returndata==null)){
-                        time = data.returndata;
-                        sendPjax();
-                    }
-                    else {
-                        $(".pastviewtable tbody").html("");
-                        $(".pastviewtable tbody").append(" <tr><td colspan='"+$('.tbgs').val()+1+"'>没有查询到数据</td></tr>");
-                    }
-                }
-            }
-        })
-    })
+  function  timeClick () {
+      var timeinput = $("#timecode").val();
+      var url = common.rootPath + "zbdata/pastviews.htm?m=timeCheck&icode=" + indexcode + "&timeinput=" + timeinput;
+      $.ajax({
+          url: url,
+          type: 'get',
+          dataType: 'json',
+          success: function (data) {
+              console.log(data.returncode)
+              if (data.returncode == 300) {
+                  alert("时间格式有误");
+              } else if (data.returncode == 200) {
+                  if (!(data.returndata == "" || data.returndata == null)) {
+                      time = data.returndata;
+                      sendPjax();
+                  }
+                  else {
+                      $(".pastviewtable tbody").html("");
+                      $(".pastviewtable tbody").append(" <tr><td colspan='" + $('.tbgs').val() + 1 + "'>没有查询到数据</td></tr>");
+                  }
+              }
+          }
+      })
+  }
+
 
     //下拉框选择
 
