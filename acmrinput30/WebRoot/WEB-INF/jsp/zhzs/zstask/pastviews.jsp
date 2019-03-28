@@ -8,8 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 <link rel="stylesheet" type="text/css" href="${ctx}/css/pastreview.css" />
-<script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="${ctx}/js/lib/dropList.js"></script>
 <html>
 <head>
     <title>-查看往期</title>
@@ -22,8 +20,12 @@
 <body>
 <style type="text/css">
 </style>
-<jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
-<div class="col-xs-12">
+<div id="container">
+    <div class="ict-header">
+        <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true"/>
+    </div>
+    <div class="ict-page">
+<div class="container-fluid">
     <div>
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -34,9 +36,6 @@
 
         <c:if test="${info.get('tasknum')=='0'}">
             <span>该计划下没有往期任务！</span>
-            <div class="ict-footer footer fixed-footer">
-                Copyright © 2018 中国信息通信研究院 版权所有
-            </div>
         </c:if>
         <c:if test="${info.get('tasknum')!='0'}">
             <div>
@@ -55,46 +54,44 @@
             </div>
         </c:if>
     </div>
-    <div class="modal wdturn-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">维度转换</h4>
-                </div>
-                <div style="margin-left: 220px;margin-top: 5px" role="group" aria-label="..." >
-                    <div type="button" style="border-color: #F39801;" class="btn btn-default top-select" id="top-reg"><span style="color: #F39801">地区</span></div>
-                    <div type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-zb"><span style="color: #F39801">指标</span></div>
-                    <div type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-sj"><span style="color: #F39801">时间</span></div>
-                </div>
-                <div style="margin-bottom: 4%;">
-                    <div class="btn-group-vertical  col-md-offset-3" role="group" aria-label="...">
-                        <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-reg"><span style="color: #F39801">地区</span></div>
-                        <div class="clearfix" style="height: 3px"></div>
-                        <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-zb"><span style="color: #F39801">指标</span></div>
-                        <div class="clearfix"  style="height: 3px"></div>
-                        <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-sj"><span style="color: #F39801">时间</span></div>
-                    </div>
-                    <table  class="table table-hover wdturn-table" style="display: inline-block;position: absolute;margin-left: 3px;margin-top: 3px">
-
-                    </table>
-                </div>
-                <input type="hidden" id="table-Row" value="">
-                <input type="hidden" id="table-Col" value="">
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="wd-change">确认</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                </div>
-
+</div>
+    </div>
+    <jsp:include page="/WEB-INF/jsp/common/footer.jsp" flush="true" />
+</div>
+<div class="modal wdturn-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">维度转换</h4>
             </div>
+            <div style="margin-left: 220px;margin-top: 5px" role="group" aria-label="..." >
+                <div type="button" style="border-color: #F39801;" class="btn btn-default top-select" id="top-reg"><span style="color: #F39801">地区</span></div>
+                <div type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-zb"><span style="color: #F39801">指标</span></div>
+                <div type="button" style="border-color: #F39801" class="btn btn-default top-select" id="top-sj"><span style="color: #F39801">时间</span></div>
+            </div>
+            <div style="margin-bottom: 4%;">
+                <div class="btn-group-vertical  col-md-offset-3" role="group" aria-label="...">
+                    <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-reg"><span style="color: #F39801">地区</span></div>
+                    <div class="clearfix" style="height: 3px"></div>
+                    <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-zb"><span style="color: #F39801">指标</span></div>
+                    <div class="clearfix"  style="height: 3px"></div>
+                    <div type="button" style="border-color: #F39801" class="btn btn-default left-select" id="left-sj"><span style="color: #F39801">时间</span></div>
+                </div>
+                <table  class="table table-hover wdturn-table" style="display: inline-block;position: absolute;margin-left: 3px;margin-top: 3px">
+
+                </table>
+            </div>
+            <input type="hidden" id="table-Row" value="">
+            <input type="hidden" id="table-Col" value="">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="wd-change">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+
         </div>
     </div>
-    <div class="teset" style="padding-bottom: 10px"></div>
-    <div class="ict-footer footer">
-        Copyright © 2018 中国信息通信研究院 版权所有
-    </div>
 </div>
-
 
 </body>
 </html>
@@ -102,37 +99,4 @@
 <script type="text/javascript">
     seajs.use('${ctx}/js/func/zhzs/zstask/pastviews');
     seajs.use('${ctx}/js/func/zhzs/zstask/wdturn');
-    //查询的时间
-    $(function(){
-        var json2 = {
-            wdcode:'sj',
-            wdname:'时间',
-            nodes:[
-                {code:"last5",name:'最近五期'}
-            ]
-        };
-        var dt2 = $('#mySelect2');
-        //dt2.dropList(json2,{isText:true});	//实例化2(带底部输入框)、默认选中第一个item
-        //dt2.dropList(json2,{isText:true,setIndex: 2});	//实例化2(带底部输入框)、选中指定位置item
-        dt2.dropList(json2,{isText:true},function(o){		//事件处理
-            $("#timecode").val(o.getItem().code)
-            $("#timeinput").click();
-        });
-    });
-
-    function footerPosition(){
-        $(".footer").removeClass("fixed-footer");
-        var contentHeight =document.body.scrollHeight,//网页正文全文高度
-
-            winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
-        console.log(contentHeight+","+winHeight)
-        if(!(contentHeight > winHeight)){
-            //当网页正文高度小于可视窗口高度时，为footer添加类fixed-footer
-            $(".footer").addClass("fixed-footer");
-        } else {
-            $(".footer").removeClass("fixed-footer");
-        }
-    }
-    footerPosition();
-    $(window).resize(footerPosition);
 </script>
