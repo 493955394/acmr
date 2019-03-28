@@ -613,7 +613,7 @@ define(function (require,exports,module) {
                 success: function (re) {
                     if (re.return == 200) {
                        $("#rangData_ing").hide();
-                      //  window.open(common.rootPath + 'zbdata/zsjhedit.htm?m=previewIndex&id=' + incode + "&timeinput=" + schemetime + "&scodes=" + schemecheck);
+                      window.open(common.rootPath + 'zbdata/zsjhedit.htm?m=previewIndex&id=' + incode + "&timeinput=" + schemetime + "&scodes=" + schemecheck);
                     }
                     else {
                         alert(re.return + "无法查看预览结果！")

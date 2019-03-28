@@ -29,7 +29,7 @@
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 <div id="search_ing" style="position: fixed; z-index: 19910414; width: 100%; background: rgba(0, 0, 0, 0.15); height: 100%; display: none; top: 0; left: 0;">
     <div class="ict-loading-box search_ing">
-        <img src="${ctx}/images/ict_loading.svg" /> 查询中
+        <img src="${ctx}/images/ict_loading.gif" /> 查询中
     </div>
 </div>
 <div class="col-xs-12">
