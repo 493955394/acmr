@@ -4,7 +4,6 @@ define(function (require,exports,module) {
         Pagination = require('pagination'),
         common = require('common'),
         pjax=require('pjax'),
-        dropList = require('dropList'),
         modal = require('modal');
     var icode = $(".geticode").val();
 
@@ -16,26 +15,6 @@ define(function (require,exports,module) {
         var taskcode=$(this).parent().prev().val();
         window.location.href=common.rootPath+"zbdata/zscalculate.htm?m=ZsCalculate&taskcode="+taskcode+"&right=0"
     }
-
-    //查询的时间
-    $(function(){
-        var json2 = {
-            wdcode:'sj',
-            wdname:'时间',
-            nodes:[
-                {code:"last5",name:'最近五期'}
-            ]
-        };
-        var dt2 = $('#mySelect2');
-        //dt2.dropList(json2,{isText:true});	//实例化2(带底部输入框)、默认选中第一个item
-        //dt2.dropList(json2,{isText:true,setIndex: 2});	//实例化2(带底部输入框)、选中指定位置item
-        dt2.dropList(json2,{isText:true},function(o){		//事件处理
-            $("#timecode").val(o.getItem().code)
-            $("#timeinput").click();
-        });
-    });
-
-
     //计算（判断session中是否有记录）
     function hasSession(){
         var taskcode=$(this).parent().prev().val();

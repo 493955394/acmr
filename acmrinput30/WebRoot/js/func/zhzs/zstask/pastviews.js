@@ -3,6 +3,7 @@ define(function (require,exports,module) {
     var $ = require('jquery'),
         pjax = require('pjax'),
         modal = require('modal'),
+        dropList = require('dropList'),
         common = require('common');
 
 
@@ -12,6 +13,25 @@ define(function (require,exports,module) {
     console.log(indexcode)
     var time = null;//查询的时间
     var spancode = null;//传给后台重新请求数据的单个维度code
+
+
+    //查询的时间
+    $(function(){
+        var json2 = {
+            wdcode:'sj',
+            wdname:'时间',
+            nodes:[
+                {code:"last5",name:'最近五期'}
+            ]
+        };
+        var dt2 = $('#mySelect2');
+        //dt2.dropList(json2,{isText:true});	//实例化2(带底部输入框)、默认选中第一个item
+        //dt2.dropList(json2,{isText:true,setIndex: 2});	//实例化2(带底部输入框)、选中指定位置item
+        dt2.dropList(json2,{isText:true},function(o){		//事件处理
+            $("#timecode").val(o.getItem().code)
+            $("#timeinput").click();
+        });
+    });
 
 
     //维度转换

@@ -12,8 +12,8 @@ define(function (require,exports,module) {
         tab = require('tab'),
         zbAdd=require('js/func/zhzs/zsjhEdit/zbAdd'),
         editjsp = require('editjsp'),
-        dragwidth = require('dragwidth');
-    require('dropList');
+        dragwidth = require('dragwidth'),
+        dropList = require('dropList');
 
 
     $("#zssx").dragwidth({
