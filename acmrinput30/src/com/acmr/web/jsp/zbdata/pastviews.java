@@ -277,14 +277,16 @@ public class pastviews extends BaseAction {
         String tablecol = PubInfo.getString(this.getRequest().getParameter("tableCol"));
         String time = PubInfo.getString(this.getRequest().getParameter("time"));
         String icode = PubInfo.getString(this.getRequest().getParameter("icode"));
-
+        PastViewService pastViewService=new PastViewService();
+        List<String> alltaskcodes=pastViewService.getAllTask(icode);
+        List<String> allTime = pastViewService.getAllTime(icode);
         if (spancode.equals("null")) spancode=null;
         List<String> times= Arrays.asList(time.split(","));
         if (time.equals("null")) time=null;
 
-        PastViewService pastViewService=new PastViewService();
         List<List<String>> showdatas = new ArrayList<>();//data
         List<String> taskcodes = new ArrayList<>();
+        List<String> sjhead = new ArrayList<>();
         ExcelBook book = new ExcelBook();
         ExcelSheet sheet1 = new ExcelSheet();
         sheet1.setName("sheet1");
@@ -301,13 +303,16 @@ public class pastviews extends BaseAction {
                 }
 
             }else{
-                taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+                taskcodes=alltaskcodes;
+                if (taskcodes.size()>5) taskcodes=taskcodes.subList(0,5);
             }
             List<Map<String,String>> zbs=pastViewService.getModsList(alltaskcode);
             if (tablecol.equals("sj")){
                 showdatas=pastViewService.getRegTime(taskcodes,spancode,icode);
-                List<String> sjhead;
-                if (time==null) sjhead=pastViewService.getAllTime(icode).subList(0,5);
+
+                if (time==null)
+                    sjhead=allTime;
+                    if(sjhead.size()>5) sjhead=sjhead.subList(0,5);
                 else {
                     sjhead=times;
                 }
@@ -460,15 +465,19 @@ public class pastviews extends BaseAction {
                 }
 
             }else{
-                taskcodes=pastViewService.getAllTask(icode).subList(0,5);
+                taskcodes=alltaskcodes;
+                if (taskcodes.size()>5) taskcodes=taskcodes.subList(0,5);
+
             }
             //返回所有地区
             List<Map<String,String>> regs=pastViewService.getRegList(icode);
             if (tablecol.equals("sj")){
                 showdatas=pastViewService.getModTime(spancode,taskcodes,icode);
                 //时间先写死最近5期，然后根据time来变
-                List<String> sjhead;
-                if (time==null) sjhead=pastViewService.getAllTime(icode).subList(0,5);
+
+                if (time==null)
+                    sjhead=allTime;
+                if(sjhead.size()>5) sjhead=sjhead.subList(0,5);
                 else {
                     sjhead=times;
                 }

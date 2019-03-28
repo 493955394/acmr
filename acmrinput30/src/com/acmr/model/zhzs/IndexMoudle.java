@@ -155,10 +155,6 @@ public class IndexMoudle {
             int nums=0;
             IndexEditService indexEditService=new IndexEditService();
             List<IndexMoudle> mods=indexEditService.getAllMods(this.code,this.indexcode);
-            for (int i = 0; i <mods.size() ; i++) {
-                if(mods.get(i).getWeight().equals(""))//判断指标的权重是否为空
-                    return 0;
-            }
             for (int i=0;i<mods.size();i++){
                 if (mods.get(i).getIfzs().equals("0")){
                     nums=nums+1;
@@ -175,6 +171,29 @@ public class IndexMoudle {
             return 1;
         }
     }
+    public int ZBsandWeight(){
+        if (this.ifzs.equals("1")){
+            int nums=0;
+            IndexEditService indexEditService=new IndexEditService();
+            List<IndexMoudle> mods=indexEditService.getAllMods(this.code,this.indexcode);
+            for (int i = 0; i <mods.size() ; i++) {
+                if(mods.get(i).getWeight().equals(""))//判断指标的权重是否为空
+                    return 0;
+            }
+            for (int i=0;i<mods.size();i++){
+                if (mods.get(i).getIfzs().equals("0")){
+                    nums=nums+1;
+                }
+            }
+            return nums;
+        }
+        else {
+            //PubInfo.printStr("========================0");
+            return 1;
+        }
+    }
+
+
 
     /**
     * @Description: 返回这个module的子节点
