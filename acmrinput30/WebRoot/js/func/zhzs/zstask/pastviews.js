@@ -132,11 +132,11 @@ define(function (require,exports,module) {
                 if (data.returncode == 300) {
                     alert("数据为空");
                 } else {
-                    alert("下载成功!");
+                    window.location.href = url;
                 }
             }
         })
-        window.location.href = url;
+
     })
 
 
