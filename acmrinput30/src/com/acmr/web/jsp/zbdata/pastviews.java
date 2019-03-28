@@ -475,10 +475,12 @@ public class pastviews extends BaseAction {
                 showdatas=pastViewService.getModTime(spancode,taskcodes,icode);
                 //时间先写死最近5期，然后根据time来变
 
-                if (time==null)
-                    sjhead=allTime;
-                if(sjhead.size()>5) sjhead=sjhead.subList(0,5);
-                else {
+                if (time==null) {
+                    sjhead = allTime;
+                    if (sjhead.size() > 5){
+                        sjhead = sjhead.subList(0,5);
+                    }
+                }else {
                     sjhead=times;
                 }
                 ExcelRow dr1 = sheet1.addRow();
