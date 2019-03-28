@@ -635,6 +635,7 @@ define(function (require,exports,module) {
        // console.log(code)
         var isUsed=true
         //console.log(zbcode)
+        if(code=="undefined")return
         $.ajaxSettings.async=false
         $.ajax({
             url:common.rootPath+"zbdata/zsjhedit.htm?m=checkModule&code="+code+"&icode="+indexCode,
