@@ -10,7 +10,7 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 
 <div style="height:63%;overflow: auto;margin-top: 30px; border: 1px solid #EAECF1;font-size: 14px;text-align: center;vertical-align:middle;">
-    <table  style="font-size: 14px;text-align: center;width: 100%;height:100%;" class="table table-bordered" id="previewzb-table">
+    <table  style="font-size: 14px;text-align: center;" class="table table-bordered" id="previewzb-table">
         <thead style="background-color: #e4edf6">
         <th style="text-align: center;vertical-align:middle;min-width: 80px;width: 80px;">地区</th>
         <c:forEach items="${sj}" var="list">

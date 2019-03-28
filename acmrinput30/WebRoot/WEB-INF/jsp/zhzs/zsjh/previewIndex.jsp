@@ -18,20 +18,29 @@
             text-align: center;
             vertical-align: middle;
         }
-        .red{background-color: #e4edf6}
+        #zblist{
+            width : 300px;
+            overflow : auto;
+            text-overflow : ellipsis;
+            white-space : nowrap;
+        }
         .J_preview_data_table .table tr td:last-child {
             white-space: normal !important;
         }
     </style>
 </head>
 <body>
-
-<jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
 <div id="search_ing" style="position: fixed; z-index: 19910414; width: 100%; background: rgba(0, 0, 0, 0.15); height: 100%; display: none; top: 0; left: 0;">
     <div class="ict-loading-box search_ing">
         <img src="${ctx}/images/ict_loading.gif" /> 查询中
     </div>
 </div>
+<div id="container">
+    <div class="ict-header">
+        <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true"/>
+    </div>
+    <div class="ict-page">
+        <div class="container-fluid">
 <div class="col-xs-12">
     <div>
         <input type="hidden" value="${icode}" id="preview-code">
@@ -42,7 +51,7 @@
         </div>
         <input type="hidden" id="timecode" value="${times}">
         <input type="hidden" id="scheme_codes" value="${scodes}">
-        <div style="width: 100%;height:100%;overflow: auto">
+        <div>
         <div class="col-sm-7">
             <div class="modselect" style="padding-right: 20px;height: 20px">
                 <select id="ms">
@@ -58,7 +67,7 @@
             </div>
         </div>
         <div class="col-sm-5">
-            <div class="zbselect" style="padding-right: 20px;height: 20px">
+            <div class="zbselect" style="padding-right: 20px;height: 20px;">
                 <select  id="zblist">
                     <c:forEach items="${zblist.zbchoose}" var="zbl">
                         <option value="${zbl.code}">${zbl.zbname}(${zbl.dsname},${zbl.unitname})</option>
@@ -73,12 +82,12 @@
         </div>
     </div>
 </div>
-
+        </div>
+        <jsp:include page="/WEB-INF/jsp/common/footer.jsp" flush="true" />
+    </div>
+</div>
 </body>
 </html>
-<div class="ict-footer footer fixed-footer">
-    Copyright © 2018 中国信息通信研究院 版权所有
-</div>
 <script type="text/javascript">
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/preview');
 </script>

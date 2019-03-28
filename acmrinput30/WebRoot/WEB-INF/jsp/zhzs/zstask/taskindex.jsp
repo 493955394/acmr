@@ -16,14 +16,19 @@
     ListHashMap<Menu> menus = (ListHashMap<Menu>) request.getSession().getAttribute("usermenu");
     User user = (User) request.getSession().getAttribute("loginuser");
 %>
+<link rel="stylesheet" type="text/css" href="${ctx}/css/pastreview.css" />
 <html>
 <head>
     <title>${projectTitle}-指数任务</title>
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
 </head>
 <body>
-<jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
-<div>
+<div id="container">
+    <div class="ict-header">
+        <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true"/>
+    </div>
+    <div class="ict-page">
+<div class="container-fluid">
     <div class="modal" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -59,14 +64,12 @@
         </div>
     </div>
 </div>
-<div class="teset" style="padding-bottom: 10px"></div>
-<div class="ict-footer footer">
-    Copyright © 2018 中国信息通信研究院 版权所有
+        <jsp:include page="/WEB-INF/jsp/common/footer.jsp" flush="true" />
+    </div>
 </div>
 </body>
 <script>
     seajs.use('${ctx}/js/func/zhzs/zstask/main');
     seajs.use('${ctx}/js/func/zhzs/zstask/datahandle');
-    seajs.use('${ctx}/js/func/zhzs/zstask/caculate');
 </script>
 </html>

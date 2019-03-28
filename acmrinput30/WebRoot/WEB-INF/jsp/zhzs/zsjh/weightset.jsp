@@ -10,14 +10,19 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<link rel="stylesheet" type="text/css" href="${ctx}/css/pastreview.css" />
 <html>
 <head>
     <title>权重设置</title>
     <jsp:include page="/WEB-INF/jsp/common/libs.jsp" flush="true" />
 </head>
 <body>
-<jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
+<div id="container">
+    <div class="ict-header">
+        <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true"/>
+    </div>
+    <div class="ict-page">
+        <div class="container-fluid">
 
 <input class="indexCode" type="hidden" value="${indexcode}">
 <input type="hidden" class="scheme_code" value="${schemecode}">
@@ -25,15 +30,14 @@
 <div class="panel-body J_weight_table">
     <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/weighttable.jsp" flush="true"/>
 </div>
-<div class="teset" style="padding-bottom: 10px"></div>
-<div class="ict-footer footer">
-    Copyright © 2018 中国信息通信研究院 版权所有
+        </div>
+        <jsp:include page="/WEB-INF/jsp/common/footer.jsp" flush="true" />
+    </div>
 </div>
 </body>
 
 <script>
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/weight');
-    seajs.use('${ctx}/js/func/zhzs/zstask/caculate');
 </script>
 
 
