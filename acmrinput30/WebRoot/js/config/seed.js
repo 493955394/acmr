@@ -68,6 +68,7 @@ seajs.config({
         "excel": "js/view/excel.js",
         "alert": "js/mods/alert.js",
         "publicfn": "js/mods/public.fn.js",
-		'synonym':'js/func/metadata/zbmgr/synonym.js'
+		'synonym':'js/func/metadata/zbmgr/synonym.js',
+		'dropList': 'js/lib/dropList.js'
 	}
 })

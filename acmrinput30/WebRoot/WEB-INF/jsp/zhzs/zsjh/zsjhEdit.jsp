@@ -77,11 +77,13 @@
         }
 
     </style>
-
-    <script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="${ctx}/js/lib/dropList.js"></script>
 </head>
 <body>
+<div id="rangData_ing" style="position: fixed; z-index: 19910414; width: 100%; background: rgba(0, 0, 0, 0.15); height: 100%; display: none; top: 0; left: 0;">
+    <div class="ict-loading-box">
+        <img src="${ctx}/images/ict_loading.gif" /> 计算中
+    </div>
+</div>
 <div id="container">
 <div class="ict-header">
     <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true"/>
@@ -363,7 +365,7 @@
                                 </div>
                             </div>
 
-                            <div class="J_zsjh_rangedata_table" id="range_data_table" style="height: 86%;width: 100%;">
+                            <div class="J_zsjh_rangedata_table" id="range_data_table" style="height: 85%;width: 100%;">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/rangeDataTable.jsp" flush="true"/>
                             </div>
                         </div>
@@ -418,11 +420,6 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="edit_tab tab-pane" id="jsfa">
-                        <div id="rangData_ing" style="position: fixed; z-index: 19910414; width: 100%; background: rgba(0, 0, 0, 0.15); height: 100%; display: none; top: 0; left: 0;">
-                            <div class="ict-loading-box">
-                                <img src="${ctx}/images/ict_loading.gif" /> 计算中
-                            </div>
-                        </div>
                         <div id="scheme_main_container">
                             <div id="scheme_select_button">
                                 <button class="btn btn-primary btn-sm" id="set_scheme_weight_formula">多公式/权重设置</button>
@@ -557,6 +554,7 @@
 
     </div>
 </div>
+
 </body>
 <script>
     define("editjsp", function (require, exports, module) {
@@ -579,47 +577,7 @@
         }
     });
     //查询的时间搜索框
-    $(function(){
-        var json1 = {
-            wdcode:'sj',
-            wdname:'预览时间',
-            nodes:[
-                {code:"last3",name:'最近三期'}
-            ]
-        };
-        var json2 = {
-            wdcode:'sj',
-            wdname:'时间',
-            nodes:[
-                {code:"last5",name:'最近五期'}
-            ]
-        };
-        var json3 = {
-            wdcode:'sj',
-            wdname:'预览结果时间选择',
-            nodes:[
-                {code:null,name:'请选择'},
-                {code:"last3",name:'最近三期'}
-            ]
-        };
-        var dt1 = $('#mySelectTime1');
-        var dt2 = $('#mySelectTime');
-        var dt3 = $('#scheme_time_select');
-        dt1.dropList(json1,{isText:true,setIndex:0},function(o){     //指标初选事件处理
-            $("#timeval").val(o.getItem().code)
-            $("#fwtimeinput").click();
-        });
-        dt2.dropList(json2,{isText:true},function(o){     //地区初选事件处理
-            $("#timecode").val(o.getItem().code)
-            $("#zbtimeinput").click();
-        });
-        dt3.dropList(json3,{isText:true},function(o){     //方案事件处理
-            if(o.getItem().code != null){
-                $("#scheme_timeval").val(o.getItem().code)
-                $("#scheme_timeinput").click();
-            }
-        });
-    });
+
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/main');
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/zbAdd');
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/module');

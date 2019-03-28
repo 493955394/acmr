@@ -152,7 +152,29 @@ background-color: #ffffff;
 }
 
 /* 页面加载提示层 */
+/*#rangData_ing{
+    position: fixed; z-index: 19910414; width: 100%; background: rgba(0, 0, 0, 0.15); height: 100%; -display: none; top: 0; left: 0;
+}
+#rangData_ing:after{
+    content: '计算中';
 
+    position: fixed;
+    z-index: 19910414;
+    width: 120px;
+    height: 120px;
+    top: 45%;
+    left: 50%;
+    margin-top: -60px;
+    margin-left: -60px;
+    background: rgba(255, 255, 255, 0.95) url(../images/ict_loading.gif) no-repeat center;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 14px;
+    color: #666666;
+    -webkit-box-shadow: 0 5px 15px 0 rgba(24, 44, 79, .05);
+    box-shadow: 0 5px 15px 0 rgba(24, 44, 79, .05);
+    display: block;
+}*/
 .ict-loading-box {
     position: fixed;
     z-index: 19910414;

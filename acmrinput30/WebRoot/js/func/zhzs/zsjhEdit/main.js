@@ -13,7 +13,7 @@ define(function (require,exports,module) {
         zbAdd=require('js/func/zhzs/zsjhEdit/zbAdd'),
         editjsp = require('editjsp'),
         dragwidth = require('dragwidth');
-
+    require('dropList');
 
 
     $("#zssx").dragwidth({
@@ -605,28 +605,68 @@ define(function (require,exports,module) {
         $("#rangData_ing").show();
         setTimeout(function () {
             $.ajax({
-                url: common.rootPath + 'zbdata/zsjhedit.htm?m=checkPreview',
+                url: common.rootPath + '/zbdata/zsjhedit.htm?m=checkPreview',
                 data: {"id": incode, "scodes": schemecheck,"timeinput":schemetime},
                 type: 'post',
                 dataType: 'json',
                 timeout: 5000,
-                success: function (re) {
-                    if (re.return == 200) {
-                       $("#rangData_ing").hide();
-                      window.open(common.rootPath + 'zbdata/zsjhedit.htm?m=previewIndex&id=' + incode + "&timeinput=" + schemetime + "&scodes=" + schemecheck);
-                    }
-                    else {
-                        alert(re.return + "无法查看预览结果！")
-                        $("#rangData_ing").hide();
-                    }
-                },
-                error:function () {
+                complete:function () {
                     $("#rangData_ing").hide();
+                },
+                success: function (re) {
+                        if (re.return == 200) {
+                            $("#rangData_ing").hide();
+                            window.open(common.rootPath + 'zbdata/zsjhedit.htm?m=previewIndex&id=' + incode + "&timeinput=" + schemetime + "&scodes=" + schemecheck);
+                        }
+                        else {
+                            alert(re.return + "无法查看预览结果！")
+                            //$("#rangData_ing").hide();
+                        }
                 }
             })
-        },30);
+        },500);
     });
-
+    $(function(){
+        var json1 = {
+            wdcode:'sj',
+            wdname:'预览时间',
+            nodes:[
+                {code:"last3",name:'最近三期'}
+            ]
+        };
+        var json2 = {
+            wdcode:'sj',
+            wdname:'时间',
+            nodes:[
+                {code:"last5",name:'最近五期'}
+            ]
+        };
+        var json3 = {
+            wdcode:'sj',
+            wdname:'预览结果时间选择',
+            nodes:[
+                {code:null,name:'请选择'},
+                {code:"last3",name:'最近三期'}
+            ]
+        };
+        var dt1 = $('#mySelectTime1');
+        var dt2 = $('#mySelectTime');
+        var dt3 = $('#scheme_time_select');
+        dt1.dropList(json1,{isText:true,setIndex:0},function(o){     //指标初选事件处理
+            $("#timeval").val(o.getItem().code)
+            $("#fwtimeinput").click();
+        });
+        dt2.dropList(json2,{isText:true},function(o){     //地区初选事件处理
+            $("#timecode").val(o.getItem().code)
+            $("#zbtimeinput").click();
+        });
+        dt3.dropList(json3,{isText:true},function(o){     //方案事件处理
+            if(o.getItem().code != null){
+                $("#scheme_timeval").val(o.getItem().code)
+                $("#scheme_timeinput").click();
+            }
+        });
+    });
 
     /**
      * 计算范围时间搜索框
