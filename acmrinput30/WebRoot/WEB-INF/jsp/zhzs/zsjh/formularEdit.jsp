@@ -163,7 +163,7 @@
                                 <option value="getvalue(指标1,dq)" title="取当前时间对应指标所有地区的数值集合">getvalue(指标,dq)</option>
                                 <option value="getvalue()" title="取当前地区对应指标最近n期时间数值集合">getvalue(指标,lastN)</option>
                                 <option value="getvalue(指标1,lastnumN)" title="取当前地区对应指标最近第n期时间数值集合">getvalue(指标,lastnumN)</option>
-                                <option value="getvalue(指标1,begintime)" title="取当前地区对应指标从计划开始时间到当前时间的数值集合">getvalue(指标,begintime)</option>
+                                <option value="getvalue(指标1,begintime)" title="取当前地区对应指标从计划开始时间到最新时间的数值">getvalue(指标,begintime)</option>
                                 <option value="getvalue()" title="取当前地区对应指标参数的数值">getvalue(指标,YYYY)</option>
                                 <option value="getvalue()" title="取当前地区对应指标从指定年份到最新时间的数值集合">getvalue(指标,YYYY-)</option>
                                 <option value="getvalue()" title="取当前地区对应指标从指定时间范围的数值集合">getvalue(指标,YYYY-YYYY)</option>

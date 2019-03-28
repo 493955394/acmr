@@ -628,7 +628,7 @@ public class IndexListService {
             String dacimal=rows.get(i).getString("dacimal");
             String copycode=rows.get(i).getString("copycode");
             IndexMoudle mod=new IndexMoudle(code,cname,indexcode,procode,ifzs,ifzb,formula,sortcode,weight,dacimal,copycode);
-            if (mod.ZBnums()<1||mod.getWeight().equals("")){
+            if (mod.ZBsandWeight()<1||mod.getWeight().equals("")){
                 check=false;
                 break;
             }
@@ -681,6 +681,7 @@ public class IndexListService {
     public Boolean checkTureMod(String icode) {
         List<DataTableRow> rows = IndexListDao.Fator.getInstance().getIndexdatadao().getZSMods(icode).getRows();
         Boolean check = true;
+        if(rows.size() == 0) return false;
         for (int i = 0; i < rows.size(); i++) {
             String code = rows.get(i).getString("code");
             String cname = rows.get(i).getString("cname");
