@@ -403,11 +403,11 @@ define(function (require,exports,module) {
                 if (data.returncode == 300) {
                     alert("请选择筛选条件");
                 } else {
-                    alert("下载成功!");
+                    window.location.href = url;
                 }
             }
         })
-        window.location.href = url;
+
     });
     /**
      * 单个地区的下载
@@ -441,11 +441,11 @@ define(function (require,exports,module) {
                 if (data.returncode == 300) {
                     alert("请选择筛选条件");
                 } else {
-                    alert("下载成功!");
+                    window.location.href = url;
                 }
             }
         })
-        window.location.href = url;
+
     });
     //基本信息页取消退出该页
     $(".resetindex").click(function () {
@@ -958,7 +958,6 @@ define(function (require,exports,module) {
                 if (data.returncode == 300) {
                     alert("请进行范围确认");
                 }else{
-                    alert("下载成功!");
                     window.location.href =url;
                 }
             }
