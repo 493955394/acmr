@@ -7,8 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
-<body>
-<div class="container-fluid" id="mainpanel">
+<div style="overflow: auto;height: 55%;">
     <c:if test="${right!='0'}">
         <%--<select class="input-sm weight_select" style="float: right">
             <option>请选择</option>
@@ -16,7 +15,7 @@
         </select>--%>
         <button type="button" class="btn btn-default btn-sm weight_select" style="float: right;margin-bottom: 15px"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;恢复默认值</button>
     </c:if>
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover" >
         <c:forEach items="${mods}" var="module">
             <c:if test="${module.getProcode()==''}">
                     <tbody>
@@ -29,7 +28,6 @@
         </c:forEach>
     </table>
 </div>
-</body>
 <script type="text/javascript" src="${ctx}/js/lib/jquery-3.3.1.min.js"></script>
 <script>
     $(".root_zs").each(function () {

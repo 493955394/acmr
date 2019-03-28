@@ -17,10 +17,15 @@
             color:#F39801;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="${ctx}/css/pastreview.css" />
 </head>
 <body>
-<jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true" />
-<div class="container-fluid" id="mainpanel">
+<div id="container">
+    <div class="ict-header">
+        <jsp:include page="/WEB-INF/jsp/common/header.jsp" flush="true"/>
+    </div>
+    <div class="ict-page">
+        <div class="container-fluid">
     <input type="hidden" id="t_code" value="${taskcode}">
         <div  class="col-xs-12">
             <div class="panel panel-default" style="margin-bottom: 0;">
@@ -89,10 +94,8 @@
             </div>
             </div>
         </div>
-</div>
-<div class="teset" style="padding-bottom: 10px"></div>
-<div class="ict-footer footer">
-    Copyright © 2018 中国信息通信研究院 版权所有
+        <jsp:include page="/WEB-INF/jsp/common/footer.jsp" flush="true" />
+    </div>
 </div>
 </body>
 <script>
