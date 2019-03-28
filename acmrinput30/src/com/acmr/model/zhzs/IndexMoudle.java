@@ -155,6 +155,10 @@ public class IndexMoudle {
             int nums=0;
             IndexEditService indexEditService=new IndexEditService();
             List<IndexMoudle> mods=indexEditService.getAllMods(this.code,this.indexcode);
+            for (int i = 0; i <mods.size() ; i++) {
+                if(mods.get(i).getWeight().equals(""))//判断指标的权重是否为空
+                    return 0;
+            }
             for (int i=0;i<mods.size();i++){
                 if (mods.get(i).getIfzs().equals("0")){
                     nums=nums+1;
