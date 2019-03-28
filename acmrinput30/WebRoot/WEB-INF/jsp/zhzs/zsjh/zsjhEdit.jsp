@@ -420,7 +420,7 @@
                     <div role="tabpanel" class="edit_tab tab-pane" id="jsfa">
                         <div id="rangData_ing" style="position: fixed; z-index: 19910414; width: 100%; background: rgba(0, 0, 0, 0.15); height: 100%; display: none; top: 0; left: 0;">
                             <div class="ict-loading-box">
-                                <img src="${ctx}/images/ict_loading.svg" /> 计算中
+                                <img src="${ctx}/images/ict_loading.gif" /> 计算中
                             </div>
                         </div>
                         <div id="scheme_main_container">
@@ -559,47 +559,6 @@
 </div>
 </body>
 <script>
-    $("#scheme_timeinput").click(function () {
-        var incode=$("#index_code").val();
-        var schemecheck= "";
-        $(".scheme_check").each(function () {
-            if($(this).is(':checked'))
-                schemecheck += ","+$(this).attr("scheme_code")
-        })
-        if(schemecheck==""){
-            alert("请至少选择一个方案")
-            return;
-        }
-        var len=$("input[class=scheme_check]:checked").length
-        if(len>3){
-            alert("最多只能选择3个方案！")
-            return;
-        }
-        schemecheck=schemecheck.substring(1);
-        var schemetime = $('#scheme_timeval').val();
-            $.ajax({
-                url: '${ctx}/zbdata/zsjhedit.htm?m=checkPreview',
-                data: {"id": incode, "scodes": schemecheck,"timeinput":schemetime},
-                type: 'post',
-                dataType: 'json',
-                timeout: 5000,
-                beforeSend:function(){
-                    $("#rangData_ing").show();
-                },
-                complete:function () {
-                    $("#rangData_ing").hide();
-                },
-                success: function (re) {
-                    if (re.return == 200) {
-                        $("#rangData_ing").hide();
-                        window.open('${ctx}/zbdata/zsjhedit.htm?m=previewIndex&id=' + incode + "&timeinput=" + schemetime + "&scodes=" + schemecheck);
-                    }
-                    else {
-                        alert(re.return + "无法查看预览结果！")
-                    }
-                }
-            })
-    });
     define("editjsp", function (require, exports, module) {
         var zbs = [];
         <c:forEach items="${zbs.zbchoose}" var="zb">
