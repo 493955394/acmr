@@ -165,6 +165,47 @@ define(function (require,exports,module) {
          }
          treeObj.refresh();//调用api自带的refresh函数。
      }*/
+    $(function(){
+        var json1 = {
+            wdcode:'sj',
+            wdname:'预览时间',
+            nodes:[
+                {code:"last3",name:'最近三期'}
+            ]
+        };
+        var json2 = {
+            wdcode:'sj',
+            wdname:'时间',
+            nodes:[
+                {code:"last5",name:'最近五期'}
+            ]
+        };
+        var json3 = {
+            wdcode:'sj',
+            wdname:'预览结果时间选择',
+            nodes:[
+                {code:null,name:'请选择'},
+                {code:"last3",name:'最近三期'}
+            ]
+        };
+        var dt1 = $('#mySelectTime1');
+        var dt2 = $('#mySelectTime');
+        var dt3 = $('#scheme_time_select');
+        dt1.dropList(json1,{isText:true},function(o){     //指标初选事件处理
+            $("#timeval").val(o.getItem().code)
+            $("#fwtimeinput").click();
+        });
+        dt2.dropList(json2,{isText:true},function(o){     //地区初选事件处理
+            $("#timecode").val(o.getItem().code)
+            $("#zbtimeinput").click();
+        });
+        dt3.dropList(json3,{isText:true},function(o){     //方案事件处理
+            if(o.getItem().code != null){
+                $("#scheme_timeval").val(o.getItem().code)
+                $("#scheme_timeinput").click();
+            }
+        });
+    });
     $(document).ready(function(){
         if($('input[name=index_procode]').val()==""){
             $('input[name=proname]').val("指数");
@@ -183,8 +224,9 @@ define(function (require,exports,module) {
         var currenttab = $("#currentTab").val();
         if(currenttab!="")
             $("#bjjhTab a[href='#jsfw']").click();
+
         if($("#sjss").val()!="" && $("#sjss").val()!="last3"){
-            $("#mySelectTime1 .dttext").val($("#sjss").val())
+            $("#mySelectTime1 .dttext").val($("#sjss").val());
             $("#mySelectTime1 .dttextbtn").click();
         }
 
@@ -261,6 +303,7 @@ define(function (require,exports,module) {
     var treeObj = $.fn.zTree.init($("#treeDemo"), setting1, rootNode);
     var treenodes = treeObj.getNodes();
     treeObj.expandNode(treenodes[0], true, true, true);
+
     /**
      * 选中单个地区
      */
@@ -626,47 +669,6 @@ define(function (require,exports,module) {
             })
         },500);
     });
-    $(function(){
-        var json1 = {
-            wdcode:'sj',
-            wdname:'预览时间',
-            nodes:[
-                {code:"last3",name:'最近三期'}
-            ]
-        };
-        var json2 = {
-            wdcode:'sj',
-            wdname:'时间',
-            nodes:[
-                {code:"last5",name:'最近五期'}
-            ]
-        };
-        var json3 = {
-            wdcode:'sj',
-            wdname:'预览结果时间选择',
-            nodes:[
-                {code:null,name:'请选择'},
-                {code:"last3",name:'最近三期'}
-            ]
-        };
-        var dt1 = $('#mySelectTime1');
-        var dt2 = $('#mySelectTime');
-        var dt3 = $('#scheme_time_select');
-        dt1.dropList(json1,{isText:true,setIndex:0},function(o){     //指标初选事件处理
-            $("#timeval").val(o.getItem().code)
-            $("#fwtimeinput").click();
-        });
-        dt2.dropList(json2,{isText:true},function(o){     //地区初选事件处理
-            $("#timecode").val(o.getItem().code)
-            $("#zbtimeinput").click();
-        });
-        dt3.dropList(json3,{isText:true},function(o){     //方案事件处理
-            if(o.getItem().code != null){
-                $("#scheme_timeval").val(o.getItem().code)
-                $("#scheme_timeinput").click();
-            }
-        });
-    });
 
     /**
      * 计算范围时间搜索框
@@ -702,6 +704,7 @@ define(function (require,exports,module) {
         })
     })
     $("#fwtimeinput").click();
+
     /**
      *  范围确认
      */
