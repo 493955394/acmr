@@ -367,6 +367,7 @@ public class indexlist extends BaseAction {
         indexList.setSort(sort);
         indexList.setState(state);
         indexList.setCreatetime(createtime);
+        indexList.setDelayday("30");
         int int1 = indexListService.addCp(indexList);
         /*if (int1 == -1) {
             data.setReturncode(501);
