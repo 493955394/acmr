@@ -243,26 +243,9 @@ define(function (require,exports,module) {
 
         })*/
 
-        //绑定点击复选框事件
-        $('.J_zsjh_rangedata_table').on('pjax:success',function () {
-            console.log("pjaxsuccess")
-            update()
-            $(".zb_checkbox").each(function () {
-                $(this).change(update)
-            })
-            $(".reg_checkbox").each(function () {
-                $(this).change(update)
-            })
-        })
+
     });
 
-    function update(){
-        //console.log("change")
-        var regnum=$(".reg_checkbox:checked").length;
-        var zbnum=$(".zb_checkbox:checked").length;
-        var info="注：已选择地区数"+regnum+"个，已选择指标数"+zbnum+"个"
-        $("#check_info").text(info)
-    }
 
     //点击指标筛选，激活第一个已选指标
     $(document).on('click','a[href="#zssx"]',function (event) {

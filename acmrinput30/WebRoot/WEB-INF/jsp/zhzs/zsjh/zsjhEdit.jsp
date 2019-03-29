@@ -580,6 +580,7 @@
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/zbAdd');
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/module');
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/scheme');
+    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/range');
 </script>
 </html>
 
