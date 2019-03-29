@@ -148,14 +148,10 @@ define(function (require,exports,module) {
             type: 'get',
             dataType: 'json',
             success: function (data) {
-                if (data.returncode == 300) {
-                    alert("数据为空");
-                } else {
-                    window.location.href = url;
-                }
+
             }
         })
-
+        window.location.href = url;
     })
 
 

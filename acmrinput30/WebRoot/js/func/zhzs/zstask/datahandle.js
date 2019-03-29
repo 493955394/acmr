@@ -50,15 +50,9 @@ define(function(require,exports,module) {
             //data: {'istmp': istmp, 'taskcode': taskcode},
             success: function (data) {
 
-                if (data.returncode == 300) {
-                    alert("数据为空");
-                } else {
-                    window.location.href = url;
-                }
-                //window.location.href = url;
             }
         })
-
+        window.location.href = url;
 })
     /**
      * 文件上传
@@ -132,14 +126,10 @@ define(function(require,exports,module) {
             dataType: 'json',
             success: function (data) {
 
-                if (data.returncode == 300) {
-                    alert("数据为空");
-                } else {
-                    window.location.href = url;
-                }
+
             }
         })
-
+        window.location.href = url;
     })
 
 });

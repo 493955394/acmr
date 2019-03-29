@@ -23,6 +23,10 @@
     <link rel="stylesheet" type="text/css" href="${ctx}/css/pastreview.css" />
     <link rel="stylesheet" type="text/css" href="${ctx}/css/zhzsTreeStyle.css" />
     <style type="text/css">
+        .table_container_column{
+            background-color: white;
+        }
+
         /*.glyphicon {
             color: #F39801;
         }*/
@@ -580,6 +584,7 @@
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/zbAdd');
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/module');
     seajs.use('${ctx}/js/func/zhzs/zsjhEdit/scheme');
+    seajs.use('${ctx}/js/func/zhzs/zsjhEdit/range');
 </script>
 </html>
 
