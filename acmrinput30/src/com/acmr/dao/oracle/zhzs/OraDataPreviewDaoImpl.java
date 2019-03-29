@@ -35,8 +35,8 @@ public class OraDataPreviewDaoImpl implements IDataPreviewDao {
                 dataQuery.beginTranse();
                 // 删除旧的
 
-                String delold = "delete from tb_coindex_data_preview where indexcode =? and ayearmon=? and scode=?";
-                dataQuery.executeSql(delold, new Object[] {dataResults.get(0).getIndexcode(),dataResults.get(0).getAyearmon(),dataResults.get(0).getScode()});
+                String delold = "delete from tb_coindex_data_preview where indexcode =? and scode=?";
+                dataQuery.executeSql(delold, new Object[] {dataResults.get(0).getIndexcode(),dataResults.get(0).getScode()});
                 // 添加新的
                 String sql1 = "insert into tb_coindex_data_preview (indexcode,modcode,region,ayearmon,data,dacimal,updatetime,scode) values(?,?,?,?,?,?,?,?)";
                 for (int i = 0; i <dataResults.size() ; i++) {

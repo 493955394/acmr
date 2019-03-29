@@ -40,9 +40,7 @@ public class DataPreviewService {
         //开始计算指数的值，包括乘上weight
         try {
             for(String scode:scodes.split(",")){
-                for (int i = 0; i <sjs.size() ; i++) {
-                    calculateZB(sjs.get(i).getCode(),regs,icode,zbs,scode);
-                }
+                    calculateZB(sjs,regs,icode,zbs,scode);
             }
 
         } catch (MathException e) {
@@ -75,7 +73,7 @@ public class DataPreviewService {
     /**
      * 计算的方法,只算指标
      */
-    public boolean calculateZB(String time, String regs,String icode,List<Map> zbs,String scode) throws MathException {
+    public boolean calculateZB(List<CubeNode> sjs , String regs,String icode,List<Map> zbs,String scode) throws MathException {
         String [] reg = regs.split(",");
         OriginService originService = new OriginService();
         String dbcode = IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
@@ -84,89 +82,91 @@ public class DataPreviewService {
         for (int i = 0; i <data.size() ; i++) {//开始循环
             if(data.get(i).getIfzb().equals("1")){//如果是直接用筛选的指标的话直接去查值
                 //先去查tb_coindex_zb
-                for (int j = 0; j <reg.length ; j++) {
-                    DataPreview da = new DataPreview();
-                    da.setAyearmon(time);
-                    da.setRegion(reg[j]);
-                    da.setIndexcode(icode);
-                    da.setModcode(data.get(i).getCode());
-                    da.setDacimal(data.get(i).getDacimal());
-                    da.setScode(scode);
-                    for (int k = 0; k <zbs.size() ; k++) {
-                        if(data.get(i).getFormula().contains(zbs.get(k).get("code").toString())){//要是存在这个code,就去取对应的zbcode
-                            ArrayList<CubeQueryData> result = findZbData(zbs.get(k).get("zbcode").toString(),zbs.get(k).get("dscode").toString(),zbs.get(k).get("cocode").toString(),reg[j],time,dbcode);
-                            if(result.size()>0){
-                                if(!result.get(0).getData().getStrdata().equals("")){//如果有值的话
-                                    //单位换算
-                                    String funit=originService.getwdnode("zb",zbs.get(k).get("zbcode").toString(),dbcode).getUnitcode();
-                                    BigDecimal rate = new BigDecimal(String.valueOf(originService.getRate(funit,zbs.get(k).get("unitcode").toString(),time)));
-                                    BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
-                                    BigDecimal val = orval.setScale(Integer.parseInt(data.get(i).getDacimal()),RoundingMode.CEILING);//截取小数点
-                                    da.setData(val.toPlainString());
-                                }
-                                else {
+                for (int s = 0; s <sjs.size() ; s++) {
+                    for (int j = 0; j < reg.length; j++) {
+                        DataPreview da = new DataPreview();
+                        da.setAyearmon(sjs.get(s).getCode());
+                        da.setRegion(reg[j]);
+                        da.setIndexcode(icode);
+                        da.setModcode(data.get(i).getCode());
+                        da.setDacimal(data.get(i).getDacimal());
+                        da.setScode(scode);
+                        for (int k = 0; k < zbs.size(); k++) {
+                            if (data.get(i).getFormula().contains(zbs.get(k).get("code").toString())) {//要是存在这个code,就去取对应的zbcode
+                                ArrayList<CubeQueryData> result = findZbData(zbs.get(k).get("zbcode").toString(), zbs.get(k).get("dscode").toString(), zbs.get(k).get("cocode").toString(), reg[j], sjs.get(s).getCode(), dbcode);
+                                if (result.size() > 0) {
+                                    if (!result.get(0).getData().getStrdata().equals("")) {//如果有值的话
+                                        //单位换算
+                                        String funit = originService.getwdnode("zb", zbs.get(k).get("zbcode").toString(), dbcode).getUnitcode();
+                                        BigDecimal rate = new BigDecimal(String.valueOf(originService.getRate(funit, zbs.get(k).get("unitcode").toString(), sjs.get(s).getCode())));
+                                        BigDecimal orval = (new BigDecimal(result.get(0).getData().getStrdata())).multiply(rate);
+                                        BigDecimal val = orval.setScale(Integer.parseInt(data.get(i).getDacimal()), RoundingMode.CEILING);//截取小数点
+                                        da.setData(val.toPlainString());
+                                    } else {
+                                        da.setData("");
+                                    }
+                                } else {//要是没有值
                                     da.setData("");
                                 }
-                            }
-                           else{//要是没有值
-                                da.setData("");
-                            }
 
-                            newadd.add(da);}
+                                newadd.add(da);
+                            }
+                        }
                     }
                 }
             }
             else if(data.get(i).getIfzb().equals("0")){//如果是自己编辑的公式
                 //先处理公式
-                for (int j = 0; j <reg.length ; j++) {//地区循环
-                    String formula = data.get(i).getFormula();
-                    DataPreview da = new DataPreview();
-                    da.setAyearmon(time);
-                    da.setRegion(reg[j]);
-                    da.setIndexcode(icode);
-                    da.setModcode(data.get(i).getCode());
-                    da.setDacimal(data.get(i).getDacimal());
-                    da.setScode(scode);
-                    boolean flag = false;
-                    //先处理特殊的getvalue函数
-                    formula = specialMath(formula,zbs,time,reg[j],regs,icode,dbcode);
-                    if(formula.equals("false")){  //getvalue函数里没数
-                        flag = true;
-                    }
-                    else {//要是数组函数没有错，开始算别的
-                        for (int k = 0; k < zbs.size(); k++) {
-                            if (formula.contains(zbs.get(k).get("code").toString())) {//要是存在这个code,就去取对应的zbcode
-                                CubeWdCodes where = new CubeWdCodes();
-                                where.Add("zb", zbs.get(k).get("zbcode").toString());
-                                where.Add("ds", zbs.get(k).get("dscode").toString());
-                                where.Add("co", zbs.get(k).get("cocode").toString());
-                                where.Add("reg", reg[j]);
-                                where.Add("sj", time);
-                                ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode, where);
-                                //替换公式中的值
-                                if ((result.size() != 0 && result.get(0).getData().getStrdata().equals("")) || result.size() == 0) {
+                for (int s = 0; s <sjs.size() ; s++) {
+                    for (int j = 0; j < reg.length; j++) {//地区循环
+                        String formula = data.get(i).getFormula();
+                        DataPreview da = new DataPreview();
+                        da.setAyearmon(sjs.get(s).getCode());
+                        da.setRegion(reg[j]);
+                        da.setIndexcode(icode);
+                        da.setModcode(data.get(i).getCode());
+                        da.setDacimal(data.get(i).getDacimal());
+                        da.setScode(scode);
+                        boolean flag = false;
+                        //先处理特殊的getvalue函数
+                        formula = specialMath(formula, zbs, sjs.get(s).getCode(), reg[j], regs, icode, dbcode);
+                        if (formula.equals("false")) {  //getvalue函数里没数
+                            flag = true;
+                        } else {//要是数组函数没有错，开始算别的
+                            for (int k = 0; k < zbs.size(); k++) {
+                                if (formula.contains(zbs.get(k).get("code").toString())) {//要是存在这个code,就去取对应的zbcode
+                                    CubeWdCodes where = new CubeWdCodes();
+                                    where.Add("zb", zbs.get(k).get("zbcode").toString());
+                                    where.Add("ds", zbs.get(k).get("dscode").toString());
+                                    where.Add("co", zbs.get(k).get("cocode").toString());
+                                    where.Add("reg", reg[j]);
+                                    where.Add("sj", sjs.get(s).getCode());
+                                    ArrayList<CubeQueryData> result = RegdataService.queryData(dbcode, where);
+                                    //替换公式中的值
+                                    if ((result.size() != 0 && result.get(0).getData().getStrdata().equals("")) || result.size() == 0) {
 //                                formula = formula.replace("#"+zbs.get(k).getProcode()+"#","0");//换成0
-                                    flag = true;
-                                    break;
-                                } else {
-                                    //单位换算
-                                    String funit = originService.getwdnode("zb", zbs.get(k).get("zbcode").toString(), dbcode).getUnitcode();
-                                    BigDecimal rate = new BigDecimal(String.valueOf(originService.getRate(funit, zbs.get(k).get("unitcode").toString(), time)));
-                                    BigDecimal orval = (new BigDecimal(String.valueOf(result.get(0).getData().getStrdata()))).multiply(rate);
-                                    formula = formula.replace("#" + zbs.get(k).get("code").toString() + "#", String.valueOf(orval));//换成对应的value
-                                }
+                                        flag = true;
+                                        break;
+                                    } else {
+                                        //单位换算
+                                        String funit = originService.getwdnode("zb", zbs.get(k).get("zbcode").toString(), dbcode).getUnitcode();
+                                        BigDecimal rate = new BigDecimal(String.valueOf(originService.getRate(funit, zbs.get(k).get("unitcode").toString(), sjs.get(s).getCode())));
+                                        BigDecimal orval = (new BigDecimal(String.valueOf(result.get(0).getData().getStrdata()))).multiply(rate);
+                                        formula = formula.replace("#" + zbs.get(k).get("code").toString() + "#", String.valueOf(orval));//换成对应的value
+                                    }
 
+                                }
                             }
                         }
+                        if (flag) {
+                            da.setData("");//要是替换后有一个是null就不算了
+                        } else {
+                            //全部替换完成后开始做计算
+                            String val = tocalculate(formula, data.get(i).getDacimal());
+                            da.setData(val);
+                        }
+                        newadd.add(da);
                     }
-                    if(flag){
-                        da.setData("");//要是替换后有一个是null就不算了
-                    }else {
-                        //全部替换完成后开始做计算
-                        String val = tocalculate(formula,data.get(i).getDacimal());
-                        da.setData(val);
-                    }
-                    newadd.add(da);
                 }
             }
         }
@@ -176,7 +176,9 @@ public class DataPreviewService {
         Map<String,String> listToMap = listToMap(newadd);
         for (int i = 0; i <zong.size() ; i++) {
             for (int j = 0; j <reg.length ; j++) {//一个地区一个地区地算
-                calculateZS(zong.get(i).getCode(),time,reg[j],scode,icode,newadd,listToMap);
+                for (int k = 0; k <sjs.size() ; k++) {
+                    calculateZS(zong.get(i).getCode(),sjs.get(k).getCode(),reg[j],scode,icode,newadd,listToMap);
+                }
             }
         }
         int i=addDataresult(newadd);
@@ -192,16 +194,16 @@ public class DataPreviewService {
         DataPreview zsdata = new DataPreview();
         List<IndexMoudle> subs = new ArrayList<>();
         if(!modSubList.containsKey(code)) { //如果之前没查过就去库里查它的sub,再添加到这个对象中
-            subs = findSubMod(code);
+            subs = findSubMod(code,scode);
             modSubList.put(code,subs);
         }
         else {
             subs = modSubList.get(code);//如果之前查过了就直接取
         }
-        int check = subDataCheck(subs,reg,scode,listToMap);
+        int check = subDataCheck(subs,reg,time,scode,listToMap);
         if(check ==1){//下一级的值不全
             for (int i = 0; i <subs.size() ; i++) {
-                if(!listToMap.containsKey(subs.get(i).getCode()+","+reg+","+scode))
+                if(!listToMap.containsKey(subs.get(i).getCode()+","+reg+","+time+","+scode))
                     calculateZS(subs.get(i).getCode(),time,reg,scode,icode,list,listToMap);
             }
             calculateZS(code,time,reg,scode,icode,list,listToMap);//计算一遍它的父级
@@ -217,7 +219,7 @@ public class DataPreviewService {
             String formula = "";
             boolean flag = false;
             for (int i = 0; i < subs.size(); i++) {
-                String data = listToMap.get(subs.get(i).getCode()+","+reg+","+scode);
+                String data = listToMap.get(subs.get(i).getCode()+","+reg+","+time+","+scode);
                 if(data.equals("")){
                     flag = true;
                     continue;
@@ -226,11 +228,11 @@ public class DataPreviewService {
             }
             if(flag){
                 zsdata.setData("");
-                listToMap.put(temp.getCode()+","+reg+","+scode,"");
+                listToMap.put(temp.getCode()+","+reg+","+time+","+scode,"");
             }else {
                 String val = tocalculate(formula.substring(1),temp.getDacimal());
                 zsdata.setData(val);
-                listToMap.put(temp.getCode()+","+reg+","+scode,val);
+                listToMap.put(temp.getCode()+","+reg+","+time+","+scode,val);
             }
             list.add(zsdata);
 
@@ -248,24 +250,15 @@ public class DataPreviewService {
             IndexMoudle iModule = new IndexMoudle();
             String modcode = data.get(i).getString("code");
             String indexcode = data.get(i).getString("indexcode");
-
             iModule.setCode(modcode);
             iModule.setCname(data.get(i).getString("cname"));
             iModule.setIndexcode(indexcode);
             iModule.setProcode(data.get(i).getString("procode"));
             iModule.setIfzs(data.get(i).getString("ifzs"));
-            if(ifzs.equals("0")){
-                //找到方案对应的公式和权重
-                IndexMoudle scheme= ss.getModData(modcode,indexcode,scode);
-                iModule.setIfzb(scheme.getIfzb());//替换成方案对应的权重和公式，同下
-                iModule.setFormula(scheme.getFormula());
-                iModule.setWeight(scheme.getWeight());
-            }
-            else {
-                iModule.setIfzb(data.get(i).getString("ifzb"));
-                iModule.setFormula(data.get(i).getString("formula"));
-                iModule.setWeight(data.get(i).getString("weight"));
-            }
+            IndexMoudle scheme= ss.getModData(modcode,indexcode,scode);
+            iModule.setIfzb(scheme.getIfzb());//替换成方案对应的权重和公式，同下
+            iModule.setFormula(scheme.getFormula());
+            iModule.setWeight(scheme.getWeight());
             iModule.setSortcode(data.get(i).getString("sortcode"));
             iModule.setDacimal(data.get(i).getString("dacimal"));
             indexModules.add(iModule);
@@ -277,8 +270,9 @@ public class DataPreviewService {
     /**
      * 查询MODULE表submod
      */
-    public List<IndexMoudle> findSubMod(String code){
+    public List<IndexMoudle> findSubMod(String code,String scode){
         List<IndexMoudle> taskModules = new ArrayList<>();
+        IndexSchemeService ss = new IndexSchemeService();
         List<DataTableRow> data = DataPreviewDao.Fator.getInstance().getIndexdatadao().getSubMod(code).getRows();
         for (int i = 0; i <data.size() ; i++) {
             IndexMoudle taskModule = new IndexMoudle();
@@ -289,9 +283,10 @@ public class DataPreviewService {
             taskModule.setIndexcode(indexcode);
             taskModule.setProcode(data.get(i).getString("procode"));
             taskModule.setIfzs(data.get(i).getString("ifzs"));
-            taskModule.setIfzb(data.get(i).getString("ifzb"));
-            taskModule.setFormula(data.get(i).getString("formula"));
-            taskModule.setWeight(data.get(i).getString("weight"));
+            IndexMoudle scheme= ss.getModData(modcode,indexcode,scode);
+            taskModule.setIfzb(scheme.getIfzb());//替换成方案对应的权重和公式，同下
+            taskModule.setFormula(scheme.getFormula());
+            taskModule.setWeight(scheme.getWeight());
             taskModule.setSortcode(data.get(i).getString("sortcode"));
             taskModule.setDacimal(data.get(i).getString("dacimal"));
             taskModules.add(taskModule);
@@ -302,12 +297,12 @@ public class DataPreviewService {
     /**
      * 查询当前的节点的下级的值是否是全的，返回1代表缺值
      */
-    public int subDataCheck(List<IndexMoudle> iModules, String reg,String scode,Map<String,String> list){
+    public int subDataCheck(List<IndexMoudle> iModules, String reg,String time,String scode,Map<String,String> list){
         int i = 0;
         Map<String,String> sub = new HashMap<>();
         for (int j = 0; j <iModules.size() ; ++j) {
             String modcode = iModules.get(j).getCode();
-           sub.put(modcode+","+reg+","+scode,"");
+           sub.put(modcode+","+reg+","+time+","+scode,"");
         }
         for(String k : sub.keySet()){
             if(!list.containsKey(k)){
@@ -581,7 +576,8 @@ public class DataPreviewService {
             String modcode = list.get(i).getModcode();
             String scode = list.get(i).getScode();
             String reg = list.get(i).getRegion();
-            data.put(modcode+","+reg+","+scode,list.get(i).getData());
+            String time = list.get(i).getAyearmon();
+            data.put(modcode+","+reg+","+time+","+scode,list.get(i).getData());
         }
         return data;
     }
