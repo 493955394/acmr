@@ -580,6 +580,7 @@ define(function (require,exports,module) {
                 url: common.rootPath + 'zbdata/indexlist.htm?m=switchState',
                 data: {"code": code, "state": state},
                 type: 'post',
+                async:true,
                 dataType: 'json',
                 success: function (data) {
                     $("#start_ing").hide();
