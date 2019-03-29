@@ -23,6 +23,10 @@
     <link rel="stylesheet" type="text/css" href="${ctx}/css/pastreview.css" />
     <link rel="stylesheet" type="text/css" href="${ctx}/css/zhzsTreeStyle.css" />
     <style type="text/css">
+        .table_container_column{
+            background-color: white;
+        }
+
         /*.glyphicon {
             color: #F39801;
         }*/

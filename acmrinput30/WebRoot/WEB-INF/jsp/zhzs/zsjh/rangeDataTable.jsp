@@ -3,7 +3,8 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<div id="rangeTable" class="tableContainer" style="margin: 0 auto; overflow: hidden; position: relative">
+
+<div id="rangeTable" class="tableContainer" style="margin: 0 auto; overflow: hidden; ">
     <input type="hidden" name="lockColNum" value="1"/>
     <table class="querytable table table-bordered table-hover">
         <thead <%--style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';"--%> style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
