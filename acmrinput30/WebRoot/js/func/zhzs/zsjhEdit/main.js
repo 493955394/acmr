@@ -652,7 +652,6 @@ define(function (require,exports,module) {
                 type: 'post',
                 dataType: 'json',
                 async: true,
-                timeout: 5000,
                 beforeSend:function(){
                     $("#rangData_ing").show();
                 },
