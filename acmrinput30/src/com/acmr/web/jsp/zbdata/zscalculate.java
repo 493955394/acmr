@@ -381,6 +381,7 @@ public class zscalculate extends BaseAction {
         //PubInfo.printStr("istmp:"+istmp);
         //String taskcode = req.getParameter("taskcode");
         //String istmp = PubInfo.getString(this.getRequest().getParameter("istmp"));//判断读取数据的data表
+        JSONReturnData data = new JSONReturnData("");
         String taskcode = PubInfo.getString(this.getRequest().getParameter("taskcode"));
         //String taskcode =PubInfo.getString(req.getParameter("taskcode"));
         IndexTaskService indexTaskService = new IndexTaskService();
@@ -400,7 +401,6 @@ public class zscalculate extends BaseAction {
             for (int i = 0; i < regscode.size(); i++) {
                 regstmp.add(originService.getwdnode("reg", regscode.get(i),dbcode).getName());
             }
-            JSONReturnData data = new JSONReturnData("");
             if (regstmp == null || datatmp == null) {
                 data.setReturncode(300);
                 this.sendJson(data);
