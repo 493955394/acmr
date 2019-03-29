@@ -165,6 +165,7 @@ define(function (require,exports,module) {
          }
          treeObj.refresh();//调用api自带的refresh函数。
      }*/
+    var scheme_timeval = "";
     $(function(){
         var json1 = {
             wdcode:'sj',
@@ -201,8 +202,8 @@ define(function (require,exports,module) {
         });
         dt3.dropList(json3,{isText:true},function(o){     //方案事件处理
             if(o.getItem().code != null){
-                $("#scheme_timeval").val(o.getItem().code)
-                $("#scheme_timeinput").click();
+                scheme_timeval=o.getItem().code;
+                scheme_timeinput();
             }
         });
     });
@@ -377,7 +378,7 @@ define(function (require,exports,module) {
                 url: common.rootPath+'zbdata/zsjhedit.htm?m=getResultLeft',
                 type: "post",
                 data: {"procode": procode,"icode":incode},
-                async: false,
+                async: true,
                 dataType: "json",
                 success: function(data) {
                     for (var i = 0; i <data.length; i++) {
@@ -628,7 +629,7 @@ define(function (require,exports,module) {
     /**
      * 预览结果
      */
-    $("#scheme_timeinput").click(function () {
+    function scheme_timeinput() {
         var schemecheck= "";
         $(".scheme_check").each(function () {
             if($(this).is(':checked'))
@@ -644,31 +645,30 @@ define(function (require,exports,module) {
             return;
         }
         schemecheck=schemecheck.substring(1);
-        var schemetime = $('#scheme_timeval').val();
-        $("#rangData_ing").show();
-        setTimeout(function () {
+        var schemetime = scheme_timeval;
             $.ajax({
                 url: common.rootPath + '/zbdata/zsjhedit.htm?m=checkPreview',
                 data: {"id": incode, "scodes": schemecheck,"timeinput":schemetime},
                 type: 'post',
                 dataType: 'json',
+                async: true,
                 timeout: 5000,
+                beforeSend:function(){
+                    $("#rangData_ing").show();
+                },
                 complete:function () {
                     $("#rangData_ing").hide();
                 },
                 success: function (re) {
                         if (re.return == 200) {
-                            $("#rangData_ing").hide();
                             window.open(common.rootPath + 'zbdata/zsjhedit.htm?m=previewIndex&id=' + incode + "&timeinput=" + schemetime + "&scodes=" + schemecheck);
                         }
                         else {
                             alert(re.return + "无法查看预览结果！")
-                            //$("#rangData_ing").hide();
                         }
                 }
             })
-        },500);
-    });
+    };
 
     /**
      * 计算范围时间搜索框
