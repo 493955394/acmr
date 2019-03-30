@@ -10,13 +10,7 @@ define(function (require,exports,module) {
     //绑定点击复选框事件
     $('.J_zsjh_rangedata_table').on('pjax:success',function () {
         console.log("pjaxsuccess")
-        update()
-        $(".zb_checkbox").each(function () {
-            $(this).change(update)
-        })
-        $(".reg_checkbox").each(function () {
-            $(this).change(update)
-        })
+
         setTimeout(setTable,500);
         //setTable()
 
@@ -27,9 +21,18 @@ define(function (require,exports,module) {
         var w = $("#rangeTable").width(),
             h=$("#rangeTable thead").height(),
             h2=$("#rangeTable tbody").height();
-        h2 = h2 >= 450 ? 450 : h2+18;
+        h2 = h2 >= 650 ? 650 : h2+18;
         $("#rangeTable > table").css('width',w);
         $("#rangeTable").yflockTable({"width":w,"height":h+h2,"fixColumnNumber":lockCol});
+
+
+        update()
+        $(".zb_checkbox").each(function () {
+            $(this).change(update)
+        })
+        $(".reg_checkbox").each(function () {
+            $(this).change(update)
+        })
     }
 
 

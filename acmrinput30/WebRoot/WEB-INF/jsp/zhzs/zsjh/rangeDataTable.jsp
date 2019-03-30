@@ -4,7 +4,7 @@
 
 
 
-<div id="rangeTable" class="tableContainer" style="margin: 0 auto; overflow: hidden; ">
+<div id="rangeTable" class="tableContainer" style="margin: 0 auto; overflow: hidden; width: 100%;">
     <input type="hidden" name="lockColNum" value="1"/>
     <table class="querytable table table-bordered table-hover">
         <thead <%--style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';"--%> style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
@@ -43,13 +43,9 @@
         </c:forEach>
         </tbody>
     </table>
-</div>
-
-
-
-<div style="text-align: left">
     <p id="check_info"></p>
 </div>
+
 <%--
 <div class="range_table_head_cont" style="position:relative;overflow: hidden;width: 100%;height: 10%;">
     <table class="table table-bordered table-hover range_table_head" style="width: 100%;position:absolute;">
