@@ -4,6 +4,7 @@ define(function (require,exports,module) {
         pjax=require('pjax'),
         common = require('common'),
         editjsp = require('editjsp'),
+        main = require('js/func/zhzs/zsjhEdit/main'),
         querytable = require('queryLockTable');
 
 
