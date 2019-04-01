@@ -38,8 +38,8 @@ define(function (require,exports,module) {
 
     function update(){
         //console.log("change")
-        var regnum=$(".reg_checkbox:checked").length;
-        var zbnum=$(".zb_checkbox:checked").length;
+        var regnum=$(".table_container_column .reg_checkbox:checked").length;
+        var zbnum=$(".table_container_head  .zb_checkbox:checked").length;
         var info="注：已选择地区数"+regnum+"个，已选择指标数"+zbnum+"个"
         $("#check_info").text(info)
     }
