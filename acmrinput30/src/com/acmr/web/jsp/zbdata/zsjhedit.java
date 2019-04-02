@@ -2053,6 +2053,7 @@ public class zsjhedit extends BaseAction {
         for (int i = 0; i <sjs.size() ; i++) {
             sj.add(sjs.get(i).getCode());
         }
+        Collections.sort(sj,Collections.<String>reverseOrder());
         /**
          * 检查数据是否完整
          */
@@ -2129,6 +2130,7 @@ public class zsjhedit extends BaseAction {
         for (int i = 0; i <sjs.size() ; i++) {
             sj.add(sjs.get(i).getCode());
         }
+        Collections.sort(sj,Collections.<String>reverseOrder());//排序
         /**
          * 检查数据是否完整
          */
