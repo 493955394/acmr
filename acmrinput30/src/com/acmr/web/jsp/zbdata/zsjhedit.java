@@ -71,11 +71,14 @@ public class zsjhedit extends BaseAction {
             IndexList list1 =indexListService.getData(procode);
              proname = list1.getCname();
         }
+        //获得选用方案
+        IndexSchemeService indexSchemeService =new IndexSchemeService();
+        List<Scheme> schemes=indexSchemeService.getSchemeByIcode(code);
         ArrayList<IndexList> indexlist= new IndexListService().getIndexList();
         /* 第一个分页显示*/
         JSONObject zbs=getZBS(code);
         List<Map> regs = regshow(code);
-        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("proname",proname).addObject("list",list).addObject("indexlist",indexlist).addObject("zbs",zbs).addObject("regs",regs).addObject("right",right).addObject("tab",tab).addObject("sjss",sjss);
+        return new ModelAndView("/WEB-INF/jsp/zhzs/zsjh/zsjhEdit").addObject("proname",proname).addObject("list",list).addObject("scheme",schemes).addObject("indexlist",indexlist).addObject("zbs",zbs).addObject("regs",regs).addObject("right",right).addObject("tab",tab).addObject("sjss",sjss);
     }
     /**
      *

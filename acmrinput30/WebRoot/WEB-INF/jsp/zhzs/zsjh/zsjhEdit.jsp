@@ -108,12 +108,12 @@
                 <div id="top_div">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="bjjhTab">
-                        <li  class="active"><a href="#zssx" aria-controls="zssx" role="tab" data-toggle="tab">指标初选</a></li>
-                        <li ><a href="#dqcx" aria-controls="dqcx" role="tab" data-toggle="tab">地区初选</a></li>
-                        <li ><a href="#jsfw" aria-controls="jsfw" role="tab" data-toggle="tab">计算范围</a></li>
-                        <li ><a href="#mxgh" aria-controls="mxgh" role="tab" data-toggle="tab">模型构建</a></li>
-                        <li ><a href="#jsfa" aria-controls="jsfa" role="tab" data-toggle="tab">计算方案</a></li>
-                        <li ><a href="#jbxx" aria-controls="jbxx" role="tab" data-toggle="tab">项目信息</a></li>
+                        <li  class="active"><a href="#zssx" aria-controls="zssx" role="tab" data-toggle="tab">①指标初选</a></li>
+                        <li ><a href="#dqcx" aria-controls="dqcx" role="tab" data-toggle="tab">②地区初选</a></li>
+                        <li ><a href="#jsfw" aria-controls="jsfw" role="tab" data-toggle="tab">③计算范围</a></li>
+                        <li ><a href="#mxgh" aria-controls="mxgh" role="tab" data-toggle="tab">④模型构建</a></li>
+                        <li ><a href="#jsfa" aria-controls="jsfa" role="tab" data-toggle="tab">⑤计算方案</a></li>
+                        <li ><a href="#jbxx" aria-controls="jbxx" role="tab" data-toggle="tab">⑥项目信息</a></li>
                     </ul>
                 </div>
                 <!-- Tab panes -->
@@ -130,6 +130,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>计划名称：</label>
                                 <div class="col-sm-5">
+
                                     <c:if test="${right!='1'}">
                                         <input id="index_cname" name="index_cname" class="form-control"
                                                value="${list.getCname()}"/>
@@ -138,6 +139,7 @@
                                         <input id="index_cname" name="index_cname" class="form-control"
                                                value="${list.getCname()}" readonly/>
                                     </c:if>
+
                                 </div>
                             </div>
                             <div class="form-group">
@@ -151,6 +153,24 @@
                                     </c:if>
                                 </div>
                                 <div class="clearfix"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>方案名称：</label>
+                                <div class="col-sm-5">
+                                    <c:forEach var="scheme" items="${scheme}">
+                                    <c:if test="${scheme.getState() == '1'}">
+                                    <input type="text" class="form-control hid-bottom" name="schemename" value="${scheme.getCname()}"
+                                           readonly>
+                                    </c:if>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>计划起始时间：</label>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control hid-bottom" name="startname" value="${list.getStartperiod()}"
+                                           readonly>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>指数时间类型：</label>
