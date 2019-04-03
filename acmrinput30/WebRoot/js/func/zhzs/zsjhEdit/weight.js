@@ -1,10 +1,53 @@
 define(function (require,exports,module) {
     var $ = require('jquery'),
         pjax=require('pjax'),
-        //weightset=require('weightset'),
+        dropList=require('dropList'),
         common = require('common');
+    var scheme_timeval = "";
+    $(function(){
+        var json3 = {
+            wdcode:'sj',
+            wdname:'预览结果时间选择',
+            nodes:[
+                {code:null,name:'请选择'},
+                {code:"last3",name:'最近三期'}
+            ]
+        };
+        var dt3 = $('#scheme_time_select');
+        dt3.dropList(json3,{isText:true},function(o){     //方案事件处理
+            if(o.getItem().code != null){
+                scheme_timeval =o.getItem().code;
+                scheme_timeinput();
+            }
+        });
+    });
 
-
+    function scheme_timeinput() {
+        var schemecheck= $(".scheme_code").val();
+        var schemetime = scheme_timeval;
+        var incode= $(".indexCode").val();
+        $.ajax({
+            url: common.rootPath + '/zbdata/zsjhedit.htm?m=checkPreview',
+            data: {"id": incode, "scodes": schemecheck,"timeinput":schemetime},
+            type: 'post',
+            dataType: 'json',
+            async: true,
+            beforeSend:function(){
+                $("#rangData_ing").show();
+            },
+            complete:function () {
+                $("#rangData_ing").hide();
+            },
+            success: function (re) {
+                if (re.return == 200) {
+                    window.open(common.rootPath + 'zbdata/zsjhedit.htm?m=previewIndex&id=' + incode + "&timeinput=" + schemetime + "&scodes=" + schemecheck);
+                }
+                else {
+                    alert(re.return + "无法查看预览结果！")
+                }
+            }
+        })
+    };
     $(document).on('click','.save_weight',function (event) {
         event.stopPropagation();
         Array.prototype.contain = function(val)

@@ -34,6 +34,7 @@
         <span style="color: #fa7811;font-size:15px;line-height: 30px;">注：同级别权重和必须为1且权重不能小于0</span>
         <button type="button" class="btn btn-default btn-sm save_weight" style="float: right;margin-bottom: 15px"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;保存设置
         </button>
+        <div id="scheme_time_select" style="float: right;margin-bottom: 15px;padding-right: 10px"></div>
     </div>
     <div style="width: 100%;overflow: auto">
     <table class="table table-bordered" id="module_table">
@@ -47,6 +48,11 @@
             <td>方案</td>--%>
         </tr>
     </table>
+    </div>
+</div>
+<div id="rangData_ing" style="position: fixed; z-index: 19910414; width: 100%; background: rgba(0, 0, 0, 0.15); height: 100%; display: none; top: 0; left: 0;">
+    <div class="ict-loading-box">
+        <img src="${ctx}/images/ict_loading.gif" /> 计算中
     </div>
 </div>
 </body>
