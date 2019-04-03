@@ -730,7 +730,7 @@ define(function (require,exports,module) {
         }
         var codelist=[];
         var unchoose = "";//没选择的指标
-        var check=$("input:checkbox[class='zb_checkbox']:checked");
+        var check=$(".table_container_head input:checkbox[class='zb_checkbox']:checked");
         for (var i=0;i<check.length;i++){
             codelist.push(check[i].id)
         }
@@ -751,7 +751,7 @@ define(function (require,exports,module) {
         //过滤regs
         var regs=select;
         var reglist=[];
-        var regcheck=$("input:checkbox[class='reg_checkbox']:checked");
+        var regcheck=$(".table_container_column input:checkbox[class='reg_checkbox']:checked");
         for (var i=0;i<regcheck.length;i++){
             reglist.push(regcheck[i].id)
         }
