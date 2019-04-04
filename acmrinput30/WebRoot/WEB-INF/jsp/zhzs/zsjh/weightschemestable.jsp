@@ -122,7 +122,7 @@
 
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:last").parent().append(
-            "<td style=\"text-align:center;min-width:480px\" code=${module.getCode()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}'  placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>&nbsp;&nbsp;公式：<input style=\"width:280px\" value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
+            "<td style=\"text-align:center;min-width:480px\" code=${module.getCode()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}'  placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>&nbsp;&nbsp;公式：<input style=\"width:280px\" value='${module.getSformula(scode)}' onmouseover=\"this.title=this.value\" readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
         )
         </c:forEach>
 
@@ -136,7 +136,7 @@
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:last").parent().nextAll(":eq(" +
             (rows-flag-1)+")").append(
-            "<td style=\"text-align:center;min-width:480px\" code=${module.getCode()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>&nbsp;&nbsp;公式：<input style=\"width:280px\" value='${module.getSformula(scode)}' readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
+            "<td style=\"text-align:center;min-width:480px\" code=${module.getCode()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'>&nbsp;&nbsp;公式：<input style=\"width:280px\" value='${module.getSformula(scode)}' onmouseover=\"this.title=this.value\" readonly>  <a href='#'class='edit_formula' modcode='${module.getCode()}' scode='${scode}'>编辑</a></td>"
         )
         </c:forEach>
 
