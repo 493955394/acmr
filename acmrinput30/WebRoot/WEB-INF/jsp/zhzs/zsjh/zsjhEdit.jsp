@@ -157,18 +157,13 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>方案名称：</label>
                                 <div class="col-sm-5">
-                                    <c:forEach var="scheme" items="${scheme}">
-                                    <c:if test="${scheme.getState() == '1'}">
-                                    <input type="text" class="form-control hid-bottom" name="schemename" value="${scheme.getCname()}"
-                                           readonly>
-                                    </c:if>
-                                    </c:forEach>
+                                    <input type="text" class="form-control" name="schemename" value=" ${list.getSchemename()}" readonly>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>计划起始时间：</label>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control hid-bottom" name="startname" value="${list.getStartperiod()}"
+                                    <input type="text" class="form-control" name="startname" value="${list.getStartperiod()}"
                                            readonly>
                                 </div>
                             </div>
@@ -189,7 +184,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label "><span class="glyphicon glyphicon-asterisk required_ico"></span>更新周期：</label>
+                                <label class="col-sm-2 control-label "><span class="glyphicon glyphicon-asterisk required_ico"></span>自动生成间隔：</label>
                                 <div class="col-sm-5">
                                     <c:if test="${right!='1'}">
                                         <input id="delayday" name="delayday" value="<c:if test="${list.getDelayday()==''}">30</c:if><c:if test="${list.getDelayday()!=''}">${list.getDelayday()}</c:if>"
@@ -200,8 +195,12 @@
                                                class="form-control" readonly/>
                                     </c:if>
                                 </div>
-                                <label class="control-label">自然日</label>
                                 <span class="normalday"></span>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-5 col-sm-offset-2">
+                                    <label class="control-label" style="padding-top: 0">自数据期对应时间结束后</label>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">备注：</label>
