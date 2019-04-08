@@ -195,11 +195,15 @@
                                                class="form-control" readonly/>
                                     </c:if>
                                 </div>
+
                                 <span class="normalday"></span>
+
+                                <label class="control-label">自然日</label>
+
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-5 col-sm-offset-2">
-                                    <label class="control-label" style="padding-top: 0">自数据期对应时间结束后</label>
+                                    <label class="control-label" style="padding-top: 0;color:#F00">自数据期对应时间结束后</label>
                                 </div>
                             </div>
                             <div class="form-group">
