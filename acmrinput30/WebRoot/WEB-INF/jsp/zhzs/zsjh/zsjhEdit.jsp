@@ -157,7 +157,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>方案名称：</label>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control" name="schemename" value=" ${list.getSchemename()}" readonly>
+                                    <input type="text" class="form-control" name="scheme-name" value=" ${list.getSchemename()}" readonly>
                                 </div>
                             </div>
                             <div class="form-group">
