@@ -193,12 +193,12 @@ public class DataPreviewService {
     public  void calculateZS(String code, String time, String reg,String scode,String icode,List<DataPreview> list,Map<String,String> listToMap){
         DataPreview zsdata = new DataPreview();
         List<IndexMoudle> subs = new ArrayList<>();
-        if(!modSubList.containsKey(code)) { //如果之前没查过就去库里查它的sub,再添加到这个对象中
+        if(!modSubList.containsKey(code+scode)) { //如果之前没查过就去库里查它的sub,再添加到这个对象中
             subs = findSubMod(code,scode);
-            modSubList.put(code,subs);
+            modSubList.put(code+scode,subs);
         }
         else {
-            subs = modSubList.get(code);//如果之前查过了就直接取
+            subs = modSubList.get(code+scode);//如果之前查过了就直接取
         }
         int check = subDataCheck(subs,reg,time,scode,listToMap);
         if(check ==1){//下一级的值不全
