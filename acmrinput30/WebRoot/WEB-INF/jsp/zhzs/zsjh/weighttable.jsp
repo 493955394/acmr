@@ -22,6 +22,9 @@
         text-align: center;
         vertical-align: middle !important;
     }
+    .gsstyle *{
+        vertical-align: middle;
+    }
 </style>
 <body>
 <div class="container-fluid" id="mainpanel">
@@ -103,7 +106,7 @@
     //和父节点同行
     if (flag==rows){
         $("#"+"${module.getProcode()}").after(
-            "<td>${module.getCname()}</td><td id=${module.getCode()}><div style=\"text-align:center;vertical-align:middle;\"  title=\"${module.getFormula()}\"><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}'  placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'>&nbsp;&nbsp;公式：<textarea name=\"reworkmes\"  cols=\"2\"   rows=\"3\"   style=\"OVERFLOW:hidden;width:280px\" readonly>${module.getFormula()}</textarea>  <a href='#'class='edit_formula' modcode='${module.getCode()}'>编辑</a></div></td>"
+            "<td>${module.getCname()}</td><td style=\"text-align:center;vertical-align:middle;\"  id=${module.getCode()}><div class=\"gsstyle\" title=\"${module.getFormula()}\"><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}'  placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'>&nbsp;&nbsp;<span>公式:</span><textarea name=\"reworkmes\"  cols=\"2\"   rows=\"3\"   style=\"OVERFLOW:hidden;width:280px\" readonly>${module.getFormula()}</textarea>  <a href='#'class='edit_formula' modcode='${module.getCode()}'><span>编辑</span></a></div></td>"
         )
 
         $("#"+"${module.getProcode()}").attr("flag",flag-1)
@@ -112,7 +115,7 @@
     else {
         //$("#"+"${module.getProcode()}").parent().nextAll(":eq(1)").append("<td>test</td>")
         $("#"+"${module.getProcode()}").parent().nextAll(":eq(" +
-            (rows-flag-1)+")").append("<td>${module.getCname()}</td><td style=\"text-align:center;vertical-align:middle;\" id=${module.getCode()} ><div style=\"text-align:center;vertical-align:middle;\"  title=\"${module.getFormula()}\"><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}'  placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'>&nbsp;&nbsp;公式：<textarea name=\"reworkmes\"  cols=\"2\"   rows=\"3\"   style=\"OVERFLOW:hidden;width:280px\" readonly>${module.getFormula()}</textarea>  <a href='#'class='edit_formula' modcode='${module.getCode()}'>编辑</a></div></td>")
+            (rows-flag-1)+")").append("<td>${module.getCname()}</td><td style=\"text-align:center;vertical-align:middle;\" id=${module.getCode()} ><div class=\"gsstyle\" title=\"${module.getFormula()}\"><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}'  placeholder='请输入权重' class='input_weight' value='${module.getWeight()}'>&nbsp;&nbsp;<span>公式:</span><textarea name=\"reworkmes\"  cols=\"2\"   rows=\"3\"   style=\"OVERFLOW:hidden;width:280px\" readonly>${module.getFormula()}</textarea>  <a href='#'class='edit_formula' modcode='${module.getCode()}'><span>编辑</span></a></div></td>")
         $("#"+"${module.getProcode()}").attr("flag",flag-1)
     }
     </c:if>
