@@ -15,7 +15,7 @@
     <table class="table table-bordered J_jgyl_table"  style="font-size: 14px;text-align: center;" >
         <thead style="background-color: #e4edf6">
         <tr>
-        <td style="min-width: 80px;width:80px;text-align: center;vertical-align:middle;" rowspan="2">地区</td>
+        <td style="text-align: center;vertical-align:middle;" rowspan="2">地区</td>
         <c:forEach items="${date}" var="arr">
             <td colspan="${schemename.size()}">${arr}</td>
         </c:forEach>
