@@ -41,7 +41,7 @@
         <div id="scheme_time_select" style="float: right;margin-bottom: 15px;padding-right: 10px"></div>
     </div>
     <div style="width: 100%;height:82%;overflow: auto">
-        <table class="table table-bordered" id="module_table" style="height:100%;width: 100%;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;text-align: center;font-size: 14px;">
+        <table class="table table-bordered" id="module_table" style="overflow:hidden;text-align: center;font-size: 14px;">
         <tr style="background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';" id="row_head1">
             <td rowspan="2">总指数</td>
             <%--<td colspan="2">指标</td>--%>

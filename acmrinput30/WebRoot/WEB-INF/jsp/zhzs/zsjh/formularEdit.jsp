@@ -19,6 +19,11 @@
             border-color: #F39801;
             background-color: #F39801
         }
+        .fun-info{
+            position: absolute;
+            left: 700px;
+            top: 200px;
+        }
     </style>
 </head>
 <body >
@@ -183,6 +188,9 @@
                         </div>
                     </div>
                 </form>
+            </div>
+            <div class="fun-info">
+                <input type="text" style="width: 800px;height: 240px" value="111222" readonly>
             </div>
         </div>
     </div>
