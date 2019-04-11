@@ -35,10 +35,12 @@
     </div>
     <div style="height: 30px;">
         <span style="color: #fa7811;font-size:15px;line-height: 30px;">注：同级别权重和必须为1且权重不能小于0</span>
-        <button type="button" class="btn btn-default btn-sm save_weight" style="float: right;margin-bottom: 15px"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;保存设置
-        </button>
+
         <div id="scheme_time_select" style="float: right;margin-bottom: 15px;padding-right: 10px"></div>
-    </div>
+        <button type="button" class="btn btn-default btn-sm save_weight" style="float: right;margin-bottom: 15px"><i id="i1" class="glyphicon glyphicon-floppy-saved"></i>&nbsp;&nbsp;保存计算方案
+        </button>
+    </div><br>
+    <div style="float:right"><span style="color: #fa7811;font-size:15px;">注：请先保存计算方案，再预览结果</span></div><br>
     <div style="width: 100%;overflow: auto">
     <table class="table table-bordered" id="module_table">
 

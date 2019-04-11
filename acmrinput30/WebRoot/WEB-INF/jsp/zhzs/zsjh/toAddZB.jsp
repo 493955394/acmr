@@ -37,12 +37,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" name="ZS_cname">
-                    </div>
-                </div>
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label">节点类别：</label>
                     <div class="col-sm-3">
@@ -57,6 +52,12 @@
                                 </c:otherwise>
                             </c:choose>
                         </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" name="ZS_cname">
                     </div>
                 </div>
                 <div id="secend_zs" style="display: none">

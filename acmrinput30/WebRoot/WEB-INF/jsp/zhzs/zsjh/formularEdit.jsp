@@ -50,12 +50,6 @@
                     </div>
 
                     <div class="form-group" style="margin-top: 20px">
-                        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="ZS_cname" value="${data.getCname()}" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="col-sm-2 control-label">节点类别：</label>
                         <div class="col-sm-9">
                             <c:choose>
@@ -71,6 +65,12 @@
                             </c:choose>
                         </div>
                     </div>
+                        <div class="form-group" >
+                            <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="ZS_cname" value="${data.getCname()}" readonly>
+                            </div>
+                        </div>e
                     <div id="secend_zs" style="display: none">
                         <span class="col-sm-12" style="text-align:center;font-size: 20px;color: #F39801">----------次级指数设置-----------</span><br>
                         <br>
