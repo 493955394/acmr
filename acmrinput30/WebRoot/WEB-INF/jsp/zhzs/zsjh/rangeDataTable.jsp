@@ -4,7 +4,7 @@
 
 
 
-<div id="rangeTable" class="tableContainer" style="margin: 0 auto; overflow: hidden; width: 100%;">
+<div id="rangeTable" class="tableContainer" style="margin: 0 auto; overflow: hidden;">
     <input type="hidden" name="lockColNum" value="1"/>
     <table class="querytable table table-bordered table-hover">
         <thead <%--style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';"--%> style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
@@ -32,12 +32,12 @@
         </c:if>
         <c:forEach var="data" items="${datarow}">
             <tr>
-                <td class="reg_td" <%--style="width: 8%;min-width: 100px"--%>  style="min-width: 80px;height: 39px;">
+                <td class="reg_td" <%--style="width: 8%;min-width: 100px"--%>  style="min-width: 80px;">
                     <input type="checkbox" class="reg_checkbox" id="${data.get("code")}" checked>
                         ${data.get("name")}
                 </td>
                 <c:forEach items="${data.get('value')}" var="value" varStatus="i">
-                    <td class="value_col" id="value_col_${i.count}"<%-- style="min-width: 60px"--%> style="min-width: 80px;height: 39px;">${value}</td>
+                    <td class="value_col" id="value_col_${i.count}"<%-- style="min-width: 60px"--%> style="min-width: 80px;">${value}</td>
                 </c:forEach>
             </tr>
         </c:forEach>

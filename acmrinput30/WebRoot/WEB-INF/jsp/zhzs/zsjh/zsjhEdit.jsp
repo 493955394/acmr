@@ -392,7 +392,7 @@
                                 </div>
                             </div>
 
-                            <div class="J_zsjh_rangedata_table" id="range_data_table" style="height: 85%;width: 100%;">
+                            <div class="J_zsjh_rangedata_table" id="range_data_table">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/rangeDataTable.jsp" flush="true"/>
                             </div>
                         </div>
@@ -582,7 +582,28 @@
 
 </body>
 <script>
-    define("editjsp", function (require, exports, module) {
+
+
+    window.onload = function () {   //加载页面的时候就执行
+
+        var tensor_obj = document.getElementById("range_data_table");  //根据ID获取html元素
+
+        var heigth_screen = window.screen.height;    //获取整个屏幕的分辨率
+
+        var width_screen = window.screen.width;
+
+        heigth_screen = heigth_screen * 0.9;        //在这里分配整个界面的85%给iframe来显示嵌套的界面
+
+        tensor_obj.style.height = heigth_screen + "px";
+
+        width_screen = width_screen * 1;
+
+        tensor_obj.style.width = width_screen + "px";
+
+    }
+
+
+define("editjsp", function (require, exports, module) {
         var zbs = [];
         <c:forEach items="${zbs.zbchoose}" var="zb">
         zbs.push({

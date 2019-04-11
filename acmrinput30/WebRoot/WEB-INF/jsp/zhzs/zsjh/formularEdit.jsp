@@ -20,8 +20,9 @@
             background-color: #F39801
         }
         .fun-info{
+            word-break: break-all;
             position: absolute;
-            left: 700px;
+            left: 860px;
             top: 200px;
         }
     </style>
@@ -189,8 +190,16 @@
                     </div>
                 </form>
             </div>
-            <div class="fun-info">
-                <input type="text" style="width: 800px;height: 240px" value="111222" readonly>
+            <div>
+                    <textarea class="fun-info" rows="12" cols="100" id="teamIntroduction" onfocus=this.blur()>注：getvalue()函数需要配合max()、mix()、avg();
+max()取最大值；mix()取最小值；avg()取平均值。
+例1：取任务时间所选指标对应地区范围的最大值：
+max([getvalue(#互联网用户数_个人_当期值(工信部,万户)#,dq)])
+例2：取任务时间所选指标对应地区2010到最新任务时间的平均值：
+avg([getvalue(#互联网用户数_个人_当期值(工信部,万户)#,2010-)])
+例3：取任务时间所选指标对应地区计划开始时间到最新任务时间的最小值：
+min([getvalue(#互联网用户数_个人_当期值(工信部,万户)#,begintime)])
+</textarea>
             </div>
         </div>
     </div>
