@@ -2244,6 +2244,7 @@ public class zsjhedit extends BaseAction {
             zbmap.put("dscode",req.getParameter("zbs["+i+"][dscode]"));
             zbmap.put("unitcode",req.getParameter("zbs["+i+"][unitcode]"));
             zbmap.put("cocode",req.getParameter("zbs["+i+"][cocode]"));
+            zbmap.put("unitname",req.getParameter("zbs["+i+"][unitname]"));
             //添加指标和时间行
             zbrow.add(zbmap);
             sjrow.addAll(sjlist);

@@ -13,7 +13,7 @@
             <c:forEach var="zb" items="${zbrow}">
                 <td colspan="${sjrow.size()/zbrow.size()}}"<%-- style="min-width: 60px"--%>  style="font-weight: bold;font-family: 'Microsoft YaHei';min-width: 80px">
                     <input type="checkbox" class="zb_checkbox" id="${zb.get("code")}" checked>
-                        ${zb.get("name")}
+                        ${zb.get("name")}(${zb.get("unitname")})
                 </td>
             </c:forEach>
         </tr>
