@@ -127,7 +127,6 @@ define(function (require,exports,module) {
                 success:function (re) {
                     console.log("success")
                     alert("保存成功")
-                    window.close()
                 }
             })
         }
