@@ -31,10 +31,10 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     @Override
     public DataTable getSubLists(String code, String usercode) {
         if (code.equals("")) {
-            String sql = "select * from tb_coindex_index where createuser= ? and procode is null order by createtime";
+            String sql = "select * from tb_coindex_index where createuser= ? and procode is null order by createtime desc";
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{usercode});
         } else {
-            String sql = "select * from tb_coindex_index where procode=? and createuser= ? order by createtime";
+            String sql = "select * from tb_coindex_index where procode=? and createuser= ? order by createtime desc";
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{code, usercode});
         }
     }
@@ -47,7 +47,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
 
     @Override
     public DataTable getByUser(String usercode) {
-        String sql = "select * from tb_coindex_index where createuser= ? order by createtime ";
+        String sql = "select * from tb_coindex_index where createuser= ? order by createtime desc ";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{usercode});
     }
 
@@ -634,7 +634,7 @@ public class OraIndexListDaoImpl implements IIndexListDao {
     public DataTable getAllIndexListByPage(String usercode, int page, int pagesize) {
         int b1 = page * pagesize + 1;
         int e1 = b1 + pagesize;
-        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where createuser=?  order by createtime) d1) where no>="+b1+" and no<"+ e1;
+        String sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where createuser=?  order by createtime desc) d1) where no>="+b1+" and no<"+ e1;
         DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{usercode});
         return table;
     }
@@ -646,11 +646,11 @@ public class OraIndexListDaoImpl implements IIndexListDao {
         DataTable table;
         String sql;
         if (code.equals("")){
-            sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where procode is null and createuser=? order by createtime) d1) where no>="+b1+" and no<"+ e1;
+            sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where procode is null and createuser=? order by createtime desc) d1) where no>="+b1+" and no<"+ e1;
             table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{usercode});
         }
         else {
-            sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where procode=? and createuser=? order by createtime) d1) where no>="+b1+" and no<"+ e1;
+            sql="select * from (select rownum no,d1.* from (select * from tb_coindex_index where procode=? and createuser=? order by createtime desc) d1) where no>="+b1+" and no<"+ e1;
             table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{code,usercode});
         }
         return table;

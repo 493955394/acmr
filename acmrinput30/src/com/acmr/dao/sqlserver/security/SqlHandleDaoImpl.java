@@ -57,7 +57,7 @@ public class SqlHandleDaoImpl implements IhandleDao {
 			sbf.append(" and userid=? ");
 			objs.add(applySynonymInfo.getUserId());
 		}
-		sbf.append(" order by createtime ");
+		sbf.append(" order by createtime desc ");
 		try {
 			page = new AcmrDataPageDao<ApplySynonymInfo>().findPage(sbf.toString()," createtime ", objs.toArray());
 			List<ApplySynonymInfo> synonymList = this.dataToSynonymInfo(page.getDataTable());

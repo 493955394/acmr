@@ -61,6 +61,8 @@
                 </select>
                 <span id="mod_text"></span>
             </div>
+            <div style="font-size: 20px;color: #F39801;text-align: center;"><span>-------------指数计算预览表-------------</span></div>
+            <%--<span class="col-sm-12" style="font-size: 20px;color: #F39801;text-align: center;">-------------基本信息-------------</span><br>--%>
 
             <div class="J_preview_data_table">
                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/previewTable.jsp" flush="true"/>
@@ -74,6 +76,7 @@
                     </c:forEach>
                 </select>
             </div>
+            <div style="font-size: 20px;color: #F39801;text-align: center;"><span>-------------原始数据表-------------</span></div>
             <div class="J_zb_data_table">
                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/previewzbTable.jsp" flush="true"/>
             </div>
