@@ -22,4 +22,6 @@ public interface IDataDao {
     public String findModByOrode(String taskcode,String orcode);
     public DataTable getSubMods(String code);
     public String getPastData(String taskcode,String zbcode,String region,String ayearmoon);
+    public int addMathData(List<DataResult> dataResults);
+    public DataTable getTaskZbData(String taskcode,String zbcode);
 }

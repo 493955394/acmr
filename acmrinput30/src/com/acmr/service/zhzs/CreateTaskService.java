@@ -477,18 +477,22 @@ public class CreateTaskService {
     */
     public void createTasks(IndexList index, List<String> periods){
         String indexcode=index.getCode();
+        String [] taskcodes = new String[periods.size()];
+        String [] times = new String[periods.size()];
         for (int i=0;i<periods.size();i++){
             String tcode= UUID.randomUUID().toString().replace("-", "").toLowerCase();
+            taskcodes[i] = tcode;
             String ayearmon=periods.get(i);
+            times[i] = ayearmon;
             String createtime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
             IndexTaskDao.Fator.getInstance().getIndexdatadao().create(indexcode,tcode,ayearmon,createtime);
-             //生成完之后开始做计算，从data表和module_tmp表里取数
-            OriginDataService originDataService = new OriginDataService();
-            originDataService.todocalculate(tcode,ayearmon);
-
             //更新计划的plantime，planperiod
             updateTime(index,periods);
         }
+        //生成完之后开始做计算，从data表和module_tmp表里取数
+        OriginDataService originDataService = new OriginDataService();
+        originDataService.todocalculate(taskcodes,times);
+
     }
 
     /**

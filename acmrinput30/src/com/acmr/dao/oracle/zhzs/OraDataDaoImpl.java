@@ -29,6 +29,49 @@ public class OraDataDaoImpl implements IDataDao {
         }
 
     }
+
+    /**
+     * 启动任务时要是没有数据就去数据库找数据并保存
+     * @param dataResults
+     * @return
+     */
+    @Override
+    public int addMathData(List<DataResult> dataResults) {
+        DataQuery dataQuery = null;
+        try {
+            dataQuery = AcmrInputDPFactor.getDataQuery();
+            dataQuery.beginTranse();
+        String sql="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,data) values(?,?,?,?,?)";
+        for (int i = 0; i <dataResults.size() ; i++) {
+            List<Object> params = new ArrayList<Object>();
+            params.add(dataResults.get(i).getTaskcode());
+            params.add(dataResults.get(i).getModcode());
+            params.add(dataResults.get(i).getRegion());
+            params.add(dataResults.get(i).getAyearmon());
+            params.add(dataResults.get(i).getData());
+            dataQuery.executeSql(sql, params.toArray());
+        }
+            dataQuery.commit();
+        } catch (SQLException e) {
+            if (dataQuery != null) {
+                dataQuery.rollback();
+                return 0;
+            }
+            e.printStackTrace();
+        } finally {
+            if (dataQuery != null) {
+                dataQuery.releaseConnl();
+            }
+        }
+        return 1;
+    }
+
+    @Override
+    public DataTable getTaskZbData(String taskcode, String zbcode) {
+        String sql = "select * from tb_coindex_task_zb where taskcode= ? and zbcode= ? ";
+        return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,zbcode});
+    }
+
     @Override
     public DataTable getData(boolean iftmp,String taskcode,String zbcode,String region,String time,String sessionid){
         if(!iftmp){
@@ -396,6 +439,7 @@ public class OraDataDaoImpl implements IDataDao {
             return table.getRows().get(0).toString();
         return null;
     }
+
    /*public static void main(String[] args) throws NullPointerException {
             DataTable re=DataDao.Fator.getInstance().getIndexdatadao().findOldTask("C0010","2014C");
             if(re.getRows().size()>0)
@@ -404,6 +448,7 @@ public class OraDataDaoImpl implements IDataDao {
            System.out.println("hahah");
        }
     }*/
+
 
 
 }
