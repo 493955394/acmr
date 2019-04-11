@@ -19,12 +19,7 @@
             border-color: #F39801;
             background-color: #F39801
         }
-        .fun-info{
-            word-break: break-all;
-            position: absolute;
-            left: 860px;
-            top: 200px;
-        }
+
     </style>
 </head>
 <body >
@@ -38,12 +33,15 @@
         <input type="hidden" name="sname" value="${info.snmae}" class="input-small"/>
         <input type="hidden" name="type" value="${info.type}" class="input-small"/>
         <div>
-            <span class="col-sm-offset-2 col-sm-3" style="font-size: 20px;color: #F39801;text-align: center;margin-top: 5px">-------------基本信息-------------</span><br>
+
             <div class="panel-body">
                 <form class="form-horizontal J_addZS_form" action="${ctx}/zbdata/zsjhedit.htm?m=toSaveFormular">
                     <input type="hidden" name="icode" value="${icode}" class="input-small"/>
                     <input type="hidden" name="scode" value="${scode}" class="input-small"/>
                     <input type="hidden" id="ifzs" value="${data.getIfzs()}" class="input-small"/>
+                    <div class="col-lg-12">
+                    <div class="col-lg-6">
+                        <span class="col-sm-12" style="font-size: 20px;color: #F39801;text-align: center;">-------------基本信息-------------</span><br>
                     <div class="form-group" style="display: none">
                         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>编码：</label>
                         <div class="col-sm-3">
@@ -51,15 +49,9 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" name="ZS_cname" value="${data.getCname()}" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group">
+                    <div class="form-group" style="margin-top: 20px">
                         <label class="col-sm-2 control-label">节点类别：</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-9">
                             <c:choose>
                                 <c:when test="${(data.getProcode() == '' || data.getProcode()== null)&&data.getIfzs()=='1'}">
                                     <input class="form-control" name="ifzs" id="selectifzs" readonly="" data-value="2" value="总指数">
@@ -73,29 +65,35 @@
                             </c:choose>
                         </div>
                     </div>
+                        <div class="form-group" >
+                            <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="ZS_cname" value="${data.getCname()}" readonly>
+                            </div>
+                        </div>e
                     <div id="secend_zs" style="display: none">
-                        <span class="col-sm-offset-2 col-sm-3" style="text-align:center;font-size: 20px;color: #F39801">----------次级指数设置-----------</span><br>
+                        <span class="col-sm-12" style="text-align:center;font-size: 20px;color: #F39801">----------次级指数设置-----------</span><br>
                         <br>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">父级节点：</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-9">
                                 <input class="form-control cjzs" name="cjzs" readonly="" data-value="1" value="${proname}">
                             </div>
                         </div>
                     </div>
-                    <div id="select_zb" style="display: none">
+                    <div id="select_zb" style="display: none;margin-top: 20px">
                         <br>
-                        <span class="col-sm-offset-2 col-sm-3" style="text-align:center;font-size: 20px;color: #F39801">------------指标设置-------------</span><br>
+                        <span class="col-sm-12" style="text-align:center;font-size: 20px;color: #F39801">------------指标设置-------------</span>
                         <div class="form-group">
                             <br>
                             <label class="col-sm-2 control-label">父级节点：</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-9">
                                 <input class="form-control zb_ifzs" name="zb_ifzs" readonly="" data-value="1" value="${proname}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">指标类型：</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-9">
                                 <select class="form-control formula" name="formula" autocomplete="off">
                                     <option value="userdefined" <c:if test="${data.getIfzb() =='0'||data.getIfzb() ==''}">selected</c:if> >自定义</option>
                                     <c:forEach  items="${zblist.zbchoose}" var="zbl">
@@ -112,6 +110,21 @@
                             </div>
                         </div>
                     </div>
+                    </div>
+                    <div class="col-lg-6" >
+                        <span class="col-sm-10" style="font-size: 20px;color: #F39801;text-align: center;">-------------函数使用说明-------------</span><br>
+                    <textarea style="margin-top: 10px" class="fun-info" rows="12" cols="100" id="for-Introduction" onfocus=this.blur()>注：getvalue()函数需要配合max()、mix()、avg();
+max()取最大值；mix()取最小值；avg()取平均值。
+例1：取任务时间所选指标对应地区范围的最大值：
+max([getvalue(#互联网用户数_个人_当期值(工信部,万户)#,dq)])
+例2：取任务时间所选指标对应地区2010到最新任务时间的平均值：
+avg([getvalue(#互联网用户数_个人_当期值(工信部,万户)#,2010-)])
+例3：取任务时间所选指标对应地区计划开始时间到最新任务时间的最小值：
+min([getvalue(#互联网用户数_个人_当期值(工信部,万户)#,begintime)])
+</textarea>
+                    </div>
+                    </div><br>
+<%--调整编辑框样式--%>
                     <div class="hidden_group form-group" style="display: none">
                         <label class="col-sm-2 control-label">公式编辑器：</label>
                         <div class="col-sm-3">
@@ -190,17 +203,7 @@
                     </div>
                 </form>
             </div>
-            <div>
-                    <textarea class="fun-info" rows="12" cols="100" id="teamIntroduction" onfocus=this.blur()>注：getvalue()函数需要配合max()、mix()、avg();
-max()取最大值；mix()取最小值；avg()取平均值。
-例1：取任务时间所选指标对应地区范围的最大值：
-max([getvalue(#互联网用户数_个人_当期值(工信部,万户)#,dq)])
-例2：取任务时间所选指标对应地区2010到最新任务时间的平均值：
-avg([getvalue(#互联网用户数_个人_当期值(工信部,万户)#,2010-)])
-例3：取任务时间所选指标对应地区计划开始时间到最新任务时间的最小值：
-min([getvalue(#互联网用户数_个人_当期值(工信部,万户)#,begintime)])
-</textarea>
-            </div>
+
         </div>
     </div>
 </div>

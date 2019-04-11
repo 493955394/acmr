@@ -8,7 +8,7 @@ define(function (require,exports,module) {
     $(function(){
         var json3 = {
             wdcode:'sj',
-            wdname:'预览结果时间选择',
+            wdname:'时间选择并预览结果',
             nodes:[
                 {code:null,name:'请选择'},
                 {code:"last3",name:'最近三期'}

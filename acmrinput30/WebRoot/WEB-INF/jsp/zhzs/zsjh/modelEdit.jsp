@@ -41,12 +41,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" name="ZS_cname" value="${data.getCname()}">
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="col-sm-2 control-label">节点类别：</label>
                         <div class="col-sm-3">
                                 <c:choose>
@@ -60,6 +54,12 @@
                                         <input class="form-control" name="ifzs" id="selectifzs" readonly="" data-value="1" value="次级指数">
                                     </c:otherwise>
                                 </c:choose>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk required_ico"></span>名称：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" name="ZS_cname" value="${data.getCname()}">
                         </div>
                     </div>
                     <div id="secend_zs" style="display: none">
