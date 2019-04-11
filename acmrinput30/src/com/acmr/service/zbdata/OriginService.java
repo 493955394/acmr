@@ -59,7 +59,10 @@ public class OriginService {
             list1.add(condition.get(i));
         }
         List<String> nodes=new ArrayList<String>();
-        nodes = cube1.getHasDataWdListreg(dbcode,list1,wcode);
+        List<CubeWdDataSize> tmp= cube1.getHasDataWdListreg(dbcode,list1,wcode);
+        for (int i = 0; i <tmp.size() ; i++) {
+            nodes.add(tmp.get(i).getCode());
+        }
         return nodes;
     }
 
@@ -101,4 +104,11 @@ public class OriginService {
         return rate;
     }
 
+    /**
+     * 计算转换格式
+     */
+    public String getChangeTime (String code){
+        CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
+        return "";
+    }
 }

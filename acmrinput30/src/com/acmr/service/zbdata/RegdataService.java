@@ -5,7 +5,7 @@ import java.util.List;
 
 import acmr.cubequery.service.CubeQuerySev;
 import acmr.cubequery.service.cubequery.entity.*;
-
+import acmr.cubequery.service.cubequery.CubeSjUtil;
 import acmr.util.PubInfo;
 
 
@@ -31,11 +31,12 @@ public class RegdataService {
     }
 
     //获取有数据的地区信息，给了指标信息
-    public static List<String> getHasDataWDList(String dbcode,List<CubeWdValue> list1) {
+   /* public static List<String> getHasDataWDList(String dbcode,List<CubeWdValue> list1) {
         CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
-        List<String> nodes = cube1.getHasDataWdListreg(dbcode, list1, "reg");
+       // List<String> nodes = cube1.getHasDataWdListreg(dbcode, list1, "reg");
+
       return nodes;
-    }
+    }*/
     //获取所有的东西,where传入zb、ds、co、reg、sj
     public static ArrayList<CubeQueryData> queryData(String dbcode,CubeWdCodes where) {
         CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
