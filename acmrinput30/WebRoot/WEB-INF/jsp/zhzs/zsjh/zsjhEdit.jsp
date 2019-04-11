@@ -592,7 +592,7 @@
 
         var width_screen = window.screen.width;
 
-        heigth_screen = heigth_screen * 0.9;        //在这里分配整个界面的85%给iframe来显示嵌套的界面
+        heigth_screen = heigth_screen * 0.9;        //在这里分配整个界面的%给iframe来显示嵌套的界面
 
         tensor_obj.style.height = heigth_screen + "px";
 
