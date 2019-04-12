@@ -572,6 +572,7 @@ public class OriginDataService {
                }
                else {//其他情况直接丢去库里找
                    String tmp = "";
+                   wd = os.getChangeTime(wd,time);
                    List<CubeNode> sjs = os.getwdsubnodes("sj",wd,dbcode);
                    for (int i = 0; i <sjs.size() ; i++) {//库里可能没有数据，需要先校验,没有就补全
                        String val = originDataService.getvalue(iftmp,ifstart,sjs,icode,procode,taskcode,thisreg,sjs.get(i).getCode(), sessionid);

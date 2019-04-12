@@ -479,7 +479,7 @@ public class DataPreviewService {
                 } else if (wd.equals("begintime")) {//如果是计划起始时间,用当前地区
                     String tmp = "";
                     String begintime = IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(icode).getRows().get(0).getString("startperiod");
-                    List<CubeNode> sjs = os.getwdsubnodes("sj", begintime + "-", dbcode);
+                    List<CubeNode> sjs = os.getwdsubnodes("sj", begintime + "-"+time, dbcode);
                     String[] date = new String[sjs.size()];
                     for (int i = 0; i <sjs.size() ; i++) {
                         date[i] = sjs.get(i).getCode();
@@ -504,6 +504,7 @@ public class DataPreviewService {
                     if (!tmp.equals("")) data = tmp.substring(1);//只要有一组数组有值，就算对
                 } else {//其他情况直接丢去库里找
                     String tmp = "";
+                    wd = os.getChangeTime(wd,time);
                     List<CubeNode> sjs = os.getwdsubnodes("sj", wd, dbcode);
                     String[] date = new String[sjs.size()];
                     for (int i = 0; i <sjs.size() ; i++) {

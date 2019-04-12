@@ -1,6 +1,7 @@
 package com.acmr.service.zbdata;
 
 import acmr.cubequery.service.CubeQuerySev;
+import acmr.cubequery.service.cubequery.CubeSjUtil;
 import acmr.cubequery.service.cubequery.entity.*;
 
 
@@ -107,8 +108,17 @@ public class OriginService {
     /**
      * 计算转换格式
      */
-    public String getChangeTime (String code){
-        CubeQuerySev cube1 = CubeQuerySev.CCubeDaoFactor.getInstance();
-        return "";
+    public String getChangeTime (String code,String nowtime){
+        String time = code;
+        CubeSjUtil cube1 = new CubeSjUtil();
+        if(code.contains("lastnum")){
+            String i = "-"+time.replace("lastnum","").trim();
+            time = cube1.getCodeAdd(nowtime,Integer.parseInt(i));
+        }
+        else if(code.contains("last")){
+            String i = "-"+time.replace("last","").trim();
+            time = cube1.getCodeAdd(nowtime,Integer.parseInt(i))+"-"+cube1.getCodeAdd(nowtime,-1);
+        }
+        return time;
     }
 }
