@@ -10,6 +10,14 @@ public class DataResult {
     private String data;
     private String updatetime;
     private String sessionid;
+    private String procode;
+    public String getProcode() {
+        return procode;
+    }
+
+    public void setProcode(String procode) {
+        this.procode = procode;
+    }
     public String getSessionid() {
         return sessionid;
     }

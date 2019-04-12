@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public interface IDataDao {
-    public DataTable getData(boolean iftmp,String taskcode,String zbcode,String region,String time,String sessionid);
+    public DataTable getData(boolean iftmp,String taskcode,String procode,String region,String time,String sessionid);
     public int addDataResult (boolean iftmp,List<DataResult> dataResults);
     public DataTable getSubMod(String code);
     public DataTable getModData(String code);
@@ -24,4 +24,6 @@ public interface IDataDao {
     public String getPastData(String taskcode,String zbcode,String region,String ayearmoon);
     public int addMathData(List<DataResult> dataResults);
     public DataTable getTaskZbData(String taskcode,String zbcode);
+    public List<String> getAllTime(String procode);
+    public List<String> getAllZbcode(List<String> taskcodes);
 }

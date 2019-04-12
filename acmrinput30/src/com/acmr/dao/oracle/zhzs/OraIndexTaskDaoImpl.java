@@ -196,6 +196,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                 String datasource=rows2.get(m).getString("datasource");
                 String regions=rows2.get(m).getString("regions");
                 String unitcode=rows2.get(m).getString("unitcode");
+                String procode = rows2.get(m).getString("procode");
                 TaskZb taskZb=new TaskZb(code,tcode,zbcode,company,datasource,regions,unitcode);
                 String sql7="select * from tb_coindex_task where code=?";
                 String ayearmon1=dataQuery.getDataTableSql(sql7,new Object[]{tcode}).getRows().get(0).getString("ayearmon");
@@ -208,12 +209,12 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                     if (datas.get(n)!=null){
                         String data= String.valueOf(datas.get(n));
                         //PubInfo.printStr("data:"+data);
-                        String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,data) values(?,?,?,?,?)";
-                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,data});
+                        String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,data,procode) values(?,?,?,?,?,?)";
+                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,data,procode});
                     }
                     else {
-                        String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon) values(?,?,?,?)";
-                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1});
+                        String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,procode) values(?,?,?,?,?)";
+                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,procode});
                     }
                 }
             }

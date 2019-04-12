@@ -491,7 +491,7 @@ public class CreateTaskService {
         }
         //生成完之后开始做计算，从data表和module_tmp表里取数
         OriginDataService originDataService = new OriginDataService();
-        originDataService.todocalculate(taskcodes,times);
+        originDataService.todocalculate(taskcodes,times,indexcode);
 
     }
 
