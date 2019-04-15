@@ -48,7 +48,11 @@ public class OraDataDaoImpl implements IDataDao {
             params.add(dataResults.get(i).getModcode());
             params.add(dataResults.get(i).getRegion());
             params.add(dataResults.get(i).getAyearmon());
-            params.add(dataResults.get(i).getData());
+            if(!dataResults.get(i).getData().equals("null"))
+            {params.add(dataResults.get(i).getData());}
+            else{
+                params.add("");
+            }
             params.add(dataResults.get(i).getProcode());
             dataQuery.executeSql(sql, params.toArray());
         }
@@ -69,17 +73,17 @@ public class OraDataDaoImpl implements IDataDao {
 
     @Override
     public DataTable getTaskZbData(String taskcode, String zbcode) {
-        String sql = "select * from tb_coindex_task_zb where taskcode= ? and zbcode= ? ";
+        String sql = "select * from tb_coindex_task_zb where taskcode= ? and code= ? ";
         return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,zbcode});
     }
 
     @Override
     public DataTable getData(boolean iftmp,String taskcode,String procode,String region,String time,String sessionid){
         if(!iftmp){
-            String sql = "select * from tb_coindex_data where taskcode =? and zbcode=? and region=? and ayearmon=?";
+            String sql = "select * from tb_coindex_data where taskcode =? and procode=? and region=? and ayearmon=?";
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,procode,region,time});
         }else{
-            String sql = "select * from tb_coindex_data_tmp where taskcode =? and zbcode=? and region=? and ayearmon=? and sessionid=?";
+            String sql = "select * from tb_coindex_data_tmp where taskcode =? and procode=? and region=? and ayearmon=? and sessionid=?";
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,procode,region,time,sessionid});
         }
     }
@@ -95,14 +99,12 @@ public class OraDataDaoImpl implements IDataDao {
     }
 
     @Override
-    public List<String> getAllZbcode(List<String> taskcodes) {
+    public List<String> getAllZbcode(String tcode) {
         List<String> zbcodes = new ArrayList<>();
-        for (String tcode : taskcodes) {
-            String sql="select code from tb_coindex_task_zb where taskcode = ?";
-            DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{tcode});
-            for (int i = 0; i <table.getRows().size(); i++) {
-                zbcodes.add(table.getRows().get(i).getString("code"));
-            }
+        String sql="select code from tb_coindex_task_zb where taskcode = ?";
+        DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{tcode});
+        for (int i = 0; i <table.getRows().size(); i++) {
+            zbcodes.add(table.getRows().get(i).getString("code"));
         }
         return zbcodes;
     }
