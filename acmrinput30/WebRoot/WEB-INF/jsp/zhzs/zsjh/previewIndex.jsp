@@ -53,6 +53,7 @@
         <input type="hidden" id="scheme_codes" value="${scodes}">
         <div>
         <div class="col-sm-7">
+            <div style="font-size: 20px;color: #F39801;text-align: center;"><span>-------------指数计算预览表-------------</span></div>
             <div class="modselect" style="padding-right: 20px;height: 20px">
                 <select id="ms">
                     <c:forEach items="${mods}" var="module">
@@ -61,7 +62,6 @@
                 </select>
                 <span id="mod_text"></span>
             </div>
-            <div style="font-size: 20px;color: #F39801;text-align: center;"><span>-------------指数计算预览表-------------</span></div>
             <%--<span class="col-sm-12" style="font-size: 20px;color: #F39801;text-align: center;">-------------基本信息-------------</span><br>--%>
 
             <div class="J_preview_data_table">
@@ -69,6 +69,7 @@
             </div>
         </div>
         <div class="col-sm-5">
+            <div style="font-size: 20px;color: #F39801;text-align: center;"><span>-------------原始数据表-------------</span></div>
             <div class="zbselect" style="padding-right: 20px;height: 20px;">
                 <select  id="zblist">
                     <c:forEach items="${zblist.zbchoose}" var="zbl">
@@ -76,7 +77,7 @@
                     </c:forEach>
                 </select>
             </div>
-            <div style="font-size: 20px;color: #F39801;text-align: center;"><span>-------------原始数据表-------------</span></div>
+
             <div class="J_zb_data_table">
                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/previewzbTable.jsp" flush="true"/>
             </div>

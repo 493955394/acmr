@@ -10,7 +10,7 @@
          pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 
-<div style="height:63%;overflow: auto;margin-top: 30px; border: 1px solid #EAECF1;font-size: 14px;text-align: center;">
+<div style="height:63%;overflow: auto;margin-top: 20px; border: 1px solid #EAECF1;font-size: 14px;text-align: center;">
     <input type="hidden" value="${zbtitle}" id="modname"/>
     <table class="table table-bordered J_jgyl_table"  style="font-size: 14px;text-align: center;" >
         <thead style="background-color: #e4edf6">
