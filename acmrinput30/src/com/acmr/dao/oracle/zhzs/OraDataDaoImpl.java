@@ -345,8 +345,9 @@ public class OraDataDaoImpl implements IDataDao {
                 String region=rows1.get(i).getString("region");
                 String ayearmon=rows1.get(i).getString("ayearmon");
                 String data=rows1.get(i).getString("data");
-                String sql4="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,sessionid) values(?,?,?,?,?,?)";
-                dataQuery.executeSql(sql4,new Object[]{taskcode,zbcode,region,ayearmon,data,sessionid});
+                String procode=rows1.get(i).getString("procode");
+                String sql4="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,procode,sessionid) values(?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql4,new Object[]{taskcode,zbcode,region,ayearmon,data,procode,sessionid});
             }
             //删除tb_coindex_task_module_tmp中的记录
             String sqlmodel="delete from tb_coindex_task_module_tmp where taskcode=?";
