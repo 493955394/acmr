@@ -99,14 +99,14 @@ public class OraDataDaoImpl implements IDataDao {
     }
 
     @Override
-    public List<String> getAllZbcode(String tcode) {
-        List<String> zbcodes = new ArrayList<>();
-        String sql="select code from tb_coindex_task_zb where taskcode = ?";
-        DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{tcode});
+    public String getZbcode(String tcode,String procode) {
+        String zbcode = "";
+        String sql="select code from tb_coindex_task_zb where taskcode = ? and procode =?";
+        DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{tcode,procode});
         for (int i = 0; i <table.getRows().size(); i++) {
-            zbcodes.add(table.getRows().get(i).getString("code"));
+            zbcode=table.getRows().get(0).getString("code");
         }
-        return zbcodes;
+        return zbcode;
     }
 
     @Override

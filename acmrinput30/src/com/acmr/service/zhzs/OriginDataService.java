@@ -113,9 +113,7 @@ public class OriginDataService {
                 }
                 for (int i = 0; i <less.size() ; i++) {
                     for (int k = 0; k <task_codes.size() ; k++) {
-                        List<String> zbcodes = new ArrayList<>();
-                        zbcodes.addAll(DataDao.Fator.getInstance().getIndexdatadao().getAllZbcode(task_codes.get(k)));
-                        for(String zbcode:zbcodes) {
+                        String zbcode = DataDao.Fator.getInstance().getIndexdatadao().getZbcode(task_codes.get(k),procode);
                             DataTable rows2 = DataDao.Fator.getInstance().getIndexdatadao().getTaskZbData(task_codes.get(k), zbcode);
                             String code = rows2.getRows().get(0).getString("code");
                             String jzbcode = rows2.getRows().get(0).getString("zbcode");
@@ -139,7 +137,6 @@ public class OriginDataService {
                                 tmp.setData(String.valueOf(zbdatas.get(j)));
                                 savadata.add(tmp);
                             }
-                        }
                     }
                 }
                 //然后存入库
