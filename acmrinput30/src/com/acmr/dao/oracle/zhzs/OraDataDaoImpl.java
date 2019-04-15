@@ -41,7 +41,7 @@ public class OraDataDaoImpl implements IDataDao {
         try {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
-        String sql="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,data,procode) values(?,?,?,?,?,?)";
+        String sql="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,data) values(?,?,?,?,?)";
         for (int i = 0; i <dataResults.size() ; i++) {
             List<Object> params = new ArrayList<Object>();
             params.add(dataResults.get(i).getTaskcode());
@@ -53,7 +53,6 @@ public class OraDataDaoImpl implements IDataDao {
             else{
                 params.add("");
             }
-            params.add(dataResults.get(i).getProcode());
             dataQuery.executeSql(sql, params.toArray());
         }
             dataQuery.commit();
@@ -78,35 +77,37 @@ public class OraDataDaoImpl implements IDataDao {
     }
 
     @Override
-    public DataTable getData(boolean iftmp,String taskcode,String procode,String region,String time,String sessionid){
+    public DataTable getData(boolean iftmp,String taskcode,String zbcode,String region,String time,String sessionid){
         if(!iftmp){
-            String sql = "select * from tb_coindex_data where taskcode =? and procode=? and region=? and ayearmon=?";
-            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,procode,region,time});
+            String sql = "select * from tb_coindex_data where taskcode =? and zbcode=? and region=? and ayearmon=?";
+            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,zbcode,region,time});
         }else{
-            String sql = "select * from tb_coindex_data_tmp where taskcode =? and procode=? and region=? and ayearmon=? and sessionid=?";
-            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,procode,region,time,sessionid});
+            String sql = "select * from tb_coindex_data_tmp where taskcode =? and zbcode=? and region=? and ayearmon=? and sessionid=?";
+            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,zbcode,region,time,sessionid});
         }
     }
     @Override
     public List<String> getAllTime(String procode) {
         List<String> times = new ArrayList<>();
-        String sql="select ayearmon from tb_coindex_data where procode = ?";
+        String sql="select d.ayearmon,d.zbcode from tb_coindex_task_zb t left join tb_coindex_data d on t.code = d.zbcode where t.procode = ? group by d.ayearmon,d.zbcode ";
         DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{procode});
         for (int i = 0; i <table.getRows().size(); i++) {
-            times.add(table.getRows().get(i).getString("ayearmon"));
+            times.add(table.getRows().get(i).getString("ayearmon")+":"+table.getRows().get(i).getString("zbcode"));
         }
       return times;
     }
 
     @Override
-    public String getZbcode(String tcode,String procode) {
-        String zbcode = "";
-        String sql="select code from tb_coindex_task_zb where taskcode = ? and procode =?";
-        DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{tcode,procode});
-        for (int i = 0; i <table.getRows().size(); i++) {
-            zbcode=table.getRows().get(0).getString("code");
+    public List<String> getAllZbcode(List<String> taskcodes,String procode) {
+        List<String> zbcodes = new ArrayList<>();
+        for (String tcode : taskcodes) {
+            String sql="select code from tb_coindex_task_zb where taskcode = ? and procode=?";
+            DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{tcode,procode});
+            for (int i = 0; i <table.getRows().size(); i++) {
+                zbcodes.add(table.getRows().get(i).getString("code"));
+            }
         }
-        return zbcode;
+        return zbcodes;
     }
 
     @Override
@@ -345,9 +346,8 @@ public class OraDataDaoImpl implements IDataDao {
                 String region=rows1.get(i).getString("region");
                 String ayearmon=rows1.get(i).getString("ayearmon");
                 String data=rows1.get(i).getString("data");
-                String procode=rows1.get(i).getString("procode");
-                String sql4="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,procode,sessionid) values(?,?,?,?,?,?,?)";
-                dataQuery.executeSql(sql4,new Object[]{taskcode,zbcode,region,ayearmon,data,procode,sessionid});
+                String sql4="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,sessionid) values(?,?,?,?,?,?)";
+                dataQuery.executeSql(sql4,new Object[]{taskcode,zbcode,region,ayearmon,data,sessionid});
             }
             //删除tb_coindex_task_module_tmp中的记录
             String sqlmodel="delete from tb_coindex_task_module_tmp where taskcode=?";
@@ -469,12 +469,9 @@ public class OraDataDaoImpl implements IDataDao {
     }
 
    /*public static void main(String[] args) throws NullPointerException {
-            DataTable re=DataDao.Fator.getInstance().getIndexdatadao().findOldTask("C0010","2014C");
-            if(re.getRows().size()>0)
-            {System.out.println(re.getRows().get(0).getString("ayearmon"));}
-            else{
-           System.out.println("hahah");
-       }
+            List<String> re=DataDao.Fator.getInstance().getIndexdatadao().getAllTime("1553852050584aft7bi570ij");
+       System.out.println(re.toString());
+
     }*/
 
 

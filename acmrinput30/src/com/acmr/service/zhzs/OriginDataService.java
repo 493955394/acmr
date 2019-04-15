@@ -34,9 +34,9 @@ public class OriginDataService {
     /**
      * 查询对应的data值
      */
-    public String getvalue(boolean iftmp,String taskcode,String procode,String region,String time,String sessionid){
+    public String getvalue(boolean iftmp,String taskcode,String zbcode,String region,String time,String sessionid){
         String value = "";
-        DataTable data = DataDao.Fator.getInstance().getIndexdatadao().getData(iftmp,taskcode,procode,region,time,sessionid);
+        DataTable data = DataDao.Fator.getInstance().getIndexdatadao().getData(iftmp,taskcode,zbcode,region,time,sessionid);
         if(data.getRows().size()!=0) {
             value = data.getRows().get(0).getString("data");
         }
@@ -91,9 +91,9 @@ public class OriginDataService {
      * @param sessionid
      * @return
      */
-    public String getvalue(boolean iftmp,boolean ifstart,List<CubeNode> sjs,String icode ,String procode,String tcode,String region,String time,String sessionid){
+    public String getvalue(boolean iftmp,boolean ifstart,List<CubeNode> sjs,String icode ,String zbcode,String procode,String tcode,String region,String time,String sessionid){
         String value = "";
-        DataTable data = DataDao.Fator.getInstance().getIndexdatadao().getData(iftmp,tcode,procode,region,time,sessionid);
+        DataTable data = DataDao.Fator.getInstance().getIndexdatadao().getData(iftmp,tcode,zbcode,region,time,sessionid);
         if(data.getRows().size()!=0) {
             value = data.getRows().get(0).getString("data");
         }else{
@@ -106,37 +106,39 @@ public class OriginDataService {
                 List<String> less = new ArrayList<>();
                 List<DataResult> savadata = new ArrayList<>();
                 for (int i = 0; i <sjs.size() ; i++) {
-                    if(!tasktimes.contains(sjs.get(i).getCode())){
+                    if(!tasktimes.contains(zbcode+":"+sjs.get(i).getCode())){
                         less.add(sjs.get(i).getCode());
-                        tasktimes.add(sjs.get(i).getCode());
                     }
+                }
+                List<String> zbcodes = new ArrayList<>();
+                if(less.size()>0){//有缺值，需要去取对应的zbcode
+                     zbcodes.addAll(DataDao.Fator.getInstance().getIndexdatadao().getAllZbcode(task_codes,procode));
                 }
                 for (int i = 0; i <less.size() ; i++) {
                     for (int k = 0; k <task_codes.size() ; k++) {
-                        String zbcode = DataDao.Fator.getInstance().getIndexdatadao().getZbcode(task_codes.get(k),procode);
-                            DataTable rows2 = DataDao.Fator.getInstance().getIndexdatadao().getTaskZbData(task_codes.get(k), zbcode);
-                            String code = rows2.getRows().get(0).getString("code");
-                            String jzbcode = rows2.getRows().get(0).getString("zbcode");
-                            String company = rows2.getRows().get(0).getString("company");
-                            String datasource = rows2.getRows().get(0).getString("datasource");
-                            String regions = rows2.getRows().get(0).getString("regions");
-                            String[] reg = regions.split(",");
-                            String unitcode = rows2.getRows().get(0).getString("unitcode");
-                            TaskZb taskZb = new TaskZb(code, task_codes.get(k), jzbcode, company, datasource, regions, unitcode);
-                            List<Double> zbdatas = taskZb.getData(less.get(i), icode);
-                            for (int j = 0; j < zbdatas.size(); j++) {
-                                DataResult tmp = new DataResult();
-                                if (task_codes.get(k).equals(tcode) && reg[j].equals(region) && less.get(i).equals(time)&&zbdatas.get(j)!=null) {
-                                    value = String.valueOf(zbdatas.get(j));
-                                }
-                                tmp.setTaskcode(task_codes.get(k));
-                                tmp.setModcode(zbcode);
-                                tmp.setRegion(reg[j]);
-                                tmp.setAyearmon(less.get(i));
-                                tmp.setProcode(procode);
-                                tmp.setData(String.valueOf(zbdatas.get(j)));
-                                savadata.add(tmp);
+                        DataTable rows2 = DataDao.Fator.getInstance().getIndexdatadao().getTaskZbData(task_codes.get(k),zbcodes.get(k));
+                        String code=rows2.getRows().get(0).getString("code");
+                        String jzbcode=rows2.getRows().get(0).getString("zbcode");
+                        String company=rows2.getRows().get(0).getString("company");
+                        String datasource=rows2.getRows().get(0).getString("datasource");
+                        String regions=rows2.getRows().get(0).getString("regions");
+                        String[] reg = regions.split(",");
+                        String unitcode=rows2.getRows().get(0).getString("unitcode");
+                        TaskZb taskZb=new TaskZb(code,task_codes.get(k),jzbcode,company,datasource,regions,unitcode);
+                        List<Double> zbdatas = taskZb.getData(less.get(i),icode);
+                        for (int j = 0; j <zbdatas.size() ; j++) {
+                            DataResult tmp = new DataResult();
+                            if(task_codes.get(k).equals(tcode)&&reg[j].equals(region)&&less.get(i).equals(time)&&code.equals(zbcode)&&zbdatas.get(j)!=null){
+                                value = String.valueOf(zbdatas.get(j));
                             }
+                            tmp.setTaskcode(task_codes.get(k));
+                            tmp.setModcode(zbcodes.get(k));
+                            tmp.setRegion(reg[j]);
+                            tmp.setAyearmon(less.get(i));
+                            tmp.setData(String.valueOf(zbdatas.get(j)));
+                            savadata.add(tmp);
+                            tasktimes.add(zbcodes.get(k)+":"+sjs.get(i).getCode());
+                        }
                     }
                 }
                 //然后存入库
@@ -238,7 +240,7 @@ public class OriginDataService {
                     da.setSessionid(sessionid);
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(data.get(i).getFormula().contains(zbs.get(k).getProcode())){//要是存在这个code,就去取对应的zbcode
-                            String val = getvalue(iftmp,taskcode,zbs.get(k).getProcode(),reg[j],time,sessionid);
+                            String val = getvalue(iftmp,taskcode,zbs.get(k).getCode(),reg[j],time,sessionid);
                             if(!val.equals("")){//如果有值的话
                                 val = String.format("%."+data.get(i).getDacimal()+"f",Double.valueOf(val));//保留几位小数
                                 da.setData(val);
@@ -269,7 +271,7 @@ public class OriginDataService {
                         else{
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(formula.contains(zbs.get(k).getProcode())){//要是存在这个code,就去取对应的value
-                            String tempval = getvalue(iftmp,taskcode,zbs.get(k).getProcode(),reg[j],time,sessionid);
+                            String tempval = getvalue(iftmp,taskcode,zbs.get(k).getCode(),reg[j],time,sessionid);
                             //替换公式中的值
                             if(tempval.equals("")){
 //                                formula = formula.replace("#"+zbs.get(k).getProcode()+"#","0");//换成0
@@ -503,7 +505,7 @@ public class OriginDataService {
        if(!text.contains(",")){//不包含逗号，说明是单个的zb,当前时间当前地区直接找值就可以
            for (int k = 0; k <zbs.size() ; k++) {
                if (text.contains(zbs.get(k).getProcode())) {//要是存在这个code,就去取
-                   String val = getvalue(iftmp, taskcode, zbs.get(k).getProcode(), thisreg, time, sessionid);
+                   String val = getvalue(iftmp, taskcode, zbs.get(k).getCode(), thisreg, time, sessionid);
                    if (!val.equals("")) {//如果有值的话,做替换
                        data = val;
                    } else {//要是没有值
@@ -516,7 +518,7 @@ public class OriginDataService {
                String tmp = "";
                for (int k = 0; k <zbs.size() ; k++) {
                    if (text.contains(zbs.get(k).getProcode())) {//要是存在这个code,就去取对应的zbcode
-                       String val = getvalue(iftmp, taskcode, zbs.get(k).getProcode(), thisreg, time, sessionid);
+                       String val = getvalue(iftmp, taskcode, zbs.get(k).getCode(), thisreg, time, sessionid);
                        if (!val.equals("")) {//如果有值的话,做替换
                            tmp +=","+val;
                        } else {//要是没有值
@@ -545,7 +547,7 @@ public class OriginDataService {
                    String tmp = "";
                    for (int k = 0; k <reg.length ; k++) {
                        if (!zbcode.equals("")) {//要是存在这个code,就去取对应的zbcode
-                           String val = getvalue(iftmp, taskcode, procode, reg[k], time, sessionid);
+                           String val = getvalue(iftmp, taskcode, zbcode, reg[k], time, sessionid);
                            if (!val.equals("")) {//如果有值的话,做替换
                                tmp +=","+val;
                            } else {//要是没有值
@@ -559,7 +561,7 @@ public class OriginDataService {
                    String begintime = IndexListDao.Fator.getInstance().getIndexdatadao().getByCode(icode).getRows().get(0).getString("startperiod");
                    List<CubeNode> sjs = os.getwdsubnodes("sj",begintime+"-"+time,dbcode);
                    for (int i = 0; i <sjs.size() ; i++) {
-                           String val = getvalue(iftmp, taskcode, procode, thisreg,sjs.get(i).getCode(), sessionid);
+                           String val = getvalue(iftmp, taskcode, zbcode, thisreg,sjs.get(i).getCode(), sessionid);
                            if (!val.equals("")) {//如果有值的话,做替换
                                tmp +=","+val;
                            } else {//要是没有值
@@ -573,7 +575,7 @@ public class OriginDataService {
                    wd = os.getChangeTime(wd,time);
                    List<CubeNode> sjs = os.getwdsubnodes("sj",wd,dbcode);
                    for (int i = 0; i <sjs.size() ; i++) {//库里可能没有数据，需要先校验,没有就补全
-                       String val = getvalue(iftmp,ifstart,sjs,icode,procode,taskcode,thisreg,sjs.get(i).getCode(), sessionid);
+                       String val = getvalue(iftmp,ifstart,sjs,icode,zbcode,procode,taskcode,thisreg,sjs.get(i).getCode(), sessionid);
                        if (!val.equals("")) {//如果有值的话,做替换
                            tmp +=","+val;
                        } else {//要是没有值
