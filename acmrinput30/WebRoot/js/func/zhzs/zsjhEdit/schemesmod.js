@@ -124,7 +124,7 @@ define(function (require,exports,module) {
                 var cws=""
                 var scode=$(this).val()
                 $(".input_weight[scode=" + scode+"]").each(function () {
-                    var code=$(this).parent().attr("code")
+                    var code=$(this).parent().parent().attr("code")
                     var weight=$(this).val()
                     cws=cws+code+':'+weight+','
                 })
