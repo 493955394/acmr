@@ -81,9 +81,9 @@ public class OraDataDaoImpl implements IDataDao {
     public DataTable getData(boolean iftmp,String taskcode,String procode,String region,String time,String sessionid){
         String sql1="select * from tb_coindex_task where code=?";
         String ayearmon=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql1,new Object[]{taskcode}).getRows().get(0).getString("ayearmon");
-        if(ayearmon.equals(region)&&iftmp){//是当前年份，临时数据
-            String sql = "select * from tb_coindex_data_tmp where procode=? and region=? and ayearmon=? and sessionid=?";
-            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{procode,region,time,sessionid});
+        if(ayearmon.equals(time)&&iftmp){//是当前年份，临时数据
+            String sql = "select * from tb_coindex_data_tmp where taskcode=? and  procode=? and region=? and ayearmon=? and sessionid=?";
+            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{taskcode,procode,region,time,sessionid});
         }else { // 如果是其他年份的数据或者是正式数据，临时表中没有覆盖过去，需要从正式表找
             String sql = "select * from tb_coindex_data where procode=? and region=? and ayearmon=?";
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{procode,region,time});
@@ -96,7 +96,7 @@ public class OraDataDaoImpl implements IDataDao {
         String sql="select d.ayearmon,d.zbcode from tb_coindex_data d  where d.procode = ? group by d.ayearmon,d.zbcode ";
         DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{procode});
         for (int i = 0; i <table.getRows().size(); i++) {
-            times.add(table.getRows().get(i).getString("ayearmon")+":"+procode);
+            times.add(procode+":"+table.getRows().get(i).getString("ayearmon"));
         }
       return times;
     }

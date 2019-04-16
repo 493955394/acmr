@@ -106,7 +106,7 @@ public class OriginDataService {
                 List<String> less = new ArrayList<>();
                 List<DataResult> savadata = new ArrayList<>();
                 for (int i = 0; i <sjs.size() ; i++) {
-                    if(!tasktimes.contains(zbcode+":"+sjs.get(i).getCode())){
+                    if(!tasktimes.contains(procode+":"+sjs.get(i).getCode())){
                         less.add(sjs.get(i).getCode());
                     }
                 }
