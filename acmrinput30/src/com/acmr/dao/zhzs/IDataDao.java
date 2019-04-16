@@ -25,5 +25,4 @@ public interface IDataDao {
     public int addMathData(List<DataResult> dataResults);
     public DataTable getTaskZbData(String taskcode,String zbcode);
     public List<String> getAllTime(String procode);
-    public List<String> getAllZbcode(List<String> taskcodes,String procode);
 }

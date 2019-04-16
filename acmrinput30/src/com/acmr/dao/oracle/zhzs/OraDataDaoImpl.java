@@ -79,14 +79,17 @@ public class OraDataDaoImpl implements IDataDao {
 
     @Override
     public DataTable getData(boolean iftmp,String taskcode,String procode,String region,String time,String sessionid){
-        if(!iftmp){
-            String sql = "select * from tb_coindex_data where procode=? and region=? and ayearmon=?";
-            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{procode,region,time});
-        }else{
+        String sql1="select * from tb_coindex_task where code=?";
+        String ayearmon=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql1,new Object[]{taskcode}).getRows().get(0).getString("ayearmon");
+        if(ayearmon.equals(region)&&iftmp){//是当前年份，临时数据
             String sql = "select * from tb_coindex_data_tmp where procode=? and region=? and ayearmon=? and sessionid=?";
             return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{procode,region,time,sessionid});
+        }else { // 如果是其他年份的数据或者是正式数据，临时表中没有覆盖过去，需要从正式表找
+            String sql = "select * from tb_coindex_data where procode=? and region=? and ayearmon=?";
+            return AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql, new Object[]{procode,region,time});
         }
     }
+
     @Override
     public List<String> getAllTime(String procode) {
         List<String> times = new ArrayList<>();
@@ -98,18 +101,6 @@ public class OraDataDaoImpl implements IDataDao {
       return times;
     }
 
-    @Override
-    public List<String> getAllZbcode(List<String> taskcodes,String procode) {
-        List<String> zbcodes = new ArrayList<>();
-        for (String tcode : taskcodes) {
-            String sql="select code from tb_coindex_task_zb where taskcode = ? and procode=?";
-            DataTable table=AcmrInputDPFactor.getQuickQuery().getDataTableSql(sql,new Object[]{tcode,procode});
-            for (int i = 0; i <table.getRows().size(); i++) {
-                zbcodes.add(table.getRows().get(i).getString("code"));
-            }
-        }
-        return zbcodes;
-    }
 
     @Override
     public int addDataResult (boolean iftmp,List<DataResult> dataResults){
@@ -347,7 +338,7 @@ public class OraDataDaoImpl implements IDataDao {
                 String region=rows1.get(i).getString("region");
                 String ayearmon=rows1.get(i).getString("ayearmon");
                 String data=rows1.get(i).getString("data");
-                String procode=rows.get(i).getString("procode");
+                String procode=rows1.get(i).getString("procode");
                 String sql4="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,procode,sessionid) values(?,?,?,?,?,?,?)";
                 dataQuery.executeSql(sql4,new Object[]{taskcode,zbcode,region,ayearmon,data,procode,sessionid});
             }
