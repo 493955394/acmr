@@ -112,7 +112,8 @@ define(function (require,exports,module) {
         if (flag){
             var cws=""
             $(".input_weight").each(function () {
-                var code=$(this).parent().attr("id")
+                var code=$(this).parent().parent().attr("id")
+                console.log(code)
                 var weight=$(this).val()
                 //cws.push(code+":"+weight)
                 cws=cws+code+':'+weight+','
