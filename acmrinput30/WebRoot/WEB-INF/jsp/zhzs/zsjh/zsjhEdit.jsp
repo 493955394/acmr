@@ -391,7 +391,7 @@
                                     <button type="button" class="btn btn-primary btn-sm" id="J_plan_excel">数据下载</button>
                                 </div>
                             </div>
-
+                            <div class="clearfix"></div>
                             <div class="J_zsjh_rangedata_table" id="range_data_table">
                                 <jsp:include page="/WEB-INF/jsp/zhzs/zsjh/rangeDataTable.jsp" flush="true"/>
                             </div>
@@ -584,7 +584,7 @@
 <script>
 
 
-    window.onload = function () {   //加载页面的时候就执行
+    /*window.onload = function () {   //加载页面的时候就执行
 
         var tensor_obj = document.getElementById("range_data_table");  //根据ID获取html元素
 
@@ -601,7 +601,7 @@
         tensor_obj.style.width = width_screen + "px";
 
     }
-
+*/
 
 define("editjsp", function (require, exports, module) {
         var zbs = [];

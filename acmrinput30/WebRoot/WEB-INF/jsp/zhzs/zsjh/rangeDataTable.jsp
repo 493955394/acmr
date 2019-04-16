@@ -4,7 +4,7 @@
 
 
 
-<div id="rangeTable" class="tableContainer" style="margin: 0 auto; overflow: hidden;">
+<div id="rangeTable" class="tableContainer" style="overflow: auto;">
     <input type="hidden" name="lockColNum" value="1"/>
     <table class="querytable table table-bordered table-hover">
         <thead <%--style="font-size: 15px;background-color: #F5F5F5;font-weight: bold;font-family: 'Microsoft YaHei';"--%> style="font-size: 15px;background-color: #F5F5F5;font-family: '黑体';">
