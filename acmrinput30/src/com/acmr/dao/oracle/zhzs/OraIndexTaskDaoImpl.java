@@ -34,8 +34,8 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
             dataQuery = AcmrInputDPFactor.getDataQuery();
             dataQuery.beginTranse();
             //删掉tmp表中该session的记录
-            String sql="delete from tb_coindex_data_tmp where sessionid=? and taskcode=? and ayearmon=?";
-            dataQuery.executeSql(sql,new Object[]{sessionid,taskcode,ayearmon});
+         /*   String sql="delete from tb_coindex_data_tmp where sessionid=? and taskcode=?";
+            dataQuery.executeSql(sql,new Object[]{sessionid,taskcode});*/
             if(taskcode == null || ayearmon == null || sessionid == null){
                 return 1;
             }
@@ -50,9 +50,10 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                     String data = a3[k];
                     String zbcode = a3[0];
                     String region = regscode.get(j);
-                    String sql1="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,sessionid) values(?,?,?,?,to_number(?),?)";
+                    String sql1="update tb_coindex_data_tmp set data=to_number(?) where taskcode=? and zbcode=? and region=? and ayearmon=? and sessionid=?";
+//                    String sql1="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,sessionid) values(?,?,?,?,to_number(?),?)";
                     //String sql1="update tb_coindex_data_tmp set data=?,sessionid=? where taskcode=? and zbcode=? and ayearmon=? and region=?";
-                    dataQuery.executeSql(sql1,new Object[]{taskcode,zbcode,region,ayearmon,data,sessionid});
+                    dataQuery.executeSql(sql1,new Object[]{data,taskcode,zbcode,region,ayearmon,sessionid});
                 }
             }
             dataQuery.commit();
@@ -196,9 +197,13 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                 String datasource=rows2.get(m).getString("datasource");
                 String regions=rows2.get(m).getString("regions");
                 String unitcode=rows2.get(m).getString("unitcode");
+                String procode = rows2.get(m).getString("procode");
                 TaskZb taskZb=new TaskZb(code,tcode,zbcode,company,datasource,regions,unitcode);
                 String sql7="select * from tb_coindex_task where code=?";
                 String ayearmon1=dataQuery.getDataTableSql(sql7,new Object[]{tcode}).getRows().get(0).getString("ayearmon");
+                //删除data表中可能存在的那一年的数据（之前没有但是公式用到了,所以存了）
+                String del_sql="delete from tb_coindex_data where ayearmon=? and procode=?";
+                dataQuery.executeSql(del_sql,new Object[]{ayearmon1,procode});
                 String zbcode1=taskZb.getCode();
 
                 List<String> regs= Arrays.asList(taskZb.getRegions().split(","));
@@ -208,12 +213,12 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                     if (datas.get(n)!=null){
                         String data= String.valueOf(datas.get(n));
                         //PubInfo.printStr("data:"+data);
-                        String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,data) values(?,?,?,?,?)";
-                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,data});
+                        String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,data,procode) values(?,?,?,?,?,?)";
+                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,data,procode});
                     }
                     else {
-                        String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon) values(?,?,?,?)";
-                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1});
+                        String sql8="insert into tb_coindex_data (taskcode,zbcode,region,ayearmon,procode) values(?,?,?,?,?)";
+                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,procode});
                     }
                 }
             }
@@ -381,6 +386,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                 String datasource=rows2.get(m).getString("datasource");
                 String regions=rows2.get(m).getString("regions");
                 String unitcode=rows2.get(m).getString("unitcode");
+                String procode=rows2.get(m).getString("procode");
                 TaskZb taskZb=new TaskZb(code,tcode,zbcode,company,datasource,regions,unitcode);
                 String sql7="select * from tb_coindex_task where code=?";
                 String ayearmon1=dataQuery.getDataTableSql(sql7,new Object[]{tcode}).getRows().get(0).getString("ayearmon");
@@ -395,12 +401,12 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                     if (datas.get(n)!=null){
                         String data= String.valueOf(datas.get(n));
                         //PubInfo.printStr("data:"+data);
-                        String sql8="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,sessionid) values(?,?,?,?,to_number(?),?)";
-                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,data,sessionid});
+                        String sql8="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,sessionid,procode) values(?,?,?,?,to_number(?),?,?)";
+                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,data,sessionid,procode});
                     }
                     else {
-                        String sql8="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,sessionid) values(?,?,?,?,?)";
-                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,sessionid});
+                        String sql8="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,sessionid) values(?,?,?,?,?,?)";
+                        dataQuery.executeSql(sql8,new Object[]{tcode,zbcode1,region,ayearmon1,sessionid,procode});
                     }
                 }
             }
@@ -468,8 +474,9 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                 String region=rows.get(i).getString("region");
                 String ayearmon=rows.get(i).getString("ayearmon");
                 String data=rows.get(i).getString("data");
-                String sql2="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,sessionid) values(?,?,?,?,?,?)";
-                dataQuery.executeSql(sql2,new Object[]{taskcode,zbcode,region,ayearmon,data,sessionid});
+                String procode=rows.get(i).getString("procode");
+                String sql2="insert into tb_coindex_data_tmp (taskcode,zbcode,region,ayearmon,data,procode,sessionid) values(?,?,?,?,?,?,?)";
+                dataQuery.executeSql(sql2,new Object[]{taskcode,zbcode,region,ayearmon,data,procode,sessionid});
             }
             dataQuery.commit();
 

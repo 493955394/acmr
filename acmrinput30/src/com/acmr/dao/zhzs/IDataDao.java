@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public interface IDataDao {
-    public DataTable getData(boolean iftmp,String taskcode,String zbcode,String region,String time,String sessionid);
+    public DataTable getData(boolean iftmp,String taskcode,String procode,String region,String time,String sessionid);
     public int addDataResult (boolean iftmp,List<DataResult> dataResults);
     public DataTable getSubMod(String code);
     public DataTable getModData(String code);
