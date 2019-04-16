@@ -584,7 +584,7 @@
 <script>
 
 
-    /*window.onload = function () {   //加载页面的时候就执行
+    window.onload = function () {   //加载页面的时候就执行
 
         var tensor_obj = document.getElementById("range_data_table");  //根据ID获取html元素
 
@@ -596,13 +596,28 @@
 
         tensor_obj.style.height = heigth_screen + "px";
 
-        width_screen = width_screen * 1;
+        width_screen = width_screen * 0.95;
 
         tensor_obj.style.width = width_screen + "px";
 
     }
-*/
+   /* window.onload = function () {   //加载页面的时候就执行
 
+        var tensor_obj = document.getElementById("rangeTable");  //根据ID获取html元素
+
+        var heigth_screen = window.screen.height;    //获取整个屏幕的分辨率
+
+        var width_screen = window.screen.width;
+
+        heigth_screen = heigth_screen * 0.8;        //在这里分配整个界面的%给iframe来显示嵌套的界面
+
+        tensor_obj.style.height = heigth_screen + "px";
+
+        width_screen = width_screen * 0.9;
+
+        tensor_obj.style.width = width_screen + "px";
+
+    }*/
 define("editjsp", function (require, exports, module) {
         var zbs = [];
         <c:forEach items="${zbs.zbchoose}" var="zb">
