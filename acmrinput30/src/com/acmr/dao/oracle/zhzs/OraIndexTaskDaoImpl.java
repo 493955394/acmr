@@ -207,7 +207,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                 String zbcode1=taskZb.getCode();
 
                 List<String> regs= Arrays.asList(taskZb.getRegions().split(","));
-                List<Double> datas=taskZb.getData(ayearmon1,indexcode);
+                List<String> datas=taskZb.getData(ayearmon1,indexcode);
                 for (int n=0;n<regs.size();n++){
                     String region=regs.get(n);
                     if (datas.get(n)!=null){
@@ -395,7 +395,7 @@ public class OraIndexTaskDaoImpl implements IIndexTaskDao {
                 List<String> regs= Arrays.asList(taskZb.getRegions().split(","));
                 String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(tcode).getRows().get(0).getString("indexcode");
 
-                List<Double> datas=taskZb.getData(ayearmon1,icode);
+                List<String> datas=taskZb.getData(ayearmon1,icode);
                 for (int n=0;n<regs.size();n++){
                     String region=regs.get(n);
                     if (datas.get(n)!=null){

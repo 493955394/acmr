@@ -120,7 +120,7 @@ public class OriginDataService {
                         String[] reg = regions.split(",");
                         String unitcode=rows2.getRows().get(0).getString("unitcode");
                         TaskZb taskZb=new TaskZb(code,tcode,jzbcode,company,datasource,regions,unitcode);
-                        List<Double> zbdatas = taskZb.getData(less.get(i),icode);
+                        List<String> zbdatas = taskZb.getData(less.get(i),icode);
                         for (int j = 0; j <zbdatas.size() ; j++) {
                             DataResult tmp = new DataResult();
                             if(reg[j].equals(region)&&less.get(i).equals(time)&&code.equals(zbcode)&&zbdatas.get(j)!=null){

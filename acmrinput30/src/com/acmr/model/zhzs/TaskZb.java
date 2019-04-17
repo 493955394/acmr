@@ -7,6 +7,7 @@ import com.acmr.dao.zhzs.IndexTaskDao;
 import com.acmr.service.zbdata.OriginService;
 import com.acmr.service.zbdata.ZBdataService;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -134,15 +135,15 @@ public class TaskZb {
     * @Author: lyh
     * @Date: 2018/9/12
     */
-    public List<Double> getData(String time,String icode){
-        List<Double> data=new ArrayList<>();
+    public List<String> getData(String time,String icode){
+        List<String> data=new ArrayList<>();
         OriginService originService=new OriginService();
         List<String> regs= Arrays.asList(this.regions.split(","));
         //String taskcode=this.taskcode;
         //String icode= IndexTaskDao.Fator.getInstance().getIndexdatadao().getTask(taskcode).getRows().get(0).getString("indexcode");
         String dbcode=IndexListDao.Fator.getInstance().getIndexdatadao().getDbcode(icode);
         String funit=originService.getwdnode("zb",this.zbcode,dbcode).getUnitcode();
-        double rate=originService.getRate(funit,this.unitcode,time);
+        BigDecimal rate=new BigDecimal(String.valueOf(originService.getRate(funit,this.unitcode,time)));
         //查这个时间是否有值
         ZBdataService zBdataService=new ZBdataService();
         List<String> sjs=zBdataService.getHasDataNodeO(zbcode,"sj",dbcode);
@@ -169,9 +170,11 @@ public class TaskZb {
                     where.Add("ds",this.datasource);
                     where.Add("co",this.company);
                     where.Add("sj",time);
-                    double d=originService.querydata(where,dbcode).get(0).getData().getData()*rate;
+                    BigDecimal orval = (new BigDecimal(originService.querydata(where,dbcode).get(0).getData().getStrdata())).multiply(rate);
+                   /* val = orval.toPlainString();
+                    double d=originService.querydata(where,dbcode).get(0).getData().getData()*rate;*/
                    // PubInfo.printStr("sj:"+time+"reg"+regs.get(i)+"d"+String.valueOf(d));
-                    data.add(d);
+                    data.add(orval.toPlainString());
                 }
                 else data.add(null);
             }
