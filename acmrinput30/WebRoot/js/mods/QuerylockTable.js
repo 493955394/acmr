@@ -52,7 +52,7 @@ define(function(require, exports, module) {
 	                        '<div class="table_container_fix" style="overflow: hidden;position: absolute;z-index: 100;top:0;left:0;"></div>'+
 	                        '<div class="table_container_head" style="overflow: hidden;position: absolute;z-index: 50;top:0;left:0;"></div>'+
 	                        '<div class="table_container_column" style="overflow: hidden;position: absolute;z-index: 40;top:0;left:0;"></div>'+
-	                         '<div class="table_container_main" style="overflow: auto;width: '+this.width+'px;height: '+this.height * 0.95+'px;"></div>'+
+	                         '<div class="table_container_main" style="overflow: auto;width: '+this.width+'px;height: '+this.height+'px;"></div>'+
 							 
 							 //调试用
 	                        /*'<div class="table_container_fix" style="overflow: hidden;position: absolute;z-index: 100;top:0;left:0;"></div>'+
@@ -92,7 +92,7 @@ define(function(require, exports, module) {
 	            
 	            this.table_main.css({position:"relative"});
 	            this.tableFix.css({"height":lockHeight,"width":lockWidth}).children("table").css({"width":this.width-width});
-	            this.tableColumn.css({"height":this.height * 0.95-17,"width":lockWidth-width}).children("table").css({"width":this.width-width});
+	            this.tableColumn.css({"height":this.height-17,"width":lockWidth-width}).children("table").css({"width":this.width-width});
 	            this.tableHead.css({"height":lockHeight,"width":this.width-this.scrollWidth}).children("table").css({"width":this.width-width});
 				
 				//调试用

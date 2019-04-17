@@ -141,7 +141,7 @@ define(function (require,exports,module) {
             })
             if (count==$(".scodes").length){
                 alert("保存成功！")
-                window.close()
+                //window.close()
             }
             else {
                 alert("保存失败！")
