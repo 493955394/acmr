@@ -264,6 +264,7 @@ public class OriginDataService {
                         flag = true;
                         }
                         else{
+                        formula = new IndexEditService().changeFormu(formula);
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(formula.contains(zbs.get(k).getProcode())){//要是存在这个code,就去取对应的value
                             String tempval = getvalue(iftmp,taskcode,zbs.get(k).getProcode(),reg[j],time,sessionid);

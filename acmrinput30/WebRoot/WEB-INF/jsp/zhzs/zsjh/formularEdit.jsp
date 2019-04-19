@@ -176,9 +176,9 @@ min([getvalue(#互联网用户数_个人_当期值(工信部,万户)#,begintime)
                                 <option value="exp()" title="求e的任意次方">Math.exp</option>
                                 <option value="log10()" title="以10为底的对数">Math.log10</option>
                                 <option value="log()" title="自然对数">Math.log</option>
-                                <option value="max([])" title="求最大值">max()</option>
-                                <option value="min([])" title="求最小值">min()</option>
-                                <option value="avg([])" title="求平均值">avg()</option>
+                                <option value="max()" title="求最大值">max()</option>
+                                <option value="min()" title="求最小值">min()</option>
+                                <option value="avg()" title="求平均值">avg()</option>
 
                                 <optgroup label="数组公式" style="background-color: #EEEEEE;"></optgroup>
                                 <option value="getvalue(指标1,dq)" title="取当前时间对应指标所有地区的数值集合">getvalue(指标,dq)</option>

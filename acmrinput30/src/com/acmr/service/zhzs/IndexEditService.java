@@ -490,4 +490,48 @@ public class IndexEditService {
         if(str.equals("2.0,2.0,2.0"))str = org;
         return str;
     }
+
+    public String changeFormu (String str){
+        //存在min函数
+        String regex = "min\\((.*?)\\)";
+        List<String> list = new ArrayList<String>();
+        String org = str;
+        Pattern pattern = Pattern.compile(regex);
+        Matcher m = pattern.matcher(str);
+        while (m.find()) {
+            int i = 1;
+            list.add(m.group(i));
+            i++;
+        }
+        for (String arr : list) {
+            str=str.replace("min("+arr+")","min(\""+arr+"\")");
+        }
+        //存在max函数
+        String regex1 = "max\\((.*?)\\)";
+        List<String> list1 = new ArrayList<String>();
+        Pattern pattern1 = Pattern.compile(regex1);
+        Matcher m1 = pattern1.matcher(str);
+        while (m1.find()) {
+            int i = 1;
+            list1.add(m1.group(i));
+            i++;
+        }
+        for (String arr : list1) {
+            str=str.replace("max("+arr+")","max(\""+arr+"\")");
+        }
+        //存在avg函数
+        String regex2 = "avg\\((.*?)\\)";
+        List<String> list2 = new ArrayList<String>();
+        Pattern pattern2 = Pattern.compile(regex2);
+        Matcher m2 = pattern2.matcher(str);
+        while (m2.find()) {
+            int i = 1;
+            list2.add(m2.group(i));
+            i++;
+        }
+        for (String arr : list2) {
+            str=str.replace("avg("+arr+")","avg(\""+arr+"\")");
+        }
+        return str;
+    }
 }
