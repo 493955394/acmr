@@ -120,7 +120,7 @@ public class OriginDataService {
                         String[] reg = regions.split(",");
                         String unitcode=rows2.getRows().get(0).getString("unitcode");
                         TaskZb taskZb=new TaskZb(code,tcode,jzbcode,company,datasource,regions,unitcode);
-                        List<Double> zbdatas = taskZb.getData(less.get(i),icode);
+                        List<String> zbdatas = taskZb.getData(less.get(i),icode);
                         for (int j = 0; j <zbdatas.size() ; j++) {
                             DataResult tmp = new DataResult();
                             if(reg[j].equals(region)&&less.get(i).equals(time)&&code.equals(zbcode)&&zbdatas.get(j)!=null){
@@ -264,6 +264,7 @@ public class OriginDataService {
                         flag = true;
                         }
                         else{
+                        formula = new IndexEditService().changeFormu(formula);
                     for (int k = 0; k <zbs.size() ; k++) {
                         if(formula.contains(zbs.get(k).getProcode())){//要是存在这个code,就去取对应的value
                             String tempval = getvalue(iftmp,taskcode,zbs.get(k).getProcode(),reg[j],time,sessionid);

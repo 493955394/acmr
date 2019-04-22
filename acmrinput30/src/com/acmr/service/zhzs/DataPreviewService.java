@@ -133,6 +133,7 @@ public class DataPreviewService {
                         if (formula.equals("false")) {  //getvalue函数里没数
                             flag = true;
                         } else {//要是数组函数没有错，开始算别的
+                            formula = new IndexEditService().changeFormu(formula);
                             for (int k = 0; k < zbs.size(); k++) {
                                 if (formula.contains(zbs.get(k).get("code").toString())) {//要是存在这个code,就去取对应的zbcode
                                     CubeWdCodes where = new CubeWdCodes();

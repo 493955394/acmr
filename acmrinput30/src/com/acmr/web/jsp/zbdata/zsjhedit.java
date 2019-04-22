@@ -1203,6 +1203,7 @@ public class zsjhedit extends BaseAction {
         List<Map> zbchoose=indexEditService.getZBS(icode);
         //先检查getvalue这个函数的格式是不是对的
         str = indexEditService.checkMathFormat(icode,zbchoose,str);//先处理数组函数
+        str = indexEditService.changeFormu(str);
         for (int i = 0; i <zbchoose.size() ; i++) {
             String temp = "#"+zbchoose.get(i).get("code").toString()+"#";
             str = str.replace(temp," 2.0 ");//随便给个数算
