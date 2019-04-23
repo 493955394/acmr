@@ -490,8 +490,10 @@ public class CreateTaskService {
             updateTime(index,periods);
         }
         //生成完之后开始做计算，从data表和module_tmp表里取数
-        OriginDataService originDataService = new OriginDataService();
-        originDataService.todocalculate(taskcodes,times,indexcode);
+        if(periods.size()>0){
+            OriginDataService originDataService = new OriginDataService();
+            originDataService.todocalculate(taskcodes,times,indexcode);
+        }
 
     }
 
