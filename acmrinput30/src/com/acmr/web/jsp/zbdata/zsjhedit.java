@@ -1444,6 +1444,7 @@ public class zsjhedit extends BaseAction {
         HttpServletRequest req = this.getRequest();
         IndexEditService indexEditService = new IndexEditService();
         JSONReturnData data = new JSONReturnData("");
+        data.setReturndata("");
         //index表中的信息
         String index_code = PubInfo.getString(req.getParameter("icode"));//code
         String startpeirod = PubInfo.getString(req.getParameter("startpeirod"));
@@ -1476,10 +1477,30 @@ public class zsjhedit extends BaseAction {
         String [] units = zbunit.split(",");
         String [] sxcodes = sxcode.split(",");
         ArrayList<IndexZb> zbs = new ArrayList<IndexZb>();
-        if(zbcode.contains("undefined")||ds.contains("undefined")||co.contains("undefined")||reg.contains("undefined")||zbunit.contains("undefined")||sxcode.contains("undefined"))
+        if(zbcode.contains("undefined")||sxcode.contains("undefined"))
         { data.setReturncode(301);
+        data.setReturndata("指标缺失,");
+           }
+           else if(ds.contains("undefined")){
+            data.setReturncode(301);
+            data.setReturndata("数据来源缺失,");
+        }
+        else if(co.contains("undefined")){
+            data.setReturncode(301);
+            data.setReturndata("主体缺失,");
+        }
+        else if(reg.contains("undefined")){
+            data.setReturncode(301);
+            data.setReturndata("地区缺失,");
+        }
+        else if(zbunit.contains("undefined")){
+            data.setReturncode(301);
+            data.setReturndata("指标单位缺失,");
+        }
+        if(data.getReturncode()==301){
             this.sendJson(data);
-            return;}
+            return;
+        }
         if(sxcode != ""){
             for (int i = 0; i <sxcodes.length ; i++) {
                 IndexZb zb = new IndexZb();

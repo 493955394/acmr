@@ -822,7 +822,9 @@ define(function (require,exports,module) {
                 }
                 else if(data.returncode ==303)
                     alert(data.returndata+"被模型节点引用，无法删除！")
-                else if(data.returncode == 501||data.returncode == 301)
+                else if(data.returncode == 301)
+                    alert(data.returndata+"保存失败！");
+                else if(data.returncode == 501)
                     alert("保存失败！");
             }
         })
