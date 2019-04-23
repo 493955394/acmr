@@ -92,7 +92,7 @@
 
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:first").parent().append(
-            "<td style=\"text-align:center\" code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
+            "<td style=\"text-align:center\" code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><div><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></div></td>"
         )
         </c:forEach>
         $("td[code='${module.getProcode()}']:first").attr("flag",flag-${module.ZBnums()})
@@ -105,7 +105,7 @@
         <c:forEach items="${scodes}" var="scode">
         $("td[code='${module.getProcode()}']:first").parent().nextAll(":eq(" +
             (rows-flag-1)+")").append(
-            "<td style=\"text-align:center\" code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></td>"
+            "<td style=\"text-align:center\" code=${module.getCode()} scode='${sode}' rowspan=${module.ZBnums()} flag=${module.ZBnums()}><div><input style=\"width:86px;text-align:center\" pcode='${module.getProcode()}' scode='${scode}' code='${module.getCode()}' placeholder='请输入权重' class='input_weight' value='${module.getSweight(scode)}'></div></td>"
         )
         </c:forEach>
 
