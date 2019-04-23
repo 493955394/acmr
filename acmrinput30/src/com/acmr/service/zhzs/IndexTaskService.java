@@ -263,9 +263,12 @@ public class IndexTaskService {
      */
     public String findRegions (String taskcode){
         String Regions="";
+        if(taskcode.equals(""))return  Regions;
         List<DataTableRow> rows=IndexTaskDao.Fator.getInstance().getIndexdatadao().getZBs(taskcode).getRows();
-        if(rows.get(0).getString("regions")!= "")
-            Regions = rows.get(0).getString("regions");
+        if(rows.size()>0){
+            if(rows.get(0).getString("regions")!= "")
+                Regions = rows.get(0).getString("regions");
+        }
         return Regions;
     }
     /**
