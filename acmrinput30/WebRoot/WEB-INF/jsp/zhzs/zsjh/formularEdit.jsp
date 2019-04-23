@@ -116,11 +116,11 @@
                     <textarea style="margin-top: 10px" class="fun-info" rows="12" cols="100" id="for-Introduction" onfocus=this.blur()>注：getvalue()函数需要配合max()、mix()、avg();
 max()取最大值；mix()取最小值；avg()取平均值。
 例1：取任务时间所选指标对应地区范围的最大值：
-max([getvalue(#互联网用户数_个人_当期值(工信部,万户)#,dq)])
+max(getvalue(#互联网用户数_个人_当期值(工信部,万户)#,dq))
 例2：取任务时间所选指标对应地区2010到最新任务时间的平均值：
-avg([getvalue(#互联网用户数_个人_当期值(工信部,万户)#,2010-)])
+avg(getvalue(#互联网用户数_个人_当期值(工信部,万户)#,2010-))
 例3：取任务时间所选指标对应地区计划开始时间到最新任务时间的最小值：
-min([getvalue(#互联网用户数_个人_当期值(工信部,万户)#,begintime)])
+min(getvalue(#互联网用户数_个人_当期值(工信部,万户)#,begintime))
 例4：取任务时间所选对应地区环比；
 (#互联网用户数_家庭_当期值(工信部,万户)#/avg(getvalue(#互联网用户数_家庭_当期值(工信部,万户)#,lastnum1))
 </textarea>
